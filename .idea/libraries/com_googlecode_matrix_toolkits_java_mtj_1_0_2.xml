@@ -1,0 +1,38 @@
+<component name="libraryTable">
+  <library name="com.googlecode.matrix-toolkits-java:mtj:1.0.2" type="repository">
+    <properties maven-id="com.googlecode.matrix-toolkits-java:mtj:1.0.2" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/mtj-1.0.2.jar!/" />
+      <root url="file://$PROJECT_DIR$/lib/all-1.1.2.pom" />
+      <root url="jar://$PROJECT_DIR$/lib/arpack_combined_all-0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/core-1.1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netlib-native_ref-osx-x86_64-1.1-natives.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/native_ref-java-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jniloader-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netlib-native_ref-linux-x86_64-1.1-natives.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netlib-native_ref-linux-i686-1.1-natives.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netlib-native_ref-win-x86_64-1.1-natives.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netlib-native_ref-win-i686-1.1-natives.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netlib-native_ref-linux-armhf-1.1-natives.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netlib-native_system-osx-x86_64-1.1-natives.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/native_system-java-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netlib-native_system-linux-x86_64-1.1-natives.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netlib-native_system-linux-i686-1.1-natives.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netlib-native_system-linux-armhf-1.1-natives.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netlib-native_system-win-x86_64-1.1-natives.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/netlib-native_system-win-i686-1.1-natives.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lombok-1.14.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/java-logging-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jcl-over-slf4j-1.7.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/log4j-over-slf4j-1.7.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-jdk14-1.7.5.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/mtj-1.0.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/mtj-1.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+gillespie	halt_info
+0.0	TestSuccessful0
+1.0	TestSuccessful1
+2.0	TestSuccessful2
+3.0	TestSuccessful3
+4.0	TestSuccessful4
+5.0	TestSuccessful5
+6.0	TestSuccessful6
+7.0	TestSuccessful7
+8.0	TestSuccessful8
+9.0	TestSuccessful9

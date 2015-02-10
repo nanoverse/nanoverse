@@ -1,0 +1,65 @@
+<!--
+  ~ Copyright (c) 2014, 2015 David Bruce Borenstein and the
+  ~ Trustees of Princeton University.
+  ~
+  ~ This file is part of the Nanoverse simulation framework
+  ~ (patent pending).
+  ~
+  ~ This program is free software: you can redistribute it
+  ~ and/or modify it under the terms of the GNU Affero General
+  ~ Public License as published by the Free Software
+  ~ Foundation, either version 3 of the License, or (at your
+  ~ option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be
+  ~ useful, but WITHOUT ANY WARRANTY; without even the implied
+  ~ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+  ~ PURPOSE.  See the GNU Affero General Public License for
+  ~ more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General
+  ~ Public License along with this program.  If not, see
+  ~ <http://www.gnu.org/licenses/>.
+  -->
+
+<!-- This XML file corresponds to io.project.XmlTest. It verifies
+     that the XML reader exhibits the behaviors on which the integrator
+     depends. In particular we want to make sure  that it returns
+     objects in the order they are specified in the file. -->
+
+<outer>
+
+    <middle>
+        <inner>
+            <data>a</data>
+        </inner>
+
+        <inner>
+            <data>b</data>
+        </inner>
+
+        <inner>
+            <data>c</data>
+        </inner>
+
+        <inner>
+            <data>d</data>
+        </inner>
+    </middle>
+
+    <middle>
+        <inner>
+            <data>e</data>
+        </inner>
+
+        <inner>
+            <data>f</data>
+        </inner>
+    </middle>
+
+    <middle>
+        <alpha id="1"/>
+        <beta id="3"/>
+        <alpha id="2"/>
+    </middle>
+</outer>
