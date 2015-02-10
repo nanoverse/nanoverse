@@ -1,0 +1,71 @@
+HEADER
+
+
+    // It is necessary to flush all data at the end of each iteration, rather
+    // than after each flush event, because a state may appear for the first
+    // time in the middle of the simulation, and we want an accurate column
+    // for every observed interface state in the census table.
+    ArrayList<Integer> frames;
+
+    // The keys to this map are FRAMES. The values are a mapping from STATE
+    // number to count. If a state number does not appear, that means the
+    // count was zero at that time.
+    HashMap<Integer, HashMap<Integer, Integer>> histo;
+
+    HashSet<Integer> observedInterfaceTypes;
+
+FLUSH
+
+        System.out.println("Neighbor types for focal cells:");
+        CellLayer layer = stepState.getRecordedCellLayer();
+        frames.add(stepState.getFrame());
+
+        // Create a bucket for this frame.
+        HashMap<Integer, Integer> observations = new HashMap<>();
+        histo.put(stepState.getFrame(), observations);
+
+        // Iterate over all cells from this frame.
+        HashSet<Coordinate> sites = layer.getViewer().getOccupiedSites();
+
+        for (Coordinate c : sites) {
+            Cell focus = layer.getViewer().getCell(c);
+
+            // Focal cell state? If not, continue.
+            if (focus.getState() != focalState)  {
+                continue;
+            }
+            // Iterate through other neighbors.
+            CellLookupManager lm = layer.getLookupManager();
+            int[] neighborStates = lm.getNeighborStates(c);
+
+            // We only want to count each state once, so convert to a set.
+            HashSet<Integer> observedInterfaces = new HashSet<>();
+            for (int neighborState : neighborStates) {
+                System.out.print(" " + neighborState);
+
+                observedInterfaces.add(neighborState);
+            }
+            System.out.println("");
+            // Look at each state of observed interface...
+            for (Integer observedInterface : observedInterfaces) {
+                increment(observations, observedInterface);
+            }
+        }
+        System.out.println("\nTallies");
+        for (Integer state : observations.keySet()) {
+            System.out.println(" " + state + ": " + observations.get(state));
+        }
+
+        System.out.println("============================\n\n");
+
+
+    private void increment(HashMap<Integer, Integer> observations, Integer observedInterface) {
+        if (!observations.containsKey(observedInterface)) {
+            observations.put(observedInterface, 0);
+        }
+
+        int count = observations.get(observedInterface);
+
+        observations.put(observedInterface, count + 1);
+        observedInterfaceTypes.add(observedInterface);
+    }

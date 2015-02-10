@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2014, 2015 David Bruce Borenstein and the
+  ~ Trustees of Princeton University.
+  ~
+  ~ This file is part of the Nanoverse simulation framework
+  ~ (patent pending).
+  ~
+  ~ This program is free software: you can redistribute it
+  ~ and/or modify it under the terms of the GNU Affero General
+  ~ Public License as published by the Free Software
+  ~ Foundation, either version 3 of the License, or (at your
+  ~ option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be
+  ~ useful, but WITHOUT ANY WARRANTY; without even the implied
+  ~ warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+  ~ PURPOSE.  See the GNU Affero General Public License for
+  ~ more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General
+  ~ Public License along with this program.  If not, see
+  ~ <http://www.gnu.org/licenses/>.
+  -->
+
+<project name="module_nanoverse" default="compile.module.nanoverse">
+    <dirname property="module.nanoverse.basedir" file="${ant.file.module_nanoverse}"/>
+
+    <property name="module.jdk.home.nanoverse" value="${project.jdk.home}"/>
+    <property name="module.jdk.bin.nanoverse" value="${project.jdk.bin}"/>
+    <property name="module.jdk.classpath.nanoverse" value="${project.jdk.classpath}"/>
+
+    <property name="compiler.args.nanoverse" value="-encoding UTF-8 -source 8 ${compiler.args}"/>
+
+    <property name="nanoverse.output.dir" value="${module.nanoverse.basedir}/out/production/nanoverse"/>
+    <property name="nanoverse.testoutput.dir" value="${module.nanoverse.basedir}/out/test/nanoverse"/>
+
+    <path id="nanoverse.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="nanoverse.module.production.classpath">
+        <path refid="${module.jdk.classpath.nanoverse}"/>
+        <path refid="library.org.dom4j:com.springsource.org.dom4j:1.6.1.classpath"/>
+        <path refid="library.com.googlecode.matrix-toolkits-java:mtj:1.0.2.classpath"/>
+        <path refid="library.com.objectplanet.image.pngencoder.classpath"/>
+        <path refid="library.junit:junit:4.12.classpath"/>
+        <path refid="library.org.apache.directory.studio:org.apache.commons.io:2.4.classpath"/>
+        <path refid="library.org.mockito:mockito-all:1.9.5.classpath"/>
+    </path>
+
+    <path id="nanoverse.runtime.production.module.classpath">
+        <pathelement location="${nanoverse.output.dir}"/>
+        <path refid="library.org.dom4j:com.springsource.org.dom4j:1.6.1.classpath"/>
+        <path refid="library.com.googlecode.matrix-toolkits-java:mtj:1.0.2.classpath"/>
+        <path refid="library.com.objectplanet.image.pngencoder.classpath"/>
+        <path refid="library.junit:junit:4.12.classpath"/>
+        <path refid="library.org.apache.directory.studio:org.apache.commons.io:2.4.classpath"/>
+        <path refid="library.org.mockito:mockito-all:1.9.5.classpath"/>
+    </path>
+
+    <path id="nanoverse.module.classpath">
+        <path refid="${module.jdk.classpath.nanoverse}"/>
+        <pathelement location="${nanoverse.output.dir}"/>
+        <path refid="library.org.dom4j:com.springsource.org.dom4j:1.6.1.classpath"/>
+        <path refid="library.com.googlecode.matrix-toolkits-java:mtj:1.0.2.classpath"/>
+        <path refid="library.com.objectplanet.image.pngencoder.classpath"/>
+        <path refid="library.junit:junit:4.12.classpath"/>
+        <path refid="library.org.apache.directory.studio:org.apache.commons.io:2.4.classpath"/>
+        <path refid="library.org.mockito:mockito-all:1.9.5.classpath"/>
+    </path>
+
+    <path id="nanoverse.runtime.module.classpath">
+        <pathelement location="${nanoverse.testoutput.dir}"/>
+        <pathelement location="${nanoverse.output.dir}"/>
+        <path refid="library.org.dom4j:com.springsource.org.dom4j:1.6.1.classpath"/>
+        <path refid="library.com.googlecode.matrix-toolkits-java:mtj:1.0.2.classpath"/>
+        <path refid="library.com.objectplanet.image.pngencoder.classpath"/>
+        <path refid="library.junit:junit:4.12.classpath"/>
+        <path refid="library.org.apache.directory.studio:org.apache.commons.io:2.4.classpath"/>
+        <path refid="library.org.mockito:mockito-all:1.9.5.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.nanoverse">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.nanoverse">
+        <patternset refid="excluded.from.module.nanoverse"/>
+    </patternset>
+
+    <path id="nanoverse.module.sourcepath">
+        <dirset dir="${module.nanoverse.basedir}">
+            <include name="src"/>
+            <include name="mocks"/>
+        </dirset>
+    </path>
+
+    <path id="nanoverse.module.test.sourcepath">
+        <dirset dir="${module.nanoverse.basedir}">
+            <include name="tests"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.nanoverse" depends="compile.module.nanoverse.production,compile.module.nanoverse.tests"
+            description="Compile module nanoverse"/>
+
+    <target name="compile.module.nanoverse.production" depends="register.custom.compilers"
+            description="Compile module nanoverse; production classes">
+        <mkdir dir="${nanoverse.output.dir}"/>
+        <javac2 destdir="${nanoverse.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+                memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.nanoverse}/javac">
+            <compilerarg line="${compiler.args.nanoverse}"/>
+            <bootclasspath refid="nanoverse.module.bootclasspath"/>
+            <classpath refid="nanoverse.module.production.classpath"/>
+            <src refid="nanoverse.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.nanoverse"/>
+        </javac2>
+
+        <copy todir="${nanoverse.output.dir}">
+            <fileset dir="${module.nanoverse.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+            <fileset dir="${module.nanoverse.basedir}/mocks">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.nanoverse.tests"
+            depends="register.custom.compilers,compile.module.nanoverse.production"
+            description="compile module nanoverse; test classes" unless="skip.tests">
+        <mkdir dir="${nanoverse.testoutput.dir}"/>
+        <javac2 destdir="${nanoverse.testoutput.dir}" debug="${compiler.debug}"
+                nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true"
+                executable="${module.jdk.bin.nanoverse}/javac">
+            <compilerarg line="${compiler.args.nanoverse}"/>
+            <bootclasspath refid="nanoverse.module.bootclasspath"/>
+            <classpath refid="nanoverse.module.classpath"/>
+            <src refid="nanoverse.module.test.sourcepath"/>
+            <patternset refid="excluded.from.compilation.nanoverse"/>
+        </javac2>
+
+        <copy todir="${nanoverse.testoutput.dir}">
+            <fileset dir="${module.nanoverse.basedir}/tests">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="clean.module.nanoverse" description="cleanup module">
+        <delete dir="${nanoverse.output.dir}"/>
+        <delete dir="${nanoverse.testoutput.dir}"/>
+    </target>
+</project>
