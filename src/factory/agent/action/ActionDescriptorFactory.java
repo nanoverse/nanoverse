@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Copyright (c) 2014, 2015 David Bruce Borenstein, Annie Maslan,
+ * and the Trustees of Princeton University.
  *
  * This file is part of the Nanoverse simulation framework
  * (patent pending).
@@ -64,6 +64,8 @@ public abstract class ActionDescriptorFactory {
                 return expand(e, layerManager, p);
             case "expand-to":
                 return expandTo(e, layerManager, p);
+            case "expand-random":
+                return expandRandom(e, layerManager, p);
             case "stochastic-choice":
                 return stochasticChoice(e, layerManager, p);
             case "swap":
@@ -158,6 +160,13 @@ public abstract class ActionDescriptorFactory {
         Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
         Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         Function<BehaviorCell, Expand> fn = cell -> new Expand(cell, layerManager, selfChannel, targetChannel, p.getRandom());
+        return new ActionDescriptor<>(fn);
+    }
+
+    private static ActionDescriptor<ExpandRandom> expandRandom(Element e, LayerManager layerManager, GeneralParameters p) {
+        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        Function<BehaviorCell, ExpandRandom> fn = cell -> new ExpandRandom(cell, layerManager, selfChannel, targetChannel, p.getRandom());
         return new ActionDescriptor<>(fn);
     }
 
