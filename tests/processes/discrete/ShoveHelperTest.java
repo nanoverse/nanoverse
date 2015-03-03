@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Copyright (c) 2014, 2015 David Bruce Borenstein, Annie Maslan
+ * and the Trustees of Princeton University.
  *
  * This file is part of the Nanoverse simulation framework
  * (patent pending).
@@ -45,6 +45,7 @@ import test.EslimeTestCase;
 
 import java.util.HashSet;
 import java.util.Random;
+import java.util.Arrays;
 
 public class ShoveHelperTest extends EslimeTestCase {
 
@@ -172,6 +173,50 @@ public class ShoveHelperTest extends EslimeTestCase {
         assertEquals(1, layer.getViewer().getImaginarySites().size());
         query.removeImaginary();
         assertEquals(0, layer.getViewer().getImaginarySites().size());
+    }
+
+    /**
+     * ensure that the displacement vector between each cell in the shoving
+     * path is the same for random shoving.
+     * @throws Exception
+     */
+    public void test1DShoveRandom() throws Exception {
+        Lattice lattice = new RectangularLattice();
+        Shape shape = new Rectangle(lattice, 10, 1);
+        Boundary boundary = new Periodic(shape, lattice);
+        Geometry geom = new Geometry(lattice, shape, boundary);
+        MockLayerManager lm = new MockLayerManager();
+        layer = new CellLayer(geom);
+        lm.setCellLayer(layer);
+        Random random = new MockRandom();
+        query = new ShoveHelper(lm, random);
+
+        // initial state: _1234567__
+        for (int x = 1; x < 8; x++) {
+            Cell cell = new MockCell(1);
+            Coordinate coord = new Coordinate(x, 0, 0);
+            layer.getUpdateManager().place(cell, coord);
+        }
+
+        Coordinate origin = new Coordinate(4, 0, 0);
+        HashSet<Coordinate> affectedSites = query.shoveRandom(origin);
+
+        // make sure displacement vector between each site is the same
+        Coordinate[] affectedArray = affectedSites.toArray(new Coordinate[0]);
+        Arrays.sort(affectedArray);
+        Coordinate[] displacements = new Coordinate[affectedArray.length -1];
+        for (int i=0; i < affectedArray.length - 1; i++) {
+            displacements[i] = lm.getCellLayer().getGeometry().
+                    getDisplacement(affectedArray[i],
+                            affectedArray[i+1], Geometry.APPLY_BOUNDARIES);
+        }
+        Coordinate displacement = displacements[0];
+        for (int j=0; j < displacements.length; j++) {
+            assertEquals(displacement, displacements[j]);
+        }
+
+        // Having shoved, the origin should now be vacant.
+        assertFalse(layer.getViewer().isOccupied(origin));
     }
 
     private void placeCells() throws Exception {
