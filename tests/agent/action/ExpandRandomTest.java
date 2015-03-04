@@ -102,14 +102,19 @@ public class ExpandRandomTest extends EslimeTestCase {
     }
 
     /**
-     * Only vacancy is left; cell tries to divide right first.
+     * Cell divides left two times. Second time still goes left even though closer vacancy right
      * <p>
      * 0123456789
-     * _123456789  Initial condition
-     * ^       Cell 4 divides right (but can't so goes left)
+     * _12345678_  Initial condition
+     *        Cell 4 divides left
      * <p>
      * 0123456789
-     * 1234456789  Resulting condition
+     * 123445678_ after one division
+     *
+     * <p>
+     * Cell divides left (keeps displacement vector and goes left instead of towards the nearest vacancy)
+     * 0123456789
+     * 2344456781 Resulting condition
      */
     public void testVacancyOppositeDirection() throws Exception {
         placeNumberedCell(1);
@@ -119,24 +124,24 @@ public class ExpandRandomTest extends EslimeTestCase {
         placeNumberedCell(6);
         placeNumberedCell(7);
         placeNumberedCell(8);
-        placeNumberedCell(9);
 
-        Coordinate target = new Coordinate(5, 0, 0);
+        Coordinate target = new Coordinate(3, 0, 0);
         ArrayList<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parentTargetRule.setTargets(targets);
         parent.trigger("replicate-self", null);
+        parent.trigger("replicate-self", null);
 
-        checkPosition(0, 1);
-        checkPosition(1, 2);
-        checkPosition(2, 3);
+        checkPosition(0, 2);
+        checkPosition(1, 3);
+        checkPosition(2, 4);
         checkPosition(3, 4);
         checkPosition(4, 4);
         checkPosition(5, 5);
         checkPosition(6, 6);
         checkPosition(7, 7);
         checkPosition(8, 8);
-        checkPosition(9, 9);
+        checkPosition(9, 1);
     }
 
     /**

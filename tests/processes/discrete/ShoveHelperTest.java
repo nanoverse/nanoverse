@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein, Annie Maslan
- * and the Trustees of Princeton University.
+ * Copyright (c) 2014, 2015 David Bruce Borenstein, and the
+ * Trustees of Princeton University.
  *
  * This file is part of the Nanoverse simulation framework
  * (patent pending).
