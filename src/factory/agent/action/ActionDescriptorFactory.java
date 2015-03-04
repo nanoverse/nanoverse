@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein, and the
+ * Copyright (c) 2014, 2015 David Bruce Borenstein and the
  * Trustees of Princeton University.
  *
  * This file is part of the Nanoverse simulation framework
