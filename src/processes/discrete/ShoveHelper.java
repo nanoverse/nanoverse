@@ -188,4 +188,87 @@ public class ShoveHelper {
         return new Coordinate(rel, d.flags());
     }
 
+    /**
+     * shoves starting at the origin in a randomly chosen cardinal direction until
+     * a vacancy is reached or failure.
+     * @param origin
+     * @return affectedSites
+     * @throws HaltCondition
+     */
+    public HashSet<Coordinate> shoveRandom(Coordinate origin) throws HaltCondition {
+        HashSet<Coordinate> affectedSites = new HashSet<>();
+
+        Coordinate target = chooseRandomNeighbor(origin);
+        Coordinate displacement = layerManager.getCellLayer().getGeometry().
+                getDisplacement(origin,
+                        target, Geometry.APPLY_BOUNDARIES);
+        doShoveCardinal(origin, displacement, affectedSites);
+        return affectedSites;
+    }
+
+    /**
+     *  choose a random direction to shove among the cardinal directions by selecting
+     *  one of the neighbors at random. the displacement vector for that choice will
+     *  be used for all subsequent shoving in the path in shoveCardinal()
+     * @param parentLocation
+     * @return target neighbor
+     */
+    private Coordinate chooseRandomNeighbor(Coordinate parentLocation) {
+        Coordinate[] options = layerManager.getCellLayer().getGeometry().getNeighbors(parentLocation, Geometry.APPLY_BOUNDARIES);
+        int i = random.nextInt(options.length);
+        Coordinate target = options[i];
+        return target;
+    }
+
+    /**
+     * @param currentLocation: starting location. the child will be placed in this
+     *                         position after the parent is shoved.
+     * @param d:               displacement vector to target, in natural basis of lattice.
+     *                         this will be the same for each shove.
+     * @param sites:           list of affected sites (for highlighting)
+     *                         <p>
+     *                         TODO: This is so cloodgy and terrible.
+     */
+    private void doShoveCardinal(Coordinate currentLocation, Coordinate d, HashSet<Coordinate> sites) throws HaltCondition {
+        // base case: if the currentLocation is vacant, can stop shoving
+        if (!layerManager.getCellLayer().getViewer().isOccupied(currentLocation)) {
+            return;
+        }
+
+        // Choose whether to go horizontally or vertically, weighted
+        // by the number of steps remaining in each direction
+        int nv = d.norm();
+
+        // Take a step in the chosen direction.
+        int[] nextDisplacement;                // Displacement vector, one step closer
+        Coordinate nextLocation;
+
+        int[] rel = new int[3];            // Will contain a unit vector specifying
+        // step direction
+
+        // Loop if the move is illegal.
+        do {
+
+            nextDisplacement = new int[]{d.x(), d.y(), d.z()};
+
+            nextLocation = getNextLocation(currentLocation, d, nv, nextDisplacement, rel);
+
+            if (nextLocation == null) {
+                continue;
+            } else if (nextLocation.hasFlag(Flags.BEYOND_BOUNDS) && nv == 1) {
+                throw new IllegalStateException("There's only one place to push cells and it's illegal!");
+            } else if (!nextLocation.hasFlag(Flags.BEYOND_BOUNDS)) {
+                break;
+            }
+        } while (true);
+
+        // use the same displacement vector d each time
+        doShoveCardinal(nextLocation, d, sites);
+
+        layerManager.getCellLayer().getUpdateManager().swap(currentLocation,
+                nextLocation);
+
+        sites.add(nextLocation);
+        return;
+    }
 }
