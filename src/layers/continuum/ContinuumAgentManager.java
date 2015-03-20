@@ -26,12 +26,16 @@ package layers.continuum;
 
 import control.identifiers.Coordinate;
 
+import javax.management.relation.Relation;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 12/31/14.
  */
 public class ContinuumAgentManager {
+
+    private int count;
 
     private ContinuumAgentIndex index;
     private ReactionLoader loader;
@@ -45,7 +49,9 @@ public class ContinuumAgentManager {
     }
 
     public void apply() {
-        loader.apply(index.getRelationships());
+        Stream<RelationshipTuple> relationships = index.getRelationships();
+        loader.apply(relationships);
+        count++;
     }
 
     public void reset() {

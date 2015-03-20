@@ -152,11 +152,9 @@ public class CellUpdateManager {
      */
     public void banish(Coordinate coord) {
         content.sanityCheck(coord);
-
         if (!content.has(coord)) {
             throw new IllegalStateException("Tried to banish non-existent cell.");
         }
-
         content.remove(coord);
     }
 

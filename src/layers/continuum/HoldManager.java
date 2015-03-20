@@ -32,7 +32,6 @@ import java.util.function.Function;
  * Created by dbborens on 1/9/15.
  */
 public class HoldManager {
-
     private ContinuumAgentManager manager;
     private ContinuumSolver solver;
     private boolean held;
