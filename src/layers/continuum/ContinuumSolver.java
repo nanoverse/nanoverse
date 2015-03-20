@@ -34,6 +34,8 @@ import structural.utilities.MatrixUtils;
  */
 public class ContinuumSolver {
 
+    int count = 0;
+
     private ContinuumLayerContent content;
     private ScheduledOperations so;
     private SteadyState steadyState;

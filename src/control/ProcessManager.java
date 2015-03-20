@@ -104,7 +104,7 @@ public class ProcessManager {
 
         // Fire each triggered cell event.
         for (EcoProcess process : triggeredProcesses) {
-            process.iterate();
+                process.iterate();
         }
 
         // There's no reason for the layer manager to touch the StepState

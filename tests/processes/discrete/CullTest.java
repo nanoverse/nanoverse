@@ -74,7 +74,7 @@ public class CullTest extends EslimeLatticeTestCase {
 
         // Only the one above the threshold should survive.
         assertTrue(cellLayer.getViewer().isOccupied(x));
-        assertEquals(1, cellLayer.getViewer().getOccupiedSites().size());
+        assertTrue(die.died());
     }
 
     /**
@@ -93,7 +93,6 @@ public class CullTest extends EslimeLatticeTestCase {
         // Cull.
         query.target();
         query.fire(new MockStepState());
-
-        assertFalse(cellLayer.getViewer().isOccupied(x));
+        assertTrue(borderline.died());
     }
 }
