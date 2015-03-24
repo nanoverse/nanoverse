@@ -250,7 +250,6 @@ public class ShoveHelper {
         do {
 
             nextDisplacement = new int[]{d.x(), d.y(), d.z()};
-
             nextLocation = getNextLocation(currentLocation, d, nv, nextDisplacement, rel);
 
             if (nextLocation == null) {
@@ -271,4 +270,190 @@ public class ShoveHelper {
         sites.add(nextLocation);
         return;
     }
+
+    /**
+     * shoves starting at the origin in a cardinal direction chosen by weight to nearest
+     * vacancy along that direction. shoves until a vacancy is reached or failure.
+     * @param origin
+     * @return affectedSites
+     * @throws HaltCondition
+     */
+    public HashSet<Coordinate> shoveWeighted(Coordinate origin) throws HaltCondition {
+        Coordinate[] neighbors = layerManager.getCellLayer().getGeometry().getNeighbors(origin, Geometry.APPLY_BOUNDARIES);
+        Coordinate target;
+        Coordinate displacement;
+        HashSet<Coordinate> affectedSites;
+        int [] dist = new int[neighbors.length];
+        double [] weight = new double[neighbors.length];
+        double total = 0.0;
+        for (int i=0; i<neighbors.length; i++) {
+            target = neighbors[i];
+            displacement = layerManager.getCellLayer().getGeometry().
+                    getDisplacement(origin,
+                            target, Geometry.APPLY_BOUNDARIES);
+            affectedSites = new HashSet<>();
+            calculateDistToVacancy(origin, displacement, affectedSites);
+            dist[i] = affectedSites.size();
+            weight[i] = 1.0/dist[i];
+            total = total + weight[i];
+        }
+
+        double r = random.nextDouble() * total;
+
+        Coordinate chosenTarget = neighbors[0];
+        boolean found = false;
+        if (r<weight[0]) {
+            found = true;
+        }
+        double sum = weight[0];
+        for (int j=1; j<neighbors.length; j++) {
+            if (found == false) {
+                if (r < sum + weight[j]) {
+                    chosenTarget = neighbors[j];
+                    found = true;
+                } else {
+                    sum = sum + weight[j];
+                }
+            }
+        }
+
+        displacement = layerManager.getCellLayer().getGeometry().
+                getDisplacement(origin,
+                        chosenTarget, Geometry.APPLY_BOUNDARIES);
+        affectedSites = new HashSet<>();
+        doShoveCardinal(origin, displacement, affectedSites);
+        return affectedSites;
+    }
+
+
+    /**
+     * @param currentLocation: starting location. the child will be placed in this
+     *                         position after the parent is shoved.
+     * @param d:               displacement vector to target, in natural basis of lattice.
+     *                         this will be the same for each shove.
+     * @param sites:           list of affected sites (for highlighting)
+     *                         <p>
+     *                         TODO: This is so cloodgy and terrible.
+     */
+    private void calculateDistToVacancy(Coordinate currentLocation, Coordinate d, HashSet<Coordinate> sites) throws HaltCondition {
+        // base case: if the currentLocation is vacant, can stop shoving
+        if (!layerManager.getCellLayer().getViewer().isOccupied(currentLocation)) {
+            return;
+        }
+
+        // Choose whether to go horizontally or vertically, weighted
+        // by the number of steps remaining in each direction
+        int nv = d.norm();
+
+        // Take a step in the chosen direction.
+        int[] nextDisplacement;                // Displacement vector, one step closer
+        Coordinate nextLocation;
+
+        int[] rel = new int[3];            // Will contain a unit vector specifying
+        // step direction
+
+        // Loop if the move is illegal.
+        do {
+            nextDisplacement = new int[]{d.x(), d.y(), d.z()};
+            nextLocation = getNextLocation(currentLocation, d, nv, nextDisplacement, rel);
+
+            if (nextLocation == null) {
+                continue;
+            } else if (nextLocation.hasFlag(Flags.BEYOND_BOUNDS) && nv == 1) {
+                throw new IllegalStateException("There's only one place to push cells and it's illegal!");
+            } else if (!nextLocation.hasFlag(Flags.BEYOND_BOUNDS)) {
+                break;
+            }
+        } while (true);
+
+        // use the same displacement vector d each time
+        calculateDistToVacancy(nextLocation, d, sites);
+
+        sites.add(nextLocation);
+        return;
+    }
+
+//    /**
+//     * @param currentLocation: starting location.
+//     * @param d:               displacement vector to target, in natural basis of lattice.
+//     *                         this will be the same for each shove.
+//     * @param sites:           list of affected sites
+//     *                         <p>
+//     *                         TODO: This is so cloodgy and terrible.
+//     */
+//    private int calculateDistToVacancy(Coordinate currentLocation, Coordinate d) throws HaltCondition {
+//        int count = 0;
+//        CellLayer cellLayer = layerManager.getCellLayer().clone();
+//        while (cellLayer.getViewer().isOccupied(currentLocation)) {
+//            // Choose whether to go horizontally or vertically, weighted
+//            // by the number of steps remaining in each direction
+//            int nv = d.norm();
+//
+//            // Take a step in the chosen direction.
+//            int[] nextDisplacement;                // Displacement vector, one step closer
+//            Coordinate nextLocation;
+//
+//            int[] rel = new int[3];            // Will contain a unit vector specifying
+//            // step direction
+//
+//            // Loop if the move is illegal.
+//            do {
+//                nextDisplacement = new int[]{d.x(), d.y(), d.z()};
+//                nextLocation = getNextLocation(currentLocation, d, nv, nextDisplacement, rel);
+//                if (nextLocation == null) {
+//                    continue;
+//                } else if (nextLocation.hasFlag(Flags.BEYOND_BOUNDS) && nv == 1) {
+//                    throw new IllegalStateException("There's only one place to push cells and it's illegal!");
+//                } else if (!nextLocation.hasFlag(Flags.BEYOND_BOUNDS)) {
+//                    break;
+//                }
+//            } while (true);
+//            cellLayer.getUpdateManager().swap(currentLocation, nextLocation);
+//            count++;
+//        }
+//        return count;
+//    }
+
+//    private void calculateDistToVacancy(Coordinate currentLocation, Coordinate d, HashSet<Coordinate> sites) throws HaltCondition {
+//        // base case: if the currentLocation is vacant, can stop shoving
+//        if (!layerManager.getCellLayer().getViewer().isOccupied(currentLocation)) {
+//            return;
+//        }
+//
+//        // Choose whether to go horizontally or vertically, weighted
+//        // by the number of steps remaining in each direction
+//        int nv = d.norm();
+//
+//        // Take a step in the chosen direction.
+//        int[] nextDisplacement;                // Displacement vector, one step closer
+//        Coordinate nextLocation;
+//
+//        int[] rel = new int[3];            // Will contain a unit vector specifying
+//        // step direction
+//
+//        // Loop if the move is illegal.
+//        do {
+//
+//            nextDisplacement = new int[]{d.x(), d.y(), d.z()};
+//
+//            nextLocation = getNextLocation(currentLocation, d, nv, nextDisplacement, rel);
+//
+//            if (nextLocation == null) {
+//                continue;
+//            } else if (nextLocation.hasFlag(Flags.BEYOND_BOUNDS) && nv == 1) {
+//                throw new IllegalStateException("There's only one place to push cells and it's illegal!");
+//            } else if (!nextLocation.hasFlag(Flags.BEYOND_BOUNDS)) {
+//                break;
+//            }
+//        } while (true);
+//
+//        // use the same displacement vector d each time
+//        calculateDistToVacancy(nextLocation, d, sites);
+//
+////        layerManager.getCellLayer().getUpdateManager().swap(currentLocation,
+////                nextLocation);
+//
+//        sites.add(nextLocation);
+//        return;
+//    }
 }

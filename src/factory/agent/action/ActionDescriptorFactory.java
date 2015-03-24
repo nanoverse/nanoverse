@@ -66,6 +66,8 @@ public abstract class ActionDescriptorFactory {
                 return expandTo(e, layerManager, p);
             case "expand-random":
                 return expandRandom(e, layerManager, p);
+            case "expand-weighted":
+                return expandWeighted(e, layerManager, p);
             case "stochastic-choice":
                 return stochasticChoice(e, layerManager, p);
             case "swap":
@@ -167,6 +169,13 @@ public abstract class ActionDescriptorFactory {
         Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
         Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         Function<BehaviorCell, ExpandRandom> fn = cell -> new ExpandRandom(cell, layerManager, selfChannel, targetChannel, p.getRandom());
+        return new ActionDescriptor<>(fn);
+    }
+
+    private static ActionDescriptor<ExpandWeighted> expandWeighted(Element e, LayerManager layerManager, GeneralParameters p) {
+        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        Function<BehaviorCell, ExpandWeighted> fn = cell -> new ExpandWeighted(cell, layerManager, selfChannel, targetChannel, p.getRandom());
         return new ActionDescriptor<>(fn);
     }
 
