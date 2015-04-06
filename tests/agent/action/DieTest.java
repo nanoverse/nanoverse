@@ -44,7 +44,7 @@ public class DieTest extends EslimeLatticeTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         // Set up test objects
-        cell = new BehaviorCell(layerManager, 1, 1.0, 1.0);
+        cell = new BehaviorCell(layerManager, 1, 1.0, 1.0, null);
         query = new Die(cell, layerManager, null);
         identical = new Die(cell, layerManager, null);
         different = new AdjustHealth(cell, layerManager, 0.7);

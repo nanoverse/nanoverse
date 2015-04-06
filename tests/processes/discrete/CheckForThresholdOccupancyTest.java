@@ -109,7 +109,7 @@ public class CheckForThresholdOccupancyTest extends EslimeTestCase {
     }
 
     private void placeNumberedCell(int x) throws HaltCondition {
-        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x);
+        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, null);
         Coordinate coord = new Coordinate(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
     }

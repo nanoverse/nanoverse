@@ -51,7 +51,7 @@ public class AdjustHealthTest extends EslimeLatticeTestCase {
         MockGeometry geom = buildMockGeometry();
         cellLayer = new CellLayer(geom);
         layerManager.setCellLayer(cellLayer);
-        cell = new BehaviorCell(layerManager, 1, 0.5, 1.0);
+        cell = new BehaviorCell(layerManager, 1, 0.5, 1.0, null);
         cellLayer.getUpdateManager().place(cell, origin);
         query = new AdjustHealth(cell, layerManager, 0.5);
         identical = new AdjustHealth(cell, layerManager, 0.5);
