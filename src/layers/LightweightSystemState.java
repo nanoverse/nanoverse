@@ -120,7 +120,7 @@ public class LightweightSystemState extends SystemState {
     private void loadCell(CellLayer cellLayer, Coordinate coord, double health, int state) {
         try {
             // Build a dummy cell with the correct state and health.
-            Cell cell = new BehaviorCell(layerManager, state, health, 0.0);
+            Cell cell = new BehaviorCell(layerManager, state, health, 0.0, null);
 
             // Place it in the cell layer.
             cellLayer.getUpdateManager().place(cell, coord);

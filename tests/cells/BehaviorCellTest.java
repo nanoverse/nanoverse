@@ -40,7 +40,7 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         dispatcher = new MockBehaviorDispatcher();
-        query = new BehaviorCell(layerManager, 1, 1.0, 0.5);
+        query = new BehaviorCell(layerManager, 1, 1.0, 0.5, null);
         query.setDispatcher(dispatcher);
         cellLayer.getUpdateManager().place(query, origin);
     }
@@ -101,7 +101,7 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
 
     public void testEquals() throws Exception {
         // Difference based on dispatcher (in)equality.
-        BehaviorCell other = new BehaviorCell(layerManager, 1, 1.0, 0.5);
+        BehaviorCell other = new BehaviorCell(layerManager, 1, 1.0, 0.5, null);
         MockBehaviorDispatcher d2 = new MockBehaviorDispatcher();
         other.setDispatcher(d2);
         d2.setOverrideEquals(true);
@@ -115,12 +115,12 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
         assertEquals(query, other);
 
         // Test a cell that differs in division threshold.
-        other = new BehaviorCell(layerManager, 1, 1.0, 1.0);
+        other = new BehaviorCell(layerManager, 1, 1.0, 1.0, null);
         other.setDispatcher(d2);
         assertNotEquals(query, other);
 
         // Test a cell that differs in state.
-        other = new BehaviorCell(layerManager, 2, 1.0, 0.5);
+        other = new BehaviorCell(layerManager, 2, 1.0, 0.5, null);
         other.setDispatcher(d2);
         assertNotEquals(query, other);
     }

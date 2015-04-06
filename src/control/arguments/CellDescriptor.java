@@ -35,6 +35,7 @@ import layers.LayerManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -80,8 +81,16 @@ public class CellDescriptor extends Argument<Cell> {
         double thresholdValue = threshold.next();
         int stateValue = cellState.next();
 
+        Supplier<BehaviorCell> supplier = () -> {
+            try {
+                return next();
+            } catch (HaltCondition ex) {
+                throw new RuntimeException();
+            }
+        };
+
         // Construct cell
-        BehaviorCell cell = new BehaviorCell(layerManager, stateValue, initialHealthValue, thresholdValue);
+        BehaviorCell cell = new BehaviorCell(layerManager, stateValue, initialHealthValue, thresholdValue, supplier);
 
         loadReactions(cell);
         loadBehaviors(cell);
