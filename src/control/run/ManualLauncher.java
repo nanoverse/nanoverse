@@ -36,7 +36,7 @@ import factory.control.run.RunnerFactory;
 public class ManualLauncher {
 
     public static void main(String[] args) {
-        String path = "/Users/dbborens/Downloads/bugsearching3.xml";
+        String path = "e:/nanoverse/2015-05-20/minimal.xml";
         Runner runner = RunnerFactory.instantiate(path);
         runner.run();
     }
