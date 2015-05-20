@@ -141,7 +141,7 @@ public class LightweightSystemStateTest extends SystemStateTest {
             double health = healthVector[i];
 
             if (state != 0) {
-                BehaviorCell cell = new BehaviorCell(expected, state, health, 0.0);
+                BehaviorCell cell = new BehaviorCell(expected, state, health, 0.0, null);
                 cellLayer.getUpdateManager().place(cell, c);
             }
 //            soluteLayer.set(c, health);

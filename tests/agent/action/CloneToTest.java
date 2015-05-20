@@ -29,6 +29,7 @@ import agent.control.BehaviorDispatcher;
 import agent.targets.MockTargetRule;
 import cells.BehaviorCell;
 import cells.Cell;
+import cells.MockCell;
 import control.identifiers.Coordinate;
 import geometry.Geometry;
 import geometry.boundaries.Boundary;
@@ -43,6 +44,10 @@ import test.EslimeLatticeTestCase;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Supplier;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class CloneToTest extends EslimeLatticeTestCase {
 
@@ -50,6 +55,9 @@ public class CloneToTest extends EslimeLatticeTestCase {
     private MockTargetRule targetRule;
     private CloneTo query;
     private Random random;
+    private Supplier<BehaviorCell> supplier;
+
+    private static final int MOCK_PROGENY_STATE = 7;
 
     @Override
     protected void setUp() throws Exception {
@@ -62,8 +70,12 @@ public class CloneToTest extends EslimeLatticeTestCase {
         targets.add(y);
         targetRule.setTargets(targets);
 
+        supplier = mock(Supplier.class);
+        when(supplier.get()).thenReturn(new MockCell(MOCK_PROGENY_STATE),
+                new MockCell(MOCK_PROGENY_STATE));
+
         // Place a single cell at origin.
-        original = new BehaviorCell(layerManager, 1, 1.0, 1.0);
+        original = new BehaviorCell(layerManager, 1, 1.0, 1.0, supplier);
         BehaviorDispatcher bd = new BehaviorDispatcher();
         original.setDispatcher(bd);
 
@@ -73,6 +85,7 @@ public class CloneToTest extends EslimeLatticeTestCase {
         // Create query.
         query = new CloneTo(original, layerManager, targetRule, false, null,
                 null, random);
+
     }
 
     public void testLifeCycle() throws Exception {
@@ -83,10 +96,8 @@ public class CloneToTest extends EslimeLatticeTestCase {
         assertTrue(cellLayer.getViewer().isOccupied(x));
         assertTrue(cellLayer.getViewer().isOccupied(y));
 
-        // The cells at the other sites should each be equal to the original.
-        assertEquals(original, cellLayer.getViewer().getCell(x));
-        assertEquals(original, cellLayer.getViewer().getCell(y));
-        assertFalse(original == cellLayer.getViewer().getCell(y));
+        assertEquals(MOCK_PROGENY_STATE, cellLayer.getViewer().getCell(x).getState());
+        assertEquals(MOCK_PROGENY_STATE, cellLayer.getViewer().getCell(y).getState());
     }
 
     /**
@@ -125,7 +136,10 @@ public class CloneToTest extends EslimeLatticeTestCase {
     }
 
     private void placeNumberedCell(int x, CellLayer layer, boolean shoving) throws Exception {
-        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x);
+        Supplier<BehaviorCell> ncSupplier = mock(Supplier.class);
+        BehaviorCell child = new MockCell(x);
+        when(ncSupplier.get()).thenReturn(child);
+        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, ncSupplier);
         Coordinate coord = new Coordinate(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();
@@ -144,7 +158,6 @@ public class CloneToTest extends EslimeLatticeTestCase {
 
         Behavior behavior = new Behavior(cell, layerManager, new Action[]{cloneTo});
         bd.map("replicate-self", behavior);
-
     }
 
     private void placeCells(CellLayer layer, boolean shoving) throws Exception {
