@@ -29,6 +29,7 @@ import agent.control.BehaviorDispatcher;
 import agent.targets.MockTargetRule;
 import cells.BehaviorCell;
 import cells.Cell;
+import cells.MockCell;
 import control.identifiers.Coordinate;
 import geometry.Geometry;
 import geometry.boundaries.Boundary;
@@ -43,8 +44,14 @@ import structural.MockRandom;
 import test.EslimeTestCase;
 
 import java.util.ArrayList;
+import java.util.function.Supplier;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ExpandTest extends EslimeTestCase {
+
+    private static final int MOCK_PROGENY_STATE = 7;
 
     private MockLayerManager layerManager;
     private BehaviorCell parent;
@@ -152,7 +159,9 @@ public class ExpandTest extends EslimeTestCase {
 
 
     private MockTargetRule placeNumberedCell(int x) throws Exception {
-        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, null);
+        Supplier<BehaviorCell> supplier = mock(Supplier.class);
+        when(supplier.get()).thenReturn(new MockCell(x));
+        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, supplier);
         Coordinate coord = new Coordinate(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();

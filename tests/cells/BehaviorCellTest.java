@@ -28,6 +28,11 @@ import agent.control.MockBehaviorDispatcher;
 import control.identifiers.Coordinate;
 import test.EslimeLatticeTestCase;
 
+import java.util.function.Supplier;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 /**
  * Created by David B Borenstein on 1/25/14.
  */
@@ -40,7 +45,9 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         dispatcher = new MockBehaviorDispatcher();
-        query = new BehaviorCell(layerManager, 1, 1.0, 0.5, null);
+        Supplier<BehaviorCell> supplier = mock(Supplier.class);
+        when(supplier.get()).thenReturn(new BehaviorCell(layerManager, 1, 1.0, 0.5, supplier));
+        query = new BehaviorCell(layerManager, 1, 1.0, 0.5, supplier);
         query.setDispatcher(dispatcher);
         cellLayer.getUpdateManager().place(query, origin);
     }
@@ -75,13 +82,6 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
         // Since no division took place, health should be original for each
         assertEquals(1.0, query.getHealth(), epsilon);
         assertEquals(1.0, clone.getHealth(), epsilon);
-    }
-
-    public void testClone() throws Exception {
-        Cell clone = query.clone(6);
-        assertNotEquals(clone, query);
-        Cell cloneOfClone = clone.clone(query.getState());
-        assertEquals(query, cloneOfClone);
     }
 
     public void testTrigger() throws Exception {

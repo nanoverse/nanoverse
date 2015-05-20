@@ -44,6 +44,10 @@ import test.EslimeTestCase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Functional test for the ExpandTo action, which utilizes a path-of-least-
@@ -192,8 +196,14 @@ public class ExpandToTest extends EslimeTestCase {
         checkPosition(6, 6);
     }
 
+    private BehaviorCell makeNumberedCell(int x) throws Exception {
+        Supplier<BehaviorCell> supplier = mock(Supplier.class);
+        when(supplier.get()).thenReturn(new BehaviorCell(layerManager, x, x, x, supplier));
+        return new BehaviorCell(layerManager, x, x, x, supplier);
+    }
+
     private MockTargetRule placeNumberedCell(int x) throws Exception {
-        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, null);
+        BehaviorCell cell = makeNumberedCell(x);
         Coordinate coord = new Coordinate(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();
