@@ -57,12 +57,12 @@ public class CloneTo extends Action {
 
     private Random random;
 
-    public CloneTo(BehaviorCell callback, LayerManager layerManager,
+    public CloneTo(BehaviorCell behaviorCell, LayerManager layerManager,
                    TargetRule targetRule, boolean noReplace,
                    Argument<Integer> selfChannel,
                    Argument<Integer> targetChannel, Random random) {
 
-        super(callback, layerManager);
+        super(behaviorCell, layerManager);
         this.targetRule = targetRule;
         this.selfChannel = selfChannel;
         this.targetChannel = targetChannel;

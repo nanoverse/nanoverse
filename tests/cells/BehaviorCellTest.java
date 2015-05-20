@@ -28,6 +28,11 @@ import agent.control.MockBehaviorDispatcher;
 import control.identifiers.Coordinate;
 import test.EslimeLatticeTestCase;
 
+import java.util.function.Supplier;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 /**
  * Created by David B Borenstein on 1/25/14.
  */
@@ -40,7 +45,9 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         dispatcher = new MockBehaviorDispatcher();
-        query = new BehaviorCell(layerManager, 1, 1.0, 0.5);
+        Supplier<BehaviorCell> supplier = mock(Supplier.class);
+        when(supplier.get()).thenReturn(new BehaviorCell(layerManager, 1, 1.0, 0.5, supplier));
+        query = new BehaviorCell(layerManager, 1, 1.0, 0.5, supplier);
         query.setDispatcher(dispatcher);
         cellLayer.getUpdateManager().place(query, origin);
     }
@@ -77,13 +84,6 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
         assertEquals(1.0, clone.getHealth(), epsilon);
     }
 
-    public void testClone() throws Exception {
-        Cell clone = query.clone(6);
-        assertNotEquals(clone, query);
-        Cell cloneOfClone = clone.clone(query.getState());
-        assertEquals(query, cloneOfClone);
-    }
-
     public void testTrigger() throws Exception {
         String triggerName = "TEST";
         Coordinate caller = new Coordinate(0, 0, 0);
@@ -101,7 +101,7 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
 
     public void testEquals() throws Exception {
         // Difference based on dispatcher (in)equality.
-        BehaviorCell other = new BehaviorCell(layerManager, 1, 1.0, 0.5);
+        BehaviorCell other = new BehaviorCell(layerManager, 1, 1.0, 0.5, null);
         MockBehaviorDispatcher d2 = new MockBehaviorDispatcher();
         other.setDispatcher(d2);
         d2.setOverrideEquals(true);
@@ -115,12 +115,12 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
         assertEquals(query, other);
 
         // Test a cell that differs in division threshold.
-        other = new BehaviorCell(layerManager, 1, 1.0, 1.0);
+        other = new BehaviorCell(layerManager, 1, 1.0, 1.0, null);
         other.setDispatcher(d2);
         assertNotEquals(query, other);
 
         // Test a cell that differs in state.
-        other = new BehaviorCell(layerManager, 2, 1.0, 0.5);
+        other = new BehaviorCell(layerManager, 2, 1.0, 0.5, null);
         other.setDispatcher(d2);
         assertNotEquals(query, other);
     }

@@ -96,7 +96,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         CellLayer layer = new CellLayer(geom);
         MockLayerManager lm = new MockLayerManager();
         lm.setCellLayer(layer);
-        Cell toPlace = new BehaviorCell(lm, 1, 0.5, 1.0);
+        Cell toPlace = new BehaviorCell(lm, 1, 0.5, 1.0, null);
         Coordinate coord = new Coordinate(2, 3, 0);
 
         layer.getUpdateManager().place(toPlace, coord);

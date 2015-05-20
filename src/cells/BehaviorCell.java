@@ -56,14 +56,17 @@ public class BehaviorCell extends Cell {
     private CallbackManager callbackManager;
     private AgentContinuumManager reactionManager;
 
+    private Supplier<BehaviorCell> supplier;
+
     // Default constructor for testing
     @Deprecated
     public BehaviorCell() {
     }
 
-    public BehaviorCell(LayerManager layerManager, int state, double initialHealth, double threshold) throws HaltCondition {
+    public BehaviorCell(LayerManager layerManager, int state, double initialHealth, double threshold, Supplier<BehaviorCell> supplier) throws HaltCondition {
         this.threshold = threshold;
         callbackManager = new CallbackManager(this, layerManager);
+        this.supplier = supplier;
 
         setState(state);
 
@@ -100,8 +103,8 @@ public class BehaviorCell extends Cell {
             throw new IllegalStateException("Attempted to divide non-divisible cell.");
         }
 
-        LayerManager layerManager = callbackManager.getLayerManager();
-        BehaviorCell daughter = new BehaviorCell(layerManager, getState(), getHealth() / 2, threshold);
+        BehaviorCell daughter = supplier.get();
+        daughter.setHealth(daughter.getHealth() / 2.0);
         double halfHealth = getHealth() / 2.0D;
         setHealth(halfHealth);
         daughter.setDispatcher(dispatcher.clone(daughter));
@@ -113,8 +116,8 @@ public class BehaviorCell extends Cell {
     public BehaviorCell clone(int childState) throws HaltCondition {
         double health = getHealth();
 
-        LayerManager layerManager = callbackManager.getLayerManager();
-        BehaviorCell child = new BehaviorCell(layerManager, childState, health, threshold);
+        BehaviorCell child = supplier.get();
+        child.setHealth(health);
         child.considerCount = considerCount;
         child.nextHealth = nextHealth;
         child.setDispatcher(dispatcher.clone(child));
@@ -132,7 +135,6 @@ public class BehaviorCell extends Cell {
     public void adjustHealth(double delta) throws HaltCondition {
         double current = getHealth();
         double next = current + delta;
-//        System.out.println("      Adjusting health of cell at " + callbackManager.getMyLocation() + " from " + current + " to " + next);
         setHealth(next);
     }
 

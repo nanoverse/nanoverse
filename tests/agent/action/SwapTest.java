@@ -110,7 +110,7 @@ public class SwapTest extends EslimeTestCase {
 
 
     private MockTargetRule placeNumberedCell(int x) throws Exception {
-        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x);
+        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, null);
         Coordinate coord = new Coordinate(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();
