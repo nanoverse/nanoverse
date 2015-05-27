@@ -25,11 +25,12 @@
 package processes;
 
 import control.identifiers.Coordinate;
+import layers.LayerManager;
 import layers.cell.CellLayer;
+import layers.continuum.ContinuumLayer;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.*;
 
 /**
  * State object for a cycle in a simulation. Each
@@ -45,14 +46,26 @@ public class StepState {
 
     private CellLayer recordedCellLayer;
     private boolean recorded;
-
-    private HashMap<Integer, Set<Coordinate>> highlights;
     private double dt;
-    private double startTime;
-    private int frame;
+
+    private final HashMap<Integer, Set<Coordinate>> highlights;
+    private final double startTime;
+    private final int frame;
+
+    private final HashMap<String, List<Double>> continuumValues;
+
+    public StepState(double startTime, int frame, HashMap<Integer, Set<Coordinate>> highlights, HashMap<String, List<Double>> continuumValues) {
+        this.highlights = highlights;
+        this.continuumValues = continuumValues;
+        this.startTime = startTime;
+        this.frame = frame;
+        dt = 0;
+        this.recorded = false;
+    }
 
     public StepState(double startTime, int frame) {
         highlights = new HashMap<>();
+        continuumValues = new HashMap<>();
         dt = 0;
         this.startTime = startTime;
         this.frame = frame;
@@ -61,7 +74,7 @@ public class StepState {
 
     public void highlight(Coordinate c, Integer channel) {
         if (!highlights.containsKey(channel)) {
-            highlights.put(channel, new HashSet<Coordinate>());
+            highlights.put(channel, new HashSet<>());
         }
         Set<Coordinate> set = highlights.get(channel);
         set.add(c);
@@ -75,24 +88,29 @@ public class StepState {
         return dt;
     }
 
-    public Coordinate[] getHighlights(Integer channel) {
+    public Stream<Coordinate> getHighlights(Integer channel) {
         if (!highlights.containsKey(channel)) {
-            return new Coordinate[0];
+            return Stream.empty();
         }
 
-        Set<Coordinate> set = highlights.get(channel);
-
-        return set.toArray(new Coordinate[set.size()]);
+        return highlights.get(channel).stream();
     }
 
     public boolean isRecorded() {
         return recorded;
     }
 
-    public void record(CellLayer cellLayer) {
-        recordedCellLayer = cellLayer.clone();
-        recorded = true;
+    public void record(LayerManager layerManager) {
+        recordedCellLayer = layerManager.getCellLayer().clone();
+        layerManager.getContinuumLayerIds().forEach(id -> {
+            List<Double> values = layerManager
+                    .getContinuumLayer(id)
+                    .getStateStream()
+                    .collect(Collectors.toList());
 
+            continuumValues.put(id, values);
+        });
+        recorded = true;
     }
 
     public double getTime() {
@@ -105,5 +123,9 @@ public class StepState {
 
     public CellLayer getRecordedCellLayer() {
         return recordedCellLayer;
+    }
+
+    public Stream<Double> getRecordedContinuumValues(String id) {
+        return continuumValues.get(id).stream();
     }
 }

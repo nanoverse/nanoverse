@@ -25,9 +25,11 @@
 package processes;
 
 import control.identifiers.Coordinate;
+import layers.LayerManager;
 import layers.cell.CellLayer;
 
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.*;
 
 /**
  * Created by David B Borenstein on 4/20/14.
@@ -35,7 +37,7 @@ import java.util.HashMap;
 public class MockStepState extends StepState {
 
     boolean record = false;
-    private HashMap<Integer, Coordinate[]> highlightMap;
+    private HashMap<Integer, List<Coordinate>> highlightMap;
 
     public MockStepState() {
         this(0.0);
@@ -51,13 +53,13 @@ public class MockStepState extends StepState {
     }
 
     @Override
-    public Coordinate[] getHighlights(Integer channel) {
-        return highlightMap.get(channel);
+    public Stream<Coordinate> getHighlights(Integer channel) {
+        return highlightMap.get(channel).stream();
     }
 
     @Override
-    public void record(CellLayer cellLayer) {
-        super.record(cellLayer);
+    public void record(LayerManager layerManager) {
+        super.record(layerManager);
         record = true;
     }
 
@@ -65,8 +67,8 @@ public class MockStepState extends StepState {
         return record;
     }
 
-    public void setHighlights(Integer channel, Coordinate[] highlights) {
-        highlightMap.put(channel, highlights);
+    public void setHighlights(Integer channel, Stream<Coordinate> highlights) {
+        highlightMap.put(channel, highlights.collect(Collectors.toList()));
     }
 
     public void setRecord(boolean record) {

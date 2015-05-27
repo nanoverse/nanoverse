@@ -40,6 +40,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by dbborens on 3/28/14.
@@ -70,7 +71,9 @@ public class HighlightWriter extends Serializer {
         Geometry geometry = stepState.getRecordedCellLayer().getGeometry();
         for (int channel : channels) {
             DataOutputStream stream = streamMap.get(channel);
-            List<Coordinate> vector = Arrays.asList(stepState.getHighlights(channel));
+            List<Coordinate> vector = stepState
+                    .getHighlights(channel)
+                    .collect(Collectors.toList());
 
             PrimitiveSerializer.writeCoercedCoordinateVector(stream, vector, geometry);
         }
