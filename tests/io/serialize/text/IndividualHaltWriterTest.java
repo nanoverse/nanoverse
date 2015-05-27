@@ -41,7 +41,7 @@ public class IndividualHaltWriterTest extends EslimeLatticeTestCase {
     private void runCycle(Serializer writer, double time) {
         writer.init();
         StepState state = new StepState(time, (int) Math.round(time));
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
 
         ManualHaltEvent haltEvent = createHaltEvent(time);

@@ -24,11 +24,15 @@
 
 package layers;
 
+import control.identifiers.Coordinate;
+import io.deserialize.CoordinateDeindexer;
 import layers.cell.CellLayer;
 import layers.continuum.ContinuumLayer;
 import processes.StepState;
 
 import java.util.HashMap;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * Created by David B Borenstein on 12/29/13.
@@ -122,5 +126,14 @@ public class LayerManager {
     public ContinuumLayer getContinuumLayer(String id) {
         ContinuumLayer layer = continuumLayers.get(id);
         return layer;
+    }
+
+    public Stream<String> getContinuumLayerIds() {
+        return continuumLayers.keySet().stream();
+    }
+
+    // TODO This assumes that all layers have same coordinate index (which they should--but this is not enforced)
+    public Function<Integer, Coordinate> getDeindexer() {
+        return i -> cellLayer.getGeometry().getCanonicalSites()[i];
     }
 }

@@ -71,25 +71,25 @@ public class SurfaceCensusWriterTest extends EslimeTestCase {
         // Place single cell at center -- it is the surface
         StepState state = new StepState(0.0, 0);
         put(5, 1);
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
 
         // Place a cell to its left -- both surface
         put(4, 1);
         state = new StepState(1.0, 1);
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
 
         // Place a cell to the right of the original -- now the center is not surface
         put(6, 2);
         state = new StepState(2.0, 2);
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
 
         // Replace left cell with a different state
         replace(4, 2);
         state = new StepState(3.0, 3);
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
 
         haltEvent.setGillespie(3.0);
@@ -105,7 +105,7 @@ public class SurfaceCensusWriterTest extends EslimeTestCase {
         StepState state = new StepState(0.0, 0);
         put(-2, 2);
         put(-1, 1);
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
         haltEvent.setGillespie(0.0);
         writer.dispatchHalt(haltEvent);

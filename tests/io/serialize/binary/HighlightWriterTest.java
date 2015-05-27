@@ -30,6 +30,8 @@ import structural.MockGeneralParameters;
 import structural.utilities.FileConventions;
 import test.EslimeLatticeTestCase;
 
+import java.util.stream.Stream;
+
 /**
  * Created by dbborens on 3/28/14.
  */
@@ -55,9 +57,9 @@ public class HighlightWriterTest extends EslimeLatticeTestCase {
         HighlightWriter query = new HighlightWriter(p, channels, layerManager);
         query.init();
         MockStepState stepState = new MockStepState(0.1, 2);
-        stepState.setHighlights(0, new Coordinate[]{x, y});
-        stepState.setHighlights(7, new Coordinate[]{origin});
-        stepState.record(cellLayer);
+        stepState.setHighlights(0, Stream.of(x, y));
+        stepState.setHighlights(7, Stream.of(origin));
+        stepState.record(layerManager);
         query.flush(stepState);
         query.dispatchHalt(null);
     }

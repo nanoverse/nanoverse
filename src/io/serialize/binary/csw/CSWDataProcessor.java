@@ -22,36 +22,21 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package processes.discrete;
+package io.serialize.binary.csw;
 
-import control.halt.HaltCondition;
-import processes.BaseProcessArguments;
-import processes.StepState;
-import processes.gillespie.GillespieState;
+import java.io.*;
+import java.util.List;
+import java.util.stream.*;
 
 /**
- * Created by dbborens on 4/24/14.
+ * Created by dbborens on 5/27/2015.
  */
-public class Record extends CellProcess {
-    public Record(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
-        super(arguments, cpArguments);
-    }
-
-    @Override
-    public void init() {
-    }
-
-    @Override
-    public void target(GillespieState gs) throws HaltCondition {
-        // There's only one event that can happen in this process.
-        if (gs != null) {
-            gs.add(this.getID(), 1, 0.0D);
+public abstract class CSWDataProcessor {
+    public static void processData(DataOutputStream dataStream, Stream<Double> stateStream) throws IOException {
+        List<Double> data = stateStream.collect(Collectors.toList());
+        dataStream.writeInt(data.size());
+        for (Double datum : data) {
+            dataStream.writeDouble(datum);
         }
-
-    }
-
-    @Override
-    public void fire(StepState state) throws HaltCondition {
-        state.record(getLayerManager());
     }
 }

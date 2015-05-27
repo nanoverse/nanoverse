@@ -24,14 +24,14 @@
 
 package test;
 
+import com.google.common.collect.Sets;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
 import org.junit.Before;
 import structural.utilities.EpsilonUtil;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.stream.IntStream;
+import java.util.*;
+import java.util.stream.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -79,5 +79,18 @@ public abstract class TestBase {
     @Before
     public void calcEpsilon() {
         epsilon = EpsilonUtil.epsilon();
+    }
+
+    protected static <T> void assertSetsEqual(Set<T> expected, Set<T> actual) {
+        Set<T> difference = Sets.symmetricDifference(expected, actual);
+        String differenceString = difference.stream().map(Object::toString).collect(Collectors.joining(", "));
+        String errorString = "Unexpected difference between sets: " + differenceString;
+        assertEquals(errorString, 0, difference.size());
+    }
+
+    protected static <T> void assertStreamsEqual(Stream<T> expected, Stream<T> actual) {
+        List<T> expList = expected.collect(Collectors.toList());
+        List<T> actList = actual.collect(Collectors.toList());
+        assertEquals(expList, actList);
     }
 }

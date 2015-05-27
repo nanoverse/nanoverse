@@ -22,36 +22,33 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package processes.discrete;
+package io.serialize.binary.csw;
 
-import control.halt.HaltCondition;
-import processes.BaseProcessArguments;
-import processes.StepState;
-import processes.gillespie.GillespieState;
+import control.identifiers.*;
+
+import java.util.HashMap;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
- * Created by dbborens on 4/24/14.
+ * Created by dbborens on 5/26/2015.
  */
-public class Record extends CellProcess {
-    public Record(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
-        super(arguments, cpArguments);
+public class CSWConsiderHelper {
+    private final HashMap<String, Extrema> extremaMap;
+    private final Function<Integer, Coordinate> deindexer;
+
+    public CSWConsiderHelper(HashMap<String, Extrema> extremaMap, Function<Integer, Coordinate> deindexer) {
+        this.extremaMap = extremaMap;
+        this.deindexer = deindexer;
     }
 
-    @Override
-    public void init() {
-    }
-
-    @Override
-    public void target(GillespieState gs) throws HaltCondition {
-        // There's only one event that can happen in this process.
-        if (gs != null) {
-            gs.add(this.getID(), 1, 0.0D);
+    public void consider(String id, int frame, Stream<Double> values) {
+        int index = 0;
+        for(Double value : (Iterable<Double>) values) {
+            Extrema extrema = extremaMap.get(id);
+            Coordinate c = deindexer.apply(index);
+            extrema.consider(value, c, frame);
+            index++;
         }
-
-    }
-
-    @Override
-    public void fire(StepState state) throws HaltCondition {
-        state.record(getLayerManager());
     }
 }

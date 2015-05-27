@@ -112,7 +112,7 @@ public class InterfaceCensusWriterTest extends EslimeTestCase {
 
         // Flush original configuration
         StepState state = new StepState(0.0, 0);
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
 
         /*
@@ -133,7 +133,7 @@ public class InterfaceCensusWriterTest extends EslimeTestCase {
          */
         replace(new Coordinate(1, 2, 0), 3);
         state = new StepState(1.0, 1);
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
 
         writer.dispatchHalt(null);

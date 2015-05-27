@@ -106,7 +106,7 @@ public class CorrelationWriterTest extends EslimeTestCase {
         CorrelationWriter query = new CorrelationWriter(p, filename, new ConstantDouble(1.0), layerManager);
         query.init();
         StepState state = new StepState(2.0, 1);
-        state.record(layerManager.getCellLayer());
+        state.record(layerManager);
         query.flush(state);
         query.dispatchHalt(null);
         query.close();
@@ -120,7 +120,7 @@ public class CorrelationWriterTest extends EslimeTestCase {
         loadCheckerboard();
         query.init();
         StepState state = new StepState(2.0, 1);
-        state.record(layerManager.getCellLayer());
+        state.record(layerManager);
         query.flush(state);
         query.dispatchHalt(null);
         query.close();
@@ -143,7 +143,7 @@ public class CorrelationWriterTest extends EslimeTestCase {
         loadThreeState();
         query.init();
         StepState state = new StepState(2.0, 1);
-        state.record(layerManager.getCellLayer());
+        state.record(layerManager);
         query.flush(state);
         query.dispatchHalt(null);
         query.close();
@@ -165,12 +165,12 @@ public class CorrelationWriterTest extends EslimeTestCase {
         CorrelationWriter query = new CorrelationWriter(p, filename, new ConstantDouble(1.0), layerManager);
         query.init();
         StepState state = new StepState(2.0, 1);
-        state.record(layerManager.getCellLayer());
+        state.record(layerManager);
         query.flush(state);
         query.dispatchHalt(null);
         loadCheckerboard();
         query.init();
-        state.record(layerManager.getCellLayer());
+        state.record(layerManager);
         query.flush(state);
         query.dispatchHalt(null);
         query.close();
