@@ -29,16 +29,19 @@ import org.junit.Before;
 import org.junit.Test;
 import test.LinearMocks;
 
+import java.util.stream.Stream;
+
+import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
 
 public class ContinuumLayerContentTest extends LinearMocks {
 
     private ContinuumLayerContent query;
-
+    private DenseVector vector;
     @Before
     public void init() {
         query = new ContinuumLayerContent(indexer, 3);
-        DenseVector vector = vector(1.0, 2.0, 3.0);
+        vector = vector(1.0, 2.0, 3.0);
         query.setState(vector);
     }
 
@@ -52,5 +55,12 @@ public class ContinuumLayerContentTest extends LinearMocks {
         query.reset();
         DenseVector expected = new DenseVector(3);
         assertVectorsEqual(expected, query.getState(), epsilon);
+    }
+
+    @Test
+    public void getStateStream() {
+        Stream<Double> expected = Stream.of(1.0, 2.0, 3.0);
+        Stream<Double> actual = query.getStateStream();
+        assertStreamsEqual(expected, actual);
     }
 }

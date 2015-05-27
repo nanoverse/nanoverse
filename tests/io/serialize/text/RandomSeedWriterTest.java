@@ -40,7 +40,7 @@ public class RandomSeedWriterTest extends EslimeLatticeTestCase {
         RandomSeedWriter writer = new RandomSeedWriter(p, layerManager);
         writer.init();
         StepState state = new StepState(0.0, 0);
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
         writer.dispatchHalt(null);
         writer.close();

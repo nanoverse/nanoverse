@@ -58,19 +58,19 @@ public class CensusWriterTest extends EslimeLatticeTestCase {
 
         // Flush original configuration
         StepState state = new StepState(0.0, 0);
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
 
         // Create second configuration
         replace(origin, 3);
         state = new StepState(1.0, 1);
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
 
         // Create third configuration
         put(yz, 4);
         state = new StepState(2.0, 2);
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
 
         haltEvent.setGillespie(2.0);
@@ -89,7 +89,7 @@ public class CensusWriterTest extends EslimeLatticeTestCase {
         writer.init();
         StepState state = new StepState(0.0, 0);
         put(origin, 1);
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
         writer.dispatchHalt(haltEvent);
 
@@ -98,7 +98,7 @@ public class CensusWriterTest extends EslimeLatticeTestCase {
         // Create original configuration
         replace(origin, 2);
         state = new StepState(0.0, 0);
-        state.record(cellLayer);
+        state.record(layerManager);
         writer.flush(state);
         writer.dispatchHalt(haltEvent);
         writer.close();

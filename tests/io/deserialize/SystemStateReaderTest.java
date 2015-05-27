@@ -38,6 +38,7 @@ import structural.MockGeneralParameters;
 import test.EslimeLatticeTestCase;
 
 import java.util.Iterator;
+import java.util.stream.Stream;
 
 //import layers.MockSoluteLayer;
 
@@ -128,8 +129,8 @@ public class SystemStateReaderTest extends EslimeLatticeTestCase {
         placeCell(x, 2.0, 5);
         placeCell(y, 1.0, 3);
 
-        Coordinate[] highlights = new Coordinate[]{x};
-
+//        Coordinate[] highlights = new Coordinate[]{x};
+        Stream<Coordinate> highlights = Stream.of(x);
         MockStepState stepState = new MockStepState(1.7, 2);
         stepState.setHighlights(0, highlights);
         /* Initialize output and push first state */
@@ -141,7 +142,8 @@ public class SystemStateReaderTest extends EslimeLatticeTestCase {
 
         /* Set up second state */
         cellLayer.getUpdateManager().banish(x);
-        highlights = new Coordinate[]{y};
+//        highlights = new Coordinate[]{y};
+        highlights = Stream.of(y);
         stepState = new MockStepState(4.8, 6);
         stepState.setHighlights(0, highlights);
 
