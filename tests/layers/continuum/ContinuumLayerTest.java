@@ -28,6 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 import test.LinearMocks;
 
+import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -62,16 +63,14 @@ public class ContinuumLayerTest extends LinearMocks {
         verify(content).reset();
     }
 
+    public void getStateStreamAsksContent() throws Exception {
+        fail();
+    }
     // TODO I can't figure out how to capture a lambda with Mockito.
     @Test
     public void linkerCanQueryContent() throws Exception {
         // This is not really what I'm trying to ask--the real question is commented out here.
         query.getLinker();
         verify(scheduler).getLinker(any());
-//        ArgumentCaptor<Function> captor = ArgumentCaptor.forClass(Function.class);
-//        verify(scheduler).getContinuumLinker((Function<Coordinate, Double>) captor);
-//        captor.getValue().apply(a);
-//        verify(content).get(a);
-//        verify(scheduler).getContinuumLinker(any(Function.class));
     }
 }

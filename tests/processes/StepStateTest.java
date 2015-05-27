@@ -26,100 +26,125 @@ package processes;
 
 import cells.MockCell;
 import control.identifiers.Coordinate;
-import layers.cell.CellLayer;
-import layers.cell.CellUpdateManager;
-import test.EslimeLatticeTestCase;
+import layers.LayerManager;
+import layers.cell.*;
+import layers.continuum.ContinuumLayer;
+import org.junit.*;
+import test.TestBase;
+
+import java.util.*;
+import java.util.stream.*;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by David B Borenstein on 4/20/14.
  */
-public class StepStateTest extends EslimeLatticeTestCase {
+public class StepStateTest extends TestBase {
 
+    private LayerManager lm;
+    private ContinuumLayer continuumLayer;
+    private CellLayer cellLayer;
     private StepState query;
+    private List<Double> continuumValues;
+    private HashMap<String, List<Double>> continuumValueMap;
+    private HashMap<Integer, Set<Coordinate>> highlights;
+    private Coordinate c;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        query = new StepState(1.2, 1);
+    @Before
+    public void before() throws Exception {
+        buildMockLayerManager();
+        continuumValueMap = new HashMap<>();
+        highlights = new HashMap<>();
+        c = mock(Coordinate.class);
+        query = new StepState(5.0, 1, highlights, continuumValueMap);
     }
 
-    public void testHighlight() throws Exception {
-        query.highlight(origin, 1);
+    private void buildMockLayerManager() throws Exception {
+        cellLayer = mock(CellLayer.class);
+        continuumLayer = mock(ContinuumLayer.class);
+        lm = mock(LayerManager.class);
+        when(lm.getCellLayer()).thenReturn(cellLayer);
+        when(lm.getContinuumLayerIds()).thenReturn(Stream.of("test"));
+        when(lm.getContinuumLayer("test")).thenReturn(continuumLayer);
+        continuumValues = DoubleStream.of(3.7, 2)
+                .boxed()
+                .collect(Collectors.toList());
 
-        Coordinate[] expected = new Coordinate[]{origin};
-        Coordinate[] actual = query.getHighlights(1);
-        assertArraysEqual(expected, actual, false);
+        when(continuumLayer.getStateStream())
+                .thenReturn(continuumValues.stream());
     }
 
-    public void testEmptyHighlight() throws Exception {
-        query.highlight(origin, 1);
-
-        Coordinate[] expected = new Coordinate[0];
-        Coordinate[] actual = query.getHighlights(2);
-        assertArraysEqual(expected, actual, false);
+    @Test
+    public void highlightCreatesNewKey() throws Exception {
+        query.highlight(c, 3);
+        assertTrue(highlights.get(3).contains(c));
     }
 
-    public void testDt() throws Exception {
+    @Test
+    public void highlightAddsCoordinate() throws Exception {
+        HashSet<Coordinate> three = new HashSet<>();
+        highlights.put(3, three);
+        query.highlight(c, 3);
+        assertTrue(three.contains(c));
+    }
+
+    @Test
+    public void advanceClockDt() throws Exception {
         assertEquals(0.0, query.getDt(), epsilon);
         query.advanceClock(0.1);
         assertEquals(0.1, query.getDt(), epsilon);
     }
 
-    public void testGetTime() throws Exception {
-        assertEquals(1.2, query.getTime(), epsilon);
+    @Test
+    public void advanceClockTime() throws Exception {
+        assertEquals(5.0, query.getTime(), epsilon);
         query.advanceClock(0.1);
-        assertEquals(1.3, query.getTime(), epsilon);
+        assertEquals(5.1, query.getTime(), epsilon);
     }
 
+    @Test
+    public void getHighlightsAsksMap() throws Exception {
+        HashSet<Coordinate> cc = new HashSet<>();
+        cc.add(c);
+        highlights.put(3, cc);
+        Stream<Coordinate> actual = query.getHighlights(3);
+        assertStreamsEqual(cc.stream(), actual);
+    }
+
+    @Test
+    public void getEmptyHighlightsReturnsEmptyStream() throws Exception {
+        Stream<Coordinate> actual = query.getHighlights(3);
+        assertStreamsEqual(Stream.empty(), actual);
+    }
+
+    @Test
+    public void recordSetsRecordedFlag() throws Exception {
+        assertFalse(query.isRecorded());
+        query.record(lm);
+        assertTrue(query.isRecorded());
+    }
+
+    @Test
+    public void recordCapturesCellLayerClone() throws Exception {
+        CellLayer expected = mock(CellLayer.class);
+        when(cellLayer.clone()).thenReturn(expected);
+        query.record(lm);
+        CellLayer actual = query.getRecordedCellLayer();
+        assertSame(expected, actual);
+    }
+
+    @Test
+    public void recordCapturesContinuumState() throws Exception {
+        query.record(lm);
+        Stream<Double> expected = continuumValues.stream();
+        Stream<Double> actual = query.getRecordedContinuumValues("test");
+        assertStreamsEqual(expected, actual);
+    }
+
+    @Test
     public void testGetFrame() throws Exception {
         assertEquals(1, query.getFrame());
-    }
-
-    public void testRecord() throws Exception {
-        query.record(cellLayer);
-        CellLayer actual = query.getRecordedCellLayer();
-        assertEquals(cellLayer, actual);
-        assertFalse(actual == cellLayer);
-    }
-
-    /**
-     * Integration test verifying that deferral of state works
-     * as expected -- namely, that highlighting is always captured,
-     * but the state reflects whatever it was when record() was called.
-     */
-    public void testDeferral() throws Exception {
-        // Place a cell at origin
-        put(origin, 1);
-
-        // Record state
-        query.record(cellLayer);
-
-        // Perform a highlight at coordinate x
-        query.highlight(x, 1);
-
-        // Remove cell at origin
-        cellLayer.getUpdateManager().banish(origin);
-
-        // CellLayer should not report a cell at origin
-        assertFalse(cellLayer.getViewer().isOccupied(origin));
-
-        // StepState should report a cell at origin and highlight at coordinate x
-        assertTrue(query.getRecordedCellLayer().getViewer().isOccupied(origin));
-
-        Coordinate[] expectedHighlights = new Coordinate[]{x};
-        Coordinate[] actualHighlights = query.getHighlights(1);
-        assertArraysEqual(expectedHighlights, actualHighlights, false);
-    }
-
-    private void put(Coordinate c, int state) throws Exception {
-        MockCell cell = new MockCell(state);
-        CellUpdateManager u = cellLayer.getUpdateManager();
-        u.place(cell, c);
-    }
-
-    public void testIsRecorded() {
-        assertFalse(query.isRecorded());
-        query.record(cellLayer);
-        assertTrue(query.isRecorded());
     }
 }

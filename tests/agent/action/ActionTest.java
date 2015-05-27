@@ -34,21 +34,27 @@ import geometry.MockGeometry;
 import layers.LayerManager;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import processes.StepState;
-import test.EslimeTestCase;
+import test.*;
+
+import java.util.stream.Stream;
+
+import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by David B Borenstein on 1/23/14.
  */
-public class ActionTest extends EslimeTestCase {
+public class ActionTest extends TestBase {
 
     MockLayerManager layerManager;
     Coordinate caller;
     BehaviorCell callback;
     ExposedAction query;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         layerManager = new MockLayerManager();
         callback = new BehaviorCell();
         caller = new Coordinate(0, 0, 0);
@@ -56,31 +62,36 @@ public class ActionTest extends EslimeTestCase {
         query = new ExposedAction(callback, layerManager);
     }
 
-    public void testGetLayerManager() throws Exception {
+    @Test
+    public void getLayerManager() throws Exception {
         LayerManager expected = layerManager;
         LayerManager actual = query.getLayerManager();
         assertEquals(expected, actual);
     }
 
-    public void testGetCallback() throws Exception {
+    @Test
+    public void getCallback() throws Exception {
         Cell expected = callback;
         Cell actual = query.getCallback();
         assertEquals(expected, actual);
         assertTrue(expected == actual);
     }
 
-    public void testRunNullCaller() throws Exception {
+    @Test
+    public void runNullCaller() throws Exception {
         query.run(null);
         assertTrue(query.isRun());
     }
 
-    public void testRunWithCaller() throws Exception {
+    @Test
+    public void runWithCaller() throws Exception {
         query.run(caller);
         assertTrue(query.isRun());
         assertEquals(caller, query.getLastCaller());
     }
 
-    public void testDoHighlight() throws Exception {
+    @Test
+    public void doHighlight() throws Exception {
         Coordinate[] cc = new Coordinate[]{caller};
         MockGeometry geom = new MockGeometry();
         geom.setCanonicalSites(cc);
@@ -89,9 +100,12 @@ public class ActionTest extends EslimeTestCase {
         StepState stepState = new StepState(0.0, 0);
         layerManager.setStepState(stepState);
         query.doHighlight(new ConstantInteger(1), caller);
-        Coordinate[] actual = stepState.getHighlights(1);
-        Coordinate[] expected = new Coordinate[]{caller};
-        assertArraysEqual(expected, actual, true);
+//        Coordinate[] actual = stepState.getHighlights(1);
+        Stream<Coordinate> actual = stepState.getHighlights(1);
+        Stream<Coordinate> expected = Stream.of(caller);
+        assertStreamsEqual(expected, actual);
+//        Coordinate[] expected = new Coordinate[]{caller};
+//        assertArraysEqual(expected, actual, true);
     }
 
     private class ExposedAction extends Action {

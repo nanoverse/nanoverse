@@ -29,6 +29,7 @@ import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
 
 import java.util.function.Function;
+import java.util.stream.*;
 
 /**
  * Created by dbborens on 12/26/14.
@@ -53,6 +54,12 @@ public class ContinuumLayerContent {
 
     public Vector getState() {
         return state;
+    }
+
+    public Stream<Double> getStateStream() {
+        return IntStream.range(0, state.size())
+                .mapToDouble(i -> state.get(i))
+                .boxed();
     }
 
     public void setState(Vector state) {

@@ -24,6 +24,7 @@
 
 package test;
 
+import com.google.common.collect.Sets;
 import control.GeneralParameters;
 import control.arguments.Argument;
 import control.arguments.ConstantInteger;
@@ -53,10 +54,8 @@ import structural.MockGeneralParameters;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.*;
 
 public abstract class EslimeTestCase extends TestCase {
 
@@ -83,6 +82,19 @@ public abstract class EslimeTestCase extends TestCase {
         for (int i = 0; i < expected.length; i++) {
             assertEquals(expected[i], actual[i]);
         }
+    }
+
+    protected static <T> void assertSetsEqual(Set<T> expected, Set<T> actual) {
+        Set<T> difference = Sets.symmetricDifference(expected, actual);
+        String differenceString = difference.stream().map(Object::toString).collect(Collectors.joining(", "));
+        String errorString = "Unexpected difference between sets: " + differenceString;
+        assertEquals(errorString, 0, difference.size());
+    }
+
+    protected static <T> void assertStreamsEqual(Stream<T> expected, Stream<T> actual) {
+        List<T> expList = expected.collect(Collectors.toList());
+        List<T> actList = actual.collect(Collectors.toList());
+        assertEquals(expList, actList);
     }
 
     protected void assertArraysEqual(double[] expected, double[] actual, boolean sort) {
@@ -201,6 +213,7 @@ public abstract class EslimeTestCase extends TestCase {
         File fixtureFile = new File(fixture);
         File outputFile = new File(output);
 
+        System.err.println("WARNING: This method does not work on Windows computers.");
         assertTrue(FileUtils.contentEquals(fixtureFile, outputFile));
     }
 
@@ -210,6 +223,7 @@ public abstract class EslimeTestCase extends TestCase {
 
         File fixtureFile = new File(fixture);
         File outputFile = new File(output);
+        System.err.println("WARNING: This method does not work on Windows computers.");
         assertTrue(FileUtils.contentEquals(fixtureFile, outputFile));
     }
 

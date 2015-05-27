@@ -42,6 +42,7 @@ import test.EslimeTestCase;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 2/11/14.
@@ -157,17 +158,19 @@ public class TriggerTest extends EslimeTestCase {
         query = new Trigger(causeCell, layerManager, effectName, targetRule, selfChannel, targetChannel);
         query.run(null);
 
-        Coordinate[] expected, actual;
+        Stream<Coordinate> expected, actual;
 
         // Check target highlights
-        expected = new Coordinate[]{q};
+//        expected = new Coordinate[]{q};
+        expected = Stream.of(q);
         actual = stepState.getHighlights(2);
-        assertArraysEqual(expected, actual, true);
+        assertStreamsEqual(expected, actual);
 
         // Check cause highlights
-        expected = new Coordinate[]{o};
+//        expected = new Coordinate[]{o};
+        expected = Stream.of(o);
         actual = stepState.getHighlights(4);
-        assertArraysEqual(expected, actual, true);
+        assertStreamsEqual(expected, actual);
     }
 
     /**
