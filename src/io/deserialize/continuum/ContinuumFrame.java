@@ -24,25 +24,33 @@
 
 package io.deserialize.continuum;
 
-import org.junit.*;
+import java.util.List;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+/**
+ * Created by dbborens on 5/29/2015.
+ */
+public class ContinuumFrame {
 
-public class ContinuumValueIteratorTest {
+    private final List<Double> value;
+    private final int frame;
+    private final double time;
 
-    @Before
-    public void before() throws Exception {
-
+    public ContinuumFrame(List<Double> value, int frame, double time) {
+        this.value = value;
+        this.frame = frame;
+        this.time = time;
     }
 
-    @Test
-    public void hasNext() throws Exception {
-        fail();
+    public Stream<Double> getValue() {
+        return value.stream();
     }
 
-    @Test
-    public void next() throws Exception {
-        fail();
+    public int getFrameNumber() {
+        return frame;
+    }
+
+    public double getTime() {
+        return time;
     }
 }
