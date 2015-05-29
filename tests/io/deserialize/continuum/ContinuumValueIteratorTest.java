@@ -22,26 +22,27 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package io.serialize.binary.csw;
+package io.deserialize.continuum;
 
-import java.io.*;
+import org.junit.*;
 
-/**
- * Created by dbborens on 5/26/2015.
- */
-public class CSWParityHelper {
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-    public void writeStartParitySequence(DataOutputStream stream) throws IOException {
-        writeParitySequence(true, stream);
+public class ContinuumValueIteratorTest {
+
+    @Before
+    public void before() throws Exception {
+
     }
 
-    public void writeEndParitySequence(DataOutputStream stream) throws IOException {
-        writeParitySequence(false, stream);
+    @Test
+    public void hasNext() throws Exception {
+        fail();
     }
 
-    private void writeParitySequence(boolean start, DataOutputStream stream) throws IOException {
-        for (int i = 0; i < 8; i++) {
-            stream.writeBoolean(start);
-        }
+    @Test
+    public void next() throws Exception {
+        fail();
     }
 }

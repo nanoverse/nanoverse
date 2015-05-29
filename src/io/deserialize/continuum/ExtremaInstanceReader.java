@@ -22,64 +22,31 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package io.deserialize;
+package io.deserialize.continuum;
 
-import control.identifiers.Extrema;
-import control.identifiers.TemporalCoordinate;
+import control.identifiers.*;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 
 /**
- * Reads an extrema file, which is a format used
- * by several writer classes.
+ * Created by dbborens on 5/27/2015.
  */
-@Deprecated
-public class ExtremaReader {
-
-
-    HashMap<String, Extrema> data;
-
-    public ExtremaReader(File input) {
-        data = new HashMap<String, Extrema>();
-        // Read the metadata file to get the extrema
-        try {
-            extractMetadata(input);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public Extrema get(String key) {
-        return data.get(key);
-    }
-
-    private void extractMetadata(File metadataFile) throws IOException {
+public abstract class ExtremaInstanceReader {
+    public static Extrema get(File metadataFile) throws IOException {
         FileReader mfr = new FileReader(metadataFile);
         BufferedReader mbr = new BufferedReader(mfr);
-        String next = mbr.readLine();
+        String next = mbr.readLine().trim();
 
+        String[] mapping = next.split(">");
+        String value = mapping[1];
 
-        while (next != null) {
-            next = next.trim();
-
-            // So inelegant...
-            String[] mapping = next.split(">");
-            String key = mapping[0];
-            String value = mapping[1];
-
-            Extrema extrema = loadExtrema(value);
-            data.put(key, extrema);
-            next = mbr.readLine();
-        }
+        Extrema extrema = loadExtrema(value);
+        return extrema;
     }
 
-    private Extrema loadExtrema(String tokenize) {
+    private static Extrema loadExtrema(String tokenize) {
         String[] minMax = tokenize.split(":");
         String[] minArg = minMax[0].split("@");
         String[] maxArg = minMax[1].split("@");
@@ -99,7 +66,7 @@ public class ExtremaReader {
         return ret;
     }
 
-    private TemporalCoordinate parseTemporalCoordinate(String token) {
+    private static TemporalCoordinate parseTemporalCoordinate(String token) {
         String pStr = ("\\((\\d+), (\\d+)(, (\\d+))? \\| (\\d+) \\| (\\d+\\.\\d+)\\)");
         TemporalCoordinate c;
         Pattern pattern = Pattern.compile(pStr);
@@ -122,4 +89,5 @@ public class ExtremaReader {
 
         return c;
     }
+
 }

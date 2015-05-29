@@ -35,6 +35,7 @@ public abstract class FileConventions {
     public final static String CONTINUUM_STATE_PREFIX = "solute";
     public final static String CONTINUUM_STATE_SUFFIX = ".state.bin";
     public final static String CONTINUUM_METADATA_SUFFIX = ".metadata.txt";
+    public final static String CONTINUUM_OVERVIEW_FILENAME = "solute.overview.txt";
 
     public final static String HIGHLIGHT_PREFIX = "channel";
     public final static String HIGHLIGHT_SUFFIX = ".highlight.bin";
