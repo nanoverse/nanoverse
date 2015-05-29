@@ -47,6 +47,7 @@ public abstract class FileConventions {
     public static String makeContinuumStateFilename(String soluteId) {
         StringBuilder sb = new StringBuilder();
         sb.append(CONTINUUM_STATE_PREFIX);
+        sb.append('.');
         sb.append(soluteId);
         sb.append(CONTINUUM_STATE_SUFFIX);
         return sb.toString();
@@ -63,6 +64,7 @@ public abstract class FileConventions {
     public static String makeContinuumMetadataFilename(String soluteId) {
         StringBuilder sb = new StringBuilder();
         sb.append(CONTINUUM_STATE_PREFIX);
+        sb.append('.');
         sb.append(soluteId);
         sb.append(CONTINUUM_METADATA_SUFFIX);
         return sb.toString();
