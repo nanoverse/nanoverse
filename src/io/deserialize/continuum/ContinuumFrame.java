@@ -22,26 +22,35 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package io.serialize.binary.csw;
+package io.deserialize.continuum;
 
-import java.io.*;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
- * Created by dbborens on 5/26/2015.
+ * Created by dbborens on 5/29/2015.
  */
-public class CSWParityHelper {
+public class ContinuumFrame {
 
-    public void writeStartParitySequence(DataOutputStream stream) throws IOException {
-        writeParitySequence(true, stream);
+    private final List<Double> value;
+    private final int frame;
+    private final double time;
+
+    public ContinuumFrame(List<Double> value, int frame, double time) {
+        this.value = value;
+        this.frame = frame;
+        this.time = time;
     }
 
-    public void writeEndParitySequence(DataOutputStream stream) throws IOException {
-        writeParitySequence(false, stream);
+    public Stream<Double> getValue() {
+        return value.stream();
     }
 
-    private void writeParitySequence(boolean start, DataOutputStream stream) throws IOException {
-        for (int i = 0; i < 8; i++) {
-            stream.writeBoolean(start);
-        }
+    public int getFrameNumber() {
+        return frame;
+    }
+
+    public double getTime() {
+        return time;
     }
 }

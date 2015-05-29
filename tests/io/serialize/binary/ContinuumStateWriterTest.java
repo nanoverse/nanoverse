@@ -36,7 +36,6 @@ public class ContinuumStateWriterTest {
     private CSWFileHelper fileHelper;
     private StepState stepState;
     private ContinuumStateWriter query;
-
     @Before
     public void before() throws Exception {
         extremaHelper = mock(CSWExtremaHelper.class);

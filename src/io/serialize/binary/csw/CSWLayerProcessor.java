@@ -24,6 +24,8 @@
 
 package io.serialize.binary.csw;
 
+import structural.utilities.ParityIO;
+
 import java.io.*;
 import java.util.*;
 import java.util.stream.*;
@@ -33,15 +35,15 @@ import java.util.stream.*;
  */
 public class CSWLayerProcessor {
 
-    private final CSWParityHelper parityHelper;
+    private final ParityIO parityHelper;
     private final HashMap<String, DataOutputStream> streamMap;
 
     public CSWLayerProcessor(HashMap<String, DataOutputStream> streamMap) {
         this.streamMap = streamMap;
-        parityHelper = new CSWParityHelper();
+        parityHelper = new ParityIO();
     }
 
-    public CSWLayerProcessor(HashMap<String, DataOutputStream> streamMap, CSWParityHelper parityHelper) {
+    public CSWLayerProcessor(HashMap<String, DataOutputStream> streamMap, ParityIO parityHelper) {
         this.parityHelper = parityHelper;
         this.streamMap = streamMap;
     }
@@ -50,7 +52,7 @@ public class CSWLayerProcessor {
         DataOutputStream dataStream = streamMap.get(id);
         try {
             // Write opening parity sequence
-            parityHelper.writeStartParitySequence(dataStream);
+            parityHelper.writeStart(dataStream);
 
             // Write entry header
             dataStream.writeDouble(time);
@@ -60,7 +62,7 @@ public class CSWLayerProcessor {
             CSWDataProcessor.processData(dataStream, stateStream);
 
             // Write closing parity sequence
-            parityHelper.writeEndParitySequence(dataStream);
+            parityHelper.writeEnd(dataStream);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -68,4 +70,14 @@ public class CSWLayerProcessor {
     }
 
 
+    public void conclude() {
+        try {
+            for (DataOutputStream stream : streamMap.values()) {
+                parityHelper.writeEOF(stream);
+                stream.flush();
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 }

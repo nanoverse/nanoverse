@@ -22,22 +22,26 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package io.serialize.binary.csw;
-
+package io.deserialize.continuum;
 
 import java.io.*;
-import java.util.List;
-import java.util.stream.*;
+import java.nio.file.Files;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 5/27/2015.
  */
-public abstract class CSWDataProcessor {
-    public static void processData(DataOutputStream dataStream, Stream<Double> stateStream) throws IOException {
-        List<Double> data = stateStream.collect(Collectors.toList());
-        dataStream.writeInt(data.size());
-        for (Double datum : data) {
-            dataStream.writeDouble(datum);
+public abstract class OverviewInstanceReader {
+
+    public static Stream<String> getIdStream(File file)  {
+        Stream<String> ret;
+
+        try {
+            ret = Files.lines(file.toPath()).map(String::trim);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
+
+        return ret;
     }
 }
