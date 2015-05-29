@@ -31,9 +31,10 @@ import java.io.*;
  */
 public class ParityIO {
 
-    private final short end   = 0b00000000;
-    private final short start = 0b11111111;
-    private final short eof   = 0b10101010;
+//    private final short end   = 0b00000000;
+    private final short end     = 0b01010101;
+    private final short start   = 0b11001100;
+    private final short eof     = 0b10101010;
 
     public void writeStart(DataOutputStream stream) throws IOException {
         stream.writeShort(start);
@@ -62,6 +63,12 @@ public class ParityIO {
             return true;
         } else if (sequence == eof) {
             return false;
+        } else if (sequence == end) {
+            System.out.println(sequence);
+            while(true) {
+                System.out.println(stream.readShort());
+            }
+
         }
 
         throw new IOException("Start sequence parity error");

@@ -25,7 +25,7 @@
 package io.deserialize.continuum;
 
 import control.identifiers.Extrema;
-import structural.utilities.FileConventions;
+import structural.utilities.*;
 
 import java.io.*;
 import java.util.*;
@@ -36,7 +36,7 @@ import java.util.stream.*;
  */
 public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
 
-    private final HashMap<String, ContinuumValueIterator> iteratorMap;
+    private final HashMap<String, ContinuumFrameIterator> iteratorMap;
     private final HashMap<String, Extrema> extremaMap;
     private final int numSites;
     private boolean hasNext;
@@ -52,7 +52,7 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
             Extrema extrema = readExtrema(filePath, id);
             extremaMap.put(id, extrema);
 
-            ContinuumValueIterator iterator = createIterator(filePath, id);
+            ContinuumFrameIterator iterator = createIterator(filePath, id);
             iteratorMap.put(id, iterator);
         });
 
@@ -67,7 +67,7 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
         int numTrue = (int) iteratorMap
                 .values()
                 .stream()
-                .filter(ContinuumValueIterator::hasNext)
+                .filter(ContinuumFrameIterator::hasNext)
                 .count();
 
         if (numTrue > 0 && numTrue != iteratorMap.size()) {
@@ -79,14 +79,14 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
     }
 
     // Create a ContinuumValueIterator for each ID
-    private ContinuumValueIterator createIterator(String filePath, String id) {
+    private ContinuumFrameIterator createIterator(String filePath, String id) {
         try {
             String fileName = filePath + "/" + FileConventions.makeContinuumStateFilename(id);
             File file = new File(fileName);
             FileInputStream fis = new FileInputStream(file);
             BufferedInputStream bis = new BufferedInputStream(fis);
             DataInputStream dis = new DataInputStream(bis);
-            ContinuumValueIterator iterator = new ContinuumValueIterator(dis, numSites);
+            ContinuumFrameIterator iterator = new ContinuumFrameIterator(dis, numSites);
             return iterator;
         } catch (IOException ex) {
             throw new RuntimeException(ex);
@@ -123,24 +123,55 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
     public ContinuumLayerViewer next() {
         // Capture next viewer for each layer
         Map<String, List<Double>> valueMap = new HashMap<>(iteratorMap.size());
-        iteratorMap
-                .entrySet()
-                .stream()
-                .map(entry ->
-                        new AbstractMap.SimpleEntry<>(
-                                entry.getKey(), entry
-                                .getValue()
-                                .next()
-                                .collect(Collectors.toList())
-                        ))
-                // There's got to be a way to do this with a collector.
-                // Have a look at the Java 8 lambdas book.
-                .forEach(entry ->
-                        valueMap.put(entry.getKey(), entry.getValue()));
+        List<Integer> frameNumberList = new ArrayList<>(iteratorMap.size());
+        List<Double> timeList = new ArrayList<>(iteratorMap.size());
+        iteratorMap.keySet().forEach(id -> {
+            ContinuumFrameIterator iterator = iteratorMap.get(id);
+            ContinuumFrame frame = iterator.next();
+            frameNumberList.add(frame.getFrameNumber());
+            timeList.add(frame.getTime());
 
+            List<Double> values =  frame
+                    .getValue()
+                    .collect(Collectors.toList());
+            valueMap.put(id, values);
+        });
+
+        double time = verifyTimeIntegrity(timeList);
+        int frameNumber = verifyFrameNumberIntegrity(frameNumberList);
         updateNext();
 
-        ContinuumLayerViewer clv = new ContinuumLayerViewer(valueMap);
+        ContinuumLayerViewer clv = new ContinuumLayerViewer(valueMap, time, frameNumber);
         return clv;
+    }
+
+    private double verifyTimeIntegrity(List<Double> timeList) {
+        double time = timeList.get(0);
+        int numTimesOK = (int) timeList
+                .stream()
+                .filter(value -> EpsilonUtil.epsilonEquals(time, value))
+                        .count();
+        if (numTimesOK != timeList.size()) {
+            throw new IllegalStateException("Consistency error: uneven " +
+                    "time spacing in continuum state files");
+        }
+        return time;
+    }
+
+    private int verifyFrameNumberIntegrity(List<Integer> frameNumberList) {
+        int frameNum = frameNumberList.get(0);
+        int numFramesOK = (int) frameNumberList
+                .stream()
+                .filter(value -> value == frameNum)
+                .count();
+        if (numFramesOK != frameNumberList.size()) {
+            throw new IllegalStateException("Consistency error: uneven " +
+                    "frame spacing in continuum state files");
+        }
+        return frameNum;
+    }
+
+    public Extrema getExtrema(String id) {
+        return extremaMap.get(id);
     }
 }

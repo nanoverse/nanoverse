@@ -34,14 +34,14 @@ import java.util.stream.Stream;
 /**
  * Created by dbborens on 5/27/2015.
  */
-public class ContinuumValueIterator implements Iterator<Stream<Double>> {
+public class ContinuumFrameIterator implements Iterator<ContinuumFrame> {
 
     private final DataInputStream stream;
     private final int numSites;
     private final ParityIO parityIO;
     private boolean hasNext;
 
-    public ContinuumValueIterator(DataInputStream stream, int numSites) {
+    public ContinuumFrameIterator(DataInputStream stream, int numSites) {
         try {
             this.stream = stream;
             this.numSites = numSites;
@@ -58,14 +58,21 @@ public class ContinuumValueIterator implements Iterator<Stream<Double>> {
     }
 
     @Override
-    public Stream<Double> next() {
+    public ContinuumFrame next() {
         if (!hasNext) {
             throw new IllegalStateException("Attempted to read past end of file in continuum state iterator");
         }
 
         try {
             List<Double> values = new ArrayList<>(numSites);
-
+            double time = stream.readDouble();
+            int frame = stream.readInt();
+            int reportedNumSites = stream.readInt();
+            if (reportedNumSites != numSites) {
+                throw new IllegalStateException("Consistency error: " +
+                        "unexpected coordinate number of sites in continuum " +
+                        "state file");
+            }
             for (int i = 0; i < numSites; i++) {
                 values.add(stream.readDouble());
             }
@@ -78,7 +85,7 @@ public class ContinuumValueIterator implements Iterator<Stream<Double>> {
                 stream.close();
             }
 
-            return values.stream();
+            return new ContinuumFrame(values, frame, time);
 
         } catch (IOException ex) {
             throw new RuntimeException(ex);

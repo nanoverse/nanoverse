@@ -44,12 +44,8 @@ public class ContinuumStateWriter extends Serializer {
 
     private CSWExtremaHelper extremaHelper;
     private CSWFileHelper fileHelper;
-
     public ContinuumStateWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
-
-        CSWOverviewWriter.writeOverview(p.getInstancePath(),
-                lm.getContinuumLayerIds());
     }
 
     @Override
@@ -62,6 +58,9 @@ public class ContinuumStateWriter extends Serializer {
                 lm.getContinuumLayerIds());
 
         fileHelper = new CSWFileHelper(p,
+                lm.getContinuumLayerIds());
+
+        CSWOverviewWriter.writeOverview(p.getInstancePath(),
                 lm.getContinuumLayerIds());
     }
 

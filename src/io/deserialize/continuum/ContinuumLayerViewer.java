@@ -33,12 +33,24 @@ import java.util.stream.Stream;
 public class ContinuumLayerViewer {
 
     private final Map<String, List<Double>> valueMap;
+    private final double time;
+    private final int frameNumber;
 
-    public ContinuumLayerViewer(Map<String, List<Double>> valueMap) {
+    public ContinuumLayerViewer(Map<String, List<Double>> valueMap, double time, int frameNumber) {
         this.valueMap = valueMap;
+        this.time = time;
+        this.frameNumber = frameNumber;
     }
 
     public Stream<Double> getValues(String id) {
         return valueMap.get(id).stream();
+    }
+
+    public double getTime() {
+        return time;
+    }
+
+    public int getFrameNumber() {
+        return frameNumber;
     }
 }

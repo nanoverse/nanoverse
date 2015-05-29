@@ -70,4 +70,14 @@ public class CSWLayerProcessor {
     }
 
 
+    public void conclude() {
+        try {
+            for (DataOutputStream stream : streamMap.values()) {
+                parityHelper.writeEOF(stream);
+                stream.flush();
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 }

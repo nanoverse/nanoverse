@@ -25,8 +25,9 @@
 package io.deserialize;
 
 import control.GeneralParameters;
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.Geometry;
+import io.deserialize.continuum.*;
 import io.serialize.binary.ContinuumStateWriter;
 import layers.LayerManager;
 import layers.cell.CellLayer;
@@ -35,16 +36,17 @@ import org.junit.*;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import processes.StepState;
+import test.TestBase;
 
 import java.util.stream.*;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
  * Created by dbborens on 5/28/2015.
  */
-public class ContinuumStateLifeCycleTest {
+public class ContinuumStateLifeCycleTest extends TestBase {
 
     private static final int RANGE = 10;
 
@@ -52,11 +54,44 @@ public class ContinuumStateLifeCycleTest {
     public void testContinuumIOLifeCycle() throws Exception {
         doOutputStage();
         doInputAndVerificationStage();
-        fail("Got to here");
     }
 
     private void doInputAndVerificationStage() {
+        ContinuumStateReader reader = new ContinuumStateReader("./output/", RANGE);
+        assertTrue(reader.hasNext());
 
+
+        // Frame 1
+        ContinuumLayerViewer clv = reader.next();
+        assertEquals(1.0, clv.getTime(), epsilon);
+        assertEquals(1, clv.getFrameNumber());
+        verifyLayer(clv.getValues("test1"), 1.0);
+        verifyLayer(clv.getValues("test2"), -1.0);
+
+        // Frame 2
+        assertTrue(reader.hasNext());
+        clv = reader.next();
+        assertEquals(4.0, clv.getTime(), epsilon);
+        assertEquals(2, clv.getFrameNumber());
+        verifyLayer(clv.getValues("test1"), 2.0);
+        verifyLayer(clv.getValues("test2"), -2.0);
+
+        assertFalse(reader.hasNext());
+
+        verifyExtrema(reader.getExtrema("test1"), 1.0);
+        verifyExtrema(reader.getExtrema("test2"), -1.0);
+    }
+
+    private void verifyExtrema(Extrema actual, double coefficient) {
+        Extrema expected = new Extrema();
+        expected.consider(0.0, new Coordinate(0, 0, 0), 1.0);
+        expected.consider(coefficient * 18.0, new Coordinate(9, 0, 0), 2.0);
+        assertEquals(expected, actual);
+    }
+
+    private void verifyLayer(Stream<Double> actual, double coefficient) {
+        Stream<Double> expected = makeValue(coefficient);
+        assertStreamsEqual(expected, actual);
     }
 
     private void doOutputStage() throws Exception {
