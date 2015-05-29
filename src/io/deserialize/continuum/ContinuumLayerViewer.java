@@ -22,22 +22,35 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package io.serialize.binary.csw;
+package io.deserialize.continuum;
 
-
-import java.io.*;
-import java.util.List;
-import java.util.stream.*;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 5/27/2015.
  */
-public abstract class CSWDataProcessor {
-    public static void processData(DataOutputStream dataStream, Stream<Double> stateStream) throws IOException {
-        List<Double> data = stateStream.collect(Collectors.toList());
-        dataStream.writeInt(data.size());
-        for (Double datum : data) {
-            dataStream.writeDouble(datum);
-        }
+public class ContinuumLayerViewer {
+
+    private final Map<String, List<Double>> valueMap;
+    private final double time;
+    private final int frameNumber;
+
+    public ContinuumLayerViewer(Map<String, List<Double>> valueMap, double time, int frameNumber) {
+        this.valueMap = valueMap;
+        this.time = time;
+        this.frameNumber = frameNumber;
+    }
+
+    public Stream<Double> getValues(String id) {
+        return valueMap.get(id).stream();
+    }
+
+    public double getTime() {
+        return time;
+    }
+
+    public int getFrameNumber() {
+        return frameNumber;
     }
 }

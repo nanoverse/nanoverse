@@ -28,7 +28,7 @@ import control.identifiers.*;
 
 import java.util.HashMap;
 import java.util.function.Function;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 /**
  * Created by dbborens on 5/26/2015.
@@ -44,7 +44,7 @@ public class CSWConsiderHelper {
 
     public void consider(String id, int frame, Stream<Double> values) {
         int index = 0;
-        for(Double value : (Iterable<Double>) values) {
+        for(Double value : values.collect(Collectors.toList())) {
             Extrema extrema = extremaMap.get(id);
             Coordinate c = deindexer.apply(index);
             extrema.consider(value, c, frame);

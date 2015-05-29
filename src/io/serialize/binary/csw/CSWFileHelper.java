@@ -24,9 +24,7 @@
 
 package io.serialize.binary.csw;
 
-import com.sun.xml.internal.stream.buffer.XMLStreamBufferMark;
 import control.GeneralParameters;
-import io.serialize.text.ExtremaHelper;
 import processes.StepState;
 import structural.utilities.FileConventions;
 
@@ -81,6 +79,8 @@ public class CSWFileHelper {
 
 
     public void close() {
+        layerProcessor.conclude();
+        System.out.println("got to here");
         streamMap.keySet().forEach(id -> {
             DataOutputStream stream = streamMap.get(id);
             try {
@@ -90,7 +90,4 @@ public class CSWFileHelper {
             }
         });
     }
-
-
-
 }

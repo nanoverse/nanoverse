@@ -25,6 +25,8 @@
 package control.identifiers;
 
 
+import structural.utilities.EpsilonUtil;
+
 public class Extrema {
 
     // Minimum
@@ -127,11 +129,11 @@ public class Extrema {
 
         Extrema other = (Extrema) obj;
 
-        if (other.min != this.min) {
+        if (!EpsilonUtil.epsilonEquals(other.min, this.min)) {
             return false;
         }
 
-        if (other.max != this.max) {
+        if (!EpsilonUtil.epsilonEquals(other.max, this.max)) {
             return false;
         }
 

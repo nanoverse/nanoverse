@@ -30,13 +30,13 @@ import java.util.Iterator;
 /**
  * Created by dbborens on 12/11/13.
  */
-public class ContinuumStateReader implements Iterator<double[]> {
+public class LegacyContinuumStateReader implements Iterator<double[]> {
 
     private DataInputStream input;
 
     private double[] current;
 
-    public ContinuumStateReader(File file) {
+    public LegacyContinuumStateReader(File file) {
         // Open the file.
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
