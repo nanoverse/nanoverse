@@ -47,6 +47,9 @@ public class ContinuumStateWriter extends Serializer {
 
     public ContinuumStateWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
+
+        CSWOverviewWriter.writeOverview(p.getInstancePath(),
+                lm.getContinuumLayerIds());
     }
 
     @Override
