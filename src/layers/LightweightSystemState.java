@@ -27,13 +27,12 @@ package layers;
 import cells.BehaviorCell;
 import cells.Cell;
 import control.halt.HaltCondition;
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.Geometry;
+import io.deserialize.continuum.ContinuumLayerViewer;
 import layers.cell.CellLayer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dbborens on 3/26/14.
@@ -43,9 +42,14 @@ public class LightweightSystemState extends SystemState {
     private double time;
     private int frame;
     private Map<Integer, Set<Coordinate>> highlights;
-
-    private LayerManager layerManager;
     private Geometry geometry;
+
+    // Continuum values
+    private Map<String, Extrema> extremaMap;
+    private ContinuumLayerViewer continuumViewer;
+
+    // Legacy logic for handling agent locations
+    private LayerManager layerManager;
 
     public LightweightSystemState(Geometry geometry) {
         layerManager = new LayerManager();
@@ -61,6 +65,17 @@ public class LightweightSystemState extends SystemState {
     @Override
     public LayerManager getLayerManager() {
         return layerManager;
+    }
+
+    @Override
+    public Extrema getContinuumExtrema(String id) {
+        return extremaMap.get(id);
+    }
+
+    @Override
+    public double getContinuumValue(String id, Coordinate c) {
+        int index = geometry.getIndexer().apply(c);
+        return continuumViewer.getValue(id, index);
     }
 
     @Override
@@ -131,6 +146,14 @@ public class LightweightSystemState extends SystemState {
             message.append(hc.toString());
             throw new IllegalStateException(message.toString(), hc);
         }
+    }
+
+    public void setContinuumLayerViewer(ContinuumLayerViewer continuumViewer) {
+        this.continuumViewer = continuumViewer;
+    }
+
+    public void setExtremaMap(Map<String, Extrema> extremaMap) {
+        this.extremaMap = extremaMap;
     }
 
 //    public void initSoluteLayer(String id, double[] soluteVector) {

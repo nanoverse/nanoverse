@@ -24,11 +24,13 @@
 
 package layers;
 
-import control.identifiers.Coordinate;
+import control.identifiers.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 4/2/14.
  */
+@Deprecated
 public class MockSystemState extends SystemState {
 
     private boolean highlighted;
@@ -39,6 +41,16 @@ public class MockSystemState extends SystemState {
 
     public LayerManager getLayerManager() {
         return layerManager;
+    }
+
+    @Override
+    public Extrema getContinuumExtrema(String id) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public double getContinuumValue(String id, Coordinate c) {
+        throw new NotImplementedException();
     }
 
     public void setLayerManager(LayerManager layerManager) {

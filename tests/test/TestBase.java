@@ -42,6 +42,7 @@ import static org.junit.Assert.fail;
 public abstract class TestBase {
 
     protected double epsilon;
+    protected float floatEpsilon;
 
     protected static void assertVectorsEqual(Vector expected, Vector actual, double tolerance) {
         assertEquals(expected.size(), actual.size());
@@ -79,6 +80,7 @@ public abstract class TestBase {
     @Before
     public void calcEpsilon() {
         epsilon = EpsilonUtil.epsilon();
+        floatEpsilon = EpsilonUtil.floatEpsilon();
     }
 
     protected static <T> void assertSetsEqual(Set<T> expected, Set<T> actual) {
