@@ -123,9 +123,9 @@ public class LegacyCellStateReader {
     private ConditionViewer readConditions() throws IOException {
         int fCurrent;
 
-        VectorViewer f = null;        // Health
+//        VectorViewer f = null;        // Health
 
-        Extrema ef = getHealthExtremes();
+//        Extrema ef = getHealthExtremes();
         int[] states = new int[deindexer.getNumSites()];
         HashSet<Coordinate> highlights = new HashSet<Coordinate>();
         while (prevLine != null) {
@@ -139,7 +139,7 @@ public class LegacyCellStateReader {
                 break;
 
             if (tokens[0].equals("health")) {
-                f = readVector(ef);
+                readVector();
             } else if (tokens[0].equals("state")) {
                 states = readStates();
             } else if (tokens[0].equals("highlight"))
@@ -148,16 +148,17 @@ public class LegacyCellStateReader {
                 throw new IOException("Unrecognized field " + tokens[0]);
             }
         }
+        return new ConditionViewer(states, highlights, frame, gillespie, deindexer);
 
-        return new ConditionViewer(f, states, highlights, frame, gillespie, deindexer);
+//        return new ConditionViewer(f, states, highlights, frame, gillespie, deindexer);
     }
 
-    private Extrema getHealthExtremes() {
-        File metadataFile = new File(path + '/' + METADATA_FILENAME);
-        ExtremaReader reader = new ExtremaReader(metadataFile);
-        Extrema ret = reader.get("health");
-        return ret;
-    }
+//    private Extrema getHealthExtremes() {
+//        File metadataFile = new File(path + '/' + METADATA_FILENAME);
+//        ExtremaReader reader = new ExtremaReader(metadataFile);
+//        Extrema ret = reader.get("health");
+//        return ret;
+//    }
 
     private void readHighlights(HashSet<Coordinate> highlights) throws IOException {
 
@@ -186,8 +187,8 @@ public class LegacyCellStateReader {
     }
 
 
-    private VectorViewer readVector(Extrema ex) throws IOException {
-        Vector v = new DenseVector(deindexer.getNumSites());
+    private void readVector() throws IOException {
+//    private VectorViewer readVector() throws IOException {
         prevLine = br.readLine();
 
         // Line counter. Should reach p.H().
@@ -195,18 +196,18 @@ public class LegacyCellStateReader {
 
         // Iterate until we hit the end of the file or the start of a new data field
         while (prevLine != null && !(prevLine.startsWith(">"))) {
-            String[] tokens = prevLine.trim().split("\t");
+//            String[] tokens = prevLine.trim().split("\t");
 
-            // TODO: Replace this logic with something that goes until it gets an EOL character.
-            for (int j = 0; j < tokens.length; j++) {
-                double x = Double.valueOf(tokens[j]);
-                v.set(i, x);
-                i++;
-            }
+//            // TODO: Replace this logic with something that goes until it gets an EOL character.
+//            for (int j = 0; j < tokens.length; j++) {
+//                double x = Double.valueOf(tokens[j]);
+//                v.set(i, x);
+//                i++;
+//            }
             prevLine = br.readLine();
         }
 
-        return new VectorViewer(v, ex.min(), ex.max());
+//        return new VectorViewer(v, ex.min(), ex.max());
     }
 
     /**
@@ -237,8 +238,8 @@ public class LegacyCellStateReader {
 
     public void populate(LightweightSystemState state) {
         ConditionViewer viewer = next();
-        double[] healthVector = viewer.getHealthVector();
+//        double[] healthVector = viewer.getHealthVector();
         int[] stateVector = viewer.getStateVector();
-        state.initCellLayer(stateVector, healthVector);
+        state.initCellLayer(stateVector);
     }
 }

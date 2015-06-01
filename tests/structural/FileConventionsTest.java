@@ -33,14 +33,14 @@ import structural.utilities.FileConventions;
 public class FileConventionsTest extends TestCase {
     public void testMakeContinuumStateFilename() throws Exception {
         String soluteId = "Test";
-        String expected = "solute.Test.state.bin";
+        String expected = "Test.state.bin";
         String actual = FileConventions.makeContinuumStateFilename(soluteId);
         assertEquals(expected, actual);
     }
 
     public void testGetMetadataFilename() throws Exception {
         String soluteId = "Test";
-        String expected = "solute.Test.metadata.txt";
+        String expected = "Test.extrema.bin";
         String actual = FileConventions.makeContinuumMetadataFilename(soluteId);
         assertEquals(expected, actual);
     }

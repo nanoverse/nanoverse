@@ -67,14 +67,12 @@ public class MapVisualizationTest extends GlyphTest {
     @Override
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
         int n = geom.getCanonicalSites().length;
-        double[] health = new double[n];
         int[] state = new int[n];
 
         for (int i = 0; i < n; i++) {
-            health[i] = (i % 2) + 1;
             state[i] = ((i + 1) % 2) + 1;
         }
-        systemState.initCellLayer(state, health);
+        systemState.initCellLayer(state);
     }
 
     // Regression test for issues with incorrect bounds for hexagonal
@@ -194,6 +192,6 @@ public class MapVisualizationTest extends GlyphTest {
                 state[i] = ((i + 1) % 2) + 1;
             }
         }
-        ((LightweightSystemState) systemState).initCellLayer(state, health);
+        ((LightweightSystemState) systemState).initCellLayer(state);
     }
 }

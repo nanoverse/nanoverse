@@ -24,6 +24,8 @@
 
 package io.deserialize.continuum;
 
+import control.identifiers.Coordinate;
+
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -52,5 +54,9 @@ public class ContinuumLayerViewer {
 
     public int getFrameNumber() {
         return frameNumber;
+    }
+
+    public double getValue(String id, int index) {
+        return valueMap.get(id).get(index);
     }
 }

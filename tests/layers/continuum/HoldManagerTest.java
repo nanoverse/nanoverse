@@ -24,6 +24,7 @@
 
 package layers.continuum;
 
+import layers.continuum.solvers.EquilibriumSolver;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,13 +34,13 @@ import static org.mockito.Mockito.*;
 public class HoldManagerTest {
 
     private ContinuumAgentManager manager;
-    private ContinuumSolver solver;
+    private EquilibriumSolver solver;
     private HoldManager query;
 
     @Before
     public void init() {
         manager = mock(ContinuumAgentManager.class);
-        solver = mock(ContinuumSolver.class);
+        solver = mock(EquilibriumSolver.class);
 
         query = new HoldManager(manager, solver);
     }

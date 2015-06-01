@@ -46,7 +46,7 @@ public class ExtremaReader {
     HashMap<String, Extrema> data;
 
     public ExtremaReader(File input) {
-        data = new HashMap<String, Extrema>();
+        data = new HashMap<>();
         // Read the metadata file to get the extrema
         try {
             extractMetadata(input);

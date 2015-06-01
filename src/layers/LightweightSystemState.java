@@ -27,13 +27,12 @@ package layers;
 import cells.BehaviorCell;
 import cells.Cell;
 import control.halt.HaltCondition;
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.Geometry;
+import io.deserialize.continuum.ContinuumLayerViewer;
 import layers.cell.CellLayer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dbborens on 3/26/14.
@@ -43,9 +42,14 @@ public class LightweightSystemState extends SystemState {
     private double time;
     private int frame;
     private Map<Integer, Set<Coordinate>> highlights;
-
-    private LayerManager layerManager;
     private Geometry geometry;
+
+    // Continuum values
+    private Map<String, Extrema> extremaMap;
+    private ContinuumLayerViewer continuumViewer;
+
+    // Legacy logic for handling agent locations
+    private LayerManager layerManager;
 
     public LightweightSystemState(Geometry geometry) {
         layerManager = new LayerManager();
@@ -61,6 +65,17 @@ public class LightweightSystemState extends SystemState {
     @Override
     public LayerManager getLayerManager() {
         return layerManager;
+    }
+
+    @Override
+    public Extrema getContinuumExtrema(String id) {
+        return extremaMap.get(id);
+    }
+
+    @Override
+    public double getContinuumValue(String id, Coordinate c) {
+        int index = geometry.getIndexer().apply(c);
+        return continuumViewer.getValue(id, index);
     }
 
     @Override
@@ -87,13 +102,14 @@ public class LightweightSystemState extends SystemState {
         return highlightedSites.contains(coord);
     }
 
-    public void initCellLayer(int[] stateVector, double[] healthVector) {
+//    public void initCellLayer(int[] stateVector, double[] healthVector) {
+    public void initCellLayer(int[] stateVector) {
         if (stateVector.length != geometry.getCanonicalSites().length) {
             throw new IllegalStateException("Actual number of data points not equal to expected number");
         }
-        if (healthVector.length != geometry.getCanonicalSites().length) {
-            throw new IllegalStateException("Actual number of data points not equal to expected number");
-        }
+//        if (healthVector.length != geometry.getCanonicalSites().length) {
+//            throw new IllegalStateException("Actual number of data points not equal to expected number");
+//        }
         // Build cell layer.
         CellLayer cellLayer = new CellLayer(geometry);
         layerManager.setCellLayer(cellLayer);
@@ -104,23 +120,25 @@ public class LightweightSystemState extends SystemState {
             // Convert index to coordinate.
             Coordinate coord = geometry.getCanonicalSites()[i];
 
-            double health = healthVector[i];
+//            double health = healthVector[i];
 
             // If site is vacant, don't place anything
             int state = stateVector[i];
             if (state == 0) {
                 continue;
             }
+            loadCell(cellLayer, coord, state);
 
-            loadCell(cellLayer, coord, health, state);
+//            loadCell(cellLayer, coord, health, state);
         }
 
     }
 
-    private void loadCell(CellLayer cellLayer, Coordinate coord, double health, int state) {
+//    private void loadCell(CellLayer cellLayer, Coordinate coord, double health, int state) {
+    private void loadCell(CellLayer cellLayer, Coordinate coord, int state) {
         try {
             // Build a dummy cell with the correct state and health.
-            Cell cell = new BehaviorCell(layerManager, state, health, 0.0, null);
+            Cell cell = new BehaviorCell(layerManager, state, 0.0, 0.0, null);
 
             // Place it in the cell layer.
             cellLayer.getUpdateManager().place(cell, coord);
@@ -131,6 +149,14 @@ public class LightweightSystemState extends SystemState {
             message.append(hc.toString());
             throw new IllegalStateException(message.toString(), hc);
         }
+    }
+
+    public void setContinuumLayerViewer(ContinuumLayerViewer continuumViewer) {
+        this.continuumViewer = continuumViewer;
+    }
+
+    public void setExtremaMap(Map<String, Extrema> extremaMap) {
+        this.extremaMap = extremaMap;
     }
 
 //    public void initSoluteLayer(String id, double[] soluteVector) {

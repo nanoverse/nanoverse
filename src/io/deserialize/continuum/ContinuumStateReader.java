@@ -25,6 +25,8 @@
 package io.deserialize.continuum;
 
 import control.identifiers.Extrema;
+import io.deserialize.BinaryExtremaReader;
+import io.serialize.binary.BinaryExtremaWriter;
 import structural.utilities.*;
 
 import java.io.*;
@@ -95,10 +97,14 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
 
     // Create an Extrema object for each ID
     private Extrema readExtrema(String filePath, String id) {
+        BinaryExtremaReader reader = new BinaryExtremaReader();
         try {
             String fileName = filePath + "/" + FileConventions.makeContinuumMetadataFilename(id);
             File file = new File(fileName);
-            return ExtremaInstanceReader.get(file);
+            FileInputStream fis = new FileInputStream(file);
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            DataInputStream dis = new DataInputStream(bis);
+            return reader.read(dis);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -110,6 +116,9 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
     private Stream<String> getIds(String filePath) {
         String fileName = filePath + "/" + FileConventions.CONTINUUM_OVERVIEW_FILENAME;
         File file = new File(fileName);
+        if (!file.exists()) {
+            return Stream.empty();
+        }
         Stream<String> ids = OverviewInstanceReader.getIdStream(file);
         return ids;
     }
@@ -121,6 +130,9 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
 
     @Override
     public ContinuumLayerViewer next() {
+        if (iteratorMap.size() == 0) {
+            return null;
+        }
         // Capture next viewer for each layer
         Map<String, List<Double>> valueMap = new HashMap<>(iteratorMap.size());
         List<Integer> frameNumberList = new ArrayList<>(iteratorMap.size());
@@ -173,5 +185,9 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
 
     public Extrema getExtrema(String id) {
         return extremaMap.get(id);
+    }
+
+    public Map<String, Extrema> getExtremaMap() {
+        return new HashMap<>(extremaMap);
     }
 }

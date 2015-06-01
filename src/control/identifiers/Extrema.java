@@ -29,13 +29,24 @@ import structural.utilities.EpsilonUtil;
 
 public class Extrema {
 
-    // Minimum
-    protected double min = Double.POSITIVE_INFINITY;
-    protected TemporalCoordinate argMin = null;
+    protected double min, max;
+    protected TemporalCoordinate argMin, argMax;
 
-    // Maximum
-    protected double max = Double.NEGATIVE_INFINITY;
-    protected TemporalCoordinate argMax = null;
+    public Extrema(double min, TemporalCoordinate argMin, double max, TemporalCoordinate argMax) {
+        this.min = min;
+        this.argMin = argMin;
+        this.max = max;
+        this.argMax = argMax;
+    }
+
+    public Extrema() {
+        min = Double.POSITIVE_INFINITY;
+        argMin = null;
+
+        // Maximum
+        max = Double.NEGATIVE_INFINITY;
+        argMax = null;
+    }
 
     /**
      * Initialize all fields to a set of loaded values. Used when importing

@@ -80,7 +80,6 @@ public class CSWFileHelper {
 
     public void close() {
         layerProcessor.conclude();
-        System.out.println("got to here");
         streamMap.keySet().forEach(id -> {
             DataOutputStream stream = streamMap.get(id);
             try {

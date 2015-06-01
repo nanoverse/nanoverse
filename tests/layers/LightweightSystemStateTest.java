@@ -59,26 +59,26 @@ public class LightweightSystemStateTest extends SystemStateTest {
         canonicals = g.getCanonicalSites();
         deindexer.setUnderlying(canonicals);
         query = new LightweightSystemState(g);
-        query.initCellLayer(stateVector, healthVector);
+        query.initCellLayer(stateVector);
 
 //        query.initSoluteLayer(id, healthVector);
     }
 
-    @Override
-    public void testGetHealth() throws Exception {
-        for (int i = 0; i < 4; i++) {
-            Coordinate coord = canonicals[i];
-            double expected = healthVector[i];
-            Cell cell = query.getLayerManager().getCellLayer().getViewer().getCell(coord);
-            double actual;
-            if (cell == null) {
-                actual = 0.0;
-            } else {
-                actual = cell.getHealth();
-            }
-            assertEquals(expected, actual, epsilon);
-        }
-    }
+//    @Override
+//    public void testGetHealth() throws Exception {
+//        for (int i = 0; i < 4; i++) {
+//            Coordinate coord = canonicals[i];
+//            double expected = healthVector[i];
+//            Cell cell = query.getLayerManager().getCellLayer().getViewer().getCell(coord);
+//            double actual;
+//            if (cell == null) {
+//                actual = 0.0;
+//            } else {
+//                actual = cell.getHealth();
+//            }
+//            assertEquals(expected, actual, epsilon);
+//        }
+//    }
 
     @Override
     public void testGetState() throws Exception {

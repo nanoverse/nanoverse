@@ -27,12 +27,23 @@ package structural.utilities;
 public abstract class EpsilonUtil {
 
     private final static double epsilon = calcEpsilon();
+    private final static float floatEpsilon = calcFloatEpsilon();
 
     private static double calcEpsilon() {
         double eps = 1.0D;
 
         while ((1.0 + (eps / 2.0)) != 1.0) {
             eps /= 2.0;
+        }
+
+        return eps;
+    }
+
+    private static float calcFloatEpsilon() {
+        float eps = 1.0F;
+
+        while ((1.0F + (eps / 2.0F)) != 1.0F) {
+            eps /= 2.0F;
         }
 
         return eps;
@@ -46,5 +57,9 @@ public abstract class EpsilonUtil {
         double delta = p - q;
         double magnitude = Math.abs(delta);
         return (magnitude < epsilon());
+    }
+
+    public static float floatEpsilon() {
+        return floatEpsilon;
     }
 }

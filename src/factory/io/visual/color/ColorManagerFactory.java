@@ -25,8 +25,7 @@
 package factory.io.visual.color;
 
 import control.GeneralParameters;
-import io.visual.color.ColorManager;
-import io.visual.color.DefaultColorManager;
+import io.visual.color.*;
 import org.dom4j.Element;
 
 /**
@@ -46,6 +45,8 @@ public abstract class ColorManagerFactory {
             return new DefaultColorManager();
         } else if (className.equalsIgnoreCase("surface-growth")) {
             return SurfaceGrowthColorManagerFactory.instantiate(element, p);
+        } else if (className.equalsIgnoreCase("continuum")) {
+            return NormalizedContinuumColorManagerFactory.instantiate(element, p);
         } else {
             throw new IllegalArgumentException("Unrecognized color manager class '" + className + "'");
         }
