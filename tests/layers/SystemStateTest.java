@@ -30,7 +30,7 @@ import test.EslimeTestCase;
  * Created by David B Borenstein on 3/23/14.
  */
 public abstract class SystemStateTest extends EslimeTestCase {
-    public abstract void testGetHealth() throws Exception;
+//    public abstract void testGetHealth() throws Exception;
 
     public abstract void testGetState() throws Exception;
 

@@ -101,7 +101,7 @@ public class MultiChannelHighlightTest extends EslimeTestCase {
             health[i] = 0;
             state[i] = 0;
         }
-        systemState.initCellLayer(state, health);
+        systemState.initCellLayer(state);
 
     }
 

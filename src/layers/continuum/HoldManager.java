@@ -25,6 +25,7 @@
 package layers.continuum;
 
 import control.identifiers.Coordinate;
+import layers.continuum.solvers.EquilibriumSolver;
 
 import java.util.function.Function;
 
@@ -33,10 +34,10 @@ import java.util.function.Function;
  */
 public class HoldManager {
     private ContinuumAgentManager manager;
-    private ContinuumSolver solver;
+    private EquilibriumSolver solver;
     private boolean held;
 
-    public HoldManager(ContinuumAgentManager manager, ContinuumSolver solver) {
+    public HoldManager(ContinuumAgentManager manager, EquilibriumSolver solver) {
         this.manager = manager;
         this.solver = solver;
         this.held = false;

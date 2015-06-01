@@ -22,23 +22,13 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.run;
+package layers.continuum.solvers;
 
-import factory.control.run.RunnerFactory;
+import java.util.Vector;
 
 /**
- * The manual runner specifies a hard-coded parameters file to be loaded.
- * It is used for ad-hoc simulations and testing. Batch executions use
- * a command line argument to specify a parameters file.
- *
- * @author dbborens
+ * Created by dbborens on 5/31/2015.
  */
-public class ManualLauncher {
-
-    public static void main(String[] args) {
-        String path = "e:/nanoverse/2015-05-20/diffusion.xml";
-        Runner runner = RunnerFactory.instantiate(path);
-        runner.run();
-    }
-
+public interface Solver {
+    public Vector solve();
 }

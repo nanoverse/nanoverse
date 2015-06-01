@@ -22,7 +22,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package layers.continuum.solve;
+package layers.continuum.solvers;
 
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Matrix;
@@ -35,7 +35,7 @@ import structural.utilities.MatrixUtils;
 /**
  * Created by dbborens on 12/26/14.
  */
-public class SteadyState {
+public class EquilibriumMatrixSolver {
     /**
      * Solve the difference relation
      * <p>

@@ -35,11 +35,12 @@ import java.io.Writer;
  * <p>
  * Created by dbborens on 12/11/13.
  */
-public class ExtremaHelper {
+@Deprecated
+public class ExtremaWriter {
 
     private final Writer writer;
 
-    public ExtremaHelper(Writer writer) {
+    public ExtremaWriter(Writer writer) {
         this.writer = writer;
     }
 

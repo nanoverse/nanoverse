@@ -24,10 +24,12 @@
 
 package io.deserialize;
 
+import control.identifiers.Extrema;
 import geometry.Geometry;
+import io.deserialize.continuum.*;
 import layers.LightweightSystemState;
 
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Created by dbborens on 3/26/14.
@@ -50,6 +52,9 @@ public class SystemStateReader implements Iterable<LightweightSystemState> {
     /* Data handles */
     private HighlightReader highlightReader;
     private LegacyCellStateReader cellStateReader;
+    private ContinuumStateReader continuumStateReader;
+    private Map<String, Extrema> extremaMap;
+
 //    private ContinuumStateReaderManager continuumStateReaderManager;
 
     private Geometry geometry;
@@ -73,6 +78,10 @@ public class SystemStateReader implements Iterable<LightweightSystemState> {
         // Open handle to data file for cell state vector.
         cellStateReader = new LegacyCellStateReader(fileRoot, deindexer);
 
+        continuumStateReader = new ContinuumStateReader(fileRoot,
+                geometry.getCanonicalSites().length);
+
+        extremaMap = continuumStateReader.getExtremaMap();
         this.geometry = geometry;
     }
 
@@ -118,8 +127,9 @@ public class SystemStateReader implements Iterable<LightweightSystemState> {
             cellStateReader.populate(state);
 
             // Populate state of continuum fields
-//            continuumStateReaderManager.populate(state);
-
+            ContinuumLayerViewer continuumViewer = continuumStateReader.next();
+            state.setExtremaMap(extremaMap);
+            state.setContinuumLayerViewer(continuumViewer);
             // Populate cell change highlights
             highlightReader.populate(state);
 
