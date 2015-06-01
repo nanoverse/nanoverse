@@ -26,6 +26,7 @@ package io.serialize.binary.csw;
 
 import control.GeneralParameters;
 import control.identifiers.*;
+import io.serialize.binary.BinaryExtremaWriter;
 import processes.StepState;
 import structural.utilities.FileConventions;
 
@@ -40,21 +41,25 @@ import java.util.stream.Stream;
 public class CSWExtremaHelper {
     private final HashMap<String, Extrema> extremaMap;
     private final CSWConsiderHelper considerHelper;
-    private final Function<String, BufferedWriter> writerFunction;
+    private final Function<String, DataOutputStream> fileFunction;
+    private final BinaryExtremaWriter writer;
 
     public CSWExtremaHelper(GeneralParameters p, Function<Integer, Coordinate> deindexer, Stream<String> idStream) {
         extremaMap = new HashMap<>();
         considerHelper = new CSWConsiderHelper(extremaMap, deindexer);
-        writerFunction = id -> makeBufferedWriter(id, p);
+        fileFunction = id -> makeOutputStream(id, p);
+        writer = new BinaryExtremaWriter();
         idStream.forEach(id -> extremaMap.put(id, new Extrema()));
     }
 
     public CSWExtremaHelper(CSWConsiderHelper considerHelper,
                             HashMap<String, Extrema> extremaMap,
-                            Function<String, BufferedWriter> writerFunction) {
-        this.writerFunction = writerFunction;
+                            Function<String, DataOutputStream> fileFunction,
+                            BinaryExtremaWriter writer) {
+        this.fileFunction = fileFunction;
         this.considerHelper = considerHelper;
         this.extremaMap = extremaMap;
+        this.writer = writer;
     }
 
     public void push(StepState stepState) {
@@ -64,14 +69,15 @@ public class CSWExtremaHelper {
         });
     }
 
-    private BufferedWriter makeBufferedWriter(String id, GeneralParameters p) {
+    private DataOutputStream makeOutputStream(String id, GeneralParameters p) {
         try {
             String filename = FileConventions.makeContinuumMetadataFilename(id);
-            File metadata = new File(filename);
-            String filepath = p.getInstancePath() + '/' + metadata;
-            FileWriter mfw = new FileWriter(filepath);
-            BufferedWriter mbw = new BufferedWriter(mfw);
-            return mbw;
+            String filepath = p.getInstancePath() + "/" + filename;
+            File file = new File(filepath);
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+            DataOutputStream dataStream = new DataOutputStream(bufferedOutputStream);
+            return dataStream;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -80,19 +86,8 @@ public class CSWExtremaHelper {
     public void serialize() {
         for (String id : extremaMap.keySet()) {
             Extrema extrema = extremaMap.get(id);
-            // Write the extrema file.
-            try {
-                BufferedWriter mbw = writerFunction.apply(id);
-                mbw.write("extrema>");
-                mbw.write(extrema.toString());
-                mbw.write('\n');
-
-                mbw.close();
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
+            DataOutputStream dos = fileFunction.apply(id);
+            writer.write(dos, extrema);
         }
     }
 }

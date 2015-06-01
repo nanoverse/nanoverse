@@ -24,25 +24,25 @@
 
 package io.serialize.binary.csw;
 
-import control.GeneralParameters;
 import control.identifiers.*;
+import io.serialize.binary.BinaryExtremaWriter;
 import org.junit.*;
 import org.mockito.InOrder;
 import processes.StepState;
 
-import java.io.BufferedWriter;
+import java.io.*;
 import java.util.HashMap;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class CSWExtremaHelperTest {
 
     private HashMap<String, Extrema> extremaMap;
-    private Function<String, BufferedWriter> writerFunction;
-    private BufferedWriter writer;
+    private Function<String, DataOutputStream> fileFunction;
+    private DataOutputStream dos;
+    private BinaryExtremaWriter writer;
     private CSWConsiderHelper considerHelper;
     private StepState state;
     private Extrema extrema;
@@ -51,17 +51,18 @@ public class CSWExtremaHelperTest {
 
     @Before
     public void before() throws Exception {
+        writer = mock(BinaryExtremaWriter.class);
         extremaMap = new HashMap<>();
         considerHelper = mock(CSWConsiderHelper.class);
-        writer = mock(BufferedWriter.class);
-        writerFunction = anything -> writer;
+        dos = mock(DataOutputStream.class);
+        fileFunction = anything -> dos;
         extrema = mock(Extrema.class);
         extremaMap.put("test", extrema);
         state = mock(StepState.class);
         when(state.getFrame()).thenReturn(7);
         values = mock(Stream.class);
         when(state.getRecordedContinuumValues("test")).thenReturn(values);
-        query = new CSWExtremaHelper(considerHelper, extremaMap, writerFunction);
+        query = new CSWExtremaHelper(considerHelper, extremaMap, fileFunction, writer);
     }
 
     @Test
@@ -72,13 +73,7 @@ public class CSWExtremaHelperTest {
 
     @Test
     public void serialize() throws Exception {
-        String extremaToString = "placeholder for toString() function for Extrema object";
-        when(extrema.toString()).thenReturn(extremaToString);
         query.serialize();
-        InOrder inOrder = inOrder(writer);
-        inOrder.verify(writer).write("extrema>");
-        inOrder.verify(writer).write(extremaToString);
-        inOrder.verify(writer).write('\n');
-        inOrder.verify(writer).close();
+        verify(writer).write(dos, extrema);
     }
 }

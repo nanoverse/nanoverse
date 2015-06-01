@@ -50,10 +50,10 @@ public class NormalizedContinuumColorManager extends ColorManager {
 
     public NormalizedContinuumColorManager(Argument<Double> minHueArg,
                                            Argument<Double> maxHueArg,
-                                           Argument<Double> minLuminanceArg,
-                                           Argument<Double> maxLuminanceArg,
                                            Argument<Double> minSaturationArg,
                                            Argument<Double> maxSaturationArg,
+                                           Argument<Double> minLuminanceArg,
+                                           Argument<Double> maxLuminanceArg,
                                            String continuumId) {
 
         normalizer = new ContinuumNormalizationHelper(continuumId);
@@ -72,10 +72,10 @@ public class NormalizedContinuumColorManager extends ColorManager {
 
     public NormalizedContinuumColorManager(Argument<Double> minHueArg,
                                            Argument<Double> maxHueArg,
-                                           Argument<Double> minLuminanceArg,
-                                           Argument<Double> maxLuminanceArg,
                                            Argument<Double> minSaturationArg,
                                            Argument<Double> maxSaturationArg,
+                                           Argument<Double> minLuminanceArg,
+                                           Argument<Double> maxLuminanceArg,
                                            ContinuumNormalizationHelper normalizer) {
 
         this.normalizer = normalizer;
@@ -83,10 +83,10 @@ public class NormalizedContinuumColorManager extends ColorManager {
         try {
             this.minHue = minHueArg.next().floatValue();
             this.maxHue = maxHueArg.next().floatValue();
-            this.minLuminance = minLuminanceArg.next().floatValue();
-            this.maxLuminance = maxLuminanceArg.next().floatValue();
             this.minSaturation = minSaturationArg.next().floatValue();
             this.maxSaturation = maxSaturationArg.next().floatValue();
+            this.minLuminance = minLuminanceArg.next().floatValue();
+            this.maxLuminance = maxLuminanceArg.next().floatValue();
         } catch (HaltCondition haltCondition) {
             throw new IllegalStateException("Halt condition thrown after end of simulation", haltCondition);
         }

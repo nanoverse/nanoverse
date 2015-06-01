@@ -107,7 +107,7 @@ public class KymographTest extends EslimeTestCase {
             health[i] = 0.0;
             state[i] = i % 3;
         }
-        systemState.initCellLayer(state, health);
+        systemState.initCellLayer(state);
 
     }
 }

@@ -92,14 +92,12 @@ public abstract class GlyphTest extends EslimeTestCase {
 
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
         int n = geom.getCanonicalSites().length;
-        double[] health = new double[n];
         int[] state = new int[n];
 
         for (int i = 0; i < n; i++) {
-            health[i] = 0;
             state[i] = 0;
         }
-        systemState.initCellLayer(state, health);
+        systemState.initCellLayer(state);
 
     }
 

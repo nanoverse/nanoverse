@@ -102,13 +102,14 @@ public class LightweightSystemState extends SystemState {
         return highlightedSites.contains(coord);
     }
 
-    public void initCellLayer(int[] stateVector, double[] healthVector) {
+//    public void initCellLayer(int[] stateVector, double[] healthVector) {
+    public void initCellLayer(int[] stateVector) {
         if (stateVector.length != geometry.getCanonicalSites().length) {
             throw new IllegalStateException("Actual number of data points not equal to expected number");
         }
-        if (healthVector.length != geometry.getCanonicalSites().length) {
-            throw new IllegalStateException("Actual number of data points not equal to expected number");
-        }
+//        if (healthVector.length != geometry.getCanonicalSites().length) {
+//            throw new IllegalStateException("Actual number of data points not equal to expected number");
+//        }
         // Build cell layer.
         CellLayer cellLayer = new CellLayer(geometry);
         layerManager.setCellLayer(cellLayer);
@@ -119,23 +120,25 @@ public class LightweightSystemState extends SystemState {
             // Convert index to coordinate.
             Coordinate coord = geometry.getCanonicalSites()[i];
 
-            double health = healthVector[i];
+//            double health = healthVector[i];
 
             // If site is vacant, don't place anything
             int state = stateVector[i];
             if (state == 0) {
                 continue;
             }
+            loadCell(cellLayer, coord, state);
 
-            loadCell(cellLayer, coord, health, state);
+//            loadCell(cellLayer, coord, health, state);
         }
 
     }
 
-    private void loadCell(CellLayer cellLayer, Coordinate coord, double health, int state) {
+//    private void loadCell(CellLayer cellLayer, Coordinate coord, double health, int state) {
+    private void loadCell(CellLayer cellLayer, Coordinate coord, int state) {
         try {
             // Build a dummy cell with the correct state and health.
-            Cell cell = new BehaviorCell(layerManager, state, health, 0.0, null);
+            Cell cell = new BehaviorCell(layerManager, state, 0.0, 0.0, null);
 
             // Place it in the cell layer.
             cellLayer.getUpdateManager().place(cell, coord);

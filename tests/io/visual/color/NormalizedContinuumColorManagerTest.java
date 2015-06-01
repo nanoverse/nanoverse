@@ -56,10 +56,10 @@ public class NormalizedContinuumColorManagerTest extends TestBase {
         normalizer = mock(ContinuumNormalizationHelper.class);
         query = new NormalizedContinuumColorManager(minHueArg,
                 maxHueArg,
-                minLuminanceArg,
-                maxLuminanceArg,
                 minSaturationArg,
                 maxSaturationArg,
+                minLuminanceArg,
+                maxLuminanceArg,
                 normalizer);
     }
 

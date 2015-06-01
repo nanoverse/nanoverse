@@ -58,7 +58,7 @@ public class EquilibriumSolver {
         Vector solution = steadyState.solve(source, operator, template);
 
         content.setState(solution);
-        System.out.println(MatrixUtils.asMatrix(solution, 32));
+//        System.out.println(MatrixUtils.asMatrix(solution, 32));
         so.reset();
     }
 

@@ -98,7 +98,7 @@ public class SystemStateReaderTest extends EslimeLatticeTestCase {
 
         // Check cell state
         assertEquals(5, state.getLayerManager().getCellLayer().getViewer().getState(x));
-        assertEquals(2.0, state.getLayerManager().getCellLayer().getViewer().getCell(x).getHealth(), epsilon);
+//        assertEquals(2.0, state.getLayerManager().getCellLayer().getViewer().getCell(x).getHealth(), epsilon);
 
         // Origin is vacant
         assertEquals(0, state.getLayerManager().getCellLayer().getViewer().getState(origin));

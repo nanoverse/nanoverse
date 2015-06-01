@@ -59,7 +59,7 @@ public class LightweightSystemStateTest extends SystemStateTest {
         canonicals = g.getCanonicalSites();
         deindexer.setUnderlying(canonicals);
         query = new LightweightSystemState(g);
-        query.initCellLayer(stateVector, healthVector);
+        query.initCellLayer(stateVector);
 
 //        query.initSoluteLayer(id, healthVector);
     }
