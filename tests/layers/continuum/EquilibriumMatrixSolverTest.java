@@ -24,7 +24,7 @@
 
 package layers.continuum;
 
-import layers.continuum.solve.SteadyState;
+import layers.continuum.solvers.EquilibriumMatrixSolver;
 import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Matrix;
@@ -34,14 +34,14 @@ import org.junit.Test;
 import structural.utilities.MatrixUtils;
 import test.TestBase;
 
-public class SteadyStateTest extends TestBase {
+public class EquilibriumMatrixSolverTest extends TestBase {
 
     private DenseVector initial;
-    private SteadyState query;
+    private EquilibriumMatrixSolver query;
 
     @Before
     public void init() throws Exception {
-        query = new SteadyState();
+        query = new EquilibriumMatrixSolver();
 
         initial = new DenseVector(3);
         initial.set(1, 1.0);

@@ -110,6 +110,9 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
     private Stream<String> getIds(String filePath) {
         String fileName = filePath + "/" + FileConventions.CONTINUUM_OVERVIEW_FILENAME;
         File file = new File(fileName);
+        if (!file.exists()) {
+            return Stream.empty();
+        }
         Stream<String> ids = OverviewInstanceReader.getIdStream(file);
         return ids;
     }
@@ -121,6 +124,9 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
 
     @Override
     public ContinuumLayerViewer next() {
+        if (iteratorMap.size() == 0) {
+            return null;
+        }
         // Capture next viewer for each layer
         Map<String, List<Double>> valueMap = new HashMap<>(iteratorMap.size());
         List<Integer> frameNumberList = new ArrayList<>(iteratorMap.size());
@@ -173,5 +179,9 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
 
     public Extrema getExtrema(String id) {
         return extremaMap.get(id);
+    }
+
+    public Map<String, Extrema> getExtremaMap() {
+        return new HashMap<>(extremaMap);
     }
 }

@@ -27,7 +27,7 @@ package factory.layers.continuum;
 import cells.BehaviorCell;
 import control.identifiers.Coordinate;
 import layers.continuum.*;
-import layers.continuum.solve.SteadyState;
+import layers.continuum.solvers.*;
 import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.DenseVector;
 
@@ -45,8 +45,8 @@ public abstract class ContinuumLayerSchedulerFactory {
         ScheduledOperations so = new ScheduledOperations(indexer, n);
         AgentToOperatorHelper helper = new AgentToOperatorHelper(indexer, n);
         ContinuumAgentManager agentManager = buildAgentManager(helper, so, id);
-        SteadyState steadyState = new SteadyState();
-        ContinuumSolver solver = new ContinuumSolver(content, so, steadyState);
+        EquilibriumMatrixSolver steadyState = new EquilibriumMatrixSolver();
+        EquilibriumSolver solver = new EquilibriumSolver(content, so, steadyState);
         HoldManager holdManager = new HoldManager(agentManager, solver);
         return new ContinuumLayerScheduler(so, holdManager);
     }

@@ -24,7 +24,7 @@
 
 package layers;
 
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 
 /**
  * Parent class for objects that can report read-only information on a system
@@ -45,7 +45,11 @@ public abstract class SystemState {
      *
      * @return
      */
+    // TODO Get rid of the fake layer manager--make accessors direct like continuum values
     public abstract LayerManager getLayerManager();
+
+    public abstract Extrema getContinuumExtrema(String id);
+    public abstract double getContinuumValue(String id, Coordinate c);
 
     /**
      * Returns the system time associated with this state.

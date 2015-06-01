@@ -22,41 +22,13 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package io.deserialize.continuum;
+package layers.continuum.solvers;
 
-import control.identifiers.Coordinate;
-
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.Vector;
 
 /**
- * Created by dbborens on 5/27/2015.
+ * Created by dbborens on 5/31/2015.
  */
-public class ContinuumLayerViewer {
-
-    private final Map<String, List<Double>> valueMap;
-    private final double time;
-    private final int frameNumber;
-
-    public ContinuumLayerViewer(Map<String, List<Double>> valueMap, double time, int frameNumber) {
-        this.valueMap = valueMap;
-        this.time = time;
-        this.frameNumber = frameNumber;
-    }
-
-    public Stream<Double> getValues(String id) {
-        return valueMap.get(id).stream();
-    }
-
-    public double getTime() {
-        return time;
-    }
-
-    public int getFrameNumber() {
-        return frameNumber;
-    }
-
-    public double getValue(String id, int index) {
-        return valueMap.get(id).get(index);
-    }
+public interface Solver {
+    public Vector solve();
 }
