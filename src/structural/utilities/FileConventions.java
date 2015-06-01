@@ -32,9 +32,8 @@ import java.io.*;
 public abstract class FileConventions {
     public final static String COORDINATE_FILENAME = "coordinates.txt";
 
-    public final static String CONTINUUM_STATE_PREFIX = "solute";
     public final static String CONTINUUM_STATE_SUFFIX = ".state.bin";
-    public final static String CONTINUUM_METADATA_SUFFIX = ".metadata.txt";
+    public final static String CONTINUUM_METADATA_SUFFIX = ".extrema.bin";
     public final static String CONTINUUM_OVERVIEW_FILENAME = "solute.overview.txt";
 
     public final static String HIGHLIGHT_PREFIX = "channel";
@@ -47,8 +46,6 @@ public abstract class FileConventions {
 
     public static String makeContinuumStateFilename(String soluteId) {
         StringBuilder sb = new StringBuilder();
-        sb.append(CONTINUUM_STATE_PREFIX);
-        sb.append('.');
         sb.append(soluteId);
         sb.append(CONTINUUM_STATE_SUFFIX);
         return sb.toString();
@@ -64,8 +61,6 @@ public abstract class FileConventions {
 
     public static String makeContinuumMetadataFilename(String soluteId) {
         StringBuilder sb = new StringBuilder();
-        sb.append(CONTINUUM_STATE_PREFIX);
-        sb.append('.');
         sb.append(soluteId);
         sb.append(CONTINUUM_METADATA_SUFFIX);
         return sb.toString();

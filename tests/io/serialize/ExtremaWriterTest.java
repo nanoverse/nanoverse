@@ -26,7 +26,7 @@ package io.serialize;
 
 import control.identifiers.Coordinate;
 import control.identifiers.Extrema;
-import io.serialize.text.ExtremaHelper;
+import io.serialize.text.ExtremaWriter;
 import test.EslimeTestCase;
 
 import java.io.StringWriter;
@@ -34,15 +34,15 @@ import java.io.StringWriter;
 /**
  * Created by dbborens on 12/11/13.
  */
-public class ExtremaHelperTest extends EslimeTestCase {
+public class ExtremaWriterTest extends EslimeTestCase {
 
     private StringWriter sw;
-    private ExtremaHelper helper;
+    private ExtremaWriter helper;
 
     @Override
     protected void setUp() throws Exception {
         sw = new StringWriter();
-        helper = new ExtremaHelper(sw);
+        helper = new ExtremaWriter(sw);
     }
 
     public void testPush() throws Exception {

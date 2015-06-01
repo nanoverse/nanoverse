@@ -26,23 +26,26 @@ package io.deserialize;
 
 import control.identifiers.Coordinate;
 import structural.utilities.VectorViewer;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.HashSet;
 
 @Deprecated
 public class ConditionViewer {
 
-    private VectorViewer f;
+//    private VectorViewer f;
     private int[] states;
     private double gCurrent;
     private int frame;
     private HashSet<Coordinate> highlights;
     private CoordinateDeindexer deindexer;
 
-    public ConditionViewer(VectorViewer f, int[] states, HashSet<Coordinate> highlights,
-                           int frame, double gCurrent, CoordinateDeindexer deindexer) {
+//    public ConditionViewer(VectorViewer f, int[] states, HashSet<Coordinate> highlights,
+//                           int frame, double gCurrent, CoordinateDeindexer deindexer) {
+    public ConditionViewer(int[] states, HashSet<Coordinate> highlights,
+        int frame, double gCurrent, CoordinateDeindexer deindexer) {
 
-        this.f = f;
+//        this.f = f;
         this.states = states;
         this.gCurrent = gCurrent;
         this.deindexer = deindexer;
@@ -57,9 +60,9 @@ public class ConditionViewer {
     }
 
     public double getHealth(Coordinate c) {
-        int i = deindexer.getIndex(c);
-
-        return f.get(i);
+        throw new NotImplementedException();
+//        int i = deindexer.getIndex(c);
+//        return f.get(i);
     }
 
     public HashSet<Coordinate> getHighlights() {
@@ -84,7 +87,7 @@ public class ConditionViewer {
         return states;
     }
 
-    public double[] getHealthVector() {
-        return f.getData();
-    }
+//    public double[] getHealthVector() {
+//        return f.getData();
+//    }
 }

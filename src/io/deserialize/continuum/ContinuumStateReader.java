@@ -25,6 +25,8 @@
 package io.deserialize.continuum;
 
 import control.identifiers.Extrema;
+import io.deserialize.BinaryExtremaReader;
+import io.serialize.binary.BinaryExtremaWriter;
 import structural.utilities.*;
 
 import java.io.*;
@@ -95,10 +97,14 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
 
     // Create an Extrema object for each ID
     private Extrema readExtrema(String filePath, String id) {
+        BinaryExtremaReader reader = new BinaryExtremaReader();
         try {
             String fileName = filePath + "/" + FileConventions.makeContinuumMetadataFilename(id);
             File file = new File(fileName);
-            return ExtremaInstanceReader.get(file);
+            FileInputStream fis = new FileInputStream(file);
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            DataInputStream dis = new DataInputStream(bis);
+            return reader.read(dis);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
