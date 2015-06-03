@@ -32,7 +32,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 /**
  * Created by dbborens on 6/3/2015.
  */
-public class NonEquilibriumSolver extends Solver {
+public class NonEquilibriumSolver extends ContinuumSolver {
 
 
     public NonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {

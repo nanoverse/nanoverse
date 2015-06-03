@@ -34,10 +34,10 @@ import java.util.function.Function;
  */
 public class HoldManager {
     private ContinuumAgentManager manager;
-    private Solver solver;
+    private ContinuumSolver solver;
     private boolean held;
 
-    public HoldManager(ContinuumAgentManager manager, Solver solver) {
+    public HoldManager(ContinuumAgentManager manager, ContinuumSolver solver) {
         this.manager = manager;
         this.solver = solver;
         this.held = false;

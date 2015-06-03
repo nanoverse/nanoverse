@@ -24,37 +24,73 @@
 
 package layers.continuum.solvers;
 
+import layers.continuum.ContinuumLayer;
 import layers.continuum.ContinuumLayerContent;
+import layers.continuum.ScheduledOperations;
 import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.Vector;
 import org.junit.*;
+import org.mockito.ArgumentCaptor;
+import structural.utilities.MatrixUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import test.TestBase;
+
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class NonEquilibriumSolverTest {
+public class NonEquilibriumSolverTest extends TestBase {
+
+    private static final int RANGE = 10;
 
     private ContinuumLayerContent content;
     private Vector state, source;
     private Matrix operator;
+    private ScheduledOperations so;
     private NonEquilibriumSolver query;
 
     @Before
     public void before() throws Exception {
         state = makeStateVector();
+        content = mock(ContinuumLayerContent.class);
+        when(content.getState()).thenReturn(state);
+
+        source = makeSourceVector();
+        operator = MatrixUtils.I(RANGE);
+        so = mock(ScheduledOperations.class);
+        when(so.getOperator()).thenReturn(operator);
+        when(so.getSource()).thenReturn(source);
+        query = new NonEquilibriumSolver(content, so);
+    }
+
+    private Vector makeSourceVector() {
+        DenseVector vector = new DenseVector(RANGE);
+        vector.set(0, 0.5);
+        return vector;
     }
 
     private Vector makeStateVector() {
+        DenseVector vector = new DenseVector(RANGE);
+        IntStream.range(0, RANGE)
+                .boxed()
+                .forEach(i -> vector.set(i, i * 1.0));
+        return vector;
     }
 
     @Test(expected = NotImplementedException.class)
     public void nontrivialMatrixThrows() throws Exception {
-        fail();
+        operator = operator.scale(2.0);
+        query.solve();
     }
 
     @Test
     public void doSolve() throws Exception {
-        fail();
+        query.solve();
+        ArgumentCaptor<Vector> ac = ArgumentCaptor.forClass(Vector.class);
+        verify(content).setState(ac.capture());
+
+        Vector expected = source.add(state);
+        assertVectorsEqual(expected, ac.getValue(), epsilon);
     }
 }
