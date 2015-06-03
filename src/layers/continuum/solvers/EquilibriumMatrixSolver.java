@@ -24,6 +24,7 @@
 
 package layers.continuum.solvers;
 
+import static structural.utilities.MatrixUtils.*;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
@@ -142,41 +143,6 @@ public class EquilibriumMatrixSolver {
         return false;
     }
 
-    private boolean isIdentity(Matrix matrix) {
-        for (int i = 0; i < matrix.numRows(); i++) {
-            for (int j = 0; j < matrix.numColumns(); j++) {
-
-                // All diagonals should be 1
-                if (i == j && !EpsilonUtil.epsilonEquals(1.0, matrix.get(i, j))) {
-                    return false;
-                }
-
-                // All others should be zero
-                else if (i != j && !EpsilonUtil.epsilonEquals(0.0, matrix.get(i, j))) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    private boolean isZeroVector(Vector vector) {
-        // Are any entries non-zero?
-        for (int i = 0; i < vector.size(); i++) {
-            double value = vector.get(i);
-
-            if (!EpsilonUtil.epsilonEquals(0.0, value)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private DenseVector zeroVector(Vector initial) {
-        return new DenseVector(initial.size());
-    }
 
     /**
      * Solve difference equation for steady state by inverting the steady

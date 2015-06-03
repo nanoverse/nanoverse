@@ -33,33 +33,25 @@ import structural.utilities.MatrixUtils;
 /**
  * Created by dbborens on 12/12/14.
  */
-public class EquilibriumSolver {
+public class EquilibriumSolver extends Solver {
 
-    int count = 0;
-
-    private ContinuumLayerContent content;
-    private ScheduledOperations so;
     private EquilibriumMatrixSolver steadyState;
 
     public EquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, EquilibriumMatrixSolver steadyState) {
-        this.content = content;
-        this.so = so;
+        super(content, so);
         this.steadyState = steadyState;
     }
 
     /**
      * Apply all scheduled operations, then reset the schedule.
      */
-    public void solve() {
+    protected Vector doSolve() {
         Vector source = so.getSource();
         Matrix operator = so.getOperator();
 
         Vector template = content.getState().copy();
         Vector solution = steadyState.solve(source, operator, template);
-
-        content.setState(solution);
-//        System.out.println(MatrixUtils.asMatrix(solution, 32));
-        so.reset();
+        return solution;
     }
 
 }
