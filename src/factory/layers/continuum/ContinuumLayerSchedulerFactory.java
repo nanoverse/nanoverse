@@ -30,6 +30,7 @@ import layers.continuum.*;
 import layers.continuum.solvers.*;
 import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.DenseVector;
+import org.dom4j.Element;
 
 import java.util.IdentityHashMap;
 import java.util.function.Consumer;
@@ -41,14 +42,22 @@ import java.util.function.Supplier;
  */
 public abstract class ContinuumLayerSchedulerFactory {
 
-    public static ContinuumLayerScheduler instantiate(ContinuumLayerContent content, Function<Coordinate, Integer> indexer, int n, String id) {
+    public static ContinuumLayerScheduler instantiate(Element e, ContinuumLayerContent content, Function<Coordinate, Integer> indexer, int n, String id) {
         ScheduledOperations so = new ScheduledOperations(indexer, n);
         AgentToOperatorHelper helper = new AgentToOperatorHelper(indexer, n);
         ContinuumAgentManager agentManager = buildAgentManager(helper, so, id);
-        EquilibriumMatrixSolver steadyState = new EquilibriumMatrixSolver();
-        EquilibriumSolver solver = new EquilibriumSolver(content, so, steadyState);
+        Solver solver = makeSolver(e, content, so);
         HoldManager holdManager = new HoldManager(agentManager, solver);
         return new ContinuumLayerScheduler(so, holdManager);
+    }
+
+    private static Solver makeSolver(Element e, ContinuumLayerContent content, ScheduledOperations so) {
+        if (e == null) {
+            return ContinuumSolverFactory.instantiate(null, content, so);
+        }
+
+        Element solverElement = e.element("solver");
+        return ContinuumSolverFactory.instantiate(solverElement, content, so);
     }
 
     private static ContinuumAgentManager buildAgentManager(AgentToOperatorHelper agentHelper, ScheduledOperations so, String id) {

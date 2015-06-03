@@ -22,29 +22,32 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package layers.continuum.solvers;
+package factory.layers.continuum;
 
-import layers.continuum.*;
-import no.uib.cipr.matrix.Vector;
+import org.junit.*;
 
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 5/31/2015.
- */
-public abstract class Solver {
-    protected final ContinuumLayerContent content;
-    protected final ScheduledOperations so;
+public class ContinuumSolverFactoryTest {
 
-    public Solver(ContinuumLayerContent content, ScheduledOperations so) {
-        this.content = content;
-        this.so = so;
+    @Before
+    public void before() throws Exception {
+
     }
 
-    protected abstract Vector doSolve();
+    @Test
+    public void defaultCase() throws Exception {
+        fail();
+    }
 
-    public void solve() {
-        Vector solution = doSolve();
-        content.setState(solution);
-        so.reset();
+    @Test
+    public void equilibriumCase() throws Exception {
+        fail();
+    }
+
+    @Test
+    public void nonEquilibriumCase() throws Exception {
+        fail();
     }
 }

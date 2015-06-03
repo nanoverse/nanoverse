@@ -24,27 +24,37 @@
 
 package layers.continuum.solvers;
 
-import layers.continuum.*;
+import layers.continuum.ContinuumLayerContent;
+import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.Vector;
+import org.junit.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 5/31/2015.
- */
-public abstract class Solver {
-    protected final ContinuumLayerContent content;
-    protected final ScheduledOperations so;
+public class NonEquilibriumSolverTest {
 
-    public Solver(ContinuumLayerContent content, ScheduledOperations so) {
-        this.content = content;
-        this.so = so;
+    private ContinuumLayerContent content;
+    private Vector state, source;
+    private Matrix operator;
+    private NonEquilibriumSolver query;
+
+    @Before
+    public void before() throws Exception {
+        state = makeStateVector();
     }
 
-    protected abstract Vector doSolve();
+    private Vector makeStateVector() {
+    }
 
-    public void solve() {
-        Vector solution = doSolve();
-        content.setState(solution);
-        so.reset();
+    @Test(expected = NotImplementedException.class)
+    public void nontrivialMatrixThrows() throws Exception {
+        fail();
+    }
+
+    @Test
+    public void doSolve() throws Exception {
+        fail();
     }
 }
