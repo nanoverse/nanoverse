@@ -33,7 +33,7 @@ import org.dom4j.Element;
  */
 public class ContinuumSolverFactory {
 
-    public static Solver instantiate(Element e, ContinuumLayerContent content, ScheduledOperations so) {
+    public static ContinuumSolver instantiate(Element e, ContinuumLayerContent content, ScheduledOperations so) {
         if (e == null) {
             return makeEquilibriumSolver(content, so);
         }
@@ -47,11 +47,11 @@ public class ContinuumSolverFactory {
         throw new IllegalArgumentException("Unrecognized continuum solver class '" + solverType + "'");
     }
 
-    private static Solver makeNonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {
+    private static ContinuumSolver makeNonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {
         return new NonEquilibriumSolver(content, so);
     }
 
-    private static Solver makeEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {
+    private static ContinuumSolver makeEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {
         EquilibriumMatrixSolver steadyState = new EquilibriumMatrixSolver();
         return new EquilibriumSolver(content, so, steadyState);
     }

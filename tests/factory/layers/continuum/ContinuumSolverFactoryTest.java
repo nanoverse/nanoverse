@@ -24,6 +24,13 @@
 
 package factory.layers.continuum;
 
+import layers.continuum.ContinuumLayerContent;
+import layers.continuum.ScheduledOperations;
+import layers.continuum.solvers.ContinuumSolver;
+import layers.continuum.solvers.EquilibriumSolver;
+import layers.continuum.solvers.NonEquilibriumSolver;
+import org.dom4j.Element;
+import org.dom4j.tree.BaseElement;
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -31,23 +38,36 @@ import static org.mockito.Mockito.*;
 
 public class ContinuumSolverFactoryTest {
 
+    private ContinuumLayerContent content;
+    private ScheduledOperations so;
+
     @Before
     public void before() throws Exception {
-
+        content = mock(ContinuumLayerContent.class);
+        so = mock(ScheduledOperations.class);
     }
 
     @Test
     public void defaultCase() throws Exception {
-        fail();
+        Element e = null;
+        ContinuumSolver result = ContinuumSolverFactory.instantiate(e, content, so);
+        assertEquals(EquilibriumSolver.class, result.getClass());
     }
 
+    private void doTest(String text, Class expected) {
+        Element e = new BaseElement("solver");
+        e.setText(text);
+        ContinuumSolver result = ContinuumSolverFactory.instantiate(e, content, so);
+        assertEquals(expected, result.getClass());
+
+    }
     @Test
     public void equilibriumCase() throws Exception {
-        fail();
+        doTest("equilibrium", EquilibriumSolver.class);
     }
 
     @Test
     public void nonEquilibriumCase() throws Exception {
-        fail();
+        doTest("non-equilibrium", NonEquilibriumSolver.class);
     }
 }

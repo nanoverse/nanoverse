@@ -31,11 +31,11 @@ import no.uib.cipr.matrix.Vector;
 /**
  * Created by dbborens on 5/31/2015.
  */
-public abstract class Solver {
+public abstract class ContinuumSolver {
     protected final ContinuumLayerContent content;
     protected final ScheduledOperations so;
 
-    public Solver(ContinuumLayerContent content, ScheduledOperations so) {
+    public ContinuumSolver(ContinuumLayerContent content, ScheduledOperations so) {
         this.content = content;
         this.so = so;
     }

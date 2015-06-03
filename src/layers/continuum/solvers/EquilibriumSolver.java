@@ -25,15 +25,13 @@
 package layers.continuum.solvers;
 
 import layers.continuum.*;
-import layers.continuum.solvers.EquilibriumMatrixSolver;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
-import structural.utilities.MatrixUtils;
 
 /**
  * Created by dbborens on 12/12/14.
  */
-public class EquilibriumSolver extends Solver {
+public class EquilibriumSolver extends ContinuumSolver {
 
     private EquilibriumMatrixSolver steadyState;
 

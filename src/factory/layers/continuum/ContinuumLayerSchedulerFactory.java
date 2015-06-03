@@ -46,12 +46,12 @@ public abstract class ContinuumLayerSchedulerFactory {
         ScheduledOperations so = new ScheduledOperations(indexer, n);
         AgentToOperatorHelper helper = new AgentToOperatorHelper(indexer, n);
         ContinuumAgentManager agentManager = buildAgentManager(helper, so, id);
-        Solver solver = makeSolver(e, content, so);
+        ContinuumSolver solver = makeSolver(e, content, so);
         HoldManager holdManager = new HoldManager(agentManager, solver);
         return new ContinuumLayerScheduler(so, holdManager);
     }
 
-    private static Solver makeSolver(Element e, ContinuumLayerContent content, ScheduledOperations so) {
+    private static ContinuumSolver makeSolver(Element e, ContinuumLayerContent content, ScheduledOperations so) {
         if (e == null) {
             return ContinuumSolverFactory.instantiate(null, content, so);
         }
