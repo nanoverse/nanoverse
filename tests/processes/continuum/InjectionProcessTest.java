@@ -22,24 +22,22 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.run;
+package processes.continuum;
 
-import factory.control.run.RunnerFactory;
+import org.junit.*;
 
-/**
- * The manual runner specifies a hard-coded parameters file to be loaded.
- * It is used for ad-hoc simulations and testing. Batch executions use
- * a command line argument to specify a parameters file.
- *
- * @author dbborens
- */
-public class ManualLauncher {
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-    public static void main(String[] args) {
-//        String path = "/Users/dbborens/nanoverse/2015-06-03/non-equilibrium.xml";
-        String path = "e:/nanoverse/2015-06-04/depletion.xml";
-        Runner runner = RunnerFactory.instantiate(path);
-        runner.run();
+public class InjectionProcessTest {
+
+    @Before
+    public void before() throws Exception {
+
     }
 
+    @Test
+    public void fire() throws Exception {
+        fail();
+    }
 }

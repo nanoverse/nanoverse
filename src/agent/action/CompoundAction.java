@@ -60,6 +60,9 @@ public class CompoundAction extends Action {
 
     public void run(Coordinate caller) throws HaltCondition {
         for (Action action : actionSequence) {
+            if (action == null) {
+                System.out.println("breakpoint");
+            }
             action.run(caller);
         }
     }

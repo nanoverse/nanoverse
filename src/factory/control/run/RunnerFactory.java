@@ -60,7 +60,7 @@ public abstract class RunnerFactory {
         Element layerRoot = root.element("layers");
         LayerManager layerManager = LayerManagerFactory.instantiate(layerRoot, geometryDescriptor);
         return layerManager;
-    }
+}
 
     private static Integrator makeIntegrator(Element root, GeneralParameters p, LayerManager lm) {
         return IntegratorFactory.instantiate(root, p, lm);
