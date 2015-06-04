@@ -36,7 +36,7 @@ import factory.control.run.RunnerFactory;
 public class ManualLauncher {
 
     public static void main(String[] args) {
-        String path = "e:/nanoverse/2015-05-20/diffusion.xml";
+        String path = "/Users/dbborens/nanoverse/2015-06-03/non-equilibrium.xml";
         Runner runner = RunnerFactory.instantiate(path);
         runner.run();
     }

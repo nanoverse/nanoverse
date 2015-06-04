@@ -33,6 +33,7 @@ import control.arguments.Argument;
 import control.arguments.DynamicActionRangeMapDescriptor;
 import control.arguments.TargetDescriptor;
 import factory.agent.targets.TargetDesciptorFactory;
+import factory.control.arguments.DoubleArgumentFactory;
 import factory.control.arguments.IntegerArgumentFactory;
 import layers.LayerManager;
 import org.dom4j.Element;
@@ -72,12 +73,22 @@ public abstract class ActionDescriptorFactory {
                 return stochasticChoice(e, layerManager, p);
             case "swap":
                 return swap(e, layerManager, p);
+            case "inject":
+                return inject(e, layerManager, p);
             case "null":
                 return nullAction();
             default:
                 String msg = "Unrecognized action '" + actionName + "'. In parent: " + e.getParent().asXML();
                 throw new IllegalArgumentException(msg);
         }
+    }
+
+    private static ActionDescriptor inject(Element e, LayerManager layerManager, GeneralParameters p) {
+        Argument<Double> deltaArg = DoubleArgumentFactory.instantiate(e, "delta", p.getRandom());
+        String layerId = e.element("layer").getTextTrim();
+
+        Function<BehaviorCell, Inject> fn = cell -> new Inject(cell, layerManager, layerId, deltaArg);
+        return new ActionDescriptor<>(fn);
     }
 
     private static ActionDescriptor<NullAction> nullAction() {
