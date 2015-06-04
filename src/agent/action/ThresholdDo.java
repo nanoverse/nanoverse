@@ -31,17 +31,30 @@ import control.identifiers.Coordinate;
 import layers.LayerManager;
 
 /**
- * Created by dbborens on 6/3/15.
+ * Performs the specified child action iff the specified continuum layer has a
+ * local value above the minimum and below the maximum. If a minimum or maximum
+ * is omitted, it is set to negative or positive infinity respectively.
+ *
+ * Created by dbborens on 6/4/2015.
  */
-public class Inject extends Action {
+public class ThresholdDo extends Action {
 
-    private final Argument<Double> deltaArg;
+    private final Argument<Double> minimumArg;
+    private final Argument<Double> maximumArg;
     private final String layerId;
+    private final Action child;
 
-    public Inject(BehaviorCell callback, LayerManager layerManager, String layerId, Argument<Double> deltaArg) {
+    public ThresholdDo(BehaviorCell callback, LayerManager layerManager, String layerId, Argument<Double> minimumArg, Argument<Double> maximumArg, Action child) {
         super(callback, layerManager);
-        this.deltaArg = deltaArg;
+        if (layerManager.getContinuumLayer(layerId) == null) {
+            throw new IllegalArgumentException("Unrecognized continuum layer '"
+                    + layerId + "' in ThresholdDo");
+        }
+
+        this.minimumArg = minimumArg;
+        this.maximumArg = maximumArg;
         this.layerId = layerId;
+        this.child = child;
     }
 
     @Override
@@ -49,13 +62,22 @@ public class Inject extends Action {
         if (!callbackExists()) {
             return;
         }
-
-        Coordinate destination = getOwnLocation();
-        double delta = deltaArg.next();
-        getLayerManager()
+        Coordinate c = getOwnLocation().canonicalize();
+        double minimum = minimumArg.next();
+        double maximum = maximumArg.next();
+        double value = getLayerManager()
                 .getContinuumLayer(layerId)
-                .getScheduler()
-                .inject(destination, delta);
+                .getValueAt(c);
+
+        if (value < minimum) {
+            return;
+        }
+
+        if (value > maximum) {
+            return;
+        }
+
+        child.run(caller);
     }
 
     @Override
@@ -63,23 +85,25 @@ public class Inject extends Action {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Inject inject = (Inject) o;
+        ThresholdDo that = (ThresholdDo) o;
 
-        if (!deltaArg.equals(inject.deltaArg)) return false;
-        if (!layerId.equals(inject.layerId)) return false;
-
-        return true;
+        if (!minimumArg.equals(that.minimumArg)) return false;
+        if (!maximumArg.equals(that.maximumArg)) return false;
+        if (!layerId.equals(that.layerId)) return false;
+        return child.equals(that.child);
     }
 
     @Override
     public int hashCode() {
-        int result = deltaArg.hashCode();
+        int result = minimumArg.hashCode();
+        result = 31 * result + maximumArg.hashCode();
         result = 31 * result + layerId.hashCode();
+        result = 31 * result + child.hashCode();
         return result;
     }
 
     @Override
     public Action clone(BehaviorCell child) {
-        return new Inject(child, getLayerManager(), layerId, deltaArg);
+        return null;
     }
 }

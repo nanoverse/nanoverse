@@ -75,6 +75,8 @@ public abstract class ActionDescriptorFactory {
                 return swap(e, layerManager, p);
             case "inject":
                 return inject(e, layerManager, p);
+            case "threshold-do":
+                return ThresholdDoDescriptorFactory.instantiate(e, layerManager, p);
             case "null":
                 return nullAction();
             default:
@@ -95,6 +97,7 @@ public abstract class ActionDescriptorFactory {
         Function<BehaviorCell, NullAction> fn = cell -> new NullAction();
         return new ActionDescriptor<>(fn);
     }
+
 
     private static ActionDescriptor<StochasticChoice> stochasticChoice(Element e, LayerManager layerManager,
                                                                        GeneralParameters p) {

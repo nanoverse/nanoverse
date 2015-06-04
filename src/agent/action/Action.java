@@ -141,4 +141,10 @@ public abstract class Action {
         stepState.highlight(toHighlight, channel);
     }
 
+    protected boolean callbackExists() {
+        return getLayerManager()
+                .getCellLayer()
+                .getViewer()
+                .exists(getCallback());
+    }
 }
