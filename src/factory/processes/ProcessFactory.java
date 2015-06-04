@@ -130,6 +130,9 @@ public abstract class ProcessFactory {
         } else if (processClass.equalsIgnoreCase("diffuse")) {
             return diffusionProcess(e, layerManager, arguments);
 
+        } else if (processClass.equalsIgnoreCase("inject")) {
+            return injectionProcess(e, p, arguments);
+
         } else if (processClass.equalsIgnoreCase("release")) {
             ContinuumLayer layer = resolveLayer(e, layerManager);
             return new ScheduleRelease(arguments, layer.getScheduler());
@@ -173,6 +176,12 @@ public abstract class ProcessFactory {
         return process;
     }
 
+    private static InjectionProcess injectionProcess(Element e, GeneralParameters p, BaseProcessArguments arguments) {
+        Argument<Double> valueArg = DoubleArgumentFactory.instantiate(e, "value", p.getRandom());
+        String layerId = XmlUtil.getString(e, "layer");
+        InjectionProcess process = new InjectionProcess(arguments, layerId, valueArg);
+        return process;
+    }
     protected static BaseProcessArguments makeProcessArguments(Element e,
                                                                LayerManager layerManager,
                                                                GeneralParameters p,

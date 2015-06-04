@@ -103,7 +103,8 @@ public class ThresholdDo extends Action {
     }
 
     @Override
-    public Action clone(BehaviorCell child) {
-        return null;
+    public Action clone(BehaviorCell clonedCell) {
+        Action clonedAction = child.clone(clonedCell);
+        return new ThresholdDo(clonedCell, getLayerManager(), layerId, minimumArg, maximumArg, clonedAction);
     }
 }
