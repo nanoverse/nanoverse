@@ -133,11 +133,12 @@ public abstract class Action {
             return;
         }
 
-        if (!layerManager.getCellLayer().getGeometry().contains(toHighlight)) {
+        if (!layerManager.getCellLayer().getGeometry().isInBounds(toHighlight)) {
             return;
         }
         Integer channel = channelArg.next();
         StepState stepState = getLayerManager().getStepState();
         stepState.highlight(toHighlight, channel);
     }
+
 }

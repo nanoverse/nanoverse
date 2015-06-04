@@ -48,7 +48,7 @@ public abstract class ContinuumLayerFactory {
         String id = root.element("id").getText();
 
         ContinuumLayerContent content = new ContinuumLayerContent(indexer, geom.getCanonicalSites().length);
-        ContinuumLayerScheduler scheduler = ContinuumLayerSchedulerFactory.instantiate(content, indexer, n, id);
+        ContinuumLayerScheduler scheduler = ContinuumLayerSchedulerFactory.instantiate(root, content, indexer, n, id);
 
         return new ContinuumLayer(scheduler, content, geom);
     }

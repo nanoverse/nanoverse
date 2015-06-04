@@ -24,9 +24,7 @@
 
 package structural.utilities;
 
-import no.uib.cipr.matrix.BandMatrix;
-import no.uib.cipr.matrix.Matrix;
-import no.uib.cipr.matrix.Vector;
+import no.uib.cipr.matrix.*;
 
 public abstract class MatrixUtils {
     /**
@@ -80,6 +78,42 @@ public abstract class MatrixUtils {
             m.set(i, i, 1d);
 
         return m;
+    }
+
+    public static boolean isIdentity(Matrix matrix) {
+        for (int i = 0; i < matrix.numRows(); i++) {
+            for (int j = 0; j < matrix.numColumns(); j++) {
+
+                // All diagonals should be 1
+                if (i == j && !EpsilonUtil.epsilonEquals(1.0, matrix.get(i, j))) {
+                    return false;
+                }
+
+                // All others should be zero
+                else if (i != j && !EpsilonUtil.epsilonEquals(0.0, matrix.get(i, j))) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean isZeroVector(Vector vector) {
+        // Are any entries non-zero?
+        for (int i = 0; i < vector.size(); i++) {
+            double value = vector.get(i);
+
+            if (!EpsilonUtil.epsilonEquals(0.0, value)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static DenseVector zeroVector(Vector initial) {
+        return new DenseVector(initial.size());
     }
 
 }

@@ -22,23 +22,29 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.run;
+package layers.continuum.solvers;
 
-import factory.control.run.RunnerFactory;
+import layers.continuum.*;
+import no.uib.cipr.matrix.Vector;
+
 
 /**
- * The manual runner specifies a hard-coded parameters file to be loaded.
- * It is used for ad-hoc simulations and testing. Batch executions use
- * a command line argument to specify a parameters file.
- *
- * @author dbborens
+ * Created by dbborens on 5/31/2015.
  */
-public class ManualLauncher {
+public abstract class ContinuumSolver {
+    protected final ContinuumLayerContent content;
+    protected final ScheduledOperations so;
 
-    public static void main(String[] args) {
-        String path = "/Users/dbborens/nanoverse/2015-06-03/non-equilibrium.xml";
-        Runner runner = RunnerFactory.instantiate(path);
-        runner.run();
+    public ContinuumSolver(ContinuumLayerContent content, ScheduledOperations so) {
+        this.content = content;
+        this.so = so;
     }
 
+    protected abstract Vector doSolve();
+
+    public void solve() {
+        Vector solution = doSolve();
+        content.setState(solution);
+        so.reset();
+    }
 }

@@ -24,11 +24,33 @@
 
 package layers.continuum.solvers;
 
-import java.util.Vector;
+import layers.continuum.*;
+import no.uib.cipr.matrix.*;
+import structural.utilities.MatrixUtils;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
- * Created by dbborens on 5/31/2015.
+ * Created by dbborens on 6/3/2015.
  */
-public interface Solver {
-    public Vector solve();
+public class NonEquilibriumSolver extends ContinuumSolver {
+
+
+    public NonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {
+        super(content, so);
+    }
+
+    @Override
+    protected Vector doSolve() {
+        Vector source = so.getSource();
+        Matrix operator = so.getOperator();
+
+        // Non-equilibrium matrix operations are not yet implemented
+        if (!MatrixUtils.isIdentity(operator)) {
+            throw new NotImplementedException();
+        }
+
+        Vector current = content.getState().copy();
+        Vector result = current.add(source);
+        return result;
+    }
 }
