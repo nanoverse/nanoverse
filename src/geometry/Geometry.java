@@ -262,16 +262,12 @@ public class Geometry {
     }
 
     public void rebuildIndex() {
-        //System.out.println("In rebuildIndex. Coordinate index: " + coordinateIndex.size());
         coordinateIndex.clear();
-        //System.out.println("   Cleared. Coordinate index: " + coordinateIndex.size());
-        //System.out.println("   Rebuilding.");
 
 
         // dependencies are sometimes left uninitialized for mock testing.
         // In these cases, there is nothing to index, so return.
         if (getCanonicalSites() == null) {
-            //System.out.println("      canonicalSites is null; returning.");
             return;
         }
 
@@ -283,10 +279,8 @@ public class Geometry {
 
             // Coordinate index is for canonical coordinates only
             Coordinate cc = c.canonicalize();
-            //System.out.println("      Adding " + c);
             coordinateIndex.put(cc, i);
         }
-        //System.out.println("   Rebuild complete. Coordinate index: " + coordinateIndex.size());
 
     }
 
@@ -360,7 +354,7 @@ public class Geometry {
         return true;
     }
 
-    public boolean contains(Coordinate coordinate) {
+    public boolean isInBounds(Coordinate coordinate) {
         Coordinate canonicalized = coordinate.canonicalize();
         return (coordinateIndex.containsKey(canonicalized));
     }
