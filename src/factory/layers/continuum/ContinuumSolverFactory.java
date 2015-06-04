@@ -37,7 +37,7 @@ public class ContinuumSolverFactory {
         if (e == null) {
             return makeEquilibriumSolver(content, so);
         }
-        
+
         String solverType = e.getTextTrim();
         if (solverType.equalsIgnoreCase("equilibrium")) {
             return makeEquilibriumSolver(content, so);

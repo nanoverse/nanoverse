@@ -69,4 +69,8 @@ public class ContinuumLayer extends Layer {
     public Stream<Double> getStateStream() {
         return content.getStateStream();
     }
+
+    public double getValueAt(Coordinate c) {
+        return content.get(c);
+    }
 }
