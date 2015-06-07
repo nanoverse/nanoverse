@@ -49,8 +49,9 @@ public class ScheduledOperations {
     public ScheduledOperations(Function<Coordinate, Integer> indexer, int n) {
         this.indexer = indexer;
 
-        Matrix bandIdentity = MatrixUtils.I(n);
-        identity = new DenseMatrix(bandIdentity);
+        identity = MatrixUtils.I(n);
+
+//        identity = new DenseMatrix(bandIdentity);
         zeroVector = new DenseVector(n);
 
         reset();

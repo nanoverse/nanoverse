@@ -25,7 +25,7 @@
 package layers.continuum;
 
 
-import no.uib.cipr.matrix.DenseMatrix;
+import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
@@ -53,7 +53,7 @@ public class ReactionLoaderTest extends LinearMocks {
     public void init() {
         // For some reason, I can't set up a captor on a consumer, so I am doing this.
         Consumer<DenseVector> vectorCaptor = this::captureVector;
-        Consumer<DenseMatrix> matrixCaptor = this::captureMatrix;
+        Consumer<Matrix> matrixCaptor = this::captureMatrix;
 
         helper = mock(AgentToOperatorHelper.class);
         stream = (Stream<RelationshipTuple>) mock(Stream.class);
@@ -71,7 +71,7 @@ public class ReactionLoaderTest extends LinearMocks {
 
     @Test
     public void applyResolvesExponentiations() throws Exception {
-        DenseMatrix matrix = matrix(1.0, 2.0, 3.0);
+        Matrix matrix = matrix(1.0, 2.0, 3.0);
         when(helper.getOperator(any())).thenReturn(matrix);
         query.apply(stream);
         assertEquals(matrix, capturedMatrix);
