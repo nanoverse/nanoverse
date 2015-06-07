@@ -25,8 +25,8 @@
 package layers.continuum;
 
 import control.identifiers.Coordinate;
-import no.uib.cipr.matrix.DenseMatrix;
-import no.uib.cipr.matrix.DenseVector;
+import no.uib.cipr.matrix.*;
+import no.uib.cipr.matrix.sparse.LinkedSparseMatrix;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -52,8 +52,8 @@ public class AgentToOperatorHelper {
         this.indexer = indexer;
     }
 
-    public DenseMatrix getOperator(List<RelationshipTuple> relationships) {
-        DenseMatrix matrix = new DenseMatrix(n, n);
+    public Matrix getOperator(List<RelationshipTuple> relationships) {
+        Matrix matrix = new LinkedSparseMatrix(n, n);
         BiConsumer<Integer, Double> consumer = (i, v) -> matrix.add(i, i, v);
         Function<RelationshipTuple, Double> expLookup = RelationshipTuple::getExp;
         apply(relationships, expLookup, consumer);

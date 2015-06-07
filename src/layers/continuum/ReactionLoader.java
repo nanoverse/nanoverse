@@ -24,8 +24,7 @@
 
 package layers.continuum;
 
-import no.uib.cipr.matrix.DenseMatrix;
-import no.uib.cipr.matrix.DenseVector;
+import no.uib.cipr.matrix.*;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -38,10 +37,10 @@ import java.util.stream.Stream;
 public class ReactionLoader {
 
     private Consumer<DenseVector> injector;
-    private Consumer<DenseMatrix> exponentiator;
+    private Consumer<Matrix> exponentiator;
     private AgentToOperatorHelper helper;
 
-    public ReactionLoader(Consumer<DenseVector> injector, Consumer<DenseMatrix> exponentiator, AgentToOperatorHelper helper) {
+    public ReactionLoader(Consumer<DenseVector> injector, Consumer<Matrix> exponentiator, AgentToOperatorHelper helper) {
         this.injector = injector;
         this.exponentiator = exponentiator;
         this.helper = helper;
@@ -53,7 +52,7 @@ public class ReactionLoader {
     }
 
     private void exponentiate(List<RelationshipTuple> relationshipTuples) {
-        DenseMatrix exponents = helper.getOperator(relationshipTuples);
+        Matrix exponents = helper.getOperator(relationshipTuples);
         exponentiator.accept(exponents);
     }
 
