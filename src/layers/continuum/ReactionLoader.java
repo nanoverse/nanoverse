@@ -36,14 +36,16 @@ import java.util.stream.Stream;
  */
 public class ReactionLoader {
 
-    private Consumer<DenseVector> injector;
-    private Consumer<Matrix> exponentiator;
-    private AgentToOperatorHelper helper;
+    private final Consumer<DenseVector> injector;
+    private final Consumer<Matrix> exponentiator;
+    private final AgentToOperatorHelper helper;
+    private final boolean operators;
 
-    public ReactionLoader(Consumer<DenseVector> injector, Consumer<Matrix> exponentiator, AgentToOperatorHelper helper) {
+    public ReactionLoader(Consumer<DenseVector> injector, Consumer<Matrix> exponentiator, AgentToOperatorHelper helper, boolean operators) {
         this.injector = injector;
         this.exponentiator = exponentiator;
         this.helper = helper;
+        this.operators = operators;
     }
 
     private void inject(List<RelationshipTuple> relationships) {
@@ -57,9 +59,11 @@ public class ReactionLoader {
     }
 
     public void apply(Stream<RelationshipTuple> relationships) {
-        // TODO Refactor this hierarchy to pass through stream only once
         List<RelationshipTuple> list = relationships.collect(Collectors.toList());
         inject(list);
-        exponentiate(list);
+
+        if (operators) {
+            exponentiate(list);
+        }
     }
 }

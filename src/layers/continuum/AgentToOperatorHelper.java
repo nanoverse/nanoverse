@@ -42,17 +42,24 @@ import java.util.function.Function;
 public class AgentToOperatorHelper {
 
     // Number of canonical sites
-    private int n;
+    private final int n;
 
     // Converts coordinates to vector/matrix indices
-    private Function<Coordinate, Integer> indexer;
+    private final Function<Coordinate, Integer> indexer;
 
-    public AgentToOperatorHelper(Function<Coordinate, Integer> indexer, int n) {
+    // Unless set to true, throws exceptions if operators are scheduled or retrieved
+    private final boolean operators;
+
+    public AgentToOperatorHelper(Function<Coordinate, Integer> indexer, int n, boolean operators) {
         this.n = n;
         this.indexer = indexer;
+        this.operators = operators;
     }
 
     public Matrix getOperator(List<RelationshipTuple> relationships) {
+        if (!operators) {
+            throw new IllegalStateException("Attempting to access operators while operators are explicitly disabled");
+        }
         Matrix matrix = new LinkedSparseMatrix(n, n);
         BiConsumer<Integer, Double> consumer = (i, v) -> matrix.add(i, i, v);
         Function<RelationshipTuple, Double> expLookup = RelationshipTuple::getExp;

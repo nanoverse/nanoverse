@@ -58,7 +58,7 @@ public class ReactionLoaderTest extends LinearMocks {
         helper = mock(AgentToOperatorHelper.class);
         stream = (Stream<RelationshipTuple>) mock(Stream.class);
 
-        query = new ReactionLoader(vectorCaptor, matrixCaptor, helper);
+        query = new ReactionLoader(vectorCaptor, matrixCaptor, helper, true);
     }
 
     @Test

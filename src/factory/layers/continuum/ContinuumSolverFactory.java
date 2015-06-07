@@ -33,26 +33,26 @@ import org.dom4j.Element;
  */
 public class ContinuumSolverFactory {
 
-    public static ContinuumSolver instantiate(Element e, ContinuumLayerContent content, ScheduledOperations so) {
+    public static ContinuumSolver instantiate(Element e, ContinuumLayerContent content, ScheduledOperations so, boolean operators) {
         if (e == null) {
-            return makeEquilibriumSolver(content, so);
+            return makeEquilibriumSolver(content, so, operators);
         }
 
         String solverType = e.getTextTrim();
         if (solverType.equalsIgnoreCase("equilibrium")) {
-            return makeEquilibriumSolver(content, so);
+            return makeEquilibriumSolver(content, so, operators);
         } else if (solverType.equalsIgnoreCase("non-equilibrium")) {
-            return makeNonEquilibriumSolver(content, so);
+            return makeNonEquilibriumSolver(content, so, operators);
         }
         throw new IllegalArgumentException("Unrecognized continuum solver class '" + solverType + "'");
     }
 
-    private static ContinuumSolver makeNonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {
-        return new NonEquilibriumSolver(content, so);
+    private static ContinuumSolver makeNonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, boolean operators) {
+        return new NonEquilibriumSolver(content, so, operators);
     }
 
-    private static ContinuumSolver makeEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {
-        EquilibriumMatrixSolver steadyState = new EquilibriumMatrixSolver();
+    private static ContinuumSolver makeEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, boolean operators) {
+        EquilibriumMatrixSolver steadyState = new EquilibriumMatrixSolver(operators);
         return new EquilibriumSolver(content, so, steadyState);
     }
 }

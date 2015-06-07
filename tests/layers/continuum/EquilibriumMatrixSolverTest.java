@@ -41,7 +41,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
 
     @Before
     public void init() throws Exception {
-        query = new EquilibriumMatrixSolver();
+        query = new EquilibriumMatrixSolver(true);
 
         initial = new DenseVector(3);
         initial.set(1, 1.0);
