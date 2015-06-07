@@ -45,13 +45,18 @@ public class ScheduledOperations {
     private Matrix operator;
     private Vector source;
     private Function<Coordinate, Integer> indexer;
+    private final boolean operators;
 
-    public ScheduledOperations(Function<Coordinate, Integer> indexer, int n) {
+    public ScheduledOperations(Function<Coordinate, Integer> indexer, int n, boolean operators) {
         this.indexer = indexer;
+        this.operators = operators;
 
-        identity = MatrixUtils.I(n);
+        if (operators) {
+            identity = MatrixUtils.I(n);
+        } else {
+            identity = null;
+        }
 
-//        identity = new DenseMatrix(bandIdentity);
         zeroVector = new DenseVector(n);
 
         reset();
@@ -82,6 +87,10 @@ public class ScheduledOperations {
      * @param b
      */
     public void exp(Coordinate coordinate, double b) {
+        if (!operators) {
+            throw new IllegalStateException("Operators are disabled but an exponentiation event is being scheduled");
+        }
+
         int index = indexer.apply(coordinate);
         double current = operator.get(index, index);
         double next = current + b;
@@ -93,8 +102,11 @@ public class ScheduledOperations {
      * leave the current state of the field unaltered if applied.
      */
     public void reset() {
+
         // Reset operator to identity
-        operator = identity.copy();
+        if (operators) {
+            operator = identity.copy();
+        }
 
         // Replace source vector with zero vector
         source = zeroVector.copy();
@@ -109,6 +121,9 @@ public class ScheduledOperations {
      * @param toApply The matrix to be applied
      */
     public void apply(Matrix toApply) {
+        if (!operators) {
+            throw new IllegalStateException("Operators are disabled but an operator matrix is being scheduled");
+        }
         operator.add(toApply);
     }
 

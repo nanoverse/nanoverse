@@ -46,7 +46,7 @@ public class AgentToOperatorHelperTest extends LinearMocks {
         reaction = new Reaction(1.0, 2.0, "test");
         RelationshipTuple relationship = new RelationshipTuple(a, reaction);
         list = Stream.of(relationship).collect(Collectors.toList());
-        query = new AgentToOperatorHelper(indexer, 3);
+        query = new AgentToOperatorHelper(indexer, 3, true);
     }
 
     @Test

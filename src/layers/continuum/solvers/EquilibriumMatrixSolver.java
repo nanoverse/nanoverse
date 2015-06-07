@@ -31,12 +31,19 @@ import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.sparse.*;
 import structural.utilities.EpsilonUtil;
 import structural.utilities.MatrixUtils;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 
 /**
  * Created by dbborens on 12/26/14.
  */
 public class EquilibriumMatrixSolver {
+    public EquilibriumMatrixSolver(boolean operators) {
+        if (!operators) {
+            throw new NotImplementedException();
+        }
+    }
+
     /**
      * Solve the difference relation
      * <p>
