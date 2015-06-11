@@ -58,10 +58,10 @@ public class CheckForFixation extends CellProcess {
     @Override
     public void fire(StepState state) throws HaltCondition {
 //        System.out.println("Executing check for fixation.");
-        StateMapViewer smv = layer.getViewer().getStateMapViewer();
+        StateMapViewer smv = getLayer().getViewer().getStateMapViewer();
 
         for (Integer s : smv.getStates()) {
-            if (smv.getCount(s) == layer.getViewer().getOccupiedSites().size()) {
+            if (smv.getCount(s) == getLayer().getViewer().getOccupiedSites().size()) {
                 throw new FixationEvent(s);
             }
         }

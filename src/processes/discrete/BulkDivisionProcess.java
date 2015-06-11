@@ -27,8 +27,7 @@ package processes.discrete;
 import cells.Cell;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
-import layers.cell.CellLookupManager;
-import layers.cell.CellUpdateManager;
+import layers.cell.*;
 import processes.BaseProcessArguments;
 import processes.MaxTargetHelper;
 
@@ -51,11 +50,11 @@ public abstract class BulkDivisionProcess extends CellProcess {
     }
 
     protected void execute(Coordinate[] candidates) throws HaltCondition {
-        Object[] chosen = MaxTargetHelper.respectMaxTargets(candidates, maxTargets.next(), getGeneralParameters().getRandom());
+        Object[] chosen = MaxTargetHelper.respectMaxTargets(candidates, getMaxTargets().next(), getGeneralParameters().getRandom());
         Cell[] chosenCells = toCellArray(chosen);
         for (int i = 0; i < chosenCells.length; i++) {
             Cell cell = chosenCells[i];
-            CellLookupManager lm = layer.getLookupManager();
+            CellLookupManager lm = getLayer().getLookupManager();
             Coordinate currentLocation = lm.getCellLocation(cell);
             doDivision(currentLocation);
         }
@@ -71,7 +70,7 @@ public abstract class BulkDivisionProcess extends CellProcess {
         Cell[] cells = new Cell[n];
         for (int i = 0; i < n; i++) {
             Coordinate coord = (Coordinate) chosen[i];
-            Cell cell = layer.getViewer().getCell(coord);
+            Cell cell = getLayer().getViewer().getCell(coord);
             cells[i] = cell;
         }
 
@@ -81,7 +80,7 @@ public abstract class BulkDivisionProcess extends CellProcess {
 
     protected void doDivision(Coordinate origin) throws HaltCondition {
         // Get child cell
-        CellUpdateManager um = layer.getUpdateManager();
+        CellUpdateManager um = getLayer().getUpdateManager();
         Cell child = um.divide(origin);
 
         Coordinate target = shoveHelper.chooseVacancy(origin);
@@ -89,7 +88,7 @@ public abstract class BulkDivisionProcess extends CellProcess {
         shoveHelper.shove(origin, target);
 
         // Divide the child cell into the vacancy left by the parent
-        layer.getUpdateManager().place(child, origin);
+        getLayer().getUpdateManager().place(child, origin);
     }
 
 

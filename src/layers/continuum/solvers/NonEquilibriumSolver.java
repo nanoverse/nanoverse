@@ -45,12 +45,6 @@ public class NonEquilibriumSolver extends ContinuumSolver {
     @Override
     protected Vector doSolve() {
         Vector source = so.getSource();
-        Matrix operator = so.getOperator();
-
-        // Non-equilibrium matrix operations are not yet implemented
-        if (!MatrixUtils.isIdentity(operator)) {
-            throw new NotImplementedException();
-        }
 
         Vector current = content.getState().copy();
         Vector result = current.add(source);

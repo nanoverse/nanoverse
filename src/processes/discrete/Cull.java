@@ -27,7 +27,6 @@ package processes.discrete;
 import cells.Cell;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
-import layers.cell.CellUpdateManager;
 import processes.BaseProcessArguments;
 import processes.StepState;
 import processes.gillespie.GillespieState;
@@ -57,12 +56,12 @@ public class Cull extends CellProcess {
     public void target(GillespieState gs) throws HaltCondition {
 
         ArrayList<Coordinate> targets = new ArrayList<>();
-        for (Coordinate candidate : activeSites) {
-            if (!layer.getViewer().isOccupied(candidate)) {
+        for (Coordinate candidate : getActiveSites()) {
+            if (!getLayer().getViewer().isOccupied(candidate)) {
                 continue;
             }
 
-            Cell cell = layer.getViewer().getCell(candidate);
+            Cell cell = getLayer().getViewer().getCell(candidate);
             if (cell.getHealth() <= threshold) {
                 targets.add(candidate);
             }
@@ -81,9 +80,9 @@ public class Cull extends CellProcess {
     }
 
     private void execute(StepState state, Coordinate[] targetsArr) {
-//        CellUpdateManager manager = layer.getUpdateManager();
+//        CellUpdateManager manager = getLayer().getUpdateManager();
         for (Coordinate target : targetsArr) {
-            layer.getViewer().getCell(target).die();
+            getLayer().getViewer().getCell(target).die();
 //            manager.banish(target);
         }
     }

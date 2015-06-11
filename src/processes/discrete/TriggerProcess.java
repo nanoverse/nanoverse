@@ -79,15 +79,15 @@ public class TriggerProcess extends CellProcess {
     }
 
     private Cell[] resolveTargets() throws HaltCondition {
-        ArrayList<Coordinate> vacancyFiltered = respectVacancyRequirements(activeSites);
+        ArrayList<Coordinate> vacancyFiltered = respectVacancyRequirements(getActiveSites());
         Collection<Coordinate> stateFiltered = filter.apply(vacancyFiltered);
         Collection<? extends Object> neighborFiltered = respectNeighborhoodRequirements(stateFiltered);
-        Object[] selectedCoords = MaxTargetHelper.respectMaxTargets(neighborFiltered, maxTargets.next(), getGeneralParameters().getRandom());
+        Object[] selectedCoords = MaxTargetHelper.respectMaxTargets(neighborFiltered, getMaxTargets().next(), getGeneralParameters().getRandom());
 
         Cell[] selectedCells = new Cell[selectedCoords.length];
         for (int i = 0; i < selectedCells.length; i++) {
             Coordinate coord = (Coordinate) selectedCoords[i];
-            selectedCells[i] = layer.getViewer().getCell(coord);
+            selectedCells[i] = getLayer().getViewer().getCell(coord);
         }
 
         return selectedCells;
@@ -105,7 +105,7 @@ public class TriggerProcess extends CellProcess {
 
         for (Object cObj : unfiltered) {
             Coordinate candidate = (Coordinate) cObj;
-            int[] neighborStates = layer.getLookupManager().getNeighborStates(candidate, true);
+            int[] neighborStates = getLayer().getLookupManager().getNeighborStates(candidate, true);
 
             // Count up the number of vacant neighbors.
             int numVacantNeighbors = 0;
@@ -136,7 +136,7 @@ public class TriggerProcess extends CellProcess {
 
         for (Coordinate c : unfiltered) {
 
-            boolean vacant = !layer.getViewer().isOccupied(c);
+            boolean vacant = !getLayer().getViewer().isOccupied(c);
             // If it's vacant and we don't expect already-vacant cells, throw error
             if (vacant && !skipVacant) {
                 String msg = "Attempted to queue triggering of behavior " +
@@ -163,7 +163,7 @@ public class TriggerProcess extends CellProcess {
 
             // If the cell has been removed as a result of firing the trigger
             // process in a previous target, skip it.
-            if (!layer.getViewer().exists(target)) {
+            if (!getLayer().getViewer().exists(target)) {
                 continue;
             }
 
@@ -190,10 +190,10 @@ public class TriggerProcess extends CellProcess {
             return false;
         }
 
-        if (activeSites != null ? !activeSites.equals(other.activeSites) : other.activeSites != null)
+        if (getActiveSites() != null ? !getActiveSites().equals(other.getActiveSites()) : other.getActiveSites() != null)
             return false;
 
-        if (maxTargets != null ? !maxTargets.equals(other.maxTargets) : other.maxTargets != null)
+        if (getMaxTargets() != null ? !getMaxTargets().equals(other.getMaxTargets()) : other.getMaxTargets() != null)
             return false;
 
         return true;

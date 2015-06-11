@@ -41,7 +41,7 @@ import java.util.Set;
  */
 public class GeneralNeighborSwap extends CellProcess {
 
-    private Coordinate[] activeSitesArr;
+    private Coordinate[] getActiveSitesArr;
 
     public GeneralNeighborSwap(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
 
@@ -50,26 +50,26 @@ public class GeneralNeighborSwap extends CellProcess {
 
     @Override
     public void init() {
-        activeSitesArr = new Coordinate[activeSites.size()];
-        activeSites.toArray(activeSitesArr);
+        getActiveSitesArr = new Coordinate[getActiveSites().size()];
+        getActiveSites().toArray(getActiveSitesArr);
     }
 
     @Override
     public void fire(StepState state) throws HaltCondition {
 
         // Determine number of swaps to make.
-        int n = maxTargets.next();
+        int n = getMaxTargets().next();
 
 
         // Perform swaps.
         for (int i = 0; i < n; i++) {
             // Choose first coordinate. Targets can be swapped multpiple times.
-            int o = getGeneralParameters().getRandom().nextInt(activeSitesArr.length);
+            int o = getGeneralParameters().getRandom().nextInt(getActiveSitesArr.length);
 
-            Coordinate first = activeSitesArr[o];
+            Coordinate first = getActiveSitesArr[o];
 
             System.out.println(first);
-            Coordinate[] neighbors = layer.getGeometry().
+            Coordinate[] neighbors = getLayer().getGeometry().
                     getNeighbors(first, Geometry.APPLY_BOUNDARIES);
 
             int m = getGeneralParameters().getRandom().nextInt(neighbors.length);
@@ -78,7 +78,7 @@ public class GeneralNeighborSwap extends CellProcess {
 
             System.out.println(second);
 
-            layer.getUpdateManager().swap(first, second);
+            getLayer().getUpdateManager().swap(first, second);
         }
 
         // Remove any accumulated imaginary sites.
