@@ -86,19 +86,26 @@ public class ExpandTo extends Action {
         // parent and its preferred progeny destination.
         DisplacementOption shortestOption = getShortestOption(target);
 
-        // Create a vacancy either at the parent or child site, depending on
-        // which had a shorter shoving path.
-        doShove(shortestOption);
+        // Check if the target and the origin are neighbors. If they are, we
+        // don't have to shove
+        Coordinate vacant;
+        if (shortestOption.occupied.equals(shortestOption.vacant)) {
+            vacant = shortestOption.vacant;
+        } else {
+            // Create a vacancy either at the parent or child site, depending on
+            // which had a shorter shoving path.
+            doShove(shortestOption);
 
-        // Now that the cells have been shoved toward the vacancy, the formerly
-        // occupied site is now vacant.
-        Coordinate newlyVacant = shortestOption.occupied;
+            // Clean up out-of-bounds cells.
+            shoveHelper.removeImaginary();
+
+            // Now that the cells have been shoved toward the vacancy, the formerly
+            // occupied site is now vacant.
+            vacant = shortestOption.occupied;
+        }
 
         // Place a cloned cell at the newly vacated position.
-        cloneToVacancy(newlyVacant);
-
-        // Clean up out-of-bounds cells.
-        shoveHelper.removeImaginary();
+        cloneToVacancy(vacant);
 
         // Highlight the parent and target locations.
         highlight(target, origin);
