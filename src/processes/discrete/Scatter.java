@@ -54,8 +54,8 @@ public class Scatter extends CellProcess {
         // Construct initial set of candidates
         candidates = new HashSet<>();
 
-        for (Coordinate c : activeSites) {
-            if (!layer.getViewer().isOccupied(c)) {
+        for (Coordinate c : getActiveSites()) {
+            if (!getLayer().getViewer().isOccupied(c)) {
                 candidates.add(c);
             }
         }
@@ -70,7 +70,7 @@ public class Scatter extends CellProcess {
             throw new IllegalStateException("fire() invoked on scatter before target().");
         }
 
-        int n = maxTargets.next();
+        int n = getMaxTargets().next();
         if (n < 0) {
             n = candidates.size();
         }
@@ -89,7 +89,7 @@ public class Scatter extends CellProcess {
             Cell cell = cellDescriptor.next();
 
             //System.out.println("   Placing cell of type " + cell.getState() + " at location " + target);
-            layer.getUpdateManager().place(cell, target);
+            getLayer().getUpdateManager().place(cell, target);
 
             //state.highlight(target);
             candidates.remove(target);
@@ -110,10 +110,10 @@ public class Scatter extends CellProcess {
         if (cellDescriptor != null ? !cellDescriptor.equals(scatter.cellDescriptor) : scatter.cellDescriptor != null)
             return false;
 
-        if (activeSites != null ? !activeSites.equals(scatter.activeSites) : scatter.activeSites != null)
+        if (getActiveSites() != null ? !getActiveSites().equals(scatter.getActiveSites()) : scatter.getActiveSites() != null)
             return false;
 
-        if (maxTargets != null ? !maxTargets.equals(scatter.maxTargets) : scatter.maxTargets != null)
+        if (getMaxTargets() != null ? !getMaxTargets().equals(scatter.getMaxTargets()) : scatter.getMaxTargets() != null)
             return false;
 
         return true;

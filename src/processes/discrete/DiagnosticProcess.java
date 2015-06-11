@@ -54,11 +54,11 @@ public class DiagnosticProcess extends CellProcess {
 
     @Override
     public void fire(StepState state) throws HaltCondition {
-        System.out.println("Occupied sites:" + layer.getViewer().getOccupiedSites().size());
-        System.out.println("Divisible sites:" + layer.getViewer().getDivisibleSites().size());
+        System.out.println("Occupied sites:" + getLayer().getViewer().getOccupiedSites().size());
+        System.out.println("Divisible sites:" + getLayer().getViewer().getDivisibleSites().size());
 
         System.out.println("Cells by type:");
-        StateMapViewer smv = layer.getViewer().getStateMapViewer();
+        StateMapViewer smv = getLayer().getViewer().getStateMapViewer();
         for (Integer s : smv.getStates()) {
             System.out.println("   type " + s + ": " + smv.getCount(s));
         }

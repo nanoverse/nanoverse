@@ -47,7 +47,7 @@ public class Divide extends BulkDivisionProcess {
     }
 
     public void target(GillespieState gs) throws HaltCondition {
-        HashSet<Coordinate> candSet = layer.getViewer().getDivisibleSites();
+        HashSet<Coordinate> candSet = getLayer().getViewer().getDivisibleSites();
         candidates = candSet.toArray(new Coordinate[0]);
         if (gs != null) {
             gs.add(getID(), candidates.length, candidates.length * 1.0D);
