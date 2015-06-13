@@ -22,27 +22,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.run;
-
-import factory.control.run.RunnerFactory;
+package processes.discrete;
 
 /**
- * The manual runner specifies a hard-coded parameters file to be loaded.
- * It is used for ad-hoc simulations and testing. Batch executions use
- * a command line argument to specify a parameters file.
- *
- * @author dbborens
+ * Created by dbborens on 6/13/2015.
  */
-public class ManualLauncher {
-
-    public static void main(String[] args) {
-//        String path = "/Users/dbborens/nanoverse/2015-06-03/non-equilibrium.xml";
-//        String path = "e:/nanoverse/2015-06-04/depletion.xml";
-//        String path = "e:/Dropbox/T6SS/xml/2015-06-07/depletion/models/max_solute=41.00.xml";
-//        String path = "e:/Dropbox/T6SS/xml/2015-06-07/depletion/models/test.xml";
-        String path = "e:/Dropbox/T6SS/xml/2015-06-11/clusters.xml";
-        Runner runner = RunnerFactory.instantiate(path);
-        runner.run();
-    }
-
+public class ScatterClustersHelper {
 }
