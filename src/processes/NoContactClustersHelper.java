@@ -22,27 +22,37 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.run;
+package processes;
 
-import factory.control.run.RunnerFactory;
+import cells.BehaviorCell;
+import control.identifiers.Coordinate;
+import layers.cell.CellLayer;
+import processes.discrete.ScatterClustersHelper;
 
 /**
- * The manual runner specifies a hard-coded parameters file to be loaded.
- * It is used for ad-hoc simulations and testing. Batch executions use
- * a command line argument to specify a parameters file.
- *
- * @author dbborens
+ * Created by dbborens on 6/14/2015.
  */
-public class ManualLauncher {
+public class NoContactClustersHelper extends ScatterClustersHelper {
+    public NoContactClustersHelper(CellLayer layer) {
+        super(layer);
+    }
 
-    public static void main(String[] args) {
-//        String path = "/Users/dbborens/nanoverse/2015-06-03/non-equilibrium.xml";
-//        String path = "e:/nanoverse/2015-06-04/depletion.xml";
-//        String path = "e:/Dropbox/T6SS/xml/2015-06-07/depletion/models/max_solute=41.00.xml";
-//        String path = "e:/Dropbox/T6SS/xml/2015-06-07/depletion/models/test.xml";
-        String path = "e:/Dropbox/T6SS/xml/2015-06-14/power.xml";
-        Runner runner = RunnerFactory.instantiate(path);
-        runner.run();
+    @Override
+    public int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m) {
+        if (layer.getViewer().isOccupied(candidate)) {
+            return 0;
+        }
+
+        if (hasSelfNeighbors(candidate, toPlace)) {
+            return 0;
+        }
+
+        int needed = needed(candidate, toPlace, m);
+        if (needed > -1) {
+            placeAndColonize(candidate, toPlace, needed);
+            return needed + 1;
+        }
+        return 0;
     }
 
 }
