@@ -24,8 +24,100 @@
 
 package processes.discrete;
 
+import cells.BehaviorCell;
+import control.halt.HaltCondition;
+import control.identifiers.Coordinate;
+import layers.cell.CellLayer;
+
+import java.util.*;
+import java.util.stream.IntStream;
+
 /**
- * Created by dbborens on 6/13/2015.
+ * Created by dbborens on 6/14/2015.
  */
-public class ScatterClustersHelper {
+public abstract class ScatterClustersHelper {
+    protected abstract int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m);
+
+    protected final CellLayer layer;
+
+    public ScatterClustersHelper(CellLayer layer) {
+        this.layer = layer;
+    }
+
+    protected int getMatchCount(int[] toMatch, int expected) {
+        return (int) IntStream
+                .range(0, toMatch.length)
+                .map(i -> toMatch[i])
+                .filter(neighborState -> neighborState == expected)
+                .count();
+    }
+
+    /**
+     * Examines a coordinate to determine whether its neighborhood has room
+     * for m self-similar cells. If there is no room for enough self-similar
+     * neighbors to satisfy this requirement, returns -1. Otherwise, returns
+     * the number of self-similar neighbors still needed to have m self-similar
+     * neighbors.
+     *
+     * @param current
+     * @param toPlace
+     * @param m
+     * @return
+     */
+    protected int needed(Coordinate current, BehaviorCell toPlace, int m) {
+        // Get new cell's state.
+        int state = toPlace.getState();
+
+        // Get neighborhood state.
+        int[] neighborStates = layer.getLookupManager().getNeighborStates(current, false);
+
+        // Count self-similar neighbors.
+        int numSelfSimilar = getMatchCount(neighborStates, state);
+
+        // Count adjacent vacancies
+        int numVacant = getMatchCount(neighborStates, 0);
+
+        if (numSelfSimilar + numVacant < m) {
+            return -1;
+        } else if (numSelfSimilar >= m) {
+            return 0;
+        } else {
+            return m - numSelfSimilar;
+        }
+    }
+
+    protected void placeAndColonize(Coordinate current, BehaviorCell toPlace, int needed) {
+        try {
+            layer.getUpdateManager().place(toPlace, current);
+        } catch (HaltCondition ex) {
+            throw new RuntimeException("Unexpected halt condition", ex);
+        }
+
+        List<Coordinate> vacancies = Arrays.asList(layer.getLookupManager().getNearestVacancies(current, 1));
+        Collections.shuffle(vacancies);
+
+        IntStream.range(0, needed).mapToObj(vacancies::get).forEach(c -> {
+            int state = toPlace.getState();
+            BehaviorCell clone;
+            try {
+                clone = toPlace.clone(state);
+                layer.getUpdateManager().place(clone, c);
+            } catch (HaltCondition ex) {
+                throw new RuntimeException("Unexpected halt condition", ex);
+            }
+        });
+    }
+
+    protected boolean hasSelfNeighbors(Coordinate candidate, BehaviorCell toPlace) {
+        // Get new cell's state.
+        int state = toPlace.getState();
+
+        // Get neighborhood state.
+        int[] neighborStates = layer.getLookupManager().getNeighborStates(candidate, false);
+
+        // Count self-similar neighbors.
+        int numSelfSimilar = getMatchCount(neighborStates, state);
+
+        return (numSelfSimilar > 0);
+    }
 }

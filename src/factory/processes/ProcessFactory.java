@@ -86,6 +86,9 @@ public abstract class ProcessFactory {
         } else if (processClass.equalsIgnoreCase("scatter")) {
             return ScatterProcessFactory.instantiate(e, layerManager, p, id);
 
+        } else if (processClass.equalsIgnoreCase("power-scatter")) {
+            return PowerScatterFactory.instantiate(e, layerManager, p, id);
+
         } else if (processClass.equalsIgnoreCase("scatter-clusters")) {
             return ScatterClustersProcessFactory.instantiate(e, layerManager, p, id);
 

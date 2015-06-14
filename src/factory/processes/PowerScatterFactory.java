@@ -22,30 +22,30 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package factory.processes.discrete;
+package factory.processes;
 
 import control.GeneralParameters;
 import control.arguments.*;
-import factory.control.arguments.IntegerArgumentFactory;
-import factory.processes.ProcessFactory;
+import factory.processes.discrete.ScatterClustersHelperFactory;
 import layers.LayerManager;
 import org.dom4j.Element;
-import processes.BaseProcessArguments;
+import processes.*;
 import processes.discrete.*;
+import structural.utilities.XmlUtil;
 
 /**
  * Created by dbborens on 11/23/14.
  */
-public abstract class ScatterClustersProcessFactory extends ProcessFactory {
+public abstract class PowerScatterFactory extends ProcessFactory {
 
-    public static ScatterClusters instantiate(Element e, LayerManager layerManager, GeneralParameters p, int id) {
+    public static PowerScatter instantiate(Element e, LayerManager layerManager, GeneralParameters p, int id) {
         BaseProcessArguments arguments = makeProcessArguments(e, layerManager, p, id);
         CellProcessArguments cpArguments = makeCellProcessArguments(e, layerManager, p);
         CellDescriptor cellDescriptor = makeCellDescriptor(e, "cell-descriptor", layerManager, p);
-        Argument<Integer> neighborCount = IntegerArgumentFactory.instantiate(e, "neighbors", 1, p.getRandom());
         ScatterClustersHelper helper = ScatterClustersHelperFactory.instantiate(e, layerManager);
-        ScatterClusters scatter = new ScatterClusters(arguments, cpArguments, neighborCount, cellDescriptor, helper);
+        PowerScatter scatter = new PowerScatter(arguments, cpArguments, cellDescriptor, helper);
 
         return scatter;
     }
+
 }

@@ -30,27 +30,37 @@ import control.halt.*;
 import control.identifiers.Coordinate;
 import processes.*;
 import processes.gillespie.GillespieState;
+import structural.RangeMap;
 
 import java.util.*;
 import java.util.stream.*;
 
-public class ScatterClusters extends CellProcess {
+public class PowerScatter extends CellProcess {
 
     private List<Coordinate> candidates;
-    private final Argument<Integer> neighborCount;
     private final CellDescriptor cellDescriptor;
     private final ScatterClustersHelper helper;
+    private final RangeMap<Integer> neighborChooser;
 
-    public ScatterClusters(BaseProcessArguments arguments,
-                           CellProcessArguments cpArguments,
-                           Argument<Integer> neighborCount,
-                           CellDescriptor cellDescriptor,
-                           ScatterClustersHelper helper) {
+    public PowerScatter(BaseProcessArguments arguments,
+                        CellProcessArguments cpArguments,
+                        CellDescriptor cellDescriptor,
+                        ScatterClustersHelper helper) {
 
         super(arguments, cpArguments);
         this.cellDescriptor = cellDescriptor;
-        this.neighborCount = neighborCount;
         this.helper = helper;
+        neighborChooser = makeNeighborChooser();
+    }
+
+    private RangeMap<Integer> makeNeighborChooser() {
+        int maxNeighbors = getLayer().getGeometry().getConnectivity() * 2;
+        RangeMap<Integer> ret = new RangeMap<>(maxNeighbors);
+        IntStream.range(0, maxNeighbors).forEach(i -> {
+            double weight = 1.0 / (i + 1.0);
+            ret.add(i, weight);
+        });
+        return ret;
     }
 
     @Override
@@ -72,7 +82,7 @@ public class ScatterClusters extends CellProcess {
         }
     }
 
-    private int getCeiling() {
+    private int getFloor() {
         int n;
 
         try {
@@ -87,42 +97,41 @@ public class ScatterClusters extends CellProcess {
         }
     }
 
-    public int getNeighborCount() {
-        int m;
-
-        try {
-            m = neighborCount.next();
-        } catch (HaltCondition ex) {
-            throw new RuntimeException("Unexpected halt condition", ex);
-        }
-
-        return m;
-    }
-
     public void fire(StepState state) throws HaltCondition {
+
         Collections.shuffle(candidates);
-        int placed = 0;
-        int n = getCeiling();
-        int m = getNeighborCount();
+        int ttlPlaced = 0;
+        int n = getFloor();
 
         Iterator<Coordinate> cIter = candidates.iterator();
         BehaviorCell toPlace = cellDescriptor.next();
 
-        while (placed < n) {
+        while (ttlPlaced < n) {
             if (!cIter.hasNext()) {
                 throw new LatticeFullEvent();
             }
 
+            int m = chooseMinNeighbors();
             // Get next candidate coordinate.
             Coordinate current = cIter.next();
 
             // Place cell at this site, if it is acceptable
-            if (helper.attemptPlacement(current, toPlace, m) > 0) {
-                placed++;
+            int placed = helper.attemptPlacement(current, toPlace, m);
+
+            if (placed > 0) {
+                ttlPlaced += placed;
                 toPlace = cellDescriptor.next();
             }
         }
 
+    }
+
+    private int chooseMinNeighbors() {
+        double x = getGeneralParameters()
+                .getRandom()
+                .nextDouble() * neighborChooser.getTotalWeight();
+
+        return neighborChooser.selectTarget(x);
     }
 
 
@@ -131,7 +140,7 @@ public class ScatterClusters extends CellProcess {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ScatterClusters scatter = (ScatterClusters) o;
+        PowerScatter scatter = (PowerScatter) o;
 
         if (cellDescriptor != null ? !cellDescriptor.equals(scatter.cellDescriptor) : scatter.cellDescriptor != null)
             return false;
