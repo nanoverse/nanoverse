@@ -54,7 +54,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
      */
     @Test
     public void trivialCaseReturnsZero() throws Exception {
-        Matrix operator = MatrixUtils.I(3);
+        Matrix operator = MatrixUtils.CompDiagIdentity(3);
         DenseVector source = new DenseVector(3);
         initial = new DenseVector(3);               // Zero out initial value
         doTest(source, operator, new DenseVector(3));
@@ -68,7 +68,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
      */
     @Test
     public void identityOperatorReturnsInput() throws Exception {
-        Matrix operator = MatrixUtils.I(3);
+        Matrix operator = MatrixUtils.CompDiagIdentity(3);
         DenseVector source = new DenseVector(3);
         doTest(source, operator, initial.copy());
     }
@@ -107,7 +107,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
      */
     @Test(expected = IllegalStateException.class)
     public void linearDivergenceThrows() throws Exception {
-        Matrix operator = MatrixUtils.I(3);
+        Matrix operator = MatrixUtils.CompDiagIdentity(3);
         DenseVector source = new DenseVector(3);
         source.set(0, 1.0);
         query.solve(source, operator, initial);

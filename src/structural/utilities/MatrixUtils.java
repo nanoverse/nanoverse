@@ -24,7 +24,10 @@
 
 package structural.utilities;
 
-import no.uib.cipr.matrix.*;
+import no.uib.cipr.matrix.DenseVector;
+import no.uib.cipr.matrix.Matrix;
+import no.uib.cipr.matrix.Vector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 public abstract class MatrixUtils {
     /**
@@ -68,14 +71,17 @@ public abstract class MatrixUtils {
     }
 
     /**
-     * Returns an identity matrix of size n.
-     * <p>
-     * TODO: There must be a built-in for this.
+     * Returns an compressed diagonal identity matrix of size n.
+     *
+     * @param n  the size of the identity matrix
+     * @return m  the compressed diagonal identity matrix
      */
-    public static Matrix I(int n) {
-        Matrix m = new BandMatrix(n, 0, 0);
-        for (int i = 0; i < n; i++)
+    public static CompDiagMatrix CompDiagIdentity(int n) {
+        int[] diagonals = {0};  // Indices of diagonals to preallocate
+        CompDiagMatrix m = new CompDiagMatrix(n, n, diagonals);
+        for (int i = 0; i < n; i++) {
             m.set(i, i, 1d);
+        }
 
         return m;
     }
