@@ -25,7 +25,9 @@
 package structural.utilities;
 
 import junit.framework.TestCase;
+import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.Matrices;
+import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 /**
@@ -44,5 +46,52 @@ public class MatrixUtilsTest extends TestCase {
                 assertTrue(EpsilonUtil.epsilonEquals(expected.get(i, j), actual.get(i, j)));
             }
         }
+    }
+
+    public void testIsColSumOne() throws Exception {
+        // Test columns (normal algorithm)
+        /*
+         Matrix:
+          0.9 0.8 0.7
+          0.1 0.2 0.3
+          0   0   0
+         */
+        CompDiagMatrix operator = new CompDiagMatrix(3, 3);
+        operator.set(0, 0, 0.9);
+        operator.set(0, 1, 0.8);
+        operator.set(0, 2, 0.7);
+        operator.set(1, 0, 0.1);
+        operator.set(1, 1, 0.2);
+        operator.set(1, 2, 0.3);
+        operator.set(2, 0, 0);
+        operator.set(2, 1, 0);
+        operator.set(2, 2, 0);
+
+        assertTrue(MatrixUtils.isColSumOne(operator));
+        operator.set(0, 0, 1);
+        assertFalse(MatrixUtils.isColSumOne(operator));
+    }
+
+    public void testIsRowSumOne() throws Exception {
+        /*
+         Matrix:
+          0.9 0.1 0
+          0.9 0.1 0
+          0.9 0.1 0
+         */
+        Matrix operator = new DenseMatrix(3, 3);
+        operator.set(0, 0, 0.9);
+        operator.set(1, 0, 0.9);
+        operator.set(2, 0, 0.9);
+        operator.set(0, 1, 0.1);
+        operator.set(1, 1, 0.1);
+        operator.set(2, 1, 0.1);
+        operator.set(0, 2, 0);
+        operator.set(1, 2, 0);
+        operator.set(2, 2, 0);
+
+        assertTrue(MatrixUtils.isRowSumOne(operator));
+        operator.set(2, 2, 1);
+        assertFalse(MatrixUtils.isRowSumOne(operator));
     }
 }

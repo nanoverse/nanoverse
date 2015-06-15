@@ -27,8 +27,8 @@ package layers.continuum.solvers;
 import layers.continuum.ContinuumLayerContent;
 import layers.continuum.ScheduledOperations;
 import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -46,7 +46,7 @@ public class NonEquilibriumSolverTest extends TestBase {
 
     private ContinuumLayerContent content;
     private Vector state, source;
-    private Matrix operator;
+    private CompDiagMatrix operator;
     private ScheduledOperations so;
     private NonEquilibriumSolver query;
 
@@ -80,7 +80,9 @@ public class NonEquilibriumSolverTest extends TestBase {
 
     @Test(expected = NotImplementedException.class)
     public void nontrivialMatrixThrows() throws Exception {
-        operator = operator.scale(2.0);
+        // It's probably best not to have to cast this, but
+        // we shouldn't need to do operations like this normally...
+        operator = (CompDiagMatrix) operator.scale(2.0);
         query.solve();
     }
 

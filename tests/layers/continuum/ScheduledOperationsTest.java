@@ -27,6 +27,7 @@ package layers.continuum;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.junit.Before;
 import org.junit.Test;
 import structural.utilities.MatrixUtils;
@@ -119,7 +120,7 @@ public class ScheduledOperationsTest extends LinearMocks {
 
     @Test
     public void resetSetsOperatorToIdentity() throws Exception {
-        Matrix toApply = matrix(1, 2, 3);
+        CompDiagMatrix toApply = matrix(1, 2, 3);
         query.apply(toApply);
         query.reset();
 
@@ -131,7 +132,7 @@ public class ScheduledOperationsTest extends LinearMocks {
 
     @Test
     public void applyIsMatrixAddition() throws Exception {
-        Matrix toApply = matrix(1.0, 2.0, 3.0);
+        CompDiagMatrix toApply = matrix(1.0, 2.0, 3.0);
         query.apply(toApply);
 
         Matrix expected = matrix(2.0, 3.0, 4.0);
@@ -142,7 +143,7 @@ public class ScheduledOperationsTest extends LinearMocks {
 
     @Test
     public void applyDoesNotAffectSource() throws Exception {
-        Matrix toApply = matrix(1.0, 2.0, 3.0);
+        CompDiagMatrix toApply = matrix(1.0, 2.0, 3.0);
         query.apply(toApply);
 
         Vector expected = vector(0, 0, 0);

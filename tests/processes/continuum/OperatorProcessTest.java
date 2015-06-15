@@ -24,7 +24,7 @@
 
 package processes.continuum;
 
-import no.uib.cipr.matrix.DenseMatrix;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.junit.Before;
 import org.junit.Test;
 import processes.BaseProcessArguments;
@@ -36,15 +36,15 @@ import static org.mockito.Mockito.*;
 public class OperatorProcessTest {
 
     private BaseProcessArguments arguments;
-    private DenseMatrix operator;
-    private Consumer<DenseMatrix> target;
+    private CompDiagMatrix operator;
+    private Consumer<CompDiagMatrix> target;
     private OperatorProcess query;
 
     @Before
     public void init() {
         arguments = mock(BaseProcessArguments.class);
-        operator = mock(DenseMatrix.class);
-        target = (Consumer<DenseMatrix>) mock(Consumer.class);
+        operator = mock(CompDiagMatrix.class);
+        target = (Consumer<CompDiagMatrix>) mock(Consumer.class);
         query = new OperatorProcess(arguments, operator, target);
     }
 

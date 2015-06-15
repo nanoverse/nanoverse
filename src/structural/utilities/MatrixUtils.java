@@ -122,4 +122,63 @@ public abstract class MatrixUtils {
         return new DenseVector(initial.size());
     }
 
+
+    /**
+     * Checks if a matrice's columns all sum to one.
+     *
+     * This is a faster algorithm that exploits matrix sparsity, but
+     * it only works on CompDiagMatrix.
+     *
+     * @param matrix  the matrix to check
+     * @return  true if the columns sum to one, false otherwise
+     */
+    public static boolean isColSumOne(CompDiagMatrix matrix) {
+        double[][] diagonals = matrix.getDiagonals();
+        int[] indices = matrix.getIndex();
+
+        for (int col = 0; col < matrix.numColumns(); col++) {
+            double colSum = 0.0;
+
+            for (int diag = 0; diag < indices.length; diag++) {
+                if (indices[diag] < 0) {  // Simulate padding end
+                    colSum += col >= diagonals[diag].length ? 0 : diagonals[diag][col];
+                } else {  // Simulate padding beginning
+                    int padLength = matrix.numColumns() - diagonals[diag].length;
+                    colSum += col - padLength < 0 ? 0 : diagonals[diag][col - padLength];
+                }
+            }
+
+            boolean colEqualsOne = EpsilonUtil.epsilonEquals(1.0, colSum);
+
+            if (!colEqualsOne) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if a matrice's rows all sum to one.
+     *
+     * @param matrix  the matrix to check
+     * @return  true if the rows sum to one, false otherwise
+     */
+    public static boolean isRowSumOne(Matrix matrix) {
+        for (int i = 0; i < matrix.numRows(); i++) {
+            double rowSum = 0.0;
+
+            for (int j = 0; j < matrix.numColumns(); j++) {
+                rowSum += matrix.get(i, j);
+            }
+
+            boolean rowEqualsOne = EpsilonUtil.epsilonEquals(1.0, rowSum);
+
+            if (!rowEqualsOne) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

@@ -40,7 +40,7 @@ import geometry.Geometry;
 import geometry.set.CoordinateSet;
 import layers.LayerManager;
 import layers.continuum.ContinuumLayer;
-import no.uib.cipr.matrix.DenseMatrix;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.dom4j.Element;
 import processes.BaseProcessArguments;
 import processes.EcoProcess;
@@ -171,7 +171,7 @@ public abstract class ProcessFactory {
                 geometry.getConnectivity(),
                 geometry.getDimensionality());
         DiffusionOperator operator = new DiffusionOperator(helper, geometry);
-        Consumer<DenseMatrix> target = matrix -> layer.getScheduler().apply(matrix);
+        Consumer<CompDiagMatrix> target = matrix -> layer.getScheduler().apply(matrix);
         OperatorProcess process = new OperatorProcess(arguments, operator, target);
         return process;
     }
