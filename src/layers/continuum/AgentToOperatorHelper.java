@@ -25,8 +25,8 @@
 package layers.continuum;
 
 import control.identifiers.Coordinate;
-import no.uib.cipr.matrix.*;
-import no.uib.cipr.matrix.sparse.LinkedSparseMatrix;
+import no.uib.cipr.matrix.DenseVector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -56,11 +56,11 @@ public class AgentToOperatorHelper {
         this.operators = operators;
     }
 
-    public Matrix getOperator(List<RelationshipTuple> relationships) {
+    public CompDiagMatrix getOperator(List<RelationshipTuple> relationships) {
         if (!operators) {
             throw new IllegalStateException("Attempting to access operators while operators are explicitly disabled");
         }
-        Matrix matrix = new LinkedSparseMatrix(n, n);
+        CompDiagMatrix matrix = new CompDiagMatrix(n, n);
         BiConsumer<Integer, Double> consumer = (i, v) -> matrix.add(i, i, v);
         Function<RelationshipTuple, Double> expLookup = RelationshipTuple::getExp;
         apply(relationships, expLookup, consumer);

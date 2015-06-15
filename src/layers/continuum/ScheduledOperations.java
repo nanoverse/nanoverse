@@ -26,8 +26,8 @@ package layers.continuum;
 
 import control.identifiers.Coordinate;
 import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import structural.utilities.MatrixUtils;
 
 import java.util.function.Function;
@@ -39,9 +39,9 @@ import java.util.function.Function;
  */
 public class ScheduledOperations {
 
-    private final Matrix identity;
+    private final CompDiagMatrix identity;
     private final DenseVector zeroVector;
-    private Matrix operator;
+    private CompDiagMatrix operator;
     private Vector source;
     private Function<Coordinate, Integer> indexer;
     private final boolean operators;
@@ -104,7 +104,7 @@ public class ScheduledOperations {
 
         // Reset operator to identity
         if (operators) {
-            operator = identity.copy();
+            operator = new CompDiagMatrix(identity);
         }
 
         // Replace source vector with zero vector
@@ -112,14 +112,13 @@ public class ScheduledOperations {
     }
 
     /**
-     * If this is the first matrix operation being scheduled, REPLACE the
-     * default (identity) matrix with this matrix. Otherwise, ADD this matrix
-     * to the current matrix. Note that this means successive scalings will
-     * be additive in magnitude, not multiplicative.
+     * Add this matrix to the current matrix. Note that this
+     * means successive scalings will be additive in magnitude,
+     * not multiplicative.
      *
      * @param toApply The matrix to be applied
      */
-    public void apply(Matrix toApply) {
+    public void apply(CompDiagMatrix toApply) {
         if (!operators) {
             throw new IllegalStateException("Operators are disabled but an operator matrix is being scheduled");
         }
@@ -131,7 +130,7 @@ public class ScheduledOperations {
         return source;
     }
 
-    public Matrix getOperator() {
+    public CompDiagMatrix getOperator() {
         return operator;
     }
 
