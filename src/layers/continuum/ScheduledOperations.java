@@ -25,7 +25,6 @@
 package layers.continuum;
 
 import control.identifiers.Coordinate;
-import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
@@ -52,7 +51,7 @@ public class ScheduledOperations {
         this.operators = operators;
 
         if (operators) {
-            identity = MatrixUtils.I(n);
+            identity = MatrixUtils.CompDiagIdentity(n);
         } else {
             identity = null;
         }

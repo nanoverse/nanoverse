@@ -24,7 +24,6 @@
 
 package layers.continuum.solvers;
 
-import static structural.utilities.MatrixUtils.*;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
@@ -32,6 +31,8 @@ import no.uib.cipr.matrix.sparse.*;
 import structural.utilities.EpsilonUtil;
 import structural.utilities.MatrixUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import static structural.utilities.MatrixUtils.*;
 
 
 /**
@@ -188,6 +189,6 @@ public class EquilibriumMatrixSolver {
      */
     private void steadyState(Matrix operator) {
         operator.scale(-1.0);
-        operator.add(MatrixUtils.I(operator.numRows()));
+        operator.add(MatrixUtils.CompDiagIdentity(operator.numRows()));
     }
 }

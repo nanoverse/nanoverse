@@ -24,12 +24,13 @@
 
 package layers.continuum.solvers;
 
-import layers.continuum.ContinuumLayer;
 import layers.continuum.ContinuumLayerContent;
 import layers.continuum.ScheduledOperations;
-import no.uib.cipr.matrix.*;
+import no.uib.cipr.matrix.DenseVector;
+import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import structural.utilities.MatrixUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -37,7 +38,6 @@ import test.TestBase;
 
 import java.util.stream.IntStream;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class NonEquilibriumSolverTest extends TestBase {
@@ -57,7 +57,7 @@ public class NonEquilibriumSolverTest extends TestBase {
         when(content.getState()).thenReturn(state);
 
         source = makeSourceVector();
-        operator = MatrixUtils.I(RANGE);
+        operator = MatrixUtils.CompDiagIdentity(RANGE);
         so = mock(ScheduledOperations.class);
         when(so.getOperator()).thenReturn(operator);
         when(so.getSource()).thenReturn(source);
