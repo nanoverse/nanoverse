@@ -42,7 +42,7 @@ public abstract class MatrixUtils {
         int c = m.numColumns();
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
-                sb.append(m.get(i, j));
+                sb.append(String.format("%.3f", m.get(i, j)));
                 sb.append('\t');
             }
             sb.append('\n');
@@ -58,13 +58,13 @@ public abstract class MatrixUtils {
      */
     public static String asMatrix(Vector v, int n) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < v.size(); i++) {
+        for (int i = 1; i <= v.size(); i++) {
+            sb.append(String.format("%.3f", v.get(i - 1)));
+            sb.append('\t');
+
             if (i % n == 0) {
                 sb.append("\n");
             }
-
-            sb.append(String.format("%.3f", v.get(i)));
-            sb.append('\t');
         }
 
         return sb.toString();
@@ -121,7 +121,6 @@ public abstract class MatrixUtils {
     public static DenseVector zeroVector(Vector initial) {
         return new DenseVector(initial.size());
     }
-
 
     /**
      * Checks if a matrice's columns all sum to one.

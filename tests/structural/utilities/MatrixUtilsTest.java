@@ -25,15 +25,39 @@
 package structural.utilities;
 
 import junit.framework.TestCase;
-import no.uib.cipr.matrix.DenseMatrix;
-import no.uib.cipr.matrix.Matrices;
-import no.uib.cipr.matrix.Matrix;
+import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 /**
- * Created by Daniel Greenidge on 2015-06-15.
+ * Created on 2016-06-15.
+ *
+ * @author Daniel Greenidge
  */
 public class MatrixUtilsTest extends TestCase {
+
+    public void testMatrixForm() throws Exception {
+        Matrix m = new DenseMatrix(2, 2);
+        m.set(0, 0, 1);
+        m.set(0, 1, 2);
+        m.set(1, 0, 3);
+        m.set(1, 1, 4);
+
+        String expected = "1.000\t2.000\t\n3.000\t4.000\t\n";
+
+        assertEquals(expected, MatrixUtils.matrixForm(m));
+    }
+
+    public void testAsMatrix() throws Exception {
+        Vector v = new DenseVector(4);
+        v.add(0, 0);
+        v.add(1, 1);
+        v.add(2, 2);
+        v.add(3, 3);
+
+        String expected = "0.000\t1.000\t\n2.000\t3.000\t\n";
+
+        assertEquals(expected, MatrixUtils.asMatrix(v, 2));
+    }
 
     public void testCompDiagIdentity() throws Exception {
         int size = 3;
@@ -48,6 +72,41 @@ public class MatrixUtilsTest extends TestCase {
                         actual.get(i, j)));
             }
         }
+    }
+
+    public void testIsIdentity() throws Exception {
+        Matrix identity1 = MatrixUtils.CompDiagIdentity(3);
+        Matrix identity2 = Matrices.identity(3);
+
+        assertTrue(MatrixUtils.isIdentity(identity1));
+        assertTrue(MatrixUtils.isIdentity(identity2));
+
+        identity1.set(0, 0, 2);
+        identity2.set(1, 0, 1);
+
+        assertFalse(MatrixUtils.isIdentity(identity1));
+        assertFalse(MatrixUtils.isIdentity(identity2));
+    }
+
+    public void testIsZeroVector() throws Exception {
+        Vector v1 = new DenseVector(2);
+        v1.set(0, 0);
+        v1.set(1, 0);
+        assertTrue(MatrixUtils.isZeroVector(v1));
+
+        Vector v2 = new DenseVector(2);
+        v2.set(0, 0);
+        v2.set(0, 1);
+        assertFalse(MatrixUtils.isZeroVector(v2));
+    }
+
+    public void testZeroVector() throws Exception {
+        Vector v = new DenseVector(2);
+        v.set(0, 1);
+        v.set(1, 1);
+        Vector zero = MatrixUtils.zeroVector(v);
+
+        assertTrue(MatrixUtils.isZeroVector(zero));
     }
 
     public void testIsColSumOne() throws Exception {
