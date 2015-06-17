@@ -40,22 +40,22 @@ public class MatrixUtilsTest extends TestCase {
         CompDiagMatrix expected = new CompDiagMatrix(Matrices.identity(size));
         CompDiagMatrix actual = MatrixUtils.CompDiagIdentity(size);
 
-        // We have to do this because CompDiagMatrix doesn't override Object.equals()
+        // We have to do this because CompDiagMatrix doesn't override
+        // Object.equals()
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                assertTrue(EpsilonUtil.epsilonEquals(expected.get(i, j), actual.get(i, j)));
+                assertTrue(EpsilonUtil.epsilonEquals(expected.get(i, j),
+                        actual.get(i, j)));
             }
         }
     }
 
     public void testIsColSumOne() throws Exception {
-        // Test columns (normal algorithm)
-        /*
-         Matrix:
-          0.9 0.8 0.7
-          0.1 0.2 0.3
-          0   0   0
-         */
+        /* Matrix to test:
+            0.9   0.8     0.7
+            0.1   0.2     0.3
+            0     0       0     */
+
         CompDiagMatrix operator = new CompDiagMatrix(3, 3);
         operator.set(0, 0, 0.9);
         operator.set(0, 1, 0.8);
@@ -73,12 +73,11 @@ public class MatrixUtilsTest extends TestCase {
     }
 
     public void testIsRowSumOne() throws Exception {
-        /*
-         Matrix:
-          0.9 0.1 0
-          0.9 0.1 0
-          0.9 0.1 0
-         */
+        /* Matrix to test:
+             0.9    0.1     0
+             0.9    0.1     0
+             0.9    0.1     0   */
+
         Matrix operator = new DenseMatrix(3, 3);
         operator.set(0, 0, 0.9);
         operator.set(1, 0, 0.9);
