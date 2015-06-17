@@ -126,26 +126,19 @@ public abstract class MatrixUtils {
     /**
      * Checks if a matrice's columns all sum to one.
      *
-     * This is a faster algorithm that exploits matrix sparsity, but
-     * it only works on CompDiagMatrix.
+     * This is a faster algorithm that exploits matrix sparsity.
      *
      * @param matrix  the matrix to check
      * @return  true if the columns sum to one, false otherwise
      */
     public static boolean isColSumOne(CompDiagMatrix matrix) {
-        double[][] diagonals = matrix.getDiagonals();
-        int[] indices = matrix.getIndex();
+        PaddedDiagonalStorage storage = new PaddedDiagonalStorage(matrix);
 
-        for (int col = 0; col < matrix.numColumns(); col++) {
+        for (int i = 0; i < storage.getNumColumns(); i++) {
             double colSum = 0.0;
 
-            for (int diag = 0; diag < indices.length; diag++) {
-                if (indices[diag] < 0) {  // Simulate padding end
-                    colSum += col >= diagonals[diag].length ? 0 : diagonals[diag][col];
-                } else {  // Simulate padding beginning
-                    int padLength = matrix.numColumns() - diagonals[diag].length;
-                    colSum += col - padLength < 0 ? 0 : diagonals[diag][col - padLength];
-                }
+            for (int j = 0; j < storage.getNumRows(); j++) {
+                colSum += storage.get(j, i);
             }
 
             boolean colEqualsOne = EpsilonUtil.epsilonEquals(1.0, colSum);
