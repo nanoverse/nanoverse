@@ -24,9 +24,10 @@
 
 package layers.continuum.solvers;
 
-import layers.continuum.*;
-import no.uib.cipr.matrix.Matrix;
+import layers.continuum.ContinuumLayerContent;
+import layers.continuum.ScheduledOperations;
 import no.uib.cipr.matrix.Vector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 /**
  * Created by dbborens on 12/12/14.
@@ -45,7 +46,7 @@ public class EquilibriumSolver extends ContinuumSolver {
      */
     protected Vector doSolve() {
         Vector source = so.getSource();
-        Matrix operator = so.getOperator();
+        CompDiagMatrix operator = so.getOperator();
 
         Vector template = content.getState().copy();
         Vector solution = steadyState.solve(source, operator, template);
