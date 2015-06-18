@@ -24,14 +24,14 @@
 
 package layers.continuum.solvers;
 
-import static structural.utilities.MatrixUtils.*;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.sparse.*;
-import structural.utilities.EpsilonUtil;
 import structural.utilities.MatrixUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import static structural.utilities.MatrixUtils.*;
 
 
 /**
@@ -64,7 +64,7 @@ public class EquilibriumMatrixSolver {
      * @param initial
      * @return
      */
-    public Vector solve(Vector source, Matrix operator, Vector initial) {
+    public Vector solve(Vector source, CompDiagMatrix operator, Vector initial) {
         // If the operator is the identity matrix and the source is zero,
         // return the initial value.SteadyStateHelper
         if (isZeroVector(source) && isIdentity(operator)) {
@@ -115,26 +115,18 @@ public class EquilibriumMatrixSolver {
         return false;
     }
 
-    private boolean isDoublyStochastic(Matrix operator) {
-        for (int i = 0; i < operator.numRows(); i++) {
+    private boolean isDoublyStochastic(CompDiagMatrix operator) {
 
-            double rowSum = 0.0;
-            double colSum = 0.0;
+        boolean colEqualsOne = MatrixUtils.isColSumOne(operator);
 
-            for (int j = 0; j < operator.numRows(); j++) {
-                rowSum += operator.get(i, j);
-                colSum += operator.get(j, i);
-            }
-
-            boolean rowEqualsOne = EpsilonUtil.epsilonEquals(1.0, rowSum);
-            boolean colEqualsOne = EpsilonUtil.epsilonEquals(1.0, colSum);
-
-            if (!(rowEqualsOne && colEqualsOne)) {
-                return false;
-            }
+        if (!colEqualsOne) {
+            return false;
         }
 
-        return true;
+        // Now that we know the column sum is equal to one, the only
+        // thing that determines whether it is doubly stochastic is
+        // the row sum
+        return MatrixUtils.isRowSumOne(operator);
     }
 
     private boolean isExponentialDivergence(Vector initial, Matrix operator) {
@@ -149,7 +141,6 @@ public class EquilibriumMatrixSolver {
 
         return false;
     }
-
 
     /**
      * Solve difference equation for steady state by inverting the steady
@@ -188,6 +179,6 @@ public class EquilibriumMatrixSolver {
      */
     private void steadyState(Matrix operator) {
         operator.scale(-1.0);
-        operator.add(MatrixUtils.I(operator.numRows()));
+        operator.add(MatrixUtils.CompDiagIdentity(operator.numRows()));
     }
 }

@@ -27,9 +27,9 @@ package factory.layers.continuum;
 import cells.BehaviorCell;
 import control.identifiers.Coordinate;
 import layers.continuum.*;
-import layers.continuum.solvers.*;
-import no.uib.cipr.matrix.Matrix;
+import layers.continuum.solvers.ContinuumSolver;
 import no.uib.cipr.matrix.DenseVector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.dom4j.Element;
 import structural.utilities.XmlUtil;
 
@@ -65,7 +65,7 @@ public abstract class ContinuumLayerSchedulerFactory {
     private static ContinuumAgentManager buildAgentManager(AgentToOperatorHelper agentHelper, ScheduledOperations so, String id, boolean operators) {
         Consumer<DenseVector> injector = vector -> so.inject(vector);
 
-        Consumer<Matrix> exponentiator;
+        Consumer<CompDiagMatrix> exponentiator;
         if (operators) {
             exponentiator = matrix -> so.apply(matrix);
         } else {
