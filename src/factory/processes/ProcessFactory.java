@@ -179,7 +179,9 @@ public abstract class ProcessFactory {
     private static InjectionProcess injectionProcess(Element e, GeneralParameters p, BaseProcessArguments arguments) {
         Argument<Double> valueArg = DoubleArgumentFactory.instantiate(e, "value", p.getRandom());
         String layerId = XmlUtil.getString(e, "layer");
-        InjectionProcess process = new InjectionProcess(arguments, layerId, valueArg);
+        Geometry geom = arguments.getLayerManager().getCellLayer().getGeometry();
+        CoordinateSet activeSites = getActiveSites(e, geom, p);
+        InjectionProcess process = new InjectionProcess(arguments, valueArg, layerId, activeSites);
         return process;
     }
     protected static BaseProcessArguments makeProcessArguments(Element e,
