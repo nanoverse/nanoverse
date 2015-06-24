@@ -57,7 +57,7 @@ public class NonEquilibriumSolverTest extends TestBase {
         when(content.getState()).thenReturn(state);
 
         source = makeSourceVector();
-        operator = MatrixUtils.CompDiagIdentity(RANGE);
+        operator = MatrixUtils.compDiagIdentity(RANGE);
         so = mock(ScheduledOperations.class);
         when(so.getOperator()).thenReturn(operator);
         when(so.getSource()).thenReturn(source);

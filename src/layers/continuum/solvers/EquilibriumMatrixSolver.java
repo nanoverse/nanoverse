@@ -179,6 +179,6 @@ public class EquilibriumMatrixSolver {
      */
     private void steadyState(Matrix operator) {
         operator.scale(-1.0);
-        operator.add(MatrixUtils.CompDiagIdentity(operator.numRows()));
+        operator.add(MatrixUtils.compDiagIdentity(operator.numRows()));
     }
 }

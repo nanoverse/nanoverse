@@ -76,7 +76,7 @@ public abstract class MatrixUtils {
      * @param n  the size of the identity matrix
      * @return m  the compressed diagonal identity matrix
      */
-    public static CompDiagMatrix CompDiagIdentity(int n) {
+    public static CompDiagMatrix compDiagIdentity(int n) {
         int[] diagonals = {0};  // Indices of diagonals to preallocate
         CompDiagMatrix m = new CompDiagMatrix(n, n, diagonals);
         for (int i = 0; i < n; i++) {
@@ -172,5 +172,23 @@ public abstract class MatrixUtils {
         }
 
         return true;
+    }
+
+    /**
+     * Zeros out a row of a compressed diagonal storage matrix in place.
+     *
+     * @param matrix the matrix to operate on
+     * @param rowIndex the index of the row to zero out
+     */
+    public static void zeroRow(CompDiagMatrix matrix, int rowIndex) {
+        int[] indices = matrix.getIndex();
+
+        for (int i = 0; i < indices.length; i++) {
+            int columnIndex = indices[i] + rowIndex;
+
+            if (columnIndex >= 0 && columnIndex < matrix.numColumns()) {
+                matrix.set(rowIndex, columnIndex, 0.0);
+            }
+        }
     }
 }
