@@ -37,7 +37,7 @@ import geometry.Geometry;
 import geometry.set.CoordinateSet;
 import layers.LayerManager;
 import layers.continuum.ContinuumLayer;
-import no.uib.cipr.matrix.DenseMatrix;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.dom4j.Element;
 import processes.BaseProcessArguments;
 import processes.EcoProcess;
@@ -174,7 +174,7 @@ public abstract class ProcessFactory {
                 geometry.getConnectivity(),
                 geometry.getDimensionality());
         DiffusionOperator operator = new DiffusionOperator(helper, geometry);
-        Consumer<DenseMatrix> target = matrix -> layer.getScheduler().apply(matrix);
+        Consumer<CompDiagMatrix> target = matrix -> layer.getScheduler().apply(matrix);
         OperatorProcess process = new OperatorProcess(arguments, operator, target);
         return process;
     }
@@ -182,7 +182,9 @@ public abstract class ProcessFactory {
     private static InjectionProcess injectionProcess(Element e, GeneralParameters p, BaseProcessArguments arguments) {
         Argument<Double> valueArg = DoubleArgumentFactory.instantiate(e, "value", p.getRandom());
         String layerId = XmlUtil.getString(e, "layer");
-        InjectionProcess process = new InjectionProcess(arguments, layerId, valueArg);
+        Geometry geom = arguments.getLayerManager().getCellLayer().getGeometry();
+        CoordinateSet activeSites = getActiveSites(e, geom, p);
+        InjectionProcess process = new InjectionProcess(arguments, valueArg, layerId, activeSites);
         return process;
     }
     protected static BaseProcessArguments makeProcessArguments(Element e,

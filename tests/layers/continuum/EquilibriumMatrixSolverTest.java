@@ -25,10 +25,9 @@
 package layers.continuum;
 
 import layers.continuum.solvers.EquilibriumMatrixSolver;
-import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.junit.Before;
 import org.junit.Test;
 import structural.utilities.MatrixUtils;
@@ -54,7 +53,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
      */
     @Test
     public void trivialCaseReturnsZero() throws Exception {
-        Matrix operator = MatrixUtils.I(3);
+        CompDiagMatrix operator = MatrixUtils.CompDiagIdentity(3);
         DenseVector source = new DenseVector(3);
         initial = new DenseVector(3);               // Zero out initial value
         doTest(source, operator, new DenseVector(3));
@@ -68,7 +67,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
      */
     @Test
     public void identityOperatorReturnsInput() throws Exception {
-        Matrix operator = MatrixUtils.I(3);
+        CompDiagMatrix operator = MatrixUtils.CompDiagIdentity(3);
         DenseVector source = new DenseVector(3);
         doTest(source, operator, initial.copy());
     }
@@ -79,7 +78,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
      */
     @Test
     public void zeroValueReturnsZero() throws Exception {
-        Matrix operator = diffusion();
+        CompDiagMatrix operator = diffusion();
         DenseVector source = new DenseVector(3);
         initial = new DenseVector(3);               // Zero out initial value
         doTest(source, operator, new DenseVector(3));
@@ -92,7 +91,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
      */
     @Test(expected = IllegalStateException.class)
     public void divergentInputThrows() {
-        Matrix operator = new DenseMatrix(3, 3);
+        CompDiagMatrix operator = new CompDiagMatrix(3, 3);
         operator.set(1, 1, 2.0);
         DenseVector source = new DenseVector(3);
         query.solve(source, operator, initial);
@@ -107,7 +106,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
      */
     @Test(expected = IllegalStateException.class)
     public void linearDivergenceThrows() throws Exception {
-        Matrix operator = MatrixUtils.I(3);
+        CompDiagMatrix operator = MatrixUtils.CompDiagIdentity(3);
         DenseVector source = new DenseVector(3);
         source.set(0, 1.0);
         query.solve(source, operator, initial);
@@ -119,7 +118,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
      */
     @Test(expected = IllegalStateException.class)
     public void noSteadyStateThrows() {
-        Matrix operator = advection();
+        CompDiagMatrix operator = advection();
         DenseVector source = new DenseVector(3);
         query.solve(source, operator, initial);
     }
@@ -131,7 +130,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
     @Test
     public void decayGoesToZero() {
         DenseVector source = new DenseVector(3);
-        Matrix operator = diffusion();
+        CompDiagMatrix operator = diffusion();
         DenseVector expected = new DenseVector(3);
         doTest(source, operator, expected);
     }
@@ -147,19 +146,19 @@ public class EquilibriumMatrixSolverTest extends TestBase {
     public void generalCaseSolvesMatrix() throws Exception {
         DenseVector source = new DenseVector(3);
         source.set(1, 1);
-        Matrix operator = diffusion();
+        CompDiagMatrix operator = diffusion();
         DenseVector expected = new DenseVector(new double[]{5.0, 10.0, 5.0});
         doTest(source, operator, expected);
     }
 
-    private void doTest(DenseVector source, Matrix operator, DenseVector expected) {
+    private void doTest(DenseVector source, CompDiagMatrix operator, DenseVector expected) {
         Vector actual = query.solve(source, operator, initial.copy());
         assertVectorsEqual(expected, actual, 1e-14);
     }
 
-    private Matrix diffusion() {
+    private CompDiagMatrix diffusion() {
 
-        Matrix operator = new DenseMatrix(3, 3);
+        CompDiagMatrix operator = new CompDiagMatrix(3, 3);
 
         /* Operator:
          *
@@ -189,8 +188,8 @@ public class EquilibriumMatrixSolverTest extends TestBase {
      *
      * @return
      */
-    private Matrix advection() {
-        Matrix operator = new DenseMatrix(3, 3);
+    private CompDiagMatrix advection() {
+        CompDiagMatrix operator = new CompDiagMatrix(3, 3);
 
         /* Operator:
          *
