@@ -33,14 +33,23 @@ import processes.EcoProcess;
 public abstract class CellProcess extends EcoProcess {
     // These are easily accessed from the layer manager, but there
     // are very many calls to them thanks to some legacy code.
-    protected CellLayer layer;
-    protected CoordinateSet activeSites;
-    protected Argument<Integer> maxTargets;
-
+    private final CellProcessArguments cpArguments;
+    private final BaseProcessArguments arguments;
     public CellProcess(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
         super(arguments);
-        layer = arguments.getLayerManager().getCellLayer();
-        activeSites = cpArguments.getActiveSites();
-        maxTargets = cpArguments.getMaxTargets();
+        this.cpArguments = cpArguments;
+        this.arguments = arguments;
+    }
+
+    protected CellLayer getLayer() {
+        return arguments.getLayerManager().getCellLayer();
+    }
+
+    protected CoordinateSet getActiveSites() {
+        return cpArguments.getActiveSites();
+    }
+
+    protected Argument<Integer> getMaxTargets() {
+        return cpArguments.getMaxTargets();
     }
 }

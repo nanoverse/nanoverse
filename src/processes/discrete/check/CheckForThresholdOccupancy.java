@@ -60,7 +60,7 @@ public class CheckForThresholdOccupancy extends CellProcess {
             throw new IllegalArgumentException("Illegal occupancy fraction " + toVal);
         }
 
-        thresholdCount = (int) Math.floor(layer.getGeometry().getCanonicalSites().length * toVal);
+        thresholdCount = (int) Math.floor(getLayer().getGeometry().getCanonicalSites().length * toVal);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class CheckForThresholdOccupancy extends CellProcess {
 
     @Override
     public void fire(StepState state) throws HaltCondition {
-        int numOccupied = layer.getViewer().getOccupiedSites().size();
+        int numOccupied = getLayer().getViewer().getOccupiedSites().size();
 
         if (numOccupied >= thresholdCount) {
             throw new ThresholdOccupancyReachedEvent();

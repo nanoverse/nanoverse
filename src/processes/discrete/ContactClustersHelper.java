@@ -24,39 +24,43 @@
 
 package processes.discrete;
 
+import cells.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
-import processes.BaseProcessArguments;
-import processes.StepState;
-import processes.gillespie.GillespieState;
+import layers.cell.CellLayer;
 
-import java.util.HashSet;
+import java.util.*;
+import java.util.stream.IntStream;
 
-public class Divide extends BulkDivisionProcess {
+/**
+ * Created by dbborens on 6/13/2015.
+ */
+public class ContactClustersHelper extends ScatterClustersHelper {
 
-    private Coordinate[] candidates;
-
-    public Divide(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
-        super(arguments, cpArguments);
+    public ContactClustersHelper(CellLayer layer) {
+        super(layer);
     }
 
-
+    /**
+     * Place a cell if the candidate site is a valid site for placement.
+     * Returns total number of cells placed.
+     *
+     * @param candidate
+     * @param toPlace
+     * @param m
+     * @return
+     */
     @Override
-    public void init() {
-        candidates = null;
-    }
-
-    public void target(GillespieState gs) throws HaltCondition {
-        HashSet<Coordinate> candSet = getLayer().getViewer().getDivisibleSites();
-        candidates = candSet.toArray(new Coordinate[0]);
-        if (gs != null) {
-            gs.add(getID(), candidates.length, candidates.length * 1.0D);
+    public int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m) {
+        if (layer.getViewer().isOccupied(candidate)) {
+            return 0;
         }
-    }
-
-    public void fire(StepState state) throws HaltCondition {
-        execute(candidates);
-        candidates = null;
+        int needed = needed(candidate, toPlace, m);
+        if (needed > -1) {
+            placeAndColonize(candidate, toPlace, needed);
+            return needed + 1;
+        }
+        return 0;
     }
 
 }

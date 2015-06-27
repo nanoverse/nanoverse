@@ -85,7 +85,7 @@ public class CheckForDomination extends CellProcess {
     }
 
     private void checkAllStates(StepState stepState) throws HaltCondition {
-        Integer[] states = layer.getViewer().getStateMapViewer().getStates();
+        Integer[] states = getLayer().getViewer().getStateMapViewer().getStates();
 
         for (Integer targetState : states) {
             // The dead state cannot "dominate" the system (that's extinction)
@@ -98,8 +98,8 @@ public class CheckForDomination extends CellProcess {
     }
 
     private void doCheck(int target, StepState stepState) throws HaltCondition {
-        double numTargetCells = layer.getViewer().getStateMapViewer().getCount(target);
-        double numCells = layer.getViewer().getOccupiedSites().size();
+        double numTargetCells = getLayer().getViewer().getStateMapViewer().getCount(target);
+        double numCells = getLayer().getViewer().getOccupiedSites().size();
 
         double fraction = numTargetCells / numCells;
 

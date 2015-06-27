@@ -22,32 +22,37 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package layers.continuum.solvers;
+package processes;
 
-import layers.continuum.*;
-import no.uib.cipr.matrix.*;
-import structural.utilities.MatrixUtils;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import cells.BehaviorCell;
+import control.identifiers.Coordinate;
+import layers.cell.CellLayer;
+import processes.discrete.ScatterClustersHelper;
 
 /**
- * Created by dbborens on 6/3/2015.
+ * Created by dbborens on 6/14/2015.
  */
-public class NonEquilibriumSolver extends ContinuumSolver {
-
-
-    public NonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, boolean operators) {
-        super(content, so);
-        if (operators) {
-            throw new NotImplementedException();
-        }
+public class NoContactClustersHelper extends ScatterClustersHelper {
+    public NoContactClustersHelper(CellLayer layer) {
+        super(layer);
     }
 
     @Override
-    protected Vector doSolve() {
-        Vector source = so.getSource();
+    public int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m) {
+        if (layer.getViewer().isOccupied(candidate)) {
+            return 0;
+        }
 
-        Vector current = content.getState().copy();
-        Vector result = current.add(source);
-        return result;
+        if (hasSelfNeighbors(candidate, toPlace)) {
+            return 0;
+        }
+
+        int needed = needed(candidate, toPlace, m);
+        if (needed > -1) {
+            placeAndColonize(candidate, toPlace, needed);
+            return needed + 1;
+        }
+        return 0;
     }
+
 }
