@@ -26,7 +26,7 @@ package processes.continuum;
 
 import control.identifiers.Coordinate;
 import geometry.Geometry;
-import no.uib.cipr.matrix.DenseMatrix;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 import java.util.Arrays;
 import java.util.function.Function;
@@ -35,7 +35,7 @@ import java.util.stream.IntStream;
 /**
  * Created by dbborens on 1/24/15.
  */
-public class DiffusionOperator extends DenseMatrix {
+public class DiffusionOperator extends CompDiagMatrix {
 
     public DiffusionOperator(DiffusionConstantHelper helper, Geometry geometry) {
         this(geometry.getCanonicalSites().length);

@@ -25,7 +25,7 @@
 package processes.continuum;
 
 import control.halt.HaltCondition;
-import no.uib.cipr.matrix.DenseMatrix;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import processes.BaseProcessArguments;
 import processes.StepState;
 
@@ -39,10 +39,10 @@ import java.util.function.Consumer;
  */
 public class OperatorProcess extends ContinuumProcess {
 
-    private DenseMatrix operator;
-    private Consumer<DenseMatrix> target;
+    private CompDiagMatrix operator;
+    private Consumer<CompDiagMatrix> target;
 
-    public OperatorProcess(BaseProcessArguments arguments, DenseMatrix operator, Consumer<DenseMatrix> target) {
+    public OperatorProcess(BaseProcessArguments arguments, CompDiagMatrix operator, Consumer<CompDiagMatrix> target) {
         super(arguments);
         this.target = target;
         this.operator = operator;

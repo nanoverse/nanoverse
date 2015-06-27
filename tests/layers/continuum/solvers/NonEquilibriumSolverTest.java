@@ -24,12 +24,13 @@
 
 package layers.continuum.solvers;
 
-import layers.continuum.ContinuumLayer;
 import layers.continuum.ContinuumLayerContent;
 import layers.continuum.ScheduledOperations;
-import no.uib.cipr.matrix.*;
+import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
-import org.junit.*;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import structural.utilities.MatrixUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -37,7 +38,6 @@ import test.TestBase;
 
 import java.util.stream.IntStream;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class NonEquilibriumSolverTest extends TestBase {
@@ -46,7 +46,7 @@ public class NonEquilibriumSolverTest extends TestBase {
 
     private ContinuumLayerContent content;
     private Vector state, source;
-    private Matrix operator;
+    private CompDiagMatrix operator;
     private ScheduledOperations so;
     private NonEquilibriumSolver query;
 
@@ -57,7 +57,7 @@ public class NonEquilibriumSolverTest extends TestBase {
         when(content.getState()).thenReturn(state);
 
         source = makeSourceVector();
-        operator = MatrixUtils.I(RANGE);
+        operator = MatrixUtils.CompDiagIdentity(RANGE);
         so = mock(ScheduledOperations.class);
         when(so.getOperator()).thenReturn(operator);
         when(so.getSource()).thenReturn(source);
@@ -80,7 +80,9 @@ public class NonEquilibriumSolverTest extends TestBase {
 
     @Test(expected = NotImplementedException.class)
     public void nontrivialMatrixThrows() throws Exception {
-        operator = operator.scale(2.0);
+        // It's probably best not to have to cast this, but
+        // we shouldn't need to do operations like this normally...
+        operator = (CompDiagMatrix) operator.scale(2.0);
         query.solve();
     }
 

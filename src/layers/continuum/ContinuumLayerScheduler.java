@@ -26,7 +26,7 @@ package layers.continuum;
 
 import control.identifiers.Coordinate;
 import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.Matrix;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 import java.util.function.Function;
 
@@ -43,7 +43,7 @@ public class ContinuumLayerScheduler {
         this.holdManager = holdManager;
     }
 
-    public void apply(Matrix matrix) {
+    public void apply(CompDiagMatrix matrix) {
         holdManager.resolve(() -> scheduledOperations.apply(matrix));
     }
 
