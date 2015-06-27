@@ -41,7 +41,7 @@ public abstract class RunnerFactory {
 
     // Version -- checked against parameters file to make sure they're
     // compatible
-    private final static String VERSION = "0.6.8";
+    private final static String VERSION = "0.6.11";
 
     // This line is included so that git will detect a change
 

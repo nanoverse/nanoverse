@@ -50,7 +50,7 @@ public class OccupiedNeighborSwap extends CellProcess {
     public OccupiedNeighborSwap(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
 
         super(arguments, cpArguments);
-        geom = layer.getGeometry();
+        geom = getLayer().getGeometry();
     }
 
     @Override
@@ -80,14 +80,14 @@ public class OccupiedNeighborSwap extends CellProcess {
         for (Object tObj : targets) {
             SwapTuple target = (SwapTuple) tObj;
             System.out.println("Swapping" + target.p + " with " + target.q);
-            layer.getUpdateManager().swap(target.p, target.q);
+            getLayer().getUpdateManager().swap(target.p, target.q);
         }
         this.candidates = null;
     }
 
     private Object[] selectTargets() throws HaltCondition {
 
-        Object[] selectedCoords = MaxTargetHelper.respectMaxTargets(candidates, maxTargets.next(), getGeneralParameters().getRandom());
+        Object[] selectedCoords = MaxTargetHelper.respectMaxTargets(candidates, getMaxTargets().next(), getGeneralParameters().getRandom());
 
 
         return selectedCoords;
@@ -100,7 +100,7 @@ public class OccupiedNeighborSwap extends CellProcess {
         candidates = new ArrayList<>();
 
         // Get a list of occupied sites
-        Set<Coordinate> coords = layer.getViewer().getOccupiedSites();
+        Set<Coordinate> coords = getLayer().getViewer().getOccupiedSites();
 
         // For each occupied site...
         for (Coordinate coord : coords) {
@@ -110,7 +110,7 @@ public class OccupiedNeighborSwap extends CellProcess {
 
             // Add each possible swap as a candidate
             for (Coordinate neighbor : neighbors) {
-                if (layer.getViewer().isOccupied(neighbor)) {
+                if (getLayer().getViewer().isOccupied(neighbor)) {
                     SwapTuple sw = new SwapTuple(coord, neighbor);
                     candidates.add(sw);
                 }

@@ -76,8 +76,8 @@ public class Fill extends CellProcess {
 
     public void fire(StepState state) throws HaltCondition {
 
-        for (Coordinate c : activeSites) {
-            boolean filled = layer.getViewer().isOccupied(c);
+        for (Coordinate c : getActiveSites()) {
+            boolean filled = getLayer().getViewer().isOccupied(c);
 
             if (filled && !skipFilled) {
                 String msg = "Attempted to fill coordinate " + c.toString() +
@@ -88,7 +88,7 @@ public class Fill extends CellProcess {
                 throw new IllegalStateException(msg);
             } else if (!filled) {
                 Cell cell = cellDescriptor.next();
-                layer.getUpdateManager().place(cell, c);
+                getLayer().getUpdateManager().place(cell, c);
             } else {
                 // Do nothing if site is filled and skipFilled is true.
             }
@@ -106,10 +106,10 @@ public class Fill extends CellProcess {
         if (cellDescriptor != null ? !cellDescriptor.equals(fill.cellDescriptor) : fill.cellDescriptor != null)
             return false;
 
-        if (activeSites != null ? !activeSites.equals(fill.activeSites) : fill.activeSites != null)
+        if (getActiveSites() != null ? !getActiveSites().equals(fill.getActiveSites()) : fill.getActiveSites() != null)
             return false;
 
-        if (maxTargets != null ? !maxTargets.equals(fill.maxTargets) : fill.maxTargets != null)
+        if (getMaxTargets() != null ? !getMaxTargets().equals(fill.getMaxTargets()) : fill.getMaxTargets() != null)
             return false;
 
         return true;

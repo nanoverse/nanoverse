@@ -31,10 +31,7 @@ import factory.control.arguments.CellDescriptorFactory;
 import factory.control.arguments.DoubleArgumentFactory;
 import factory.control.arguments.IntegerArgumentFactory;
 import factory.geometry.set.CoordinateSetFactory;
-import factory.processes.discrete.FillProcessFactory;
-import factory.processes.discrete.MockProcessFactory;
-import factory.processes.discrete.ScatterProcessFactory;
-import factory.processes.discrete.TriggerProcessFactory;
+import factory.processes.discrete.*;
 import factory.processes.discrete.filter.FilterFactory;
 import geometry.Geometry;
 import geometry.set.CoordinateSet;
@@ -88,6 +85,12 @@ public abstract class ProcessFactory {
 
         } else if (processClass.equalsIgnoreCase("scatter")) {
             return ScatterProcessFactory.instantiate(e, layerManager, p, id);
+
+        } else if (processClass.equalsIgnoreCase("power-scatter")) {
+            return PowerScatterFactory.instantiate(e, layerManager, p, id);
+
+        } else if (processClass.equalsIgnoreCase("scatter-clusters")) {
+            return ScatterClustersProcessFactory.instantiate(e, layerManager, p, id);
 
         } else if (processClass.equalsIgnoreCase("fill")) {
             return FillProcessFactory.instantiate(e, layerManager, p, id);
