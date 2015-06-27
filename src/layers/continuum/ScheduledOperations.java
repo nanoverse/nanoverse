@@ -25,10 +25,9 @@
 package layers.continuum;
 
 import control.identifiers.Coordinate;
-import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import structural.utilities.MatrixUtils;
 
 import java.util.function.Function;
@@ -40,17 +39,23 @@ import java.util.function.Function;
  */
 public class ScheduledOperations {
 
-    private final Matrix identity;
+    private final CompDiagMatrix identity;
     private final DenseVector zeroVector;
-    private Matrix operator;
+    private CompDiagMatrix operator;
     private Vector source;
     private Function<Coordinate, Integer> indexer;
+    private final boolean operators;
 
-    public ScheduledOperations(Function<Coordinate, Integer> indexer, int n) {
+    public ScheduledOperations(Function<Coordinate, Integer> indexer, int n, boolean operators) {
         this.indexer = indexer;
+        this.operators = operators;
 
-        Matrix bandIdentity = MatrixUtils.I(n);
-        identity = new DenseMatrix(bandIdentity);
+        if (operators) {
+            identity = MatrixUtils.CompDiagIdentity(n);
+        } else {
+            identity = null;
+        }
+
         zeroVector = new DenseVector(n);
 
         reset();
@@ -81,6 +86,10 @@ public class ScheduledOperations {
      * @param b
      */
     public void exp(Coordinate coordinate, double b) {
+        if (!operators) {
+            throw new IllegalStateException("Operators are disabled but an exponentiation event is being scheduled");
+        }
+
         int index = indexer.apply(coordinate);
         double current = operator.get(index, index);
         double next = current + b;
@@ -92,22 +101,27 @@ public class ScheduledOperations {
      * leave the current state of the field unaltered if applied.
      */
     public void reset() {
+
         // Reset operator to identity
-        operator = identity.copy();
+        if (operators) {
+            operator = new CompDiagMatrix(identity);
+        }
 
         // Replace source vector with zero vector
         source = zeroVector.copy();
     }
 
     /**
-     * If this is the first matrix operation being scheduled, REPLACE the
-     * default (identity) matrix with this matrix. Otherwise, ADD this matrix
-     * to the current matrix. Note that this means successive scalings will
-     * be additive in magnitude, not multiplicative.
+     * Add this matrix to the current matrix. Note that this
+     * means successive scalings will be additive in magnitude,
+     * not multiplicative.
      *
      * @param toApply The matrix to be applied
      */
-    public void apply(Matrix toApply) {
+    public void apply(CompDiagMatrix toApply) {
+        if (!operators) {
+            throw new IllegalStateException("Operators are disabled but an operator matrix is being scheduled");
+        }
         operator.add(toApply);
     }
 
@@ -116,7 +130,7 @@ public class ScheduledOperations {
         return source;
     }
 
-    public Matrix getOperator() {
+    public CompDiagMatrix getOperator() {
         return operator;
     }
 

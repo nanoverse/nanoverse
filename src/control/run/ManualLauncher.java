@@ -37,7 +37,8 @@ public class ManualLauncher {
 
     public static void main(String[] args) {
 //        String path = "/Users/dbborens/nanoverse/2015-06-03/non-equilibrium.xml";
-        String path = "e:/nanoverse/2015-06-04/depletion.xml";
+//        String path = "e:/nanoverse/2015-06-04/depletion.xml";
+        String path = "/Users/cdg4/Dropbox/research/quorum/experiments/2015-05-27_expandToDiffusionTest.xml";
         Runner runner = RunnerFactory.instantiate(path);
         runner.run();
     }

@@ -26,6 +26,8 @@ package processes.continuum;
 
 import control.arguments.Argument;
 import control.halt.HaltCondition;
+import control.identifiers.Coordinate;
+import geometry.set.CoordinateSet;
 import no.uib.cipr.matrix.DenseVector;
 import processes.*;
 import java.util.function.*;
@@ -38,21 +40,28 @@ public class InjectionProcess extends ContinuumProcess {
 
     private final Argument<Double> valueArg;
     private final String layerId;
+    private final CoordinateSet activeSites;
 
-    public InjectionProcess(BaseProcessArguments arguments, String layerId, Argument<Double> valueArg) {
+    public InjectionProcess(BaseProcessArguments arguments,
+                            Argument<Double> valueArg, String layerId,
+                            CoordinateSet activeSites) {
         super(arguments);
         this.valueArg = valueArg;
         this.layerId = layerId;
+        this.activeSites = activeSites;
     }
 
     @Override
     public void fire(StepState state) throws HaltCondition {
-        int n = getLayerManager().getCellLayer().getGeometry().getCanonicalSites().length;
-        DenseVector source = new DenseVector(n);
+        Coordinate[] canonicalSites = getLayerManager().getCellLayer()
+                .getGeometry().getCanonicalSites();
+        DenseVector source = new DenseVector(canonicalSites.length);
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < canonicalSites.length; i++) {
             double value = valueArg.next();
-            source.set(i, value);
+            if (activeSites.contains(canonicalSites[i])) {
+                source.set(i, value);
+            }
         }
 
         getLayerManager().getContinuumLayer(layerId).getScheduler().inject(source);

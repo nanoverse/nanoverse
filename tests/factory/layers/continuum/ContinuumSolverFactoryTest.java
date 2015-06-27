@@ -50,24 +50,24 @@ public class ContinuumSolverFactoryTest {
     @Test
     public void defaultCase() throws Exception {
         Element e = null;
-        ContinuumSolver result = ContinuumSolverFactory.instantiate(e, content, so);
+        ContinuumSolver result = ContinuumSolverFactory.instantiate(e, content, so, true);
         assertEquals(EquilibriumSolver.class, result.getClass());
     }
 
-    private void doTest(String text, Class expected) {
+    private void doTest(String text, Class expected, boolean operators) {
         Element e = new BaseElement("solver");
         e.setText(text);
-        ContinuumSolver result = ContinuumSolverFactory.instantiate(e, content, so);
+        ContinuumSolver result = ContinuumSolverFactory.instantiate(e, content, so, operators);
         assertEquals(expected, result.getClass());
 
     }
     @Test
     public void equilibriumCase() throws Exception {
-        doTest("equilibrium", EquilibriumSolver.class);
+        doTest("equilibrium", EquilibriumSolver.class, true);
     }
 
     @Test
     public void nonEquilibriumCase() throws Exception {
-        doTest("non-equilibrium", NonEquilibriumSolver.class);
+        doTest("non-equilibrium", NonEquilibriumSolver.class, false);
     }
 }

@@ -35,8 +35,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class NonEquilibriumSolver extends ContinuumSolver {
 
 
-    public NonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {
+    public NonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, boolean operators) {
         super(content, so);
+        if (operators) {
+            throw new NotImplementedException();
+        }
     }
 
     @Override

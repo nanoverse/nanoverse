@@ -24,8 +24,8 @@
 
 package layers.continuum;
 
-import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.DenseVector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -43,7 +43,7 @@ public class ContinuumLayerSchedulerTest extends LinearMocks {
 
     @Before
     public void init() throws Exception {
-        so = new ScheduledOperations(indexer, 3);
+        so = new ScheduledOperations(indexer, 3, true);
         holdManager = mock(HoldManager.class);
         runArgument = ArgumentCaptor.forClass(Runnable.class);
 
@@ -52,7 +52,7 @@ public class ContinuumLayerSchedulerTest extends LinearMocks {
 
     @Test
     public void apply() throws Exception {
-        DenseMatrix matrix = matrix(1.0, 2.0, 3.0);
+        CompDiagMatrix matrix = matrix(1.0, 2.0, 3.0);
         query.apply(matrix);
         runRunnable();
         checkMatrix(so.getOperator(), 2.0, 3.0, 4.0);

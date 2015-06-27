@@ -33,6 +33,7 @@ import layers.continuum.ContinuumLayer;
 import layers.continuum.ContinuumLayerContent;
 import layers.continuum.ContinuumLayerScheduler;
 import org.dom4j.Element;
+import structural.utilities.XmlUtil;
 
 import java.util.function.Function;
 
@@ -46,7 +47,6 @@ public abstract class ContinuumLayerFactory {
         int n = geom.getCanonicalSites().length;
         Function<Coordinate, Integer> indexer = geom.getIndexer();
         String id = root.element("id").getText();
-
         ContinuumLayerContent content = new ContinuumLayerContent(indexer, geom.getCanonicalSites().length);
         ContinuumLayerScheduler scheduler = ContinuumLayerSchedulerFactory.instantiate(root, content, indexer, n, id);
 

@@ -85,6 +85,9 @@ public abstract class DynamicActionRangeMapDescriptorFactory {
 
     private static ActionDescriptor getAction(Element option, LayerManager layerManager, GeneralParameters p) {
         Element actionElement = option.element("action");
+        if (actionElement == null) {
+            throw new IllegalArgumentException("Incomplete descriptor: " + option.asXML());
+        }
         List elements = actionElement.elements();
         if (elements.size() == 0) {
             Function<BehaviorCell, NullAction> fn = cell -> new NullAction();

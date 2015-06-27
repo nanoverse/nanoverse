@@ -26,10 +26,10 @@ package test;
 
 import control.identifiers.Coordinate;
 import geometry.Geometry;
-import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.junit.Before;
 
 import java.util.function.Function;
@@ -66,8 +66,8 @@ public abstract class LinearMocks extends TestBase {
         return new DenseVector(arr);
     }
 
-    protected static DenseMatrix matrix(double x00, double x11, double x22) {
-        DenseMatrix matrix = new DenseMatrix(3, 3);
+    protected static CompDiagMatrix matrix(double x00, double x11, double x22) {
+        CompDiagMatrix matrix = new CompDiagMatrix(3, 3);
         matrix.add(0, 0, x00);
         matrix.add(1, 1, x11);
         matrix.add(2, 2, x22);

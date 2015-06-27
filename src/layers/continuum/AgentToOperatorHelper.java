@@ -25,8 +25,8 @@
 package layers.continuum;
 
 import control.identifiers.Coordinate;
-import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.DenseVector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -42,18 +42,25 @@ import java.util.function.Function;
 public class AgentToOperatorHelper {
 
     // Number of canonical sites
-    private int n;
+    private final int n;
 
     // Converts coordinates to vector/matrix indices
-    private Function<Coordinate, Integer> indexer;
+    private final Function<Coordinate, Integer> indexer;
 
-    public AgentToOperatorHelper(Function<Coordinate, Integer> indexer, int n) {
+    // Unless set to true, throws exceptions if operators are scheduled or retrieved
+    private final boolean operators;
+
+    public AgentToOperatorHelper(Function<Coordinate, Integer> indexer, int n, boolean operators) {
         this.n = n;
         this.indexer = indexer;
+        this.operators = operators;
     }
 
-    public DenseMatrix getOperator(List<RelationshipTuple> relationships) {
-        DenseMatrix matrix = new DenseMatrix(n, n);
+    public CompDiagMatrix getOperator(List<RelationshipTuple> relationships) {
+        if (!operators) {
+            throw new IllegalStateException("Attempting to access operators while operators are explicitly disabled");
+        }
+        CompDiagMatrix matrix = new CompDiagMatrix(n, n);
         BiConsumer<Integer, Double> consumer = (i, v) -> matrix.add(i, i, v);
         Function<RelationshipTuple, Double> expLookup = RelationshipTuple::getExp;
         apply(relationships, expLookup, consumer);
