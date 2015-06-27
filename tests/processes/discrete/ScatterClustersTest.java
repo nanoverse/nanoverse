@@ -46,10 +46,11 @@ public class ScatterClustersTest extends CellProcessTestBase {
     private Argument<Integer> neighborCount;
     private CellDescriptor cellDescriptor;
     private ScatterClusters query;
-
+    private ScatterClustersHelper helper;
     @Before
     public void before() throws Exception {
         setup();
+        helper = new ContactClustersHelper(layer);
         neighborCount = new ConstantInteger(1);
         cellDescriptor = mock(CellDescriptor.class);
         when(cellDescriptor.next()).thenAnswer(invocation -> {
@@ -59,7 +60,7 @@ public class ScatterClustersTest extends CellProcessTestBase {
         });
         ConstantInteger maxTargets = new ConstantInteger(1);
         when(cpArguments.getMaxTargets()).thenReturn(maxTargets);
-        query = new ScatterClusters(arguments, cpArguments, neighborCount, cellDescriptor);
+        query = new ScatterClusters(arguments, cpArguments, neighborCount, cellDescriptor, helper);
     }
 
 
