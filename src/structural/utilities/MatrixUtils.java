@@ -24,7 +24,10 @@
 
 package structural.utilities;
 
-import no.uib.cipr.matrix.*;
+import no.uib.cipr.matrix.DenseVector;
+import no.uib.cipr.matrix.Matrix;
+import no.uib.cipr.matrix.Vector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 public abstract class MatrixUtils {
     /**
@@ -39,7 +42,7 @@ public abstract class MatrixUtils {
         int c = m.numColumns();
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
-                sb.append(m.get(i, j));
+                sb.append(String.format("%.3f", m.get(i, j)));
                 sb.append('\t');
             }
             sb.append('\n');
@@ -55,27 +58,30 @@ public abstract class MatrixUtils {
      */
     public static String asMatrix(Vector v, int n) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < v.size(); i++) {
+        for (int i = 1; i <= v.size(); i++) {
+            sb.append(String.format("%.3f", v.get(i - 1)));
+            sb.append('\t');
+
             if (i % n == 0) {
                 sb.append("\n");
             }
-
-            sb.append(String.format("%.3f", v.get(i)));
-            sb.append('\t');
         }
 
         return sb.toString();
     }
 
     /**
-     * Returns an identity matrix of size n.
-     * <p>
-     * TODO: There must be a built-in for this.
+     * Returns an compressed diagonal identity matrix of size n.
+     *
+     * @param n  the size of the identity matrix
+     * @return m  the compressed diagonal identity matrix
      */
-    public static Matrix I(int n) {
-        Matrix m = new BandMatrix(n, 0, 0);
-        for (int i = 0; i < n; i++)
+    public static CompDiagMatrix CompDiagIdentity(int n) {
+        int[] diagonals = {0};  // Indices of diagonals to preallocate
+        CompDiagMatrix m = new CompDiagMatrix(n, n, diagonals);
+        for (int i = 0; i < n; i++) {
             m.set(i, i, 1d);
+        }
 
         return m;
     }
@@ -116,4 +122,55 @@ public abstract class MatrixUtils {
         return new DenseVector(initial.size());
     }
 
+    /**
+     * Checks if a matrice's columns all sum to one.
+     *
+     * This is a faster algorithm that exploits matrix sparsity.
+     *
+     * @param matrix  the matrix to check
+     * @return  true if the columns sum to one, false otherwise
+     */
+    public static boolean isColSumOne(CompDiagMatrix matrix) {
+        PaddedDiagonalStorage storage = new PaddedDiagonalStorage(matrix);
+
+        for (int i = 0; i < storage.getNumColumns(); i++) {
+            double colSum = 0.0;
+
+            for (int j = 0; j < storage.getNumRows(); j++) {
+                colSum += storage.get(j, i);
+            }
+
+            boolean colEqualsOne = EpsilonUtil.epsilonEquals(1.0, colSum);
+
+            if (!colEqualsOne) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if a matrice's rows all sum to one.
+     *
+     * @param matrix  the matrix to check
+     * @return  true if the rows sum to one, false otherwise
+     */
+    public static boolean isRowSumOne(Matrix matrix) {
+        for (int i = 0; i < matrix.numRows(); i++) {
+            double rowSum = 0.0;
+
+            for (int j = 0; j < matrix.numColumns(); j++) {
+                rowSum += matrix.get(i, j);
+            }
+
+            boolean rowEqualsOne = EpsilonUtil.epsilonEquals(1.0, rowSum);
+
+            if (!rowEqualsOne) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

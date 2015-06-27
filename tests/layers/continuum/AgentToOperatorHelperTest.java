@@ -25,7 +25,7 @@
 package layers.continuum;
 
 import factory.cell.Reaction;
-import no.uib.cipr.matrix.DenseMatrix;
+import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.DenseVector;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +46,7 @@ public class AgentToOperatorHelperTest extends LinearMocks {
         reaction = new Reaction(1.0, 2.0, "test");
         RelationshipTuple relationship = new RelationshipTuple(a, reaction);
         list = Stream.of(relationship).collect(Collectors.toList());
-        query = new AgentToOperatorHelper(indexer, 3);
+        query = new AgentToOperatorHelper(indexer, 3, true);
     }
 
     @Test
@@ -58,8 +58,8 @@ public class AgentToOperatorHelperTest extends LinearMocks {
 
     @Test
     public void getOperator() {
-        DenseMatrix expected = matrix(2.0, 0.0, 0.0);
-        DenseMatrix actual = query.getOperator(list);
+        Matrix expected = matrix(2.0, 0.0, 0.0);
+        Matrix actual = query.getOperator(list);
         assertMatricesEqual(expected, actual, epsilon);
     }
 

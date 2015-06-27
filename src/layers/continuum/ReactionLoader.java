@@ -24,8 +24,8 @@
 
 package layers.continuum;
 
-import no.uib.cipr.matrix.DenseMatrix;
 import no.uib.cipr.matrix.DenseVector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -37,14 +37,17 @@ import java.util.stream.Stream;
  */
 public class ReactionLoader {
 
-    private Consumer<DenseVector> injector;
-    private Consumer<DenseMatrix> exponentiator;
-    private AgentToOperatorHelper helper;
+    private final Consumer<DenseVector> injector;
+    private final Consumer<CompDiagMatrix> exponentiator;
+    private final AgentToOperatorHelper helper;
+    private final boolean operators;
 
-    public ReactionLoader(Consumer<DenseVector> injector, Consumer<DenseMatrix> exponentiator, AgentToOperatorHelper helper) {
+    public ReactionLoader(Consumer<DenseVector> injector, Consumer<CompDiagMatrix> exponentiator,
+                          AgentToOperatorHelper helper, boolean operators) {
         this.injector = injector;
         this.exponentiator = exponentiator;
         this.helper = helper;
+        this.operators = operators;
     }
 
     private void inject(List<RelationshipTuple> relationships) {
@@ -53,14 +56,16 @@ public class ReactionLoader {
     }
 
     private void exponentiate(List<RelationshipTuple> relationshipTuples) {
-        DenseMatrix exponents = helper.getOperator(relationshipTuples);
+        CompDiagMatrix exponents = helper.getOperator(relationshipTuples);
         exponentiator.accept(exponents);
     }
 
     public void apply(Stream<RelationshipTuple> relationships) {
-        // TODO Refactor this hierarchy to pass through stream only once
         List<RelationshipTuple> list = relationships.collect(Collectors.toList());
         inject(list);
-        exponentiate(list);
+
+        if (operators) {
+            exponentiate(list);
+        }
     }
 }

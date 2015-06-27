@@ -27,10 +27,11 @@ package factory.layers.continuum;
 import cells.BehaviorCell;
 import control.identifiers.Coordinate;
 import layers.continuum.*;
-import layers.continuum.solvers.*;
-import no.uib.cipr.matrix.DenseMatrix;
+import layers.continuum.solvers.ContinuumSolver;
 import no.uib.cipr.matrix.DenseVector;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.dom4j.Element;
+import structural.utilities.XmlUtil;
 
 import java.util.IdentityHashMap;
 import java.util.function.Consumer;
@@ -43,27 +44,37 @@ import java.util.function.Supplier;
 public abstract class ContinuumLayerSchedulerFactory {
 
     public static ContinuumLayerScheduler instantiate(Element e, ContinuumLayerContent content, Function<Coordinate, Integer> indexer, int n, String id) {
-        ScheduledOperations so = new ScheduledOperations(indexer, n);
-        AgentToOperatorHelper helper = new AgentToOperatorHelper(indexer, n);
-        ContinuumAgentManager agentManager = buildAgentManager(helper, so, id);
-        ContinuumSolver solver = makeSolver(e, content, so);
+        boolean operators = !XmlUtil.getBoolean(e, "disable-operators");
+        ScheduledOperations so = new ScheduledOperations(indexer, n, operators);
+        AgentToOperatorHelper helper = new AgentToOperatorHelper(indexer, n, operators);
+        ContinuumAgentManager agentManager = buildAgentManager(helper, so, id, operators);
+        ContinuumSolver solver = makeSolver(e, content, so, operators);
         HoldManager holdManager = new HoldManager(agentManager, solver);
         return new ContinuumLayerScheduler(so, holdManager);
     }
 
-    private static ContinuumSolver makeSolver(Element e, ContinuumLayerContent content, ScheduledOperations so) {
+    private static ContinuumSolver makeSolver(Element e, ContinuumLayerContent content, ScheduledOperations so, boolean operators) {
         if (e == null) {
-            return ContinuumSolverFactory.instantiate(null, content, so);
+            return ContinuumSolverFactory.instantiate(null, content, so, operators);
         }
 
         Element solverElement = e.element("solver");
-        return ContinuumSolverFactory.instantiate(solverElement, content, so);
+        return ContinuumSolverFactory.instantiate(solverElement, content, so, operators);
     }
 
-    private static ContinuumAgentManager buildAgentManager(AgentToOperatorHelper agentHelper, ScheduledOperations so, String id) {
+    private static ContinuumAgentManager buildAgentManager(AgentToOperatorHelper agentHelper, ScheduledOperations so, String id, boolean operators) {
         Consumer<DenseVector> injector = vector -> so.inject(vector);
-        Consumer<DenseMatrix> exponentiator = matrix -> so.apply(matrix);
-        ReactionLoader agentScheduler = new ReactionLoader(injector, exponentiator, agentHelper);
+
+        Consumer<CompDiagMatrix> exponentiator;
+        if (operators) {
+            exponentiator = matrix -> so.apply(matrix);
+        } else {
+            exponentiator = matrix -> {
+                throw new IllegalStateException("Attempted to schedule matrix operator, but operators are explicitly disabled");
+            };
+        }
+
+        ReactionLoader agentScheduler = new ReactionLoader(injector, exponentiator, agentHelper, operators);
 
         IdentityHashMap<BehaviorCell, Supplier<RelationshipTuple>> map = new IdentityHashMap<>();
         ContinuumAgentIndex index = new ContinuumAgentIndex(map);
