@@ -31,6 +31,7 @@ import io.visual.HSLColor;
 import layers.SystemState;
 
 import java.awt.*;
+import java.util.HashSet;
 
 /**
  * Given some range of values, scales color intensity
@@ -39,6 +40,7 @@ import java.awt.*;
  * Created by dbborens on 5/31/2015.
  */
 public class NormalizedContinuumColorManager extends ColorManager {
+
 
     private final float minHue;
     private final float maxHue;
@@ -95,7 +97,6 @@ public class NormalizedContinuumColorManager extends ColorManager {
     @Override
     public Color getColor(Coordinate c, SystemState systemState) {
         float normalized = (float) normalizer.normalize(c, systemState);
-
         // See HSLColor.java for explanation of scalings used below
         float hue = applyScale(normalized, minHue, maxHue) * 360F;
         float saturation = applyScale(normalized, minSaturation, maxSaturation) * 100F;
