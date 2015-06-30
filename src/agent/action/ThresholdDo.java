@@ -69,11 +69,11 @@ public class ThresholdDo extends Action {
                 .getContinuumLayer(layerId)
                 .getValueAt(c);
 
-        if (value < minimum) {
+        if (value <= minimum) {
             return;
         }
 
-        if (value > maximum) {
+        if (value >= maximum) {
             return;
         }
 

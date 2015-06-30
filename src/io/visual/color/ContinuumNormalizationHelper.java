@@ -27,11 +27,14 @@ package io.visual.color;
 import control.identifiers.*;
 import layers.SystemState;
 
+import java.util.HashSet;
+
 /**
  * Created by dbborens on 5/31/2015.
  */
 public class ContinuumNormalizationHelper {
     private final String continuumId;
+    private HashSet<Double> observedValues = new HashSet<>();
 
     public ContinuumNormalizationHelper(String continuumId) {
         this.continuumId = continuumId;
@@ -48,6 +51,10 @@ public class ContinuumNormalizationHelper {
     public double normalize(Coordinate c, SystemState systemState) {
         Extrema extrema = systemState.getContinuumExtrema(continuumId);
         double rawValue = systemState.getContinuumValue(continuumId, c);
+        if (!observedValues.contains(rawValue)) {
+            System.err.println(rawValue);
+            observedValues.add(rawValue);
+        }
         double centeredValue = rawValue - extrema.min();
         double range = extrema.max() - extrema.min();
         double normalized = centeredValue / range;
