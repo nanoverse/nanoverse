@@ -48,9 +48,9 @@ public class NormalizedContinuumColorManagerTest extends TestBase {
     private Coordinate c;
     private SystemState systemState;
     private NormalizedContinuumColorManager query;
-
     @Before
     public void before() throws Exception {
+
         c = mock(Coordinate.class);
         systemState = mock(SystemState.class);
         normalizer = mock(ContinuumNormalizationHelper.class);
@@ -60,7 +60,8 @@ public class NormalizedContinuumColorManagerTest extends TestBase {
                 maxSaturationArg,
                 minLuminanceArg,
                 maxLuminanceArg,
-                normalizer);
+                normalizer, false,
+                new UniformColorManager(Color.WHITE));
     }
 
     private void doColorTest(double normalized, float h, float s, float l) {

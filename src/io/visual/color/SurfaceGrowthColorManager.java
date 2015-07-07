@@ -46,7 +46,8 @@ public class SurfaceGrowthColorManager extends ColorManager {
     private Argument<Double> saturationScale;
 
     public SurfaceGrowthColorManager(ColorManager base,
-                                     Argument<Double> luminanceScale, Argument<Double> saturationScale) {
+                                     Argument<Double> luminanceScale,
+                                     Argument<Double> saturationScale) {
         this.base = base;
         this.saturationScale = saturationScale;
         this.luminanceScale = luminanceScale;

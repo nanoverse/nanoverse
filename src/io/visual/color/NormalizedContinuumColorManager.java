@@ -31,6 +31,7 @@ import io.visual.HSLColor;
 import layers.SystemState;
 
 import java.awt.*;
+import java.awt.image.ColorModel;
 import java.util.HashSet;
 
 /**
@@ -49,15 +50,20 @@ public class NormalizedContinuumColorManager extends ColorManager {
     private final float minSaturation;
     private final float maxSaturation;
     private final ContinuumNormalizationHelper normalizer;
-
+    private final ColorManager base;
+    private final boolean averageLuminance;
     public NormalizedContinuumColorManager(Argument<Double> minHueArg,
                                            Argument<Double> maxHueArg,
                                            Argument<Double> minSaturationArg,
                                            Argument<Double> maxSaturationArg,
                                            Argument<Double> minLuminanceArg,
                                            Argument<Double> maxLuminanceArg,
-                                           String continuumId) {
+                                           String continuumId,
+                                           boolean averageLuminance,
+                                           ColorManager base) {
 
+        this.base = base;
+        this.averageLuminance = averageLuminance;
         normalizer = new ContinuumNormalizationHelper(continuumId);
 
         try {
@@ -78,9 +84,13 @@ public class NormalizedContinuumColorManager extends ColorManager {
                                            Argument<Double> maxSaturationArg,
                                            Argument<Double> minLuminanceArg,
                                            Argument<Double> maxLuminanceArg,
-                                           ContinuumNormalizationHelper normalizer) {
+                                           ContinuumNormalizationHelper normalizer,
+                                           boolean averageLuminance,
+                                           ColorManager base) {
 
+        this.base = base;
         this.normalizer = normalizer;
+        this.averageLuminance = averageLuminance;
 
         try {
             this.minHue = minHueArg.next().floatValue();
@@ -96,7 +106,56 @@ public class NormalizedContinuumColorManager extends ColorManager {
 
     @Override
     public Color getColor(Coordinate c, SystemState systemState) {
+        Color baseColor = base.getColor(c, systemState);
+        Color overlayColor = getOverlayColor(c, systemState);
+
+        return blend(baseColor, overlayColor);
+    }
+
+    private Color blend(Color baseColor, Color overlayColor) {
+        float hue = blendHue(baseColor, overlayColor);
+        float saturation = blendSaturation(baseColor, overlayColor);
+        float luminance = blendLuminance(baseColor, overlayColor);
+        return HSLColor.toRGB(hue, saturation, luminance);
+    }
+
+    // TODO This might have funny behavior when colors are near each other on annulus. Try it out.
+    private float blendHue(Color baseColor, Color overlayColor) {
+        // TODO Need to implement a color blender helper
+        float baseHue = HSLColor.fromRGB(baseColor)[0] / 360.0F;
+//        float overHue = HSLColor.fromRGB(overlayColor)[0] / 360.0F;
+//        float hue = (baseHue + overHue) / 2.0F * 360F;
+//        return hue;
+        return baseHue * 360F;
+    }
+
+    private float blendSaturation(Color baseColor, Color overlayColor) {
+        float baseSat = HSLColor.fromRGB(baseColor)[1] / 100.0F;
+        float overSat = HSLColor.fromRGB(overlayColor)[1] / 100.0F;
+        return (baseSat + overSat) / 2.0F * 100.0F;
+    }
+
+    /**
+     * Blend luminance, either by averaging or compositing.
+     * @param baseColor
+     * @param overlayColor
+     * @return
+     */
+    private float blendLuminance(Color baseColor, Color overlayColor) {
+        float baseLuminance = HSLColor.fromRGB(baseColor)[2] / 100.0F;
+        float overlayLuminance = HSLColor.fromRGB(overlayColor)[2] / 100.0F;
+
+        // See HSLColor.java for explanation of scalings below
+        if (averageLuminance) {
+            return (baseLuminance + overlayLuminance) / 2.0F * 100.0F;
+        } else {
+            return baseLuminance * overlayLuminance * 100.0F;
+        }
+    }
+
+    private Color getOverlayColor(Coordinate c, SystemState systemState) {
         float normalized = (float) normalizer.normalize(c, systemState);
+
         // See HSLColor.java for explanation of scalings used below
         float hue = applyScale(normalized, minHue, maxHue) * 360F;
         float saturation = applyScale(normalized, minSaturation, maxSaturation) * 100F;
