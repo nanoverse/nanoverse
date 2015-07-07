@@ -27,8 +27,11 @@ package factory.io.visual.color;
 import control.GeneralParameters;
 import control.arguments.Argument;
 import factory.control.arguments.DoubleArgumentFactory;
-import io.visual.color.NormalizedContinuumColorManager;
+import io.visual.color.*;
 import org.dom4j.Element;
+import structural.utilities.XmlUtil;
+
+import java.awt.*;
 
 /**
  * Created by dbborens on 6/1/2015.
@@ -49,7 +52,20 @@ public abstract class NormalizedContinuumColorManagerFactory {
         Argument<Double> maxSatArg = DoubleArgumentFactory.instantiate(e, "max-saturation", DEFAULT_MAXIMUM_SATURATION, p.getRandom());
         Argument<Double> minLumArg = DoubleArgumentFactory.instantiate(e, "min-luminance", DEFAULT_MINIMUM_LUMINANCE, p.getRandom());
         Argument<Double> maxLumArg = DoubleArgumentFactory.instantiate(e, "max-luminance", DEFAULT_MAXIMUM_LUMINANCE, p.getRandom());
+        boolean averageLuminance = XmlUtil.getBoolean(e, "average-luminance");
+        ColorManager base = instantiateBase(e, p);
         String continuumId = e.element("continuum").getTextTrim();
-        return new NormalizedContinuumColorManager(minHueArg, maxHueArg, minSatArg, maxSatArg, minLumArg, maxLumArg, continuumId);
+
+        return new NormalizedContinuumColorManager(minHueArg, maxHueArg, minSatArg, maxSatArg, minLumArg, maxLumArg, continuumId, averageLuminance, base);
+    }
+
+    private static ColorManager instantiateBase(Element e, GeneralParameters p) {
+        Element baseElement = e.element("base");
+        if (baseElement == null) {
+            return new UniformColorManager(Color.WHITE);
+        }
+
+        ColorManager base = ColorManagerFactory.instantiate(baseElement, p);
+        return base;
     }
 }
