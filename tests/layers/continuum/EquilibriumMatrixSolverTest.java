@@ -24,26 +24,40 @@
 
 package layers.continuum;
 
+import layers.continuum.solvers.EquilibriumBandSolver;
+import layers.continuum.solvers.EquilibriumKrylovSolver;
 import layers.continuum.solvers.EquilibriumMatrixSolver;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import structural.utilities.MatrixUtils;
 import test.TestBase;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+@RunWith(value = Parameterized.class)
 public class EquilibriumMatrixSolverTest extends TestBase {
 
     private DenseVector initial;
     private EquilibriumMatrixSolver query;
 
-    @Before
-    public void init() throws Exception {
-        query = new EquilibriumMatrixSolver(true);
-
+    public EquilibriumMatrixSolverTest(EquilibriumMatrixSolver solver) {
+        query = solver;
         initial = new DenseVector(3);
         initial.set(1, 1.0);
+    }
+
+    @Parameterized.Parameters
+    public static Collection solvers() {
+        // Array containing all the solvers the test will run with
+        EquilibriumMatrixSolver[] solvers = new EquilibriumMatrixSolver[]{
+                new EquilibriumKrylovSolver(true),
+                new EquilibriumBandSolver(true)};
+        return Arrays.asList(solvers);
     }
 
     /**
