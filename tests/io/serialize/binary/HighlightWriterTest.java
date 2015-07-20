@@ -28,7 +28,7 @@ import control.identifiers.Coordinate;
 import processes.MockStepState;
 import structural.MockGeneralParameters;
 import structural.utilities.FileConventions;
-import test.EslimeLatticeTestCase;
+import test.*;
 
 import java.util.stream.Stream;
 
@@ -48,7 +48,8 @@ public class HighlightWriterTest extends EslimeLatticeTestCase {
     private void checkFiles() throws Exception {
         for (int channel : channels) {
             String filename = FileConventions.makeHighlightFilename(channel);
-            assertBinaryFilesEqual(filename);
+            FileAssertions.assertOutputMatchesFixture(filename, false);
+//            assertBinaryFilesEqual(filename);
         }
     }
 

@@ -40,7 +40,7 @@ import io.visual.highlight.HighlightManager;
 import io.visual.map.MapVisualization;
 import layers.LightweightSystemState;
 import layers.SystemState;
-import test.EslimeTestCase;
+import test.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -135,7 +135,8 @@ public abstract class GlyphTest extends EslimeTestCase {
         System.out.println(file.getAbsolutePath());
         ImageIO.write(result, "png", file);
 
-        assertBinaryFilesEqual("glyphs/" + getFileName(), getFileName());
+//        assertBinaryFilesEqual("glyphs/" + getFileName(), getFileName());
+        FileAssertions.assertOutputMatchesFixture("glyphs/" + getFileName(), getFileName(), false);
     }
 
 

@@ -39,7 +39,7 @@ import layers.cell.CellLayer;
 import layers.cell.CellUpdateManager;
 import processes.StepState;
 import structural.MockGeneralParameters;
-import test.EslimeTestCase;
+import test.*;
 
 public class SurfaceCensusWriterTest extends EslimeTestCase {
     private MockGeneralParameters p;
@@ -95,7 +95,7 @@ public class SurfaceCensusWriterTest extends EslimeTestCase {
         haltEvent.setGillespie(3.0);
         writer.dispatchHalt(haltEvent);
         writer.close();
-        assertFilesEqual("surface_census.txt");
+        FileAssertions.assertOutputMatchesFixture("surface_census.txt", true);
     }
 
     public void testImaginarySites() throws Exception {
@@ -110,7 +110,8 @@ public class SurfaceCensusWriterTest extends EslimeTestCase {
         haltEvent.setGillespie(0.0);
         writer.dispatchHalt(haltEvent);
         writer.close();
-        assertFilesEqual("surface_census_imaginary.txt", "surface_census.txt");
+        FileAssertions.assertOutputMatchesFixture("surface_census_imaginary.txt", "surface_census.txt", true);
+//        assertFilesEqual("surface_census_imaginary.txt", "surface_census.txt");
     }
 
     private void replace(int y, int state) throws Exception {

@@ -38,7 +38,7 @@ import layers.MockLayerManager;
 import layers.cell.CellLayer;
 import processes.StepState;
 import structural.MockGeneralParameters;
-import test.EslimeTestCase;
+import test.*;
 
 /**
  * Created by dbborens on 4/22/14.
@@ -110,7 +110,7 @@ public class CorrelationWriterTest extends EslimeTestCase {
         query.flush(state);
         query.dispatchHalt(null);
         query.close();
-        assertFilesEqual(filename);
+        FileAssertions.assertOutputMatchesFixture(filename, true);
     }
 
     public void testCheckerboardCase() throws Exception {
@@ -124,7 +124,7 @@ public class CorrelationWriterTest extends EslimeTestCase {
         query.flush(state);
         query.dispatchHalt(null);
         query.close();
-        assertFilesEqual(filename);
+        FileAssertions.assertOutputMatchesFixture(filename, true);
     }
 
     public void testThreeStateCase() throws Exception {
@@ -147,7 +147,7 @@ public class CorrelationWriterTest extends EslimeTestCase {
         query.flush(state);
         query.dispatchHalt(null);
         query.close();
-        assertFilesEqual(filename);
+        FileAssertions.assertOutputMatchesFixture(filename, true);
     }
 
     /**
@@ -174,6 +174,6 @@ public class CorrelationWriterTest extends EslimeTestCase {
         query.flush(state);
         query.dispatchHalt(null);
         query.close();
-        assertFilesEqual(filename);
+        FileAssertions.assertOutputMatchesFixture(filename, true);
     }
 }

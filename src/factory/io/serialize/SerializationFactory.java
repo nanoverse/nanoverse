@@ -70,6 +70,11 @@ public abstract class SerializationFactory {
         } else if (writerClass.equalsIgnoreCase("census-writer")) {
             ret = new CensusWriter(p, lm);
             return ret;
+        } else if (writerClass.equalsIgnoreCase("continuum-histogram-writer")) {
+            String layerId = e.element("layer").getTextTrim();
+            boolean occupiedOnly = XmlUtil.getBoolean(e, "occupied-only");
+            ret = new ContinuumHistoWriter(p, lm, layerId, occupiedOnly);
+            return ret;
         } else if (writerClass.equalsIgnoreCase("surface-census-writer")) {
             ret = new SurfaceCensusWriter(p, lm);
             return ret;

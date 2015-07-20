@@ -29,6 +29,7 @@ import control.arguments.*;
 import control.halt.*;
 import control.identifiers.Coordinate;
 import processes.*;
+import processes.discrete.cluster.ScatterClustersHelper;
 import processes.gillespie.GillespieState;
 
 import java.util.*;
@@ -117,11 +118,15 @@ public class ScatterClusters extends CellProcess {
             Coordinate current = cIter.next();
 
             // Place cell at this site, if it is acceptable
-            if (helper.attemptPlacement(current, toPlace, m) > 0) {
-                placed++;
+            int curPlaced = helper.attemptPlacement(current, toPlace, m);
+            if (curPlaced > 0) {
+                placed += curPlaced;
                 toPlace = cellDescriptor.next();
             }
         }
+
+//        System.out.println("Total cells placed: " + placed);
+//        System.out.println("Total system population: " + getLayer().getViewer().getOccupiedSites().size());
 
     }
 

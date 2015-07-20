@@ -28,14 +28,15 @@ import control.GeneralParameters;
 import control.halt.ManualHaltEvent;
 import io.serialize.Serializer;
 import processes.StepState;
-import test.EslimeLatticeTestCase;
+import test.*;
 
 public class IndividualHaltWriterTest extends EslimeLatticeTestCase {
     public void testLifeCycle() throws Exception {
         GeneralParameters p = makeMockGeneralParameters();
         IndividualHaltWriter writer = new IndividualHaltWriter(p, layerManager);
         runCycle(writer, 0.0);
-        assertFilesEqual("serializations/halt.txt", "halt.txt");
+        FileAssertions.assertOutputMatchesFixture("serializations/halt.txt", "halt.txt", true);
+//        assertFilesEqual("serializations/halt.txt", "halt.txt");
     }
 
     private void runCycle(Serializer writer, double time) {

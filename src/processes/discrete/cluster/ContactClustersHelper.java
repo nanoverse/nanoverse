@@ -22,31 +22,35 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package processes;
+package processes.discrete.cluster;
 
-import cells.BehaviorCell;
+import cells.*;
 import control.identifiers.Coordinate;
 import layers.cell.CellLayer;
-import processes.discrete.cluster.ScatterClustersHelper;
 
 /**
- * Created by dbborens on 6/14/2015.
+ * Created by dbborens on 6/13/2015.
  */
-public class NoContactClustersHelper extends ScatterClustersHelper {
-    public NoContactClustersHelper(CellLayer layer) {
+public class ContactClustersHelper extends ScatterClustersHelper {
+
+    public ContactClustersHelper(CellLayer layer) {
         super(layer);
     }
 
+    /**
+     * Place a cell if the candidate site is a valid site for placement.
+     * Returns total number of cells placed.
+     *
+     * @param candidate
+     * @param toPlace
+     * @param m
+     * @return
+     */
     @Override
     public int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m) {
         if (layer.getViewer().isOccupied(candidate)) {
             return 0;
         }
-
-        if (hasSelfNeighbors(candidate, toPlace)) {
-            return 0;
-        }
-
         int needed = needed(candidate, toPlace, m);
         if (needed > -1) {
             placeAndColonize(candidate, toPlace, needed);
