@@ -29,20 +29,22 @@ import geometry.MockGeometry;
 import io.serialize.text.CoordinateIndexer;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import structural.MockGeneralParameters;
 import structural.utilities.FileConventions;
-import test.EslimeTestCase;
+import test.*;
 
 /**
  * Created by dbborens on 12/10/13.
  */
-public class CoordinateIndexerTest extends EslimeTestCase {
+public class CoordinateIndexerTest extends IntegrationTestBase {
 
     private MockGeometry geom;
     private MockGeneralParameters params;
     private CoordinateIndexer indexer;
     private MockLayerManager lm;
 
+    @Before
     public void setUp() {
         geom = new MockGeometry();
 
@@ -63,6 +65,7 @@ public class CoordinateIndexerTest extends EslimeTestCase {
         indexer.init();
     }
 
+    @Test
     public void testCoordinateIndexer() throws Exception {
         // dispatchHalt instructs the indexer to build the index
         indexer.dispatchHalt(null);
@@ -71,7 +74,8 @@ public class CoordinateIndexerTest extends EslimeTestCase {
 //        String fixture = fixturePath + FileConventions.COORDINATE_FILENAME;
 //        String output = outputPath + FileConventions.COORDINATE_FILENAME;
 
-        assertFilesEqual(FileConventions.COORDINATE_FILENAME);
+        assertOutputMatchesFixture(FileConventions.COORDINATE_FILENAME, true);
+//        assertFilesEqual(FileConventions.COORDINATE_FILENAME);
     }
 
 }
