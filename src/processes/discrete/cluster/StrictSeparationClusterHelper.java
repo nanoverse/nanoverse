@@ -22,7 +22,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package processes.discrete;
+package processes.discrete.cluster;
 
 import cells.BehaviorCell;
 import control.identifiers.Coordinate;
