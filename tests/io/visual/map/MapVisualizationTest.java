@@ -45,6 +45,7 @@ import io.visual.glyph.GlyphTest;
 import io.visual.glyph.MockGlyph;
 import io.visual.highlight.HighlightManager;
 import layers.LightweightSystemState;
+import test.FileAssertions;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -95,7 +96,8 @@ public class MapVisualizationTest extends GlyphTest {
             File file = new File(outputPath + fn);
             ImageIO.write(result, "png", file);
 
-            assertBinaryFilesEqual("glyphs/" + fn, fn);
+            FileAssertions.assertOutputMatchesFixture("glyphs/" + fn, fn, false);
+//            assertBinaryFilesEqual("glyphs/" + fn, fn);
         }
     }
 
@@ -116,7 +118,7 @@ public class MapVisualizationTest extends GlyphTest {
             String fn = "HexagonalMapNoOutline" + r + ".png";
             File file = new File(outputPath + fn);
             ImageIO.write(result, "png", file);
-            assertBinaryFilesEqual("glyphs/" + fn, fn);
+            FileAssertions.assertOutputMatchesFixture("glyphs/" + fn, fn, false);
         }
     }
 
@@ -144,8 +146,7 @@ public class MapVisualizationTest extends GlyphTest {
         BufferedImage result = map.render(systemState);
         File file = new File(outputPath + filename);
         ImageIO.write(result, "png", file);
-
-        assertBinaryFilesEqual("glyphs/" + filename, filename);
+        FileAssertions.assertOutputMatchesFixture("glyphs/" + filename, filename, false);
 
     }
 
@@ -173,8 +174,7 @@ public class MapVisualizationTest extends GlyphTest {
         BufferedImage result = map.render(systemState);
         File file = new File(outputPath + "cube.png");
         ImageIO.write(result, "png", file);
-
-        assertBinaryFilesEqual("glyphs/cube.png", "cube.png");
+        FileAssertions.assertOutputMatchesFixture("glyphs/cube.png", "cube.png", false);
     }
 
     private void remakeStatesForCube(Geometry geom) {

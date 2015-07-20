@@ -40,7 +40,7 @@ import io.visual.highlight.HighlightManager;
 import io.visual.map.MapVisualization;
 import layers.LightweightSystemState;
 import layers.SystemState;
-import test.EslimeTestCase;
+import test.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -130,6 +130,7 @@ public class BullseyeGlyphTest extends EslimeTestCase {
         File file = new File(outputPath + "bullseyeGlyph.png");
         ImageIO.write(result, "png", file);
 
-        assertBinaryFilesEqual("glyphs/bullseyeGlyph.png", "bullseyeGlyph.png");
+        FileAssertions.assertOutputMatchesFixture("glyphs/bullseyeGlyph.png", "bullseyeGlyph.png", false);
+//        assertBinaryFilesEqual("glyphs/bullseyeGlyph.png", "bullseyeGlyph.png");
     }
 }

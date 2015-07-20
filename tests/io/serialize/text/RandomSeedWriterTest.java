@@ -26,12 +26,13 @@ package io.serialize.text;
 
 import processes.StepState;
 import structural.MockGeneralParameters;
-import test.EslimeLatticeTestCase;
+import test.*;
 
 public class RandomSeedWriterTest extends EslimeLatticeTestCase {
     public void testLifeCycle() throws Exception {
         makeFiles();
-        assertFilesEqual("serializations/random.txt", "random.txt");
+        FileAssertions.assertOutputMatchesFixture("serializations/random.txt", "random.txt", true);
+//        assertFilesEqual("serializations/random.txt", "random.txt");
     }
 
     private void makeFiles() throws Exception {

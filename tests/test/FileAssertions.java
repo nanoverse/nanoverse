@@ -36,13 +36,13 @@ import static org.junit.Assert.fail;
 /**
  * Created by dbborens on 7/20/15.
  */
-public class IntegrationTestBase extends TestBase {
+public abstract class FileAssertions {
 
-    protected final String eslimeRoot = "./";
-    protected final String outputPath = eslimeRoot + "/output/";
-    protected final String fixturePath = eslimeRoot + "/fixtures/";
+    protected final static String eslimeRoot = "./";
+    protected final static String outputPath = eslimeRoot + "/output/";
+    protected final static String fixturePath = eslimeRoot + "/fixtures/";
 
-    protected void assertOutputMatchesFixture(String filename,
+    public static void assertOutputMatchesFixture(String filename,
                                               boolean plaintext) throws IOException {
 
         String fixture = fixturePath + filename;
@@ -51,7 +51,7 @@ public class IntegrationTestBase extends TestBase {
         doAssertOutputMatchesFixture(fixture, output, plaintext);
     }
 
-    protected void assertOutputMatchesFixture(String fixtureFilename,
+    public static void assertOutputMatchesFixture(String fixtureFilename,
                                               String outputFilename,
                                               boolean plaintext) throws IOException {
 
@@ -61,7 +61,7 @@ public class IntegrationTestBase extends TestBase {
         doAssertOutputMatchesFixture(fixture, output, plaintext);
     }
 
-    private void doAssertOutputMatchesFixture(String fixture,
+    private static void doAssertOutputMatchesFixture(String fixture,
                                               String output,
                                               boolean plaintext) throws IOException{
 
@@ -72,12 +72,12 @@ public class IntegrationTestBase extends TestBase {
         }
     }
 
-    private void doBinaryFileComparison(String fixture, String output) throws IOException {
+    private static void doBinaryFileComparison(String fixture, String output) throws IOException {
         File fixtureFile = new File(fixture);
         File outputFile = new File(output);
         assertTrue(FileUtils.contentEquals(fixtureFile, outputFile));
     }
-    private void doPlainTextFileComparison(String fixture, String output) throws IOException {
+    private static void doPlainTextFileComparison(String fixture, String output) throws IOException {
         BufferedReader fixtureReader = getReader(fixture);
         BufferedReader outputReader = getReader(fixture);
 
@@ -98,7 +98,7 @@ public class IntegrationTestBase extends TestBase {
         }
     }
 
-    private BufferedReader getReader(String filename) throws IOException {
+    private static BufferedReader getReader(String filename) throws IOException {
         File file = new File(filename);
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);

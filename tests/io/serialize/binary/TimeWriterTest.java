@@ -27,7 +27,7 @@ package io.serialize.binary;
 import processes.MockStepState;
 import structural.MockGeneralParameters;
 import structural.utilities.FileConventions;
-import test.EslimeTestCase;
+import test.*;
 
 /**
  * Created by dbborens on 3/28/14.
@@ -43,7 +43,8 @@ public class TimeWriterTest extends EslimeTestCase {
         String filename = FileConventions.TIME_FILENAME;
 
         // Assert the files are equal
-        assertBinaryFilesEqual(filename);
+        FileAssertions.assertOutputMatchesFixture(filename, false);
+//        assertBinaryFilesEqual(filename);
     }
 
     private void generateFile() {
