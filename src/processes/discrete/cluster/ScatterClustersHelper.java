@@ -22,7 +22,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package processes.discrete;
+package processes.discrete.cluster;
 
 import cells.BehaviorCell;
 import control.halt.HaltCondition;
@@ -36,7 +36,7 @@ import java.util.stream.IntStream;
  * Created by dbborens on 6/14/2015.
  */
 public abstract class ScatterClustersHelper {
-    protected abstract int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m);
+    public abstract int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m);
 
     protected final CellLayer layer;
 

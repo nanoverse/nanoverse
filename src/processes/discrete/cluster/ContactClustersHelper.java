@@ -22,15 +22,11 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package processes.discrete;
+package processes.discrete.cluster;
 
 import cells.*;
-import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import layers.cell.CellLayer;
-
-import java.util.*;
-import java.util.stream.IntStream;
 
 /**
  * Created by dbborens on 6/13/2015.

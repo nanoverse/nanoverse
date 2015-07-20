@@ -31,7 +31,7 @@ import layers.LayerManager;
 import org.dom4j.Element;
 import processes.*;
 import processes.discrete.*;
-import structural.utilities.XmlUtil;
+import processes.discrete.cluster.ScatterClustersHelper;
 
 /**
  * Created by dbborens on 11/23/14.
@@ -42,7 +42,7 @@ public abstract class PowerScatterFactory extends ProcessFactory {
         BaseProcessArguments arguments = makeProcessArguments(e, layerManager, p, id);
         CellProcessArguments cpArguments = makeCellProcessArguments(e, layerManager, p);
         CellDescriptor cellDescriptor = makeCellDescriptor(e, "cell-descriptor", layerManager, p);
-        ScatterClustersHelper helper = ScatterClustersHelperFactory.instantiate(e, layerManager);
+        ScatterClustersHelper helper = ScatterClustersHelperFactory.instantiate(e, layerManager, p);
         PowerScatter scatter = new PowerScatter(arguments, cpArguments, cellDescriptor, helper);
 
         return scatter;

@@ -28,17 +28,11 @@ import cells.BehaviorCell;
 import control.arguments.*;
 import control.halt.LatticeFullEvent;
 import control.identifiers.Coordinate;
-import geometry.set.*;
-import layers.LayerManager;
-import layers.cell.*;
 import org.junit.*;
-import processes.BaseProcessArguments;
+import processes.discrete.cluster.ContactClustersHelper;
+import processes.discrete.cluster.ScatterClustersHelper;
 import test.CellProcessTestBase;
 
-import java.util.List;
-import java.util.stream.*;
-
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class ScatterClustersTest extends CellProcessTestBase {
