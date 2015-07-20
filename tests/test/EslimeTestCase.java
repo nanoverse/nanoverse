@@ -206,48 +206,6 @@ public abstract class EslimeTestCase extends TestCase {
         return ret;
     }
 
-    protected void assertFilesEqual(String filename) throws Exception {
-        String fixture = fixturePath + filename;
-        String output = outputPath + filename;
-
-        File fixtureFile = new File(fixture);
-        File outputFile = new File(output);
-
-        System.err.println("WARNING: This method does not work on Windows computers.");
-        assertTrue(FileUtils.contentEquals(fixtureFile, outputFile));
-    }
-
-    protected void assertFilesEqual(String fixtureFilename, String outputFilename) throws Exception {
-        String fixture = fixturePath + fixtureFilename;
-        String output = outputPath + outputFilename;
-
-        File fixtureFile = new File(fixture);
-        File outputFile = new File(output);
-        System.err.println("WARNING: This method does not work on Windows computers.");
-        assertTrue(FileUtils.contentEquals(fixtureFile, outputFile));
-    }
-
-    protected void assertBinaryFilesEqual(String filename) throws Exception {
-        String fixture = fixturePath + filename;
-        String output = outputPath + filename;
-
-        File fixtureFile = new File(fixture);
-        File outputFile = new File(output);
-
-        assertTrue(FileUtils.contentEquals(fixtureFile, outputFile));
-    }
-
-    protected void assertBinaryFilesEqual(String fixtureName, String outputName) throws Exception {
-        String fixture = fixturePath + fixtureName;
-        String output = outputPath + outputName;
-
-        File fixtureFile = new File(fixture);
-        File outputFile = new File(output);
-
-        System.out.println(fixtureFile.getAbsoluteFile());
-        assertTrue(FileUtils.contentEquals(fixtureFile, outputFile));
-    }
-
     protected Element readXmlFile(String fileName) throws IOException, DocumentException {
 
         String path = fixturePath + fileName;

@@ -37,7 +37,7 @@ import test.*;
 /**
  * Created by dbborens on 12/10/13.
  */
-public class CoordinateIndexerTest extends IntegrationTestBase {
+public class CoordinateIndexerTest extends FileAssertions {
 
     private MockGeometry geom;
     private MockGeneralParameters params;

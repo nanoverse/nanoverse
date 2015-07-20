@@ -42,7 +42,7 @@ import io.visual.glyph.Glyph;
 import io.visual.map.MapVisualization;
 import layers.LightweightSystemState;
 import layers.SystemState;
-import test.EslimeTestCase;
+import test.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -151,7 +151,8 @@ public class MultiChannelHighlightTest extends EslimeTestCase {
         File file = new File(outputPath + getFileName());
         ImageIO.write(result, "png", file);
 
-        assertBinaryFilesEqual("glyphs/" + getFileName(), getFileName());
+        FileAssertions.assertOutputMatchesFixture("glyphs/" + getFileName(), getFileName(), false);
+//        assertBinaryFilesEqual("glyphs/" + getFileName(), getFileName());
     }
 
 
