@@ -24,17 +24,21 @@
 
 package factory.processes.discrete;
 
+import control.GeneralParameters;
 import layers.LayerManager;
 import org.dom4j.Element;
 import processes.NoContactClustersHelper;
-import processes.discrete.*;
+import processes.discrete.cluster.CompactSeparatedClustersHelper;
+import processes.discrete.cluster.ContactClustersHelper;
+import processes.discrete.cluster.ScatterClustersHelper;
+import processes.discrete.cluster.StrictSeparationClusterHelper;
 import structural.utilities.XmlUtil;
 
 /**
  * Created by dbborens on 6/14/2015.
  */
 public class ScatterClustersHelperFactory {
-    public static ScatterClustersHelper instantiate(Element e, LayerManager layerManager) {
+    public static ScatterClustersHelper instantiate(Element e, LayerManager layerManager, GeneralParameters p) {
         String separation = XmlUtil.getString(e, "separation", "none");
 
         if (separation.equalsIgnoreCase("none")) {
@@ -43,6 +47,9 @@ public class ScatterClustersHelperFactory {
             return new NoContactClustersHelper(layerManager.getCellLayer());
         } else if (separation.equalsIgnoreCase("strict")) {
             return new StrictSeparationClusterHelper(layerManager.getCellLayer());
+        } else if (separation.equalsIgnoreCase("compact")) {
+            return new CompactSeparatedClustersHelper(layerManager.getCellLayer(), p);
+
         } else {
             throw new IllegalArgumentException("Unrecognized separation rule '" + separation + "'");
         }

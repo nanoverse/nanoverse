@@ -27,7 +27,7 @@ package io.serialize;
 import control.identifiers.Coordinate;
 import geometry.MockGeometry;
 import structural.utilities.PrimitiveSerializer;
-import test.EslimeTestCase;
+import test.*;
 
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
@@ -50,7 +50,8 @@ public class PrimitiveSerializerTest extends EslimeTestCase {
         test.add(1e-7);
         PrimitiveSerializer.writeDoubleVector(output, test);
         output.close();
-        assertBinaryFilesEqual("doubleVector.bin", "doubleListVector.bin");
+        FileAssertions.assertOutputMatchesFixture("doubleVector.bin", "doubleListVector.bin", false);
+//        assertBinaryFilesEqual("doubleVector.bin", "doubleListVector.bin");
     }
 
     public void testWriteDoubleVector1() throws Exception {
@@ -58,7 +59,8 @@ public class PrimitiveSerializerTest extends EslimeTestCase {
         double[] test = new double[]{5.1, -3.0, 0.0, -0.7, 1e-7};
         PrimitiveSerializer.writeDoubleVector(output, test);
         output.close();
-        assertBinaryFilesEqual("doubleVector.bin", "doubleArrayVector.bin");
+        FileAssertions.assertOutputMatchesFixture("doubleVector.bin", "doubleArrayVector.bin", false);
+//        assertBinaryFilesEqual("doubleVector.bin", "doubleArrayVector.bin");
     }
 
     public void testWriteIntegerVector() throws Exception {
@@ -71,7 +73,8 @@ public class PrimitiveSerializerTest extends EslimeTestCase {
         test.add(2);
         PrimitiveSerializer.writeIntegerVector(output, test);
         output.close();
-        assertBinaryFilesEqual("integerVector.bin");
+        FileAssertions.assertOutputMatchesFixture("integerVector.bin", false);
+//        assertBinaryFilesEqual("integerVector.bin");
     }
 
     public void testWriteBooleanVector() throws Exception {
@@ -84,7 +87,8 @@ public class PrimitiveSerializerTest extends EslimeTestCase {
         test.add(false);
         PrimitiveSerializer.writeBooleanVector(output, test);
         output.close();
-        assertBinaryFilesEqual("booleanVector.bin");
+        FileAssertions.assertOutputMatchesFixture("booleanVector.bin", false);
+//        assertBinaryFilesEqual("booleanVector.bin");
     }
 
     private DataOutputStream makeOutput(String filename) throws Exception {
@@ -111,6 +115,7 @@ public class PrimitiveSerializerTest extends EslimeTestCase {
         test.add(geom.getCanonicalSites()[2]);
         PrimitiveSerializer.writeCoercedCoordinateVector(output, test, geom);
         output.close();
-        assertBinaryFilesEqual("coordinateVector.bin");
+        FileAssertions.assertOutputMatchesFixture("coordinateVector.bin", false);
+//        assertBinaryFilesEqual("coordinateVector.bin");
     }
 }

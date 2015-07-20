@@ -22,45 +22,46 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package processes.discrete;
+package io.visual.color;
 
-import cells.*;
-import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
-import layers.cell.CellLayer;
+import layers.SystemState;
 
-import java.util.*;
-import java.util.stream.IntStream;
+import java.awt.*;
 
 /**
- * Created by dbborens on 6/13/2015.
+ * Created by dbborens on 7/4/2015.
  */
-public class ContactClustersHelper extends ScatterClustersHelper {
+public class UniformColorManager extends ColorManager {
 
-    public ContactClustersHelper(CellLayer layer) {
-        super(layer);
+    private final Color color;
+
+    public UniformColorManager(Color color) {
+        this.color = color;
     }
-
-    /**
-     * Place a cell if the candidate site is a valid site for placement.
-     * Returns total number of cells placed.
-     *
-     * @param candidate
-     * @param toPlace
-     * @param m
-     * @return
-     */
     @Override
-    public int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m) {
-        if (layer.getViewer().isOccupied(candidate)) {
-            return 0;
-        }
-        int needed = needed(candidate, toPlace, m);
-        if (needed > -1) {
-            placeAndColonize(candidate, toPlace, needed);
-            return needed + 1;
-        }
-        return 0;
+    public Color getColor(Coordinate c, SystemState systemState) {
+        return color;
     }
 
+    @Override
+    public Color getBorderColor() {
+        return color;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UniformColorManager that = (UniformColorManager) o;
+
+        return !(color != null ? !color.equals(that.color) : that.color != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return color != null ? color.hashCode() : 0;
+    }
 }

@@ -29,6 +29,7 @@ import control.arguments.*;
 import control.halt.*;
 import control.identifiers.Coordinate;
 import processes.*;
+import processes.discrete.cluster.ScatterClustersHelper;
 import processes.gillespie.GillespieState;
 import structural.RangeMap;
 

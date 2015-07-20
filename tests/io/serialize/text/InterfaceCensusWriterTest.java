@@ -40,7 +40,7 @@ import layers.cell.CellLayer;
 import layers.cell.CellUpdateManager;
 import processes.StepState;
 import structural.MockGeneralParameters;
-import test.EslimeTestCase;
+import test.*;
 
 /**
  * Created by dbborens on 4/28/14.
@@ -138,7 +138,8 @@ public class InterfaceCensusWriterTest extends EslimeTestCase {
 
         writer.dispatchHalt(null);
         writer.close();
-        assertFilesEqual("interface_1.txt");
+        FileAssertions.assertOutputMatchesFixture("interface_1.txt", true);
+//        assertFilesEqual("interface_1.txt");
     }
 
     private void replace(Coordinate c, int state) throws HaltCondition {

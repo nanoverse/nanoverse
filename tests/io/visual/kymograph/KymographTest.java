@@ -38,7 +38,7 @@ import io.visual.color.ColorManager;
 import io.visual.color.DefaultColorManager;
 import io.visual.highlight.HighlightManager;
 import layers.LightweightSystemState;
-import test.EslimeTestCase;
+import test.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -76,7 +76,8 @@ public class KymographTest extends EslimeTestCase {
         File file = new File(outputPath + filename);
         ImageIO.write(result, "png", file);
 
-        assertBinaryFilesEqual("glyphs/" + filename, filename);
+        FileAssertions.assertOutputMatchesFixture("glyphs/" + filename, filename, false);
+//        assertBinaryFilesEqual("glyphs/" + filename, filename);
 
     }
 
