@@ -34,6 +34,11 @@ import java.util.HashMap;
  */
 public class GeneralNeighborSwapInstSymbolTable extends DiscreteProcessInstSymbolTable<GeneralNeighborSwap> {
     @Override
+    public String getDescription() {
+        return "Swap the specified agent with any of its neighbors.";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }

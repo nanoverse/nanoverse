@@ -40,7 +40,15 @@ import java.util.HashMap;
 /**
  * Created by dbborens on 7/21/2015.
  */
-public class RunnerSymbolTable extends MapSymbolTable<Runner> {
+public class ProjectSymbolTable extends MapSymbolTable<Runner> {
+
+    @Override
+    public String getDescription() {
+        return "The Project object represents a simulation or set of " +
+                "simulations, along with any desired reporting, as well" +
+                " as meta-instructions (such as running the simulation " +
+                "more than once).";
+    }
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
@@ -91,4 +99,5 @@ public class RunnerSymbolTable extends MapSymbolTable<Runner> {
                 "topological layers.");
         ret.put("layers", ms);
     }
+
 }

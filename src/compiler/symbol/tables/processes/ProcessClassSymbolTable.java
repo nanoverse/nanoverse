@@ -31,6 +31,7 @@ import compiler.symbol.tables.processes.discrete.*;
 import compiler.symbol.tables.processes.discrete.check.*;
 import compiler.symbol.tables.processes.temporal.*;
 import processes.NanoverseProcess;
+import processes.discrete.ManualHalt;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -41,8 +42,16 @@ import java.util.function.Supplier;
 public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> {
 
     @Override
-    protected HashMap<String, ClassSymbol> resolveSubclasses() {
-        HashMap<String, ClassSymbol> ret = new HashMap<>();
+    public String getDescription() {
+        return "Processes are top-down events that can affect any part of " +
+                "any layer, without respect to local neighborhood rules. " +
+                "Whenever possible, use Actions instead; these are local and " +
+                "are easier for Nanoverse to optimize.";
+    }
+
+    @Override
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         tick(ret);
         divide(ret);
         occupiedNeighborSwap(ret);
@@ -64,155 +73,118 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
         hold(ret);
         integrate(ret);
         record(ret);
+        manualHalt(ret);
 
         return ret;
     }
 
-    private void record(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new RecordInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Captures the state of the " +
-                "simulation. If not specified, occurs by default at the end " +
-                "of each simulation cycle.");
-        ret.put("Record", ms);
+    private void record(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = RecordInstSymbolTable::new;
+        ret.put("Record", st);
     }
 
-    private void integrate(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new IntegrateInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Update the state of the " +
-                "specified continuum layer.");
-        ret.put("Integrate", ms);
+    private void integrate(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = IntegrateInstSymbolTable::new;
+        ret.put("Integrate", st);
     }
 
-    private void hold(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new ScheduleHoldInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Begin queueing changes to the " +
-                "specified continuum layer, but do not execute them until a " +
-                "corresponding \"release\" event takes place.");
-        ret.put("Hold", ms);
+    private void hold(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = ScheduleHoldInstSymbolTable::new;
+        ret.put("Hold", st);
     }
 
-    private void release(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new ScheduleReleaseInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Resolve all changes to the " +
-                "specified continuum layer since the last \"hold\" event " +
-                "occurred.");
-        ret.put("Release", ms);
+    private void release(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = ScheduleReleaseInstSymbolTable::new;
+        ret.put("Release", st);
     }
 
-    private void inject(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new InjectionProcessInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Schedule a fixed-value source " +
-                "(injection) at a site or sites of a specified continuum " +
-                "layer.");
-        ret.put("Inject", ms);
+    private void inject(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = InjectionProcessInstSymbolTable::new;
+        ret.put("Inject", st);
     }
 
-    private void diffuse(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new DiffusionProcessInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Schedule a homogeneous " +
-                "diffusion process across the entirety of a specified " +
-                "continuum layer.");
-        ret.put("Diffuse", ms);
+    private void diffuse(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = DiffusionProcessInstSymbolTable::new;
+        ret.put("Diffuse", st);
     }
 
-    private void checkForExtinction(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new CheckForExtinctionInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Halt simulation if all sites " +
-                "are vacant.");
-        ret.put("CheckForExtinction", ms);
+    private void checkForExtinction(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = CheckForExtinctionInstSymbolTable::new;
+        ret.put("CheckForExtinction", st);
     }
 
-    private void checkForDomination(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new CheckForDominationInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Halt the simulation when the " +
-                "target cell type has the specified fraction of the overall " +
-                "live cell population.");
-        ret.put("CheckForDomination", ms);
+    private void checkForDomination(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = CheckForDominationInstSymbolTable::new;
+        ret.put("CheckForDomination", st);
     }
 
-    private void checkThresholdOccupancy(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new CheckForThresholdOccupancyInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Halt the simulation of the " +
-                "overall population exceeds a certain threshold.");
-        ret.put("CheckForThresholdOccupancy", ms);
+    private void checkThresholdOccupancy(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = CheckForThresholdOccupancyInstSymbolTable::new;
+        ret.put("CheckForThresholdOccupancy", st);
     }
 
-    private void checkForFixation(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new CheckForFixationInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Halt the simulation if only one " +
-                "type of agent exists.");
-        ret.put("CheckForFixation", ms);
+    private void checkForFixation(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = CheckForFixationInstSymbolTable::new;
+        ret.put("CheckForFixation", st);
     }
 
-    private void cull(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new CullInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "LEGACY: Kill all agents whose health " +
-                "is below a specified threshold.");
-        ret.put("Cull", ms);
+    private void cull(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = CullInstSymbolTable::new;
+        ret.put("Cull", st);
     }
 
-    private void trigger(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new TriggerProcessInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Trigger agents to perform a specified Action.");
-        ret.put("Trigger", ms);
+    private void trigger(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = TriggerProcessInstSymbolTable::new;
+        ret.put("Trigger", st);
     }
 
-    private void mockProcess(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new MockProcessInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "LEGACY: Mock process, used in legacy tests.");
-        ret.put("Mock", ms);
+    private void mockProcess(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = MockProcessInstSymbolTable::new;
+        ret.put("Mock", st);
     }
 
-    private void fill(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new FillInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Fill in a region with agents.");
-        ret.put("Fill", ms);
+    private void fill(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = FillInstSymbolTable::new;
+        ret.put("Fill", st);
     }
 
-    private void scatterClusters(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new ScatterClustersInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Scatter agents in clusters of " +
-                "a specific size.");
-        ret.put("ScatterClusters", ms);
+    private void scatterClusters(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = ScatterClustersInstSymbolTable::new;
+        ret.put("ScatterClusters", st);
     }
 
-    private void powerScatter(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new PowerScatterInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Scatter groups of cells in a distribution of cluster sizes that may " +
-                "or may not follow a power law. (Check this before using)");
-        ret.put("PowerScatter", ms);
+    private void powerScatter(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = PowerScatterInstSymbolTable::new;
+        ret.put("PowerScatter", st);
     }
 
-    private void scatter(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new ScatterInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Scatter a specified number of " +
-                "new agents to random locations.");
-        ret.put("Scatter", ms);
+    private void scatter(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = ScatterInstSymbolTable::new;
+        ret.put("Scatter", st);
     }
 
-    private void generalNeighborSwap(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new GeneralNeighborSwapInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Swap the specified agent with any of its neighbors.");
-        ret.put("GeneralNeighborSwap", ms);
+    private void generalNeighborSwap(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = GeneralNeighborSwapInstSymbolTable::new;
+        ret.put("GeneralNeighborSwap", st);
     }
 
-    private void occupiedNeighborSwap(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new OccupiedNeighborSwapInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Swap the specified agent with " +
-                "one of its occupied neighbors.");
-        ret.put("OccupiedNeighborSwap", ms);
+    private void occupiedNeighborSwap(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = OccupiedNeighborSwapInstSymbolTable::new;
+        ret.put("OccupiedNeighborSwap", st);
     }
 
-    private void divide(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new DivideInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "LEGACY: Divide the agent to a neighboring site.");
-        ret.put("Divide", ms);
+    private void divide(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = DivideInstSymbolTable::new;
+        ret.put("Divide", st);
     }
 
-    private void tick(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> st = () -> new TickInstSymbolTable();
-        ClassSymbol ms = new ClassSymbol(st, "Advance the simulation clock by the specified dt.");
-        ret.put("Tick", ms);
+    private void tick(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = TickInstSymbolTable::new;
+        ret.put("Tick", st);
     }
 
+    private void manualHalt(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = ManualHaltInstSymbolTable::new;
+        ret.put("ManualHalt", st);
+    }
 }

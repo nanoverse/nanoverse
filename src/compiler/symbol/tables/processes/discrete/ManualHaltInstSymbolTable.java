@@ -34,6 +34,11 @@ import java.util.HashMap;
  */
 public class ManualHaltInstSymbolTable extends DiscreteProcessInstSymbolTable<ManualHalt> {
     @Override
+    public String getDescription() {
+        return "Immediately end the current instance of the simulation.";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }

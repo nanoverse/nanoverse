@@ -35,6 +35,13 @@ import java.util.HashMap;
  */
 public class GeometryDescriptorInstanceSymbolTable extends MapSymbolTable<GeometryDescriptor> {
     @Override
+    public String getDescription() {
+        return "The top-level geometric properties of the simulation. " +
+                "Properties specified here will carry over to all layers of " +
+                "the simulation.";
+    }
+    
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }

@@ -36,8 +36,13 @@ import java.util.HashMap;
 public class ParametersInstanceSymbolTable extends MapSymbolTable<GeneralParameters> {
 
     @Override
+    public String getDescription() {
+        return "System-level parameters, such as output directory and number " +
+                "of simulations to run.";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }
-
 }

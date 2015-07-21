@@ -35,6 +35,11 @@ import control.arguments.ConstantInteger;
 public class PrimitiveIntegerSymbolTable extends PrimitiveSymbolTable<Integer> implements IntegerInstanceSymbolTable {
 
     @Override
+    public String getDescription() {
+        return "A constant integer.";
+    }
+
+    @Override
     public PrimitiveObjectNode<Integer> getObjectNode(ASTPrimitiveNode<Integer> astNode) {
         return new PrimitiveIntegerNode(this, astNode.getContent());
     }

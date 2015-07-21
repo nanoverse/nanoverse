@@ -25,14 +25,22 @@
 package compiler.symbol.tables.processes.discrete;
 
 import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.InstantiableSymbolTable;
 import processes.discrete.ScatterClusters;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
 public class ScatterClustersInstSymbolTable extends DiscreteProcessInstSymbolTable<ScatterClusters> {
+
+    @Override
+    public String getDescription() {
+        return "Scatter agents in clusters of a specific size.";
+    }
+
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;

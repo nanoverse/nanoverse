@@ -24,8 +24,6 @@
 
 package compiler.symbol.tables.processes;
 
-import agent.action.*;
-import compiler.symbol.symbols.ClassSymbol;
 import compiler.symbol.tables.*;
 import org.junit.*;
 import processes.*;
@@ -33,12 +31,6 @@ import processes.continuum.*;
 import processes.discrete.*;
 import processes.discrete.check.*;
 import processes.temporal.*;
-
-import javax.tools.Diagnostic;
-import java.util.HashMap;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
 
@@ -151,6 +143,11 @@ public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
     @Test
     public void divide() {
         verifyReturnSymbol("Divide", Divide.class);
+    }
+
+    @Test
+    public void manualHalt() {
+        verifyReturnSymbol("ManualHalt", ManualHalt.class);
     }
 
     @Test

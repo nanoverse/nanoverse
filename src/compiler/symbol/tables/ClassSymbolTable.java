@@ -26,17 +26,17 @@ package compiler.symbol.tables;
 
 import com.google.common.reflect.TypeToken;
 import compiler.error.UnrecognizedIdentifierError;
-import compiler.symbol.symbols.ClassSymbol;
 import org.slf4j.*;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 /**
 * Created by dbborens on 3/3/15.
 */
 public abstract class ClassSymbolTable<T> implements ResolvingSymbolTable {
 
-   private HashMap<String, ClassSymbol> members;
+   private HashMap<String, Supplier<InstantiableSymbolTable>> members;
    private Logger logger;
 
    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
@@ -46,7 +46,7 @@ public abstract class ClassSymbolTable<T> implements ResolvingSymbolTable {
        logger = LoggerFactory.getLogger(ClassSymbolTable.class);
    }
 
-   protected abstract HashMap<String, ClassSymbol> resolveSubclasses();
+   protected abstract HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses();
 
    @Override
    public InstantiableSymbolTable getSymbolTable(String identifier) {
@@ -61,7 +61,7 @@ public abstract class ClassSymbolTable<T> implements ResolvingSymbolTable {
                    getBroadClass());
        }
 
-       return members.get(identifier).getSymbolTable();
+       return members.get(identifier).get();
    }
 
    @Override

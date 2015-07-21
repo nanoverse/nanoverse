@@ -25,7 +25,6 @@
 package compiler.symbol.tables.primitive.integers;
 
 import compiler.pipeline.interpret.nodes.ASTPrimitiveInteger;
-import compiler.symbol.symbols.ClassSymbol;
 import compiler.symbol.tables.*;
 
 import java.util.HashMap;
@@ -37,16 +36,19 @@ import java.util.function.Supplier;
 public class IntegerClassSymbolTable extends ClassSymbolTable<Supplier<Integer>> {
 
     @Override
-    protected HashMap<String, ClassSymbol> resolveSubclasses() {
-        HashMap<String, ClassSymbol> ret = new HashMap<>(1);
+    public String getDescription() {
+        return "Functions that return integer values.";
+    }
+
+    @Override
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>(1);
         primitive(ret);
         return ret;
     }
 
-    private void primitive(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> supplier = () -> new PrimitiveIntegerSymbolTable();
-        ClassSymbol cs = new ClassSymbol(supplier, "An integer constant.");
-        ret.put(ASTPrimitiveInteger.IDENTIFIER, cs);
+    private void primitive(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = PrimitiveIntegerSymbolTable::new;
+        ret.put(ASTPrimitiveInteger.IDENTIFIER, supplier);
     }
-
 }

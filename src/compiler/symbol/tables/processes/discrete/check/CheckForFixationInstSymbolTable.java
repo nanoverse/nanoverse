@@ -35,6 +35,11 @@ import java.util.HashMap;
  */
 public class CheckForFixationInstSymbolTable extends DiscreteProcessInstSymbolTable<CheckForFixation> {
     @Override
+    public String getDescription() {
+        return "Halt the simulation if only one type of agent exists.";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }

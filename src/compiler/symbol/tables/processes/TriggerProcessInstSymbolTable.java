@@ -35,6 +35,11 @@ import java.util.HashMap;
  */
 public class TriggerProcessInstSymbolTable extends DiscreteProcessInstSymbolTable<TriggerProcess> {
     @Override
+    public String getDescription() {
+        return "Trigger agents to perform a specified Action.";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }

@@ -35,6 +35,11 @@ import control.arguments.ConstantDouble;
 public class PrimitiveDoubleSymbolTable extends PrimitiveSymbolTable<Double> implements DoubleInstanceSymbolTable {
 
     @Override
+    public String getDescription() {
+        return "A constant Double.";
+    }
+
+    @Override
     public PrimitiveObjectNode<Double> getObjectNode(ASTPrimitiveNode<Double> astNode) {
         return new PrimitiveDoubleNode(this, astNode.getContent());
     }

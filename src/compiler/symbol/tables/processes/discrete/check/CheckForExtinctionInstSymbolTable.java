@@ -35,6 +35,11 @@ import java.util.HashMap;
  */
 public class CheckForExtinctionInstSymbolTable extends DiscreteProcessInstSymbolTable<CheckForExtinction> {
     @Override
+    public String getDescription() {
+        return "Halt simulation if all sites are vacant.";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }

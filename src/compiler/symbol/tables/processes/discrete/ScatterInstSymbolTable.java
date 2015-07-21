@@ -37,4 +37,9 @@ public class ScatterInstSymbolTable extends DiscreteProcessInstSymbolTable<Scatt
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }
+
+    @Override
+    public String getDescription() {
+        return "Scatter a specified number of new agents to random locations.";
+    }
 }

@@ -37,4 +37,9 @@ public class OccupiedNeighborSwapInstSymbolTable extends DiscreteProcessInstSymb
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }
+
+    @Override
+    public String getDescription() {
+        return "Swap the specified agent with one of its occupied neighbors.";
+    }
 }

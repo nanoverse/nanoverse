@@ -35,6 +35,12 @@ import java.util.HashMap;
  */
 public class CheckForThresholdOccupancyInstSymbolTable extends DiscreteProcessInstSymbolTable<CheckForThresholdOccupancy> {
     @Override
+    public String getDescription() {
+        return "Halt the simulation of the overall population exceeds a " +
+                "certain threshold.";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }

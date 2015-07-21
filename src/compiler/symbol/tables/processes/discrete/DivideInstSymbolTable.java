@@ -37,4 +37,9 @@ public class DivideInstSymbolTable extends DiscreteProcessInstSymbolTable<Divide
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }
+
+    @Override
+    public String getDescription() {
+        return "LEGACY: Divide the agent to a neighboring site.";
+    }
 }

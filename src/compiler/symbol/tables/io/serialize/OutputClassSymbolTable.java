@@ -24,18 +24,24 @@
 
 package compiler.symbol.tables.io.serialize;
 
-import compiler.symbol.symbols.ClassSymbol;
-import compiler.symbol.tables.ClassSymbolTable;
+import compiler.symbol.tables.*;
 import io.serialize.Serializer;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
 public class OutputClassSymbolTable extends ClassSymbolTable<Serializer> {
     @Override
-    protected HashMap<String, ClassSymbol> resolveSubclasses() {
+    public String getDescription() {
+        return "Output services for Nanoverse, including console output, " +
+                "statistical reports and visualizations.";
+    }
+
+    @Override
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         return null;
     }
 }

@@ -12,6 +12,11 @@ import com.google.common.reflect.TypeToken;
  */
 public class ListSymbolTable<T> implements InstantiableSymbolTable,  ResolvingSymbolTable {
 
+    @Override
+    public String getDescription() {
+        return "An ordered set of one or more objects with the same parent class.";
+    }
+
     private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
 
     private final ClassSymbolTable classSymbolTable;

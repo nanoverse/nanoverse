@@ -32,7 +32,8 @@ import java.util.HashMap;
 /**
  * Created by dbborens on 7/21/2015.
  */
-public class OperatorProcessInstSymbolTable extends ContinuumProcessInstSymbolTable<OperatorProcess> {
+public abstract class OperatorProcessInstSymbolTable extends ContinuumProcessInstSymbolTable<OperatorProcess> {
+
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
