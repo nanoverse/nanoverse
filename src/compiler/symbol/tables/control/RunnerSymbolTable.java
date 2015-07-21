@@ -27,8 +27,9 @@ package compiler.symbol.tables.control;
 import compiler.symbol.symbols.*;
 import compiler.symbol.tables.*;
 import compiler.symbol.tables.control.arguments.*;
-import compiler.symbol.tables.io.serialize.SerializationClassSymbolTable;
+import compiler.symbol.tables.io.serialize.OutputClassSymbolTable;
 import compiler.symbol.tables.layers.LayerClassSymbolTable;
+import compiler.symbol.tables.processes.ProcessClassSymbolTable;
 import control.ProcessManager;
 import control.run.Runner;
 import io.serialize.SerializationManager;
@@ -76,7 +77,7 @@ public class RunnerSymbolTable extends MapSymbolTable<Runner> {
     }
 
     private void output(HashMap<String, MemberSymbol> ret) {
-        ClassSymbolTable cst = new SerializationClassSymbolTable();
+        ClassSymbolTable cst = new OutputClassSymbolTable();
         ListSymbolTable<SerializationManager> lst = new ListSymbolTable<>(cst);
         MemberSymbol ms = new MemberSymbol(lst, "A list of the simulation's" +
                 "expected visualizations and reports.");

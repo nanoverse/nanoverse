@@ -106,10 +106,6 @@ public abstract class ProcessFactory {
             CellProcessArguments cpArguments = makeCellProcessArguments(e, layerManager, p);
             return new Cull(arguments, cpArguments, threshold);
 
-        } else if (processClass.equalsIgnoreCase("diagnostic")) {
-            CellProcessArguments cpArguments = makeCellProcessArguments(e, layerManager, p);
-            return new DiagnosticProcess(arguments, cpArguments);
-
         } else if (processClass.equalsIgnoreCase("check-for-fixation")) {
             CellProcessArguments cpArguments = makeCellProcessArguments(e, layerManager, p);
             return new CheckForFixation(arguments, cpArguments);

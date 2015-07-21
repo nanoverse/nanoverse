@@ -22,19 +22,18 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.io.serialize;
+package compiler.symbol.tables.processes.discrete.check;
 
 import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.MapSymbolTable;
-import io.serialize.SerializationManager;
+import compiler.symbol.tables.processes.discrete.DiscreteProcessInstSymbolTable;
+import processes.discrete.check.CheckForExtinction;
 
 import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
-public class SerializationManagerSymbolTable extends MapSymbolTable<SerializationManager> {
-
+public class CheckForExtinctionInstSymbolTable extends DiscreteProcessInstSymbolTable<CheckForExtinction> {
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
