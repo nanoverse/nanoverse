@@ -25,8 +25,8 @@
 package compiler.symbol.tables;
 
 import com.google.common.reflect.TypeToken;
+import compiler.error.UnrecognizedIdentifierError;
 import compiler.symbol.symbols.ClassSymbol;
-import compiler.util.UnrecognizedIdentifierError;
 import org.slf4j.*;
 
 import java.util.HashMap;
@@ -64,6 +64,7 @@ public abstract class ClassSymbolTable<T> implements ResolvingSymbolTable {
        return members.get(identifier).getSymbolTable();
    }
 
+   @Override
    public Class getBroadClass() {
        return type.getRawType();
    }

@@ -40,7 +40,7 @@ import layers.continuum.ContinuumLayer;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.dom4j.Element;
 import processes.BaseProcessArguments;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 import processes.continuum.*;
 import processes.discrete.*;
 import processes.discrete.check.CheckForDomination;
@@ -58,7 +58,7 @@ import java.util.function.Consumer;
  * Created by dbborens on 11/23/14.
  */
 public abstract class ProcessFactory {
-    public static EcoProcess instantiate(Element e, LayerManager layerManager, GeneralParameters p, int id) {
+    public static NanoverseProcess instantiate(Element e, LayerManager layerManager, GeneralParameters p, int id) {
 
         String processClass = e.getName();
 

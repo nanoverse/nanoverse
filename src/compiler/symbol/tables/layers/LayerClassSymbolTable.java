@@ -24,8 +24,18 @@
 
 package compiler.symbol.tables.layers;
 
+import compiler.symbol.symbols.ClassSymbol;
+import compiler.symbol.tables.ClassSymbolTable;
+import layers.Layer;
+
+import java.util.HashMap;
+
 /**
  * Created by dbborens on 7/21/2015.
  */
-public class LayerClassSymbolTable {
+public class LayerClassSymbolTable extends ClassSymbolTable<Layer> {
+    @Override
+    protected HashMap<String, ClassSymbol> resolveSubclasses() {
+        return null;
+    }
 }

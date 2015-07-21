@@ -22,31 +22,16 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package processes.continuum;
+package compiler.symbol.tables.primitive.integers;
 
-import control.halt.HaltCondition;
-import processes.BaseProcessArguments;
-import processes.NanoverseProcess;
-import processes.gillespie.GillespieState;
+import compiler.pipeline.translate.nodes.ObjectNode;
+
+import java.util.function.Supplier;
 
 /**
- * Created by David B Borenstein on 1/7/14.
+ * Created by dbborens on 4/26/15.
  */
-public abstract class ContinuumProcess extends NanoverseProcess {
+public interface IntegerInstanceSymbolTable {
 
-    public ContinuumProcess(BaseProcessArguments arguments) {
-        super(arguments);
-    }
-
-    protected String getProcessClass() {
-        return this.getClass().getSimpleName();
-    }
-
-    @Override
-    public void target(GillespieState gs) throws HaltCondition {
-        // There's only one event that can happen--we update.
-        if (gs != null) {
-            gs.add(this.getID(), 1, 0.0D);
-        }
-    }
+    public Supplier<Integer> instantiate(ObjectNode node);
 }

@@ -26,7 +26,7 @@ package processes.temporal;
 
 import control.GeneralParameters;
 import processes.BaseProcessArguments;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 import processes.gillespie.GillespieState;
 
 /**
@@ -41,7 +41,7 @@ import processes.gillespie.GillespieState;
  * @author David Bruce Borenstein
  * @untested
  */
-public abstract class TimeProcess extends EcoProcess {
+public abstract class TimeProcess extends NanoverseProcess {
     protected GeneralParameters p;
 
     public TimeProcess(BaseProcessArguments arguments) {

@@ -54,7 +54,7 @@ public abstract class MapSymbolTableTest extends TestBase {
 
     protected void verifyReturnSymbol(String identifier, Class expected) {
         ResolvingSymbolTable rst = query.getSymbolTable(identifier);
-        Class actual = rst.getClass();
+        Class actual = rst.getBroadClass();
         assertEquals(expected, actual);
     }
 }

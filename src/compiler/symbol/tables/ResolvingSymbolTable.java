@@ -30,4 +30,6 @@ package compiler.symbol.tables;
  */
 public interface ResolvingSymbolTable extends SymbolTable {
     public InstantiableSymbolTable getSymbolTable(String identifier);
+
+    public Class getBroadClass();
 }

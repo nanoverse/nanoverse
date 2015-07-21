@@ -32,7 +32,7 @@ import io.serialize.Serializer;
 import io.serialize.interactive.ProgressReporter;
 import org.dom4j.Element;
 import processes.BaseProcessArguments;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 import processes.MockProcess;
 import structural.MockGeneralParameters;
 import test.EslimeLatticeTestCase;
@@ -57,8 +57,8 @@ public class IntegratorFactoryTest extends EslimeLatticeTestCase {
         Integrator actual = IntegratorFactory.instantiate(explicitRoot, p, layerManager);
 
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
-        EcoProcess process = new MockProcess(arguments, "test1", 1.0, 1);
-        List<EcoProcess> processes = new ArrayList<>(1);
+        NanoverseProcess process = new MockProcess(arguments, "test1", 1.0, 1);
+        List<NanoverseProcess> processes = new ArrayList<>(1);
         processes.add(process);
         ProcessManager processManager = new ProcessManager(processes, layerManager);
 
@@ -75,7 +75,7 @@ public class IntegratorFactoryTest extends EslimeLatticeTestCase {
     public void testImplicitCase() throws Exception {
         Element implicitRoot = root.element("implicit-case");
         Integrator actual = IntegratorFactory.instantiate(implicitRoot, p, layerManager);
-        ProcessManager processManager = new ProcessManager(new ArrayList<EcoProcess>(0), layerManager);
+        ProcessManager processManager = new ProcessManager(new ArrayList<NanoverseProcess>(0), layerManager);
         SerializationManager serializationManager = new SerializationManager(p, layerManager, new ArrayList<Serializer>(0));
         Integrator expected = new Integrator(p, processManager, serializationManager);
 

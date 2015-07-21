@@ -29,7 +29,7 @@ import control.halt.HaltCondition;
 import layers.LayerManager;
 import processes.gillespie.GillespieState;
 
-public abstract class EcoProcess {
+public abstract class NanoverseProcess {
 
     private BaseProcessArguments arguments;
 //    protected LayerManager layerManager;
@@ -39,7 +39,7 @@ public abstract class EcoProcess {
 //    private Argument<Integer> start;
 
 
-    public EcoProcess(BaseProcessArguments arguments) {
+    public NanoverseProcess(BaseProcessArguments arguments) {
         this.arguments = arguments;
 //        p = arguments.getGeneralParameters();
 //        id = arguments.getId();

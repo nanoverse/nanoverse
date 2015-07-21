@@ -35,7 +35,7 @@ import processes.gillespie.GillespieState;
  *
  * @author David Bruce Borenstein
  */
-public class MockProcess extends EcoProcess {
+public class MockProcess extends NanoverseProcess {
 
     private Integer count;
     private Double weight;

@@ -25,7 +25,14 @@
 package compiler.symbol.tables.control;
 
 import compiler.symbol.tables.*;
+import control.*;
+import control.arguments.GeometryDescriptor;
 import control.run.Runner;
+import geometry.Geometry;
+import io.serialize.*;
+import layers.*;
+import org.junit.Test;
+import processes.NanoverseProcess;
 
 public class RunnerSymbolTableTest extends MapSymbolTableTest {
 
@@ -38,4 +45,30 @@ public class RunnerSymbolTableTest extends MapSymbolTableTest {
     protected Class getExpectedClass() {
         return Runner.class;
     }
+
+    @Test
+    public void layerManager() throws Exception {
+        verifyReturnSymbol("layers", Layer.class);
+    }
+
+    @Test
+    public void output() throws Exception {
+        verifyReturnSymbol("output", Serializer.class);
+    }
+
+    @Test
+    public void processes() throws Exception {
+        verifyReturnSymbol("processes", NanoverseProcess.class);
+    }
+
+    @Test
+    public void parameters() throws Exception {
+        verifyReturnSymbol("parameters", GeneralParameters.class);
+    }
+
+    @Test
+    public void geometry() throws Exception {
+        verifyReturnSymbol("geometry", GeometryDescriptor.class);
+    }
+
 }

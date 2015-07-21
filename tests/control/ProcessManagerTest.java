@@ -28,7 +28,7 @@ import control.arguments.Argument;
 import control.arguments.ConstantInteger;
 import layers.MockLayerManager;
 import processes.BaseProcessArguments;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 import processes.MockProcess;
 import processes.StepState;
 import test.EslimeTestCase;
@@ -55,7 +55,7 @@ public class ProcessManagerTest extends EslimeTestCase {
     }
 
     private void buildQuery() {
-        List<EcoProcess> processes = new ArrayList<>(2);
+        List<NanoverseProcess> processes = new ArrayList<>(2);
         processes.add(yes);
         processes.add(no);
         query = new ProcessManager(processes, layerManager);
@@ -81,7 +81,7 @@ public class ProcessManagerTest extends EslimeTestCase {
 
     public void testGetTriggeredProcesses() throws Exception {
         // Call getTriggeredProcesses.
-        List<EcoProcess> triggeredProcesses = query.getTriggeredProcesses(CURRENT_N);
+        List<NanoverseProcess> triggeredProcesses = query.getTriggeredProcesses(CURRENT_N);
 
         assertEquals(1, triggeredProcesses.size());
         assertEquals(yes, triggeredProcesses.get(0));

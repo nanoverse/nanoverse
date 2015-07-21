@@ -28,9 +28,9 @@ import control.arguments.Argument;
 import geometry.set.CoordinateSet;
 import layers.cell.CellLayer;
 import processes.BaseProcessArguments;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 
-public abstract class CellProcess extends EcoProcess {
+public abstract class CellProcess extends NanoverseProcess {
     // These are easily accessed from the layer manager, but there
     // are very many calls to them thanks to some legacy code.
     private final CellProcessArguments cpArguments;

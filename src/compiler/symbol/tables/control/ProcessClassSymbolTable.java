@@ -24,8 +24,19 @@
 
 package compiler.symbol.tables.control;
 
+import compiler.symbol.symbols.*;
+import compiler.symbol.tables.*;
+import processes.NanoverseProcess;
+
+import java.util.HashMap;
+
 /**
  * Created by dbborens on 7/21/2015.
  */
-public class IntegratorSymbolTable {
+public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> {
+
+    @Override
+    protected HashMap<String, ClassSymbol> resolveSubclasses() {
+        return null;
+    }
 }
