@@ -1,0 +1,15 @@
+T__0=1
+T__1=2
+T__2=3
+T__3=4
+ID=5
+STRING=6
+FLOAT=7
+INTEGER=8
+WS=9
+COMMENT=10
+LINE_COMMENT=11
+';'=1
+':'=2
+'{'=3
+'}'=4
