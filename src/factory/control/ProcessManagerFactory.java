@@ -29,7 +29,7 @@ import control.ProcessManager;
 import factory.processes.ProcessListFactory;
 import layers.LayerManager;
 import org.dom4j.Element;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 
 import java.util.List;
 
@@ -43,13 +43,13 @@ public abstract class ProcessManagerFactory {
             return nullCase(lm, p);
         }
         Element processElem = root.element("processes");
-        List<EcoProcess> processes = ProcessListFactory.instantiate(processElem, lm, p);
+        List<NanoverseProcess> processes = ProcessListFactory.instantiate(processElem, lm, p);
         ProcessManager processManager = new ProcessManager(processes, lm);
         return processManager;
     }
 
     private static ProcessManager nullCase(LayerManager lm, GeneralParameters p) {
-        List<EcoProcess> processes = ProcessListFactory.instantiate(null, lm, p);
+        List<NanoverseProcess> processes = ProcessListFactory.instantiate(null, lm, p);
         ProcessManager processManager = new ProcessManager(processes, lm);
         return processManager;
     }

@@ -27,7 +27,7 @@ package factory.processes;
 import control.GeneralParameters;
 import org.dom4j.Element;
 import processes.BaseProcessArguments;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 import processes.MockProcess;
 import test.EslimeLatticeTestCase;
 
@@ -48,32 +48,32 @@ public class ProcessListFactoryTest extends EslimeLatticeTestCase {
 
     public void testImplicit() throws Exception {
         Element implicit = root.element("implicit-case");
-        List<EcoProcess> expected = new ArrayList<>(0);
-        List<EcoProcess> actual = ProcessListFactory.instantiate(implicit, layerManager, p);
+        List<NanoverseProcess> expected = new ArrayList<>(0);
+        List<NanoverseProcess> actual = ProcessListFactory.instantiate(implicit, layerManager, p);
 
         doComparison(expected, actual);
     }
 
     public void testSingleton() throws Exception {
         Element singleton = root.element("singleton-case");
-        List<EcoProcess> expected = new ArrayList<>(1);
+        List<NanoverseProcess> expected = new ArrayList<>(1);
         expected.add(makeProcess("test"));
-        List<EcoProcess> actual = ProcessListFactory.instantiate(singleton, layerManager, p);
+        List<NanoverseProcess> actual = ProcessListFactory.instantiate(singleton, layerManager, p);
 
         doComparison(expected, actual);
     }
 
     public void testMultiple() throws Exception {
         Element multiple = root.element("multiple-case");
-        List<EcoProcess> expected = new ArrayList<>(2);
+        List<NanoverseProcess> expected = new ArrayList<>(2);
         expected.add(makeProcess("test1"));
         expected.add(makeProcess("test2"));
-        List<EcoProcess> actual = ProcessListFactory.instantiate(multiple, layerManager, p);
+        List<NanoverseProcess> actual = ProcessListFactory.instantiate(multiple, layerManager, p);
 
         doComparison(expected, actual);
     }
 
-    private void doComparison(List<EcoProcess> expected, List<EcoProcess> actual) {
+    private void doComparison(List<NanoverseProcess> expected, List<NanoverseProcess> actual) {
         assertEquals(expected.size(), actual.size());
 
         for (int i = 0; i < expected.size(); i++) {
@@ -81,7 +81,7 @@ public class ProcessListFactoryTest extends EslimeLatticeTestCase {
         }
     }
 
-    private EcoProcess makeProcess(String identifier) {
+    private NanoverseProcess makeProcess(String identifier) {
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
         return new MockProcess(arguments, identifier, 1.0, 1);
     }

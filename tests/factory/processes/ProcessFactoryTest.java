@@ -27,7 +27,7 @@ package factory.processes;
 import control.GeneralParameters;
 import org.dom4j.Element;
 import org.dom4j.tree.BaseElement;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 import processes.MockProcess;
 import processes.discrete.*;
 import processes.discrete.check.CheckForDomination;
@@ -48,14 +48,14 @@ public class ProcessFactoryTest extends EslimeLatticeTestCase {
         p = makeMockGeneralParameters();
     }
 
-    private EcoProcess make(String nodeName) {
+    private NanoverseProcess make(String nodeName) {
         Element element = new BaseElement(nodeName);
-        EcoProcess process = ProcessFactory.instantiate(element, layerManager, p, 0);
+        NanoverseProcess process = ProcessFactory.instantiate(element, layerManager, p, 0);
         return process;
     }
 
     private void doTest(String nodeName, Class expected) {
-        EcoProcess process = make(nodeName);
+        NanoverseProcess process = make(nodeName);
         Class actual = process.getClass();
         assertEquals(expected, actual);
     }

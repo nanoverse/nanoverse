@@ -26,9 +26,9 @@ package compiler.pipeline.translate.visitors;
 
 import compiler.pipeline.interpret.nodes.ASTPrimitiveNode;
 import compiler.pipeline.translate.nodes.ObjectNode;
-import compiler.symbol.tables.runtime.primitive.PrimitiveSymbolTable;
-import compiler.symbol.tables.runtime.primitive.doubles.PrimitiveDoubleSymbolTable;
-import compiler.symbol.tables.runtime.primitive.integers.PrimitiveIntegerSymbolTable;
+import compiler.symbol.tables.primitive.PrimitiveSymbolTable;
+import compiler.symbol.tables.primitive.doubles.PrimitiveDoubleSymbolTable;
+import compiler.symbol.tables.primitive.integers.PrimitiveIntegerSymbolTable;
 import org.slf4j.*;
 
 /**

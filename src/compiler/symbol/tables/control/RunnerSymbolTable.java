@@ -24,12 +24,17 @@
 
 package compiler.symbol.tables.control;
 
-import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.MapSymbolTable;
+import compiler.symbol.symbols.*;
+import compiler.symbol.tables.*;
+import compiler.symbol.tables.control.arguments.*;
+import compiler.symbol.tables.io.serialize.SerializationClassSymbolTable;
+import compiler.symbol.tables.layers.LayerClassSymbolTable;
+import control.ProcessManager;
 import control.run.Runner;
+import io.serialize.SerializationManager;
+import layers.LayerManager;
 
 import java.util.HashMap;
-import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 7/21/2015.
@@ -38,6 +43,51 @@ public class RunnerSymbolTable extends MapSymbolTable<Runner> {
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        return null;
+        HashMap<String, MemberSymbol> ret = new HashMap<>(5);
+
+        layerManager(ret);
+        output(ret);
+        processes(ret);
+        parameters(ret);
+        geometry(ret);
+
+        return ret;
+    }
+
+    private void processes(HashMap<String, MemberSymbol> ret) {
+        ClassSymbolTable cst = new ProcessClassSymbolTable();
+        ListSymbolTable<ProcessManager> lst = new ListSymbolTable<>(cst);
+        MemberSymbol ms = new MemberSymbol(lst, "A list of top-down processes" +
+            " to perform at the outset of the simulation.");
+        ret.put("processes", ms);
+    }
+
+    private void geometry(HashMap<String, MemberSymbol> ret) {
+        GeometryDescriptorClassSymbolTable st = new GeometryDescriptorClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(st, "A description of the system's" +
+                " top-level geometry.");
+        ret.put("geometry", ms);
+    }
+
+    private void parameters(HashMap<String, MemberSymbol> ret) {
+        ParametersClassSymbolTable st = new ParametersClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(st, "System-level parameters.");
+        ret.put("parameters", ms);
+    }
+
+    private void output(HashMap<String, MemberSymbol> ret) {
+        ClassSymbolTable cst = new SerializationClassSymbolTable();
+        ListSymbolTable<SerializationManager> lst = new ListSymbolTable<>(cst);
+        MemberSymbol ms = new MemberSymbol(lst, "A list of the simulation's" +
+                "expected visualizations and reports.");
+        ret.put("output", ms);
+    }
+
+    private void layerManager(HashMap<String, MemberSymbol> ret) {
+        ClassSymbolTable cst = new LayerClassSymbolTable();
+        ListSymbolTable<LayerManager> lst = new ListSymbolTable<>(cst);
+        MemberSymbol ms = new MemberSymbol(lst, "A list of the simulation's" +
+                "topological layers.");
+        ret.put("layers", ms);
     }
 }

@@ -26,7 +26,7 @@ package control;
 
 import control.halt.HaltCondition;
 import layers.LayerManager;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 import processes.StepState;
 
 import java.util.ArrayList;
@@ -37,19 +37,19 @@ import java.util.List;
  */
 public class ProcessManager {
 
-    private List<EcoProcess> processes;
+    private List<NanoverseProcess> processes;
     private LayerManager layerManager;
 
-    public ProcessManager(List<EcoProcess> processes, LayerManager layerManager) {
+    public ProcessManager(List<NanoverseProcess> processes, LayerManager layerManager) {
         this.processes = processes;
         this.layerManager = layerManager;
     }
 
-    protected List<EcoProcess> getTriggeredProcesses(int n) throws HaltCondition {
+    protected List<NanoverseProcess> getTriggeredProcesses(int n) throws HaltCondition {
 
-        ArrayList<EcoProcess> triggeredProcesses = new ArrayList<>(processes.size());
+        ArrayList<NanoverseProcess> triggeredProcesses = new ArrayList<>(processes.size());
 
-        for (EcoProcess process : processes) {
+        for (NanoverseProcess process : processes) {
             if (triggered(n, process)) {
                 triggeredProcesses.add(process);
             }
@@ -58,7 +58,7 @@ public class ProcessManager {
         return triggeredProcesses;
     }
 
-    protected boolean triggered(int n, EcoProcess process) throws HaltCondition {
+    protected boolean triggered(int n, NanoverseProcess process) throws HaltCondition {
         int period = process.getPeriod().next();
         int start = process.getStart().next();
 
@@ -100,10 +100,10 @@ public class ProcessManager {
         layerManager.setStepState(stepState);
 
         // Get triggered events.
-        List<EcoProcess> triggeredProcesses = getTriggeredProcesses(stepState.getFrame());
+        List<NanoverseProcess> triggeredProcesses = getTriggeredProcesses(stepState.getFrame());
 
         // Fire each triggered cell event.
-        for (EcoProcess process : triggeredProcesses) {
+        for (NanoverseProcess process : triggeredProcesses) {
                 process.iterate();
         }
 
@@ -121,7 +121,7 @@ public class ProcessManager {
      */
     public void init() {
         layerManager.reset();
-        for (EcoProcess process : processes) {
+        for (NanoverseProcess process : processes) {
             process.init();
         }
     }
@@ -143,8 +143,8 @@ public class ProcessManager {
         }
 
         for (int i = 0; i < processes.size(); i++) {
-            EcoProcess mine = processes.get(i);
-            EcoProcess theirs = other.processes.get(i);
+            NanoverseProcess mine = processes.get(i);
+            NanoverseProcess theirs = other.processes.get(i);
 
             if (!mine.equals(theirs)) {
                 return false;

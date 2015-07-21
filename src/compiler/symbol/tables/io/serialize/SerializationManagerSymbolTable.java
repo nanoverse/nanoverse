@@ -22,10 +22,21 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.control;
+package compiler.symbol.tables.io.serialize;
+
+import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.MapSymbolTable;
+import io.serialize.SerializationManager;
+
+import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
-public class ParametersSymbolTable {
+public class SerializationManagerSymbolTable extends MapSymbolTable<SerializationManager> {
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        return null;
+    }
 }

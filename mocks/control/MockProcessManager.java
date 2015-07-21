@@ -25,7 +25,7 @@
 package control;
 
 import control.halt.HaltCondition;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 import processes.StepState;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class MockProcessManager extends ProcessManager {
     int timesIterated;
 
     boolean doTriggeredProcessedCalled;
-    private List<EcoProcess> triggeredProcesses;
+    private List<NanoverseProcess> triggeredProcesses;
     private double stepStateDt;
 
     public MockProcessManager() {
@@ -47,19 +47,19 @@ public class MockProcessManager extends ProcessManager {
         stepStateDt = 0.0;
     }
 
-    public void setTriggeredProcesses(List<EcoProcess> triggeredProcesses) {
+    public void setTriggeredProcesses(List<NanoverseProcess> triggeredProcesses) {
         this.triggeredProcesses = triggeredProcesses;
     }
 
     @Override
-    protected List<EcoProcess> getTriggeredProcesses(int n) {
+    protected List<NanoverseProcess> getTriggeredProcesses(int n) {
         return triggeredProcesses;
     }
 
     @Override
     public StepState doTriggeredProcesses(StepState stepState) throws HaltCondition {
         timesIterated++;
-        for (EcoProcess p : triggeredProcesses) {
+        for (NanoverseProcess p : triggeredProcesses) {
             p.fire(stepState);
         }
         stepState.advanceClock(stepStateDt);

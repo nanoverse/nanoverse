@@ -28,7 +28,7 @@ import compiler.pipeline.interpret.nodes.*;
 import compiler.pipeline.translate.helpers.TranslationCallback;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.symbol.tables.*;
-import compiler.symbol.tables.runtime.primitive.PrimitiveSymbolTable;
+import compiler.symbol.tables.primitive.PrimitiveSymbolTable;
 import org.slf4j.*;
 
 /**

@@ -29,4 +29,5 @@ package compiler.symbol.tables;
  */
 public interface InstantiableSymbolTable extends SymbolTable {
 
+    public Class getInstanceClass();
 }

@@ -22,31 +22,20 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package processes.continuum;
+package compiler.symbol.tables.control;
 
-import control.halt.HaltCondition;
-import processes.BaseProcessArguments;
-import processes.NanoverseProcess;
-import processes.gillespie.GillespieState;
+import compiler.symbol.symbols.*;
+import compiler.symbol.tables.*;
+import control.GeneralParameters;
+
+import java.util.HashMap;
 
 /**
- * Created by David B Borenstein on 1/7/14.
+ * Created by dbborens on 7/21/2015.
  */
-public abstract class ContinuumProcess extends NanoverseProcess {
-
-    public ContinuumProcess(BaseProcessArguments arguments) {
-        super(arguments);
-    }
-
-    protected String getProcessClass() {
-        return this.getClass().getSimpleName();
-    }
-
+public class ParametersClassSymbolTable extends ClassSymbolTable<GeneralParameters> {
     @Override
-    public void target(GillespieState gs) throws HaltCondition {
-        // There's only one event that can happen--we update.
-        if (gs != null) {
-            gs.add(this.getID(), 1, 0.0D);
-        }
+    protected HashMap<String, ClassSymbol> resolveSubclasses() {
+        return null;
     }
 }

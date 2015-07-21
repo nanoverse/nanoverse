@@ -83,6 +83,6 @@ public class ListObjectNode implements ObjectNode {
 
     @Override
     public Class getInstantiatingClass() {
-        return symbolTable.getMemberClass();
+        return symbolTable.getBroadClass();
     }
 }

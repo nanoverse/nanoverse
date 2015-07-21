@@ -96,7 +96,7 @@ public class StochasticProcessTest extends EslimeTestCase {
         return cur;
     }
 
-    private class StochasticProcess extends EcoProcess {
+    private class StochasticProcess extends NanoverseProcess {
 
         private Argument<Integer> ongoing;
         private Integer ongoingVal;

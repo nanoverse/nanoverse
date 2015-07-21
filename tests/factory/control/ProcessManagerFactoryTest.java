@@ -28,7 +28,7 @@ import control.GeneralParameters;
 import control.ProcessManager;
 import org.dom4j.Element;
 import processes.BaseProcessArguments;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 import processes.MockProcess;
 import test.EslimeLatticeTestCase;
 
@@ -53,7 +53,7 @@ public class ProcessManagerFactoryTest extends EslimeLatticeTestCase {
 
         ProcessManager actual = ProcessManagerFactory.instantiate(implicitRoot, p, layerManager);
 
-        List<EcoProcess> processes = new ArrayList<>(0);
+        List<NanoverseProcess> processes = new ArrayList<>(0);
         ProcessManager expected = new ProcessManager(processes, layerManager);
 
         assertEquals(expected, actual);
@@ -64,7 +64,7 @@ public class ProcessManagerFactoryTest extends EslimeLatticeTestCase {
 
         ProcessManager actual = ProcessManagerFactory.instantiate(explicitRoot, p, layerManager);
 
-        List<EcoProcess> processes = new ArrayList<>(2);
+        List<NanoverseProcess> processes = new ArrayList<>(2);
         processes.add(mockProcess("test1"));
         processes.add(mockProcess("test2"));
         ProcessManager expected = new ProcessManager(processes, layerManager);
@@ -72,7 +72,7 @@ public class ProcessManagerFactoryTest extends EslimeLatticeTestCase {
         assertEquals(expected, actual);
     }
 
-    private EcoProcess mockProcess(String identifier) {
+    private NanoverseProcess mockProcess(String identifier) {
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
 
         return new MockProcess(arguments, identifier, 1.0, 1);

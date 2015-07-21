@@ -32,7 +32,7 @@ import control.halt.StepMaxReachedEvent;
 import io.serialize.MockSerializationManager;
 import io.serialize.SerializationManager;
 import processes.BaseProcessArguments;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 import processes.discrete.CellProcessArguments;
 import processes.discrete.ManualHalt;
 import processes.temporal.Tick;
@@ -71,7 +71,7 @@ public class IntegratorTest extends EslimeLatticeTestCase {
     public void testDoNext() throws Exception {
         // Set T to 5 loops.
         p.setT(5);
-        List<EcoProcess> processes = new ArrayList<>(0);
+        List<NanoverseProcess> processes = new ArrayList<>(0);
         mgr.setTriggeredProcesses(processes);
         // Each of the following should have been called 5 times:
         HaltCondition halt = integrator.doNext();
@@ -82,7 +82,7 @@ public class IntegratorTest extends EslimeLatticeTestCase {
 
     public void testTimeAppliedAtHaltNoAdvance() throws Exception {
         p.setT(10000);
-        List<EcoProcess> processes = new ArrayList<>(1);
+        List<NanoverseProcess> processes = new ArrayList<>(1);
 
 
         processes.add(new ManualHalt(arguments, cpArguments, ""));
@@ -97,7 +97,7 @@ public class IntegratorTest extends EslimeLatticeTestCase {
 
     public void testTimeAppliedAtHaltAfterClockAdvance() throws Exception {
         p.setT(10000);
-        List<EcoProcess> processes = new ArrayList<>(2);
+        List<NanoverseProcess> processes = new ArrayList<>(2);
         processes.add(new Tick(arguments, new ConstantDouble(1.0)));
         processes.add(new ManualHalt(arguments, cpArguments, ""));
         mgr.setTriggeredProcesses(processes);
@@ -112,7 +112,7 @@ public class IntegratorTest extends EslimeLatticeTestCase {
     public void testTimeAppliedAtMaxStep() throws Exception {
         p.setT(5);
         mgr.setStepStateDt(2.0);
-        List<EcoProcess> processes = new ArrayList<>(0);
+        List<NanoverseProcess> processes = new ArrayList<>(0);
         mgr.setTriggeredProcesses(processes);
         ExposedIntegrator query = new ExposedIntegrator(p, mgr, sm);
         HaltCondition ret = query.doNext();

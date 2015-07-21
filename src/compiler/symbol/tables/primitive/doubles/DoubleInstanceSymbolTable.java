@@ -22,24 +22,16 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables;
+package compiler.symbol.tables.primitive.doubles;
 
+import compiler.pipeline.translate.nodes.ObjectNode;
 
 import java.util.function.Supplier;
 
 /**
- * Created by dbborens on 3/13/15.
+ * Created by dbborens on 4/26/15.
  */
-public class ClassToListAdapter implements ResolvingSymbolTable {
+public interface DoubleInstanceSymbolTable {
 
-    private final Supplier<ListSymbolTable> contents;
-
-    public ClassToListAdapter(Supplier<ListSymbolTable> contents) {
-        this.contents = contents;
-    }
-
-    @Override
-    public InstantiableSymbolTable getSymbolTable(String identifier) {
-        return contents.get();
-    }
+    public Supplier<Double> instantiate(ObjectNode node);
 }

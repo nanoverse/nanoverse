@@ -6,7 +6,7 @@
 package compiler.pipeline.translate.nodes;
 
 import compiler.symbol.tables.InstantiableSymbolTable;
-import compiler.symbol.tables.runtime.primitive.PrimitiveSymbolTable;
+import compiler.symbol.tables.primitive.PrimitiveSymbolTable;
 
 import java.util.function.Supplier;
 

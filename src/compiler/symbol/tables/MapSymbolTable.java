@@ -28,6 +28,8 @@ import com.google.common.reflect.TypeToken;
 import compiler.error.UnrecognizedIdentifierError;
 import compiler.pipeline.translate.nodes.*;
 import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.primitive.doubles.DoubleInstanceSymbolTable;
+import compiler.symbol.tables.primitive.integers.IntegerInstanceSymbolTable;
 import org.slf4j.*;
 
 import java.util.HashMap;
@@ -59,6 +61,7 @@ public abstract class MapSymbolTable<T> implements InstantiableSymbolTable {
                 getInstanceClass());
     }
 
+    @Override
     public Class getInstanceClass() {
         return type.getRawType();
     }

@@ -26,6 +26,7 @@ package compiler.pipeline.translate.visitors;
 
 import compiler.pipeline.interpret.nodes.ASTContainerNode;
 import compiler.pipeline.translate.helpers.TranslationCallback;
+import compiler.pipeline.translate.nodes.*;
 import compiler.symbol.tables.*;
 import org.slf4j.*;
 
@@ -47,7 +48,7 @@ public class ListContainerVisitor {
 
     public ObjectNode translate(ASTContainerNode toTranslate, ListSymbolTable symbolTable) {
         logger.debug("Translating {} using LST for class {}", toTranslate.getIdentifier(),
-                symbolTable.getMemberClass().getSimpleName());
+                symbolTable.getBroadClass().getSimpleName());
 
         ListObjectNode node = new ListObjectNode(symbolTable);
         toTranslate.getChildren()
@@ -64,7 +65,7 @@ public class ListContainerVisitor {
 
                     logger.debug("Loading new {} to list of {}",
                             childNode.getInstantiatingClass().getSimpleName(),
-                            symbolTable.getMemberClass().getSimpleName());
+                            symbolTable.getBroadClass().getSimpleName());
 
                     node.loadMember(childNode);
                 });
