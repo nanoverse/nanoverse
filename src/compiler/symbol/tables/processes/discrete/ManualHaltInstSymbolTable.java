@@ -39,7 +39,7 @@ public class ManualHaltInstSymbolTable extends DiscreteProcessInstSymbolTable<Ma
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return null;
+    protected HashMap<String, MemberSymbol> resolveChildMembers() {
+        return new HashMap<>();
     }
 }

@@ -37,13 +37,13 @@ public abstract class MapSymbolTableTest extends TestBase {
 
     protected MapSymbolTable query;
 
+    protected abstract MapSymbolTable getQuery();
+    protected abstract Class getExpectedClass();
+
     @Before
     public void before() throws Exception {
         query = getQuery();
     }
-
-    protected abstract MapSymbolTable getQuery();
-    protected abstract Class getExpectedClass();
 
     @Test
     public void instanceClassAsExpected() {

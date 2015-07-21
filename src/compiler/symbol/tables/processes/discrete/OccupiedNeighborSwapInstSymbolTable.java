@@ -34,12 +34,13 @@ import java.util.HashMap;
  */
 public class OccupiedNeighborSwapInstSymbolTable extends DiscreteProcessInstSymbolTable<OccupiedNeighborSwap> {
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return null;
-    }
-
-    @Override
     public String getDescription() {
         return "Swap the specified agent with one of its occupied neighbors.";
     }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveChildMembers() {
+        return new HashMap<>();
+    }
+
 }

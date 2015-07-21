@@ -34,14 +34,14 @@ import java.util.HashMap;
  */
 public class ScheduleHoldInstSymbolTable extends ContinuumProcessInstSymbolTable<ScheduleHold> {
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return null;
-    }
-
-    @Override
     public String getDescription() {
         return "Begin queueing changes to the specified continuum layer, but " +
                 "do not execute them until a corresponding \"Release\" event " +
                 "takes place.";
+    }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveChildMembers() {
+        return new HashMap<>();
     }
 }
