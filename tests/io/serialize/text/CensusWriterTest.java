@@ -30,7 +30,7 @@ import control.identifiers.Coordinate;
 import layers.cell.CellUpdateManager;
 import processes.StepState;
 import structural.MockGeneralParameters;
-import test.EslimeLatticeTestCase;
+import test.*;
 
 /**
  * Created by dbborens on 4/28/14.
@@ -76,7 +76,7 @@ public class CensusWriterTest extends EslimeLatticeTestCase {
         haltEvent.setGillespie(2.0);
         writer.dispatchHalt(haltEvent);
         writer.close();
-        assertFilesEqual("census.txt");
+        FileAssertions.assertOutputMatchesFixture("census.txt", true);
     }
 
     /**
@@ -103,8 +103,8 @@ public class CensusWriterTest extends EslimeLatticeTestCase {
         writer.dispatchHalt(haltEvent);
         writer.close();
 
-        assertFilesEqual("censusWriterTest/1/census.txt");
-        assertFilesEqual("censusWriterTest/2/census.txt");
+        FileAssertions.assertOutputMatchesFixture("censusWriterTest/1/census.txt", true);
+        FileAssertions.assertOutputMatchesFixture("censusWriterTest/2/census.txt", true);
     }
 
     private void replace(Coordinate c, int state) throws Exception {

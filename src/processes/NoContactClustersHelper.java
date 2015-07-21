@@ -27,7 +27,7 @@ package processes;
 import cells.BehaviorCell;
 import control.identifiers.Coordinate;
 import layers.cell.CellLayer;
-import processes.discrete.ScatterClustersHelper;
+import processes.discrete.cluster.ScatterClustersHelper;
 
 /**
  * Created by dbborens on 6/14/2015.
