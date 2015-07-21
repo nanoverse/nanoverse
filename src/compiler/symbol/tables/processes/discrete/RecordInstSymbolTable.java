@@ -40,7 +40,7 @@ public class RecordInstSymbolTable extends DiscreteProcessInstSymbolTable<Record
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveChildMembers() {
-        return new HashMap<>();
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        return super.resolveMembers();
     }
 }

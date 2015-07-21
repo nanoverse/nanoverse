@@ -41,7 +41,7 @@ public class InjectionProcessInstSymbolTable extends ContinuumProcessInstSymbolT
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveChildMembers() {
-        return new HashMap<>();
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        return super.resolveMembers();
     }
 }

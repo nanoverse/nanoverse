@@ -24,12 +24,42 @@
 
 package compiler.symbol.tables.processes.discrete;
 
+import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.geometry.set.CoordinateSetClassSymbolTable;
+import compiler.symbol.tables.primitive.integers.IntegerClassSymbolTable;
 import compiler.symbol.tables.processes.ProcessInstSymbolTable;
 import processes.discrete.CellProcess;
+
+import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
 public abstract class DiscreteProcessInstSymbolTable<T extends CellProcess>
         extends ProcessInstSymbolTable<T> {
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        activeSites(ret);
+        maxTargets(ret);
+        return(ret);
+    }
+
+    private void maxTargets(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "The maximum number of " +
+                "locations to be affected by each occurrence of this " +
+                "process. Setting maxTargets to -1 results in an unlimited " +
+                "number of targets.");
+        ret.put("maxTargets", ms);
+    }
+
+    private void activeSites(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new CoordinateSetClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "The set of sites that are " +
+                "candidates for being affected by this Process.");
+        ret.put("activeSites", ms);
+    }
 }

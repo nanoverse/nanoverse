@@ -41,7 +41,7 @@ public class CheckForDominationInstSymbolTable extends DiscreteProcessInstSymbol
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveChildMembers() {
+    protected HashMap<String, MemberSymbol> resolveMembers() {
         return new HashMap<>();
     }
 
