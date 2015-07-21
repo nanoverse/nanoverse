@@ -39,7 +39,7 @@ public class GeneralNeighborSwapInstSymbolTable extends DiscreteProcessInstSymbo
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return null;
+    protected HashMap<String, MemberSymbol> resolveChildMembers() {
+        return new HashMap<>();
     }
 }

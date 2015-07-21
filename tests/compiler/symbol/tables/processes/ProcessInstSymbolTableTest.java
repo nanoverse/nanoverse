@@ -22,25 +22,21 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.processes.discrete.check;
+package compiler.symbol.tables.processes;
 
-import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.processes.discrete.DiscreteProcessInstSymbolTable;
-import processes.discrete.check.CheckForExtinction;
+import compiler.symbol.tables.*;
+import control.arguments.Argument;
+import org.junit.*;
 
-import java.util.HashMap;
+public abstract class ProcessInstSymbolTableTest extends MapSymbolTableTest {
 
-/**
- * Created by dbborens on 7/21/2015.
- */
-public class CheckForExtinctionInstSymbolTable extends DiscreteProcessInstSymbolTable<CheckForExtinction> {
-    @Override
-    public String getDescription() {
-        return "Halt simulation if all sites are vacant.";
+    @Test
+    public void start() throws Exception {
+        verifyReturnSymbol("start", Argument.class);
     }
 
-    @Override
-    protected HashMap<String, MemberSymbol> resolveChildMembers() {
-        return new HashMap<>();
+    @Test
+    public void period() throws Exception {
+        verifyReturnSymbol("period", Argument.class);
     }
 }

@@ -34,12 +34,13 @@ import java.util.HashMap;
  */
 public class ScatterInstSymbolTable extends DiscreteProcessInstSymbolTable<Scatter> {
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return null;
-    }
-
-    @Override
     public String getDescription() {
         return "Scatter a specified number of new agents to random locations.";
     }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveChildMembers() {
+        return new HashMap<>();
+    }
+
 }

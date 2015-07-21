@@ -24,6 +24,10 @@
 
 package compiler.symbol.tables.processes.continuum;
 
+import compiler.symbol.symbols.MemberSymbol;
+
+import java.util.HashMap;
+
 /**
  * Created by dbborens on 7/21/2015.
  */
@@ -32,5 +36,10 @@ public class DiffusionProcessInstSymbolTable extends OperatorProcessInstSymbolTa
     public String getDescription() {
         return "Schedule a homogeneous diffusion process across the entirety " +
                 "of a specified continuum layer.";
+    }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveChildMembers() {
+        return new HashMap<>();
     }
 }

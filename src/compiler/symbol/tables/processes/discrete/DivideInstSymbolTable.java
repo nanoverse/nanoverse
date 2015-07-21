@@ -34,12 +34,13 @@ import java.util.HashMap;
  */
 public class DivideInstSymbolTable extends DiscreteProcessInstSymbolTable<Divide> {
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return null;
-    }
-
-    @Override
     public String getDescription() {
         return "LEGACY: Divide the agent to a neighboring site.";
     }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveChildMembers() {
+        return new HashMap<>();
+    }
+
 }

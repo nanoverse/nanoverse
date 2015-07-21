@@ -40,7 +40,7 @@ public class TriggerProcessInstSymbolTable extends DiscreteProcessInstSymbolTabl
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return null;
+    protected HashMap<String, MemberSymbol> resolveChildMembers() {
+        return new HashMap<>();
     }
 }
