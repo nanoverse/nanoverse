@@ -32,6 +32,7 @@ import layers.LayerManager;
 import org.dom4j.Element;
 import processes.BaseProcessArguments;
 import processes.discrete.*;
+import processes.discrete.cluster.ScatterClustersHelper;
 
 /**
  * Created by dbborens on 11/23/14.
@@ -43,7 +44,7 @@ public abstract class ScatterClustersProcessFactory extends ProcessFactory {
         CellProcessArguments cpArguments = makeCellProcessArguments(e, layerManager, p);
         CellDescriptor cellDescriptor = makeCellDescriptor(e, "cell-descriptor", layerManager, p);
         Argument<Integer> neighborCount = IntegerArgumentFactory.instantiate(e, "neighbors", 1, p.getRandom());
-        ScatterClustersHelper helper = ScatterClustersHelperFactory.instantiate(e, layerManager);
+        ScatterClustersHelper helper = ScatterClustersHelperFactory.instantiate(e, layerManager, p);
         ScatterClusters scatter = new ScatterClusters(arguments, cpArguments, neighborCount, cellDescriptor, helper);
 
         return scatter;

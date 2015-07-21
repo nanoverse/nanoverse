@@ -28,7 +28,7 @@ import control.GeneralParameters;
 import control.halt.ManualHaltEvent;
 import io.serialize.Serializer;
 import processes.StepState;
-import test.EslimeLatticeTestCase;
+import test.*;
 
 public class HaltTimeWriterTest extends EslimeLatticeTestCase {
     public void testLifeCycle() throws Exception {
@@ -38,7 +38,8 @@ public class HaltTimeWriterTest extends EslimeLatticeTestCase {
             runCycle(writer, t);
         }
         writer.close();
-        assertFilesEqual("serializations/tth.txt", "tth.txt");
+        FileAssertions.assertOutputMatchesFixture("serializations/tth.txt", "tth.txt", true);
+//        assertFilesEqual("serializations/tth.txt", "tth.txt");
     }
 
     private void runCycle(Serializer writer, double time) {
