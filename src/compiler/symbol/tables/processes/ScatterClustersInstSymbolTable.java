@@ -22,21 +22,20 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.control;
+package compiler.symbol.tables.processes;
 
-import compiler.symbol.symbols.*;
-import compiler.symbol.tables.*;
-import processes.NanoverseProcess;
+import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.processes.discrete.DiscreteProcessInstSymbolTable;
+import processes.discrete.ScatterClusters;
 
 import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
-public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> {
-
+public class ScatterClustersInstSymbolTable extends DiscreteProcessInstSymbolTable<ScatterClusters> {
     @Override
-    protected HashMap<String, ClassSymbol> resolveSubclasses() {
+    protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }
 }

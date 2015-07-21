@@ -22,20 +22,19 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.io.serialize;
+package compiler.symbol.tables.processes.discrete;
 
-import compiler.symbol.symbols.ClassSymbol;
-import compiler.symbol.tables.ClassSymbolTable;
-import io.serialize.Serializer;
+import compiler.symbol.symbols.MemberSymbol;
+import processes.discrete.Fill;
 
 import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
-public class SerializationClassSymbolTable extends ClassSymbolTable<Serializer> {
+public class FillInstSymbolTable extends DiscreteProcessInstSymbolTable<Fill> {
     @Override
-    protected HashMap<String, ClassSymbol> resolveSubclasses() {
+    protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }
 }

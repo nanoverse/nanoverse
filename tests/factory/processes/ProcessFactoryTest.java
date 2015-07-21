@@ -100,10 +100,6 @@ public class ProcessFactoryTest extends EslimeLatticeTestCase {
         doTest("cull", Cull.class);
     }
 
-    public void testDiagnostic() throws Exception {
-        doTest("diagnostic", DiagnosticProcess.class);
-    }
-
     public void testCheckForFixation() throws Exception {
         doTest("check-for-fixation", CheckForFixation.class);
     }
