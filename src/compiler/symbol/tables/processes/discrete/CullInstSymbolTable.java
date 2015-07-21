@@ -40,7 +40,7 @@ public class CullInstSymbolTable extends DiscreteProcessInstSymbolTable<Cull> {
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveChildMembers() {
+    protected HashMap<String, MemberSymbol> resolveMembers() {
         return new HashMap<>();
     }
 }

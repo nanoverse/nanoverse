@@ -22,25 +22,25 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.processes.continuum;
+package compiler.symbol.tables.processes.discrete;
 
-import compiler.symbol.symbols.MemberSymbol;
-import processes.continuum.ScheduleRelease;
+import compiler.symbol.tables.processes.ProcessInstSymbolTableTest;
+import control.arguments.Argument;
+import geometry.set.CoordinateSet;
+import org.junit.*;
 
-import java.util.HashMap;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/21/2015.
- */
-public class ScheduleReleaseInstSymbolTable extends ContinuumProcessInstSymbolTable<ScheduleRelease> {
-    @Override
-    public String getDescription() {
-        return "Resolve all changes to the specified continuum layer since " +
-                "the last \"Hold\" event occurred.";
+public abstract class DiscreteProcessInstSymbolTableTest extends ProcessInstSymbolTableTest {
+
+    @Test
+    public void maxTargets() throws Exception {
+        verifyReturnSymbol("maxTargets", Argument.class);
     }
 
-    @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return super.resolveMembers();
+    @Test
+    public void activeSites() throws Exception {
+        verifyReturnSymbol("activeSites", CoordinateSet.class);
     }
 }

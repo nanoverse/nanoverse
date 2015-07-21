@@ -36,6 +36,6 @@ public abstract class OperatorProcessInstSymbolTable extends ContinuumProcessIns
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        return null;
+        return super.resolveMembers();
     }
 }

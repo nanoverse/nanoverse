@@ -41,7 +41,7 @@ public class CheckForThresholdOccupancyInstSymbolTable extends DiscreteProcessIn
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveChildMembers() {
+    protected HashMap<String, MemberSymbol> resolveMembers() {
         return new HashMap<>();
     }
 }

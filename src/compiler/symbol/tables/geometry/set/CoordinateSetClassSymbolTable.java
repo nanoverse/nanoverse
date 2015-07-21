@@ -22,25 +22,26 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.processes.continuum;
+package compiler.symbol.tables.geometry.set;
 
-import compiler.symbol.symbols.MemberSymbol;
-import processes.continuum.ScheduleRelease;
+import compiler.symbol.tables.*;
+import geometry.set.CoordinateSet;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
-public class ScheduleReleaseInstSymbolTable extends ContinuumProcessInstSymbolTable<ScheduleRelease> {
+public class CoordinateSetClassSymbolTable extends ClassSymbolTable<CoordinateSet> {
+
     @Override
-    public String getDescription() {
-        return "Resolve all changes to the specified continuum layer since " +
-                "the last \"Hold\" event occurred.";
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+        return null;
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return super.resolveMembers();
+    public String getDescription() {
+        return "An unordered set of coordinates.";
     }
 }
