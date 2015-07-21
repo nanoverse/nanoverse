@@ -35,6 +35,11 @@ import java.util.HashMap;
  */
 public class TickInstSymbolTable extends ProcessInstSymbolTable<Tick> {
     @Override
+    public String getDescription() {
+        return "Advance the simulation clock by the specified dt.";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }

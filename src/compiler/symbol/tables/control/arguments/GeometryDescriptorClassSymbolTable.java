@@ -24,18 +24,25 @@
 
 package compiler.symbol.tables.control.arguments;
 
-import compiler.symbol.symbols.ClassSymbol;
-import compiler.symbol.tables.ClassSymbolTable;
+import compiler.symbol.tables.*;
 import control.arguments.GeometryDescriptor;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
 public class GeometryDescriptorClassSymbolTable extends ClassSymbolTable<GeometryDescriptor> {
     @Override
-    protected HashMap<String, ClassSymbol> resolveSubclasses() {
+    public String getDescription() {
+        return "The top-level geometric properties of the simulation. " +
+                "Properties specified here will carry over to all layers of " +
+                "the simulation.";
+    }
+    
+    @Override
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         return null;
     }
 }

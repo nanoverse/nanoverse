@@ -34,6 +34,12 @@ import java.util.HashMap;
  */
 public class ScheduleReleaseInstSymbolTable extends ContinuumProcessInstSymbolTable<ScheduleRelease> {
     @Override
+    public String getDescription() {
+        return "Resolve all changes to the specified continuum layer since " +
+                "the last \"Hold\" event occurred.";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }

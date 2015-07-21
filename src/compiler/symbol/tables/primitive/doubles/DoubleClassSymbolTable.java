@@ -25,7 +25,6 @@
 package compiler.symbol.tables.primitive.doubles;
 
 import compiler.pipeline.interpret.nodes.ASTPrimitiveDouble;
-import compiler.symbol.symbols.ClassSymbol;
 import compiler.symbol.tables.*;
 
 import java.util.HashMap;
@@ -36,16 +35,22 @@ import java.util.function.Supplier;
  */
 public class DoubleClassSymbolTable extends ClassSymbolTable<Supplier<Double>> {
 
+
     @Override
-    protected HashMap<String, ClassSymbol> resolveSubclasses() {
-        HashMap<String, ClassSymbol> ret = new HashMap<>(1);
+    public String getDescription() {
+        return "Functions that return floating point (FP) values. All " +
+                "floating point values in Nanoverse are double-precision.";
+    }
+
+    @Override
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>(1);
         primitive(ret);
         return ret;
     }
 
-    private void primitive(HashMap<String, ClassSymbol> ret) {
-        Supplier<InstantiableSymbolTable> supplier = () -> new PrimitiveDoubleSymbolTable();
-        ClassSymbol cs = new ClassSymbol(supplier, "An integer constant.");
-        ret.put(ASTPrimitiveDouble.IDENTIFIER, cs);
+    private void primitive(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = PrimitiveDoubleSymbolTable::new;
+        ret.put(ASTPrimitiveDouble.IDENTIFIER, supplier);
     }
 }

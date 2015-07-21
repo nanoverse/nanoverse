@@ -38,4 +38,10 @@ public class CheckForDominationInstSymbolTable extends DiscreteProcessInstSymbol
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }
+
+    @Override
+    public String getDescription() {
+        return "Halt the simulation when the target cell type has the " +
+                "specified fraction of the overall live cell population.";
+    }
 }

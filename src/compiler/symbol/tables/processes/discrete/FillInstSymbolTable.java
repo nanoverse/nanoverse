@@ -34,6 +34,11 @@ import java.util.HashMap;
  */
 public class FillInstSymbolTable extends DiscreteProcessInstSymbolTable<Fill> {
     @Override
+    public String getDescription() {
+        return "Fill in a region with agents.";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }

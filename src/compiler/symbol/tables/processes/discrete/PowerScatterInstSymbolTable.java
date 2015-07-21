@@ -34,6 +34,12 @@ import java.util.HashMap;
  */
 public class PowerScatterInstSymbolTable extends DiscreteProcessInstSymbolTable<PowerScatter> {
     @Override
+    public String getDescription() {
+        return "Scatter groups of cells in a distribution of cluster sizes " +
+                "that may or may not follow a power law. (Check this before using)";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }

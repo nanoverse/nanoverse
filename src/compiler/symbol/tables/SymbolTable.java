@@ -9,4 +9,6 @@ package compiler.symbol.tables;
  * Created by dbborens on 3/5/15.
  */
 public interface SymbolTable {
+
+    public String getDescription();
 }

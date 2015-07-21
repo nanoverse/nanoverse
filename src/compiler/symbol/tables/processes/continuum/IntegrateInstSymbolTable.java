@@ -34,8 +34,15 @@ import java.util.HashMap;
  * Created by dbborens on 7/21/2015.
  */
 public class IntegrateInstSymbolTable extends ContinuumProcessInstSymbolTable<Integrate> {
+
+    @Override
+    public String getDescription() {
+        return "Update the state of the specified continuum layer.";
+    }
+
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }
+
 }

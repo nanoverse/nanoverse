@@ -28,17 +28,16 @@ import compiler.symbol.tables.*;
 import control.*;
 import control.arguments.GeometryDescriptor;
 import control.run.Runner;
-import geometry.Geometry;
 import io.serialize.*;
 import layers.*;
 import org.junit.Test;
 import processes.NanoverseProcess;
 
-public class RunnerSymbolTableTest extends MapSymbolTableTest {
+public class ProjectSymbolTableTest extends MapSymbolTableTest {
 
     @Override
     protected MapSymbolTable getQuery() {
-        return new RunnerSymbolTable();
+        return new ProjectSymbolTable();
     }
 
     @Override

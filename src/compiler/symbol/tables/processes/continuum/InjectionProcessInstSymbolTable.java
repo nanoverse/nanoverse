@@ -33,6 +33,13 @@ import java.util.HashMap;
  * Created by dbborens on 7/21/2015.
  */
 public class InjectionProcessInstSymbolTable extends ContinuumProcessInstSymbolTable<InjectionProcess> {
+
+    @Override
+    public String getDescription() {
+        return "Schedule a fixed-value source (injection) at a site or sites " +
+                "of a specified continuum layer.";
+    }
+
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;

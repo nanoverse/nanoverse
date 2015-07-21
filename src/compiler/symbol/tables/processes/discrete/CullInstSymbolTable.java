@@ -34,6 +34,12 @@ import java.util.HashMap;
  */
 public class CullInstSymbolTable extends DiscreteProcessInstSymbolTable<Cull> {
     @Override
+    public String getDescription() {
+        return "LEGACY: Kill all agents whose health is below a specified " +
+                "threshold.";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }

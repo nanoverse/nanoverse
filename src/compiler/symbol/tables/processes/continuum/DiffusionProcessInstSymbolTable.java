@@ -28,4 +28,9 @@ package compiler.symbol.tables.processes.continuum;
  * Created by dbborens on 7/21/2015.
  */
 public class DiffusionProcessInstSymbolTable extends OperatorProcessInstSymbolTable {
+    @Override
+    public String getDescription() {
+        return "Schedule a homogeneous diffusion process across the entirety " +
+                "of a specified continuum layer.";
+    }
 }

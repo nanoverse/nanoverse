@@ -35,6 +35,11 @@ import java.util.HashMap;
  */
 public class MockProcessInstSymbolTable extends ProcessInstSymbolTable<MockProcess> {
     @Override
+    public String getDescription() {
+        return "LEGACY: Mock process, used in legacy tests.";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }

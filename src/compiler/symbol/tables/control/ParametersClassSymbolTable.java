@@ -29,13 +29,20 @@ import compiler.symbol.tables.*;
 import control.GeneralParameters;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
 public class ParametersClassSymbolTable extends ClassSymbolTable<GeneralParameters> {
     @Override
-    protected HashMap<String, ClassSymbol> resolveSubclasses() {
+    public String getDescription() {
+        return "System-level parameters, such as output directory and number " +
+                "of simulations to run.";
+    }
+
+    @Override
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         return null;
     }
 }

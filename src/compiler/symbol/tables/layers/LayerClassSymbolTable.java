@@ -24,18 +24,30 @@
 
 package compiler.symbol.tables.layers;
 
-import compiler.symbol.symbols.ClassSymbol;
-import compiler.symbol.tables.ClassSymbolTable;
+import compiler.symbol.tables.*;
 import layers.Layer;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
 public class LayerClassSymbolTable extends ClassSymbolTable<Layer> {
+
+
     @Override
-    protected HashMap<String, ClassSymbol> resolveSubclasses() {
+    public String getDescription() {
+        return "Simulation layers. Layers are topological, rather than " +
+                "geometric, concepts: layers share coordinate systems and " +
+                "consist of identical lattices, with a special relationship " +
+                "between a given site (x, y) on each of the layers in a " +
+                "simulation. Use separate layers to couple multiple agent-" +
+                "based or numerical processes.";
+    }
+
+    @Override
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         return null;
     }
 }

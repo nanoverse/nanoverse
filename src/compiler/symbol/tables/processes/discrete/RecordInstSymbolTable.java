@@ -34,6 +34,12 @@ import java.util.HashMap;
  */
 public class RecordInstSymbolTable extends DiscreteProcessInstSymbolTable<Record> {
     @Override
+    public String getDescription() {
+        return "Captures the state of the simulation. If not specified, " +
+                "occurs by default at the end of each simulation cycle.";
+    }
+
+    @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return null;
     }
