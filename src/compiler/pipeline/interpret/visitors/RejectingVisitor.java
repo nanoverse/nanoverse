@@ -25,6 +25,7 @@
 package compiler.pipeline.interpret.visitors;
 
 import compiler.pipeline.interpret.nanosyntax.*;
+import compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.BoolPrimitiveContext;
 import compiler.pipeline.interpret.nodes.ASTNode;
 import org.antlr.v4.runtime.misc.NotNull;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -83,6 +84,11 @@ public class RejectingVisitor extends NanosyntaxBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitIntPrimitive(@NotNull NanosyntaxParser.IntPrimitiveContext ctx) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public ASTNode visitBoolPrimitive(@NotNull BoolPrimitiveContext ctx) {
         throw new NotImplementedException();
     }
 }

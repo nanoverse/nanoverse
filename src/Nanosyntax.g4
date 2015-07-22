@@ -33,11 +33,13 @@ primitive
     :   stringPrimitive
     |   floatPrimitive
     |   intPrimitive
+    |   boolPrimitive
     ;
 
 stringPrimitive: STRING;
 floatPrimitive: FLOAT;
 intPrimitive: INTEGER;
+boolPrimitive: BOOLEAN;
 
 ID : [a-zA-Z] [a-zA-Z0-9]*;
 
@@ -51,6 +53,8 @@ FLOAT
 INTEGER: '-'? INT;
 fragment INT :   '0' | [1-9] [0-9]* ; // no leading zeros
 fragment EXP :   [Ee] [+\-]? INT ; // \- since - means "range" inside [...]
+
+BOOLEAN: 'True' | 'False' ;
 
 WS  :  [ \t\r\n\u000C]+ -> skip
     ;
