@@ -24,26 +24,40 @@
 
 package layers.continuum;
 
+import layers.continuum.solvers.EquilibriumBandSolver;
+import layers.continuum.solvers.EquilibriumKrylovSolver;
 import layers.continuum.solvers.EquilibriumMatrixSolver;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import structural.utilities.MatrixUtils;
 import test.TestBase;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+@RunWith(value = Parameterized.class)
 public class EquilibriumMatrixSolverTest extends TestBase {
 
     private DenseVector initial;
     private EquilibriumMatrixSolver query;
 
-    @Before
-    public void init() throws Exception {
-        query = new EquilibriumMatrixSolver(true);
-
+    public EquilibriumMatrixSolverTest(EquilibriumMatrixSolver solver) {
+        query = solver;
         initial = new DenseVector(3);
         initial.set(1, 1.0);
+    }
+
+    @Parameterized.Parameters
+    public static Collection solvers() {
+        // Array containing all the solvers the test will run with
+        EquilibriumMatrixSolver[] solvers = new EquilibriumMatrixSolver[]{
+                new EquilibriumKrylovSolver(true),
+                new EquilibriumBandSolver(true)};
+        return Arrays.asList(solvers);
     }
 
     /**
@@ -53,7 +67,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
      */
     @Test
     public void trivialCaseReturnsZero() throws Exception {
-        CompDiagMatrix operator = MatrixUtils.CompDiagIdentity(3);
+        CompDiagMatrix operator = MatrixUtils.compDiagIdentity(3);
         DenseVector source = new DenseVector(3);
         initial = new DenseVector(3);               // Zero out initial value
         doTest(source, operator, new DenseVector(3));
@@ -67,7 +81,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
      */
     @Test
     public void identityOperatorReturnsInput() throws Exception {
-        CompDiagMatrix operator = MatrixUtils.CompDiagIdentity(3);
+        CompDiagMatrix operator = MatrixUtils.compDiagIdentity(3);
         DenseVector source = new DenseVector(3);
         doTest(source, operator, initial.copy());
     }
@@ -106,7 +120,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
      */
     @Test(expected = IllegalStateException.class)
     public void linearDivergenceThrows() throws Exception {
-        CompDiagMatrix operator = MatrixUtils.CompDiagIdentity(3);
+        CompDiagMatrix operator = MatrixUtils.compDiagIdentity(3);
         DenseVector source = new DenseVector(3);
         source.set(0, 1.0);
         query.solve(source, operator, initial);

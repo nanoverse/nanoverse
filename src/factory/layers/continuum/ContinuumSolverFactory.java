@@ -52,7 +52,7 @@ public class ContinuumSolverFactory {
     }
 
     private static ContinuumSolver makeEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, boolean operators) {
-        EquilibriumMatrixSolver steadyState = new EquilibriumMatrixSolver(operators);
+        EquilibriumMatrixSolver steadyState = new EquilibriumKrylovSolver(operators);
         return new EquilibriumSolver(content, so, steadyState);
     }
 }

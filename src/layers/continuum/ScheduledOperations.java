@@ -51,7 +51,7 @@ public class ScheduledOperations {
         this.operators = operators;
 
         if (operators) {
-            identity = MatrixUtils.CompDiagIdentity(n);
+            identity = MatrixUtils.compDiagIdentity(n);
         } else {
             identity = null;
         }
@@ -80,6 +80,18 @@ public class ScheduledOperations {
     }
 
     /**
+     * Sets the source value for a particular coordinate (i.e. overwrites the
+     * coordinate's location in the source vector with b)
+     *
+     * @param coordinate the coordinate of the location to set
+     * @param b the value to set
+     */
+    public void setSource(Coordinate coordinate, double b) {
+        int index = indexer.apply(coordinate);
+        source.set(index, b);
+    }
+
+    /**
      * Exponentiate a particular location (i.e., add b to the diagonal.)
      *
      * @param coordinate
@@ -94,6 +106,21 @@ public class ScheduledOperations {
         double current = operator.get(index, index);
         double next = current + b;
         operator.set(index, index, next);
+    }
+
+    /**
+     * Zeros the row in the operator matrix associated with coordinate
+     *
+     * @param coordinate the coordinate whose row we want to zero out
+     */
+    public void zeroOperatorRow(Coordinate coordinate) {
+        if (!operators) {
+            throw new IllegalStateException("Operators are disabled but an " +
+                    "Dirichlet boundary condition is being enforced");
+        }
+
+        int index = indexer.apply(coordinate);
+        MatrixUtils.zeroRow(operator, index);
     }
 
     /**
