@@ -22,35 +22,24 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.processes.temporal;
+package compiler.symbol.tables.processes.discrete;
 
-import compiler.symbol.symbols.MemberSymbol;
 import compiler.symbol.tables.*;
-import compiler.symbol.tables.primitive.doubles.*;
-import compiler.symbol.tables.processes.ProcessInstSymbolTable;
-import processes.temporal.Tick;
+import org.junit.Before;
+import processes.discrete.Divide;
 
-import java.util.HashMap;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/21/2015.
- */
-public class TickInstSymbolTable extends ProcessInstSymbolTable<Tick> {
+public class DivideInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {
+
     @Override
-    public String getDescription() {
-        return "Advance the simulation clock by the specified dt.";
+    protected MapSymbolTable getQuery() {
+        return new DivideInstSymbolTable();
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        dt(ret);
-        return ret;
-    }
-
-    private void dt(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new DoubleClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "Interval by which to advance simulation time.");
-        ret.put("dt", ms);
+    protected Class getExpectedClass() {
+        return Divide.class;
     }
 }

@@ -25,6 +25,9 @@
 package compiler.symbol.tables.processes.discrete;
 
 import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.control.arguments.AgentDescriptorClassSymbolTable;
+import compiler.symbol.tables.processes.discrete.cluster.ScatterClustersHelperClassSymbolTable;
 import processes.discrete.PowerScatter;
 
 import java.util.HashMap;
@@ -41,6 +44,21 @@ public class PowerScatterInstSymbolTable extends DiscreteProcessInstSymbolTable<
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        return super.resolveMembers();
+        HashMap<String, MemberSymbol> ret =  super.resolveMembers();
+        description(ret);
+        separation(ret);
+        return ret;
+    }
+
+    private void separation(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new ScatterClustersHelperClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Separation rule for clusters.");
+        ret.put("separation", ms);
+    }
+
+    private void description(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new AgentDescriptorClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "A template for the agents to be scattered by this process.");
+        ret.put("description", ms);
     }
 }

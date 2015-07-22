@@ -24,33 +24,28 @@
 
 package compiler.symbol.tables.processes.discrete;
 
-import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.ResolvingSymbolTable;
-import compiler.symbol.tables.control.arguments.AgentDescriptorClassSymbolTable;
+import compiler.symbol.tables.MapSymbolTable;
+import control.arguments.CellDescriptor;
+import org.junit.*;
 import processes.discrete.Scatter;
 
-import java.util.HashMap;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/21/2015.
- */
-public class ScatterInstSymbolTable extends DiscreteProcessInstSymbolTable<Scatter> {
-    @Override
-    public String getDescription() {
-        return "Scatter a specified number of new agents to random locations.";
-    }
+public class ScatterInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        HashMap<String, MemberSymbol> ret =  super.resolveMembers();
-        agentDescriptor(ret);
-        return ret;
+    protected MapSymbolTable getQuery() {
+        return new ScatterInstSymbolTable();
     }
 
-    private void agentDescriptor(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new AgentDescriptorClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "A template for the agents to be scattered by this process.");
-        ret.put("description", ms);
+    @Override
+    protected Class getExpectedClass() {
+        return Scatter.class;
     }
 
+    @Test
+    public void description() throws Exception {
+        verifyReturnSymbol("description", CellDescriptor.class);
+    }
 }
