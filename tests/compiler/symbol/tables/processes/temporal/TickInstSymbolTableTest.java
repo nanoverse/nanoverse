@@ -22,36 +22,31 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.primitive.doubles;
+package compiler.symbol.tables.processes.temporal;
 
-import compiler.pipeline.interpret.nodes.ASTPrimitiveDouble;
 import compiler.symbol.tables.*;
+import compiler.symbol.tables.processes.*;
 import control.arguments.Argument;
+import org.junit.*;
+import processes.temporal.Tick;
 
-import java.util.HashMap;
-import java.util.function.Supplier;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 3/18/15.
- */
-public class DoubleClassSymbolTable extends ClassSymbolTable<Argument<Double>> {
-
+public class TickInstSymbolTableTest extends ProcessInstSymbolTableTest {
 
     @Override
-    public String getDescription() {
-        return "Functions that return floating point (FP) values. All " +
-                "floating point values in Nanoverse are double-precision.";
+    protected MapSymbolTable getQuery() {
+        return new TickInstSymbolTable();
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>(1);
-        primitive(ret);
-        return ret;
+    protected Class getExpectedClass() {
+        return Tick.class;
     }
 
-    private void primitive(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = PrimitiveDoubleSymbolTable::new;
-        ret.put(ASTPrimitiveDouble.IDENTIFIER, supplier);
+    @Test
+    public void dt() throws Exception {
+        verifyReturnSymbol("dt", Argument.class);
     }
 }

@@ -25,7 +25,10 @@
 package compiler.symbol.tables.processes.discrete;
 
 import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.InstantiableSymbolTable;
+import compiler.symbol.tables.*;
+import compiler.symbol.tables.control.arguments.AgentDescriptorClassSymbolTable;
+import compiler.symbol.tables.primitive.integers.IntegerClassSymbolTable;
+import compiler.symbol.tables.processes.discrete.cluster.ScatterClustersHelperClassSymbolTable;
 import processes.discrete.ScatterClusters;
 
 import java.util.HashMap;
@@ -43,6 +46,28 @@ public class ScatterClustersInstSymbolTable extends DiscreteProcessInstSymbolTab
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        return super.resolveMembers();
+        HashMap<String, MemberSymbol> ret =  super.resolveMembers();
+        description(ret);
+        separation(ret);
+        neighbors(ret);
+        return ret;
+    }
+
+    private void neighbors(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Minimum number of neighbors for each agent.");
+        ret.put("neighbors", ms);
+    }
+
+    private void separation(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new ScatterClustersHelperClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Separation rule for clusters.");
+        ret.put("separation", ms);
+    }
+
+    private void description(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new AgentDescriptorClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "A template for the agents to be scattered by this process.");
+        ret.put("description", ms);
     }
 }

@@ -22,36 +22,29 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.primitive.doubles;
+package compiler.symbol.tables.primitive.strings;
 
-import compiler.pipeline.interpret.nodes.ASTPrimitiveDouble;
-import compiler.symbol.tables.*;
-import control.arguments.Argument;
-
-import java.util.HashMap;
-import java.util.function.Supplier;
+import compiler.pipeline.interpret.nodes.ASTPrimitiveNode;
+import compiler.pipeline.translate.nodes.*;
+import compiler.symbol.tables.primitive.PrimitiveSymbolTable;
 
 /**
- * Created by dbborens on 3/18/15.
+ * Created by dbborens on 7/22/2015.
  */
-public class DoubleClassSymbolTable extends ClassSymbolTable<Argument<Double>> {
-
-
+public class StringInstSymbolTable extends PrimitiveSymbolTable<String> {
     @Override
     public String getDescription() {
-        return "Functions that return floating point (FP) values. All " +
-                "floating point values in Nanoverse are double-precision.";
+        return "A string literal.";
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>(1);
-        primitive(ret);
-        return ret;
+    public PrimitiveObjectNode<String> getObjectNode(ASTPrimitiveNode<String> astNode) {
+        return new PrimitiveStringNode(this, astNode.getContent());
     }
 
-    private void primitive(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = PrimitiveDoubleSymbolTable::new;
-        ret.put(ASTPrimitiveDouble.IDENTIFIER, supplier);
+    @Override
+    public Class getInstanceClass() {
+        return String.class;
     }
+
 }

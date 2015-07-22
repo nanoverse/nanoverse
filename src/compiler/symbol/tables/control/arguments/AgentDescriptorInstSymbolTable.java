@@ -22,36 +22,27 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.primitive.doubles;
+package compiler.symbol.tables.control.arguments;
 
-import compiler.pipeline.interpret.nodes.ASTPrimitiveDouble;
+import compiler.symbol.symbols.MemberSymbol;
 import compiler.symbol.tables.*;
-import control.arguments.Argument;
+import control.arguments.CellDescriptor;
 
 import java.util.HashMap;
-import java.util.function.Supplier;
 
 /**
- * Created by dbborens on 3/18/15.
+ * Created by dbborens on 7/22/2015.
  */
-public class DoubleClassSymbolTable extends ClassSymbolTable<Argument<Double>> {
-
-
+public class AgentDescriptorInstSymbolTable extends MapSymbolTable<CellDescriptor> {
     @Override
     public String getDescription() {
-        return "Functions that return floating point (FP) values. All " +
-                "floating point values in Nanoverse are double-precision.";
+        return "AgentDescriptor describes the properties of a class of agents," +
+                " such as behaviors and internal state.";
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>(1);
-        primitive(ret);
-        return ret;
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        return null;
     }
 
-    private void primitive(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = PrimitiveDoubleSymbolTable::new;
-        ret.put(ASTPrimitiveDouble.IDENTIFIER, supplier);
-    }
 }
