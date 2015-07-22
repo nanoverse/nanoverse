@@ -191,7 +191,6 @@ public abstract class ProcessFactory {
                                                                LayerManager layerManager,
                                                                GeneralParameters p,
                                                                int id) {
-
         Argument<Integer> start = IntegerArgumentFactory.instantiate(e, "start", 0, p.getRandom());
         Argument<Integer> period = IntegerArgumentFactory.instantiate(e, "period", 1, p.getRandom());
         return new BaseProcessArguments(layerManager, p, id, start, period);
