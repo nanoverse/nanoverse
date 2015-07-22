@@ -22,25 +22,36 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.processes.discrete.check;
+package compiler.symbol.tables.processes.continuum;
 
-import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.processes.discrete.DiscreteProcessInstSymbolTable;
-import processes.discrete.check.CheckForFixation;
+import compiler.symbol.tables.MapSymbolTable;
+import compiler.symbol.tables.processes.ProcessInstSymbolTableTest;
+import control.arguments.Argument;
+import org.junit.*;
+import processes.continuum.OperatorProcess;
 
-import java.util.HashMap;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/21/2015.
- */
-public class CheckForFixationInstSymbolTable extends DiscreteProcessInstSymbolTable<CheckForFixation> {
+public class DiffusionProcessInstSymbolTableTest extends ProcessInstSymbolTableTest {
+
     @Override
-    public String getDescription() {
-        return "Halt the simulation if only one type of agent exists.";
+    protected MapSymbolTable getQuery() {
+        return new DiffusionProcessInstSymbolTable();
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return super.resolveMembers();
+    protected Class getExpectedClass() {
+        return OperatorProcess.class;
+    }
+
+    @Test
+    public void layer() throws Exception {
+        verifyReturnSymbol("layer", Argument.class);
+    }
+
+    @Test
+    public void constant() throws Exception {
+        verifyReturnSymbol("constant", Argument.class);
     }
 }

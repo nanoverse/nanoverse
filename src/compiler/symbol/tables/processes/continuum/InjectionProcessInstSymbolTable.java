@@ -25,6 +25,9 @@
 package compiler.symbol.tables.processes.continuum;
 
 import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.primitive.doubles.DoubleClassSymbolTable;
+import compiler.symbol.tables.primitive.strings.StringClassSymbolTable;
 import processes.continuum.InjectionProcess;
 
 import java.util.HashMap;
@@ -42,6 +45,21 @@ public class InjectionProcessInstSymbolTable extends ContinuumProcessInstSymbolT
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        return super.resolveMembers();
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        value(ret);
+        layer(ret);
+        return ret;
+    }
+
+    private void layer(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Continuum layer upon which to schedule injection process.");
+        ret.put("layer", ms);
+    }
+
+    private void value(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new DoubleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Value to inject at each affected site.");
+        ret.put("value", ms);
     }
 }

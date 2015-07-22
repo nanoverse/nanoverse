@@ -22,25 +22,26 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.processes.discrete.check;
+package compiler.symbol.tables.processes.discrete;
 
-import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.processes.discrete.DiscreteProcessInstSymbolTable;
-import processes.discrete.check.CheckForFixation;
+import compiler.symbol.tables.MapSymbolTable;
+import compiler.symbol.tables.processes.ProcessInstSymbolTableTest;
+import org.junit.Before;
+import processes.discrete.Record;
 
-import java.util.HashMap;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/21/2015.
- */
-public class CheckForFixationInstSymbolTable extends DiscreteProcessInstSymbolTable<CheckForFixation> {
+public class RecordInstSymbolTableTest extends ProcessInstSymbolTableTest {
+
     @Override
-    public String getDescription() {
-        return "Halt the simulation if only one type of agent exists.";
+    protected MapSymbolTable getQuery() {
+        return new RecordInstSymbolTable();
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return super.resolveMembers();
+    protected Class getExpectedClass() {
+        return Record.class;
     }
+
 }

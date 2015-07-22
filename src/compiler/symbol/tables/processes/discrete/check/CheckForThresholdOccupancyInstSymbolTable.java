@@ -25,6 +25,8 @@
 package compiler.symbol.tables.processes.discrete.check;
 
 import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.primitive.doubles.DoubleClassSymbolTable;
 import compiler.symbol.tables.processes.discrete.DiscreteProcessInstSymbolTable;
 import processes.discrete.check.CheckForThresholdOccupancy;
 
@@ -42,6 +44,14 @@ public class CheckForThresholdOccupancyInstSymbolTable extends DiscreteProcessIn
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        return new HashMap<>();
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        threshold(ret);
+        return ret;
+    }
+
+    private void threshold(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new DoubleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Maximum occupancy before halt is triggered.");
+        ret.put("threshold", ms);
     }
 }

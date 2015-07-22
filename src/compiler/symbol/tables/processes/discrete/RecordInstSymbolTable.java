@@ -25,6 +25,7 @@
 package compiler.symbol.tables.processes.discrete;
 
 import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.processes.ProcessInstSymbolTable;
 import processes.discrete.Record;
 
 import java.util.HashMap;
@@ -32,7 +33,7 @@ import java.util.HashMap;
 /**
  * Created by dbborens on 7/21/2015.
  */
-public class RecordInstSymbolTable extends DiscreteProcessInstSymbolTable<Record> {
+public class RecordInstSymbolTable extends ProcessInstSymbolTable<Record> {
     @Override
     public String getDescription() {
         return "Captures the state of the simulation. If not specified, " +

@@ -24,23 +24,35 @@
 
 package compiler.symbol.tables.processes.discrete.check;
 
-import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.processes.discrete.DiscreteProcessInstSymbolTable;
-import processes.discrete.check.CheckForFixation;
+import compiler.symbol.tables.MapSymbolTable;
+import compiler.symbol.tables.processes.discrete.DiscreteProcessInstSymbolTableTest;
+import control.arguments.Argument;
+import org.junit.Test;
+import processes.discrete.check.CheckForDomination;
 
-import java.util.HashMap;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/21/2015.
- */
-public class CheckForFixationInstSymbolTable extends DiscreteProcessInstSymbolTable<CheckForFixation> {
+public class CheckForDominationInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {
+
+
     @Override
-    public String getDescription() {
-        return "Halt the simulation if only one type of agent exists.";
+    protected MapSymbolTable getQuery() {
+        return new CheckForDominationInstSymbolTable();
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return super.resolveMembers();
+    protected Class getExpectedClass() {
+        return CheckForDomination.class;
+    }
+
+    @Test
+    public void threshold() throws Exception {
+        verifyReturnSymbol("threshold", Argument.class);
+    }
+
+    @Test
+    public void target() throws Exception {
+        verifyReturnSymbol("target", Argument.class);
     }
 }

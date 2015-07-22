@@ -25,7 +25,8 @@
 package compiler.symbol.tables.processes.continuum;
 
 import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.MapSymbolTable;
+import compiler.symbol.tables.*;
+import compiler.symbol.tables.primitive.strings.StringClassSymbolTable;
 import processes.continuum.Integrate;
 
 import java.util.HashMap;
@@ -42,7 +43,14 @@ public class IntegrateInstSymbolTable extends ContinuumProcessInstSymbolTable<In
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        return super.resolveMembers();
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        layer(ret);
+        return ret;
     }
 
+    private void layer(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Continuum layer to integrate forward.");
+        ret.put("layer", ms);
+    }
 }
