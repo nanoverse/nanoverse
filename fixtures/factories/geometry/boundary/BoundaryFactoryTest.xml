@@ -50,4 +50,8 @@
     <tetris-case>
         <class>tetris</class>
     </tetris-case>
+
+    <reflecting-tetris-case>
+        <class>tetris-reflecting</class>
+    </reflecting-tetris-case>
 </fixture>
