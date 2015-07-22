@@ -25,6 +25,9 @@
 package compiler.symbol.tables.processes.continuum;
 
 import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.primitive.doubles.DoubleClassSymbolTable;
+import compiler.symbol.tables.primitive.strings.StringClassSymbolTable;
 import processes.continuum.ScheduleRelease;
 
 import java.util.HashMap;
@@ -41,6 +44,14 @@ public class ScheduleReleaseInstSymbolTable extends ContinuumProcessInstSymbolTa
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        return super.resolveMembers();
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        layer(ret);
+        return ret;
+    }
+
+    private void layer(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Continuum layer whose schedule is to be released.");
+        ret.put("layer", ms);
     }
 }

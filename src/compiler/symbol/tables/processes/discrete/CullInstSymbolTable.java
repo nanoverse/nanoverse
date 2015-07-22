@@ -25,6 +25,8 @@
 package compiler.symbol.tables.processes.discrete;
 
 import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.primitive.doubles.DoubleClassSymbolTable;
 import processes.discrete.Cull;
 
 import java.util.HashMap;
@@ -41,6 +43,14 @@ public class CullInstSymbolTable extends DiscreteProcessInstSymbolTable<Cull> {
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        return new HashMap<>();
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        threshold(ret);
+        return ret;
+    }
+
+    private void threshold(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new DoubleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Minimum health level required for survival.");
+        ret.put("threshold", ms);
     }
 }

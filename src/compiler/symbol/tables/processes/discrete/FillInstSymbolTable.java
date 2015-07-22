@@ -25,6 +25,9 @@
 package compiler.symbol.tables.processes.discrete;
 
 import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.control.arguments.AgentDescriptorClassSymbolTable;
+import compiler.symbol.tables.primitive.booleans.BooleanClassSymbolTable;
 import processes.discrete.Fill;
 
 import java.util.HashMap;
@@ -40,7 +43,24 @@ public class FillInstSymbolTable extends DiscreteProcessInstSymbolTable<Fill> {
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        return super.resolveMembers();
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        description(ret);
+        skipFilledSites(ret);
+        return ret;
+    }
+
+    private void skipFilledSites(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new BooleanClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "If true, occupied sites are " +
+                "ignored during fill operation. If false, filling over an " +
+                "occupied site will result in an error.");
+        ret.put("skipFilledSites", ms);
+    }
+
+    private void description(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new AgentDescriptorClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "A template for the agents to be scattered by this process.");
+        ret.put("description", ms);
     }
 
 }

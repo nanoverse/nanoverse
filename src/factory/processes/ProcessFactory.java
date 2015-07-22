@@ -92,9 +92,6 @@ public abstract class ProcessFactory {
         } else if (processClass.equalsIgnoreCase("scatter-clusters")) {
             return ScatterClustersProcessFactory.instantiate(e, layerManager, p, id);
 
-            //////////////////////////
-            // TODO CONTINUE FROM HERE
-
         } else if (processClass.equalsIgnoreCase("fill")) {
             return FillProcessFactory.instantiate(e, layerManager, p, id);
 
@@ -148,8 +145,7 @@ public abstract class ProcessFactory {
             return new Integrate(arguments, layer.getScheduler());
 
         } else if (processClass.equalsIgnoreCase("record")) {
-            CellProcessArguments cpArguments = makeCellProcessArguments(e, layerManager, p);
-            return new Record(arguments, cpArguments);
+            return new Record(arguments);
 
         } else {
             String msg = "Unrecognized process '" +

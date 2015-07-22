@@ -25,6 +25,10 @@
 package compiler.symbol.tables.processes;
 
 import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.primitive.doubles.DoubleClassSymbolTable;
+import compiler.symbol.tables.primitive.integers.IntegerClassSymbolTable;
+import compiler.symbol.tables.primitive.strings.StringClassSymbolTable;
 import compiler.symbol.tables.processes.ProcessInstSymbolTable;
 import processes.MockProcess;
 
@@ -41,6 +45,29 @@ public class MockProcessInstSymbolTable extends ProcessInstSymbolTable<MockProce
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        return new HashMap<>();
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        identifier(ret);
+        weight(ret);
+        count(ret);
+        return ret;
+    }
+
+    private void count(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Arbitrary counter field, used for testing.");
+        ret.put("count", ms);
+    }
+
+    private void weight(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new DoubleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "LEGACY: Totally obsolete -- set to anything and ignore.");
+        ret.put("weight", ms);
+
+    }
+
+    private void identifier(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Arbitrary identifier, used for testing.");
+        ret.put("identifier", ms);
     }
 }

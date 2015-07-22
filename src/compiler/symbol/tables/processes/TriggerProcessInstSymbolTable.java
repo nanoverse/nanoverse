@@ -25,6 +25,9 @@
 package compiler.symbol.tables.processes;
 
 import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.primitive.booleans.BooleanClassSymbolTable;
+import compiler.symbol.tables.primitive.strings.StringClassSymbolTable;
 import compiler.symbol.tables.processes.discrete.DiscreteProcessInstSymbolTable;
 import processes.discrete.TriggerProcess;
 
@@ -41,6 +44,34 @@ public class TriggerProcessInstSymbolTable extends DiscreteProcessInstSymbolTabl
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        return new HashMap<>();
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        behavior(ret);
+        skipVacantSites(ret);
+        requireNeighbors(ret);
+        return ret;
+    }
+
+    private void requireNeighbors(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new BooleanClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "LEGACY: Require that all " +
+                "potential targets have non-vacant neighbors. Use a filter " +
+                "instead.");
+        ret.put("requireNeighbors", ms);
+    }
+
+    private void skipVacantSites(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new BooleanClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "LEGACY: Require that all " +
+                "potential targets be occupied. Use a filter instead.");
+        ret.put("skipVacantSites", ms);
+    }
+
+    private void behavior(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Name of behavior to " +
+                "trigger. It is assumed that all potential targets have a " +
+                "behavior with this name. If they do not, you will get an " +
+                "error!");
+        ret.put("behavior", ms);
     }
 }
