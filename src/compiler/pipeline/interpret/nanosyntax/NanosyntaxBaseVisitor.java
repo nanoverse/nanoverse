@@ -82,4 +82,11 @@ public class NanosyntaxBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitIntPrimitive(@NotNull NanosyntaxParser.IntPrimitiveContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitBoolPrimitive(@NotNull NanosyntaxParser.BoolPrimitiveContext ctx) { return visitChildren(ctx); }
 }

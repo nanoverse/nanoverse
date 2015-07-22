@@ -71,4 +71,10 @@ public interface NanosyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIntPrimitive(@NotNull NanosyntaxParser.IntPrimitiveContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link NanosyntaxParser#boolPrimitive}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBoolPrimitive(@NotNull NanosyntaxParser.BoolPrimitiveContext ctx);
 }

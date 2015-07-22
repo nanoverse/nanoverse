@@ -17,23 +17,23 @@ public class NanosyntaxParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, ID=5, STRING=6, FLOAT=7, INTEGER=8, WS=9, 
-		COMMENT=10, LINE_COMMENT=11;
+		T__0=1, T__1=2, T__2=3, T__3=4, ID=5, STRING=6, FLOAT=7, INTEGER=8, BOOLEAN=9, 
+		WS=10, COMMENT=11, LINE_COMMENT=12;
 	public static final int
 		RULE_root = 0, RULE_statement = 1, RULE_assignment = 2, RULE_block = 3, 
 		RULE_singleton = 4, RULE_id = 5, RULE_primitive = 6, RULE_stringPrimitive = 7, 
-		RULE_floatPrimitive = 8, RULE_intPrimitive = 9;
+		RULE_floatPrimitive = 8, RULE_intPrimitive = 9, RULE_boolPrimitive = 10;
 	public static final String[] ruleNames = {
 		"root", "statement", "assignment", "block", "singleton", "id", "primitive", 
-		"stringPrimitive", "floatPrimitive", "intPrimitive"
+		"stringPrimitive", "floatPrimitive", "intPrimitive", "boolPrimitive"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
 		null, "';'", "':'", "'{'", "'}'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, null, "ID", "STRING", "FLOAT", "INTEGER", "WS", 
-		"COMMENT", "LINE_COMMENT"
+		null, null, null, null, null, "ID", "STRING", "FLOAT", "INTEGER", "BOOLEAN", 
+		"WS", "COMMENT", "LINE_COMMENT"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -109,17 +109,17 @@ public class NanosyntaxParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(23);
+			setState(25);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << STRING) | (1L << FLOAT) | (1L << INTEGER))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << STRING) | (1L << FLOAT) | (1L << INTEGER) | (1L << BOOLEAN))) != 0)) {
 				{
 				{
-				setState(20); 
+				setState(22); 
 				statement();
 				}
 				}
-				setState(25);
+				setState(27);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -164,41 +164,41 @@ public class NanosyntaxParser extends Parser {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_statement);
 		try {
-			setState(38);
+			setState(40);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(26); 
+				setState(28); 
 				id();
-				setState(27); 
+				setState(29); 
 				match(T__0);
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(29); 
+				setState(31); 
 				primitive();
-				setState(30); 
+				setState(32); 
 				match(T__0);
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(32); 
+				setState(34); 
 				block();
-				setState(33); 
+				setState(35); 
 				match(T__0);
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(35); 
+				setState(37); 
 				assignment();
-				setState(36); 
+				setState(38); 
 				match(T__0);
 				}
 				break;
@@ -240,25 +240,25 @@ public class NanosyntaxParser extends Parser {
 		AssignmentContext _localctx = new AssignmentContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_assignment);
 		try {
-			setState(47);
+			setState(49);
 			switch ( getInterpreter().adaptivePredict(_input,2,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(40); 
+				setState(42); 
 				id();
-				setState(41); 
+				setState(43); 
 				block();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(43); 
-				id();
-				setState(44); 
-				match(T__1);
 				setState(45); 
+				id();
+				setState(46); 
+				match(T__1);
+				setState(47); 
 				singleton();
 				}
 				break;
@@ -300,23 +300,23 @@ public class NanosyntaxParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(49); 
+			setState(51); 
 			match(T__2);
-			setState(53);
+			setState(55);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << STRING) | (1L << FLOAT) | (1L << INTEGER))) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__2) | (1L << ID) | (1L << STRING) | (1L << FLOAT) | (1L << INTEGER) | (1L << BOOLEAN))) != 0)) {
 				{
 				{
-				setState(50); 
+				setState(52); 
 				statement();
 				}
 				}
-				setState(55);
+				setState(57);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(56); 
+			setState(58); 
 			match(T__3);
 			}
 		}
@@ -356,26 +356,26 @@ public class NanosyntaxParser extends Parser {
 		SingletonContext _localctx = new SingletonContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_singleton);
 		try {
-			setState(61);
+			setState(63);
 			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(58); 
+				setState(60); 
 				id();
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(59); 
+				setState(61); 
 				primitive();
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(60); 
+				setState(62); 
 				assignment();
 				}
 				break;
@@ -411,7 +411,7 @@ public class NanosyntaxParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(63); 
+			setState(65); 
 			match(ID);
 			}
 		}
@@ -436,6 +436,9 @@ public class NanosyntaxParser extends Parser {
 		public IntPrimitiveContext intPrimitive() {
 			return getRuleContext(IntPrimitiveContext.class,0);
 		}
+		public BoolPrimitiveContext boolPrimitive() {
+			return getRuleContext(BoolPrimitiveContext.class,0);
+		}
 		public PrimitiveContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -451,27 +454,34 @@ public class NanosyntaxParser extends Parser {
 		PrimitiveContext _localctx = new PrimitiveContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_primitive);
 		try {
-			setState(68);
+			setState(71);
 			switch (_input.LA(1)) {
 			case STRING:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(65); 
+				setState(67); 
 				stringPrimitive();
 				}
 				break;
 			case FLOAT:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(66); 
+				setState(68); 
 				floatPrimitive();
 				}
 				break;
 			case INTEGER:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(67); 
+				setState(69); 
 				intPrimitive();
+				}
+				break;
+			case BOOLEAN:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(70); 
+				boolPrimitive();
 				}
 				break;
 			default:
@@ -508,7 +518,7 @@ public class NanosyntaxParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(70); 
+			setState(73); 
 			match(STRING);
 			}
 		}
@@ -542,7 +552,7 @@ public class NanosyntaxParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(72); 
+			setState(75); 
 			match(FLOAT);
 			}
 		}
@@ -576,7 +586,7 @@ public class NanosyntaxParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(74); 
+			setState(77); 
 			match(INTEGER);
 			}
 		}
@@ -591,26 +601,61 @@ public class NanosyntaxParser extends Parser {
 		return _localctx;
 	}
 
+	public static class BoolPrimitiveContext extends ParserRuleContext {
+		public TerminalNode BOOLEAN() { return getToken(NanosyntaxParser.BOOLEAN, 0); }
+		public BoolPrimitiveContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_boolPrimitive; }
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof NanosyntaxVisitor ) return ((NanosyntaxVisitor<? extends T>)visitor).visitBoolPrimitive(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final BoolPrimitiveContext boolPrimitive() throws RecognitionException {
+		BoolPrimitiveContext _localctx = new BoolPrimitiveContext(_ctx, getState());
+		enterRule(_localctx, 20, RULE_boolPrimitive);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(79); 
+			match(BOOLEAN);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\rO\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\3"+
-		"\2\7\2\30\n\2\f\2\16\2\33\13\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\5\3)\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4\62\n\4\3\5\3\5\7\5\66"+
-		"\n\5\f\5\16\59\13\5\3\5\3\5\3\6\3\6\3\6\5\6@\n\6\3\7\3\7\3\b\3\b\3\b\5"+
-		"\bG\n\b\3\t\3\t\3\n\3\n\3\13\3\13\3\13\2\2\f\2\4\6\b\n\f\16\20\22\24\2"+
-		"\2N\2\31\3\2\2\2\4(\3\2\2\2\6\61\3\2\2\2\b\63\3\2\2\2\n?\3\2\2\2\fA\3"+
-		"\2\2\2\16F\3\2\2\2\20H\3\2\2\2\22J\3\2\2\2\24L\3\2\2\2\26\30\5\4\3\2\27"+
-		"\26\3\2\2\2\30\33\3\2\2\2\31\27\3\2\2\2\31\32\3\2\2\2\32\3\3\2\2\2\33"+
-		"\31\3\2\2\2\34\35\5\f\7\2\35\36\7\3\2\2\36)\3\2\2\2\37 \5\16\b\2 !\7\3"+
-		"\2\2!)\3\2\2\2\"#\5\b\5\2#$\7\3\2\2$)\3\2\2\2%&\5\6\4\2&\'\7\3\2\2\')"+
-		"\3\2\2\2(\34\3\2\2\2(\37\3\2\2\2(\"\3\2\2\2(%\3\2\2\2)\5\3\2\2\2*+\5\f"+
-		"\7\2+,\5\b\5\2,\62\3\2\2\2-.\5\f\7\2./\7\4\2\2/\60\5\n\6\2\60\62\3\2\2"+
-		"\2\61*\3\2\2\2\61-\3\2\2\2\62\7\3\2\2\2\63\67\7\5\2\2\64\66\5\4\3\2\65"+
-		"\64\3\2\2\2\669\3\2\2\2\67\65\3\2\2\2\678\3\2\2\28:\3\2\2\29\67\3\2\2"+
-		"\2:;\7\6\2\2;\t\3\2\2\2<@\5\f\7\2=@\5\16\b\2>@\5\6\4\2?<\3\2\2\2?=\3\2"+
-		"\2\2?>\3\2\2\2@\13\3\2\2\2AB\7\7\2\2B\r\3\2\2\2CG\5\20\t\2DG\5\22\n\2"+
-		"EG\5\24\13\2FC\3\2\2\2FD\3\2\2\2FE\3\2\2\2G\17\3\2\2\2HI\7\b\2\2I\21\3"+
-		"\2\2\2JK\7\t\2\2K\23\3\2\2\2LM\7\n\2\2M\25\3\2\2\2\b\31(\61\67?F";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\16T\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4"+
+		"\f\t\f\3\2\7\2\32\n\2\f\2\16\2\35\13\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\3\3\3\3\3\3\5\3+\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3\4\5\4\64\n\4\3\5\3"+
+		"\5\7\58\n\5\f\5\16\5;\13\5\3\5\3\5\3\6\3\6\3\6\5\6B\n\6\3\7\3\7\3\b\3"+
+		"\b\3\b\3\b\5\bJ\n\b\3\t\3\t\3\n\3\n\3\13\3\13\3\f\3\f\3\f\2\2\r\2\4\6"+
+		"\b\n\f\16\20\22\24\26\2\2S\2\33\3\2\2\2\4*\3\2\2\2\6\63\3\2\2\2\b\65\3"+
+		"\2\2\2\nA\3\2\2\2\fC\3\2\2\2\16I\3\2\2\2\20K\3\2\2\2\22M\3\2\2\2\24O\3"+
+		"\2\2\2\26Q\3\2\2\2\30\32\5\4\3\2\31\30\3\2\2\2\32\35\3\2\2\2\33\31\3\2"+
+		"\2\2\33\34\3\2\2\2\34\3\3\2\2\2\35\33\3\2\2\2\36\37\5\f\7\2\37 \7\3\2"+
+		"\2 +\3\2\2\2!\"\5\16\b\2\"#\7\3\2\2#+\3\2\2\2$%\5\b\5\2%&\7\3\2\2&+\3"+
+		"\2\2\2\'(\5\6\4\2()\7\3\2\2)+\3\2\2\2*\36\3\2\2\2*!\3\2\2\2*$\3\2\2\2"+
+		"*\'\3\2\2\2+\5\3\2\2\2,-\5\f\7\2-.\5\b\5\2.\64\3\2\2\2/\60\5\f\7\2\60"+
+		"\61\7\4\2\2\61\62\5\n\6\2\62\64\3\2\2\2\63,\3\2\2\2\63/\3\2\2\2\64\7\3"+
+		"\2\2\2\659\7\5\2\2\668\5\4\3\2\67\66\3\2\2\28;\3\2\2\29\67\3\2\2\29:\3"+
+		"\2\2\2:<\3\2\2\2;9\3\2\2\2<=\7\6\2\2=\t\3\2\2\2>B\5\f\7\2?B\5\16\b\2@"+
+		"B\5\6\4\2A>\3\2\2\2A?\3\2\2\2A@\3\2\2\2B\13\3\2\2\2CD\7\7\2\2D\r\3\2\2"+
+		"\2EJ\5\20\t\2FJ\5\22\n\2GJ\5\24\13\2HJ\5\26\f\2IE\3\2\2\2IF\3\2\2\2IG"+
+		"\3\2\2\2IH\3\2\2\2J\17\3\2\2\2KL\7\b\2\2L\21\3\2\2\2MN\7\t\2\2N\23\3\2"+
+		"\2\2OP\7\n\2\2P\25\3\2\2\2QR\7\13\2\2R\27\3\2\2\2\b\33*\639AI";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
