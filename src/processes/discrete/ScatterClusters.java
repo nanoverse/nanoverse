@@ -38,13 +38,13 @@ import java.util.stream.*;
 public class ScatterClusters extends CellProcess {
 
     private List<Coordinate> candidates;
-    private final Argument<Integer> neighborCount;
+    private final IntegerArgument neighborCount;
     private final CellDescriptor cellDescriptor;
     private final ScatterClustersHelper helper;
 
     public ScatterClusters(BaseProcessArguments arguments,
                            CellProcessArguments cpArguments,
-                           Argument<Integer> neighborCount,
+                           IntegerArgument neighborCount,
                            CellDescriptor cellDescriptor,
                            ScatterClustersHelper helper) {
 

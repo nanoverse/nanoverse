@@ -25,10 +25,7 @@
 package processes.discrete;
 
 import control.GeneralParameters;
-import control.arguments.Argument;
-import control.arguments.CellDescriptor;
-import control.arguments.ConstantInteger;
-import control.arguments.MockCellDescriptor;
+import control.arguments.*;
 import control.identifiers.Coordinate;
 import geometry.Geometry;
 import geometry.boundaries.Arena;
@@ -102,7 +99,7 @@ public class ScatterTest extends EslimeTestCase {
 
     public void testRespectMaxTargets() throws Exception {
         CoordinateSet activeSites = new CompleteSet(geom);
-        Argument<Integer> maxTargets = new ConstantInteger(3);
+        IntegerArgument maxTargets = new ConstantInteger(3);
         CellProcessArguments cpArguments = new CellProcessArguments(activeSites, maxTargets);
         Scatter query = new Scatter(arguments, cpArguments, cd);
         query.init();

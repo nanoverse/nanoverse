@@ -28,10 +28,8 @@ import agent.action.*;
 import agent.targets.TargetRule;
 import cells.BehaviorCell;
 import control.GeneralParameters;
-import control.arguments.ActionDescriptor;
-import control.arguments.Argument;
-import control.arguments.DynamicActionRangeMapDescriptor;
-import control.arguments.TargetDescriptor;
+import agent.action.ActionDescriptor;
+import control.arguments.*;
 import factory.agent.targets.TargetDesciptorFactory;
 import factory.control.arguments.DoubleArgumentFactory;
 import factory.control.arguments.IntegerArgumentFactory;
@@ -86,7 +84,7 @@ public abstract class ActionDescriptorFactory {
     }
 
     private static ActionDescriptor inject(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Double> deltaArg = DoubleArgumentFactory.instantiate(e, "delta", p.getRandom());
+        DoubleArgument deltaArg = DoubleArgumentFactory.instantiate(e, "delta", p.getRandom());
         String layerId = e.element("layer").getTextTrim();
 
         Function<BehaviorCell, Inject> fn = cell -> new Inject(cell, layerManager, layerId, deltaArg);
@@ -117,7 +115,7 @@ public abstract class ActionDescriptorFactory {
     }
 
     private static ActionDescriptor<Die> die(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> channel = IntegerArgumentFactory.instantiate(e, "highlight", -1, p.getRandom());
+        IntegerArgument channel = IntegerArgumentFactory.instantiate(e, "highlight", -1, p.getRandom());
         Function<BehaviorCell, Die> fn = cell -> new Die(cell, layerManager, channel);
         return new ActionDescriptor<>(fn);
     }
@@ -126,8 +124,8 @@ public abstract class ActionDescriptorFactory {
         Element descriptor = e.element("target");
         TargetDescriptor targetDescriptor = TargetDesciptorFactory.instantiate(layerManager, descriptor, p);
         String behaviorName = e.element("behavior").getTextTrim();
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         Function<BehaviorCell, Trigger> fn = cell -> {
             TargetRule targetRule = targetDescriptor.instantiate(cell);
             return new Trigger(cell, layerManager, behaviorName, targetRule, selfChannel, targetChannel);
@@ -138,8 +136,8 @@ public abstract class ActionDescriptorFactory {
     private static ActionDescriptor<CloneTo> cloneTo(Element e, LayerManager layerManager, GeneralParameters p) {
         Element descriptor = e.element("target");
         TargetDescriptor targetDescriptor = TargetDesciptorFactory.instantiate(layerManager, descriptor, p);
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         boolean noReplace = XmlUtil.getBoolean(e, "no-replacement");
         Function<BehaviorCell, CloneTo> fn = cell -> {
             TargetRule targetRule = targetDescriptor.instantiate(cell);
@@ -151,8 +149,8 @@ public abstract class ActionDescriptorFactory {
     private static ActionDescriptor<Swap> swap(Element e, LayerManager layerManager, GeneralParameters p) {
         Element descriptor = e.element("target");
         TargetDescriptor targetDescriptor = TargetDesciptorFactory.instantiate(layerManager, descriptor, p);
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         Function<BehaviorCell, Swap> fn = cell -> {
             TargetRule targetRule = targetDescriptor.instantiate(cell);
             return new Swap(cell, layerManager, targetRule, selfChannel, targetChannel);
@@ -163,8 +161,8 @@ public abstract class ActionDescriptorFactory {
     private static ActionDescriptor<ExpandTo> expandTo(Element e, LayerManager layerManager, GeneralParameters p) {
         Element descriptor = e.element("target");
         TargetDescriptor targetDescriptor = TargetDesciptorFactory.instantiate(layerManager, descriptor, p);
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         Function<BehaviorCell, ExpandTo> fn = cell -> {
             TargetRule targetRule = targetDescriptor.instantiate(cell);
             return new ExpandTo(cell, layerManager, targetRule, selfChannel, targetChannel, p.getRandom());
@@ -173,22 +171,22 @@ public abstract class ActionDescriptorFactory {
     }
 
     private static ActionDescriptor<Expand> expand(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         Function<BehaviorCell, Expand> fn = cell -> new Expand(cell, layerManager, selfChannel, targetChannel, p.getRandom());
         return new ActionDescriptor<>(fn);
     }
 
     private static ActionDescriptor<ExpandRandom> expandRandom(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         Function<BehaviorCell, ExpandRandom> fn = cell -> new ExpandRandom(cell, layerManager, selfChannel, targetChannel, p.getRandom());
         return new ActionDescriptor<>(fn);
     }
 
     private static ActionDescriptor<ExpandWeighted> expandWeighted(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         Function<BehaviorCell, ExpandWeighted> fn = cell -> new ExpandWeighted(cell, layerManager, selfChannel, targetChannel, p.getRandom());
         return new ActionDescriptor<>(fn);
     }

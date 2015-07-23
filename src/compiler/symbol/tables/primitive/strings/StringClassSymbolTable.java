@@ -27,7 +27,7 @@ package compiler.symbol.tables.primitive.strings;
 import compiler.pipeline.interpret.nodes.*;
 import compiler.symbol.tables.*;
 import compiler.symbol.tables.primitive.integers.PrimitiveIntegerSymbolTable;
-import control.arguments.Argument;
+import control.arguments.*;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -35,7 +35,7 @@ import java.util.function.Supplier;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class StringClassSymbolTable extends ClassSymbolTable<Argument<String>> {
+public class StringClassSymbolTable extends ClassSymbolTable<StringArgument> {
     @Override
     public String getDescription() {
         return "Functions that return string values.";

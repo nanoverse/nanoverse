@@ -24,7 +24,7 @@
 package processes;
 
 import control.GeneralParameters;
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import layers.LayerManager;
 import processes.gillespie.GillespieState;
@@ -35,8 +35,8 @@ public abstract class NanoverseProcess {
 //    protected LayerManager layerManager;
 //    protected GeneralParameters p;
 //    private int id;
-//    private Argument<Integer> period;
-//    private Argument<Integer> start;
+//    private IntegerArgument period;
+//    private IntegerArgument start;
 
 
     public NanoverseProcess(BaseProcessArguments arguments) {
@@ -85,11 +85,11 @@ public abstract class NanoverseProcess {
         fire(stepState);
     }
 
-    public Argument<Integer> getPeriod() {
+    public IntegerArgument getPeriod() {
         return arguments.getPeriod();
     }
 
-    public Argument<Integer> getStart() {
+    public IntegerArgument getStart() {
         return arguments.getStart();
     }
 

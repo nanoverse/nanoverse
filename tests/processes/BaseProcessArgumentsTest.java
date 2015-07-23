@@ -25,16 +25,15 @@
 package processes;
 
 import control.GeneralParameters;
-import control.arguments.Argument;
-import control.arguments.ConstantInteger;
+import control.arguments.*;
 import test.EslimeLatticeTestCase;
 
 public class BaseProcessArgumentsTest extends EslimeLatticeTestCase {
 
     private GeneralParameters p;
     private int id;
-    private Argument<Integer> start;
-    private Argument<Integer> period;
+    private IntegerArgument start;
+    private IntegerArgument period;
 
     private BaseProcessArguments query;
 

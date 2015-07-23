@@ -26,8 +26,7 @@ package agent.action;
 
 import cells.BehaviorCell;
 import cells.Cell;
-import control.arguments.Argument;
-import control.arguments.ConstantInteger;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import geometry.MockGeometry;
@@ -147,7 +146,7 @@ public class ActionTest extends TestBase {
         }
 
         @Override
-        public void doHighlight(Argument<Integer> channelArg, Coordinate toHighlight) throws HaltCondition {
+        public void doHighlight(IntegerArgument channelArg, Coordinate toHighlight) throws HaltCondition {
             super.doHighlight(channelArg, toHighlight);
         }
     }

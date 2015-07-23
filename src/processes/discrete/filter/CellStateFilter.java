@@ -25,7 +25,7 @@
 package processes.discrete.filter;
 
 import cells.Cell;
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import layers.cell.CellLayer;
@@ -42,13 +42,13 @@ public class CellStateFilter extends Filter {
 
     private CellLayer layer;
 
-    private Argument<Integer> toChoose;
+    private IntegerArgument toChoose;
 
     /**
      * @param toChoose The cell state to retain. If random, a value will be
      *                 chosen each time the filter is applied.
      */
-    public CellStateFilter(CellLayer layer, Argument<Integer> toChoose) {
+    public CellStateFilter(CellLayer layer, IntegerArgument toChoose) {
         this.toChoose = toChoose;
         this.layer = layer;
     }

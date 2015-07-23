@@ -25,8 +25,7 @@
 package factory.processes;
 
 import control.GeneralParameters;
-import control.arguments.Argument;
-import control.arguments.CellDescriptor;
+import control.arguments.*;
 import factory.control.arguments.CellDescriptorFactory;
 import factory.control.arguments.DoubleArgumentFactory;
 import factory.control.arguments.IntegerArgumentFactory;
@@ -68,7 +67,7 @@ public abstract class ProcessFactory {
             return new ExponentialInverse(arguments);
 
         } else if (processClass.equalsIgnoreCase("tick")) {
-            Argument<Double> dt = DoubleArgumentFactory.instantiate(e, "dt", 1.0, p.getRandom());
+            DoubleArgument dt = DoubleArgumentFactory.instantiate(e, "dt", 1.0, p.getRandom());
             return new Tick(arguments, dt);
 
         } else if (processClass.equalsIgnoreCase("divide")) {
@@ -111,18 +110,18 @@ public abstract class ProcessFactory {
             return new CheckForFixation(arguments, cpArguments);
 
         } else if (processClass.equalsIgnoreCase("check-threshold-occupancy")) {
-            Argument<Double> thresholdOccupancy = DoubleArgumentFactory.instantiate(e, "threshold", 1.0, p.getRandom());
+            DoubleArgument thresholdOccupancy = DoubleArgumentFactory.instantiate(e, "threshold", 1.0, p.getRandom());
             CellProcessArguments cpArguments = makeCellProcessArguments(e, layerManager, p);
             return new CheckForThresholdOccupancy(arguments, cpArguments, thresholdOccupancy);
 
         } else if (processClass.equalsIgnoreCase("check-for-domination")) {
             CellProcessArguments cpArguments = makeCellProcessArguments(e, layerManager, p);
-            Argument<Double> thresholdFraction = DoubleArgumentFactory.instantiate(e, "threshold", 1.0, p.getRandom());
-            Argument<Integer> targetState = IntegerArgumentFactory.instantiate(e, "target", -1, p.getRandom());
+            DoubleArgument thresholdFraction = DoubleArgumentFactory.instantiate(e, "threshold", 1.0, p.getRandom());
+            IntegerArgument targetState = IntegerArgumentFactory.instantiate(e, "target", -1, p.getRandom());
             return new CheckForDomination(arguments, cpArguments, targetState, thresholdFraction);
 
         } else if (processClass.equalsIgnoreCase("check-for-extinction")) {
-            Argument<Double> threshold = DoubleArgumentFactory.instantiate(e, "threshold", 0.0, p.getRandom());
+            DoubleArgument threshold = DoubleArgumentFactory.instantiate(e, "threshold", 0.0, p.getRandom());
             CellProcessArguments cpArguments = makeCellProcessArguments(e, layerManager, p);
             return new CheckForExtinction(arguments, cpArguments, threshold);
 
@@ -175,7 +174,7 @@ public abstract class ProcessFactory {
     }
 
     private static InjectionProcess injectionProcess(Element e, GeneralParameters p, BaseProcessArguments arguments) {
-        Argument<Double> valueArg = DoubleArgumentFactory.instantiate(e, "value", p.getRandom());
+        DoubleArgument valueArg = DoubleArgumentFactory.instantiate(e, "value", p.getRandom());
         String layerId = XmlUtil.getString(e, "layer");
         Geometry geom = arguments.getLayerManager().getCellLayer().getGeometry();
         CoordinateSet activeSites = getActiveSites(e, geom, p);
@@ -187,15 +186,15 @@ public abstract class ProcessFactory {
                                                                GeneralParameters p,
                                                                int id) {
 
-        Argument<Integer> start = IntegerArgumentFactory.instantiate(e, "start", 0, p.getRandom());
-        Argument<Integer> period = IntegerArgumentFactory.instantiate(e, "period", 1, p.getRandom());
+        IntegerArgument start = IntegerArgumentFactory.instantiate(e, "start", 0, p.getRandom());
+        IntegerArgument period = IntegerArgumentFactory.instantiate(e, "period", 1, p.getRandom());
         return new BaseProcessArguments(layerManager, p, id, start, period);
     }
 
     protected static CellProcessArguments makeCellProcessArguments(Element e, LayerManager layerManager, GeneralParameters p) {
         Geometry geometry = layerManager.getCellLayer().getGeometry();
         CoordinateSet activeSites = getActiveSites(e, geometry, p);
-        Argument<Integer> maxTargets = getMaxTargets(e, p);
+        IntegerArgument maxTargets = getMaxTargets(e, p);
 
         return new CellProcessArguments(activeSites, maxTargets);
     }
@@ -206,7 +205,7 @@ public abstract class ProcessFactory {
         return filter;
     }
 
-    private static Argument<Integer> getMaxTargets(Element e, GeneralParameters p) {
+    private static IntegerArgument getMaxTargets(Element e, GeneralParameters p) {
         return IntegerArgumentFactory.instantiate(e, "max-targets", -1, p.getRandom());
     }
 

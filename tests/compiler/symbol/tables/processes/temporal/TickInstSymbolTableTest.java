@@ -26,7 +26,7 @@ package compiler.symbol.tables.processes.temporal;
 
 import compiler.symbol.tables.*;
 import compiler.symbol.tables.processes.*;
-import control.arguments.Argument;
+import control.arguments.*;
 import org.junit.*;
 import processes.temporal.Tick;
 
@@ -47,6 +47,6 @@ public class TickInstSymbolTableTest extends ProcessInstSymbolTableTest {
 
     @Test
     public void dt() throws Exception {
-        verifyReturnSymbol("dt", Argument.class);
+        verifyReturnSymbol("dt", DoubleArgument.class);
     }
 }

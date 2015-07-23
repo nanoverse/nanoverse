@@ -25,6 +25,7 @@
 package control.arguments;
 
 import agent.Behavior;
+import agent.action.BehaviorDescriptor;
 import agent.control.BehaviorDispatcher;
 import cells.BehaviorCell;
 import cells.Cell;
@@ -46,10 +47,10 @@ public class CellDescriptor extends Argument<Cell> {
 
     private LayerManager layerManager;
 
-    private Argument<Integer> cellState;
+    private IntegerArgument cellState;
 
-    private Argument<Double> threshold;
-    private Argument<Double> initialHealth;
+    private DoubleArgument threshold;
+    private DoubleArgument initialHealth;
 
     private List<Reaction> reactions;
     private Map<String, BehaviorDescriptor> behaviorDescriptors;
@@ -98,15 +99,15 @@ public class CellDescriptor extends Argument<Cell> {
         return cell;
     }
 
-    public void setCellState(Argument<Integer> cellState) {
+    public void setCellState(IntegerArgument cellState) {
         this.cellState = cellState;
     }
 
-    public void setThreshold(Argument<Double> threshold) {
+    public void setThreshold(DoubleArgument threshold) {
         this.threshold = threshold;
     }
 
-    public void setInitialHealth(Argument<Double> initialHealth) {
+    public void setInitialHealth(DoubleArgument initialHealth) {
         this.initialHealth = initialHealth;
     }
 

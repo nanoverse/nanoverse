@@ -24,8 +24,7 @@
 
 package processes.discrete;
 
-import control.arguments.Argument;
-import control.arguments.ConstantInteger;
+import control.arguments.*;
 import geometry.set.CoordinateSet;
 import geometry.set.CustomSet;
 import test.EslimeTestCase;
@@ -33,7 +32,7 @@ import test.EslimeTestCase;
 public class CellProcessArgumentsTest extends EslimeTestCase {
 
     private CoordinateSet activeSites;
-    private Argument<Integer> maxTargets;
+    private IntegerArgument maxTargets;
     private CellProcessArguments query;
 
     @Override

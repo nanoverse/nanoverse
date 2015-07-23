@@ -25,7 +25,7 @@
 package factory.io.visual.color;
 
 import control.GeneralParameters;
-import control.arguments.Argument;
+import control.arguments.*;
 import factory.control.arguments.DoubleArgumentFactory;
 import io.visual.color.*;
 import org.dom4j.Element;
@@ -46,12 +46,12 @@ public abstract class NormalizedContinuumColorManagerFactory {
     public static final double DEFAULT_MAXIMUM_LUMINANCE = 1.0;
 
     public static NormalizedContinuumColorManager instantiate(Element e, GeneralParameters p) {
-        Argument<Double> minHueArg = DoubleArgumentFactory.instantiate(e, "min-hue", DEFAULT_MINIMUM_HUE, p.getRandom());
-        Argument<Double> maxHueArg = DoubleArgumentFactory.instantiate(e, "max-hue", DEFAULT_MAXIMUM_HUE, p.getRandom());
-        Argument<Double> minSatArg = DoubleArgumentFactory.instantiate(e, "min-saturation", DEFAULT_MINIMUM_SATURATION, p.getRandom());
-        Argument<Double> maxSatArg = DoubleArgumentFactory.instantiate(e, "max-saturation", DEFAULT_MAXIMUM_SATURATION, p.getRandom());
-        Argument<Double> minLumArg = DoubleArgumentFactory.instantiate(e, "min-luminance", DEFAULT_MINIMUM_LUMINANCE, p.getRandom());
-        Argument<Double> maxLumArg = DoubleArgumentFactory.instantiate(e, "max-luminance", DEFAULT_MAXIMUM_LUMINANCE, p.getRandom());
+        DoubleArgument minHueArg = DoubleArgumentFactory.instantiate(e, "min-hue", DEFAULT_MINIMUM_HUE, p.getRandom());
+        DoubleArgument maxHueArg = DoubleArgumentFactory.instantiate(e, "max-hue", DEFAULT_MAXIMUM_HUE, p.getRandom());
+        DoubleArgument minSatArg = DoubleArgumentFactory.instantiate(e, "min-saturation", DEFAULT_MINIMUM_SATURATION, p.getRandom());
+        DoubleArgument maxSatArg = DoubleArgumentFactory.instantiate(e, "max-saturation", DEFAULT_MAXIMUM_SATURATION, p.getRandom());
+        DoubleArgument minLumArg = DoubleArgumentFactory.instantiate(e, "min-luminance", DEFAULT_MINIMUM_LUMINANCE, p.getRandom());
+        DoubleArgument maxLumArg = DoubleArgumentFactory.instantiate(e, "max-luminance", DEFAULT_MAXIMUM_LUMINANCE, p.getRandom());
         boolean averageLuminance = XmlUtil.getBoolean(e, "average-luminance");
         ColorManager base = instantiateBase(e, p);
         String continuumId = e.element("continuum").getTextTrim();

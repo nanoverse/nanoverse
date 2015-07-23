@@ -26,7 +26,7 @@ package compiler.symbol.tables.processes.continuum;
 
 import compiler.symbol.tables.MapSymbolTable;
 import compiler.symbol.tables.processes.ProcessInstSymbolTableTest;
-import control.arguments.Argument;
+import control.arguments.*;
 import org.junit.*;
 import processes.continuum.OperatorProcess;
 
@@ -47,11 +47,11 @@ public class DiffusionProcessInstSymbolTableTest extends ProcessInstSymbolTableT
 
     @Test
     public void layer() throws Exception {
-        verifyReturnSymbol("layer", Argument.class);
+        verifyReturnSymbol("layer", StringArgument.class);
     }
 
     @Test
     public void constant() throws Exception {
-        verifyReturnSymbol("constant", Argument.class);
+        verifyReturnSymbol("constant", DoubleArgument.class);
     }
 }

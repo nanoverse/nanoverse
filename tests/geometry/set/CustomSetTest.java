@@ -24,8 +24,7 @@
 
 package geometry.set;//import junit.framework.TestCase;
 
-import control.arguments.Argument;
-import control.arguments.ConstantInteger;
+import control.arguments.*;
 import control.identifiers.Coordinate;
 import geometry.Geometry;
 import geometry.boundaries.Arena;
@@ -69,7 +68,7 @@ public class CustomSetTest extends EslimeTestCase {
         Shape shape = new Line(lattice, 3);
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        Argument<Integer> radiusArg = new ConstantInteger(0);
+        IntegerArgument radiusArg = new ConstantInteger(0);
         Coordinate offset = new Coordinate(0, -1, 0);
         DiscSet discSet = new DiscSet(geom, radiusArg, offset);
 

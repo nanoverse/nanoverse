@@ -25,18 +25,18 @@
 package compiler.symbol.tables.processes;
 
 import compiler.symbol.tables.*;
-import control.arguments.Argument;
+import control.arguments.*;
 import org.junit.*;
 
 public abstract class ProcessInstSymbolTableTest extends MapSymbolTableTest {
 
     @Test
     public void start() throws Exception {
-        verifyReturnSymbol("start", Argument.class);
+        verifyReturnSymbol("start", IntegerArgument.class);
     }
 
     @Test
     public void period() throws Exception {
-        verifyReturnSymbol("period", Argument.class);
+        verifyReturnSymbol("period", IntegerArgument.class);
     }
 }

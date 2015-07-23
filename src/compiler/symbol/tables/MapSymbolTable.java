@@ -47,7 +47,9 @@ public abstract class MapSymbolTable<T> implements InstantiableSymbolTable {
         logger = LoggerFactory.getLogger(MapSymbolTable.class);
     }
 
-    protected abstract HashMap<String, MemberSymbol> resolveMembers();
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        return new HashMap<>();
+    }
 
     public ResolvingSymbolTable getSymbolTable(String identifier) {
         logger.debug("Resolving {}::{}",

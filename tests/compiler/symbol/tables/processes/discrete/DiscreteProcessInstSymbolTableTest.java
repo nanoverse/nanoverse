@@ -25,7 +25,7 @@
 package compiler.symbol.tables.processes.discrete;
 
 import compiler.symbol.tables.processes.ProcessInstSymbolTableTest;
-import control.arguments.Argument;
+import control.arguments.*;
 import geometry.set.CoordinateSet;
 import org.junit.*;
 
@@ -36,7 +36,7 @@ public abstract class DiscreteProcessInstSymbolTableTest extends ProcessInstSymb
 
     @Test
     public void maxTargets() throws Exception {
-        verifyReturnSymbol("maxTargets", Argument.class);
+        verifyReturnSymbol("maxTargets", IntegerArgument.class);
     }
 
     @Test

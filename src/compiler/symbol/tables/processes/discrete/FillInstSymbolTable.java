@@ -26,7 +26,7 @@ package compiler.symbol.tables.processes.discrete;
 
 import compiler.symbol.symbols.MemberSymbol;
 import compiler.symbol.tables.ResolvingSymbolTable;
-import compiler.symbol.tables.control.arguments.AgentDescriptorClassSymbolTable;
+import compiler.symbol.tables.agent.AgentDescriptorClassSymbolTable;
 import compiler.symbol.tables.primitive.booleans.BooleanClassSymbolTable;
 import processes.discrete.Fill;
 

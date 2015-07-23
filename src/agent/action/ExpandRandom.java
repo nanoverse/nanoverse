@@ -26,7 +26,7 @@ package agent.action;
 
 import cells.BehaviorCell;
 import cells.Cell;
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import layers.LayerManager;
@@ -49,8 +49,8 @@ import java.util.Arrays;
 public class ExpandRandom extends Action {
 
     // Highlight channels for the targeting and targeted cells
-    private Argument<Integer> selfChannel;
-    private Argument<Integer> targetChannel;
+    private IntegerArgument selfChannel;
+    private IntegerArgument targetChannel;
 
     // Displaces cells along a trajectory in the event that the cell is
     // divided into an occupied site and replace is disabled.
@@ -59,7 +59,7 @@ public class ExpandRandom extends Action {
     private Random random;
 
     public ExpandRandom(BehaviorCell callback, LayerManager layerManager,
-                  Argument<Integer> selfChannel, Argument<Integer> targetChannel, Random random) {
+                  IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
 
         super(callback, layerManager);
         this.selfChannel = selfChannel;

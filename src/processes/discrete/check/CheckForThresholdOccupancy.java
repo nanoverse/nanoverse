@@ -24,7 +24,7 @@
 
 package processes.discrete.check;
 
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.halt.ThresholdOccupancyReachedEvent;
 import processes.BaseProcessArguments;
@@ -39,9 +39,9 @@ import processes.gillespie.GillespieState;
  */
 public class CheckForThresholdOccupancy extends CellProcess {
     private int thresholdCount;
-    private Argument<Double> thresholdOccupancy;
+    private DoubleArgument thresholdOccupancy;
 
-    public CheckForThresholdOccupancy(BaseProcessArguments arguments, CellProcessArguments cpArguments, Argument<Double> thresholdOccupancy) {
+    public CheckForThresholdOccupancy(BaseProcessArguments arguments, CellProcessArguments cpArguments, DoubleArgument thresholdOccupancy) {
         super(arguments, cpArguments);
         this.thresholdOccupancy = thresholdOccupancy;
     }

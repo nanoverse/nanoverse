@@ -24,7 +24,7 @@
 
 package processes.discrete.filter;
 
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import layers.cell.CellLayer;
@@ -41,10 +41,10 @@ import java.util.List;
  */
 public class DepthFilter extends Filter {
 
-    private Argument<Integer> maxDepth;
+    private IntegerArgument maxDepth;
     private CellLayer layer;
 
-    public DepthFilter(CellLayer layer, Argument<Integer> maxDepth) {
+    public DepthFilter(CellLayer layer, IntegerArgument maxDepth) {
         this.maxDepth = maxDepth;
         this.layer = layer;
     }

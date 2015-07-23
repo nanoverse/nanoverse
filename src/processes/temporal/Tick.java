@@ -24,7 +24,7 @@
 
 package processes.temporal;
 
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import processes.BaseProcessArguments;
 import processes.StepState;
@@ -36,9 +36,9 @@ import processes.StepState;
  */
 public class Tick extends TimeProcess {
 
-    private Argument<Double> dt;
+    private DoubleArgument dt;
 
-    public Tick(BaseProcessArguments arguments, Argument<Double> dt) {
+    public Tick(BaseProcessArguments arguments, DoubleArgument dt) {
 
         super(arguments);
         this.dt = dt;

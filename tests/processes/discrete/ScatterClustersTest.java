@@ -37,7 +37,7 @@ import static org.mockito.Mockito.*;
 
 public class ScatterClustersTest extends CellProcessTestBase {
 
-    private Argument<Integer> neighborCount;
+    private IntegerArgument neighborCount;
     private CellDescriptor cellDescriptor;
     private ScatterClusters query;
     private ScatterClustersHelper helper;

@@ -24,6 +24,7 @@
 
 package control.arguments;
 
+import com.google.common.reflect.TypeToken;
 import control.halt.HaltCondition;
 
 /**
@@ -35,8 +36,14 @@ import control.halt.HaltCondition;
  */
 public abstract class Argument<T> {
 
+    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
+
     @Override
     public abstract boolean equals(Object obj);
 
     public abstract T next() throws HaltCondition;
+
+    public Class getInstanceClass() {
+        return type.getRawType();
+    }
 }
