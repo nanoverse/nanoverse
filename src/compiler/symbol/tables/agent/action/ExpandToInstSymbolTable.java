@@ -25,6 +25,13 @@
 package compiler.symbol.tables.agent.action;
 
 import agent.action.ExpandTo;
+import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.agent.targets.TargetRuleClassSymbolTable;
+import compiler.symbol.tables.primitive.booleans.BooleanClassSymbolTable;
+import compiler.symbol.tables.primitive.integers.IntegerClassSymbolTable;
+
+import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/22/2015.
@@ -35,5 +42,37 @@ public class ExpandToInstSymbolTable extends ActionInstSymbolTable<ExpandTo> {
         return "Places a copy or copies of the current cell at the target " +
                 "site(s). If a target site is occupied, push the occupying " +
                 "cell toward the nearest vacancy first.";
+    }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        targetHighlight(ret);
+        selfHighlight(ret);
+        target(ret);
+        return ret;
+    }
+
+    private void targetHighlight(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
+                "to record the agent being triggered. If left null, no " +
+                "highlight will be recorded.");
+        ret.put("targetHighlight", ms);
+    }
+
+    private void selfHighlight(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
+                "to record the triggering agent. If left null, no " +
+                "highlight will be recorded.");
+        ret.put("selfHighlight", ms);
+    }
+
+    private void target(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new TargetRuleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Rule(s) limiting valid " +
+                "targets for this action.");
+        ret.put("target", ms);
     }
 }

@@ -22,41 +22,49 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.processes;
+package compiler.symbol.tables.agent.action;
 
+import agent.action.Trigger;
+import agent.targets.TargetRule;
 import compiler.symbol.tables.MapSymbolTable;
-import compiler.symbol.tables.processes.discrete.DiscreteProcessInstSymbolTableTest;
+import compiler.symbol.tables.agent.targets.TargetRuleClassSymbolTable;
 import control.arguments.*;
 import org.junit.*;
-import processes.discrete.TriggerProcess;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class TriggerProcessInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {
+public class TriggerActionInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected MapSymbolTable getQuery() {
-        return new TriggerProcessInstSymbolTable();
+    protected Class getExpectedActionClass() {
+        return Trigger.class;
     }
 
     @Override
-    protected Class getExpectedClass() {
-        return TriggerProcess.class;
+    protected MapSymbolTable getQuery() {
+        return new TriggerActionInstSymbolTable();
+    }
+
+    @Test
+    public void targetHighlight() throws Exception {
+        verifyReturnSymbol("targetHighlight", IntegerArgument.class);
+
+    }
+
+    @Test
+    public void selfHighlight() throws Exception {
+        verifyReturnSymbol("selfHighlight", IntegerArgument.class);
     }
 
     @Test
     public void behavior() throws Exception {
         verifyReturnSymbol("behavior", StringArgument.class);
+
     }
 
     @Test
-    public void skipFilledSites() throws Exception {
-        verifyReturnSymbol("skipVacantSites", BooleanArgument.class);
-    }
-
-    @Test
-    public void requireNeighbors() throws Exception {
-        verifyReturnSymbol("requireNeighbors", BooleanArgument.class);
+    public void target() throws Exception {
+        verifyReturnSymbol("target", TargetRule.class);
     }
 }

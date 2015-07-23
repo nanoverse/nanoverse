@@ -25,6 +25,12 @@
 package compiler.symbol.tables.agent.action;
 
 import agent.action.Inject;
+import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.primitive.doubles.DoubleClassSymbolTable;
+import compiler.symbol.tables.primitive.strings.StringClassSymbolTable;
+
+import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/22/2015.
@@ -34,4 +40,25 @@ public class InjectInstSymbolTable extends ActionInstSymbolTable<Inject> {
     public String getDescription() {
         return "Adjust the value of a continuum layer by a specified amount at this agent's location.";
     }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        delta(ret);
+        layer(ret);
+        return ret;
+    }
+
+    private void layer(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "The ID of the layer on which to perform the operation.");
+        ret.put("layer", ms);
+    }
+
+    private void delta(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new DoubleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "The amount by which to adjust the local value of the continuum.");
+        ret.put("delta", ms);
+    }
+
 }

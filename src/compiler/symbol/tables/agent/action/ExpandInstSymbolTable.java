@@ -25,6 +25,11 @@
 package compiler.symbol.tables.agent.action;
 
 import agent.action.Expand;
+import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.primitive.integers.IntegerClassSymbolTable;
+
+import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/22/2015.
@@ -36,5 +41,29 @@ public class ExpandInstSymbolTable extends ActionInstSymbolTable<Expand> {
                 "If there are no adjacent vacancies, the agent will push a " +
                 "line of cells toward the nearest vacancy, then place a " +
                 "copy of itself in an adjacent site.";
+    }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        targetHighlight(ret);
+        selfHighlight(ret);
+        return ret;
+    }
+
+    private void targetHighlight(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
+                "to record the target location. If left null, no " +
+                "highlight will be recorded.");
+        ret.put("targetHighlight", ms);
+    }
+
+    private void selfHighlight(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
+                "to record the expanding agent. If left null, no " +
+                "highlight will be recorded.");
+        ret.put("selfHighlight", ms);
     }
 }

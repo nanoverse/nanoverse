@@ -27,7 +27,7 @@ package control.arguments;
 /**
  * Created by David B Borenstein on 7/22/15.
  */
-public class ConstantBoolean extends Argument<Boolean> {
+public class ConstantBoolean extends BooleanArgument {
 
     private Boolean value;
 

@@ -24,32 +24,47 @@
 
 package compiler.symbol.tables.agent.action;
 
-import agent.action.Die;
+import agent.action.*;
 import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.ResolvingSymbolTable;
-import compiler.symbol.tables.primitive.integers.IntegerClassSymbolTable;
+import compiler.symbol.tables.MapSymbolTable;
+import control.arguments.*;
+import org.junit.*;
 
 import java.util.HashMap;
 
-/**
- * Created by dbborens on 7/22/2015.
- */
-public class DieInstSymbolTable extends ActionInstSymbolTable<Die> {
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+public class ThresholdDoInstSymbolTableTest extends ActionInstSymbolTableTest {
+
     @Override
-    public String getDescription() {
-        return "Causes the agent to die.";
+    protected MapSymbolTable getQuery() {
+        return new ThresholdDoInstSymbolTable();
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        highlight(ret);
-        return(ret);
+    protected Class getExpectedActionClass() {
+        return ThresholdDo.class;
     }
 
-    private void highlight(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which to record the death event, if any.");
-        ret.put("highlight", ms);
+    @Test
+    public void action() throws Exception {
+        verifyReturnSymbol("action", ActionDescriptor.class);
     }
+
+    @Test
+    public void layer() throws Exception {
+        verifyReturnSymbol("layer", StringArgument.class);
+    }
+
+    @Test
+    public void maximum() throws Exception {
+        verifyReturnSymbol("maximum", DoubleArgument.class);
+    }
+
+    @Test
+    public void minimum() throws Exception {
+        verifyReturnSymbol("minimum", DoubleArgument.class);
+    }
+
 }

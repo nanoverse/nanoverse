@@ -51,6 +51,6 @@ public class FillInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest 
 
     @Test
     public void skipFilledSites() throws Exception {
-        verifyReturnSymbol("skipFilledSites", Argument.class);
+        verifyReturnSymbol("skipFilledSites", BooleanArgument.class);
     }
 }

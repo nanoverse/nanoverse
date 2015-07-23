@@ -25,6 +25,12 @@
 package compiler.symbol.tables.agent.action;
 
 import agent.action.Swap;
+import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.agent.targets.TargetRuleClassSymbolTable;
+import compiler.symbol.tables.primitive.integers.IntegerClassSymbolTable;
+
+import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/22/2015.
@@ -33,5 +39,37 @@ public class SwapInstSymbolTable extends ActionInstSymbolTable<Swap> {
     @Override
     public String getDescription() {
         return "Swap the agent with the contents of another lattice position.";
+    }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        targetHighlight(ret);
+        selfHighlight(ret);
+        target(ret);
+        return ret;
+    }
+
+    private void targetHighlight(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
+                "to record the focal agent. If left null, no " +
+                "highlight will be recorded.");
+        ret.put("targetHighlight", ms);
+    }
+
+    private void selfHighlight(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
+                "to record the swap partner. If left null, no " +
+                "highlight will be recorded.");
+        ret.put("selfHighlight", ms);
+    }
+
+    private void target(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new TargetRuleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Rule(s) limiting valid " +
+                "targets for this action.");
+        ret.put("target", ms);
     }
 }
