@@ -35,12 +35,11 @@ import java.util.function.Supplier;
  */
 public class TargetRuleClassSymbolTable extends ClassSymbolTable<TargetRule> {
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public String getDescription() {
         return null;
     }
-
     @Override
-    public String getDescription() {
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         return null;
     }
 }
