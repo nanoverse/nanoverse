@@ -24,8 +24,8 @@
 
 package compiler.symbol.tables.agent.action;
 
+import agent.action.*;
 import compiler.symbol.tables.*;
-import agent.action.ActionDescriptor;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -34,6 +34,7 @@ import java.util.function.Supplier;
  * Created by dbborens on 7/22/2015.
  */
 public class ActionClassSymbolTable extends ClassSymbolTable<ActionDescriptor> {
+
     @Override
     public String getDescription() {
         return "Actions are local events defined with respect to a " +
@@ -61,59 +62,73 @@ public class ActionClassSymbolTable extends ClassSymbolTable<ActionDescriptor> {
     }
 
     private void nullAction(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = NullActionInstSymbolTable::new;
+        ret.put("Null", supplier);
     }
 
     private void thresholdDo(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = ThresholdDoInstSymbolTable::new;
+        ret.put("ThresholdDo", supplier);
     }
 
     private void inject(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = InjectInstSymbolTable::new;
+        ret.put("Inject", supplier);
     }
 
     private void swap(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = SwapInstSymbolTable::new;
+        ret.put("Swap", supplier);
     }
 
     private void stochasticChoice(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = StochasticChoiceInstSymbolTable::new;
+        ret.put("StochasticChoice", supplier);
     }
 
     private void expandWeighted(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = ExpandWeightedInstSymbolTable::new;
+        ret.put("ExpandWeighted", supplier);
     }
 
     private void expandRandom(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = ExpandRandomInstSymbolTable::new;
+        ret.put("ExpandRandom", supplier);
     }
 
     private void expandTo(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = ExpandToInstSymbolTable::new;
+        ret.put("ExpandTo", supplier);
     }
 
     private void expand(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = ExpandInstSymbolTable::new;
+        ret.put("Expand", supplier);
     }
 
     private void cloneTo(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = CloneToInstSymbolTable::new;
+        ret.put("CloneTo", supplier);
     }
 
     private void trigger(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = TriggerActionInstSymbolTable::new;
+        ret.put("Trigger", supplier);
     }
 
     private void adjustHealth(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = AdjustHealthInstSymbolTable::new;
+        ret.put("AdjustHealth", supplier);
     }
 
     private void die(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = DieInstSymbolTable::new;
+        ret.put("Die", supplier);
     }
 
     private void mock(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = MockActionInstSymbolTable::new;
+        ret.put("Mock", supplier);
     }
 
 }
