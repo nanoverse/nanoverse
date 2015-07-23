@@ -65,6 +65,6 @@ public class TriggerActionInstSymbolTableTest extends ActionInstSymbolTableTest 
 
     @Test
     public void target() throws Exception {
-        verifyReturnSymbol("target", TargetRule.class);
+        verifyReturnSymbol("target", TargetDescriptor.class);
     }
 }

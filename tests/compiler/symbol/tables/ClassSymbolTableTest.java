@@ -28,6 +28,7 @@ import org.junit.*;
 import test.TestBase;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 
 /**
  * Created by dbborens on 7/21/2015.
@@ -55,5 +56,10 @@ public abstract class ClassSymbolTableTest extends TestBase {
         InstantiableSymbolTable ist = query.getSymbolTable(identifier);
         Class actual = ist.getInstanceClass();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void descriptionIsNotNull() {
+        assertNotNull(query.getDescription());
     }
 }

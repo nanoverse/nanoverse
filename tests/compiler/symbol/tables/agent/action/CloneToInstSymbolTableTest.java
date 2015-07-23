@@ -57,7 +57,7 @@ public class CloneToInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Test
     public void target() throws Exception {
-        verifyReturnSymbol("target", TargetRule.class);
+        verifyReturnSymbol("target", TargetDescriptor.class);
     }
 
     @Test

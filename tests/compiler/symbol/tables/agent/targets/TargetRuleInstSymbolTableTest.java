@@ -22,41 +22,30 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.agent.action;
+package compiler.symbol.tables.agent.targets;
 
-import agent.action.Swap;
-import agent.targets.TargetRule;
-import compiler.symbol.tables.MapSymbolTable;
-import control.arguments.*;
+import compiler.symbol.tables.*;
+import control.arguments.TargetDescriptor;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static junit.framework.TestCase.assertEquals;
 
-public class SwapInstSymbolTableTest extends ActionInstSymbolTableTest {
-
-    @Override
-    protected Class getExpectedActionClass() {
-        return Swap.class;
-    }
+/**
+ * Created by dbborens on 7/23/2015.
+ */
+public abstract class TargetRuleInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
-    protected MapSymbolTable getQuery() {
-        return new SwapInstSymbolTable();
+    protected Class getExpectedClass() {
+        return TargetDescriptor.class;
     }
 
-    @Test
-    public void targetHighlight() throws Exception {
-        verifyReturnSymbol("targetHighlight", IntegerArgument.class);
-    }
+    protected abstract Class getTargetRuleClass();
 
     @Test
-    public void selfHighlight() throws Exception {
-        verifyReturnSymbol("selfHighlight", IntegerArgument.class);
-    }
-
-    @Test
-    public void target() throws Exception {
-        verifyReturnSymbol("target", TargetDescriptor.class);
+    public void verifyTargetRuleClassAsExpected() {
+        Class expected = getTargetRuleClass();
+        Class actual = ((TargetRuleInstSymbolTable) query).getTargetRuleClass();
+        assertEquals(expected, actual);
     }
 }

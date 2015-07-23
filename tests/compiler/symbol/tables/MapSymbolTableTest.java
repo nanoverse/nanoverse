@@ -28,6 +28,7 @@ import org.junit.*;
 import test.TestBase;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.*;
 
 /**
@@ -56,5 +57,10 @@ public abstract class MapSymbolTableTest extends TestBase {
         ResolvingSymbolTable rst = query.getSymbolTable(identifier);
         Class actual = rst.getBroadClass();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void descriptionIsNotNull() {
+        assertNotNull(query.getDescription());
     }
 }
