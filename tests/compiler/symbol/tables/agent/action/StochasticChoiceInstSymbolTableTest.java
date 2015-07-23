@@ -25,34 +25,27 @@
 package compiler.symbol.tables.agent.action;
 
 import agent.action.StochasticChoice;
-import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.*;
-import compiler.symbol.tables.agent.action.stochastic.WeightedOptionClassSymbolTable;
+import agent.action.stochastic.WeightedOption;
+import compiler.symbol.tables.MapSymbolTable;
+import org.junit.*;
 
-import java.util.HashMap;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/22/2015.
- */
-public class StochasticChoiceInstSymbolTable extends ActionInstSymbolTable<StochasticChoice> {
+public class StochasticChoiceInstSymbolTableTest extends ActionInstSymbolTableTest {
+
     @Override
-    public String getDescription() {
-        return "Choose one of several options at random. Options may be " +
-                "unequally weighted.";
+    protected Class getExpectedActionClass() {
+        return StochasticChoice.class;
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        options(ret);
-        return ret;
+    protected MapSymbolTable getQuery() {
+        return new StochasticChoiceInstSymbolTable();
     }
 
-    private void options(HashMap<String, MemberSymbol> ret) {
-        ClassSymbolTable cst = new WeightedOptionClassSymbolTable();
-        ListSymbolTable lst = new ListSymbolTable(cst);
-        MemberSymbol ms = new MemberSymbol(lst, "List of options from which " +
-                "to select.");
-        ret.put("options", ms);
+    @Test
+    public void options() throws Exception {
+        verifyReturnSymbol("options", WeightedOption.class);
     }
 }

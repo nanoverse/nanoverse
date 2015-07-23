@@ -22,37 +22,34 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.agent.action;
+package compiler.symbol.tables.agent.action.stochastic;
 
-import agent.action.StochasticChoice;
+import agent.action.stochastic.WeightedOption;
 import compiler.symbol.symbols.MemberSymbol;
 import compiler.symbol.tables.*;
-import compiler.symbol.tables.agent.action.stochastic.WeightedOptionClassSymbolTable;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 /**
- * Created by dbborens on 7/22/2015.
+ * Created by dbborens on 7/23/2015.
  */
-public class StochasticChoiceInstSymbolTable extends ActionInstSymbolTable<StochasticChoice> {
+public class WeightedOptionClassSymbolTable extends ClassSymbolTable<WeightedOption> {
+
     @Override
     public String getDescription() {
-        return "Choose one of several options at random. Options may be " +
-                "unequally weighted.";
+        return "An weighted option for a stochastic behavior choice.";
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        options(ret);
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>(1);
+        option(ret);
         return ret;
     }
 
-    private void options(HashMap<String, MemberSymbol> ret) {
-        ClassSymbolTable cst = new WeightedOptionClassSymbolTable();
-        ListSymbolTable lst = new ListSymbolTable(cst);
-        MemberSymbol ms = new MemberSymbol(lst, "List of options from which " +
-                "to select.");
-        ret.put("options", ms);
+    private void option(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = WeightedOptionInstSymbolTable::new;
+        ret.put("Option", supplier);
     }
 }
