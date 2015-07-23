@@ -25,6 +25,12 @@
 package compiler.symbol.tables.agent.action;
 
 import agent.action.ThresholdDo;
+import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.primitive.doubles.DoubleClassSymbolTable;
+import compiler.symbol.tables.primitive.strings.StringClassSymbolTable;
+
+import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/22/2015.
@@ -32,6 +38,41 @@ import agent.action.ThresholdDo;
 public class ThresholdDoInstSymbolTable extends ActionInstSymbolTable<ThresholdDo> {
     @Override
     public String getDescription() {
-        return "Perform a particular action if a lattice concentration exceeds a particular threshold.";
+        return "Perform a particular action if a lattice concentration " +
+                "falls within a particular range.";
+    }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        minimum(ret);
+        maximum(ret);
+        layer(ret);
+        action(ret);
+        return ret;
+    }
+
+    private void action(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new ActionClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "The action to be performed if the condition is met.");
+        ret.put("action", ms);
+    }
+
+    private void layer(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "The ID of the layer whose value is to be used.");
+        ret.put("layer", ms);
+    }
+
+    private void maximum(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new DoubleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Inclusive maximum value for affirmative decision.");
+        ret.put("maximum", ms);
+    }
+
+    private void minimum(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new DoubleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Inclusive minimum value for affirmative decision.");
+        ret.put("minimum", ms);
     }
 }

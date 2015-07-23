@@ -59,10 +59,10 @@ public abstract class ActionDescriptorFactory {
                 return trigger(e, layerManager, p);
             case "clone":
                 return cloneTo(e, layerManager, p);
-            case "expand":
-                return expand(e, layerManager, p);
             case "expand-to":
                 return expandTo(e, layerManager, p);
+            case "expand":
+                return expand(e, layerManager, p);
             case "expand-random":
                 return expandRandom(e, layerManager, p);
             case "expand-weighted":

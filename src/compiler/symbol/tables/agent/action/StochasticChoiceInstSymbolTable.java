@@ -34,4 +34,5 @@ public class StochasticChoiceInstSymbolTable extends ActionInstSymbolTable<Stoch
     public String getDescription() {
         return "Choose one of several options at random. Options may be unequally weighted.";
     }
+
 }

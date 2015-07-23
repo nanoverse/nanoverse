@@ -25,31 +25,27 @@
 package compiler.symbol.tables.agent.action;
 
 import agent.action.Die;
-import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.ResolvingSymbolTable;
-import compiler.symbol.tables.primitive.integers.IntegerClassSymbolTable;
+import compiler.symbol.tables.MapSymbolTable;
+import control.arguments.IntegerArgument;
+import org.junit.*;
 
-import java.util.HashMap;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/22/2015.
- */
-public class DieInstSymbolTable extends ActionInstSymbolTable<Die> {
+public class DieInstSymbolTableTest extends ActionInstSymbolTableTest {
+
     @Override
-    public String getDescription() {
-        return "Causes the agent to die.";
+    protected MapSymbolTable getQuery() {
+        return new DieInstSymbolTable();
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        highlight(ret);
-        return(ret);
+    protected Class getExpectedActionClass() {
+        return Die.class;
     }
 
-    private void highlight(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which to record the death event, if any.");
-        ret.put("highlight", ms);
+    @Test
+    public void highlight() throws Exception {
+        verifyReturnSymbol("highlight", IntegerArgument.class);
     }
 }

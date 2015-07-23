@@ -24,32 +24,39 @@
 
 package compiler.symbol.tables.agent.action;
 
-import agent.action.Die;
-import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.ResolvingSymbolTable;
-import compiler.symbol.tables.primitive.integers.IntegerClassSymbolTable;
+import agent.action.Swap;
+import agent.targets.TargetRule;
+import compiler.symbol.tables.MapSymbolTable;
+import control.arguments.*;
+import org.junit.Test;
 
-import java.util.HashMap;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/22/2015.
- */
-public class DieInstSymbolTable extends ActionInstSymbolTable<Die> {
+public class SwapInstSymbolTableTest extends ActionInstSymbolTableTest {
+
     @Override
-    public String getDescription() {
-        return "Causes the agent to die.";
+    protected Class getExpectedActionClass() {
+        return Swap.class;
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        highlight(ret);
-        return(ret);
+    protected MapSymbolTable getQuery() {
+        return new SwapInstSymbolTable();
     }
 
-    private void highlight(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which to record the death event, if any.");
-        ret.put("highlight", ms);
+    @Test
+    public void targetHighlight() throws Exception {
+        verifyReturnSymbol("targetHighlight", IntegerArgument.class);
+    }
+
+    @Test
+    public void selfHighlight() throws Exception {
+        verifyReturnSymbol("selfHighlight", IntegerArgument.class);
+    }
+
+    @Test
+    public void target() throws Exception {
+        verifyReturnSymbol("target", TargetRule.class);
     }
 }

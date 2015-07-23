@@ -27,7 +27,7 @@ package compiler.symbol.tables.primitive.booleans;
 import compiler.pipeline.interpret.nodes.*;
 import compiler.symbol.tables.*;
 import compiler.symbol.tables.primitive.integers.PrimitiveIntegerSymbolTable;
-import control.arguments.Argument;
+import control.arguments.*;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -35,7 +35,7 @@ import java.util.function.Supplier;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class BooleanClassSymbolTable extends ClassSymbolTable<Argument<Boolean>> {
+public class BooleanClassSymbolTable extends ClassSymbolTable<BooleanArgument> {
 
     @Override
     public String getDescription() {

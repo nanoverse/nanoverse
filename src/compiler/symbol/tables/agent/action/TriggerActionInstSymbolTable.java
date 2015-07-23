@@ -25,13 +25,63 @@
 package compiler.symbol.tables.agent.action;
 
 import agent.action.Trigger;
+import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.agent.targets.TargetRuleClassSymbolTable;
+import compiler.symbol.tables.primitive.integers.IntegerClassSymbolTable;
+import compiler.symbol.tables.primitive.strings.StringClassSymbolTable;
+
+import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/22/2015.
  */
 public class TriggerActionInstSymbolTable extends ActionInstSymbolTable<Trigger> {
+
     @Override
     public String getDescription() {
         return "Trigger an agent to perform a specified behavior.";
+    }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        target(ret);
+        behavior(ret);
+        selfHighlight(ret);
+        targetHighlight(ret);
+        return ret;
+    }
+
+    private void targetHighlight(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
+                "to record the agent being triggered. If left null, no " +
+                "highlight will be recorded.");
+        ret.put("targetHighlight", ms);
+    }
+
+    private void selfHighlight(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
+                "to record the triggering agent. If left null, no " +
+                "highlight will be recorded.");
+        ret.put("selfHighlight", ms);
+
+    }
+
+    private void behavior(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "The name of the behavior to " +
+                "trigger. It is assumed that the target has a behavior of " +
+                "this name.");
+        ret.put("behavior", ms);
+    }
+
+    private void target(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new TargetRuleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Rule(s) limiting valid " +
+                "targets for this action.");
+        ret.put("target", ms);
     }
 }

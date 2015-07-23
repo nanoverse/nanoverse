@@ -22,34 +22,25 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.agent.action;
+package compiler.symbol.tables.agent.targets;
 
-import agent.action.Die;
-import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.ResolvingSymbolTable;
-import compiler.symbol.tables.primitive.integers.IntegerClassSymbolTable;
+import agent.targets.TargetRule;
+import compiler.symbol.tables.*;
 
 import java.util.HashMap;
+import java.util.function.Supplier;
 
 /**
- * Created by dbborens on 7/22/2015.
+ * Created by dbborens on 7/23/2015.
  */
-public class DieInstSymbolTable extends ActionInstSymbolTable<Die> {
+public class TargetRuleClassSymbolTable extends ClassSymbolTable<TargetRule> {
+    @Override
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+        return null;
+    }
+
     @Override
     public String getDescription() {
-        return "Causes the agent to die.";
-    }
-
-    @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        highlight(ret);
-        return(ret);
-    }
-
-    private void highlight(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which to record the death event, if any.");
-        ret.put("highlight", ms);
+        return null;
     }
 }

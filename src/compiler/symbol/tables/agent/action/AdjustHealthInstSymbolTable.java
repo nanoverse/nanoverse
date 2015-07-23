@@ -25,6 +25,11 @@
 package compiler.symbol.tables.agent.action;
 
 import agent.action.AdjustHealth;
+import compiler.symbol.symbols.MemberSymbol;
+import compiler.symbol.tables.ResolvingSymbolTable;
+import compiler.symbol.tables.primitive.doubles.DoubleClassSymbolTable;
+
+import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/22/2015.
@@ -33,5 +38,18 @@ public class AdjustHealthInstSymbolTable extends ActionInstSymbolTable<AdjustHea
     @Override
     public String getDescription() {
         return "Adjusts the health of the agent by a specified delta.";
+    }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        delta(ret);
+        return ret;
+    }
+
+    private void delta(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new DoubleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Amount by which to adjust the health of the agent.");
+        ret.put("delta", ms);
     }
 }
