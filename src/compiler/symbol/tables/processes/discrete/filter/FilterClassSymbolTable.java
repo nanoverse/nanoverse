@@ -22,41 +22,26 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.agent.action;
+package compiler.symbol.tables.processes.discrete.filter;
 
-import agent.action.Swap;
-import agent.targets.TargetRule;
-import compiler.symbol.tables.MapSymbolTable;
-import control.arguments.*;
-import org.junit.Test;
+import compiler.symbol.tables.*;
+import processes.discrete.filter.Filter;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import java.util.HashMap;
+import java.util.function.Supplier;
 
-public class SwapInstSymbolTableTest extends ActionInstSymbolTableTest {
+/**
+ * Created by dbborens on 7/23/2015.
+ */
+public class FilterClassSymbolTable extends ClassSymbolTable<Filter> {
+    @Override
+    public String getDescription() {
+        return null;
+    }
 
     @Override
-    protected Class getExpectedActionClass() {
-        return Swap.class;
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+        return null;
     }
 
-    @Override
-    protected MapSymbolTable getQuery() {
-        return new SwapInstSymbolTable();
-    }
-
-    @Test
-    public void targetHighlight() throws Exception {
-        verifyReturnSymbol("targetHighlight", IntegerArgument.class);
-    }
-
-    @Test
-    public void selfHighlight() throws Exception {
-        verifyReturnSymbol("selfHighlight", IntegerArgument.class);
-    }
-
-    @Test
-    public void target() throws Exception {
-        verifyReturnSymbol("target", TargetDescriptor.class);
-    }
 }

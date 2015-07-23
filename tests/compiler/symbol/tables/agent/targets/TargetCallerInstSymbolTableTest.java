@@ -22,42 +22,25 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.agent.action;
+package compiler.symbol.tables.agent.targets;
 
-import agent.action.ExpandTo;
-import agent.targets.TargetRule;
+import agent.targets.TargetCaller;
 import compiler.symbol.tables.MapSymbolTable;
-import control.arguments.*;
-import org.junit.*;
+import org.junit.Before;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class ExpandToInstSymbolTableTest extends ActionInstSymbolTableTest {
-
-    @Override
-    protected Class getExpectedActionClass() {
-        return ExpandTo.class;
-    }
+public class TargetCallerInstSymbolTableTest  extends TargetRuleInstSymbolTableTest {
 
     @Override
     protected MapSymbolTable getQuery() {
-        return new ExpandToInstSymbolTable();
+        return new TargetCallerInstSymbolTable();
     }
 
-    @Test
-    public void targetHighlight() throws Exception {
-        verifyReturnSymbol("targetHighlight", IntegerArgument.class);
-    }
-
-    @Test
-    public void selfHighlight() throws Exception {
-        verifyReturnSymbol("selfHighlight", IntegerArgument.class);
-    }
-
-    @Test
-    public void target() throws Exception {
-        verifyReturnSymbol("target", TargetDescriptor.class);
+    @Override
+    protected Class getTargetRuleClass() {
+        return TargetCaller.class;
     }
 
 }
