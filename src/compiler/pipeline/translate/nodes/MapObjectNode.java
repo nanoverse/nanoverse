@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.nodes;
 
-import compiler.symbol.tables.*;
+import compiler.pipeline.translate.symbol.tables.*;
 
 import java.util.stream.Stream;
 
