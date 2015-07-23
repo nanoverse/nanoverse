@@ -26,8 +26,7 @@ package test;
 
 import com.google.common.collect.Sets;
 import control.GeneralParameters;
-import control.arguments.Argument;
-import control.arguments.ConstantInteger;
+import control.arguments.*;
 import control.identifiers.Coordinate;
 import geometry.Geometry;
 import geometry.MockGeometry;
@@ -225,14 +224,14 @@ public abstract class EslimeTestCase extends TestCase {
     }
 
     protected BaseProcessArguments makeBaseProcessArguments(LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> start = new ConstantInteger(0);
-        Argument<Integer> period = new ConstantInteger(1);
+        IntegerArgument start = new ConstantInteger(0);
+        IntegerArgument period = new ConstantInteger(1);
         return new BaseProcessArguments(layerManager, p, 0, start, period);
     }
 
     protected CellProcessArguments makeCellProcessArguments(Geometry geom) {
         CoordinateSet activeSites = new CompleteSet(geom);
-        Argument<Integer> maxTargets = new ConstantInteger(-1);
+        IntegerArgument maxTargets = new ConstantInteger(-1);
         return new CellProcessArguments(activeSites, maxTargets);
     }
 

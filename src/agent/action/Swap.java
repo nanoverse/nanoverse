@@ -26,7 +26,7 @@ package agent.action;
 
 import agent.targets.TargetRule;
 import cells.BehaviorCell;
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import layers.LayerManager;
@@ -40,12 +40,12 @@ import java.util.List;
  */
 public class Swap extends Action {
     private TargetRule targetRule;
-    private Argument<Integer> selfChannel;
-    private Argument<Integer> targetChannel;
+    private IntegerArgument selfChannel;
+    private IntegerArgument targetChannel;
 
     public Swap(BehaviorCell callback, LayerManager layerManager,
-                TargetRule targetRule, Argument<Integer> selfChannel,
-                Argument<Integer> targetChannel) {
+                TargetRule targetRule, IntegerArgument selfChannel,
+                IntegerArgument targetChannel) {
         super(callback, layerManager);
         this.targetRule = targetRule;
         this.selfChannel = selfChannel;

@@ -24,9 +24,7 @@
 
 package io.factory;
 
-import control.arguments.Argument;
-import control.arguments.ConstantDouble;
-import control.arguments.UniformDouble;
+import control.arguments.*;
 import factory.control.arguments.DoubleArgumentFactory;
 import org.dom4j.Element;
 import test.EslimeTestCase;
@@ -64,8 +62,8 @@ public class DoubleArgumentFactoryTest extends EslimeTestCase {
     public void testNullWithDefault() {
         Element element = root.element("null-case");
 
-        Argument<Double> actual = DoubleArgumentFactory.instantiate(element, "not-there", 5.0, random);
-        Argument<Double> expected = new ConstantDouble(5.0);
+        DoubleArgument actual = DoubleArgumentFactory.instantiate(element, "not-there", 5.0, random);
+        DoubleArgument expected = new ConstantDouble(5.0);
 
         assertEquals(expected, actual);
     }
@@ -73,29 +71,29 @@ public class DoubleArgumentFactoryTest extends EslimeTestCase {
     public void testConstantImplicit() {
         Element element = root.element("constant-implicit-case");
 
-        Argument<Double> actual = DoubleArgumentFactory.instantiate(element, "test", 6.0, random);
-        Argument<Double> expected = new ConstantDouble(5.0);
+        DoubleArgument actual = DoubleArgumentFactory.instantiate(element, "test", 6.0, random);
+        DoubleArgument expected = new ConstantDouble(5.0);
 
         assertEquals(expected, actual);
     }
 
     public void testConstantExplicit() {
-        Argument<Double> actual = DoubleArgumentFactory.instantiate(root, "constant-explicit-case", 6.0, random);
-        Argument<Double> expected = new ConstantDouble(5.0);
+        DoubleArgument actual = DoubleArgumentFactory.instantiate(root, "constant-explicit-case", 6.0, random);
+        DoubleArgument expected = new ConstantDouble(5.0);
 
         assertEquals(expected, actual);
     }
 
     public void testUniform() {
-        Argument<Double> actual = DoubleArgumentFactory.instantiate(root, "uniform-case", 6.0, random);
-        Argument<Double> expected = new UniformDouble(1.7, 2.4, random);
+        DoubleArgument actual = DoubleArgumentFactory.instantiate(root, "uniform-case", 6.0, random);
+        DoubleArgument expected = new UniformDouble(1.7, 2.4, random);
 
         assertEquals(expected, actual);
     }
 
     public void testRecursive() {
-        Argument<Double> actual = DoubleArgumentFactory.instantiate(root, "recursive-case", 6.0, random);
-        Argument<Double> expected = new UniformDouble(-1.0, 2.0, random);
+        DoubleArgument actual = DoubleArgumentFactory.instantiate(root, "recursive-case", 6.0, random);
+        DoubleArgument expected = new UniformDouble(-1.0, 2.0, random);
 
         assertEquals(expected, actual);
     }

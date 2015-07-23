@@ -22,27 +22,16 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.control.arguments;
+package compiler.symbol.tables.agent.action;
 
-import compiler.symbol.symbols.MemberSymbol;
-import compiler.symbol.tables.*;
-import control.arguments.CellDescriptor;
-
-import java.util.HashMap;
+import agent.action.Trigger;
 
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class AgentDescriptorInstSymbolTable extends MapSymbolTable<CellDescriptor> {
+public class TriggerActionInstSymbolTable extends ActionInstSymbolTable<Trigger> {
     @Override
     public String getDescription() {
-        return "AgentDescriptor describes the properties of a class of agents," +
-                " such as behaviors and internal state.";
+        return "Trigger an agent to perform a specified behavior.";
     }
-
-    @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return null;
-    }
-
 }

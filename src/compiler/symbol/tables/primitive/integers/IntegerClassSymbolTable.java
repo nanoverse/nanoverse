@@ -26,7 +26,7 @@ package compiler.symbol.tables.primitive.integers;
 
 import compiler.pipeline.interpret.nodes.ASTPrimitiveInteger;
 import compiler.symbol.tables.*;
-import control.arguments.Argument;
+import control.arguments.*;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -34,7 +34,7 @@ import java.util.function.Supplier;
 /**
  * Created by dbborens on 3/18/15.
  */
-public class IntegerClassSymbolTable extends ClassSymbolTable<Argument<Integer>> {
+public class IntegerClassSymbolTable extends ClassSymbolTable<IntegerArgument> {
 
     @Override
     public String getDescription() {

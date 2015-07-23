@@ -26,7 +26,7 @@ package compiler.symbol.tables.processes;
 
 import compiler.symbol.tables.MapSymbolTable;
 import compiler.symbol.tables.processes.discrete.DiscreteProcessInstSymbolTableTest;
-import control.arguments.Argument;
+import control.arguments.*;
 import org.junit.*;
 import processes.discrete.TriggerProcess;
 
@@ -47,7 +47,7 @@ public class TriggerProcessInstSymbolTableTest extends DiscreteProcessInstSymbol
 
     @Test
     public void behavior() throws Exception {
-        verifyReturnSymbol("behavior", Argument.class);
+        verifyReturnSymbol("behavior", StringArgument.class);
     }
 
     @Test

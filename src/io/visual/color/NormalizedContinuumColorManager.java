@@ -24,7 +24,7 @@
 
 package io.visual.color;
 
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.*;
 import io.visual.HSLColor;
@@ -52,12 +52,12 @@ public class NormalizedContinuumColorManager extends ColorManager {
     private final ContinuumNormalizationHelper normalizer;
     private final ColorManager base;
     private final boolean averageLuminance;
-    public NormalizedContinuumColorManager(Argument<Double> minHueArg,
-                                           Argument<Double> maxHueArg,
-                                           Argument<Double> minSaturationArg,
-                                           Argument<Double> maxSaturationArg,
-                                           Argument<Double> minLuminanceArg,
-                                           Argument<Double> maxLuminanceArg,
+    public NormalizedContinuumColorManager(DoubleArgument minHueArg,
+                                           DoubleArgument maxHueArg,
+                                           DoubleArgument minSaturationArg,
+                                           DoubleArgument maxSaturationArg,
+                                           DoubleArgument minLuminanceArg,
+                                           DoubleArgument maxLuminanceArg,
                                            String continuumId,
                                            boolean averageLuminance,
                                            ColorManager base) {
@@ -78,12 +78,12 @@ public class NormalizedContinuumColorManager extends ColorManager {
         }
     }
 
-    public NormalizedContinuumColorManager(Argument<Double> minHueArg,
-                                           Argument<Double> maxHueArg,
-                                           Argument<Double> minSaturationArg,
-                                           Argument<Double> maxSaturationArg,
-                                           Argument<Double> minLuminanceArg,
-                                           Argument<Double> maxLuminanceArg,
+    public NormalizedContinuumColorManager(DoubleArgument minHueArg,
+                                           DoubleArgument maxHueArg,
+                                           DoubleArgument minSaturationArg,
+                                           DoubleArgument maxSaturationArg,
+                                           DoubleArgument minLuminanceArg,
+                                           DoubleArgument maxLuminanceArg,
                                            ContinuumNormalizationHelper normalizer,
                                            boolean averageLuminance,
                                            ColorManager base) {

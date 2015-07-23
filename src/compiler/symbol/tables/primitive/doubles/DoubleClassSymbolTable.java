@@ -26,7 +26,7 @@ package compiler.symbol.tables.primitive.doubles;
 
 import compiler.pipeline.interpret.nodes.ASTPrimitiveDouble;
 import compiler.symbol.tables.*;
-import control.arguments.Argument;
+import control.arguments.*;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -34,7 +34,7 @@ import java.util.function.Supplier;
 /**
  * Created by dbborens on 3/18/15.
  */
-public class DoubleClassSymbolTable extends ClassSymbolTable<Argument<Double>> {
+public class DoubleClassSymbolTable extends ClassSymbolTable<DoubleArgument> {
 
 
     @Override

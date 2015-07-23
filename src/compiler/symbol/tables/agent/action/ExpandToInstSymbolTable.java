@@ -22,23 +22,18 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.arguments;
+package compiler.symbol.tables.agent.action;
 
-import agent.Behavior;
-import cells.BehaviorCell;
-
-import java.util.function.Function;
+import agent.action.ExpandTo;
 
 /**
- * Created by dbborens on 1/24/15.
+ * Created by dbborens on 7/22/2015.
  */
-public class BehaviorDescriptor extends ActionDescriptor<Behavior> {
-
-    public BehaviorDescriptor(Function<BehaviorCell, Behavior> constructor) {
-        super(constructor);
-    }
-
-    public Behavior instantiate(BehaviorCell cell) {
-        return super.instantiate(cell);
+public class ExpandToInstSymbolTable extends ActionInstSymbolTable<ExpandTo> {
+    @Override
+    public String getDescription() {
+        return "Places a copy or copies of the current cell at the target " +
+                "site(s). If a target site is occupied, push the occupying " +
+                "cell toward the nearest vacancy first.";
     }
 }

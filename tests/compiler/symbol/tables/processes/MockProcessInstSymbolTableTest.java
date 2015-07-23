@@ -26,7 +26,7 @@ package compiler.symbol.tables.processes;
 
 import compiler.symbol.tables.MapSymbolTable;
 import compiler.symbol.tables.processes.discrete.*;
-import control.arguments.Argument;
+import control.arguments.*;
 import org.junit.*;
 import processes.MockProcess;
 
@@ -47,16 +47,16 @@ public class MockProcessInstSymbolTableTest extends ProcessInstSymbolTableTest {
 
     @Test
     public void weight() {
-        verifyReturnSymbol("weight", Argument.class);
+        verifyReturnSymbol("weight", DoubleArgument.class);
     }
 
     @Test
     public void identifier() {
-        verifyReturnSymbol("identifier", Argument.class);
+        verifyReturnSymbol("identifier", StringArgument.class);
     }
 
     @Test
     public void count() {
-        verifyReturnSymbol("count", Argument.class);
+        verifyReturnSymbol("count", IntegerArgument.class);
     }
 }

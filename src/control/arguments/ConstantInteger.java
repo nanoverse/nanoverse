@@ -27,7 +27,7 @@ package control.arguments;
 /**
  * Created by David B Borenstein on 4/7/14.
  */
-public class ConstantInteger extends Argument<Integer> {
+public class ConstantInteger extends IntegerArgument {
 
     private Integer value;
 

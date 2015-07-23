@@ -24,7 +24,7 @@
 
 package control.arguments;
 
-import agent.action.Action;
+import agent.action.*;
 import cells.BehaviorCell;
 import org.junit.Before;
 import org.junit.Test;

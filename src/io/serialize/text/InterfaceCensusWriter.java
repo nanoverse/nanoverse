@@ -26,7 +26,7 @@ package io.serialize.text;
 
 import cells.Cell;
 import control.GeneralParameters;
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import io.serialize.Serializer;
@@ -51,7 +51,7 @@ public class InterfaceCensusWriter extends Serializer {
 
     private HashMap<Integer, Map<Integer, Double>> frameToHistogramMap;
 
-    public InterfaceCensusWriter(GeneralParameters p, Argument<Integer> focalStateArg, LayerManager lm) {
+    public InterfaceCensusWriter(GeneralParameters p, IntegerArgument focalStateArg, LayerManager lm) {
         super(p, lm);
 
         try {

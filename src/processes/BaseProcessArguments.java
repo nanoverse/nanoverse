@@ -25,7 +25,7 @@
 package processes;
 
 import control.GeneralParameters;
-import control.arguments.Argument;
+import control.arguments.*;
 import layers.LayerManager;
 
 /**
@@ -34,12 +34,12 @@ import layers.LayerManager;
 public class BaseProcessArguments {
     private GeneralParameters generalParameters;
     private int id;
-    private Argument<Integer> start;
-    private Argument<Integer> period;
+    private IntegerArgument start;
+    private IntegerArgument period;
 
     private LayerManager layerManager;
 
-    public BaseProcessArguments(LayerManager layerManager, GeneralParameters generalParameters, int id, Argument<Integer> start, Argument<Integer> period) {
+    public BaseProcessArguments(LayerManager layerManager, GeneralParameters generalParameters, int id, IntegerArgument start, IntegerArgument period) {
         this.generalParameters = generalParameters;
         this.id = id;
         this.start = start;
@@ -47,11 +47,11 @@ public class BaseProcessArguments {
         this.layerManager = layerManager;
     }
 
-    public Argument<Integer> getPeriod() {
+    public IntegerArgument getPeriod() {
         return period;
     }
 
-    public Argument<Integer> getStart() {
+    public IntegerArgument getStart() {
         return start;
     }
 

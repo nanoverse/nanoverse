@@ -32,7 +32,7 @@ import structural.utilities.EpsilonUtil;
  * <p>
  * Created by David B Borenstein on 4/7/14.
  */
-public class ConstantDouble extends Argument<Double> {
+public class ConstantDouble extends DoubleArgument {
 
     private Double value;
 

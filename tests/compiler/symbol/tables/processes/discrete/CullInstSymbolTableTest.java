@@ -25,7 +25,7 @@
 package compiler.symbol.tables.processes.discrete;
 
 import compiler.symbol.tables.MapSymbolTable;
-import control.arguments.Argument;
+import control.arguments.*;
 import org.junit.*;
 import processes.discrete.Cull;
 
@@ -46,6 +46,6 @@ public class CullInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest 
 
     @Test
     public void threshold() throws Exception {
-        verifyReturnSymbol("threshold", Argument.class);
+        verifyReturnSymbol("threshold", DoubleArgument.class);
     }
 }

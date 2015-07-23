@@ -37,7 +37,7 @@ import java.util.HashMap;
 public abstract class ProcessInstSymbolTable<T extends NanoverseProcess> extends MapSymbolTable<T> {
 
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        HashMap<String, MemberSymbol> ret = new HashMap<>();
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
         period(ret);
         start(ret);
         return ret;

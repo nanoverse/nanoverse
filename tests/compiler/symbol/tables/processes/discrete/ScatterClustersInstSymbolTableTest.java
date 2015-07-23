@@ -57,6 +57,6 @@ public class ScatterClustersInstSymbolTableTest extends DiscreteProcessInstSymbo
 
     @Test
     public void neighbors() throws Exception {
-        verifyReturnSymbol("neighbors", Argument.class);
+        verifyReturnSymbol("neighbors", IntegerArgument.class);
     }
 }

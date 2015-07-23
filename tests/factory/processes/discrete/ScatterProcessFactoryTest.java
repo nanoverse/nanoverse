@@ -25,10 +25,7 @@
 package factory.processes.discrete;
 
 import control.GeneralParameters;
-import control.arguments.Argument;
-import control.arguments.CellDescriptor;
-import control.arguments.ConstantDouble;
-import control.arguments.ConstantInteger;
+import control.arguments.*;
 import control.identifiers.Coordinate;
 import factory.control.arguments.CellDescriptorFactory;
 import geometry.Geometry;
@@ -90,7 +87,7 @@ public class ScatterProcessFactoryTest extends EslimeTestCase {
 
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
         CoordinateSet activeSites = new DiscSet(geom, new ConstantInteger(2), new Coordinate(0, 0, 0));
-        Argument<Integer> maxTargets = new ConstantInteger(5);
+        IntegerArgument maxTargets = new ConstantInteger(5);
         CellProcessArguments cpArguments = new CellProcessArguments(activeSites, maxTargets);
         CellDescriptor cd = makeCellDescriptor();
 

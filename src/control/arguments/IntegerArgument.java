@@ -22,27 +22,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.symbol.tables.control.arguments;
-
-import compiler.symbol.tables.*;
-import control.arguments.CellDescriptor;
-
-import java.util.HashMap;
-import java.util.function.Supplier;
+package control.arguments;
 
 /**
- * Created by dbborens on 7/22/2015.
+ * Created by dbborens on 7/23/2015.
  */
-public class AgentDescriptorClassSymbolTable extends ClassSymbolTable<CellDescriptor> {
-
-    @Override
-    public String getDescription() {
-        return "AgentDescriptor describes the properties of a class of agents," +
-                " such as behaviors and internal state.";
-    }
-
-    @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        return null;
-    }
+public abstract class IntegerArgument extends Argument<Integer> {
 }

@@ -24,7 +24,7 @@
 
 package processes.discrete;
 
-import control.arguments.Argument;
+import control.arguments.*;
 import geometry.set.CoordinateSet;
 import layers.cell.CellLayer;
 import processes.BaseProcessArguments;
@@ -49,7 +49,7 @@ public abstract class CellProcess extends NanoverseProcess {
         return cpArguments.getActiveSites();
     }
 
-    protected Argument<Integer> getMaxTargets() {
+    protected IntegerArgument getMaxTargets() {
         return cpArguments.getMaxTargets();
     }
 }

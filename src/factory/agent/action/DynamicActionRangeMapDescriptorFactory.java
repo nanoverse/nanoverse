@@ -30,7 +30,7 @@ import agent.action.NullAction;
 import agent.action.stochastic.ProbabilitySupplier;
 import cells.BehaviorCell;
 import control.GeneralParameters;
-import control.arguments.ActionDescriptor;
+import agent.action.ActionDescriptor;
 import control.arguments.DynamicActionRangeMapDescriptor;
 import control.arguments.ProbabilitySupplierDescriptor;
 import factory.agent.BehaviorDescriptorFactory;

@@ -24,8 +24,7 @@
 
 package io.factory.io.visual.color;
 
-import control.arguments.Argument;
-import control.arguments.ConstantDouble;
+import control.arguments.*;
 import factory.io.visual.color.SurfaceGrowthColorManagerFactory;
 import io.visual.color.ColorManager;
 import io.visual.color.DefaultColorManager;
@@ -51,8 +50,8 @@ public class SurfaceGrowthColorManagerFactoryTest extends EslimeTestCase {
         SurfaceGrowthColorManager actual = SurfaceGrowthColorManagerFactory.instantiate(e, p);
 
         ColorManager base = new DefaultColorManager();
-        Argument<Double> saturationScaling = new ConstantDouble(SurfaceGrowthColorManagerFactory.DEFAULT_SATURATION_SCALING);
-        Argument<Double> luminanceScaling = new ConstantDouble(SurfaceGrowthColorManagerFactory.DEFAULT_LUMINANCE_SCALING);
+        DoubleArgument saturationScaling = new ConstantDouble(SurfaceGrowthColorManagerFactory.DEFAULT_SATURATION_SCALING);
+        DoubleArgument luminanceScaling = new ConstantDouble(SurfaceGrowthColorManagerFactory.DEFAULT_LUMINANCE_SCALING);
         SurfaceGrowthColorManager expected = new SurfaceGrowthColorManager(base, luminanceScaling, saturationScaling);
 
         assertEquals(expected, actual);
@@ -63,8 +62,8 @@ public class SurfaceGrowthColorManagerFactoryTest extends EslimeTestCase {
         SurfaceGrowthColorManager actual = SurfaceGrowthColorManagerFactory.instantiate(e, p);
 
         ColorManager base = new DefaultColorManager();
-        Argument<Double> saturationScaling = new ConstantDouble(0.75);
-        Argument<Double> luminanceScaling = new ConstantDouble(0.25);
+        DoubleArgument saturationScaling = new ConstantDouble(0.75);
+        DoubleArgument luminanceScaling = new ConstantDouble(0.25);
         SurfaceGrowthColorManager expected = new SurfaceGrowthColorManager(base, luminanceScaling, saturationScaling);
 
         assertEquals(expected, actual);

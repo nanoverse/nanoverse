@@ -26,7 +26,7 @@ package compiler.symbol.tables.processes.discrete.check;
 
 import compiler.symbol.tables.MapSymbolTable;
 import compiler.symbol.tables.processes.discrete.DiscreteProcessInstSymbolTableTest;
-import control.arguments.Argument;
+import control.arguments.*;
 import org.junit.Test;
 import processes.discrete.check.CheckForDomination;
 
@@ -48,11 +48,11 @@ public class CheckForDominationInstSymbolTableTest extends DiscreteProcessInstSy
 
     @Test
     public void threshold() throws Exception {
-        verifyReturnSymbol("threshold", Argument.class);
+        verifyReturnSymbol("threshold", DoubleArgument.class);
     }
 
     @Test
     public void target() throws Exception {
-        verifyReturnSymbol("target", Argument.class);
+        verifyReturnSymbol("target", IntegerArgument.class);
     }
 }

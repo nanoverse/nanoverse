@@ -31,7 +31,6 @@ import control.arguments.*;
 import factory.agent.BehaviorDescriptorFactory;
 import factory.control.arguments.DoubleArgumentFactory;
 import layers.LayerManager;
-import lombok.core.Agent;
 import org.dom4j.*;
 
 import java.util.*;
@@ -52,8 +51,8 @@ public abstract class ThresholdDoDescriptorFactory {
                                                        GeneralParameters p) {
 
         ActionDescriptor actionDescriptor = getAction(base, layerManager, p);
-        Argument<Double> minimumArg = DoubleArgumentFactory.instantiate(base, "minimum", Double.NEGATIVE_INFINITY, p.getRandom());
-        Argument<Double> maximumArg = DoubleArgumentFactory.instantiate(base, "maximum", Double.POSITIVE_INFINITY, p.getRandom());
+        DoubleArgument minimumArg = DoubleArgumentFactory.instantiate(base, "minimum", Double.NEGATIVE_INFINITY, p.getRandom());
+        DoubleArgument maximumArg = DoubleArgumentFactory.instantiate(base, "maximum", Double.POSITIVE_INFINITY, p.getRandom());
         String layerId = base.element("layer").getTextTrim();
         Function<BehaviorCell, ThresholdDo> function = callback -> {
             Action child = actionDescriptor.instantiate(callback);

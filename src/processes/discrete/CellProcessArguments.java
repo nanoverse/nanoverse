@@ -24,7 +24,7 @@
 
 package processes.discrete;
 
-import control.arguments.Argument;
+import control.arguments.*;
 import geometry.set.CoordinateSet;
 
 /**
@@ -32,9 +32,9 @@ import geometry.set.CoordinateSet;
  */
 public class CellProcessArguments {
     private CoordinateSet activeSites;
-    private Argument<Integer> maxTargets;
+    private IntegerArgument maxTargets;
 
-    public CellProcessArguments(CoordinateSet activeSites, Argument<Integer> maxTargets) {
+    public CellProcessArguments(CoordinateSet activeSites, IntegerArgument maxTargets) {
         this.activeSites = activeSites;
         this.maxTargets = maxTargets;
     }
@@ -43,7 +43,7 @@ public class CellProcessArguments {
         return activeSites;
     }
 
-    public Argument<Integer> getMaxTargets() {
+    public IntegerArgument getMaxTargets() {
         return maxTargets;
     }
 

@@ -25,7 +25,7 @@
 package io.serialize.text;
 
 import control.GeneralParameters;
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import geometry.Geometry;
@@ -68,7 +68,7 @@ public class CorrelationWriter extends Serializer {
      *                       for the same simulation. Multiple RDF serializers
      *                       can be included for the same model!
      */
-    public CorrelationWriter(GeneralParameters p, String filename, Argument<Double> triggerTimeArg, LayerManager lm) {
+    public CorrelationWriter(GeneralParameters p, String filename, DoubleArgument triggerTimeArg, LayerManager lm) {
         super(p, lm);
         identity = new HashMap<>();
         observations = new HashMap<>();

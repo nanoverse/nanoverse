@@ -26,7 +26,7 @@ package agent.action;
 
 import cells.BehaviorCell;
 import cells.Cell;
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import layers.LayerManager;
@@ -127,7 +127,7 @@ public abstract class Action {
 
     public abstract Action clone(BehaviorCell child);
 
-    protected void doHighlight(Argument<Integer> channelArg, Coordinate toHighlight) throws HaltCondition {
+    protected void doHighlight(IntegerArgument channelArg, Coordinate toHighlight) throws HaltCondition {
         // If not using highlights, do nothing
         if (channelArg == null) {
             return;

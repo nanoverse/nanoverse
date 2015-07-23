@@ -26,7 +26,7 @@ package compiler.symbol.tables.processes.discrete.check;
 
 import compiler.symbol.tables.MapSymbolTable;
 import compiler.symbol.tables.processes.discrete.DiscreteProcessInstSymbolTableTest;
-import control.arguments.Argument;
+import control.arguments.*;
 import org.junit.*;
 import processes.discrete.check.CheckForThresholdOccupancy;
 
@@ -48,6 +48,6 @@ public class CheckForThresholdOccupancyInstSymbolTableTest extends DiscreteProce
 
     @Test
     public void threshold() throws Exception {
-        verifyReturnSymbol("threshold", Argument.class);
+        verifyReturnSymbol("threshold", DoubleArgument.class);
     }
 }

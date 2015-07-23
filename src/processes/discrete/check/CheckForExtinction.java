@@ -24,7 +24,7 @@
 
 package processes.discrete.check;
 
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.ExtinctionEvent;
 import control.halt.HaltCondition;
 import processes.BaseProcessArguments;
@@ -41,9 +41,9 @@ import processes.gillespie.GillespieState;
 public class CheckForExtinction extends CellProcess {
 
     private double threshold;
-    private Argument<Double> thresholdArg;
+    private DoubleArgument thresholdArg;
 
-    public CheckForExtinction(BaseProcessArguments arguments, CellProcessArguments cpArguments, Argument<Double> thresholdArg) {
+    public CheckForExtinction(BaseProcessArguments arguments, CellProcessArguments cpArguments, DoubleArgument thresholdArg) {
         super(arguments, cpArguments);
         this.thresholdArg = thresholdArg;
     }

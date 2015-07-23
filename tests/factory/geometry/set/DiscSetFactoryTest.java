@@ -24,8 +24,7 @@
 
 package factory.geometry.set;//import junit.framework.TestCase;
 
-import control.arguments.Argument;
-import control.arguments.ConstantInteger;
+import control.arguments.*;
 import control.identifiers.Coordinate;
 import geometry.Geometry;
 import geometry.boundaries.Arena;
@@ -57,7 +56,7 @@ public class DiscSetFactoryTest extends EslimeTestCase {
     public void testDefault() {
         Element e = root.element("default-case");
 
-        Argument<Integer> radiusArg = new ConstantInteger(1);
+        IntegerArgument radiusArg = new ConstantInteger(1);
         Coordinate offset = geom.getZeroVector();
         CoordinateSet expected = new DiscSet(geom, radiusArg, offset);
 
@@ -69,7 +68,7 @@ public class DiscSetFactoryTest extends EslimeTestCase {
     public void testExplicit() {
         Element e = root.element("explicit-case");
 
-        Argument<Integer> radiusArg = new ConstantInteger(2);
+        IntegerArgument radiusArg = new ConstantInteger(2);
         Coordinate offset = new Coordinate(0, -1, 0);
         CoordinateSet expected = new DiscSet(geom, radiusArg, offset);
         CoordinateSet actual = DiscSetFactory.instantiate(e, geom, p);

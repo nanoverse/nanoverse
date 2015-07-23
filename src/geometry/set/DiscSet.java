@@ -24,7 +24,7 @@
 
 package geometry.set;
 
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import geometry.Geometry;
@@ -34,7 +34,7 @@ import geometry.Geometry;
  */
 public class DiscSet extends CoordinateSet {
 
-    public DiscSet(Geometry geom, Argument<Integer> radiusArg, Coordinate offset) {
+    public DiscSet(Geometry geom, IntegerArgument radiusArg, Coordinate offset) {
         Coordinate origin = geom.rel2abs(geom.getCenter(), offset, Geometry.APPLY_BOUNDARIES);
         int radius;
         try {

@@ -24,7 +24,7 @@
 
 package io.visual.color;
 
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import io.visual.HSLColor;
@@ -42,12 +42,12 @@ import java.awt.*;
 public class SurfaceGrowthColorManager extends ColorManager {
 
     private ColorManager base;
-    private Argument<Double> luminanceScale;
-    private Argument<Double> saturationScale;
+    private DoubleArgument luminanceScale;
+    private DoubleArgument saturationScale;
 
     public SurfaceGrowthColorManager(ColorManager base,
-                                     Argument<Double> luminanceScale,
-                                     Argument<Double> saturationScale) {
+                                     DoubleArgument luminanceScale,
+                                     DoubleArgument saturationScale) {
         this.base = base;
         this.saturationScale = saturationScale;
         this.luminanceScale = luminanceScale;
