@@ -52,7 +52,8 @@ public class ContinuumSolverFactory {
     }
 
     private static ContinuumSolver makeEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, boolean operators) {
-        EquilibriumMatrixSolver steadyState = new EquilibriumKrylovSolver(operators);
+        // TODO: Set solver type using config file instead of hard-coding it
+        EquilibriumMatrixSolver steadyState = new EquilibriumBandSolver(operators);
         return new EquilibriumSolver(content, so, steadyState);
     }
 }
