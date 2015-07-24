@@ -25,7 +25,6 @@
 package layers.continuum;
 
 import control.identifiers.Coordinate;
-import factory.cell.Reaction;
 
 /**
  * Created by dbborens on 12/30/14.

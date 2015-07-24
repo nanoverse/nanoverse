@@ -22,7 +22,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package factory.cell;
+package layers.continuum;
 
 /**
  * Lightweight tuple or capturing a continuum reaction.

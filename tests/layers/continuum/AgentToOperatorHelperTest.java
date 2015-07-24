@@ -24,7 +24,6 @@
 
 package layers.continuum;
 
-import factory.cell.Reaction;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.DenseVector;
 import org.junit.Before;
