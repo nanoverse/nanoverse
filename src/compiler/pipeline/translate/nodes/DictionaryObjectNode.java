@@ -25,41 +25,45 @@
 package compiler.pipeline.translate.nodes;
 
 import compiler.error.IllegalAssignmentError;
+import compiler.pipeline.translate.symbol.tables.*;
 
-import java.util.*;
 import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 2/22/15.
  */
-public class LocalContextMap {
-    private Map<String, ObjectNode> members;
+public class DictionaryObjectNode implements ObjectNode {
 
-    public LocalContextMap() {
-        members = new HashMap<>();
+    private final DictionarySymbolTable symbolTable;
+    private final LocalContextMap local;
+
+    public DictionaryObjectNode(DictionarySymbolTable symbolTable) {
+        this(symbolTable, new LocalContextMap());
+    }
+
+    public DictionaryObjectNode(DictionarySymbolTable symbolTable, LocalContextMap local) {
+        this.symbolTable = symbolTable;
+        this.local = local;
     }
 
     public Stream<String> getMemberIdentifiers() {
-        return members.keySet().stream();
+        return local.getMemberIdentifiers();
     }
 
-    public ObjectNode getMember(String name) {
-        if (!members.containsKey(name)) {
-            throw new IllegalStateException("Retrieval of undefined member '" + name + "'");
-        }
-
-        return members.get(name);
+    public ObjectNode getMember(String identifier) {
+        return local.getMember(identifier);
     }
 
     public void loadMember(String identifier, ObjectNode value) {
-        if (members.containsKey(identifier)) {
-            throw new IllegalAssignmentError("Double assignment to member '" + identifier + "'");
-        }
-        members.put(identifier, value);
+        local.loadMember(identifier, value);
     }
 
-    public boolean hasMember(String name) {
-        return members.containsKey(name);
+    public int size() {
+        return local.size();
+    }
+
+    public DictionarySymbolTable getSymbolTable() {
+        return symbolTable;
     }
 
     @Override
@@ -67,14 +71,16 @@ public class LocalContextMap {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        LocalContextMap that = (LocalContextMap) o;
+        DictionaryObjectNode that = (DictionaryObjectNode) o;
 
-        if (!members.equals(that.members)) return false;
+        if (!local.equals(that.local)) return false;
+        if (!symbolTable.equals(that.symbolTable)) return false;
 
         return true;
     }
 
-    public int size() {
-        return members.size();
+    @Override
+    public Class getInstantiatingClass() {
+        return symbolTable.getBroadClass();
     }
 }

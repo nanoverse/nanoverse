@@ -53,6 +53,7 @@ import org.slf4j.*;
  */
 public class MasterTranslationVisitor {
 
+    private final DictionaryContainerVisitor dictVisitor;
     private final MapContainerVisitor mapVisitor;
     private final ListContainerVisitor listVisitor;
     private final PrimitiveVisitor primitiveVisitor;
@@ -62,6 +63,7 @@ public class MasterTranslationVisitor {
         TranslationCallback walker = (node, st) -> translate(node, st);
         listVisitor = new ListContainerVisitor(walker);
         mapVisitor = new MapContainerVisitor(walker);
+        dictVisitor = new DictionaryContainerVisitor(walker);
         primitiveVisitor = new PrimitiveVisitor();
         logger = LoggerFactory.getLogger(MasterTranslationVisitor.class);
         logger.info("Loading semantic information.");
@@ -69,11 +71,13 @@ public class MasterTranslationVisitor {
 
     public MasterTranslationVisitor(MapContainerVisitor mapVisitor,
                                     ListContainerVisitor listVisitor,
+                                    DictionaryContainerVisitor dictVisitor,
                                     PrimitiveVisitor primitiveVisitor) {
 
 
         this.mapVisitor = mapVisitor;
         this.listVisitor = listVisitor;
+        this.dictVisitor = dictVisitor;
         this.primitiveVisitor = primitiveVisitor;
         logger = LoggerFactory.getLogger(MasterTranslationVisitor.class);
         logger.info("Loading semantic information.");
@@ -84,6 +88,8 @@ public class MasterTranslationVisitor {
             return listVisitor.translate((ASTContainerNode) toTranslate, (ListSymbolTable) symbolTable);
         } else if (symbolTable instanceof MapSymbolTable) {
             return mapVisitor.translate((ASTContainerNode) toTranslate, (MapSymbolTable) symbolTable);
+        } else if (symbolTable instanceof DictionarySymbolTable) {
+            return dictVisitor.translate((ASTContainerNode) toTranslate, (DictionarySymbolTable) symbolTable);
         } else if (symbolTable instanceof PrimitiveSymbolTable) {
             return primitiveVisitor.translate((ASTPrimitiveNode) toTranslate, (PrimitiveSymbolTable) symbolTable);
         } else {
