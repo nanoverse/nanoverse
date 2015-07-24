@@ -94,7 +94,7 @@ public class TetrisReflectingBoundary extends Boundary {
      */
     @Override
     public Boundary clone(Shape scaledShape, Lattice clonedLattice) {
-        return null;
+        return new TetrisReflectingBoundary(scaledShape, clonedLattice);
     }
 
     /**

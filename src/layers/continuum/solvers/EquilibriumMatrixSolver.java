@@ -151,5 +151,6 @@ public abstract class EquilibriumMatrixSolver {
      * @param initial
      * @return
      */
-    abstract DenseVector ssSolve(Vector source, CompDiagMatrix operator, Vector initial);
+    abstract DenseVector ssSolve(Vector source, CompDiagMatrix operator,
+                                 Vector initial);
 }
