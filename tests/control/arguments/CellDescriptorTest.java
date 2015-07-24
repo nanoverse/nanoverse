@@ -28,7 +28,7 @@ import agent.Behavior;
 import agent.action.BehaviorDescriptor;
 import cells.BehaviorCell;
 import control.identifiers.Coordinate;
-import factory.cell.Reaction;
+import layers.continuum.Reaction;
 import layers.LayerManager;
 import layers.cell.CellLayer;
 import layers.cell.CellLayerViewer;

@@ -28,7 +28,7 @@ import agent.action.BehaviorDescriptor;
 import control.GeneralParameters;
 import control.arguments.*;
 import factory.agent.BehaviorDescriptorFactory;
-import factory.cell.Reaction;
+import layers.continuum.Reaction;
 import factory.cell.ReactionFactory;
 import layers.LayerManager;
 import org.dom4j.Element;

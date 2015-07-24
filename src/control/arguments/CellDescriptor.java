@@ -30,7 +30,7 @@ import agent.control.BehaviorDispatcher;
 import cells.BehaviorCell;
 import cells.Cell;
 import control.halt.HaltCondition;
-import factory.cell.Reaction;
+import layers.continuum.Reaction;
 import layers.LayerManager;
 
 import java.util.ArrayList;

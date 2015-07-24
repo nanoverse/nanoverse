@@ -26,6 +26,10 @@ package compiler.pipeline.translate.symbol.tables.agent;
 
 import compiler.pipeline.translate.symbol.symbols.MemberSymbol;
 import compiler.pipeline.translate.symbol.tables.*;
+import compiler.pipeline.translate.symbol.tables.agent.action.ActionClassSymbolTable;
+import compiler.pipeline.translate.symbol.tables.layers.continuum.ReactionClassSymbolTable;
+import compiler.pipeline.translate.symbol.tables.primitive.doubles.DoubleClassSymbolTable;
+import compiler.pipeline.translate.symbol.tables.primitive.integers.IntegerClassSymbolTable;
 import control.arguments.CellDescriptor;
 
 import java.util.HashMap;
@@ -52,23 +56,40 @@ public class AgentDescriptorInstSymbolTable extends MapSymbolTable<CellDescripto
     }
 
     private void behaviors(HashMap<String, MemberSymbol> ret) {
-
+        ClassSymbolTable cst = new ActionClassSymbolTable();
+        ResolvingSymbolTable rst = new DictionarySymbolTable<>(cst);
+        MemberSymbol ms = new MemberSymbol(rst, "List of named behaviors and their corresponding action sequences.");
+        ret.put("behaviors", ms);
     }
 
     private void reactions(HashMap<String, MemberSymbol> ret) {
-
+        ClassSymbolTable cst = new ReactionClassSymbolTable();
+        ResolvingSymbolTable rst = new ListSymbolTable<>(cst);
+        MemberSymbol ms = new MemberSymbol(rst, "List of interactions, if " +
+                "any, between the agents being described and continuum " +
+                "layers.");
+        ret.put("reactions", ms);
     }
 
     private void initialHealth(HashMap<String, MemberSymbol> ret) {
-
+        ClassSymbolTable cst = new DoubleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(cst, "LEGACY: Defines the initial " +
+                "health value of the agent.");
+        ret.put("initialHealth", ms);
     }
 
     private void threshold(HashMap<String, MemberSymbol> ret) {
-
+        ClassSymbolTable cst = new DoubleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(cst, "LEGACY: the minimum health " +
+                "at which an agent becomes eligible for cell division.");
+        ret.put("threshold", ms);
     }
 
     private void cellState(HashMap<String, MemberSymbol> ret) {
-
+        ClassSymbolTable cst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(cst, "A numerical ID for the " +
+                "category of agent being described. Soon to be replaced...");
+        ret.put("class", ms);
     }
 
 }

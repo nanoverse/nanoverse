@@ -22,36 +22,26 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package cells;
+package compiler.pipeline.translate.symbol.tables.layers.continuum;
 
+import compiler.pipeline.translate.symbol.tables.*;
 import layers.continuum.Reaction;
-import org.junit.Before;
-import org.junit.Test;
-import test.TestBase;
 
-import static org.junit.Assert.assertEquals;
+import java.util.HashMap;
+import java.util.function.Supplier;
 
-public class ReactionTest extends TestBase {
+/**
+ * Created by dbborens on 7/24/2015.
+ */
+public class ReactionClassSymbolTable extends ClassSymbolTable<Reaction> {
 
-    private Reaction query;
-
-    @Before
-    public void init() throws Exception {
-        query = new Reaction(1.0, 2.0, "test");
+    @Override
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+        return null;
     }
 
-    @Test
-    public void getInj() throws Exception {
-        assertEquals(1.0, query.getInj(), epsilon);
-    }
-
-    @Test
-    public void getExp() throws Exception {
-        assertEquals(2.0, query.getExp(), epsilon);
-    }
-
-    @Test
-    public void getId() throws Exception {
-        assertEquals("test", query.getId());
+    @Override
+    public String getDescription() {
+        return null;
     }
 }
