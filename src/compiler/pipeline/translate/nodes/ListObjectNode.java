@@ -33,7 +33,7 @@ import java.util.stream.Stream;
  */
 public class ListObjectNode implements ObjectNode {
 
-    private ListSymbolTable symbolTable;
+    private final ListSymbolTable symbolTable;
     private final LocalContextList local;
 
     public ListObjectNode(ListSymbolTable symbolTable) {
@@ -51,7 +51,7 @@ public class ListObjectNode implements ObjectNode {
 
     public ObjectNode getMember(int index) {
         if (index >= size()) {
-            throw new IllegalArgumentException("List context member index out of bounds.");
+            throw new IllegalStateException("List context member index out of bounds.");
         }
         return local.get(index);
     }

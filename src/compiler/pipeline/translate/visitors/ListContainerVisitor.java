@@ -51,6 +51,8 @@ public class ListContainerVisitor {
                 symbolTable.getBroadClass().getSimpleName());
 
         ListObjectNode node = new ListObjectNode(symbolTable);
+
+        // Visit each child.
         toTranslate.getChildren()
                 .forEach(child -> {
 

@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.tables;
 
+import com.google.common.reflect.TypeToken;
+
 /**
  * Represents an unstructured mapping of keys to values. Used for user-
  * defined members and variables.
@@ -31,23 +33,32 @@ package compiler.pipeline.translate.symbol.tables;
  * Created by dbborens on 7/23/2015.
  */
 public class DictionarySymbolTable<T> implements InstantiableSymbolTable, ResolvingSymbolTable {
+    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
+
+    private final ClassSymbolTable classSymbolTable;
+
+    public DictionarySymbolTable (ClassSymbolTable classSymbolTable) {
+        this.classSymbolTable = classSymbolTable;
+    }
+
     @Override
     public Class getInstanceClass() {
-        return null;
+        return type.getRawType();
     }
 
     @Override
     public InstantiableSymbolTable getSymbolTable(String identifier) {
-        return null;
+        return classSymbolTable.getSymbolTable(identifier);
     }
 
     @Override
     public Class getBroadClass() {
-        return null;
+        return classSymbolTable.getBroadClass();
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "A dictionary is an unstructured mapping of keys to values, " +
+                "used to define object members (variables, actions, etc).";
     }
 }

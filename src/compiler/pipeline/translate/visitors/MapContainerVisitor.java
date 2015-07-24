@@ -37,6 +37,7 @@ import org.slf4j.*;
  * Created by dbborens on 4/22/15.
  */
 public class MapContainerVisitor {
+
     private final TranslationCallback walker;
     private final Logger logger;
 
@@ -53,8 +54,9 @@ public class MapContainerVisitor {
 
         // Visit each child.
         toTranslate.getChildren()
-//                .parallel()
+
                 .forEach(child -> {
+
                     // The child's identifier is a field of this object.
                     String identifier = child.getIdentifier();
 
