@@ -48,7 +48,8 @@ public class EquilibriumBandSolver extends EquilibriumMatrixSolver {
      * {@inheritDoc}
      */
     @Override
-    public DenseVector ssSolve(Vector source, CompDiagMatrix operator, Vector initial) {
+    public DenseVector ssSolve(Vector source, CompDiagMatrix operator,
+                               Vector initial) {
         steadyState(operator);
 
         int n = operator.numRows();
@@ -57,7 +58,8 @@ public class EquilibriumBandSolver extends EquilibriumMatrixSolver {
         int[] indices = operator.getIndex();
         int superdiagonals = indices[indices.length - 1];
         int subdiagonals = Math.abs(indices[0]);
-        BandMatrix a = new BandMatrix(operator, subdiagonals, superdiagonals + subdiagonals);
+        BandMatrix a = new BandMatrix(operator, subdiagonals, superdiagonals
+                + subdiagonals);
 
         // Solve with sparse LU decomposition
         DenseMatrix b = new DenseMatrix(source);

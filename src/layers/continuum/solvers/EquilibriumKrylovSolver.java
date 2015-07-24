@@ -48,7 +48,8 @@ public class EquilibriumKrylovSolver extends EquilibriumMatrixSolver {
      * {@inheritDoc}
      */
     @Override
-    public DenseVector ssSolve(Vector source, CompDiagMatrix operator, Vector initial) {
+    public DenseVector ssSolve(Vector source, CompDiagMatrix operator,
+                               Vector initial) {
         steadyState(operator);
 
         int n = operator.numRows();
