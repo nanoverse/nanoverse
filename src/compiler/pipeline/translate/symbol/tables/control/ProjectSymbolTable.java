@@ -26,7 +26,7 @@ package compiler.pipeline.translate.symbol.tables.control;
 
 import compiler.pipeline.translate.symbol.symbols.*;
 import compiler.pipeline.translate.symbol.tables.*;
-import compiler.pipeline.translate.symbol.tables.control.arguments.*;
+import compiler.pipeline.translate.symbol.tables.geometry.GeometryDescriptorClassSymbolTable;
 import compiler.pipeline.translate.symbol.tables.io.serialize.OutputClassSymbolTable;
 import compiler.pipeline.translate.symbol.tables.layers.LayerClassSymbolTable;
 import compiler.pipeline.translate.symbol.tables.processes.ProcessClassSymbolTable;
