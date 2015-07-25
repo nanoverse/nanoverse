@@ -36,12 +36,38 @@ import java.util.function.Supplier;
 public class CoordinateSetClassSymbolTable extends ClassSymbolTable<CoordinateSet> {
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        return null;
-    }
-
-    @Override
     public String getDescription() {
         return "An unordered set of coordinates.";
     }
+
+    @Override
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
+        all(ret);
+        disc(ret);
+        custom(ret);
+        hline(ret);
+        return ret;
+    }
+
+    public void hline(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = HLineCoordSetInstSymbolTable::new;
+        ret.put("HLine", supplier);
+    }
+
+    public void custom(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = CustomCoordSetInstSymbTable::new;
+        ret.put("Custom", supplier);
+    }
+
+    public void disc(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = DiscCoordSetInstSymbolTable::new;
+        ret.put("Disc", supplier);
+    }
+
+    public void all(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = CompleteCoordSetInstSymbolTable::new;
+        ret.put("All", supplier);
+    }
+
 }

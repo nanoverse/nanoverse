@@ -29,6 +29,7 @@ import compiler.pipeline.translate.symbol.tables.*;
 import compiler.pipeline.translate.symbol.tables.geometry.GeometryDescriptorClassSymbolTable;
 import compiler.pipeline.translate.symbol.tables.io.serialize.OutputClassSymbolTable;
 import compiler.pipeline.translate.symbol.tables.layers.LayerClassSymbolTable;
+import compiler.pipeline.translate.symbol.tables.primitive.strings.StringClassSymbolTable;
 import compiler.pipeline.translate.symbol.tables.processes.ProcessClassSymbolTable;
 import control.ProcessManager;
 import control.run.Runner;
@@ -59,8 +60,17 @@ public class ProjectSymbolTable extends MapSymbolTable<Runner> {
         processes(ret);
         parameters(ret);
         geometry(ret);
-
+        version(ret);
         return ret;
+    }
+
+    private void version(HashMap<String, MemberSymbol> ret) {
+        ClassSymbolTable cst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(cst, "The version of Nanoverse for " +
+                "which this project was developed. The simulation will not " +
+                "run unless the project version matches the Nanoverse " +
+                "runtime version.");
+        ret.put("version", ms);
     }
 
     private void processes(HashMap<String, MemberSymbol> ret) {
