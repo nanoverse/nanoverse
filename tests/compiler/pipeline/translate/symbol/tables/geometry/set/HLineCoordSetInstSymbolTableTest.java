@@ -22,56 +22,36 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.tables.control;
+package compiler.pipeline.translate.symbol.tables.geometry.set;
 
 import compiler.pipeline.translate.symbol.tables.*;
-import control.*;
-import control.arguments.*;
-import control.run.Runner;
-import io.serialize.*;
-import layers.*;
-import org.junit.Test;
-import processes.NanoverseProcess;
+import control.arguments.IntegerArgument;
+import control.identifiers.Coordinate;
+import geometry.set.HorizontalLineSet;
+import org.junit.*;
 
-public class ProjectSymbolTableTest extends MapSymbolTableTest {
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+public class HLineCoordSetInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
     protected MapSymbolTable getQuery() {
-        return new ProjectSymbolTable();
+        return new HLineCoordSetInstSymbolTable();
     }
 
     @Override
     protected Class getExpectedClass() {
-        return Runner.class;
+        return HorizontalLineSet.class;
     }
 
     @Test
-    public void layerManager() throws Exception {
-        verifyReturnSymbol("layers", Layer.class);
+    public void origin() throws Exception {
+        verifyReturnSymbol("origin", Coordinate.class);
     }
 
     @Test
-    public void output() throws Exception {
-        verifyReturnSymbol("output", Serializer.class);
-    }
-
-    @Test
-    public void processes() throws Exception {
-        verifyReturnSymbol("processes", NanoverseProcess.class);
-    }
-
-    @Test
-    public void parameters() throws Exception {
-        verifyReturnSymbol("parameters", GeneralParameters.class);
-    }
-
-    @Test
-    public void geometry() throws Exception {
-        verifyReturnSymbol("geometry", GeometryDescriptor.class);
-    }
-
-    @Test
-    public void version() throws Exception {
-        verifyReturnSymbol("version", StringArgument.class);
+    public void length() throws Exception {
+        verifyReturnSymbol("length", IntegerArgument.class);
     }
 }
