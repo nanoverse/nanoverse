@@ -37,6 +37,7 @@ import test.TestBase;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -139,6 +140,17 @@ public class TetrisBoundaryTest extends TestBase {
         Coordinate input = new Coordinate(0, 0, 0);
         Coordinate expected = new Coordinate(0, 0, 0);
         doTest(input, expected);
+    }
+
+    @Test
+    public void itCanCloneItself() {
+        Lattice lattice = new RectangularLattice();
+        Shape scaledShape = new Rectangle(lattice, 4, 4);
+        Boundary clone = query.clone(scaledShape, lattice);
+
+        // Boundaries are equal based on their class, not their dependencies
+        assertEquals(clone, query);
+        assertFalse(clone == query);
     }
 
     private void doTest(Coordinate input, Coordinate expected) {
