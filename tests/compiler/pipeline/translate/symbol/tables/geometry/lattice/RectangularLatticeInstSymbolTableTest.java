@@ -22,27 +22,23 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.tables.control.arguments;
+package compiler.pipeline.translate.symbol.tables.geometry.lattice;
 
-import compiler.pipeline.translate.symbol.symbols.MemberSymbol;
-import compiler.pipeline.translate.symbol.tables.MapSymbolTable;
-import control.arguments.GeometryDescriptor;
+import compiler.pipeline.translate.symbol.tables.*;
+import geometry.lattice.RectangularLattice;
 
-import java.util.HashMap;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/21/2015.
- */
-public class GeometryDescriptorInstanceSymbolTable extends MapSymbolTable<GeometryDescriptor> {
+public class RectangularLatticeInstSymbolTableTest extends MapSymbolTableTest {
+
     @Override
-    public String getDescription() {
-        return "The top-level geometric properties of the simulation. " +
-                "Properties specified here will carry over to all layers of " +
-                "the simulation.";
+    protected MapSymbolTable getQuery() {
+        return new RectangularLatticeInstSymbolTable();
     }
-    
+
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return null;
+    protected Class getExpectedClass() {
+        return RectangularLattice.class;
     }
 }

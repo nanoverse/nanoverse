@@ -22,27 +22,37 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.tables.control.arguments;
+package compiler.pipeline.translate.symbol.tables.geometry;
 
 import compiler.pipeline.translate.symbol.tables.*;
 import control.arguments.GeometryDescriptor;
+import geometry.lattice.Lattice;
+import geometry.shape.Shape;
+import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.function.Supplier;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/21/2015.
- */
-public class GeometryDescriptorClassSymbolTable extends ClassSymbolTable<GeometryDescriptor> {
+public class GeometryDescriptorInstanceSymbolTableTest extends MapSymbolTableTest {
+
+
     @Override
-    public String getDescription() {
-        return "The top-level geometric properties of the simulation. " +
-                "Properties specified here will carry over to all layers of " +
-                "the simulation.";
+    protected MapSymbolTable getQuery() {
+        return new GeometryDescriptorInstanceSymbolTable();
     }
-    
+
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        return null;
+    protected Class getExpectedClass() {
+        return GeometryDescriptor.class;
+    }
+
+    @Test
+    public void shape() throws Exception {
+        verifyReturnSymbol("shape", Shape.class);
+    }
+
+    @Test
+    public void lattice() throws Exception {
+        verifyReturnSymbol("lattice", Lattice.class);
     }
 }
