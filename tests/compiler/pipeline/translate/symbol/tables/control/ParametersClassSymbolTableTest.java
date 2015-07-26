@@ -24,25 +24,27 @@
 
 package compiler.pipeline.translate.symbol.tables.control;
 
-import compiler.pipeline.translate.symbol.symbols.MemberSymbol;
-import compiler.pipeline.translate.symbol.tables.MapSymbolTable;
+import compiler.pipeline.translate.symbol.tables.*;
 import control.GeneralParameters;
+import org.junit.*;
 
-import java.util.HashMap;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/21/2015.
- */
-public class ParametersInstanceSymbolTable extends MapSymbolTable<GeneralParameters> {
+public class ParametersClassSymbolTableTest extends ClassSymbolTableTest {
 
     @Override
-    public String getDescription() {
-        return "System-level parameters, such as output directory and number " +
-                "of simulations to run.";
+    protected ClassSymbolTable getQuery() {
+        return new ParametersClassSymbolTable();
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
-        return null;
+    protected Class getExpectedClass() {
+        return GeneralParameters.class;
+    }
+
+    @Test
+    public void parameters() throws Exception {
+        verifyReturnSymbol("Parameters", GeneralParameters.class);
     }
 }
