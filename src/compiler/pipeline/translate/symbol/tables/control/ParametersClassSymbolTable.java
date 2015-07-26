@@ -42,6 +42,13 @@ public class ParametersClassSymbolTable extends ClassSymbolTable<GeneralParamete
 
     @Override
     protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        return null;
+        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
+        parameters(ret);
+        return ret;
+    }
+
+    private void parameters(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = ParametersInstSymbolTable::new;
+        ret.put("Parameters", supplier);
     }
 }
