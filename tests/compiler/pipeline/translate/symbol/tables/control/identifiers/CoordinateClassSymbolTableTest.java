@@ -26,28 +26,25 @@ package compiler.pipeline.translate.symbol.tables.control.identifiers;
 
 import compiler.pipeline.translate.symbol.tables.*;
 import control.identifiers.Coordinate;
+import org.junit.*;
 
-import java.util.HashMap;
-import java.util.function.Supplier;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/25/2015.
- */
-public class CoordinateClassSymbolTable extends ClassSymbolTable<Coordinate> {
+public class CoordinateClassSymbolTableTest extends ClassSymbolTableTest {
+
     @Override
-    public String getDescription() {
-        return "Coordinates represent locations in the simulation space.";
+    protected ClassSymbolTable getQuery() {
+        return new CoordinateClassSymbolTable();
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
-        coordinate(ret);
-        return ret;
+    protected Class getExpectedClass() {
+        return Coordinate.class;
     }
 
-    public void coordinate(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = CoordinateInstSymbolTable::new;
-        ret.put("Coordinate", supplier);
+    @Test
+    public void coordinate() throws Exception {
+        verifyReturnSymbol("Coordinate", Coordinate.class);
     }
 }

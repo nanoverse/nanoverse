@@ -25,29 +25,40 @@
 package compiler.pipeline.translate.symbol.tables.control.identifiers;
 
 import compiler.pipeline.translate.symbol.tables.*;
+import control.arguments.IntegerArgument;
 import control.identifiers.Coordinate;
+import org.junit.*;
 
-import java.util.HashMap;
-import java.util.function.Supplier;
+public class CoordinateInstSymbolTableTest extends MapSymbolTableTest {
 
-/**
- * Created by dbborens on 7/25/2015.
- */
-public class CoordinateClassSymbolTable extends ClassSymbolTable<Coordinate> {
     @Override
-    public String getDescription() {
-        return "Coordinates represent locations in the simulation space.";
+    protected MapSymbolTable getQuery() {
+        return new CoordinateInstSymbolTable();
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
-        coordinate(ret);
-        return ret;
+    protected Class getExpectedClass() {
+        return Coordinate.class;
     }
 
-    public void coordinate(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = CoordinateInstSymbolTable::new;
-        ret.put("Coordinate", supplier);
+    @Test
+    public void x() throws Exception {
+        verifyReturnSymbol("x", IntegerArgument.class);
+
+    }
+
+    @Test
+    public void y() throws Exception {
+        verifyReturnSymbol("y", IntegerArgument.class);
+    }
+
+    @Test
+    public void z() throws Exception {
+        verifyReturnSymbol("z", IntegerArgument.class);
+    }
+
+    @Test
+    public void flags() throws Exception {
+        verifyReturnSymbol("flags", IntegerArgument.class);
     }
 }

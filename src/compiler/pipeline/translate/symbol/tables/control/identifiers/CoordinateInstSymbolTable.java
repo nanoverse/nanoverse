@@ -24,8 +24,53 @@
 
 package compiler.pipeline.translate.symbol.tables.control.identifiers;
 
+import compiler.pipeline.translate.symbol.symbols.MemberSymbol;
+import compiler.pipeline.translate.symbol.tables.*;
+import compiler.pipeline.translate.symbol.tables.primitive.integers.IntegerClassSymbolTable;
+import control.identifiers.Coordinate;
+
+import java.util.HashMap;
+
 /**
  * Created by dbborens on 7/25/2015.
  */
-public class CoordinateInstSymbolTable {
+public class CoordinateInstSymbolTable extends MapSymbolTable<Coordinate> {
+    @Override
+    public String getDescription() {
+        return "A coordinate specifies a location in the simulation space.";
+    }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        x(ret);
+        y(ret);
+        z(ret);
+        flags(ret);
+        return ret;
+    }
+
+    private void loadSymbol(HashMap<String, MemberSymbol> ret, String letter, String applicable) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "The " + letter + " coordinate, for " + applicable + " geometries.");
+        ret.put(letter, ms);
+    }
+
+    private void x(HashMap<String, MemberSymbol> ret) {
+        loadSymbol(ret, "x", "2D and 3D");
+    }
+
+    private void y(HashMap<String, MemberSymbol> ret) {
+        loadSymbol(ret, "y", "all");
+    }
+
+    private void z(HashMap<String, MemberSymbol> ret) {
+        loadSymbol(ret, "z", "3D");
+    }
+
+    private void flags(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "LEGACY: Special flags for the coordinate. Generally not relevant.");
+        ret.put("flags", ms);
+    }
 }
