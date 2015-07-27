@@ -5,8 +5,8 @@
 
 package compiler.pipeline.translate.nodes;
 
-import compiler.pipeline.translate.symbol.tables.InstantiableSymbolTable;
-import compiler.pipeline.translate.symbol.tables.primitive.PrimitiveSymbolTable;
+import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+import compiler.pipeline.translate.symbol.primitive.PrimitiveSymbolTable;
 
 import java.util.function.Supplier;
 

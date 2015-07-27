@@ -26,7 +26,7 @@ package compiler.pipeline.translate.helpers;
 
 import compiler.pipeline.interpret.nodes.ASTNode;
 import compiler.pipeline.translate.nodes.ObjectNode;
-import compiler.pipeline.translate.symbol.tables.SymbolTable;
+import compiler.pipeline.translate.symbol.SymbolTable;
 
 /**
  * Created by dbborens on 3/2/15.

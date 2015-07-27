@@ -24,9 +24,8 @@
 
 package compiler.pipeline.translate.nodes;
 
-import compiler.pipeline.translate.symbol.tables.DictionarySymbolTable;
+import compiler.pipeline.translate.symbol.DictionarySymbolTable;
 import org.junit.*;
-import org.mockito.cglib.core.Local;
 
 import java.util.stream.Stream;
 

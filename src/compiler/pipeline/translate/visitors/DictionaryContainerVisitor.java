@@ -24,12 +24,11 @@
 
 package compiler.pipeline.translate.visitors;
 
-import com.sun.org.apache.xerces.internal.dom.ChildNode;
 import compiler.error.SyntaxError;
 import compiler.pipeline.interpret.nodes.*;
 import compiler.pipeline.translate.helpers.TranslationCallback;
 import compiler.pipeline.translate.nodes.*;
-import compiler.pipeline.translate.symbol.tables.*;
+import compiler.pipeline.translate.symbol.*;
 import org.slf4j.*;
 
 import java.util.List;
