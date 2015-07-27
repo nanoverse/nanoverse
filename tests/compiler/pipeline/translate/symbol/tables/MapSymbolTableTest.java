@@ -24,6 +24,7 @@
 
 package compiler.pipeline.translate.symbol.tables;
 
+import compiler.pipeline.translate.symbol.*;
 import org.junit.*;
 import test.TestBase;
 

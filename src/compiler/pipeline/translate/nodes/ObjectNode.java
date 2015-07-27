@@ -5,7 +5,7 @@
 
 package compiler.pipeline.translate.nodes;
 
-import compiler.pipeline.translate.symbol.tables.InstantiableSymbolTable;
+import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 
 /**
  * Created by dbborens on 2/22/15.

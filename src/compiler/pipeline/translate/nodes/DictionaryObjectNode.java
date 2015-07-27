@@ -24,8 +24,7 @@
 
 package compiler.pipeline.translate.nodes;
 
-import compiler.error.IllegalAssignmentError;
-import compiler.pipeline.translate.symbol.tables.*;
+import compiler.pipeline.translate.symbol.DictionarySymbolTable;
 
 import java.util.stream.Stream;
 

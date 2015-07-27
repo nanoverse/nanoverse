@@ -25,7 +25,7 @@
 package compiler.pipeline.translate.nodes;
 
 
-import compiler.pipeline.translate.symbol.tables.primitive.PrimitiveSymbolTable;
+import compiler.pipeline.translate.symbol.primitive.PrimitiveSymbolTable;
 
 /**
  * Created by dbborens on 4/26/15.

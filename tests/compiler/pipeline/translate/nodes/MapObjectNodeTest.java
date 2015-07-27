@@ -24,9 +24,8 @@
 
 package compiler.pipeline.translate.nodes;
 
-import compiler.pipeline.translate.symbol.tables.*;
+import compiler.pipeline.translate.symbol.*;
 import org.junit.*;
-import org.mockito.InOrder;
 
 import java.util.stream.Stream;
 
