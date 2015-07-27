@@ -22,26 +22,26 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package io.visual.glyph;
+package compiler.pipeline.translate.symbol.io.visual.color;
 
-import io.visual.highlight.*;
+import compiler.pipeline.translate.symbol.MapSymbolTable;
+import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import io.visual.color.DefaultColorManager;
+import org.junit.Before;
 
-import java.awt.*;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Integration test of the dot glyph (a filled dot at the center of the cell).
- * <p>
- * Created by dbborens on 4/3/14.
- */
-public class CrosshairsGlyphTest extends GlyphTest {
+public class IndexedColorModelInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
-    protected Glyph makeGlyph() {
-        return new CrosshairsGlyph(Color.decode("4742424"), 0.15, 1.5);
+    protected MapSymbolTable getQuery() {
+        return new IndexedColorModelInstSymbolTable();
     }
 
     @Override
-    protected String getFileName() {
-        return "crosshairsGlyph.png";
+    protected Class getExpectedClass() {
+        return DefaultColorManager.class;
     }
+
 }

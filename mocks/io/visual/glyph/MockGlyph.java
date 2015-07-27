@@ -25,6 +25,7 @@
 package io.visual.glyph;
 
 import control.identifiers.Coordinate;
+import io.visual.highlight.Glyph;
 
 import java.awt.*;
 

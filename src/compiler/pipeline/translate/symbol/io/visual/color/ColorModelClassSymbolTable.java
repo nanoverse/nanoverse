@@ -22,10 +22,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.io.visual;
+package compiler.pipeline.translate.symbol.io.visual.color;
 
 import compiler.pipeline.translate.symbol.*;
-import io.visual.Visualization;
+import io.visual.color.ColorManager;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -33,37 +33,36 @@ import java.util.function.Supplier;
 /**
  * Created by dbborens on 7/27/2015.
  */
-public class VisualizationClassSymbolTable extends ClassSymbolTable<Visualization> {
+public class ColorModelClassSymbolTable extends ClassSymbolTable<ColorManager> {
 
     @Override
     public String getDescription() {
-        return "A visualization is a graphical representation of some aspect " +
-                "of the state of the simulation. Visualizations can capture " +
-                "the state at multiple times per simulation, often creating " +
-                "multiple images in the process.";
+        return "Color models specify the mapping between simulation state " +
+                "and color in a visualization.";
     }
 
     @Override
     protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
-        map(ret);
-        kymograph(ret);
-        mock(ret);
+        indexed(ret);
+        surfaceGrowth(ret);
+        continuum(ret);
         return ret;
     }
 
-    private void map(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier supplier = MapVisualizationInstSymbolTable::new;
-        ret.put("Map", supplier);
+    private void continuum(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = ContinuumColorModelInstSymbolTable::new;
+        ret.put("Continuum", supplier);
+
     }
 
-    private void kymograph(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier supplier = KymographInstSymbolTable::new;
-        ret.put("Kymograph", supplier);
+    private void surfaceGrowth(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = SurfaceColorModelInstSymbolTable::new;
+        ret.put("SurfaceGrowth", supplier);
     }
 
-    private void mock(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier supplier = MockVisualizationInstSymbolTable::new;
-        ret.put("Mock", supplier);
+    private void indexed(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = IndexedColorModelInstSymbolTable::new;
+        ret.put("Indexed", supplier);
     }
 }

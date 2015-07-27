@@ -22,7 +22,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package io.visual.glyph;
+package io.visual.highlight;
 
 import control.identifiers.Coordinate;
 import io.visual.map.PixelTranslator;
