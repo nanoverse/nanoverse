@@ -25,6 +25,7 @@
 package io.visual.glyph;
 
 import factory.io.visual.glyph.GlyphFactory;
+import io.visual.highlight.*;
 import org.dom4j.Element;
 import test.EslimeTestCase;
 

@@ -22,17 +22,25 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package io.visual.legacy;
+package compiler.pipeline.translate.symbol.io.visual.highlight;
+
+import compiler.pipeline.translate.symbol.*;
+import io.visual.highlight.HighlightManager;
+
+import java.util.HashMap;
+import java.util.function.Supplier;
 
 /**
- * Doesn't currently do anything yet because this is handled
- * in an ad-hoc way. However, in the long run, this will be
- * used for dispatching postprocess writers to create image
- * sequences and such.
- *
- * @author dbborens
+ * Created by dbborens on 7/27/2015.
  */
-@Deprecated
-public interface LegacyVisualization {
+public class HighlightManagerClassSymbolTable extends ClassSymbolTable<HighlightManager> {
+    @Override
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+        return null;
+    }
 
+    @Override
+    public String getDescription() {
+        return null;
+    }
 }

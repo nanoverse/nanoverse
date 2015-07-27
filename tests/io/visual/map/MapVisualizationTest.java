@@ -40,7 +40,7 @@ import io.deserialize.MockCoordinateDeindexer;
 import io.visual.VisualizationProperties;
 import io.visual.color.ColorManager;
 import io.visual.color.DefaultColorManager;
-import io.visual.glyph.Glyph;
+import io.visual.highlight.Glyph;
 import io.visual.glyph.GlyphTest;
 import io.visual.glyph.MockGlyph;
 import io.visual.highlight.HighlightManager;

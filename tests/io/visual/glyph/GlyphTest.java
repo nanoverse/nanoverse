@@ -36,7 +36,7 @@ import io.deserialize.MockCoordinateDeindexer;
 import io.visual.VisualizationProperties;
 import io.visual.color.ColorManager;
 import io.visual.color.DefaultColorManager;
-import io.visual.highlight.HighlightManager;
+import io.visual.highlight.*;
 import io.visual.map.MapVisualization;
 import layers.LightweightSystemState;
 import layers.SystemState;
