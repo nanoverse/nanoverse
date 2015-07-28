@@ -22,49 +22,36 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.io.visual;
+package compiler.pipeline.translate.symbol.io.visual.highlight;
 
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
-import control.arguments.IntegerArgument;
-import io.visual.color.ColorManager;
-import io.visual.highlight.*;
-import io.visual.kymograph.Kymograph;
+import control.arguments.*;
+import io.visual.highlight.DotGlyph;
 import org.junit.*;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class KymographInstSymbolTableTest extends MapSymbolTableTest {
+public class DotGlyphInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
     protected MapSymbolTable getQuery() {
-        return new KymographInstSymbolTable();
+        return new DotGlyphInstSymbolTable();
     }
 
     @Override
     protected Class getExpectedClass() {
-        return Kymograph.class;
+        return DotGlyph.class;
     }
 
     @Test
-    public void highlights() throws Exception {
-        verifyReturnSymbol("highlights", Highlight.class);
+    public void size() throws Exception {
+        verifyReturnSymbol("size", DoubleArgument.class);
     }
 
     @Test
     public void color() throws Exception {
-        verifyReturnSymbol("color", ColorManager.class);
+        verifyReturnSymbol("color", StringArgument.class);
     }
-
-    @Test
-    public void outline() throws Exception {
-        verifyReturnSymbol("outline", IntegerArgument.class);
-    }
-
-    @Test
-    public void edge() throws Exception {
-        verifyReturnSymbol("edge", IntegerArgument.class);
-    }
-
 }
