@@ -25,6 +25,8 @@
 package compiler.pipeline.translate.symbol.layers;
 
 import compiler.pipeline.translate.symbol.*;
+import compiler.pipeline.translate.symbol.layers.agent.AgentLayerInstSymbolTable;
+import compiler.pipeline.translate.symbol.layers.continuum.ContinuumLayerInstSymbolTable;
 import layers.Layer;
 
 import java.util.HashMap;
@@ -48,6 +50,19 @@ public class LayerClassSymbolTable extends ClassSymbolTable<Layer> {
 
     @Override
     protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        return null;
+        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
+        continuumLayer(ret);
+        agentLayer(ret);
+        return ret;
+    }
+
+    private void continuumLayer(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = ContinuumLayerInstSymbolTable::new;
+        ret.put("ContinuumLayer", supplier);
+    }
+
+    private void agentLayer(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = AgentLayerInstSymbolTable::new;
+        ret.put("AgentLayer", supplier);
     }
 }
