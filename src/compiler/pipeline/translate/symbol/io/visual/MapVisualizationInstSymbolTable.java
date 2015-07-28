@@ -26,7 +26,7 @@ package compiler.pipeline.translate.symbol.io.visual;
 
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.io.visual.color.ColorModelClassSymbolTable;
-import compiler.pipeline.translate.symbol.io.visual.highlight.HighlightManagerClassSymbolTable;
+import compiler.pipeline.translate.symbol.io.visual.highlight.HighlightClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
 import io.visual.map.MapVisualization;
 
@@ -54,7 +54,8 @@ public class MapVisualizationInstSymbolTable extends MapSymbolTable<MapVisualiza
     }
 
     public void highlights(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new HighlightManagerClassSymbolTable();
+        ClassSymbolTable cst = new HighlightClassSymbolTable();
+        ResolvingSymbolTable rst = new ListSymbolTable<>(cst);
         MemberSymbol ms = new MemberSymbol(rst, "Specifies which highlight " +
                 "channels to visualize, if any, and how they should be " +
                 "visualized.");

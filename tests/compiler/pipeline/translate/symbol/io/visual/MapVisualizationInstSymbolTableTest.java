@@ -28,7 +28,7 @@ import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import control.arguments.IntegerArgument;
 import io.visual.color.ColorManager;
-import io.visual.highlight.HighlightManager;
+import io.visual.highlight.*;
 import io.visual.map.MapVisualization;
 import org.junit.*;
 
@@ -49,7 +49,7 @@ public class MapVisualizationInstSymbolTableTest extends MapSymbolTableTest {
 
     @Test
     public void highlights() throws Exception {
-        verifyReturnSymbol("highlights", HighlightManager.class);
+        verifyReturnSymbol("highlights", Highlight.class);
     }
 
     @Test

@@ -24,23 +24,23 @@
 
 package compiler.pipeline.translate.symbol.io.visual.highlight;
 
-import compiler.pipeline.translate.symbol.*;
-import io.visual.highlight.HighlightManager;
+import compiler.pipeline.translate.symbol.ClassSymbolTable;
+import compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
+import io.visual.highlight.Highlight;
 
-import java.util.HashMap;
-import java.util.function.Supplier;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/27/2015.
- */
-public class HighlightManagerClassSymbolTable extends ClassSymbolTable<HighlightManager> {
+public class HighlightClassSymbolTableTest extends ClassSymbolTableTest {
+
+
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        return null;
+    protected ClassSymbolTable getQuery() {
+        return new HighlightClassSymbolTable();
     }
 
     @Override
-    public String getDescription() {
-        return null;
+    protected Class getExpectedClass() {
+        return Highlight.class;
     }
 }
