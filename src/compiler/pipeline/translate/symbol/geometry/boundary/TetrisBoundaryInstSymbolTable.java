@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.boundary;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.boundaries.TetrisBoundary;
 
@@ -37,5 +39,10 @@ public class TetrisBoundaryInstSymbolTable extends MapSymbolTable<TetrisBoundary
                 "It has a hard boundary on the bottom edge, a halting " +
                 "boundary on the top edge, and periodic boundaries on the " +
                 "left and right edges.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

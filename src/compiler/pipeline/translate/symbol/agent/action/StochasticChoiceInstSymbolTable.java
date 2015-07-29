@@ -25,6 +25,8 @@
 package compiler.pipeline.translate.symbol.agent.action;
 
 import agent.action.StochasticChoice;
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.agent.action.stochastic.WeightedOptionClassSymbolTable;
 
@@ -53,5 +55,10 @@ public class StochasticChoiceInstSymbolTable extends ActionInstSymbolTable<Stoch
         MemberSymbol ms = new MemberSymbol(lst, "List of options from which " +
                 "to select.");
         ret.put("options", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

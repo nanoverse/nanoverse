@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
 import control.arguments.IntegerArgument;
@@ -57,5 +59,10 @@ public class HighlightWriterInstSymbolTable extends MapSymbolTable<HighlightWrit
         MemberSymbol ms = new MemberSymbol(lst, "List of channels whose " +
                 "state is to be monitored and recorded.");
         ret.put("channels", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

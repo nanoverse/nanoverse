@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.layers.continuum;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.layers.LayerInstSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.booleans.BooleanClassSymbolTable;
@@ -63,5 +65,10 @@ public class ContinuumLayerInstSymbolTable extends LayerInstSymbolTable<Continuu
                 "operations are not needed, disabling them can speed up " +
                 "simulation updates dramatically.");
         ret.put("disableOperators", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

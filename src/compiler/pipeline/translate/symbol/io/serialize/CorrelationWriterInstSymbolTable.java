@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
@@ -64,5 +66,10 @@ public class CorrelationWriterInstSymbolTable extends MapSymbolTable<Correlation
         ResolvingSymbolTable rst = new StringClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The filename for the report.");
         ret.put("filename", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

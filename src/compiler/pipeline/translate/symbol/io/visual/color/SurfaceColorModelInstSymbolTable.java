@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.visual.color;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import io.visual.color.SurfaceGrowthColorManager;
@@ -72,5 +74,10 @@ public class SurfaceColorModelInstSymbolTable extends MapSymbolTable<SurfaceGrow
                 "luminance of the base model should be scaled if a site has " +
                 "an adjacent vacancy.");
         ret.put("luminanceScale", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

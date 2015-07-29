@@ -25,6 +25,8 @@
 package compiler.pipeline.translate.symbol;
 
 import com.google.common.reflect.TypeToken;
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 
 /**
  * Represents an unstructured mapping of keys to values. Used for user-
@@ -44,6 +46,11 @@ public class DictionarySymbolTable<T> implements InstantiableSymbolTable, Resolv
     @Override
     public Class getInstanceClass() {
         return type.getRawType();
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 
     @Override

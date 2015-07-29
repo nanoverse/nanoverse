@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.control.identifiers;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
 import control.identifiers.Coordinate;
@@ -71,5 +73,10 @@ public class CoordinateInstSymbolTable extends MapSymbolTable<Coordinate> {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "LEGACY: Special flags for the coordinate. Generally not relevant.");
         ret.put("flags", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.text.IndividualHaltWriter;
 
@@ -33,6 +35,11 @@ import io.serialize.text.IndividualHaltWriter;
 public class IndividualHaltWriterInstSymbolTable extends MapSymbolTable<IndividualHaltWriter> {
     @Override
     public String getDescription() {
+        return null;
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
         return null;
     }
 }

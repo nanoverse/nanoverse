@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.geometry.lattice.LatticeClassSymbolTable;
 import compiler.pipeline.translate.symbol.geometry.shape.ShapeClassSymbolTable;
@@ -67,5 +69,10 @@ public class GeometryDescriptorInstanceSymbolTable extends MapSymbolTable<Geomet
                 "use a TriangularLattice with a Rectangle shape, but not " +
                 "with a Cuboid.");
         ret.put("shape", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

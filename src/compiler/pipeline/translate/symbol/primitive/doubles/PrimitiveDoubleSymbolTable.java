@@ -24,6 +24,7 @@
 
 package compiler.pipeline.translate.symbol.primitive.doubles;
 
+import compiler.pipeline.instantiate.Loader;
 import compiler.pipeline.interpret.nodes.ASTPrimitiveNode;
 import compiler.pipeline.translate.nodes.*;
 import compiler.pipeline.translate.symbol.primitive.PrimitiveSymbolTable;
@@ -47,5 +48,10 @@ public class PrimitiveDoubleSymbolTable extends PrimitiveSymbolTable<Double> imp
     @Override
     public Class getInstanceClass() {
         return ConstantDouble.class;
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

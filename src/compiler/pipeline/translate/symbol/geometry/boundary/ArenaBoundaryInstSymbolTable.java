@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.boundary;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.boundaries.Arena;
 
@@ -38,5 +40,10 @@ public class ArenaBoundaryInstSymbolTable extends MapSymbolTable<Arena> {
                 "but any agent that ends an event over the boundary is " +
                 "removed from the system. For the equivalent behavior in a " +
                 "CONTINUUM layer, see the Absorbing boundary.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

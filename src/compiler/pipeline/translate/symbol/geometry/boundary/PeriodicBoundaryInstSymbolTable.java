@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.boundary;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.boundaries.Periodic;
 
@@ -39,5 +41,10 @@ public class PeriodicBoundaryInstSymbolTable extends MapSymbolTable<Periodic> {
                 "dimension (ie, Line, Rectangle, Cuboid). Periodic " +
                 "boundaries are compatible with both continuum and agent " +
                 "layers.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

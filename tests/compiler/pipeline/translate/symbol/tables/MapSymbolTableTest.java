@@ -24,6 +24,7 @@
 
 package compiler.pipeline.translate.symbol.tables;
 
+import compiler.pipeline.instantiate.Loader;
 import compiler.pipeline.translate.symbol.*;
 import org.junit.*;
 import test.TestBase;
@@ -62,5 +63,13 @@ public abstract class MapSymbolTableTest extends TestBase {
     @Test
     public void descriptionIsNotNull() {
         assertNotNull(query.getDescription());
+    }
+
+    @Test
+    public void verifyLoaderClass() {
+        Loader loader = query.getLoader(null);
+        Class expected = getExpectedClass();
+        Class actual = loader.getInstanceClass();
+        assertEquals(expected, actual);
     }
 }

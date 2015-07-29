@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.control;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.geometry.GeometryDescriptorClassSymbolTable;
 import compiler.pipeline.translate.symbol.io.serialize.OutputClassSymbolTable;
@@ -109,4 +111,8 @@ public class ProjectSymbolTable extends MapSymbolTable<Runner> {
         ret.put("layers", ms);
     }
 
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
+    }
 }

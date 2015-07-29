@@ -25,6 +25,8 @@
 package compiler.pipeline.translate.symbol.agent.action;
 
 import agent.action.NullAction;
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 
 /**
  * Created by dbborens on 7/22/2015.
@@ -33,5 +35,10 @@ public class NullActionInstSymbolTable extends ActionInstSymbolTable<NullAction>
     @Override
     public String getDescription() {
         return "Doesn't do anything.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

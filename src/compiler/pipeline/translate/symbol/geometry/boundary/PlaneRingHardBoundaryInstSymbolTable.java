@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.boundary;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.boundaries.PlaneRingHard;
 
@@ -38,5 +40,10 @@ public class PlaneRingHardBoundaryInstSymbolTable extends MapSymbolTable<PlaneRi
                 "and periodic boundary conditions left and right. For " +
                 "equivalent behavior in CONTINUUM layers, see the " +
                 "PlaneRingReflecting boundary.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

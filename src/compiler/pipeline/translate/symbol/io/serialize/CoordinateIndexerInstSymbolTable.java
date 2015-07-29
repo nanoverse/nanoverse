@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.text.CoordinateIndexer;
 
@@ -38,5 +40,10 @@ public class CoordinateIndexerInstSymbolTable extends MapSymbolTable<CoordinateI
                 "integer index. The indexing algorithm used is common to all " +
                 "reports and is used internally within Nanoverse " +
                 "simulations. One file per instance.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

@@ -25,6 +25,8 @@
 package compiler.pipeline.translate.symbol.agent.targets;
 
 import agent.targets.TargetOccupiedNeighbors;
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 
 /**
  * Created by dbborens on 7/23/2015.
@@ -33,5 +35,10 @@ public class TargetOccupiedNeighborsInstSymbolTable extends TargetRuleInstSymbol
     @Override
     public String getDescription() {
         return "Targets only neighboring locations that contain agents.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

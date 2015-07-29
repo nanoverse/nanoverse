@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.visual;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.io.visual.color.ColorModelClassSymbolTable;
 import compiler.pipeline.translate.symbol.io.visual.highlight.HighlightClassSymbolTable;
@@ -83,5 +85,10 @@ public class MapVisualizationInstSymbolTable extends MapSymbolTable<MapVisualiza
                 "as a whole).");
         ret.put("edge", ms);
 
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.shape;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import geometry.shape.Cuboid;
 
@@ -57,5 +59,10 @@ public class CuboidInstSymbolTable extends ShapeInstSymbolTable<Cuboid> {
 
     private void height(HashMap<String, MemberSymbol> ret) {
         loadDimension(ret, "height", "cuboid");
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.visual;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.visual.MockVisualization;
 
@@ -34,5 +36,10 @@ public class MockVisualizationInstSymbolTable extends MapSymbolTable<MockVisuali
     @Override
     public String getDescription() {
         return "LEGACY: Mock visualization used in some legacy tests.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

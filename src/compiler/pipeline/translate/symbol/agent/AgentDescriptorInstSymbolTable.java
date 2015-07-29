@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.agent;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.agent.action.ActionClassSymbolTable;
 import compiler.pipeline.translate.symbol.layers.continuum.ReactionClassSymbolTable;
@@ -91,4 +93,8 @@ public class AgentDescriptorInstSymbolTable extends MapSymbolTable<CellDescripto
         ret.put("class", ms);
     }
 
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
+    }
 }

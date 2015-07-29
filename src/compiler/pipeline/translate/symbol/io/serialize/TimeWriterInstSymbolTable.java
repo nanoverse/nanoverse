@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.binary.TimeWriter;
 
@@ -36,5 +38,10 @@ public class TimeWriterInstSymbolTable extends MapSymbolTable<TimeWriter> {
         return "Creates a binary file capturing the number of simulation " +
                 "state updates and the corresponding simulation time. Used " +
                 "in creating visualizations.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

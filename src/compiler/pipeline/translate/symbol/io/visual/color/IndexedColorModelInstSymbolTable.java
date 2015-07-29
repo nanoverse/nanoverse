@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.visual.color;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.visual.color.DefaultColorManager;
 
@@ -35,5 +37,10 @@ public class IndexedColorModelInstSymbolTable extends MapSymbolTable<DefaultColo
     public String getDescription() {
         return "The indexed color model has a specific color associated with " +
                 "each given cell state (class). It is the default color model.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

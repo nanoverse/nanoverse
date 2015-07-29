@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.discrete.check;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
@@ -53,5 +55,10 @@ public class CheckForThresholdOccupancyInstSymbolTable extends DiscreteProcessIn
         ResolvingSymbolTable rst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Maximum occupancy before halt is triggered.");
         ret.put("threshold", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

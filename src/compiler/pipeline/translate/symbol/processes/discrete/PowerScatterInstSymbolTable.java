@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.discrete;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.agent.AgentDescriptorClassSymbolTable;
@@ -60,5 +62,10 @@ public class PowerScatterInstSymbolTable extends DiscreteProcessInstSymbolTable<
         ResolvingSymbolTable rst = new AgentDescriptorClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "A template for the agents to be scattered by this process.");
         ret.put("description", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

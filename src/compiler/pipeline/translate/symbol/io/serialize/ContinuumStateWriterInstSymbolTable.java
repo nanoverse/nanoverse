@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.binary.ContinuumStateWriter;
 
@@ -38,5 +40,10 @@ public class ContinuumStateWriterInstSymbolTable extends MapSymbolTable<Continuu
                 "ContinuumStateWriter produces two files per continuum layer " +
                 "per simulation instance: one representing the overall state " +
                 "of the layer, and one capturing extremum metadata.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

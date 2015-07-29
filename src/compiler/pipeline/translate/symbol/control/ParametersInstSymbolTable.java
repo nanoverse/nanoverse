@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.control;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.booleans.BooleanClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
@@ -90,5 +92,10 @@ public class ParametersInstSymbolTable extends MapSymbolTable<GeneralParameters>
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Maximum number of times to update the simulation state.");
         ret.put("maxStep", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.discrete.check;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
@@ -61,5 +63,10 @@ public class CheckForDominationInstSymbolTable extends DiscreteProcessInstSymbol
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Cell class to check for domination.");
         ret.put("target", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

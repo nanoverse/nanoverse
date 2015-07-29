@@ -24,6 +24,7 @@
 
 package compiler.pipeline.translate.symbol.primitive.strings;
 
+import compiler.pipeline.instantiate.Loader;
 import compiler.pipeline.interpret.nodes.ASTPrimitiveNode;
 import compiler.pipeline.translate.nodes.*;
 import compiler.pipeline.translate.symbol.primitive.PrimitiveSymbolTable;
@@ -45,6 +46,11 @@ public class StringInstSymbolTable extends PrimitiveSymbolTable<String> {
     @Override
     public Class getInstanceClass() {
         return String.class;
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 
 }

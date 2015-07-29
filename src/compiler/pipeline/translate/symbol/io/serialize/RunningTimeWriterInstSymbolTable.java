@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.text.RunningTimeWriter;
 
@@ -36,5 +38,10 @@ public class RunningTimeWriterInstSymbolTable extends MapSymbolTable<RunningTime
         return "Produces a tab-separated text file reporting the simulation " +
                 "and wall-clock running time since the last time the file " +
                 "was updated. Used to track performance.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

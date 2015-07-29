@@ -25,6 +25,8 @@
 package compiler.pipeline.translate.symbol.agent.action;
 
 import agent.action.AdjustHealth;
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
@@ -51,5 +53,10 @@ public class AdjustHealthInstSymbolTable extends ActionInstSymbolTable<AdjustHea
         ResolvingSymbolTable rst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Amount by which to adjust the health of the agent.");
         ret.put("delta", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

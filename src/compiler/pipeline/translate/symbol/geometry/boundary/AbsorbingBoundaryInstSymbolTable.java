@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.boundary;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.boundaries.Absorbing;
 
@@ -36,5 +38,10 @@ public class AbsorbingBoundaryInstSymbolTable extends MapSymbolTable<Absorbing> 
         return "The absorbing boundary is for CONTINUUM layers only. It " +
                 "holds the boundary value constantly at zero. For equivalent " +
                 "behavior in AGENT layers, see the Arena boundary.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

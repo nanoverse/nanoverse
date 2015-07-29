@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.interactive.ProgressReporter;
 
@@ -37,5 +39,10 @@ public class ProgressReporterInstSymbolTable extends MapSymbolTable<ProgressRepo
                 "Nanoverse's state and the progress of the simulation. This " +
                 "information should be gradually replaced by slf4j logging " +
                 "with several levels of verboseness.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

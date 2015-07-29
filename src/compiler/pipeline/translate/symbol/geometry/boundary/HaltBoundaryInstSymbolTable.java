@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.boundary;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.boundaries.HaltBoundary;
 
@@ -35,5 +37,10 @@ public class HaltBoundaryInstSymbolTable extends MapSymbolTable<HaltBoundary> {
     public String getDescription() {
         return "The Halt boundary is for AGENT layers only. If an agent " +
                 "reaches the boundary, the simulation halts.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

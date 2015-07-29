@@ -24,10 +24,14 @@
 
 package compiler.pipeline.translate.symbol;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
+
 /**
  * Created by dbborens on 3/11/15.
  */
 public interface InstantiableSymbolTable extends SymbolTable {
 
     public Class getInstanceClass();
+    public Loader getLoader(ObjectNode node);
 }

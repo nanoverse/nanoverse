@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.layers.continuum;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import layers.continuum.solvers.EquilibriumSolver;
 
@@ -36,5 +38,10 @@ public class EquilibriumSolverInstSymbolTable extends MapSymbolTable<Equilibrium
         return "An equilibrium solver uses a matrix solver to find the state " +
                 "of the system at equilibrium (i.e., after an infinite " +
                 "amount of time).";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }
