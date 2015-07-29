@@ -35,12 +35,57 @@ import java.util.function.Supplier;
  */
 public class BoundaryClassSymbolTable extends ClassSymbolTable<Boundary> {
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        return null;
+    public String getDescription() {
+        return "The Boundary object specifies what occurs around the " +
+                "perimeter of the simulation arena. Each layer can have a different boundary.";
     }
 
     @Override
-    public String getDescription() {
-        return null;
+    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
+        arena(ret);
+        planeRingHard(ret);
+        planeRingReflecting(ret);
+        absorbing(ret);
+        periodic(ret);
+        halt(ret);
+        tetris(ret);
+        return ret;
     }
+
+    public void arena(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = ArenaBoundaryInstSymbolTable::new;
+        ret.put("Arena", supplier);
+    }
+
+    public void planeRingHard(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = PlaneRingHardBoundaryInstSymbolTable::new;
+        ret.put("PlaneRingHard", supplier);
+    }
+
+    public void planeRingReflecting(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = PlaneRingReflectingInstSymbolTable::new;
+        ret.put("PlaneRingReflecting", supplier);
+    }
+
+    public void absorbing(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = AbsorbingBoundaryInstSymbolTable::new;
+        ret.put("Absorbing", supplier);
+    }
+
+    public void periodic(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = PeriodicBoundaryInstSymbolTable::new;
+        ret.put("Periodic", supplier);
+    }
+
+    public void halt(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = HaltBoundaryInstSymbolTable::new;
+        ret.put("Halt", supplier);
+    }
+
+    public void tetris(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = TetrisBoundaryInstSymbolTable::new;
+        ret.put("Tetris", supplier);
+    }
+
 }
