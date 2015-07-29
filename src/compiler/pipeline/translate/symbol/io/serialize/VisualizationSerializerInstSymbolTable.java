@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.io.visual.VisualizationClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
@@ -61,4 +63,8 @@ public class VisualizationSerializerInstSymbolTable extends MapSymbolTable<Visua
         ret.put("prefix", ms);
     }
 
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
+    }
 }

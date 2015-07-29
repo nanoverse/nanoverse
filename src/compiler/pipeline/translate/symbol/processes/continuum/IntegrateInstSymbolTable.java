@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.continuum;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import processes.continuum.Integrate;
@@ -51,5 +53,10 @@ public class IntegrateInstSymbolTable extends ContinuumProcessInstSymbolTable<In
         ResolvingSymbolTable rst = new StringClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Continuum layer to integrate forward.");
         ret.put("layer", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

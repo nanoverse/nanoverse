@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.booleans.BooleanClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
@@ -63,5 +65,10 @@ public class ContinuumHistoWriterInstSymbolTable extends MapSymbolTable<Continuu
                 "are occupied on the cell layer will be included in the " +
                 "histogram; if false, all sites are included.");
         ret.put("occupied", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

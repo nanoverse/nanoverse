@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.layers.continuum;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import layers.continuum.solvers.NonEquilibriumSolver;
 
@@ -35,5 +37,10 @@ public class NonEquilibriumSolverInstSymbolTable extends MapSymbolTable<NonEquil
     public String getDescription() {
         return "A non-equilibrium solver integrates the state of the " +
                 "continuum forward by a specified amount of time.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

@@ -22,25 +22,12 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.agent.targets;
-
-import agent.targets.*;
-import compiler.pipeline.instantiate.Loader;
-import compiler.pipeline.translate.nodes.ObjectNode;
+package compiler.pipeline.instantiate;
 
 /**
- * Created by dbborens on 7/23/2015.
+ * Created by dbborens on 7/29/2015.
  */
-public class TargetCallerInstSymbolTable extends TargetRuleInstSymbolTable<TargetCaller> {
-    @Override
-    public String getDescription() {
-        return "Targets the entity that caused the action to be triggered. " +
-                "(Note that, if the action was triggered by a global " +
-                "process, the caller is null.)";
-    }
+public interface Factory<T> {
 
-    @Override
-    public Loader getLoader(ObjectNode node) {
-        return null;
-    }
+    T build();
 }

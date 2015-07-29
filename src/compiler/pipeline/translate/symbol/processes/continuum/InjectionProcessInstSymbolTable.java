@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.continuum;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
@@ -61,5 +63,10 @@ public class InjectionProcessInstSymbolTable extends ContinuumProcessInstSymbolT
         ResolvingSymbolTable rst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Value to inject at each affected site.");
         ret.put("value", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

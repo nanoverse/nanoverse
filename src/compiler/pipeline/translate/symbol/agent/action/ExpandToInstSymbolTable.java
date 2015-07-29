@@ -25,6 +25,8 @@
 package compiler.pipeline.translate.symbol.agent.action;
 
 import agent.action.ExpandTo;
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.agent.targets.TargetRuleClassSymbolTable;
@@ -73,5 +75,10 @@ public class ExpandToInstSymbolTable extends ActionInstSymbolTable<ExpandTo> {
         MemberSymbol ms = new MemberSymbol(rst, "Rule(s) limiting valid " +
                 "targets for this action.");
         ret.put("target", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

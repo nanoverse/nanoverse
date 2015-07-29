@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.discrete;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import processes.discrete.GeneralNeighborSwap;
 
@@ -41,5 +43,10 @@ public class GeneralNeighborSwapInstSymbolTable extends DiscreteProcessInstSymbo
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return super.resolveMembers();
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

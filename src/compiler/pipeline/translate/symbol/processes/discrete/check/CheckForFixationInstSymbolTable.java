@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.discrete.check;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.processes.discrete.DiscreteProcessInstSymbolTable;
 import processes.discrete.check.CheckForFixation;
@@ -42,5 +44,10 @@ public class CheckForFixationInstSymbolTable extends DiscreteProcessInstSymbolTa
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         return super.resolveMembers();
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

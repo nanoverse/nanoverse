@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.visual.highlight;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
@@ -60,5 +62,10 @@ public class DotGlyphInstSymbolTable extends MapSymbolTable<DotGlyph> {
         ResolvingSymbolTable rst = new StringClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Hexadecimal representation of the dot's color (RRGGBB).");
         ret.put("color", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

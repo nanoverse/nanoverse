@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.visual.color;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.booleans.BooleanClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
@@ -107,5 +109,10 @@ public class ContinuumColorModelInstSymbolTable extends MapSymbolTable<Normalize
                 "composited by averaging over their luminance; if false, the " +
                 "product of the luminance is used.");
         ret.put("useLuminanceAverage", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

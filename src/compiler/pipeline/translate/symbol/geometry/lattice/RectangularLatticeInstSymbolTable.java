@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.lattice;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.lattice.RectangularLattice;
 
@@ -34,5 +36,10 @@ public class RectangularLatticeInstSymbolTable extends MapSymbolTable<Rectangula
     @Override
     public String getDescription() {
         return "A rectangular lattice is a 2D lattice with 4 neighbors per site.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

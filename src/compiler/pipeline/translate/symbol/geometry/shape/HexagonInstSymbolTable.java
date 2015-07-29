@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.shape;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import geometry.shape.Hexagon;
 
@@ -49,5 +51,10 @@ public class HexagonInstSymbolTable extends ShapeInstSymbolTable<Hexagon> {
 
     private void radius(HashMap<String, MemberSymbol> ret) {
         loadDimension(ret, "radius", "hexagon. Radius=0 corresponds to a single point");
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

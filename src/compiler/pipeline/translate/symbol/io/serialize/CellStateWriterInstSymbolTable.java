@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.text.LegacyCellStateWriter;
 
@@ -38,5 +40,10 @@ public class CellStateWriterInstSymbolTable extends MapSymbolTable<LegacyCellSta
                 "vector index is recorded by the CoordinateIndexer output " +
                 "mode. This output is used in the generation of map " +
                 "visualizations.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

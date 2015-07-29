@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.visual.highlight;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
@@ -69,5 +71,10 @@ public class BullseyeGlyphInstSymbolTable extends MapSymbolTable<BullseyeGlyph> 
         MemberSymbol ms = new MemberSymbol(rst, "Secondary color of the " +
                 "bullseye, represented as a hexidecimal RGB code (RRGGBB).");
         ret.put("secondaryColor", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

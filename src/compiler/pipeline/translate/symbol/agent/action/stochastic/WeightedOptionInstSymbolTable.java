@@ -25,6 +25,9 @@
 package compiler.pipeline.translate.symbol.agent.action.stochastic;
 
 import agent.action.stochastic.WeightedOption;
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.agent.action.stochastic.WeightedOptionLoader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.agent.action.ActionClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
@@ -59,5 +62,10 @@ public class WeightedOptionInstSymbolTable extends MapSymbolTable<WeightedOption
         ResolvingSymbolTable rst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The relative weighting of this option.");
         ret.put("weight", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return new WeightedOptionLoader(node);
     }
 }

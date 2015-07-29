@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.text.HaltTimeWriter;
 
@@ -36,5 +38,10 @@ public class HaltTimeWriterInstSymbolTable extends MapSymbolTable<HaltTimeWriter
         return "HaltTimeWriter creates a single, tab-delimited text file, " +
                 "with each row containing the (simulation) time and cause of " +
                 "simulation halt for each instance run.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

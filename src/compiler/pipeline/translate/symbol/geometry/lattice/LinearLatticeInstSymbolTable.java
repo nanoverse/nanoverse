@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.lattice;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.lattice.LinearLattice;
 
@@ -34,5 +36,10 @@ public class LinearLatticeInstSymbolTable extends MapSymbolTable<LinearLattice> 
     @Override
     public String getDescription() {
         return "A linear lattice is a 1D lattice with two neighbors per site.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

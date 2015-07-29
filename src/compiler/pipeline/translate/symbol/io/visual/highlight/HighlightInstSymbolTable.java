@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.visual.highlight;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
 import io.visual.highlight.Highlight;
@@ -59,5 +61,10 @@ public class HighlightInstSymbolTable extends MapSymbolTable<Highlight> {
         ResolvingSymbolTable rst = new GlyphClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The glyph with which to highlight the channel.");
         ret.put("glyph", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

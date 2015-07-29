@@ -22,25 +22,29 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.agent.targets;
+package compiler.pipeline.instantiate.agent.action.stochastic;
 
-import agent.targets.*;
-import compiler.pipeline.instantiate.Loader;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import agent.action.ActionDescriptor;
+import agent.action.stochastic.WeightedOption;
+import compiler.pipeline.instantiate.Factory;
 
 /**
- * Created by dbborens on 7/23/2015.
+ * Created by dbborens on 7/29/2015.
  */
-public class TargetCallerInstSymbolTable extends TargetRuleInstSymbolTable<TargetCaller> {
-    @Override
-    public String getDescription() {
-        return "Targets the entity that caused the action to be triggered. " +
-                "(Note that, if the action was triggered by a global " +
-                "process, the caller is null.)";
+public class WeightedOptionFactory implements Factory<WeightedOption> {
+
+    private ActionDescriptor action;
+    private double weight;
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
-    @Override
-    public Loader getLoader(ObjectNode node) {
-        return null;
+    public void setAction(ActionDescriptor action) {
+        this.action = action;
+    }
+
+    public WeightedOption build() {
+        return new WeightedOption(weight, action);
     }
 }

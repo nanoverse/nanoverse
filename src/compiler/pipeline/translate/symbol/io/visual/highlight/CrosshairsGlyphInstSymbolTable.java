@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.visual.highlight;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
@@ -71,4 +73,8 @@ public class CrosshairsGlyphInstSymbolTable extends MapSymbolTable<CrosshairsGly
         ret.put("circle", ms);
     }
 
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
+    }
 }

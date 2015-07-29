@@ -25,6 +25,8 @@
 package compiler.pipeline.translate.symbol.agent.action;
 
 import agent.action.Expand;
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
@@ -65,5 +67,10 @@ public class ExpandInstSymbolTable extends ActionInstSymbolTable<Expand> {
                 "to record the expanding agent. If left null, no " +
                 "highlight will be recorded.");
         ret.put("selfHighlight", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

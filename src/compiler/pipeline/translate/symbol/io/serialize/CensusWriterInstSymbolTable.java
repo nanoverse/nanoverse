@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.text.CensusWriter;
 
@@ -38,5 +40,10 @@ public class CensusWriterInstSymbolTable extends MapSymbolTable<CensusWriter> {
                 "and the columns capture the number of agents of a given " +
                 "state (class) observed at that time. There is one column " +
                 "for each state observed through the course of the simulation.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

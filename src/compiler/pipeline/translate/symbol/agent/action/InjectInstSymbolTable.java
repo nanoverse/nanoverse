@@ -25,6 +25,8 @@
 package compiler.pipeline.translate.symbol.agent.action;
 
 import agent.action.Inject;
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
@@ -61,4 +63,8 @@ public class InjectInstSymbolTable extends ActionInstSymbolTable<Inject> {
         ret.put("delta", ms);
     }
 
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
+    }
 }

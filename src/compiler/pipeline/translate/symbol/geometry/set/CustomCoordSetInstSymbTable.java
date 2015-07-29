@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.set;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.control.identifiers.CoordinateClassSymbolTable;
 import geometry.set.*;
@@ -51,5 +53,10 @@ public class CustomCoordSetInstSymbTable extends MapSymbolTable<CustomSet> {
         ListSymbolTable lst = new ListSymbolTable(cst);
         MemberSymbol ms = new MemberSymbol(lst, "The list of coordinates to include.");
         ret.put("members", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

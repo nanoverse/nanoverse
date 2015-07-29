@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.discrete;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.agent.AgentDescriptorClassSymbolTable;
@@ -53,4 +55,8 @@ public class ScatterInstSymbolTable extends DiscreteProcessInstSymbolTable<Scatt
         ret.put("description", ms);
     }
 
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
+    }
 }

@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.set;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.control.identifiers.CoordinateClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
@@ -58,5 +60,10 @@ public class DiscCoordSetInstSymbolTable extends MapSymbolTable<DiscSet> {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The radius of the disc, where radius=0 is a single point.");
         ret.put("radius", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

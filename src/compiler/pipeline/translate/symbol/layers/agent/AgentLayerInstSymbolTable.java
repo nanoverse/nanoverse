@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.layers.agent;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.geometry.boundary.BoundaryClassSymbolTable;
 import compiler.pipeline.translate.symbol.layers.LayerInstSymbolTable;
@@ -40,5 +42,10 @@ public class AgentLayerInstSymbolTable extends LayerInstSymbolTable<CellLayer> {
         return "An agent layer contains a collection of agents, each of " +
                 "which occupies a discrete location on the lattice and can " +
                 "respond to the conditions in its local neighborhood.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

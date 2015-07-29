@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.shape;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import geometry.shape.Rectangle;
 
@@ -52,5 +54,10 @@ public class RectangleInstSymbolTable extends ShapeInstSymbolTable<Rectangle> {
 
     private void height(HashMap<String, MemberSymbol> ret) {
         loadDimension(ret, "height", "rectangle");
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

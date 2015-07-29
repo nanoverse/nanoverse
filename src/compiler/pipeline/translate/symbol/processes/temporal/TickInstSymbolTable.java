@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.temporal;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.doubles.*;
 import compiler.pipeline.translate.symbol.processes.ProcessInstSymbolTable;
@@ -51,5 +53,10 @@ public class TickInstSymbolTable extends ProcessInstSymbolTable<Tick> {
         ResolvingSymbolTable rst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Interval by which to advance simulation time.");
         ret.put("dt", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

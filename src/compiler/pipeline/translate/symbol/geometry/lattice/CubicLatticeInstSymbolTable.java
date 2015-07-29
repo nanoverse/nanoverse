@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.lattice;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.lattice.CubicLattice;
 
@@ -34,5 +36,10 @@ public class CubicLatticeInstSymbolTable extends MapSymbolTable<CubicLattice> {
     @Override
     public String getDescription() {
         return "A cubic lattice is a 3D lattice with six neighbors per site.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

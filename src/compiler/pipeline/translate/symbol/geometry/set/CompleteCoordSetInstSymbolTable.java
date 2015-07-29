@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.geometry.set;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.set.CompleteSet;
 
@@ -34,5 +36,10 @@ public class CompleteCoordSetInstSymbolTable extends MapSymbolTable<CompleteSet>
     @Override
     public String getDescription() {
         return "The set of all coordinates within the boundaries of the simulation.";
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

@@ -24,6 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.continuum;
 
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
@@ -52,5 +54,10 @@ public class ScheduleReleaseInstSymbolTable extends ContinuumProcessInstSymbolTa
         ResolvingSymbolTable rst = new StringClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Continuum layer whose schedule is to be released.");
         ret.put("layer", ms);
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

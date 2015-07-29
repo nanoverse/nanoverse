@@ -6,6 +6,8 @@
 package compiler.pipeline.translate.symbol;
 
 import com.google.common.reflect.TypeToken;
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 
 /**
  * Created by dbborens on 3/4/15.
@@ -43,5 +45,10 @@ public class ListSymbolTable<T> implements InstantiableSymbolTable,  ResolvingSy
     @Override
     public Class getInstanceClass() {
         return type.getRawType();
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }
