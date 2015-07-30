@@ -22,11 +22,12 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.control;
+package compiler.pipeline.translate.symbol.control.run;
 
 import compiler.pipeline.instantiate.Loader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
+import compiler.pipeline.translate.symbol.control.ParametersClassSymbolTable;
 import compiler.pipeline.translate.symbol.geometry.GeometryDescriptorClassSymbolTable;
 import compiler.pipeline.translate.symbol.io.serialize.OutputClassSymbolTable;
 import compiler.pipeline.translate.symbol.layers.LayerClassSymbolTable;

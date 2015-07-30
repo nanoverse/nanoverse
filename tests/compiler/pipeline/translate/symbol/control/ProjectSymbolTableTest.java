@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.control;
 
 import compiler.pipeline.translate.symbol.MapSymbolTable;
+import compiler.pipeline.translate.symbol.control.run.ProjectSymbolTable;
 import compiler.pipeline.translate.symbol.tables.*;
 import control.*;
 import control.arguments.*;
