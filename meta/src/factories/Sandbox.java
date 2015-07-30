@@ -22,37 +22,18 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.run;
+package factories;
 
-import control.GeneralParameters;
-import control.Integrator;
-import structural.annotations.FactoryTarget;
+import control.run.Runner;
 
 /**
- * Created by dbborens on 11/26/14.
+ * Created by dbborens on 7/30/2015.
  */
-public class Runner implements Runnable {
+public class Sandbox {
 
-    private GeneralParameters p;
-    private Integrator integrator;
-
-    @FactoryTarget
-    public Runner(GeneralParameters p, Integrator integrator) {
-        this.p = p;
-        this.integrator = integrator;
-    }
-
-    public void run() {
-        int n = p.getNumInstances();
-        for (int i = 0; i < n; i++) {
-            integrator.doNext();
-
-            // This instructs the parameter handler to re-initialize the random
-            // number generator and to update paths to reflect the next
-            // iterate. It is only invoked if there are remaining iterates.
-            if (i < p.getNumInstances() - 1) {
-                p.advance();
-            }
-        }
+    public static void main(String[] args) {
+        FactoryHelperGenerator gen = new FactoryHelperGenerator();
+        String str = gen.generate(Runner.class);
+        System.out.println(str);
     }
 }

@@ -22,29 +22,17 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.agent.action.stochastic;
+package compiler.pipeline.instantiate.control;
 
-import agent.action.ActionDescriptor;
-import agent.action.stochastic.WeightedOption;
-import compiler.pipeline.instantiate.Factory;
+import control.*;
+import control.run.Runner;
 
 /**
- * Created by dbborens on 7/29/2015.
+ * Created by dbborens on 7/30/2015.
  */
-public class WeightedOptionFactory implements Factory<WeightedOption> {
+public class ProjectFactoryHelper {
 
-    private ActionDescriptor action;
-    private double weight;
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public void setAction(ActionDescriptor action) {
-        this.action = action;
-    }
-
-    public WeightedOption build() {
-        return new WeightedOption(weight, action);
+    public Runner newRunner(GeneralParameters p, Integrator integrator) {
+        return new Runner(p, integrator);
     }
 }

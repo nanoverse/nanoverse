@@ -41,16 +41,6 @@ public abstract class Loader<T> {
     protected final ObjectNode node;
     protected final Factory<T> factory;
 
-    /**
-     * Instantiate the object (and all child objects) based on properties
-     * supplied in the symbol table.
-     */
-    public T instantiate() {
-        checkReturnClass();
-        return doInstantiate();
-    }
-
-    protected abstract T doInstantiate();
     protected abstract Factory<T> resolveFactory();
 
     public Loader(ObjectNode node) {
