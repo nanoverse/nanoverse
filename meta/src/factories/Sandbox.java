@@ -24,7 +24,6 @@
 
 package factories;
 
-import control.run.Runner;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
