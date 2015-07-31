@@ -25,6 +25,10 @@
 package factories;
 
 import control.run.Runner;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
+
+import java.util.Set;
 
 /**
  * Created by dbborens on 7/30/2015.
@@ -32,8 +36,13 @@ import control.run.Runner;
 public class Sandbox {
 
     public static void main(String[] args) {
-        FactoryHelperGenerator gen = new FactoryHelperGenerator();
-        String str = gen.generate(Runner.class);
-        System.out.println(str);
+        Reflections reflections = new Reflections("control", new SubTypesScanner(false));
+        Set<String> allClasses = reflections.getAllTypes();
+        allClasses.stream().forEach(System.out::println);
+//        FactoryHelperWriter writer = new FactoryHelperWriter("meta/out");
+//        writer.write(Runner.class);
+//        FactoryHelperGenerator gen = new FactoryHelperGenerator();
+//        String str = gen.generate(Runner.class);
+//        System.out.println(str);
     }
 }

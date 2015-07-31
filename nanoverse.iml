@@ -21,6 +21,7 @@
     <orderEntry type="library" name="com.googlecode.matrix-toolkits-java:mtj:1.0.21" level="project" />
     <orderEntry type="library" name="antlr-4.5-complete" level="project" />
     <orderEntry type="library" name="ST-4.0.8" level="project" />
+    <orderEntry type="library" name="org.reflections:reflections:0.9.10" level="project" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">
