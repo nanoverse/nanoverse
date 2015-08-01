@@ -27,21 +27,34 @@ package factories;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
-import java.util.Set;
+import java.lang.reflect.Constructor;
+import java.util.stream.Stream;
 
 /**
- * Created by dbborens on 7/30/2015.
+ * Created by dbborens on 7/31/15.
  */
-public class Sandbox {
+public class TargetFinder {
 
-    public static void main(String[] args) {
-        Reflections reflections = new Reflections("control", new SubTypesScanner(false));
-        Set<String> allClasses = reflections.getAllTypes();
-        allClasses.stream().forEach(System.out::println);
-//        FactoryHelperWriter writer = new FactoryHelperWriter("meta/out");
-//        writer.write(Runner.class);
-//        FactoryHelperGenerator gen = new FactoryHelperGenerator();
-//        String str = gen.generate(Runner.class);
-//        System.out.println(str);
+    private final FactoryTargetHelper helper;
+
+    public TargetFinder() {
+        helper = new FactoryTargetHelper();
+    }
+
+    public Stream<Constructor> getTargets() {
+        return Stream.of("agent", "cells", "control", "geometry", "io", "layers",
+                "processes", "structural")
+                .map(pkg -> new Reflections(pkg, new SubTypesScanner(false)))
+                .map(r -> r.getAllTypes())
+                .flatMap(set -> set.stream())
+                .map(className -> {
+                    try {
+                        return Class.forName(className);
+                    } catch (ClassNotFoundException ex) {
+                        throw new IllegalStateException(ex);
+                    }
+                })
+                .map(helper::getFactoryTarget)
+                .filter(target -> target != null);
     }
 }

@@ -34,6 +34,7 @@ import geometry.shape.Cuboid;
 import geometry.shape.Line;
 import geometry.shape.Rectangle;
 import geometry.shape.Shape;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 5/7/14.
@@ -41,6 +42,7 @@ import geometry.shape.Shape;
 public class Periodic extends Boundary {
     protected WrapHelper helper;
 
+    @FactoryTarget
     public Periodic(Shape shape, Lattice lattice) {
         super(shape, lattice);
         if (lattice.getDimensionality() == 1) {

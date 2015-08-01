@@ -29,11 +29,13 @@ import geometry.boundaries.helpers.PlaneRingHelper;
 import geometry.lattice.Lattice;
 import geometry.shape.Rectangle;
 import geometry.shape.Shape;
+import structural.annotations.FactoryTarget;
 
 public class PlaneRingReflecting extends Boundary {
 
     private PlaneRingHelper helper;
 
+    @FactoryTarget
     public PlaneRingReflecting(Shape shape, Lattice lattice) {
         super(shape, lattice);
         helper = new PlaneRingHelper(lattice, shape.getDimensions());

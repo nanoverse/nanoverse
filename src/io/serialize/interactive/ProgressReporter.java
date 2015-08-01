@@ -29,6 +29,7 @@ import control.halt.HaltCondition;
 import io.serialize.Serializer;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 /**
  * Outputs some basic information about simulation progress.
@@ -45,6 +46,7 @@ public class ProgressReporter extends Serializer {
     private long instanceStart;
     private long cycleStart;
 
+    @FactoryTarget
     public ProgressReporter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
         projectStart = System.currentTimeMillis();

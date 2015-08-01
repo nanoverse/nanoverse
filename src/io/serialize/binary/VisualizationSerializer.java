@@ -34,6 +34,7 @@ import io.visual.Visualization;
 import layers.LayerManager;
 import layers.SystemState;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.awt.*;
 import java.io.File;
@@ -55,6 +56,7 @@ public class VisualizationSerializer extends Serializer {
 
     private PngEncoder pngEncoder;
 
+    @FactoryTarget
     public VisualizationSerializer(GeneralParameters p,
                                    Visualization visualization,
                                    String prefix, LayerManager lm) {

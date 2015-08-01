@@ -29,6 +29,7 @@ import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import geometry.lattice.TriangularLattice;
 import org.dom4j.Element;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,6 +48,7 @@ public class Hexagon extends Shape {
 
     private int radius;
 
+    @FactoryTarget
     public Hexagon(Lattice lattice, int radius) {
         super(lattice);
         this.radius = radius;

@@ -25,6 +25,7 @@
 package agent.action.stochastic;
 
 import cells.BehaviorCell;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Supplier;
 

@@ -27,6 +27,7 @@ package geometry.boundaries;
 import control.identifiers.Coordinate;
 import geometry.lattice.Lattice;
 import geometry.shape.Shape;
+import structural.annotations.FactoryTarget;
 
 /**
  * A boundary condition that returns null for any overbound
@@ -38,6 +39,7 @@ import geometry.shape.Shape;
  */
 public class Absorbing extends Boundary {
 
+    @FactoryTarget
     public Absorbing(Shape shape, Lattice lattice) {
         super(shape, lattice);
     }

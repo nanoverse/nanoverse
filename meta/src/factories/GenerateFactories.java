@@ -1,26 +1,3 @@
-file(displayName, class, parameters, pTypes) ::= <<
-$copyright()$
-$body(displayName, class, parameters, pTypes)$
->>
-
-body(displayName, class, parameters, pTypes) ::= <<
-package $package(class)$;
-
-$pTypes: doImport()$
-
-public class $displayName$FactoryHelper {
-
-    public $class.simpleName$ build$displayName$($parameters: paramFormat(); separator=", "$) {
-        return new $class.simpleName$($parameters: argument(); separator=", "$);
-    }
-}
->>
-
-paramFormat(parameter) ::= "$parameter.class.simpleName$ $parameter.name$"
-
-argument(parameter) ::= "$parameter.name$"
-
-copyright() ::= <<
 /*
  * Copyright (c) 2014, 2015 David Bruce Borenstein and the
  * Trustees of Princeton University.
@@ -44,17 +21,25 @@ copyright() ::= <<
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
->>
 
+package factories;
 
-package(class) ::= "compiler.pipeline.instantiate.$class.package.name$"
+import control.run.Runner;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
 
-paramList(parameters) ::= <<
-    $parameters: param2name(); separator=", "$
->>
+import java.util.Set;
 
-param2name(parameter) ::= <<
-    $parameter.name$
->>
+/**
+ * Created by dbborens on 7/30/2015.
+ */
+public class GenerateFactories {
 
-doImport(class) ::= "import $class.canonicalName$;$\n$"
+    public static void main(String[] args) {
+        TargetFinder f = new TargetFinder();
+        FactoryHelperWriter writer = new FactoryHelperWriter("meta/out");
+
+        f.getTargets()
+                .forEach(clazz -> writer.write(clazz));
+    }
+}

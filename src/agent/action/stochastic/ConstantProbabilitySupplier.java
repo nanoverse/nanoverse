@@ -25,6 +25,7 @@
 package agent.action.stochastic;
 
 import cells.BehaviorCell;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 1/9/15.
@@ -32,6 +33,7 @@ import cells.BehaviorCell;
 public class ConstantProbabilitySupplier extends ProbabilitySupplier {
     private final Double value;
 
+    @FactoryTarget
     public ConstantProbabilitySupplier(Double value) {
         this.value = value;
     }

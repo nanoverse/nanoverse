@@ -38,20 +38,22 @@ public class FactoryHelperWriter {
 
     private final FactoryHelperGenerator gen;
     private final String basePath;
+    private final FactoryTargetHelper targetHelper;
 
     public FactoryHelperWriter(String basePath) {
         gen = new FactoryHelperGenerator();
         this.basePath = basePath;
+        targetHelper = new FactoryTargetHelper();
     }
 
-    public void write(Class clazz) {
-        String code = gen.generate(clazz);
-        String path = mkdir(clazz);
-        record(clazz, code, path);
+    public void write(Constructor c) {
+        String code = gen.generate(c);
+        String path = mkdir(c);
+        record(c, code, path);
     }
 
-    private void record(Class clazz, String code, String path) {
-        String displayName = getDisplayName(getFactoryConstructor(clazz));
+    private void record(Constructor c, String code, String path) {
+        String displayName = targetHelper.getDisplayName(c);
         String filename = displayName + "FactoryHelper.java";
         String filePath = path + "/" + filename;
         System.out.print("Writing " + filePath + "...");
@@ -68,43 +70,15 @@ public class FactoryHelperWriter {
         System.out.println("Done.");
     }
 
-    private String mkdir(Class clazz) {
-        String relPath = clazz.getPackage().getName().replace(".", "/");
+    private String mkdir(Constructor c) {
+        String relPath = c.getDeclaringClass()
+                .getPackage()
+                .getName()
+                .replace(".", "/");
+
         String path = basePath + "/" + relPath;
         File file = new File(path);
         file.mkdirs();
         return path;
-    }
-
-    private String getDisplayName(Constructor c) {
-        FactoryTarget ft = (FactoryTarget) Arrays.stream(c.getDeclaredAnnotations())
-                .filter(a -> a instanceof FactoryTarget)
-                .findFirst()
-                .get();
-
-        // If the user did not specify a display name, use the original name
-        if (ft.displayName() == "") {
-            return c.getDeclaringClass().getSimpleName();
-        }
-
-        return ft.displayName();
-    }
-
-    private Constructor getFactoryConstructor(Class clazz) {
-        try {
-            return Arrays.stream(clazz.getConstructors())
-                    .filter(c -> annotated(c))
-                    .findFirst()
-                    .get();
-        } catch (NoSuchElementException ex) {
-            throw new IllegalStateException("No @FactoryTarget constructor on class "
-                    + clazz.getSimpleName());
-        }
-    }
-
-    private boolean annotated(Constructor c) {
-        return Arrays.stream(c.getDeclaredAnnotations())
-                .anyMatch(annotation ->
-                        annotation instanceof FactoryTarget);
     }
 }

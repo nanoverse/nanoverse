@@ -28,6 +28,7 @@ import control.GeneralParameters;
 import control.halt.HaltCondition;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class SerializationManager extends Serializer {
 
     private List<Serializer> writers;
 
+    @FactoryTarget
     public SerializationManager(GeneralParameters p, LayerManager layerManager, List<Serializer> writers) {
         super(p, layerManager);
         this.writers = writers;

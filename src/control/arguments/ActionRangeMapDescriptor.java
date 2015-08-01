@@ -26,6 +26,7 @@ package control.arguments;
 
 import agent.action.ActionRangeMap;
 import cells.BehaviorCell;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 

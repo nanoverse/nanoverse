@@ -35,23 +35,24 @@ import java.util.*;
  */
 public class FactoryHelperGenerator {
     private final STGroup group;
+    private FactoryTargetHelper helper;
 
     public FactoryHelperGenerator() {
+        helper = new FactoryTargetHelper();
         group = new STGroupFile("meta/templates/factory/helper.stg", '$', '$');
     }
 
-    public String generate(Class clazz) {
+    public String generate(Constructor c) {
         ST template = group.getInstanceOf("file");
-        template.add("class", clazz);
-        constructorArgs(template, clazz);
+        template.add("class", c.getDeclaringClass());
+        constructorArgs(template, c);
         return template.render();
     }
 
-    private void constructorArgs(ST template, Class clazz) {
-        Constructor constructor = getFactoryConstructor(clazz);
-        String displayName = getDisplayName(constructor);
+    private void constructorArgs(ST template, Constructor c) {
+        String displayName = helper.getDisplayName(c);
         template.add("displayName", displayName);
-        params(template, constructor);
+        params(template, c);
 
     }
 
@@ -85,35 +86,4 @@ public class FactoryHelperGenerator {
         template.add("pTypes", constructor.getDeclaringClass());
     }
 
-    private String getDisplayName(Constructor c) {
-        FactoryTarget ft = (FactoryTarget) Arrays.stream(c.getDeclaredAnnotations())
-                .filter(a -> a instanceof FactoryTarget)
-                .findFirst()
-                .get();
-
-        // If the user did not specify a display name, use the original name
-        if (ft.displayName() == "") {
-            return c.getDeclaringClass().getSimpleName();
-        }
-
-        return ft.displayName();
-    }
-
-    private Constructor getFactoryConstructor(Class clazz) {
-        try {
-            return Arrays.stream(clazz.getConstructors())
-                    .filter(c -> annotated(c))
-                    .findFirst()
-                    .get();
-        } catch (NoSuchElementException ex) {
-            throw new IllegalStateException("No @FactoryTarget constructor on class "
-                    + clazz.getSimpleName());
-        }
-    }
-
-    private boolean annotated(Constructor c) {
-        return Arrays.stream(c.getDeclaredAnnotations())
-                .anyMatch(annotation ->
-                        annotation instanceof FactoryTarget);
-    }
 }

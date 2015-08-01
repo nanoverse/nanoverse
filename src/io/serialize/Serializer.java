@@ -28,6 +28,7 @@ import control.GeneralParameters;
 import control.halt.HaltCondition;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.io.BufferedWriter;
 import java.io.File;

@@ -29,6 +29,7 @@ import geometry.boundaries.helpers.PlaneRingHelper;
 import geometry.lattice.Lattice;
 import geometry.shape.Rectangle;
 import geometry.shape.Shape;
+import structural.annotations.FactoryTarget;
 
 /**
  * One axis is a hard boundary, and the other is periodic.
@@ -40,6 +41,7 @@ public class PlaneRingHard extends Boundary {
 
     private PlaneRingHelper helper;
 
+    @FactoryTarget
     public PlaneRingHard(Shape shape, Lattice lattice) {
         super(shape, lattice);
         helper = new PlaneRingHelper(lattice, shape.getDimensions());

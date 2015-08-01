@@ -31,6 +31,7 @@ import io.serialize.Serializer;
 import io.serialize.binary.csw.*;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 
@@ -44,6 +45,8 @@ public class ContinuumStateWriter extends Serializer {
 
     private CSWExtremaHelper extremaHelper;
     private CSWFileHelper fileHelper;
+
+    @FactoryTarget
     public ContinuumStateWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
     }

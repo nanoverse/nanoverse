@@ -26,6 +26,7 @@ package geometry.boundaries;
 
 import geometry.lattice.Lattice;
 import geometry.shape.Shape;
+import structural.annotations.FactoryTarget;
 
 /**
  * The HaltBoundary works just like an arena. The class itself is used to flag
@@ -34,6 +35,8 @@ import geometry.shape.Shape;
  * Created by dbborens on 7/30/14.
  */
 public class HaltArena extends Arena implements HaltBoundary {
+
+    @FactoryTarget
     public HaltArena(Shape shape, Lattice lattice) {
         super(shape, lattice);
     }

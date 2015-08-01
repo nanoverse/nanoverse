@@ -28,6 +28,7 @@ import control.identifiers.Coordinate;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import org.dom4j.Element;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,7 @@ public class Rectangle extends Shape {
 
     private int height, width;
 
+    @FactoryTarget
     public Rectangle(Lattice lattice, int width, int height) {
         super(lattice);
 

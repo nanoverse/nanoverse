@@ -7,6 +7,7 @@ package geometry.set;
 
 import control.identifiers.Coordinate;
 import geometry.Geometry;
+import structural.annotations.FactoryTarget;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.function.Function;
@@ -30,6 +31,7 @@ import java.util.stream.IntStream;
  */
 public class HorizontalLineSet extends CoordinateSet {
 
+    @FactoryTarget
     public HorizontalLineSet(Geometry geom, Coordinate start, int length) {
         if (geom.getDimensionality() != 2) {
             throw new NotImplementedException();

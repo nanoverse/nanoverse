@@ -28,6 +28,7 @@ import control.identifiers.Coordinate;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import org.dom4j.Element;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -36,6 +37,7 @@ public class Cuboid extends Shape {
 
     private int height, width, depth;
 
+    @FactoryTarget
     public Cuboid(Lattice lattice, int height, int width, int depth) {
         super(lattice);
         this.height = height;

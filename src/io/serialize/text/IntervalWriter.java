@@ -29,6 +29,7 @@ import control.halt.HaltCondition;
 import io.serialize.Serializer;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -42,6 +43,7 @@ public class IntervalWriter extends Serializer {
     private BufferedWriter intervalWriter;
     private long prevTime;
 
+    @FactoryTarget
     public IntervalWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
 

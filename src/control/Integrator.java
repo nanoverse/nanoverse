@@ -28,6 +28,7 @@ import control.halt.HaltCondition;
 import control.halt.StepMaxReachedEvent;
 import io.serialize.SerializationManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 public class Integrator {
 
@@ -36,6 +37,7 @@ public class Integrator {
     private GeneralParameters p;
     private SerializationManager serializationManager;
 
+    @FactoryTarget
     public Integrator(GeneralParameters p, ProcessManager processManager,
                       SerializationManager serializationManager) {
 
