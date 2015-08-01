@@ -1,39 +1,3 @@
-file(displayName, class, parameters, pTypes) ::= <<
-$copyright()$
-$body(displayName, class, parameters, pTypes)$
->>
-
-body(displayName, class, parameters, pTypes) ::= <<
-package $package(class)$;
-
-$pTypes: doImport()$
-
-public class $displayName$FactoryHelper {
-
-    public $class.simpleName$ build$displayName$($parameters: paramFormat(); separator=", "$) {
-        return new $class.simpleName$($parameters: argument(); separator=", "$);
-    }
-}
->>
-
-paramFormat(parameter) ::= "$parameter.class.simpleName$ $parameter.name$"
-
-argument(parameter) ::= "$parameter.name$"
-
-
-package(class) ::= "compiler.pipeline.instantiate.$class.package.name$"
-
-paramList(parameters) ::= <<
-    $parameters: param2name(); separator=", "$
->>
-
-param2name(parameter) ::= <<
-    $parameter.name$
->>
-
-doImport(class) ::= "import $class.canonicalName$;$\n$"
-
-copyright() ::= <<
 /*
  * Copyright (c) 2014, 2015 David Bruce Borenstein and the
  * Trustees of Princeton University.
@@ -57,5 +21,21 @@ copyright() ::= <<
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
->>
 
+package compiler.pipeline.instantiate.primitive;
+
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.*;
+import control.arguments.Argument;
+
+import java.util.Random;
+
+/**
+ * Created by dbborens on 8/1/2015.
+ */
+public abstract class PrimitiveLoader<T extends Argument> extends Loader<T> {
+
+    public T instantiate(PrimitiveObjectNode<T> node) {
+        return node.getValue();
+    }
+}

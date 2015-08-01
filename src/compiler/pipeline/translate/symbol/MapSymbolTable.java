@@ -33,6 +33,7 @@ import org.slf4j.*;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * Represents a structured mapping of keys to values. Used to define the
@@ -54,6 +55,9 @@ public abstract class MapSymbolTable<T> implements InstantiableSymbolTable {
         return new HashMap<>();
     }
 
+    public Stream<String> getMemberNames() {
+        return requiredMembers.keySet().stream();
+    }
     public ResolvingSymbolTable getSymbolTable(String identifier) {
         logger.debug("Resolving {}::{}",
                 getInstanceClass().getSimpleName(), identifier);
