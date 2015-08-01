@@ -31,6 +31,7 @@ import geometry.Geometry;
 import io.serialize.Serializer;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 import structural.utilities.FileConventions;
 import structural.utilities.PrimitiveSerializer;
 
@@ -51,6 +52,7 @@ public class HighlightWriter extends Serializer {
 
     private int[] channels;
 
+    @FactoryTarget
     public HighlightWriter(GeneralParameters p, int[] channels, LayerManager lm) {
         super(p, lm);
         makeFiles();

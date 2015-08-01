@@ -29,6 +29,7 @@ import control.halt.HaltCondition;
 import io.serialize.Serializer;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.io.BufferedWriter;
 
@@ -43,6 +44,7 @@ public class IndividualHaltWriter extends Serializer {
 
     private BufferedWriter bw;
 
+    @FactoryTarget
     public IndividualHaltWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
     }

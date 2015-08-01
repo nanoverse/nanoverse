@@ -36,7 +36,7 @@ public class Runner implements Runnable {
     private GeneralParameters p;
     private Integrator integrator;
 
-    @FactoryTarget
+    @FactoryTarget(displayName = "Project")
     public Runner(GeneralParameters p, Integrator integrator) {
         this.p = p;
         this.integrator = integrator;

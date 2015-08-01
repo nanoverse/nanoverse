@@ -27,12 +27,14 @@ package geometry.boundaries;
 import control.identifiers.Coordinate;
 import geometry.lattice.Lattice;
 import geometry.shape.Shape;
+import structural.annotations.FactoryTarget;
 
 public abstract class Boundary {
 
     protected Shape shape;
     protected Lattice lattice;
 
+    @FactoryTarget
     public Boundary(Shape shape, Lattice lattice) {
         verify(shape, lattice);
         this.shape = shape;

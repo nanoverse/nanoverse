@@ -39,7 +39,6 @@ public class BinaryExtremaWriter {
      *
      * @param extrema
      */
-//    public void push(String fieldName, Extrema extrema) {
     public void write(DataOutputStream writer, Extrema extrema) {
         try {
 //            writer.writeInt(fieldName.length());

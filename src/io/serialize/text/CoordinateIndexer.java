@@ -31,6 +31,7 @@ import geometry.Geometry;
 import io.serialize.Serializer;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 import structural.utilities.FileConventions;
 
 import java.io.BufferedWriter;
@@ -44,6 +45,7 @@ public class CoordinateIndexer extends Serializer {
 
     // This file specifies the relationship between vector index and coordinate.
 
+    @FactoryTarget
     public CoordinateIndexer(GeneralParameters p, LayerManager lm) {
         super(p, lm);
     }

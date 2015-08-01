@@ -28,12 +28,14 @@ import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import geometry.Geometry;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 7/28/14.
  */
 public class DiscSet extends CoordinateSet {
 
+    @FactoryTarget
     public DiscSet(Geometry geom, IntegerArgument radiusArg, Coordinate offset) {
         Coordinate origin = geom.rel2abs(geom.getCenter(), offset, Geometry.APPLY_BOUNDARIES);
         int radius;

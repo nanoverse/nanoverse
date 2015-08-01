@@ -28,11 +28,13 @@ import control.identifiers.Coordinate;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import org.dom4j.Element;
+import structural.annotations.FactoryTarget;
 
 public class Line extends Shape {
 
     private int length;
 
+    @FactoryTarget
     public Line(Lattice lattice, int length) {
         super(lattice);
         this.length = length;

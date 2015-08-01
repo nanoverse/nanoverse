@@ -80,12 +80,12 @@ public class NormalizedContinuumColorManagerTest extends TestBase {
 
     @Test
     public void rangeMaximumColor() throws Exception {
-        doColorTest(1.0, 360F, 25F, 25F);
+        doColorTest(1.0, 360F, 12.5F, 25F);
     }
 
     @Test
     public void rangeMidpointColor() throws Exception {
-        doColorTest(0.5, 270F, 25F, 12.5F);
+        doColorTest(0.5, 360F, 12.5F, 12.5F);
     }
 
     @Test

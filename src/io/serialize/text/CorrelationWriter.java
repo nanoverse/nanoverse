@@ -33,6 +33,7 @@ import io.serialize.Serializer;
 import layers.LayerManager;
 import layers.cell.CellLayer;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 import structural.utilities.EpsilonUtil;
 
 import java.io.BufferedWriter;
@@ -68,6 +69,7 @@ public class CorrelationWriter extends Serializer {
      *                       for the same simulation. Multiple RDF serializers
      *                       can be included for the same model!
      */
+    @FactoryTarget
     public CorrelationWriter(GeneralParameters p, String filename, DoubleArgument triggerTimeArg, LayerManager lm) {
         super(p, lm);
         identity = new HashMap<>();

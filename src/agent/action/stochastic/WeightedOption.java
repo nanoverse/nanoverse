@@ -25,6 +25,7 @@
 package agent.action.stochastic;
 
 import agent.action.ActionDescriptor;
+import structural.annotations.FactoryTarget;
 
 /**
  * A lightweight tuple consisting of an action descriptor and a probability
@@ -37,6 +38,7 @@ public class WeightedOption {
     private final double weight;
     private final ActionDescriptor action;
 
+    @FactoryTarget
     public WeightedOption(double weight, ActionDescriptor action) {
         this.weight = weight;
         this.action = action;

@@ -29,6 +29,7 @@ import control.halt.HaltCondition;
 import io.serialize.Serializer;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.io.BufferedWriter;
 
@@ -44,6 +45,7 @@ public class RunningTimeWriter extends Serializer {
 
     private BufferedWriter bw;
 
+    @FactoryTarget
     public RunningTimeWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
     }

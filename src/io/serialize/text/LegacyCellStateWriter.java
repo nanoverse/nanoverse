@@ -32,6 +32,7 @@ import io.serialize.Serializer;
 import layers.LayerManager;
 import layers.cell.CellLayer;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -80,6 +81,7 @@ public class LegacyCellStateWriter extends Serializer {
 
     //public CellStateWriter(String stateDir, Parameters p, int n) {
 
+    @FactoryTarget(displayName = "CellStateWriter")
     public LegacyCellStateWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
     }

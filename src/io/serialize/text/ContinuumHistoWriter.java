@@ -31,6 +31,7 @@ import control.identifiers.Coordinate;
 import io.serialize.Serializer;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.io.BufferedWriter;
 import java.util.*;
@@ -60,6 +61,7 @@ public class ContinuumHistoWriter extends Serializer {
 
     private BufferedWriter bw;
 
+    @FactoryTarget
     public ContinuumHistoWriter(GeneralParameters p, LayerManager lm, String layerId, boolean occupiedOnly) {
         super(p, lm);
         this.layerId = layerId;

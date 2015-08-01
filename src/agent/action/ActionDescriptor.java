@@ -27,6 +27,7 @@ package agent.action;
 import agent.action.Action;
 import cells.BehaviorCell;
 import com.google.common.reflect.TypeToken;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 
@@ -38,8 +39,9 @@ import java.util.function.Function;
  */
 public class ActionDescriptor<T extends Action> {
 
-    private Function<BehaviorCell, T> constructor;
+    protected final Function<BehaviorCell, T> constructor;
 
+    @FactoryTarget
     public ActionDescriptor(Function<BehaviorCell, T> constructor) {
         this.constructor = constructor;
     }
