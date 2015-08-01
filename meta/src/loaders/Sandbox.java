@@ -1,39 +1,3 @@
-file(displayName, class, parameters, pTypes) ::= <<
-$copyright()$
-$body(displayName, class, parameters, pTypes)$
->>
-
-body(displayName, class, parameters, pTypes) ::= <<
-package $package(class)$;
-
-$pTypes: doImport()$
-
-public class $displayName$FactoryHelper {
-
-    public $class.simpleName$ build$displayName$($parameters: paramFormat(); separator=", "$) {
-        return new $class.simpleName$($parameters: argument(); separator=", "$);
-    }
-}
->>
-
-paramFormat(parameter) ::= "$parameter.class.simpleName$ $parameter.name$"
-
-argument(parameter) ::= "$parameter.name$"
-
-
-package(class) ::= "compiler.pipeline.instantiate.$class.package.name$"
-
-paramList(parameters) ::= <<
-    $parameters: param2name(); separator=", "$
->>
-
-param2name(parameter) ::= <<
-    $parameter.name$
->>
-
-doImport(class) ::= "import $class.canonicalName$;$\n$"
-
-copyright() ::= <<
 /*
  * Copyright (c) 2014, 2015 David Bruce Borenstein and the
  * Trustees of Princeton University.
@@ -57,5 +21,24 @@ copyright() ::= <<
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
->>
 
+package loaders;
+
+import compiler.pipeline.translate.symbol.MapSymbolTable;
+import org.reflections.Reflections;
+import org.reflections.scanners.SubTypesScanner;
+
+import java.lang.reflect.Modifier;
+
+/**
+ * Created by dbborens on 8/1/2015.
+ */
+public class Sandbox {
+
+    public static void main(String[] args) {
+        MapSymbolTableFinder finder = new MapSymbolTableFinder();
+        LoaderSkeletonWriter writer = new LoaderSkeletonWriter("meta/out/src");
+        finder.findTables()
+                .forEach(st -> writer.write(st));
+    }
+}

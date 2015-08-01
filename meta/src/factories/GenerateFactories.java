@@ -37,7 +37,7 @@ public class GenerateFactories {
 
     public static void main(String[] args) {
         TargetFinder f = new TargetFinder();
-        FactoryHelperWriter writer = new FactoryHelperWriter("meta/out");
+        FactoryHelperWriter writer = new FactoryHelperWriter("meta/out/src");
 
         f.getTargets()
                 .forEach(clazz -> writer.write(clazz));

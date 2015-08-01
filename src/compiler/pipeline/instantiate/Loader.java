@@ -37,66 +37,70 @@ import compiler.pipeline.translate.symbol.primitive.strings.StringInstSymbolTabl
 public abstract class Loader<T> {
 
     private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
+    protected final TypeCheckHelper helper;
 
-    protected final ObjectNode node;
-    protected final Factory<T> factory;
-
-    protected abstract Factory<T> resolveFactory();
-
-    public Loader(ObjectNode node) {
-        this.node = node;
-        this.factory = resolveFactory();
+    public Loader() {
+        helper = new TypeCheckHelper(type.getRawType());
     }
-
-    public Loader(ObjectNode node, Factory<T> factory) {
-        this.node = node;
-        this.factory = factory;
-    }
-
-    protected void checkReturnClass() {
-        Class actual = node.getInstantiatingClass();
-        Class expected = type.getRawType();
-        if (!actual.isAssignableFrom(expected)) {
-            throw new IllegalStateException("Unexpected object node " + actual.getSimpleName() + " in loader for " + expected.getSimpleName());
-        }
-        if (!expected.isAssignableFrom(actual)) {
-            throw new IllegalStateException("Unexpected object node " + actual.getSimpleName() + " in loader for " + expected.getSimpleName());
-        }
-    }
-
-    protected ObjectNode getIntegerWithDefault(MapObjectNode node, String property, int defaultValue) {
-        PrimitiveSymbolTable stDefault = new PrimitiveIntegerSymbolTable();
-        PrimitiveObjectNode mDefault = new PrimitiveIntegerNode(stDefault, defaultValue);
-        return getObjectWithDefault(node, property, mDefault);
-    }
-
-    protected ObjectNode getDoubleWithDefault(MapObjectNode node, String property, double defaultValue) {
-        PrimitiveSymbolTable stDefault = new PrimitiveDoubleSymbolTable();
-        PrimitiveObjectNode mDefault = new PrimitiveDoubleNode(stDefault, defaultValue);
-        return getObjectWithDefault(node, property, mDefault);
-    }
-
-    protected ObjectNode getBooleanWithDefault(MapObjectNode node, String property, boolean defaultValue) {
-        PrimitiveSymbolTable stDefault = new PrimitiveDoubleSymbolTable();
-        PrimitiveObjectNode mDefault = new PrimitiveBooleanNode(stDefault, defaultValue);
-        return getObjectWithDefault(node, property, mDefault);
-    }
-
-    protected ObjectNode getStringWithDefault(MapObjectNode node, String property, String defaultValue) {
-        PrimitiveSymbolTable stDefault = new StringInstSymbolTable();
-        PrimitiveObjectNode mDefault = new PrimitiveStringNode(stDefault, defaultValue);
-        return getObjectWithDefault(node, property, mDefault);
-    }
-
-    protected ObjectNode getObjectWithDefault(MapObjectNode node, String property, ObjectNode defaultObject) {
-        if (node.hasMember(property)) {
-            return node.getMember(property);
-        } else {
-            return defaultObject;
-        }
-    }
-
-    public Class getInstanceClass() {
-        return type.getRawType();
-    }
+//    protected final ObjectNode node;
+//    protected final Factory<T> factory;
+//
+//    protected abstract Factory<T> resolveFactory();
+//
+//    public Loader(ObjectNode node) {
+//        this.node = node;
+//        this.factory = resolveFactory();
+//    }
+//
+//    public Loader(ObjectNode node, Factory<T> factory) {
+//        this.node = node;
+//        this.factory = factory;
+//    }
+//
+//    protected void checkReturnClass() {
+//        Class actual = node.getInstantiatingClass();
+//        Class expected = type.getRawType();
+//        if (!actual.isAssignableFrom(expected)) {
+//            throw new IllegalStateException("Unexpected object node " + actual.getSimpleName() + " in loader for " + expected.getSimpleName());
+//        }
+//        if (!expected.isAssignableFrom(actual)) {
+//            throw new IllegalStateException("Unexpected object node " + actual.getSimpleName() + " in loader for " + expected.getSimpleName());
+//        }
+//    }
+//
+//    protected ObjectNode getIntegerWithDefault(MapObjectNode node, String property, int defaultValue) {
+//        PrimitiveSymbolTable stDefault = new PrimitiveIntegerSymbolTable();
+//        PrimitiveObjectNode mDefault = new PrimitiveIntegerNode(stDefault, defaultValue);
+//        return getObjectWithDefault(node, property, mDefault);
+//    }
+//
+//    protected ObjectNode getDoubleWithDefault(MapObjectNode node, String property, double defaultValue) {
+//        PrimitiveSymbolTable stDefault = new PrimitiveDoubleSymbolTable();
+//        PrimitiveObjectNode mDefault = new PrimitiveDoubleNode(stDefault, defaultValue);
+//        return getObjectWithDefault(node, property, mDefault);
+//    }
+//
+//    protected ObjectNode getBooleanWithDefault(MapObjectNode node, String property, boolean defaultValue) {
+//        PrimitiveSymbolTable stDefault = new PrimitiveDoubleSymbolTable();
+//        PrimitiveObjectNode mDefault = new PrimitiveBooleanNode(stDefault, defaultValue);
+//        return getObjectWithDefault(node, property, mDefault);
+//    }
+//
+//    protected ObjectNode getStringWithDefault(MapObjectNode node, String property, String defaultValue) {
+//        PrimitiveSymbolTable stDefault = new StringInstSymbolTable();
+//        PrimitiveObjectNode mDefault = new PrimitiveStringNode(stDefault, defaultValue);
+//        return getObjectWithDefault(node, property, mDefault);
+//    }
+//
+//    protected ObjectNode getObjectWithDefault(MapObjectNode node, String property, ObjectNode defaultObject) {
+//        if (node.hasMember(property)) {
+//            return node.getMember(property);
+//        } else {
+//            return defaultObject;
+//        }
+//    }
+//
+//    public Class getInstanceClass() {
+//        return type.getRawType();
+//    }
 }
