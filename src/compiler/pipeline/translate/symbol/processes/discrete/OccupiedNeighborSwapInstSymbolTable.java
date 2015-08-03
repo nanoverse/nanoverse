@@ -24,7 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.discrete;
 
-import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.processes.discrete.OccupiedNeighborSwapLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import processes.discrete.OccupiedNeighborSwap;
@@ -47,6 +48,6 @@ public class OccupiedNeighborSwapInstSymbolTable extends DiscreteProcessInstSymb
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new OccupiedNeighborSwapLoader();
     }
 }

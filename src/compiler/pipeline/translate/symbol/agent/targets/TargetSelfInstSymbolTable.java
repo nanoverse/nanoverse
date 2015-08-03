@@ -25,7 +25,7 @@
 package compiler.pipeline.translate.symbol.agent.targets;
 
 import agent.targets.TargetSelf;
-import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 
 /**

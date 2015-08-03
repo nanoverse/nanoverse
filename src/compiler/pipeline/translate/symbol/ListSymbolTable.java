@@ -6,7 +6,7 @@
 package compiler.pipeline.translate.symbol;
 
 import com.google.common.reflect.TypeToken;
-import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 
 /**

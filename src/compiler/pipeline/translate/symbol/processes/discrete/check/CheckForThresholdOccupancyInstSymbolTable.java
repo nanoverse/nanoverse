@@ -24,7 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.discrete.check;
 
-import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.processes.discrete.check.CheckForThresholdOccupancyLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -59,6 +60,6 @@ public class CheckForThresholdOccupancyInstSymbolTable extends DiscreteProcessIn
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new CheckForThresholdOccupancyLoader();
     }
 }

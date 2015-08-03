@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.primitive.doubles;
 
-import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.*;
 import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import control.arguments.*;

@@ -24,7 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.discrete;
 
-import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.processes.discrete.RecordLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.processes.ProcessInstSymbolTable;
@@ -49,6 +50,6 @@ public class RecordInstSymbolTable extends ProcessInstSymbolTable<Record> {
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new RecordLoader();
     }
 }
