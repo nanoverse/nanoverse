@@ -24,29 +24,33 @@
 
 package agent.action;
 
-import agent.Behavior;
 import cells.BehaviorCell;
+import control.arguments.DynamicActionRangeMapDescriptor;
+import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
+import java.util.Random;
 import java.util.function.Function;
 
 /**
- * Created by dbborens on 1/24/15.
+ * Created by dbborens on 8/3/2015.
  */
-public class BehaviorDescriptor extends ActionDescriptor {
+public class StochasticChoiceDescriptor extends ActionDescriptor<StochasticChoice> {
+    private final Function<BehaviorCell, StochasticChoice> constructor;
 
-    final Function<BehaviorCell, Behavior> constructor;
+    @FactoryTarget(displayName = "StochasticChoice")
+    public StochasticChoiceDescriptor(LayerManager layerManager,
+                                      DynamicActionRangeMapDescriptor chooser,
+                                      Random random) {
 
-    public BehaviorDescriptor(Function<BehaviorCell, Behavior> constructor) {
-        this.constructor = constructor;
+        constructor = cell -> {
+            DynamicActionRangeMap map = chooser.instantiate(cell);
+            return new StochasticChoice(cell, layerManager, map, random);
+        };
     }
 
     @Override
-    protected Function resolveConstructor() {
+    protected Function<BehaviorCell, StochasticChoice> resolveConstructor() {
         return constructor;
-    }
-
-    @Override
-    public Behavior instantiate(BehaviorCell cell) {
-        return (Behavior) super.instantiate(cell);
     }
 }

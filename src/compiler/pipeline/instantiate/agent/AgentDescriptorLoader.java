@@ -22,31 +22,13 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package agent.action;
+package compiler.pipeline.instantiate.agent;
 
-import agent.Behavior;
-import cells.BehaviorCell;
-
-import java.util.function.Function;
+import compiler.pipeline.instantiate.Loader;
+import control.arguments.CellDescriptor;
 
 /**
- * Created by dbborens on 1/24/15.
+ * Created by dbborens on 8/3/2015.
  */
-public class BehaviorDescriptor extends ActionDescriptor {
-
-    final Function<BehaviorCell, Behavior> constructor;
-
-    public BehaviorDescriptor(Function<BehaviorCell, Behavior> constructor) {
-        this.constructor = constructor;
-    }
-
-    @Override
-    protected Function resolveConstructor() {
-        return constructor;
-    }
-
-    @Override
-    public Behavior instantiate(BehaviorCell cell) {
-        return (Behavior) super.instantiate(cell);
-    }
+public class AgentDescriptorLoader extends Loader<CellDescriptor> {
 }

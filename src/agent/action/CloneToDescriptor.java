@@ -24,29 +24,38 @@
 
 package agent.action;
 
-import agent.Behavior;
+import agent.targets.TargetRule;
 import cells.BehaviorCell;
+import control.arguments.*;
+import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
+import java.util.Random;
 import java.util.function.Function;
 
 /**
- * Created by dbborens on 1/24/15.
+ * Created by dbborens on 8/3/2015.
  */
-public class BehaviorDescriptor extends ActionDescriptor {
+public class CloneToDescriptor extends ActionDescriptor<CloneTo> {
+    private final Function<BehaviorCell, CloneTo> constructor;
 
-    final Function<BehaviorCell, Behavior> constructor;
+    @FactoryTarget(displayName = "CloneTo")
+    public CloneToDescriptor(LayerManager layerManager,
+                             TargetDescriptor targetDescriptor,
+                             boolean noReplace,
+                             IntegerArgument selfChannel,
+                             IntegerArgument targetChannel,
+                             Random random) {
 
-    public BehaviorDescriptor(Function<BehaviorCell, Behavior> constructor) {
-        this.constructor = constructor;
+        constructor = cell -> {
+            TargetRule targetRule = targetDescriptor.instantiate(cell);
+            return new CloneTo(cell, layerManager, targetRule, noReplace,
+                    selfChannel, targetChannel, random);
+        };
     }
 
     @Override
-    protected Function resolveConstructor() {
+    protected Function<BehaviorCell, CloneTo> resolveConstructor() {
         return constructor;
-    }
-
-    @Override
-    public Behavior instantiate(BehaviorCell cell) {
-        return (Behavior) super.instantiate(cell);
     }
 }

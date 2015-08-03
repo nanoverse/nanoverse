@@ -24,29 +24,28 @@
 
 package agent.action;
 
-import agent.Behavior;
 import cells.BehaviorCell;
+import control.arguments.IntegerArgument;
+import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 
 /**
- * Created by dbborens on 1/24/15.
+ * Created by dbborens on 8/3/2015.
  */
-public class BehaviorDescriptor extends ActionDescriptor {
+public class DieDescriptor extends ActionDescriptor<Die> {
 
-    final Function<BehaviorCell, Behavior> constructor;
+    private final Function<BehaviorCell, Die> constructor;
 
-    public BehaviorDescriptor(Function<BehaviorCell, Behavior> constructor) {
-        this.constructor = constructor;
+    @FactoryTarget(displayName = "Die")
+    public DieDescriptor(LayerManager layerManager, IntegerArgument channel) {
+        constructor = cell -> new Die(cell, layerManager, channel);
     }
 
     @Override
-    protected Function resolveConstructor() {
+    protected Function<BehaviorCell, Die> resolveConstructor() {
         return constructor;
     }
 
-    @Override
-    public Behavior instantiate(BehaviorCell cell) {
-        return (Behavior) super.instantiate(cell);
-    }
 }

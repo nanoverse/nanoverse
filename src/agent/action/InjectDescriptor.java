@@ -24,29 +24,30 @@
 
 package agent.action;
 
-import agent.Behavior;
 import cells.BehaviorCell;
+import control.arguments.DoubleArgument;
+import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 
 /**
- * Created by dbborens on 1/24/15.
+ * Created by dbborens on 8/3/2015.
  */
-public class BehaviorDescriptor extends ActionDescriptor {
+public class InjectDescriptor extends ActionDescriptor<Inject> {
+    private final Function<BehaviorCell, Inject> constructor;
 
-    final Function<BehaviorCell, Behavior> constructor;
+    @FactoryTarget(displayName = "Inject")
+    public InjectDescriptor(LayerManager layerManager,
+                            String layerId,
+                            DoubleArgument deltaArg) {
 
-    public BehaviorDescriptor(Function<BehaviorCell, Behavior> constructor) {
-        this.constructor = constructor;
+        constructor = cell -> new Inject(cell, layerManager, layerId,
+                deltaArg);
     }
 
     @Override
-    protected Function resolveConstructor() {
+    protected Function<BehaviorCell, Inject> resolveConstructor() {
         return constructor;
-    }
-
-    @Override
-    public Behavior instantiate(BehaviorCell cell) {
-        return (Behavior) super.instantiate(cell);
     }
 }

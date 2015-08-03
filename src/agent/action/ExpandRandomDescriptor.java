@@ -24,29 +24,31 @@
 
 package agent.action;
 
-import agent.Behavior;
 import cells.BehaviorCell;
+import control.arguments.IntegerArgument;
+import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
+import java.util.Random;
 import java.util.function.Function;
 
 /**
- * Created by dbborens on 1/24/15.
+ * Created by dbborens on 8/3/2015.
  */
-public class BehaviorDescriptor extends ActionDescriptor {
+public class ExpandRandomDescriptor extends ActionDescriptor<ExpandRandom> {
 
-    final Function<BehaviorCell, Behavior> constructor;
+    private final Function<BehaviorCell, ExpandRandom> constructor;
 
-    public BehaviorDescriptor(Function<BehaviorCell, Behavior> constructor) {
-        this.constructor = constructor;
+    @FactoryTarget(displayName = "ExpandRandom")
+    public ExpandRandomDescriptor(LayerManager layerManager,
+                        IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
+
+        constructor = cell -> new ExpandRandom(cell, layerManager,
+                selfChannel, targetChannel, random);
     }
 
     @Override
-    protected Function resolveConstructor() {
+    protected Function<BehaviorCell, ExpandRandom> resolveConstructor() {
         return constructor;
-    }
-
-    @Override
-    public Behavior instantiate(BehaviorCell cell) {
-        return (Behavior) super.instantiate(cell);
     }
 }
