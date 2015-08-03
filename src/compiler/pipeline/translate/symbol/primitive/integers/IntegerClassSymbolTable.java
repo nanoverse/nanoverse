@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.primitive.integers;
 
-import compiler.pipeline.interpret.nodes.ASTPrimitiveInteger;
+import compiler.pipeline.interpret.visitors.*;
 import compiler.pipeline.translate.symbol.*;
 import control.arguments.*;
 
@@ -49,7 +49,7 @@ public class IntegerClassSymbolTable extends ClassSymbolTable<IntegerArgument> {
     }
 
     private void primitive(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = PrimitiveIntegerSymbolTable::new;
-        ret.put(ASTPrimitiveInteger.IDENTIFIER, supplier);
+        Supplier<InstantiableSymbolTable> supplier = ConstantIntegerInstSymbolTable::new;
+        ret.put(NanoPrimitiveIntegerVisitor.IDENTIFIER, supplier);
     }
 }

@@ -24,11 +24,9 @@
 
 package compiler.pipeline.translate.visitors;
 
-import compiler.pipeline.interpret.nodes.ASTPrimitiveNode;
-import compiler.pipeline.translate.nodes.ObjectNode;
-import compiler.pipeline.translate.symbol.primitive.PrimitiveSymbolTable;
-import compiler.pipeline.translate.symbol.primitive.doubles.PrimitiveDoubleSymbolTable;
-import compiler.pipeline.translate.symbol.primitive.integers.PrimitiveIntegerSymbolTable;
+import compiler.pipeline.interpret.nodes.ASTContainerNode;
+import compiler.pipeline.translate.nodes.*;
+import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import org.slf4j.*;
 
 /**
@@ -44,14 +42,10 @@ public class PrimitiveVisitor {
         logger = LoggerFactory.getLogger(PrimitiveVisitor.class);
     }
 
-    public ObjectNode translate(ASTPrimitiveNode toTranslate, PrimitiveSymbolTable symbolTable) {
-        logger.debug("Translating primitive {}", toTranslate.getContent());
-        if (symbolTable instanceof PrimitiveIntegerSymbolTable) {
-            return ((PrimitiveIntegerSymbolTable) symbolTable).getObjectNode(toTranslate);
-        } else if (symbolTable instanceof PrimitiveDoubleSymbolTable) {
-            return ((PrimitiveDoubleSymbolTable) symbolTable).getObjectNode(toTranslate);
-        } else {
-            throw new IllegalStateException("Unrecognized primitive");
-        }
+    public ObjectNode translate(ASTContainerNode toTranslate, ConstantPrimitiveSymbolTable symbolTable) {
+        logger.debug("Translating primitive.");
+        String valueStr = toTranslate.getIdentifier();
+        Object value = symbolTable.getValue(valueStr);
+        return new PrimitiveObjectNode<>(symbolTable, value);
     }
 }

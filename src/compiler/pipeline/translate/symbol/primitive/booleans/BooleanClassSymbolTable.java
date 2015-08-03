@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.primitive.booleans;
 
-import compiler.pipeline.interpret.nodes.*;
+import compiler.pipeline.interpret.visitors.NanoPrimitiveBooleanVisitor;
 import compiler.pipeline.translate.symbol.*;
 import control.arguments.*;
 
@@ -49,7 +49,7 @@ public class BooleanClassSymbolTable extends ClassSymbolTable<BooleanArgument> {
     }
 
     private void primitive(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = PrimitiveBooleanSymbolTable::new;
-        ret.put(ASTPrimitiveBoolean.IDENTIFIER, supplier);
+        Supplier<InstantiableSymbolTable> supplier = ConstantBooleanInstSymbolTable::new;
+        ret.put(NanoPrimitiveBooleanVisitor.IDENTIFIER, supplier);
     }
 }

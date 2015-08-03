@@ -30,10 +30,14 @@ import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.util.stream.Stream;
+
 /**
  * Created by dbborens on 2/15/15.
  */
 public class NanoPrimitiveStringVisitor extends AbstractNanoNodeVisitor {
+
+    public static final String IDENTIFIER = "ConstantString";
 
     @Override
     public ASTNode visitStringPrimitive(@NotNull NanosyntaxParser.StringPrimitiveContext ctx) {
@@ -46,6 +50,9 @@ public class NanoPrimitiveStringVisitor extends AbstractNanoNodeVisitor {
 
         String valueText = child.getText();
         valueText = valueText.replaceAll("^\"|\"$", "");
-        return new ASTPrimitiveString(valueText);
+        ASTContainerNode valueNode = new ASTContainerNode(valueText, null);
+        Stream<ASTNode> children = Stream.of(valueNode);
+        ASTContainerNode container = new ASTContainerNode(IDENTIFIER, children);
+        return container;
     }
 }

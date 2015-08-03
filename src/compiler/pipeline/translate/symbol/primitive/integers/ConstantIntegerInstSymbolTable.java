@@ -22,29 +22,33 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.interpret.visitors;
+package compiler.pipeline.translate.symbol.primitive.integers;
 
-import compiler.pipeline.interpret.nanosyntax.NanosyntaxParser;
-import compiler.pipeline.interpret.nodes.*;
-import org.antlr.v4.runtime.CommonToken;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.tree.ParseTree;
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.*;
+import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
+import control.arguments.*;
 
 /**
- * Created by dbborens on 2/15/15.
+ * Created by dbborens on 3/5/15.
  */
-public class NanoPrimitiveIntVisitor extends AbstractNanoNodeVisitor {
+public class ConstantIntegerInstSymbolTable
+        extends ConstantPrimitiveSymbolTable<ConstantInteger, Integer> {
+
     @Override
-    public ASTNode visitIntPrimitive(@NotNull NanosyntaxParser.IntPrimitiveContext ctx) {
-        if (ctx.getChildCount() != 1) {
-            throw new IllegalArgumentException("Malformed primitive");
-        }
+    public String getDescription() {
+        return "A constant integer.";
+    }
 
-        ParseTree child = ctx.getChild(0);
-        verifyPayload(child, CommonToken.class);
+    @Override
+    public Integer getValue(String valueStr) {
+        Integer value = Integer.valueOf(valueStr);
+        return value;
+    }
 
-        String valueText = child.getText();
-        Integer value = Integer.valueOf(valueText);
-        return new ASTPrimitiveInteger(value);
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

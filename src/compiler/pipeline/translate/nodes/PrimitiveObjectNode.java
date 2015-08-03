@@ -6,19 +6,19 @@
 package compiler.pipeline.translate.nodes;
 
 import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
-import compiler.pipeline.translate.symbol.primitive.PrimitiveSymbolTable;
+import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 
 import java.util.function.Supplier;
 
 /**
  * Created by dbborens on 4/26/15.
  */
-public abstract class PrimitiveObjectNode<T> implements ObjectNode {
+public class PrimitiveObjectNode<T> implements ObjectNode {
 
+    private final ConstantPrimitiveSymbolTable symbolTable;
     private final T value;
-    private final PrimitiveSymbolTable<T> symbolTable;
 
-    public PrimitiveObjectNode(PrimitiveSymbolTable<T> symbolTable, T value) {
+    public PrimitiveObjectNode(ConstantPrimitiveSymbolTable symbolTable, T value) {
         this.symbolTable = symbolTable;
         this.value = value;
     }
@@ -34,6 +34,6 @@ public abstract class PrimitiveObjectNode<T> implements ObjectNode {
 
     @Override
     public Class getInstantiatingClass() {
-        return Supplier.class;
+        return symbolTable.getInstanceClass();
     }
 }

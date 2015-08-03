@@ -31,10 +31,15 @@ import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.util.stream.Stream;
+
 /**
  * Created by dbborens on 2/15/15.
  */
 public class NanoPrimitiveBooleanVisitor extends AbstractNanoNodeVisitor {
+
+    public static final String IDENTIFIER = "ConstantBoolean";
+
     @Override
     public ASTNode visitBoolPrimitive(@NotNull BoolPrimitiveContext ctx) {
         if (ctx.getChildCount() != 1) {
@@ -45,21 +50,10 @@ public class NanoPrimitiveBooleanVisitor extends AbstractNanoNodeVisitor {
         verifyPayload(child, CommonToken.class);
 
         String valueText = child.getText();
-        Boolean value = Boolean.valueOf(valueText);
-        return new ASTPrimitiveBoolean(value);
+        ASTContainerNode valueNode = new ASTContainerNode(valueText, null);
+        Stream<ASTNode> children = Stream.of(valueNode);
+        ASTContainerNode container = new ASTContainerNode(IDENTIFIER, children);
+        return container;
     }
 
-//    @Override
-//    public ASTNode visitBoolPrimitive(@NotNull NanosyntaxParser.IntPrimitiveContext ctx) {
-//        if (ctx.getChildCount() != 1) {
-//            throw new IllegalArgumentException("Malformed primitive");
-//        }
-//
-//        ParseTree child = ctx.getChild(0);
-//        verifyPayload(child, CommonToken.class);
-//
-//        String valueText = child.getText();
-//        Integer value = Integer.valueOf(valueText);
-//        return new ASTPrimitiveInteger(value);
-//    }
 }

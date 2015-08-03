@@ -27,8 +27,6 @@ package compiler.pipeline.translate.symbol;
 import com.google.common.reflect.TypeToken;
 import compiler.error.UnrecognizedIdentifierError;
 import compiler.pipeline.translate.nodes.*;
-import compiler.pipeline.translate.symbol.primitive.doubles.DoubleInstanceSymbolTable;
-import compiler.pipeline.translate.symbol.primitive.integers.IntegerInstanceSymbolTable;
 import org.slf4j.*;
 
 import java.util.HashMap;
@@ -74,19 +72,4 @@ public abstract class MapSymbolTable<T> implements InstantiableSymbolTable {
     public Class getInstanceClass() {
         return type.getRawType();
     }
-
-    protected Supplier<Integer> intProperty(ObjectNode node, String property) {
-        ObjectNode child = ((MapObjectNode) node).getMember(property);
-        IntegerInstanceSymbolTable symbolTable = (IntegerInstanceSymbolTable) child.getSymbolTable();
-        Supplier<Integer> supplier = symbolTable.instantiate(child);
-        return supplier;
-    }
-
-    protected Supplier<Double> doubleProperty(ObjectNode node, String property) {
-        ObjectNode child = ((MapObjectNode) node).getMember(property);
-        DoubleInstanceSymbolTable symbolTable = (DoubleInstanceSymbolTable) child.getSymbolTable();
-        Supplier<Double> supplier = symbolTable.instantiate(child);
-        return supplier;
-    }
-
 }

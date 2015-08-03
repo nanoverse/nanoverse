@@ -25,11 +25,6 @@
 package compiler.pipeline.instantiate;
 
 import com.google.common.reflect.TypeToken;
-import compiler.pipeline.translate.nodes.*;
-import compiler.pipeline.translate.symbol.primitive.PrimitiveSymbolTable;
-import compiler.pipeline.translate.symbol.primitive.doubles.PrimitiveDoubleSymbolTable;
-import compiler.pipeline.translate.symbol.primitive.integers.PrimitiveIntegerSymbolTable;
-import compiler.pipeline.translate.symbol.primitive.strings.StringInstSymbolTable;
 
 /**
  * Created by dbborens on 7/29/2015.
@@ -42,6 +37,11 @@ public abstract class Loader<T> {
     public Loader() {
         helper = new TypeCheckHelper(type.getRawType());
     }
+
+    public Class getInstanceClass() {
+        return type.getRawType();
+    }
+
 //    protected final ObjectNode node;
 //    protected final Factory<T> factory;
 //
@@ -100,7 +100,4 @@ public abstract class Loader<T> {
 //        }
 //    }
 //
-//    public Class getInstanceClass() {
-//        return type.getRawType();
-//    }
 }

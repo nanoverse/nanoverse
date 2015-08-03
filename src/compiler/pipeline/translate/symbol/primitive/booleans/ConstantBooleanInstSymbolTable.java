@@ -22,17 +22,31 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.nodes;
+package compiler.pipeline.translate.symbol.primitive.booleans;
 
-
-import compiler.pipeline.translate.symbol.primitive.PrimitiveSymbolTable;
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.*;
+import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
+import control.arguments.*;
 
 /**
- * Created by dbborens on 4/26/15.
+ * Created by dbborens on 7/22/2015.
  */
-public class PrimitiveStringNode extends PrimitiveObjectNode<String> {
+public class ConstantBooleanInstSymbolTable extends ConstantPrimitiveSymbolTable<BooleanArgument, Boolean> {
 
-    public PrimitiveStringNode(PrimitiveSymbolTable<String> symbolTable, String value) {
-        super(symbolTable, value);
+    @Override
+    public String getDescription() {
+        return "A constant boolean.";
+    }
+
+    @Override
+    public Boolean getValue(String valueStr) {
+        Boolean value = Boolean.valueOf(valueStr);
+        return value;
+    }
+
+    @Override
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

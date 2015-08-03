@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.primitive.strings;
 
 import compiler.pipeline.interpret.nodes.*;
+import compiler.pipeline.interpret.visitors.NanoPrimitiveStringVisitor;
 import compiler.pipeline.translate.symbol.*;
 import control.arguments.*;
 
@@ -49,6 +50,6 @@ public class StringClassSymbolTable extends ClassSymbolTable<StringArgument> {
 
     private void primitive(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> supplier = StringInstSymbolTable::new;
-        ret.put(ASTPrimitiveString.IDENTIFIER, supplier);
+        ret.put(NanoPrimitiveStringVisitor.IDENTIFIER, supplier);
     }
 }
