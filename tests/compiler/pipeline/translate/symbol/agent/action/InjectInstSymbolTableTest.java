@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.Inject;
+import agent.action.*;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import control.arguments.*;
 import org.junit.*;
@@ -32,8 +32,8 @@ import org.junit.*;
 public class InjectInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedActionClass() {
-        return Inject.class;
+    protected Class getExpectedClass() {
+        return InjectDescriptor.class;
     }
 
     @Override

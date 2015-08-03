@@ -24,8 +24,9 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.ThresholdDo;
+import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.action.ThresholdDoLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -37,7 +38,7 @@ import java.util.HashMap;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class ThresholdDoInstSymbolTable extends ActionInstSymbolTable<ThresholdDo> {
+public class ThresholdDoInstSymbolTable extends ActionInstSymbolTable<ThresholdDoDescriptor> {
     @Override
     public String getDescription() {
         return "Perform a particular action if a lattice concentration " +
@@ -80,6 +81,6 @@ public class ThresholdDoInstSymbolTable extends ActionInstSymbolTable<ThresholdD
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new ThresholdDoLoader();
     }
 }

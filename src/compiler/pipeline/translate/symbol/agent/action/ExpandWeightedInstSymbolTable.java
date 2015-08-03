@@ -24,8 +24,9 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.ExpandWeighted;
+import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.action.ExpandWeightedLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -36,7 +37,7 @@ import java.util.HashMap;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class ExpandWeightedInstSymbolTable extends ActionInstSymbolTable<ExpandWeighted> {
+public class ExpandWeightedInstSymbolTable extends ActionInstSymbolTable<ExpandWeightedDescriptor> {
     @Override
     public String getDescription() {
         return "Place a copy or copies of the current cell toward any " +
@@ -70,6 +71,6 @@ public class ExpandWeightedInstSymbolTable extends ActionInstSymbolTable<ExpandW
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new ExpandWeightedLoader();
     }
 }

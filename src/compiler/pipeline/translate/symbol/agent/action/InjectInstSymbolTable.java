@@ -24,8 +24,9 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.Inject;
+import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.action.InjectLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -37,7 +38,7 @@ import java.util.HashMap;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class InjectInstSymbolTable extends ActionInstSymbolTable<Inject> {
+public class InjectInstSymbolTable extends ActionInstSymbolTable<InjectDescriptor> {
     @Override
     public String getDescription() {
         return "Adjust the value of a continuum layer by a specified amount at this agent's location.";
@@ -65,6 +66,6 @@ public class InjectInstSymbolTable extends ActionInstSymbolTable<Inject> {
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new InjectLoader();
     }
 }

@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.Trigger;
+import agent.action.*;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import control.arguments.*;
 import org.junit.*;
@@ -32,8 +32,8 @@ import org.junit.*;
 public class TriggerActionInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedActionClass() {
-        return Trigger.class;
+    protected Class getExpectedClass() {
+        return TriggerDescriptor.class;
     }
 
     @Override

@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.NullAction;
+import agent.action.*;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 
 public class NullActionInstSymbolTableTest extends ActionInstSymbolTableTest {
@@ -35,7 +35,7 @@ public class NullActionInstSymbolTableTest extends ActionInstSymbolTableTest {
     }
 
     @Override
-    protected Class getExpectedActionClass() {
-        return NullAction.class;
+    protected Class getExpectedClass() {
+        return NullActionDescriptor.class;
     }
 }

@@ -24,14 +24,15 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.MockAction;
+import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.action.MockActionLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class MockActionInstSymbolTable extends ActionInstSymbolTable<MockAction> {
+public class MockActionInstSymbolTable extends ActionInstSymbolTable<MockActionDescriptor> {
     @Override
     public String getDescription() {
         return "LEGACY: A mock action, used for some legacy tests.";
@@ -39,6 +40,6 @@ public class MockActionInstSymbolTable extends ActionInstSymbolTable<MockAction>
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new MockActionLoader();
     }
 }

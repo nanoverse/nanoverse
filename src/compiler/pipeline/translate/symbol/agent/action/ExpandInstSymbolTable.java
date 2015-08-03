@@ -24,8 +24,9 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.Expand;
+import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.action.ExpandLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -36,7 +37,7 @@ import java.util.HashMap;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class ExpandInstSymbolTable extends ActionInstSymbolTable<Expand> {
+public class ExpandInstSymbolTable extends ActionInstSymbolTable<ExpandDescriptor> {
     @Override
     public String getDescription() {
         return "Causes the agent to expand toward the nearest vacant site. " +
@@ -71,6 +72,6 @@ public class ExpandInstSymbolTable extends ActionInstSymbolTable<Expand> {
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new ExpandLoader();
     }
 }

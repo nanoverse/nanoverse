@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.Swap;
+import agent.action.*;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import control.arguments.*;
 import org.junit.Test;
@@ -32,8 +32,8 @@ import org.junit.Test;
 public class SwapInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedActionClass() {
-        return Swap.class;
+    protected Class getExpectedClass() {
+        return SwapDescriptor.class;
     }
 
     @Override

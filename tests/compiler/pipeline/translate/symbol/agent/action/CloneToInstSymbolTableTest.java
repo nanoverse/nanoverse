@@ -32,7 +32,7 @@ import org.junit.Test;
 public class CloneToInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedActionClass() {
+    protected Class getExpectedClass() {
         return CloneTo.class;
     }
 

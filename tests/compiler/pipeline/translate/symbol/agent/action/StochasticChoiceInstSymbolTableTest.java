@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.StochasticChoice;
+import agent.action.*;
 import agent.action.stochastic.WeightedOption;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import org.junit.*;
@@ -32,8 +32,8 @@ import org.junit.*;
 public class StochasticChoiceInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedActionClass() {
-        return StochasticChoice.class;
+    protected Class getExpectedClass() {
+        return StochasticChoiceDescriptor.class;
     }
 
     @Override

@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.ExpandWeighted;
+import agent.action.*;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import control.arguments.IntegerArgument;
 import org.junit.*;
@@ -32,8 +32,8 @@ import org.junit.*;
 public class ExpandWeightedInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedActionClass() {
-        return ExpandWeighted.class;
+    protected Class getExpectedClass() {
+        return ExpandWeightedDescriptor.class;
     }
 
     @Override

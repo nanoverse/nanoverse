@@ -24,8 +24,9 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.AdjustHealth;
+import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.action.AdjustHealthLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -36,7 +37,7 @@ import java.util.HashMap;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class AdjustHealthInstSymbolTable extends ActionInstSymbolTable<AdjustHealth> {
+public class AdjustHealthInstSymbolTable extends ActionInstSymbolTable<AdjustHealthDescriptor> {
     @Override
     public String getDescription() {
         return "Adjusts the health of the agent by a specified delta.";
@@ -57,6 +58,6 @@ public class AdjustHealthInstSymbolTable extends ActionInstSymbolTable<AdjustHea
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new AdjustHealthLoader();
     }
 }

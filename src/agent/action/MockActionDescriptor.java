@@ -22,33 +22,27 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.agent.action;
+package agent.action;
 
-import agent.action.*;
-import compiler.pipeline.translate.symbol.MapSymbolTable;
-import control.arguments.IntegerArgument;
-import org.junit.*;
+import cells.BehaviorCell;
+import structural.annotations.FactoryTarget;
 
-public class ExpandRandomInstSymbolTableTest extends ActionInstSymbolTableTest {
+import java.util.function.Function;
 
-    @Override
-    protected Class getExpectedClass() {
-        return ExpandRandomDescriptor.class;
+/**
+ * Created by dbborens on 8/3/2015.
+ */
+public class MockActionDescriptor extends ActionDescriptor<MockAction> {
+
+    private final Function<BehaviorCell, MockAction> constructor;
+
+    @FactoryTarget(displayName = "MockAction")
+    public MockActionDescriptor() {
+        constructor = cell -> new MockAction();
     }
 
     @Override
-    protected MapSymbolTable getQuery() {
-        return new ExpandRandomInstSymbolTable();
+    protected Function<BehaviorCell, MockAction> resolveConstructor() {
+        return constructor;
     }
-
-    @Test
-    public void targetHighlight() throws Exception {
-        verifyReturnSymbol("targetHighlight", IntegerArgument.class);
-    }
-
-    @Test
-    public void selfHighlight() throws Exception {
-        verifyReturnSymbol("selfHighlight", IntegerArgument.class);
-    }
-
 }

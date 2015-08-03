@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.MockAction;
+import agent.action.*;
 
 public class MockActionInstSymbolTableTest extends ActionInstSymbolTableTest {
 
@@ -34,8 +34,8 @@ public class MockActionInstSymbolTableTest extends ActionInstSymbolTableTest {
     }
 
     @Override
-    protected Class getExpectedActionClass() {
-        return MockAction.class;
+    protected Class getExpectedClass() {
+        return MockActionDescriptor.class;
     }
 
 }

@@ -35,17 +35,4 @@ import static junit.framework.TestCase.assertEquals;
  */
 public abstract class ActionInstSymbolTableTest extends MapSymbolTableTest {
 
-    @Override
-    protected Class getExpectedClass() {
-        return ActionDescriptor.class;
-    }
-
-    protected abstract Class getExpectedActionClass();
-
-    @Test
-    public void verifyActionClassAsExpected() {
-        Class expected = getExpectedActionClass();
-        Class actual = ((ActionInstSymbolTable) query).getActionClass();
-        assertEquals(expected, actual);
-    }
 }

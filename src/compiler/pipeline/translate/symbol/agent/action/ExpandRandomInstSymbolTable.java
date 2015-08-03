@@ -24,8 +24,9 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.ExpandRandom;
+import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.action.ExpandRandomLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -36,7 +37,7 @@ import java.util.HashMap;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class ExpandRandomInstSymbolTable extends ActionInstSymbolTable<ExpandRandom> {
+public class ExpandRandomInstSymbolTable extends ActionInstSymbolTable<ExpandRandomDescriptor> {
     @Override
     public String getDescription() {
         return "Place a copy of the agent in a random adjacent location, " +
@@ -70,6 +71,6 @@ public class ExpandRandomInstSymbolTable extends ActionInstSymbolTable<ExpandRan
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new ExpandRandomLoader();
     }
 }
