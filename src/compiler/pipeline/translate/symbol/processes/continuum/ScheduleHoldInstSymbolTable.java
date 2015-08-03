@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.processes.continuum;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.processes.continuum.ScheduleHoldLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -59,6 +60,6 @@ public class ScheduleHoldInstSymbolTable extends ContinuumProcessInstSymbolTable
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new ScheduleHoldLoader();
     }
 }
