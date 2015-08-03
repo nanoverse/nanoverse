@@ -24,14 +24,15 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.NullAction;
+import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.action.NullActionLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class NullActionInstSymbolTable extends ActionInstSymbolTable<NullAction> {
+public class NullActionInstSymbolTable extends ActionInstSymbolTable<NullActionDescriptor> {
     @Override
     public String getDescription() {
         return "Doesn't do anything.";
@@ -39,6 +40,6 @@ public class NullActionInstSymbolTable extends ActionInstSymbolTable<NullAction>
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new NullActionLoader();
     }
 }

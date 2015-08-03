@@ -32,7 +32,7 @@ import org.junit.*;
 public class ExpandInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedActionClass() {
+    protected Class getExpectedClass() {
         return Expand.class;
     }
 

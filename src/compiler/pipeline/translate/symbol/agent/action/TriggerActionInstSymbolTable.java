@@ -24,8 +24,9 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.Trigger;
+import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.action.TriggerLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -38,7 +39,7 @@ import java.util.HashMap;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class TriggerActionInstSymbolTable extends ActionInstSymbolTable<Trigger> {
+public class TriggerActionInstSymbolTable extends ActionInstSymbolTable<TriggerDescriptor> {
 
     @Override
     public String getDescription() {
@@ -89,6 +90,6 @@ public class TriggerActionInstSymbolTable extends ActionInstSymbolTable<Trigger>
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new TriggerLoader();
     }
 }

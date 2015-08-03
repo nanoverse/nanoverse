@@ -24,8 +24,9 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.Swap;
+import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.action.SwapLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -37,7 +38,7 @@ import java.util.HashMap;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class SwapInstSymbolTable extends ActionInstSymbolTable<Swap> {
+public class SwapInstSymbolTable extends ActionInstSymbolTable<SwapDescriptor> {
     @Override
     public String getDescription() {
         return "Swap the agent with the contents of another lattice position.";
@@ -77,6 +78,6 @@ public class SwapInstSymbolTable extends ActionInstSymbolTable<Swap> {
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new SwapLoader();
     }
 }

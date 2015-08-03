@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.ExpandTo;
+import agent.action.*;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import control.arguments.*;
 import org.junit.*;
@@ -32,8 +32,8 @@ import org.junit.*;
 public class ExpandToInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedActionClass() {
-        return ExpandTo.class;
+    protected Class getExpectedClass() {
+        return ExpandToDescriptor.class;
     }
 
     @Override

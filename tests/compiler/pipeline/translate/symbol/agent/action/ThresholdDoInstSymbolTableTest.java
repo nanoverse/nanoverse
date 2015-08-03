@@ -37,8 +37,8 @@ public class ThresholdDoInstSymbolTableTest extends ActionInstSymbolTableTest {
     }
 
     @Override
-    protected Class getExpectedActionClass() {
-        return ThresholdDo.class;
+    protected Class getExpectedClass() {
+        return ThresholdDoDescriptor.class;
     }
 
     @Test

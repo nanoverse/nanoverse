@@ -37,7 +37,7 @@ public class DieInstSymbolTableTest extends ActionInstSymbolTableTest {
     }
 
     @Override
-    protected Class getExpectedActionClass() {
+    protected Class getExpectedClass() {
         return Die.class;
     }
 

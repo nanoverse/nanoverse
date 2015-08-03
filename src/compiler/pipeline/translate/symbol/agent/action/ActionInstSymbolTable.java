@@ -31,10 +31,5 @@ import compiler.pipeline.translate.symbol.MapSymbolTable;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public abstract class ActionInstSymbolTable<T extends Action> extends MapSymbolTable<ActionDescriptor<T>> {
-    private final TypeToken<T> actionClass = new TypeToken<T>(getClass()) {};
-
-    public Class getActionClass() {
-        return actionClass.getRawType();
-    }
+public abstract class ActionInstSymbolTable<T extends ActionDescriptor> extends MapSymbolTable<T> {
 }

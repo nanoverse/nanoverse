@@ -43,79 +43,74 @@ public class ActionClassSymbolTableTest extends ClassSymbolTableTest {
         return ActionDescriptor.class;
     }
 
-    private void verifyActionClass(String identifier, Class expected) throws Exception {
-        InstantiableSymbolTable ist = query.getSymbolTable(identifier);
-        Class actual = ((ActionInstSymbolTable) ist).getActionClass();
-        assertEquals(expected, actual);
-    }
 
     @Test
     public void nullAction() throws Exception {
-        verifyActionClass("Null", NullAction.class);
+        verifyReturnSymbol("Null", NullActionDescriptor.class);
     }
 
     @Test
     public void thresholdDo() throws Exception {
-        verifyActionClass("ThresholdDo", ThresholdDo.class);
+        verifyReturnSymbol("ThresholdDo", ThresholdDoDescriptor.class);
     }
 
     @Test
     public void inject() throws Exception {
-        verifyActionClass("Inject", Inject.class);
+        verifyReturnSymbol("Inject", InjectDescriptor.class);
     }
 
     @Test
     public void swap() throws Exception {
-        verifyActionClass("Swap", Swap.class);
+        verifyReturnSymbol("Swap", SwapDescriptor.class);
     }
 
     @Test
     public void stochasticChoice() throws Exception {
-        verifyActionClass("StochasticChoice", StochasticChoice.class);
+        verifyReturnSymbol("StochasticChoice", StochasticChoiceDescriptor.class);
     }
 
     @Test
     public void expandWeighted() throws Exception {
-        verifyActionClass("ExpandWeighted", ExpandWeighted.class);
+        verifyReturnSymbol("ExpandWeighted", ExpandWeightedDescriptor.class);
     }
 
     @Test
     public void expandRandom() throws Exception {
-        verifyActionClass("ExpandRandom", ExpandRandom.class);
+        verifyReturnSymbol("ExpandRandom", ExpandRandomDescriptor.class);
     }
 
     @Test
     public void expandTo() throws Exception {
-        verifyActionClass("ExpandTo", ExpandTo.class);
+        verifyReturnSymbol("ExpandTo", ExpandToDescriptor.class);
     }
 
     @Test
     public void expand() throws Exception {
-        verifyActionClass("Expand", Expand.class);
+        verifyReturnSymbol("Expand", ExpandDescriptor.class);
     }
 
     @Test
     public void cloneTo() throws Exception {
-        verifyActionClass("CloneTo", CloneTo.class);
+        verifyReturnSymbol("CloneTo", CloneToDescriptor.class);
     }
 
     @Test
     public void trigger() throws Exception {
-        verifyActionClass("Trigger", Trigger.class);
+        verifyReturnSymbol("Trigger", TriggerDescriptor.class);
     }
 
     @Test
     public void adjustHealth() throws Exception {
-        verifyActionClass("AdjustHealth", AdjustHealth.class);
+        verifyReturnSymbol("AdjustHealth", AdjustHealthDescriptor.class);
     }
 
     @Test
     public void die() throws Exception {
-        verifyActionClass("Die", Die.class);
+        verifyReturnSymbol("Die", DieDescriptor.class);
     }
 
     @Test
     public void mock() throws Exception {
-        verifyActionClass("Mock", MockAction.class);
+        verifyReturnSymbol("Mock", MockActionDescriptor.class);
     }
 }

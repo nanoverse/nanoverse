@@ -22,33 +22,17 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.agent.action;
+package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
-import compiler.pipeline.translate.symbol.MapSymbolTable;
-import control.arguments.IntegerArgument;
-import org.junit.*;
+import com.google.common.reflect.TypeToken;
+import compiler.pipeline.instantiate.loader.Loader;
 
-public class ExpandRandomInstSymbolTableTest extends ActionInstSymbolTableTest {
+/**
+ * Created by dbborens on 8/3/2015.
+ */
+public abstract class ActionLoader<T extends ActionDescriptor> extends Loader<T>  {
 
-    @Override
-    protected Class getExpectedClass() {
-        return ExpandRandomDescriptor.class;
-    }
-
-    @Override
-    protected MapSymbolTable getQuery() {
-        return new ExpandRandomInstSymbolTable();
-    }
-
-    @Test
-    public void targetHighlight() throws Exception {
-        verifyReturnSymbol("targetHighlight", IntegerArgument.class);
-    }
-
-    @Test
-    public void selfHighlight() throws Exception {
-        verifyReturnSymbol("selfHighlight", IntegerArgument.class);
-    }
+    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
 
 }

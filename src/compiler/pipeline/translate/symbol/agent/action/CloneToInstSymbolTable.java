@@ -24,8 +24,9 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.CloneTo;
+import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.action.CloneToLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -38,7 +39,7 @@ import java.util.HashMap;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class CloneToInstSymbolTable extends ActionInstSymbolTable<CloneTo> {
+public class CloneToInstSymbolTable extends ActionInstSymbolTable<CloneToDescriptor> {
     @Override
     public String getDescription() {
         return "Places a copy or copies of the current cell at the target " +
@@ -87,6 +88,6 @@ public class CloneToInstSymbolTable extends ActionInstSymbolTable<CloneTo> {
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new CloneToLoader();
     }
 }

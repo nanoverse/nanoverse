@@ -24,8 +24,9 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.ExpandTo;
+import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.action.ExpandToLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -37,7 +38,7 @@ import java.util.HashMap;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class ExpandToInstSymbolTable extends ActionInstSymbolTable<ExpandTo> {
+public class ExpandToInstSymbolTable extends ActionInstSymbolTable<ExpandToDescriptor> {
     @Override
     public String getDescription() {
         return "Places a copy or copies of the current cell at the target " +
@@ -79,6 +80,6 @@ public class ExpandToInstSymbolTable extends ActionInstSymbolTable<ExpandTo> {
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new ExpandToLoader();
     }
 }
