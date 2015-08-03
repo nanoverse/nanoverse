@@ -29,7 +29,8 @@ import com.google.common.base.Strings;
 import java.util.List;
 import java.util.stream.*;
 
-/** * Created by dbborens on 4/21/15. */ public class ASTContainerNode implements ASTNode {
+/** * Created by dbborens on 4/21/15. */
+public class ASTContainerNode implements ASTNode {
     private final String identifier;
     private final List<ASTNode> children;
 

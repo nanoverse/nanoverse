@@ -22,36 +22,23 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.primitive.doubles;
+package compiler.pipeline.translate.symbol.primitive;
 
-import compiler.pipeline.instantiate.Loader;
-import compiler.pipeline.interpret.nodes.ASTPrimitiveNode;
-import compiler.pipeline.translate.nodes.*;
-import compiler.pipeline.translate.symbol.primitive.PrimitiveSymbolTable;
-import control.arguments.ConstantDouble;
+import com.google.common.reflect.TypeToken;
+import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+import control.arguments.Argument;
 
 /**
- * Created by dbborens on 3/5/15.
+ * Created by dbborens on 8/3/2015.
  */
-public class PrimitiveDoubleSymbolTable extends PrimitiveSymbolTable<Double> implements DoubleInstanceSymbolTable {
+public abstract class ConstantPrimitiveSymbolTable<T, U> implements InstantiableSymbolTable {
 
-    @Override
-    public String getDescription() {
-        return "A constant Double.";
-    }
+    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
 
-    @Override
-    public PrimitiveObjectNode<Double> getObjectNode(ASTPrimitiveNode<Double> astNode) {
-        return new PrimitiveDoubleNode(this, astNode.getContent());
-    }
+    public abstract U getValue(String valueStr);
 
     @Override
     public Class getInstanceClass() {
-        return ConstantDouble.class;
-    }
-
-    @Override
-    public Loader getLoader(ObjectNode node) {
-        return null;
+        return type.getRawType();
     }
 }

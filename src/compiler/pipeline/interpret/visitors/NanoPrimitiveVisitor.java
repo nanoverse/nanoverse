@@ -38,17 +38,17 @@ import static compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.*;
 public class NanoPrimitiveVisitor extends AbstractNanoNodeVisitor {
     private final Logger logger;
     private final NanoPrimitiveDoubleVisitor doubleVisitor;
-    private final NanoPrimitiveIntVisitor intVisitor;
+    private final NanoPrimitiveIntegerVisitor intVisitor;
     private final NanoPrimitiveStringVisitor stringVisitor;
 
     public NanoPrimitiveVisitor() {
         this(new NanoPrimitiveDoubleVisitor(),
-             new NanoPrimitiveIntVisitor(),
+             new NanoPrimitiveIntegerVisitor(),
              new NanoPrimitiveStringVisitor());
     }
 
     public NanoPrimitiveVisitor(NanoPrimitiveDoubleVisitor doubleVisitor,
-                                NanoPrimitiveIntVisitor intVisitor,
+                                NanoPrimitiveIntegerVisitor intVisitor,
                                 NanoPrimitiveStringVisitor stringVisitor) {
 
         logger = LoggerFactory.getLogger(NanoPrimitiveVisitor.class);

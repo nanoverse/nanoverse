@@ -22,27 +22,31 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.interpret.nodes;
+package compiler.pipeline.translate.symbol.primitive.doubles;
 
-import com.google.common.base.Strings;
+import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.translate.nodes.*;
+import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
+import control.arguments.*;
 
 /**
  * Created by dbborens on 3/5/15.
  */
-public class ASTPrimitiveInteger extends ASTPrimitiveNode<Integer> {
-    public static final String IDENTIFIER = "AST_PRIMITIVE_INTEGER";
-    public ASTPrimitiveInteger(Integer content) {
-        super(content);
+public class ConstantDoubleInstSymbolTable extends ConstantPrimitiveSymbolTable<DoubleArgument, Double> {
+
+    @Override
+    public String getDescription() {
+        return "A constant Double.";
     }
 
     @Override
-    public void astReport(StringBuilder builder, int indentLevel) {
-        builder.append(Strings.repeat(" ", indentLevel));
-        builder.append("integer: " + getContent() + "\n");
+    public Double getValue(String valueStr) {
+        Double value = Double.valueOf(valueStr);
+        return value;
     }
 
     @Override
-    public String getIdentifier() {
-        return IDENTIFIER;
+    public Loader getLoader(ObjectNode node) {
+        return null;
     }
 }

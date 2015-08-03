@@ -35,11 +35,11 @@ import java.util.stream.Stream;
 /**
  * Created by dbborens on 2/15/15.
  */
-public class NanoPrimitiveDoubleVisitor extends AbstractNanoNodeVisitor {
+public class NanoPrimitiveIntegerVisitor extends AbstractNanoNodeVisitor {
 
-    public static final String IDENTIFIER = "ConstantDouble";
+    public static final String IDENTIFIER = "ConstantInteger";
     @Override
-    public ASTNode visitFloatPrimitive(@NotNull NanosyntaxParser.FloatPrimitiveContext ctx) {
+    public ASTNode visitIntPrimitive(@NotNull NanosyntaxParser.IntPrimitiveContext ctx) {
         if (ctx.getChildCount() != 1) {
             throw new IllegalArgumentException("Malformed primitive");
         }
@@ -54,4 +54,3 @@ public class NanoPrimitiveDoubleVisitor extends AbstractNanoNodeVisitor {
         return container;
     }
 }
-

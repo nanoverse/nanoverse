@@ -28,7 +28,7 @@ import compiler.pipeline.interpret.nodes.*;
 import compiler.pipeline.translate.helpers.TranslationCallback;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
-import compiler.pipeline.translate.symbol.primitive.PrimitiveSymbolTable;
+import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import org.slf4j.*;
 
 /**
@@ -90,8 +90,8 @@ public class MasterTranslationVisitor {
             return mapVisitor.translate((ASTContainerNode) toTranslate, (MapSymbolTable) symbolTable);
         } else if (symbolTable instanceof DictionarySymbolTable) {
             return dictVisitor.translate((ASTContainerNode) toTranslate, (DictionarySymbolTable) symbolTable);
-        } else if (symbolTable instanceof PrimitiveSymbolTable) {
-            return primitiveVisitor.translate((ASTPrimitiveNode) toTranslate, (PrimitiveSymbolTable) symbolTable);
+        } else if (symbolTable instanceof ConstantPrimitiveSymbolTable) {
+            return primitiveVisitor.translate((ASTContainerNode) toTranslate, (ConstantPrimitiveSymbolTable) symbolTable);
         } else {
             throw new IllegalArgumentException("Unexpected symbol table class");
         }

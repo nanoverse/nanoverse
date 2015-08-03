@@ -25,22 +25,23 @@
 package compiler.pipeline.translate.symbol.primitive.strings;
 
 import compiler.pipeline.instantiate.Loader;
-import compiler.pipeline.interpret.nodes.ASTPrimitiveNode;
 import compiler.pipeline.translate.nodes.*;
-import compiler.pipeline.translate.symbol.primitive.PrimitiveSymbolTable;
+import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
+import control.arguments.StringArgument;
 
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class StringInstSymbolTable extends PrimitiveSymbolTable<String> {
+public class StringInstSymbolTable
+        extends ConstantPrimitiveSymbolTable<StringArgument, String> {
     @Override
     public String getDescription() {
         return "A string literal.";
     }
 
     @Override
-    public PrimitiveObjectNode<String> getObjectNode(ASTPrimitiveNode<String> astNode) {
-        return new PrimitiveStringNode(this, astNode.getContent());
+    public String getValue(String valueStr) {
+        return valueStr;
     }
 
     @Override

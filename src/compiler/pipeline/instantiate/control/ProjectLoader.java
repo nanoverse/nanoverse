@@ -33,7 +33,4 @@ import control.run.Runner;
  */
 public class ProjectLoader extends Loader<Runner> {
 
-    public Runner instantiate(MapObjectNode node) {
-
-    }
 }

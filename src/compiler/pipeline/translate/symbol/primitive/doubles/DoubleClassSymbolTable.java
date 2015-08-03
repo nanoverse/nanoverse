@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.primitive.doubles;
 
-import compiler.pipeline.interpret.nodes.ASTPrimitiveDouble;
+import compiler.pipeline.interpret.visitors.NanoPrimitiveDoubleVisitor;
 import compiler.pipeline.translate.symbol.*;
 import control.arguments.*;
 
@@ -51,7 +51,7 @@ public class DoubleClassSymbolTable extends ClassSymbolTable<DoubleArgument> {
     }
 
     private void primitive(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = PrimitiveDoubleSymbolTable::new;
-        ret.put(ASTPrimitiveDouble.IDENTIFIER, supplier);
+        Supplier<InstantiableSymbolTable> supplier = ConstantDoubleInstSymbolTable::new;
+        ret.put(NanoPrimitiveDoubleVisitor.IDENTIFIER, supplier);
     }
 }
