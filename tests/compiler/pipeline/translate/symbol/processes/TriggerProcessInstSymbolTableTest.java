@@ -25,7 +25,7 @@
 package compiler.pipeline.translate.symbol.processes;
 
 import compiler.pipeline.translate.symbol.MapSymbolTable;
-import compiler.pipeline.translate.symbol.processes.discrete.DiscreteProcessInstSymbolTableTest;
+import compiler.pipeline.translate.symbol.processes.discrete.*;
 import control.arguments.*;
 import org.junit.*;
 import processes.discrete.TriggerProcess;

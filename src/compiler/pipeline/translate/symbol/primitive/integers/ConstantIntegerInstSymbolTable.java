@@ -24,9 +24,8 @@
 
 package compiler.pipeline.translate.symbol.primitive.integers;
 
-import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.*;
-import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import control.arguments.*;
 

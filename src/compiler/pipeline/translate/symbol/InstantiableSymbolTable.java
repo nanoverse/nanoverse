@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol;
 
-import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 
 /**

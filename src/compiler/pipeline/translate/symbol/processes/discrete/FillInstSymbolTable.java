@@ -24,7 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.discrete;
 
-import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.processes.discrete.FillLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -67,6 +68,6 @@ public class FillInstSymbolTable extends DiscreteProcessInstSymbolTable<Fill> {
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new FillLoader();
     }
 }

@@ -24,7 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.discrete;
 
-import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.processes.discrete.PowerScatterLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -66,6 +67,6 @@ public class PowerScatterInstSymbolTable extends DiscreteProcessInstSymbolTable<
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new PowerScatterLoader();
     }
 }

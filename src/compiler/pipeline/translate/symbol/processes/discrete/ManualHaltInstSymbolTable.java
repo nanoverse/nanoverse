@@ -24,7 +24,8 @@
 
 package compiler.pipeline.translate.symbol.processes.discrete;
 
-import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.processes.discrete.ManualHaltLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import processes.discrete.ManualHalt;
@@ -47,6 +48,6 @@ public class ManualHaltInstSymbolTable extends DiscreteProcessInstSymbolTable<Ma
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new ManualHaltLoader();
     }
 }

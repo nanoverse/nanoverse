@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.geometry.lattice;
 
-import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.lattice.CubicLattice;

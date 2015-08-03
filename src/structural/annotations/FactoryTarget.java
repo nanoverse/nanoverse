@@ -24,6 +24,8 @@
 
 package structural.annotations;
 
+import compiler.pipeline.instantiate.factory.Factory;
+
 import java.lang.annotation.*;
 
 /**
@@ -32,7 +34,7 @@ import java.lang.annotation.*;
  *
  * Created by dbborens on 7/30/2015.
  *
- * @see compiler.pipeline.instantiate.Factory
+ * @see Factory
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.CONSTRUCTOR)

@@ -24,12 +24,11 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
-import compiler.pipeline.instantiate.Loader;
+import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.io.visual.VisualizationClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
-import control.arguments.StringArgument;
 import io.serialize.binary.VisualizationSerializer;
 
 import java.util.HashMap;
