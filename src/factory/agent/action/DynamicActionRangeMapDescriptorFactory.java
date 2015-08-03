@@ -24,13 +24,10 @@
 
 package factory.agent.action;
 
-import agent.action.Action;
-import agent.action.DynamicActionRangeMap;
-import agent.action.NullAction;
+import agent.action.*;
 import agent.action.stochastic.ProbabilitySupplier;
 import cells.BehaviorCell;
 import control.GeneralParameters;
-import agent.action.ActionDescriptor;
 import control.arguments.DynamicActionRangeMapDescriptor;
 import control.arguments.ProbabilitySupplierDescriptor;
 import factory.agent.BehaviorDescriptorFactory;
@@ -90,8 +87,7 @@ public abstract class DynamicActionRangeMapDescriptorFactory {
         }
         List elements = actionElement.elements();
         if (elements.size() == 0) {
-            Function<BehaviorCell, NullAction> fn = cell -> new NullAction();
-            return new ActionDescriptor(fn);
+            return new NullActionDescriptor();
         } else if (elements.size() == 1) {
             Element child = (Element) actionElement.elements().iterator().next();
             return ActionDescriptorFactory.instantiate(child, layerManager, p);

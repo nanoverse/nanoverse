@@ -24,29 +24,36 @@
 
 package agent.action;
 
-import agent.Behavior;
 import cells.BehaviorCell;
+import control.arguments.DoubleArgument;
+import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 
 /**
- * Created by dbborens on 1/24/15.
+ * Created by dbborens on 8/3/2015.
  */
-public class BehaviorDescriptor extends ActionDescriptor {
+public class ThresholdDoDescriptor extends ActionDescriptor<ThresholdDo> {
 
-    final Function<BehaviorCell, Behavior> constructor;
+    private final Function<BehaviorCell,ThresholdDo> constructor;
 
-    public BehaviorDescriptor(Function<BehaviorCell, Behavior> constructor) {
-        this.constructor = constructor;
+    @FactoryTarget(displayName = "ThresholdDo")
+    public ThresholdDoDescriptor(LayerManager layerManager,
+                                 String layerId,
+                                 DoubleArgument minimumArg,
+                                 DoubleArgument maximumArg,
+                                 ActionDescriptor childDescriptor) {
+
+        constructor = cell -> {
+            Action child = childDescriptor.instantiate(cell);
+            return new ThresholdDo(cell, layerManager, layerId, minimumArg,
+                    maximumArg, child);
+        };
     }
 
     @Override
-    protected Function resolveConstructor() {
+    protected Function<BehaviorCell, ThresholdDo> resolveConstructor() {
         return constructor;
-    }
-
-    @Override
-    public Behavior instantiate(BehaviorCell cell) {
-        return (Behavior) super.instantiate(cell);
     }
 }

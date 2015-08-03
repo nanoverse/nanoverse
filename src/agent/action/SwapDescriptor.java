@@ -24,29 +24,33 @@
 
 package agent.action;
 
-import agent.Behavior;
+import agent.targets.TargetRule;
 import cells.BehaviorCell;
+import control.arguments.*;
+import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 
 /**
- * Created by dbborens on 1/24/15.
+ * Created by dbborens on 8/3/2015.
  */
-public class BehaviorDescriptor extends ActionDescriptor {
+public class SwapDescriptor extends ActionDescriptor<Swap> {
+    private final Function<BehaviorCell, Swap> constructor;
 
-    final Function<BehaviorCell, Behavior> constructor;
+    @FactoryTarget(displayName = "Swap")
+    public SwapDescriptor(LayerManager layerManager, TargetDescriptor ruleDescriptor,
+                IntegerArgument selfChannel,
+                IntegerArgument targetChannel) {
 
-    public BehaviorDescriptor(Function<BehaviorCell, Behavior> constructor) {
-        this.constructor = constructor;
+        constructor = cell -> {
+            TargetRule rule = ruleDescriptor.instantiate(cell);
+            return new Swap(cell, layerManager, rule, selfChannel, targetChannel);
+        };
     }
 
     @Override
-    protected Function resolveConstructor() {
+    protected Function<BehaviorCell, Swap> resolveConstructor() {
         return constructor;
-    }
-
-    @Override
-    public Behavior instantiate(BehaviorCell cell) {
-        return (Behavior) super.instantiate(cell);
     }
 }

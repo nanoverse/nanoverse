@@ -24,26 +24,38 @@
 
 package agent.action;
 
-import agent.action.Action;
+import agent.targets.TargetRule;
 import cells.BehaviorCell;
-import com.google.common.reflect.TypeToken;
+import control.arguments.*;
+import layers.LayerManager;
+import org.antlr.v4.codegen.model.decl.RuleContextDecl;
 import structural.annotations.FactoryTarget;
 
-import java.lang.reflect.Constructor;
 import java.util.function.Function;
 
 /**
- * Descriptive, lightweight wrapper for a function that returns
- * a particular kind of action, given a behavior cell to use it.
- * <p>
- * Created by dbborens on 1/24/15.
+ * Created by dbborens on 8/3/2015.
  */
-public abstract class ActionDescriptor<T extends Action> {
+public class TriggerDescriptor extends ActionDescriptor<Trigger> {
 
-    protected abstract Function<BehaviorCell, T> resolveConstructor();
+    private final Function<BehaviorCell, Trigger> constructor;
 
-    public T instantiate(BehaviorCell cell) {
-        Function<BehaviorCell, T> constructor = resolveConstructor();
-        return constructor.apply(cell);
+    @FactoryTarget(displayName = "Trigger")
+    public TriggerDescriptor(LayerManager layerManager,
+                             String behaviorName,
+                             TargetDescriptor ruleDescriptor,
+                             IntegerArgument selfChannel,
+                             IntegerArgument targetChannel) {
+
+        constructor = cell -> {
+            TargetRule targetRule = ruleDescriptor.instantiate(cell);
+            return new Trigger(cell, layerManager, behaviorName,
+                    targetRule, selfChannel, targetChannel);
+        };
+    }
+
+    @Override
+    protected Function<BehaviorCell, Trigger> resolveConstructor() {
+        return constructor;
     }
 }

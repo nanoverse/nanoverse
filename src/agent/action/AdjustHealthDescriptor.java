@@ -24,29 +24,26 @@
 
 package agent.action;
 
-import agent.Behavior;
 import cells.BehaviorCell;
+import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 
 /**
- * Created by dbborens on 1/24/15.
+ * Created by dbborens on 8/3/2015.
  */
-public class BehaviorDescriptor extends ActionDescriptor {
+public class AdjustHealthDescriptor extends ActionDescriptor<AdjustHealth> {
 
-    final Function<BehaviorCell, Behavior> constructor;
+    private final Function<BehaviorCell, AdjustHealth> constructor;
 
-    public BehaviorDescriptor(Function<BehaviorCell, Behavior> constructor) {
-        this.constructor = constructor;
+    @FactoryTarget(displayName = "AdjustHealth")
+    public AdjustHealthDescriptor(LayerManager layerManager, double delta) {
+        constructor = cell -> new AdjustHealth(cell, layerManager, delta);
     }
 
     @Override
-    protected Function resolveConstructor() {
+    protected Function<BehaviorCell, AdjustHealth> resolveConstructor() {
         return constructor;
-    }
-
-    @Override
-    public Behavior instantiate(BehaviorCell cell) {
-        return (Behavior) super.instantiate(cell);
     }
 }

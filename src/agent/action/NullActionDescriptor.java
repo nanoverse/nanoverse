@@ -22,34 +22,26 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.arguments;
+package agent.action;
 
-import agent.action.*;
 import cells.BehaviorCell;
-import org.junit.Before;
-import org.junit.Test;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+/**
+ * Created by dbborens on 8/3/2015.
+ */
+public class NullActionDescriptor extends ActionDescriptor<NullAction> {
+    private final Function<BehaviorCell, NullAction> constructor;
 
-public class ActionDescriptorTest {
-
-    private Function<BehaviorCell, Action> constructor;
-    private ActionDescriptor<Action> query;
-    private BehaviorCell cell;
-
-    @Before
-    public void init() throws Exception {
-        constructor = (Function<BehaviorCell, Action>) mock(Function.class);
-        cell = mock(BehaviorCell.class);
-        query = new ActionDescriptor<>(constructor);
+    @FactoryTarget(displayName = "NullAction")
+    public NullActionDescriptor() {
+        constructor = cell -> new NullAction();
     }
 
-    @Test
-    public void instantiateCallsFunction() throws Exception {
-        query.instantiate(cell);
-        verify(constructor).apply(cell);
+    @Override
+    protected Function<BehaviorCell, NullAction> resolveConstructor() {
+        return constructor;
     }
 }

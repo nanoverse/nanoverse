@@ -24,26 +24,38 @@
 
 package agent.action;
 
-import agent.action.Action;
+import agent.targets.TargetRule;
 import cells.BehaviorCell;
-import com.google.common.reflect.TypeToken;
+import control.arguments.*;
+import layers.LayerManager;
 import structural.annotations.FactoryTarget;
 
-import java.lang.reflect.Constructor;
+import java.util.Random;
 import java.util.function.Function;
 
 /**
- * Descriptive, lightweight wrapper for a function that returns
- * a particular kind of action, given a behavior cell to use it.
- * <p>
- * Created by dbborens on 1/24/15.
+ * Created by dbborens on 8/3/2015.
  */
-public abstract class ActionDescriptor<T extends Action> {
+public class ExpandToDescriptor extends ActionDescriptor<ExpandTo> {
 
-    protected abstract Function<BehaviorCell, T> resolveConstructor();
+    private final Function<BehaviorCell,ExpandTo> constructor;
 
-    public T instantiate(BehaviorCell cell) {
-        Function<BehaviorCell, T> constructor = resolveConstructor();
-        return constructor.apply(cell);
+    @FactoryTarget(displayName = "ExpandTo")
+    public ExpandToDescriptor(LayerManager layerManager,
+                              TargetDescriptor ruleDescriptor,
+                              IntegerArgument selfChannel,
+                              IntegerArgument targetChannel, Random
+                                          random) {
+
+        constructor = cell -> {
+            TargetRule targetRule = ruleDescriptor.instantiate(cell);
+            return new ExpandTo(cell, layerManager, targetRule,
+                    selfChannel, targetChannel, random);
+        };
+    }
+
+    @Override
+    protected Function<BehaviorCell, ExpandTo> resolveConstructor() {
+        return constructor;
     }
 }

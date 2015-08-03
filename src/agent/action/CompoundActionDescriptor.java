@@ -24,29 +24,35 @@
 
 package agent.action;
 
-import agent.Behavior;
 import cells.BehaviorCell;
+import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
+import java.util.List;
 import java.util.function.Function;
+import java.util.stream.*;
 
 /**
- * Created by dbborens on 1/24/15.
+ * Created by dbborens on 8/3/2015.
  */
-public class BehaviorDescriptor extends ActionDescriptor {
+public class CompoundActionDescriptor extends ActionDescriptor<CompoundAction> {
+    private final Function<BehaviorCell, CompoundAction> constructor;
+    private final List<ActionDescriptor> childList;
 
-    final Function<BehaviorCell, Behavior> constructor;
-
-    public BehaviorDescriptor(Function<BehaviorCell, Behavior> constructor) {
-        this.constructor = constructor;
+    @FactoryTarget(displayName = "CompoundAction")
+    public CompoundActionDescriptor(LayerManager layerManager, Stream<ActionDescriptor> children) {
+        childList = children.collect(Collectors.toList());
+        constructor = cell -> {
+            Action[] instanceChildren = childList.stream()
+                    .map(descriptor -> descriptor.instantiate(cell))
+                    .collect(Collectors.toList())
+                    .toArray(new Action[0]);
+            return new CompoundAction(cell, layerManager, instanceChildren);
+        };
     }
 
     @Override
-    protected Function resolveConstructor() {
+    protected Function<BehaviorCell, CompoundAction> resolveConstructor() {
         return constructor;
-    }
-
-    @Override
-    public Behavior instantiate(BehaviorCell cell) {
-        return (Behavior) super.instantiate(cell);
     }
 }
