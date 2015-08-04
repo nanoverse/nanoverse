@@ -29,14 +29,14 @@ import com.google.common.reflect.TypeToken;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import compiler.pipeline.translate.symbol.processes.discrete.filter.FilterClassSymbolTable;
-import control.arguments.TargetDescriptor;
+import agent.targets.TargetDescriptor;
 
 import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/23/2015.
  */
-public abstract class TargetRuleInstSymbolTable<T extends TargetRule> extends MapSymbolTable<TargetDescriptor<T>> {
+public abstract class TargetRuleInstSymbolTable<T extends TargetDescriptor> extends MapSymbolTable<T> {
     private final TypeToken<T> targetRuleClass = new TypeToken<T>(getClass()) {};
 
     public Class getTargetRuleClass() {

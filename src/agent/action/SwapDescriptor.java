@@ -24,7 +24,7 @@
 
 package agent.action;
 
-import agent.targets.TargetRule;
+import agent.targets.*;
 import cells.BehaviorCell;
 import control.arguments.*;
 import layers.LayerManager;

@@ -25,7 +25,7 @@
 package compiler.pipeline.translate.symbol.agent.targets;
 
 import compiler.pipeline.translate.symbol.*;
-import control.arguments.TargetDescriptor;
+import agent.targets.TargetDescriptor;
 
 import java.util.HashMap;
 import java.util.function.Supplier;

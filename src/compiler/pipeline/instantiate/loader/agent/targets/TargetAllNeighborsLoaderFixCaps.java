@@ -22,26 +22,12 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.arguments;
+package compiler.pipeline.instantiate.loader.agent.targets;
 
-import agent.targets.TargetRule;
-import cells.BehaviorCell;
-
-import java.util.function.Function;
+import agent.targets.*;
 
 /**
- * Created by dbborens on 1/26/15.
+ * Created by dbborens on 8/4/2015.
  */
-public class TargetDescriptor<T extends TargetRule> {
-
-    private Function<BehaviorCell, T> constructor;
-
-    public TargetDescriptor(Function<BehaviorCell, T> constructor) {
-        this.constructor = constructor;
-    }
-
-    public T instantiate(BehaviorCell cell) {
-        return constructor.apply(cell);
-    }
-
+public class TargetAllNeighborsLoaderFixCaps extends TargetLoader<TargetAllNeighborsDescriptor> {
 }
