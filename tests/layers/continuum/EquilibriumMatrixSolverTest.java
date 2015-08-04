@@ -27,6 +27,7 @@ package layers.continuum;
 import layers.continuum.solvers.EquilibriumBandSolver;
 import layers.continuum.solvers.EquilibriumKrylovSolver;
 import layers.continuum.solvers.EquilibriumMatrixSolver;
+import layers.continuum.solvers.EquilibriumPetscSolver;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
@@ -56,7 +57,8 @@ public class EquilibriumMatrixSolverTest extends TestBase {
         // Array containing all the solvers the test will run with
         EquilibriumMatrixSolver[] solvers = new EquilibriumMatrixSolver[]{
                 new EquilibriumKrylovSolver(true),
-                new EquilibriumBandSolver(true)};
+                new EquilibriumBandSolver(true),
+                new EquilibriumPetscSolver(true)};
         return Arrays.asList(solvers);
     }
 
