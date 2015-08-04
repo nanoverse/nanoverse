@@ -29,5 +29,5 @@ import agent.targets.*;
 /**
  * Created by dbborens on 8/4/2015.
  */
-public class TargetAllNeighborsLoaderFixCaps extends TargetLoader<TargetAllNeighborsDescriptor> {
+public class TargetAllNeighborsLoader extends TargetLoader<TargetAllNeighborsDescriptor> {
 }
