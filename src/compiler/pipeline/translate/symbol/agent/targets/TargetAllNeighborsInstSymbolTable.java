@@ -26,7 +26,7 @@ package compiler.pipeline.translate.symbol.agent.targets;
 
 import agent.targets.*;
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.instantiate.loader.agent.targets.TargetAllNeighborsLoaderFixCaps;
+import compiler.pipeline.instantiate.loader.agent.targets.TargetAllNeighborsLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 
 /**
@@ -40,6 +40,6 @@ public class TargetAllNeighborsInstSymbolTable extends TargetRuleInstSymbolTable
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return new TargetAllNeighborsLoaderFixCaps();
+        return new TargetAllNeighborsLoader();
     }
 }
