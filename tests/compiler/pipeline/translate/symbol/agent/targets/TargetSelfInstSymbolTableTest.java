@@ -24,10 +24,11 @@
 
 package compiler.pipeline.translate.symbol.agent.targets;
 
-import agent.targets.TargetSelf;
+import agent.targets.*;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
+import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 
-public class TargetSelfInstSymbolTableTest  extends TargetRuleInstSymbolTableTest {
+public class TargetSelfInstSymbolTableTest  extends MapSymbolTableTest {
 
     @Override
     protected MapSymbolTable getQuery() {
@@ -35,8 +36,8 @@ public class TargetSelfInstSymbolTableTest  extends TargetRuleInstSymbolTableTes
     }
 
     @Override
-    protected Class getTargetRuleClass() {
-        return TargetSelf.class;
+    protected Class getExpectedClass() {
+        return TargetSelfDescriptor.class;
     }
 
 }

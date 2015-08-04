@@ -24,14 +24,15 @@
 
 package compiler.pipeline.translate.symbol.agent.targets;
 
-import agent.targets.TargetOccupiedNeighbors;
+import agent.targets.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.targets.TargetOccupiedNeighborsLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 
 /**
  * Created by dbborens on 7/23/2015.
  */
-public class TargetOccupiedNeighborsInstSymbolTable extends TargetRuleInstSymbolTable<TargetOccupiedNeighbors> {
+public class TargetOccupiedNeighborsInstSymbolTable extends TargetRuleInstSymbolTable<TargetOccupiedNeighborsDescriptor> {
     @Override
     public String getDescription() {
         return "Targets only neighboring locations that contain agents.";
@@ -39,6 +40,6 @@ public class TargetOccupiedNeighborsInstSymbolTable extends TargetRuleInstSymbol
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new TargetOccupiedNeighborsLoader();
     }
 }

@@ -26,12 +26,13 @@ package compiler.pipeline.translate.symbol.agent.targets;
 
 import agent.targets.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.targets.TargetCallerLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 
 /**
  * Created by dbborens on 7/23/2015.
  */
-public class TargetCallerInstSymbolTable extends TargetRuleInstSymbolTable<TargetCaller> {
+public class TargetCallerInstSymbolTable extends TargetRuleInstSymbolTable<TargetCallerDescriptor> {
     @Override
     public String getDescription() {
         return "Targets the entity that caused the action to be triggered. " +
@@ -41,6 +42,6 @@ public class TargetCallerInstSymbolTable extends TargetRuleInstSymbolTable<Targe
 
     @Override
     public Loader getLoader(ObjectNode node) {
-        return null;
+        return new TargetCallerLoader();
     }
 }

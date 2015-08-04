@@ -27,7 +27,7 @@ package factory.agent.targets;
 import agent.targets.*;
 import cells.BehaviorCell;
 import control.GeneralParameters;
-import control.arguments.TargetDescriptor;
+import agent.targets.TargetDescriptor;
 import factory.processes.discrete.filter.FilterFactory;
 import layers.LayerManager;
 import org.dom4j.Element;
@@ -45,23 +45,15 @@ public abstract class TargetDesciptorFactory {
         int maximum = getMaximum(descriptor);
         Filter filter = getFilter(descriptor, layerManager, p);
         if (targetName.equalsIgnoreCase("all-neighbors")) {
-            Function<BehaviorCell, TargetAllNeighbors> fn = cell -> new TargetAllNeighbors(cell, layerManager, filter, maximum, p.getRandom());
-            return new TargetDescriptor(fn);
+            return new TargetAllNeighborsDescriptor(layerManager, filter, maximum, p.getRandom());
         } else if (targetName.equalsIgnoreCase("occupied-neighbors")) {
-            Function<BehaviorCell, TargetOccupiedNeighbors> fn = cell -> new TargetOccupiedNeighbors(cell, layerManager, filter, maximum, p.getRandom());
-            return new TargetDescriptor(fn);
-
+            return new TargetOccupiedNeighborsDescriptor(layerManager, filter, maximum, p.getRandom());
         } else if (targetName.equalsIgnoreCase("vacant-neighbors")) {
-            Function<BehaviorCell, TargetVacantNeighbors> fn = cell -> new TargetVacantNeighbors(cell, layerManager, filter, maximum, p.getRandom());
-            return new TargetDescriptor(fn);
+            return new TargetVacantNeighborsDescriptor(layerManager, filter, maximum, p.getRandom());
         } else if (targetName.equalsIgnoreCase("caller")) {
-            Function<BehaviorCell, TargetCaller> fn = cell -> new TargetCaller(cell, layerManager, filter, maximum, p.getRandom());
-            return new TargetDescriptor(fn);
-
+            return new TargetCallerDescriptor(layerManager, filter, maximum, p.getRandom());
         } else if (targetName.equalsIgnoreCase("self")) {
-            Function<BehaviorCell, TargetSelf> fn = cell -> new TargetSelf(cell, layerManager, filter, maximum, p.getRandom());
-            return new TargetDescriptor(fn);
-
+            return new TargetSelfDescriptor(layerManager, filter, maximum, p.getRandom());
         } else {
             throw new IllegalArgumentException("Unrecognized target '" + targetName + "'");
         }

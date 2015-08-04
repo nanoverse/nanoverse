@@ -24,10 +24,11 @@
 
 package compiler.pipeline.translate.symbol.agent.targets;
 
-import agent.targets.TargetOccupiedNeighbors;
+import agent.targets.*;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
+import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 
-public class TargetOccupiedNeighborsInstSymbolTableTest  extends TargetRuleInstSymbolTableTest {
+public class TargetOccupiedNeighborsInstSymbolTableTest  extends MapSymbolTableTest {
 
     @Override
     protected MapSymbolTable getQuery() {
@@ -35,8 +36,8 @@ public class TargetOccupiedNeighborsInstSymbolTableTest  extends TargetRuleInstS
     }
 
     @Override
-    protected Class getTargetRuleClass() {
-        return TargetOccupiedNeighbors.class;
+    protected Class getExpectedClass() {
+        return TargetOccupiedNeighborsDescriptor.class;
     }
 
 }

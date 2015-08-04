@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.agent.action;
 
 import agent.action.*;
+import agent.targets.TargetDescriptor;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import control.arguments.*;
 import org.junit.*;

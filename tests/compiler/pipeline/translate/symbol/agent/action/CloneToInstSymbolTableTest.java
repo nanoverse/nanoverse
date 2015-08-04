@@ -24,7 +24,8 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.CloneTo;
+import agent.action.*;
+import agent.targets.TargetDescriptor;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import control.arguments.*;
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class CloneToInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
     protected Class getExpectedClass() {
-        return CloneTo.class;
+        return CloneToDescriptor.class;
     }
 
     @Override

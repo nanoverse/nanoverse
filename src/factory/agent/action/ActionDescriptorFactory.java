@@ -25,7 +25,7 @@
 package factory.agent.action;
 
 import agent.action.*;
-import agent.targets.TargetRule;
+import agent.targets.*;
 import cells.BehaviorCell;
 import control.GeneralParameters;
 import agent.action.ActionDescriptor;

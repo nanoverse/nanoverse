@@ -22,24 +22,12 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.agent.targets;
+package compiler.pipeline.instantiate.loader.agent.targets;
 
-import agent.targets.*;
-import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.instantiate.loader.agent.targets.TargetAllNeighborsLoaderFixCaps;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import agent.targets.TargetCallerDescriptor;
 
 /**
- * Created by dbborens on 7/23/2015.
+ * Created by dbborens on 8/4/2015.
  */
-public class TargetAllNeighborsInstSymbolTable extends TargetRuleInstSymbolTable<TargetAllNeighborsDescriptor> {
-    @Override
-    public String getDescription() {
-        return "Targets all neighbors, regardless of whether or not they are occupied.";
-    }
-
-    @Override
-    public Loader getLoader(ObjectNode node) {
-        return new TargetAllNeighborsLoaderFixCaps();
-    }
+public class TargetCallerLoader extends TargetLoader<TargetCallerDescriptor> {
 }

@@ -22,40 +22,29 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package agent.action;
+package agent.targets;
 
-import agent.targets.*;
 import cells.BehaviorCell;
-import control.arguments.*;
 import layers.LayerManager;
+import processes.discrete.filter.Filter;
 import structural.annotations.FactoryTarget;
 
 import java.util.Random;
 import java.util.function.Function;
 
 /**
- * Created by dbborens on 8/3/2015.
+ * Created by dbborens on 8/4/2015.
  */
-public class ExpandToDescriptor extends ActionDescriptor<ExpandTo> {
+public class TargetOccupiedNeighborsDescriptor extends TargetDescriptor<TargetOccupiedNeighbors> {
+    private final Function<BehaviorCell, TargetOccupiedNeighbors> constructor;
 
-    private final Function<BehaviorCell,ExpandTo> constructor;
-
-    @FactoryTarget(displayName = "ExpandTo")
-    public ExpandToDescriptor(LayerManager layerManager,
-                              TargetDescriptor ruleDescriptor,
-                              IntegerArgument selfChannel,
-                              IntegerArgument targetChannel, Random
-                                          random) {
-
-        constructor = cell -> {
-            TargetRule targetRule = ruleDescriptor.instantiate(cell);
-            return new ExpandTo(cell, layerManager, targetRule,
-                    selfChannel, targetChannel, random);
-        };
+    @FactoryTarget(displayName = "TargetOccupiedNeighbors")
+    public TargetOccupiedNeighborsDescriptor(LayerManager layerManager, Filter filter, int maximum, Random random) {
+        constructor = cell -> new TargetOccupiedNeighbors(cell, layerManager, filter, maximum, random);
     }
 
     @Override
-    protected Function<BehaviorCell, ExpandTo> resolveConstructor() {
+    protected Function<BehaviorCell, TargetOccupiedNeighbors> getConstructor() {
         return constructor;
     }
 }

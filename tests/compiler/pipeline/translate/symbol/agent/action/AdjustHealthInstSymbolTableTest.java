@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.AdjustHealth;
+import agent.action.*;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import control.arguments.DoubleArgument;
 import org.junit.*;
@@ -33,7 +33,7 @@ public class AdjustHealthInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
     protected Class getExpectedClass() {
-        return AdjustHealth.class;
+        return AdjustHealthDescriptor.class;
     }
 
     @Override

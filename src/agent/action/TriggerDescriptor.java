@@ -24,11 +24,10 @@
 
 package agent.action;
 
-import agent.targets.TargetRule;
+import agent.targets.*;
 import cells.BehaviorCell;
 import control.arguments.*;
 import layers.LayerManager;
-import org.antlr.v4.codegen.model.decl.RuleContextDecl;
 import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;

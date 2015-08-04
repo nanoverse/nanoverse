@@ -27,7 +27,7 @@ package compiler.pipeline.translate.symbol.agent.targets;
 import agent.targets.*;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.tables.*;
-import control.arguments.TargetDescriptor;
+import agent.targets.TargetDescriptor;
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -44,35 +44,29 @@ public class TargetRuleClassSymbolTableTest extends ClassSymbolTableTest {
         return TargetDescriptor.class;
     }
 
-    private void verifyTargetRuleClass(String identifier, Class expected) throws Exception {
-        InstantiableSymbolTable ist = query.getSymbolTable(identifier);
-        Class actual = ((TargetRuleInstSymbolTable) ist).getTargetRuleClass();
-        assertEquals(expected, actual);
-    }
-
     @Test
     public void vacantNeighbors() throws Exception {
-        verifyTargetRuleClass("VacantNeighbors", TargetVacantNeighbors.class);
+        verifyReturnSymbol("VacantNeighbors", TargetVacantNeighborsDescriptor.class);
     }
 
     @Test
     public void occupiedNeighbors() throws Exception {
-        verifyTargetRuleClass("OccupiedNeighbors", TargetOccupiedNeighbors.class);
+        verifyReturnSymbol("OccupiedNeighbors", TargetOccupiedNeighborsDescriptor.class);
     }
 
     @Test
     public void allNeighbors() throws Exception {
-        verifyTargetRuleClass("AllNeighbors", TargetAllNeighbors.class);
+        verifyReturnSymbol("AllNeighbors", TargetAllNeighborsDescriptor.class);
     }
 
     @Test
     public void self() throws Exception {
-        verifyTargetRuleClass("Self", TargetSelf.class);
+        verifyReturnSymbol("Self", TargetSelfDescriptor.class);
     }
 
     @Test
     public void caller() throws Exception {
-        verifyTargetRuleClass("Caller", TargetCaller.class);
+        verifyReturnSymbol("Caller", TargetCallerDescriptor.class);
     }
 
 }
