@@ -77,7 +77,7 @@ public class SwapInstSymbolTable extends ActionInstSymbolTable<SwapDescriptor> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new SwapLoader();
     }
 }

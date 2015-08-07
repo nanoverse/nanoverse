@@ -80,7 +80,7 @@ public class ThresholdDoInstSymbolTable extends ActionInstSymbolTable<ThresholdD
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new ThresholdDoLoader();
     }
 }

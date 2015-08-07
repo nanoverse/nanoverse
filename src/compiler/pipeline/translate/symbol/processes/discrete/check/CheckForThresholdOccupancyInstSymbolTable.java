@@ -59,7 +59,7 @@ public class CheckForThresholdOccupancyInstSymbolTable extends DiscreteProcessIn
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new CheckForThresholdOccupancyLoader();
     }
 }

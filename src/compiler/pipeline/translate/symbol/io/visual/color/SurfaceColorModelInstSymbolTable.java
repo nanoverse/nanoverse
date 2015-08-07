@@ -77,7 +77,7 @@ public class SurfaceColorModelInstSymbolTable extends MapSymbolTable<SurfaceGrow
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

@@ -25,10 +25,10 @@
 package factories;
 
 import org.stringtemplate.v4.*;
-import structural.annotations.FactoryTarget;
 
 import java.lang.reflect.*;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 7/30/2015.
@@ -59,7 +59,7 @@ public class FactoryHelperGenerator {
     private void params(ST template, Constructor constructor) {
         Parameter[] cParams = constructor.getParameters();
         pValues(template, cParams);
-        pTypes(template, cParams, constructor);
+        pTypes(template, constructor);
     }
 
     private void pValues(ST template, Parameter[] cParams) {
@@ -72,18 +72,9 @@ public class FactoryHelperGenerator {
      * Populate the set of distinct classes dealt with in this factory
      * (for import statement)
      */
-    private void pTypes(ST template, Parameter[] cParams, Constructor constructor) {
-        HashSet<Class> classes = new HashSet<>();
-        for (Parameter p : cParams) {
-            classes.add(p.getType());
-        }
-
-        for (Class clazz : classes) {
-            template.add("pTypes", clazz);
-        }
-
-        // Now add the class of the object to be built
-        template.add("pTypes", constructor.getDeclaringClass());
+    private void pTypes(ST template, Constructor constructor) {
+        ImportHelper.getImports(constructor)
+                .forEach(imp -> template.add("pTypes", imp));
     }
 
 }

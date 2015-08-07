@@ -74,7 +74,7 @@ public class BullseyeGlyphInstSymbolTable extends MapSymbolTable<BullseyeGlyph> 
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

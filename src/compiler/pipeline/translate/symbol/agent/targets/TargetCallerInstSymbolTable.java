@@ -41,7 +41,7 @@ public class TargetCallerInstSymbolTable extends TargetRuleInstSymbolTable<Targe
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new TargetCallerLoader();
     }
 }

@@ -52,7 +52,7 @@ public class LineInstSymbolTable extends ShapeInstSymbolTable<Line> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

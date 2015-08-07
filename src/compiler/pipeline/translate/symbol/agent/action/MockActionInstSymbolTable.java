@@ -39,7 +39,7 @@ public class MockActionInstSymbolTable extends ActionInstSymbolTable<MockActionD
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new MockActionLoader();
     }
 }

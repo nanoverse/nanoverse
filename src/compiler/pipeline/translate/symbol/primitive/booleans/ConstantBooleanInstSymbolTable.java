@@ -46,7 +46,7 @@ public class ConstantBooleanInstSymbolTable extends ConstantPrimitiveSymbolTable
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

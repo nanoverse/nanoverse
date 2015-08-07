@@ -57,7 +57,7 @@ public class TickInstSymbolTable extends ProcessInstSymbolTable<Tick> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new TickLoader();
     }
 }

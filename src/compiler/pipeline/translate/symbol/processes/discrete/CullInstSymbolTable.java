@@ -58,7 +58,7 @@ public class CullInstSymbolTable extends DiscreteProcessInstSymbolTable<Cull> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new CullLoader();
     }
 }

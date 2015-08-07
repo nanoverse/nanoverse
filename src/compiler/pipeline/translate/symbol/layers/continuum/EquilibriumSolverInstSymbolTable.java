@@ -41,7 +41,7 @@ public class EquilibriumSolverInstSymbolTable extends MapSymbolTable<Equilibrium
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

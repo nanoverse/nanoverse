@@ -34,7 +34,6 @@ public abstract class Boundary {
     protected Shape shape;
     protected Lattice lattice;
 
-    @FactoryTarget
     public Boundary(Shape shape, Lattice lattice) {
         verify(shape, lattice);
         this.shape = shape;

@@ -57,7 +57,7 @@ public class RectangleInstSymbolTable extends ShapeInstSymbolTable<Rectangle> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

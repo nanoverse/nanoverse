@@ -25,9 +25,13 @@
 package loaders;
 
 import compiler.pipeline.translate.symbol.MapSymbolTable;
+import factories.FactoryGenerator;
+import factories.FactoryWriter;
+import factories.TargetFinder;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 
 /**
@@ -36,9 +40,10 @@ import java.lang.reflect.Modifier;
 public class Sandbox {
 
     public static void main(String[] args) {
-        MapSymbolTableFinder finder = new MapSymbolTableFinder();
-        LoaderSkeletonWriter writer = new LoaderSkeletonWriter("meta/out/src");
-        finder.findTables()
-                .forEach(st -> writer.write(st));
+        TargetFinder tf = new TargetFinder();
+        FactoryWriter fw = new FactoryWriter("meta/out/factory/");
+
+        tf.getTargets()
+                .forEach(fw::write);
     }
 }

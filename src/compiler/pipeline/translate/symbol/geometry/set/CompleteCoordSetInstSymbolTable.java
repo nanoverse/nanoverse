@@ -39,7 +39,7 @@ public class CompleteCoordSetInstSymbolTable extends MapSymbolTable<CompleteSet>
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

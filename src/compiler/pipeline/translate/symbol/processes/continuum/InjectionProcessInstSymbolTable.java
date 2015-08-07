@@ -67,7 +67,7 @@ public class InjectionProcessInstSymbolTable extends ContinuumProcessInstSymbolT
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new InjectLoader();
     }
 }

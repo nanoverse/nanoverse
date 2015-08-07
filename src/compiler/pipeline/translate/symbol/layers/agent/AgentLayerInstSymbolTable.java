@@ -41,7 +41,7 @@ public class AgentLayerInstSymbolTable extends LayerInstSymbolTable<CellLayer> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

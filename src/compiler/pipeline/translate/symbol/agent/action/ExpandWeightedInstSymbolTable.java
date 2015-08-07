@@ -70,7 +70,7 @@ public class ExpandWeightedInstSymbolTable extends ActionInstSymbolTable<ExpandW
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new ExpandWeightedLoader();
     }
 }

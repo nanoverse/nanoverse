@@ -95,7 +95,7 @@ public class AgentDescriptorInstSymbolTable extends MapSymbolTable<CellDescripto
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new AgentDescriptorLoader();
     }
 }

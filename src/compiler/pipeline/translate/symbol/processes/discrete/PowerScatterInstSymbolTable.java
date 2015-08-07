@@ -66,7 +66,7 @@ public class PowerScatterInstSymbolTable extends DiscreteProcessInstSymbolTable<
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new PowerScatterLoader();
     }
 }

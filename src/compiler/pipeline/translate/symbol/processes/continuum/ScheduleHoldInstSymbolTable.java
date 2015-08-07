@@ -59,7 +59,7 @@ public class ScheduleHoldInstSymbolTable extends ContinuumProcessInstSymbolTable
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new ScheduleHoldLoader();
     }
 }

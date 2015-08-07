@@ -59,7 +59,7 @@ public class StochasticChoiceInstSymbolTable extends ActionInstSymbolTable<Stoch
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new StochasticChoiceLoader();
     }
 }

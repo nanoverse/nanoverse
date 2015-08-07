@@ -70,7 +70,7 @@ public class ExpandRandomInstSymbolTable extends ActionInstSymbolTable<ExpandRan
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new ExpandRandomLoader();
     }
 }

@@ -33,5 +33,5 @@ import compiler.pipeline.translate.nodes.ObjectNode;
 public interface InstantiableSymbolTable extends SymbolTable {
 
     public Class getInstanceClass();
-    public Loader getLoader(ObjectNode node);
+    public Loader getLoader();
 }

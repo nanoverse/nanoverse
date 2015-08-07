@@ -65,7 +65,7 @@ public class DiffusionProcessInstSymbolTable extends OperatorProcessInstSymbolTa
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new OperatorProcessLoader();
     }
 }

@@ -47,7 +47,7 @@ public class ManualHaltInstSymbolTable extends DiscreteProcessInstSymbolTable<Ma
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new ManualHaltLoader();
     }
 }

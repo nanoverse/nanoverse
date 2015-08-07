@@ -63,7 +63,7 @@ public class DiscCoordSetInstSymbolTable extends MapSymbolTable<DiscSet> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

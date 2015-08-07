@@ -8,6 +8,7 @@ package compiler.pipeline.translate.symbol;
 import com.google.common.reflect.TypeToken;
 import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.ObjectNode;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 3/4/15.
@@ -48,7 +49,7 @@ public class ListSymbolTable<T> implements InstantiableSymbolTable,  ResolvingSy
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
-        return null;
+    public Loader getLoader() {
+        throw new UnsupportedOperationException();
     }
 }

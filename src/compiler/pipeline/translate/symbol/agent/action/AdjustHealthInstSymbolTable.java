@@ -57,7 +57,7 @@ public class AdjustHealthInstSymbolTable extends ActionInstSymbolTable<AdjustHea
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new AdjustHealthLoader();
     }
 }

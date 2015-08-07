@@ -57,7 +57,7 @@ public class ScatterInstSymbolTable extends DiscreteProcessInstSymbolTable<Scatt
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new ScatterLoader();
     }
 }

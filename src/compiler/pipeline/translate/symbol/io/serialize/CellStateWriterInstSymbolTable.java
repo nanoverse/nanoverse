@@ -43,7 +43,7 @@ public class CellStateWriterInstSymbolTable extends MapSymbolTable<LegacyCellSta
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

@@ -72,7 +72,7 @@ public class GeometryDescriptorInstanceSymbolTable extends MapSymbolTable<Geomet
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

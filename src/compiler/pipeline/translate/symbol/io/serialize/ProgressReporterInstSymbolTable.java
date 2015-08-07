@@ -42,7 +42,7 @@ public class ProgressReporterInstSymbolTable extends MapSymbolTable<ProgressRepo
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

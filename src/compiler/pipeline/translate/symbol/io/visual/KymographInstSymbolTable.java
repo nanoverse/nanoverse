@@ -88,7 +88,7 @@ public class KymographInstSymbolTable extends MapSymbolTable<Kymograph> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }
