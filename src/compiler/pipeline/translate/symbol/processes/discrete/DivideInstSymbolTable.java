@@ -47,7 +47,7 @@ public class DivideInstSymbolTable extends DiscreteProcessInstSymbolTable<Divide
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new DivideLoader();
     }
 }

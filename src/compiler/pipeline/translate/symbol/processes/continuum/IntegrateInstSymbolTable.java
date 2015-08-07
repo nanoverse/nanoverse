@@ -57,7 +57,7 @@ public class IntegrateInstSymbolTable extends ContinuumProcessInstSymbolTable<In
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new IntegrateLoader();
     }
 }

@@ -43,7 +43,7 @@ public class CensusWriterInstSymbolTable extends MapSymbolTable<CensusWriter> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

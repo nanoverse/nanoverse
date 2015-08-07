@@ -79,7 +79,7 @@ public class TriggerProcessInstSymbolTable extends DiscreteProcessInstSymbolTabl
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new TriggerProcessLoader();
     }
 }

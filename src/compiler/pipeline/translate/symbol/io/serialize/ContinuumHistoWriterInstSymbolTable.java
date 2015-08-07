@@ -68,7 +68,7 @@ public class ContinuumHistoWriterInstSymbolTable extends MapSymbolTable<Continuu
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

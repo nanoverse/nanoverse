@@ -41,7 +41,7 @@ public class HaltTimeWriterInstSymbolTable extends MapSymbolTable<HaltTimeWriter
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

@@ -49,8 +49,8 @@ public class DictionarySymbolTable<T> implements InstantiableSymbolTable, Resolv
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
-        return null;
+    public Loader getLoader() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

@@ -63,7 +63,7 @@ public class HLineCoordSetInstSymbolTable extends MapSymbolTable<HorizontalLineS
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

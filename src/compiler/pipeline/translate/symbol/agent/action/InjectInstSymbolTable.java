@@ -65,7 +65,7 @@ public class InjectInstSymbolTable extends ActionInstSymbolTable<InjectDescripto
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new InjectLoader();
     }
 }

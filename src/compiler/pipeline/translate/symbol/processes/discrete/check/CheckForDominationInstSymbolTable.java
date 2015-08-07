@@ -67,7 +67,7 @@ public class CheckForDominationInstSymbolTable extends DiscreteProcessInstSymbol
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new CheckForDominationLoader();
     }
 }

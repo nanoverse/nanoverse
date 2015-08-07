@@ -49,7 +49,7 @@ public class RecordInstSymbolTable extends ProcessInstSymbolTable<Record> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new RecordLoader();
     }
 }

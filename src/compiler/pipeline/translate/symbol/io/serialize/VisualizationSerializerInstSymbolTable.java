@@ -63,7 +63,7 @@ public class VisualizationSerializerInstSymbolTable extends MapSymbolTable<Visua
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

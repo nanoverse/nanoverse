@@ -68,7 +68,7 @@ public class ContinuumLayerInstSymbolTable extends LayerInstSymbolTable<Continuu
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

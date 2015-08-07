@@ -57,7 +57,7 @@ public class DieInstSymbolTable extends ActionInstSymbolTable<DieDescriptor> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new DieLoader();
     }
 }

@@ -79,7 +79,7 @@ public class ExpandToInstSymbolTable extends ActionInstSymbolTable<ExpandToDescr
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new ExpandToLoader();
     }
 }

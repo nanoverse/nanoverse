@@ -71,7 +71,7 @@ public class ExpandInstSymbolTable extends ActionInstSymbolTable<ExpandDescripto
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new ExpandLoader();
     }
 }

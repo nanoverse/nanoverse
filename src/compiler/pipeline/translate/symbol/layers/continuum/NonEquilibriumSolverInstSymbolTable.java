@@ -40,7 +40,7 @@ public class NonEquilibriumSolverInstSymbolTable extends MapSymbolTable<NonEquil
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

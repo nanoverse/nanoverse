@@ -62,7 +62,7 @@ public class CuboidInstSymbolTable extends ShapeInstSymbolTable<Cuboid> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

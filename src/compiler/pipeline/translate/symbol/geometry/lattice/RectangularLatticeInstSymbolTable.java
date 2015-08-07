@@ -39,7 +39,7 @@ public class RectangularLatticeInstSymbolTable extends MapSymbolTable<Rectangula
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

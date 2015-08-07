@@ -58,7 +58,7 @@ public class ScheduleReleaseInstSymbolTable extends ContinuumProcessInstSymbolTa
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new ScheduleReleaseLoader();
     }
 }

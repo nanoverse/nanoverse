@@ -39,7 +39,7 @@ public class NullActionInstSymbolTable extends ActionInstSymbolTable<NullActionD
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new NullActionLoader();
     }
 }

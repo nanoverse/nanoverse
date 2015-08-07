@@ -39,7 +39,7 @@ public class CubicLatticeInstSymbolTable extends MapSymbolTable<CubicLattice> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

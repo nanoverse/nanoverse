@@ -10,18 +10,18 @@ $pTypes: doImport()$
 
 public class $displayName$FactoryHelper {
 
-    public $class.simpleName$ build$displayName$($parameters: paramFormat(); separator=", "$) {
+    public $class.simpleName$ build($parameters: paramFormat(); separator=", "$) {
         return new $class.simpleName$($parameters: argument(); separator=", "$);
     }
 }
 >>
 
-paramFormat(parameter) ::= "$parameter.class.simpleName$ $parameter.name$"
+paramFormat(parameter) ::= "$parameter.type.simpleName$ $parameter.name$"
 
 argument(parameter) ::= "$parameter.name$"
 
 
-package(class) ::= "compiler.pipeline.instantiate.$class.package.name$"
+package(class) ::= "compiler.pipeline.instantiate.factory.$class.package.name$"
 
 paramList(parameters) ::= <<
     $parameters: param2name(); separator=", "$
@@ -31,7 +31,7 @@ param2name(parameter) ::= <<
     $parameter.name$
 >>
 
-doImport(class) ::= "import $class.canonicalName$;$\n$"
+doImport(class) ::= "import $class$;$\n$"
 
 copyright() ::= <<
 /*

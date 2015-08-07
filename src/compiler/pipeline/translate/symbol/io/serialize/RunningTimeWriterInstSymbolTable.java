@@ -41,7 +41,7 @@ public class RunningTimeWriterInstSymbolTable extends MapSymbolTable<RunningTime
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

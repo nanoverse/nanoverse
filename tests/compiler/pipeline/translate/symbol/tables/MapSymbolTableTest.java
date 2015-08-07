@@ -67,7 +67,7 @@ public abstract class MapSymbolTableTest extends TestBase {
 
     @Test
     public void verifyLoaderClass() {
-        Loader loader = query.getLoader(null);
+        Loader loader = query.getLoader();
         Class expected = getExpectedClass();
         Class actual = loader.getInstanceClass();
         assertEquals(expected, actual);

@@ -58,7 +58,7 @@ public class CheckForExtinctionInstSymbolTable extends DiscreteProcessInstSymbol
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new CheckForExtinctionLoader();
     }
 }

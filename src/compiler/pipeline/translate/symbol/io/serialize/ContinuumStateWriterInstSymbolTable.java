@@ -43,7 +43,7 @@ public class ContinuumStateWriterInstSymbolTable extends MapSymbolTable<Continuu
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

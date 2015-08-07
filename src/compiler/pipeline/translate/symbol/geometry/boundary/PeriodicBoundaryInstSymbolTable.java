@@ -44,7 +44,7 @@ public class PeriodicBoundaryInstSymbolTable extends MapSymbolTable<Periodic> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

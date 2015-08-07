@@ -39,7 +39,7 @@ public class TargetOccupiedNeighborsInstSymbolTable extends TargetRuleInstSymbol
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new TargetOccupiedNeighborsLoader();
     }
 }

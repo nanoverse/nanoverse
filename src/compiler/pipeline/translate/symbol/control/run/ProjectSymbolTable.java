@@ -113,7 +113,7 @@ public class ProjectSymbolTable extends MapSymbolTable<Runner> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

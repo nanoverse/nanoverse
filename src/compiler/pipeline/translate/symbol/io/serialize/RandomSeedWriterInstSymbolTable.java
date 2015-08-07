@@ -41,7 +41,7 @@ public class RandomSeedWriterInstSymbolTable extends MapSymbolTable<RandomSeedWr
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

@@ -39,7 +39,7 @@ public class InterfaceCensusWriterInstSymbolTable extends MapSymbolTable<Interfa
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

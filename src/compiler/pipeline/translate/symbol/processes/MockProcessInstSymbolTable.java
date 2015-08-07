@@ -73,7 +73,7 @@ public class MockProcessInstSymbolTable extends ProcessInstSymbolTable<MockProce
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

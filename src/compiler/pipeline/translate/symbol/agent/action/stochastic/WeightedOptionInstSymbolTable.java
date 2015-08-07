@@ -26,6 +26,7 @@ package compiler.pipeline.translate.symbol.agent.action.stochastic;
 
 import agent.action.stochastic.WeightedOption;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.agent.action.stochastic.WeightedOptionLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.agent.action.ActionClassSymbolTable;
@@ -64,8 +65,7 @@ public class WeightedOptionInstSymbolTable extends MapSymbolTable<WeightedOption
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
-        return null;
-//        return new WeightedOptionLoader(node);
+    public Loader getLoader() {
+        return new WeightedOptionLoader();
     }
 }

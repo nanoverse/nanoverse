@@ -95,7 +95,7 @@ public class ParametersInstSymbolTable extends MapSymbolTable<GeneralParameters>
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

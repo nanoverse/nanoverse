@@ -87,7 +87,7 @@ public class CloneToInstSymbolTable extends ActionInstSymbolTable<CloneToDescrip
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new CloneToLoader();
     }
 }

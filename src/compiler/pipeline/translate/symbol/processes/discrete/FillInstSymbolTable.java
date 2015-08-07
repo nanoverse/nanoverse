@@ -67,7 +67,7 @@ public class FillInstSymbolTable extends DiscreteProcessInstSymbolTable<Fill> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new FillLoader();
     }
 }

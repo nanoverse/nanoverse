@@ -64,7 +64,7 @@ public class HighlightInstSymbolTable extends MapSymbolTable<Highlight> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

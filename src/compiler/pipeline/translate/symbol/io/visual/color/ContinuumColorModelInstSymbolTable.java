@@ -112,7 +112,7 @@ public class ContinuumColorModelInstSymbolTable extends MapSymbolTable<Normalize
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

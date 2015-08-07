@@ -39,7 +39,7 @@ public class TargetSelfInstSymbolTable extends TargetRuleInstSymbolTable<TargetS
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new TargetSelfLoader();
     }
 }

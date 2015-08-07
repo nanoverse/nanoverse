@@ -40,7 +40,7 @@ public class HaltBoundaryInstSymbolTable extends MapSymbolTable<HaltBoundary> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

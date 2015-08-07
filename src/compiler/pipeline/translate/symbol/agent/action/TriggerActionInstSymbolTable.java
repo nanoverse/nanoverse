@@ -89,7 +89,7 @@ public class TriggerActionInstSymbolTable extends ActionInstSymbolTable<TriggerD
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new TriggerLoader();
     }
 }

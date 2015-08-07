@@ -47,7 +47,7 @@ public class GeneralNeighborSwapInstSymbolTable extends DiscreteProcessInstSymbo
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new GeneralNeighborSwapLoader();
     }
 }

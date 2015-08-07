@@ -48,7 +48,7 @@ public class CheckForFixationInstSymbolTable extends DiscreteProcessInstSymbolTa
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new CheckForFixationLoader();
     }
 }

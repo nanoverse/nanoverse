@@ -65,7 +65,7 @@ public class DotGlyphInstSymbolTable extends MapSymbolTable<DotGlyph> {
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return null;
     }
 }

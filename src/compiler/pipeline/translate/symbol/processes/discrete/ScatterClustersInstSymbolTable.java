@@ -73,7 +73,7 @@ public class ScatterClustersInstSymbolTable extends DiscreteProcessInstSymbolTab
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new ScatterClustersLoader();
     }
 }
