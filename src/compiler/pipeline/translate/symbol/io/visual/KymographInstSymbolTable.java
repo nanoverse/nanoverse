@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.io.visual;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.io.visual.KymographLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.io.visual.color.ColorModelClassSymbolTable;
@@ -89,6 +90,6 @@ public class KymographInstSymbolTable extends MapSymbolTable<Kymograph> {
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new KymographLoader();
     }
 }

@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.layers.agent;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.layers.agent.AgentLayerLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.layers.LayerInstSymbolTable;
 import layers.cell.CellLayer;
@@ -42,6 +43,6 @@ public class AgentLayerInstSymbolTable extends LayerInstSymbolTable<CellLayer> {
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new AgentLayerLoader();
     }
 }

@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.io.serialize;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.io.serialize.binary.VisualizationSerializerLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.io.visual.VisualizationClassSymbolTable;
@@ -64,6 +65,6 @@ public class VisualizationSerializerInstSymbolTable extends MapSymbolTable<Visua
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new VisualizationSerializerLoader();
     }
 }

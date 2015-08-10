@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.control;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.control.ParametersLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.booleans.BooleanClassSymbolTable;
@@ -96,6 +97,6 @@ public class ParametersInstSymbolTable extends MapSymbolTable<GeneralParameters>
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new ParametersLoader();
     }
 }

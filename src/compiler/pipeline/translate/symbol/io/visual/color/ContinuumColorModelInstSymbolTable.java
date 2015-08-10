@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.io.visual.color;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.io.visual.color.ContinuumColorModelLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.booleans.BooleanClassSymbolTable;
@@ -113,6 +114,6 @@ public class ContinuumColorModelInstSymbolTable extends MapSymbolTable<Normalize
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new ContinuumColorModelLoader();
     }
 }

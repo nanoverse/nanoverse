@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.io.visual.color;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.io.visual.color.SurfaceColorModelLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
@@ -78,6 +79,6 @@ public class SurfaceColorModelInstSymbolTable extends MapSymbolTable<SurfaceGrow
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new SurfaceColorModelLoader();
     }
 }

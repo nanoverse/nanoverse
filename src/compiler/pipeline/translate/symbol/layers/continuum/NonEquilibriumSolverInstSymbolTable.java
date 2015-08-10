@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.layers.continuum;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.layers.continuum.NonEquilibriumSolverLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import layers.continuum.solvers.NonEquilibriumSolver;
@@ -41,6 +42,6 @@ public class NonEquilibriumSolverInstSymbolTable extends MapSymbolTable<NonEquil
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new NonEquilibriumSolverLoader();
     }
 }

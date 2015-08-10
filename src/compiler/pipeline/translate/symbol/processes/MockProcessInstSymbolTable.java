@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.processes;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.processes.MockProcessLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -74,6 +75,6 @@ public class MockProcessInstSymbolTable extends ProcessInstSymbolTable<MockProce
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new MockProcessLoader();
     }
 }

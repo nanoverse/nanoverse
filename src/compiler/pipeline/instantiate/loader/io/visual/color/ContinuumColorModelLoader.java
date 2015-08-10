@@ -22,26 +22,12 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.io.visual.color;
+package compiler.pipeline.instantiate.loader.io.visual.color;
 
-import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.instantiate.loader.io.visual.color.IndexedColorModelLoader;
-import compiler.pipeline.translate.nodes.ObjectNode;
-import compiler.pipeline.translate.symbol.MapSymbolTable;
-import io.visual.color.DefaultColorManager;
+import io.visual.color.NormalizedContinuumColorManager;
 
 /**
- * Created by dbborens on 7/27/2015.
+ * Created by dbborens on 8/10/2015.
  */
-public class IndexedColorModelInstSymbolTable extends MapSymbolTable<DefaultColorManager> {
-    @Override
-    public String getDescription() {
-        return "The indexed color model has a specific color associated with " +
-                "each given cell state (class). It is the default color model.";
-    }
-
-    @Override
-    public Loader getLoader() {
-        return new IndexedColorModelLoader();
-    }
+public class ContinuumColorModelLoader extends ColorModelLoader<NormalizedContinuumColorManager> {
 }
