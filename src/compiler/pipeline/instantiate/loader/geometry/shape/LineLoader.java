@@ -22,25 +22,12 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.geometry.lattice;
+package compiler.pipeline.instantiate.loader.geometry.shape;
 
-import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.instantiate.loader.geometry.lattice.LinearLatticeLoader;
-import compiler.pipeline.translate.nodes.ObjectNode;
-import compiler.pipeline.translate.symbol.MapSymbolTable;
-import geometry.lattice.LinearLattice;
+import geometry.shape.Line;
 
 /**
- * Created by dbborens on 7/25/2015.
+ * Created by dbborens on 8/4/2015.
  */
-public class LinearLatticeInstSymbolTable extends MapSymbolTable<LinearLattice> {
-    @Override
-    public String getDescription() {
-        return "A linear lattice is a 1D lattice with two neighbors per site.";
-    }
-
-    @Override
-    public Loader getLoader(ObjectNode node) {
-        return new LinearLatticeLoader();
-    }
+public class LineLoader extends ShapeLoader<Line> {
 }
