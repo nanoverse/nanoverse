@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.geometry.set;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.geometry.set.DiscCoordinateSetLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.control.identifiers.CoordinateClassSymbolTable;
@@ -64,6 +65,6 @@ public class DiscCoordSetInstSymbolTable extends MapSymbolTable<DiscSet> {
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new DiscCoordinateSetLoader();
     }
 }

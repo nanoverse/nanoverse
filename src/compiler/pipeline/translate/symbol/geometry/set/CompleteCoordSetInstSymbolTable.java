@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.geometry.set;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.geometry.set.CompleteCoordinateSetLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.set.CompleteSet;
@@ -40,6 +41,6 @@ public class CompleteCoordSetInstSymbolTable extends MapSymbolTable<CompleteSet>
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new CompleteCoordinateSetLoader();
     }
 }

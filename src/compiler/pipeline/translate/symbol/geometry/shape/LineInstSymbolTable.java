@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.geometry.shape;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.geometry.shape.LineLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import geometry.shape.Line;
@@ -53,6 +54,6 @@ public class LineInstSymbolTable extends ShapeInstSymbolTable<Line> {
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new LineLoader();
     }
 }

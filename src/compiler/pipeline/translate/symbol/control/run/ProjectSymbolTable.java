@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.control.run;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.control.ProjectLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.control.ParametersClassSymbolTable;
@@ -114,6 +115,6 @@ public class ProjectSymbolTable extends MapSymbolTable<Runner> {
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new ProjectLoader();
     }
 }

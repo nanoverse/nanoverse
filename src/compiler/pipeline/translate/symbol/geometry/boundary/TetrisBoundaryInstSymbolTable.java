@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.geometry.boundary;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.geometry.boundary.TetrisBoundaryLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.boundaries.TetrisBoundary;
@@ -43,6 +44,6 @@ public class TetrisBoundaryInstSymbolTable extends MapSymbolTable<TetrisBoundary
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new TetrisBoundaryLoader();
     }
 }
