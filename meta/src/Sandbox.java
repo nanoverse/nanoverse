@@ -22,10 +22,9 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package loaders;
-
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import factories.FactoryGenerator;
+import factories.FactoryTestGenerator;
 import factories.FactoryWriter;
 import factories.TargetFinder;
 import org.reflections.Reflections;
@@ -41,9 +40,11 @@ public class Sandbox {
 
     public static void main(String[] args) {
         TargetFinder tf = new TargetFinder();
-        FactoryWriter fw = new FactoryWriter("meta/out/factory/");
-
-        tf.getTargets()
-                .forEach(fw::write);
+        FactoryTestGenerator tg = new FactoryTestGenerator();
+        Constructor c = tf.getTargets()
+                .filter(t -> t.getParameters().length > 1)
+                .findFirst().get();
+        String str = tg.generate(c);
+        System.out.println(str);
     }
 }

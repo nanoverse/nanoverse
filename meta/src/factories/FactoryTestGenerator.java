@@ -24,6 +24,10 @@
 
 package factories;
 
+import org.stringtemplate.v4.ST;
+import org.stringtemplate.v4.STGroup;
+import org.stringtemplate.v4.STGroupFile;
+
 import java.lang.reflect.Constructor;
 
 /**
@@ -31,21 +35,29 @@ import java.lang.reflect.Constructor;
  */
 public class FactoryTestGenerator {
 
+    private final STGroup group;
+    private final FactoryLoadHelper helper;
+
+    public FactoryTestGenerator() {
+        group = new STGroupFile("meta/templates/factory/test.stg", '$', '$');
+        helper = new FactoryLoadHelper();
+    }
+
     public String generate(Constructor c) {
         StringBuilder sb = new StringBuilder();
         appendPreamble(c, sb);
-        appendBefore(c, sb);
         appendTests(c, sb);
         appendTerminus(c, sb);
         return sb.toString();
     }
 
     private void appendPreamble(Constructor c, StringBuilder sb) {
-        
-    }
-
-    private void appendBefore(Constructor c, StringBuilder sb) {
-
+        ST template = group.getInstanceOf("preamble");
+        helper.loadClazz(template, c);
+        helper.loadParams(template, c);
+        helper.loadImports(template, c);
+        String str = template.render();
+        sb.append(str);
     }
 
     private void appendTests(Constructor c, StringBuilder sb) {

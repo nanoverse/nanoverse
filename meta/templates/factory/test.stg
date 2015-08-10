@@ -1,55 +1,40 @@
-file(clazz, params, imports) ::= <<
+preamble(clazz, imports, params) ::= <<
 $copyright()$
-$body(clazz, params, imports)$
->>
-
-body(clazz, params, imports) ::= <<
 package $package(clazz)$;
 
+import test.TestBase;
+import static org.junit.*;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 $imports: doImport(); separator="\n"$
 
-public class $clazz.upper$Factory implements Factory<$clazz.simple$> {
+public $clazz.upper$Test extends TestBase {
 
-    private final $clazz.upper$FactoryHelper helper;
-
+    private $clazz.simple$ query;
+    private $clazz.upper$FactoryHelper helper;
     $params: field(); separator="\n"$
 
-    public $clazz.upper$Factory() {
-        helper = new $clazz.upper$FactoryHelper();
+    @Before
+    public void before() throws Exception {
+        helper = mock($clazz.upper$FactoryHelper.class);
+        $params: mock(); separator="\n"$
+
+        query = new $clazz.simple$(helper);
     }
+>>
 
-    public $clazz.upper$Factory($clazz.upper$FactoryHelper helper) {
-        this.helper = helper;
-    }
+test() ::= <<
+>>
 
-    $params: setter(); separator = "\n\n"$
-
-    $build(clazz, params)$
+terminus() ::= <<
 }
 >>
 
-build(clazz, params) ::= <<
-@Override
-public $clazz.simple$ build() {
-    return helper.build($params: lower(); separator=", "$);
-}
->>
-
-lower(param) ::= "$param.lower$"
-
-asName(param) ::= "$param.name$"
-
-asSignature(param) ::= "$param.clazz.simpleName$ $param.name$"
+mock(param) ::= "$param.lower$ = mock($param.clazz.simpleName$.class);"
 
 package(clazz) ::= "compiler.pipeline.instantiate.factory.$clazz.pkg$"
 
 doImport(param) ::= "import $param$;"
-
-setter(param) ::= <<
-public void set$param.upper$($param.clazz.simpleName$ $param.lower$) {
-    this.$param.lower$ = $param.lower$;
-}
->>
 
 field(param) ::= "private $param.clazz.simpleName$ $param.lower$;"
 
@@ -78,4 +63,3 @@ copyright() ::= <<
  * <http://www.gnu.org/licenses/>.
  */
 >>
-

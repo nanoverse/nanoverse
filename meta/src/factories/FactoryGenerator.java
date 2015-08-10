@@ -39,65 +39,20 @@ import java.util.stream.Stream;
 public class FactoryGenerator {
 
     private final STGroup group;
-    private FactoryTargetHelper helper;
+    private final FactoryLoadHelper helper;
 
     public FactoryGenerator() {
-        helper = new FactoryTargetHelper();
+        helper = new FactoryLoadHelper();
         group = new STGroupFile("meta/templates/factory/factory.stg", '$', '$');
     }
 
     public String generate(Constructor c) {
         ST template = group.getInstanceOf("file");
-        loadClazz(template, c);
-        loadParams(template, c);
-        loadImports(template, c);
+        helper.loadClazz(template, c);
+        helper.loadParams(template, c);
+        helper.loadImports(template, c);
         return template.render();
     }
 
-    private void loadImports(ST template, Constructor c) {
-        ImportHelper.getImports(c)
-                .forEach(imp -> template.add("imports", imp));
 
-        template.add("imports", "compiler.pipeline.instantiate.factory.Factory");
-    }
-
-    private void loadParams(ST template, Constructor c) {
-        Parameter[] cParams = c.getParameters();
-
-        Arrays.asList(cParams)
-                .stream()
-                .map(this::pStruct)
-                .forEach(ps -> template.add("params", ps));
-    }
-
-    private ParameterStruct pStruct(Parameter p) {
-        String lower = p.getName();
-        String upper = upperize(lower);
-        Class clazz = p.getType();
-        return new ParameterStruct(lower, upper, clazz);
-    }
-
-    private void loadClazz(ST template, Constructor c) {
-        String dUpper = helper.getDisplayName(c);
-        String dLower = lowerize(dUpper);
-        Class clazz = c.getDeclaringClass();
-        String pkg = clazz.getPackage().getName();
-        String canonical = clazz.getCanonicalName();
-        String simple = clazz.getSimpleName();
-
-        ClazzStruct cs = new ClazzStruct(canonical, dLower, dUpper, pkg, simple);
-        template.add("clazz", cs);
-    }
-
-    private String upperize(String camel) {
-        String firstUpper = camel.substring(0, 1).toUpperCase();
-        String upper = firstUpper + camel.substring(1);
-        return upper;
-    }
-
-    private String lowerize(String camel) {
-        String firstLower = camel.substring(0, 1).toLowerCase();
-        String lower = firstLower + camel.substring(1);
-        return lower;
-    }
 }

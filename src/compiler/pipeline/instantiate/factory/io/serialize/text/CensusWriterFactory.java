@@ -27,7 +27,6 @@ import control.GeneralParameters;
 import io.serialize.text.CensusWriter;
 import layers.LayerManager;
 import compiler.pipeline.instantiate.factory.Factory;
-
 public class CensusWriterFactory implements Factory<CensusWriter> {
 
     private final CensusWriterFactoryHelper helper;
