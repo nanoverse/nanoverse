@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.io.serialize;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.io.serialize.text.CorrelationWriterLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
@@ -70,6 +71,6 @@ public class CorrelationWriterInstSymbolTable extends MapSymbolTable<Correlation
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new CorrelationWriterLoader();
     }
 }

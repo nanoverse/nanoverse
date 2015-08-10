@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.io.serialize;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.io.serialize.text.CensusWriterLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.text.CensusWriter;
@@ -44,6 +45,6 @@ public class CensusWriterInstSymbolTable extends MapSymbolTable<CensusWriter> {
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new CensusWriterLoader();
     }
 }

@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.io.serialize;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.io.serialize.text.CellStateWriterLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.text.LegacyCellStateWriter;
@@ -44,6 +45,6 @@ public class CellStateWriterInstSymbolTable extends MapSymbolTable<LegacyCellSta
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new CellStateWriterLoader();
     }
 }

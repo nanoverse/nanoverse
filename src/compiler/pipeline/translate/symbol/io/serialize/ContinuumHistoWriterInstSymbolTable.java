@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.io.serialize;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.io.serialize.text.ContinuumHistoWriterLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.booleans.BooleanClassSymbolTable;
@@ -69,6 +70,6 @@ public class ContinuumHistoWriterInstSymbolTable extends MapSymbolTable<Continuu
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new ContinuumHistoWriterLoader();
     }
 }
