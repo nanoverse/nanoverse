@@ -22,25 +22,13 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.io.serialize;
+package compiler.pipeline.instantiate.loader.io.serialize.text;
 
-import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.instantiate.loader.io.serialize.text.IndividualHaltWriterLoader;
-import compiler.pipeline.translate.nodes.ObjectNode;
-import compiler.pipeline.translate.symbol.MapSymbolTable;
-import io.serialize.text.IndividualHaltWriter;
+import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
+import io.serialize.text.RandomSeedWriter;
 
 /**
- * Created by dbborens on 7/26/2015.
+ * Created by dbborens on 8/10/2015.
  */
-public class IndividualHaltWriterInstSymbolTable extends MapSymbolTable<IndividualHaltWriter> {
-    @Override
-    public String getDescription() {
-        return null;
-    }
-
-    @Override
-    public Loader getLoader() {
-        return new IndividualHaltWriterLoader();
-    }
+public class RandomSeedWriterLoader extends OutputLoader<RandomSeedWriter> {
 }

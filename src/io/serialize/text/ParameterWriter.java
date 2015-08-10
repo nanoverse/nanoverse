@@ -39,7 +39,6 @@ import java.io.IOException;
 public class ParameterWriter extends Serializer {
     private final String PROJECT_FILENAME = "project.xml";
 
-    @FactoryTarget
     public ParameterWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
         mkDir(p.getPath(), true);

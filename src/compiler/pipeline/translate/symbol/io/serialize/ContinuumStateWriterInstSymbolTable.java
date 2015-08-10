@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.io.serialize;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.io.serialize.binary.ContinuumStateWriterLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.binary.ContinuumStateWriter;
@@ -44,6 +45,6 @@ public class ContinuumStateWriterInstSymbolTable extends MapSymbolTable<Continuu
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new ContinuumStateWriterLoader();
     }
 }

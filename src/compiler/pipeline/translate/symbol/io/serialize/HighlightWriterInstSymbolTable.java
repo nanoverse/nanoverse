@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.io.serialize;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.io.serialize.binary.HighlightWriterLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
@@ -63,6 +64,6 @@ public class HighlightWriterInstSymbolTable extends MapSymbolTable<HighlightWrit
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new HighlightWriterLoader();
     }
 }

@@ -21,16 +21,14 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.io.serialize.text;
 
-import control.GeneralParameters;
-import layers.LayerManager;
-import io.serialize.text.ParameterWriter;
+package compiler.pipeline.instantiate.loader.io.serialize.text;
 
+import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
+import io.serialize.text.SurfaceCensusWriter;
 
-public class ParameterWriterFactoryHelper {
-
-    public ParameterWriter build(GeneralParameters p, LayerManager lm) {
-        return new ParameterWriter(p, lm);
-    }
+/**
+ * Created by dbborens on 8/10/2015.
+ */
+public class SurfaceCensusWriterLoader extends OutputLoader<SurfaceCensusWriter> {
 }

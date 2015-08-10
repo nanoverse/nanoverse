@@ -21,38 +21,14 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.io.serialize.text;
 
-import control.GeneralParameters;
-import layers.LayerManager;
-import io.serialize.text.ParameterWriter;
-import compiler.pipeline.instantiate.factory.Factory;
+package compiler.pipeline.instantiate.loader.io.serialize.text;
 
-public class ParameterWriterFactory implements Factory<ParameterWriter> {
+import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
+import io.serialize.text.CoordinateIndexer;
 
-    private final ParameterWriterFactoryHelper helper;
-
-    private GeneralParameters p;
-    private LayerManager lm;
-
-    public ParameterWriterFactory() {
-        helper = new ParameterWriterFactoryHelper();
-    }
-
-    public ParameterWriterFactory(ParameterWriterFactoryHelper helper) {
-        this.helper = helper;
-    }
-
-    public void setP(GeneralParameters p) {
-        this.p = p;
-    }
-
-    public void setLm(LayerManager lm) {
-        this.lm = lm;
-    }
-
-    @Override
-    public ParameterWriter build() {
-        return helper.build(p, lm);
-    }
+/**
+ * Created by dbborens on 8/10/2015.
+ */
+public class CoordinateIndexerLoader extends OutputLoader<CoordinateIndexer> {
 }
