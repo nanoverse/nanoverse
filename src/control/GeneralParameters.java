@@ -25,6 +25,7 @@
 package control;
 
 import org.dom4j.Element;
+import structural.annotations.FactoryTarget;
 import structural.utilities.XmlUtil;
 
 import java.text.SimpleDateFormat;
@@ -37,7 +38,6 @@ import java.util.Random;
  * @author dbborens
  */
 public class GeneralParameters {
-
 
     protected Random random;            // Random number generator
     protected long randomSeed;
@@ -53,6 +53,32 @@ public class GeneralParameters {
     private double epsilon;            // Minimum measurable FP delta
     // State members
     private int instance;
+    private String projectName;
+    private boolean isStamp;
+
+    @FactoryTarget(displayName = "Parameters")
+    public GeneralParameters(Random random,
+                             long randomSeed,
+                             int maxStep,
+                             int instances,
+                             String basePath,
+                             String project,
+                             boolean isStamp,
+                             double epsilon) {
+
+        this.epsilon = epsilon;
+        this.random = random;
+        this.randomSeed = randomSeed;
+        this.instances = instances;
+        this.maxStep = maxStep;
+        this.basePath = basePath;
+        this.projectName = project;
+        this.isStamp = isStamp;
+
+        internalPaths();
+        instance = 0;
+        updateInstancePath();
+    }
 
     public GeneralParameters(Element root) {
         calcEpsilon();
@@ -129,16 +155,19 @@ public class GeneralParameters {
         }
     }
 
-    private void loadPaths(Element g) {
-        basePath = get(g, "path");
-        String projectName = XmlUtil.getString(g, "project", "");
-        boolean isStamp = XmlUtil.getBoolean(g, "date-stamp");
-
+    private void internalPaths() {
         if (isStamp) {
             path = basePath + '/' + date() + '/' + projectName + '/' + time() + '/';
         } else {
             path = basePath + projectName;
         }
+
+    }
+    private void loadPaths(Element g) {
+        basePath = get(g, "path");
+        projectName = XmlUtil.getString(g, "project", "");
+        isStamp = XmlUtil.getBoolean(g, "date-stamp");
+        internalPaths();
     }
 
     private void loadDimensions(Element g) {

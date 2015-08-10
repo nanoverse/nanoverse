@@ -29,6 +29,7 @@ import control.halt.HaltCondition;
 import control.identifiers.*;
 import io.visual.HSLColor;
 import layers.SystemState;
+import structural.annotations.FactoryTarget;
 
 import java.awt.*;
 import java.awt.image.ColorModel;
@@ -52,6 +53,8 @@ public class NormalizedContinuumColorManager extends ColorManager {
     private final ContinuumNormalizationHelper normalizer;
     private final ColorManager base;
     private final boolean averageLuminance;
+
+    @FactoryTarget(displayName = "ContinuumColorModel")
     public NormalizedContinuumColorManager(DoubleArgument minHueArg,
                                            DoubleArgument maxHueArg,
                                            DoubleArgument minSaturationArg,

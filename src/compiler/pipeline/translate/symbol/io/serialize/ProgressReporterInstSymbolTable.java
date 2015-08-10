@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.io.serialize;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.io.serialize.interactive.ProgressReporterLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.interactive.ProgressReporter;
@@ -43,6 +44,6 @@ public class ProgressReporterInstSymbolTable extends MapSymbolTable<ProgressRepo
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new ProgressReporterLoader();
     }
 }

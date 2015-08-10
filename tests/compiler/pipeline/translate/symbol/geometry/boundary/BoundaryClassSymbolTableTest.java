@@ -73,7 +73,7 @@ public class BoundaryClassSymbolTableTest extends ClassSymbolTableTest {
 
     @Test
     public void halt() throws Exception {
-        verifyReturnSymbol("Halt", HaltBoundary.class);
+        verifyReturnSymbol("Halt", HaltArena.class);
     }
 
     @Test

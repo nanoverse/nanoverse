@@ -26,7 +26,7 @@ package compiler.pipeline.translate.symbol.geometry.boundary;
 
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
-import geometry.boundaries.HaltBoundary;
+import geometry.boundaries.*;
 import org.junit.Before;
 
 import static org.junit.Assert.*;
@@ -41,6 +41,6 @@ public class HaltBoundaryInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
     protected Class getExpectedClass() {
-        return HaltBoundary.class;
+        return HaltArena.class;
     }
 }

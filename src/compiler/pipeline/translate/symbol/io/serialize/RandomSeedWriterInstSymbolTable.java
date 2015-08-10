@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.io.serialize;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.io.serialize.text.RandomSeedWriterLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import io.serialize.text.RandomSeedWriter;
@@ -42,6 +43,6 @@ public class RandomSeedWriterInstSymbolTable extends MapSymbolTable<RandomSeedWr
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new RandomSeedWriterLoader();
     }
 }

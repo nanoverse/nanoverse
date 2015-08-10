@@ -28,12 +28,12 @@ import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.instantiate.loader.geometry.boundary.HaltArenaBoundaryLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
-import geometry.boundaries.HaltBoundary;
+import geometry.boundaries.*;
 
 /**
  * Created by dbborens on 7/29/2015.
  */
-public class HaltBoundaryInstSymbolTable extends MapSymbolTable<HaltBoundary> {
+public class HaltBoundaryInstSymbolTable extends MapSymbolTable<HaltArena> {
     @Override
     public String getDescription() {
         return "The Halt boundary is for AGENT layers only. If an agent " +

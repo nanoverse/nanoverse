@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.layers.continuum;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.layers.continuum.ContinuumLayerLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.layers.LayerInstSymbolTable;
@@ -69,6 +70,6 @@ public class ContinuumLayerInstSymbolTable extends LayerInstSymbolTable<Continuu
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new ContinuumLayerLoader();
     }
 }

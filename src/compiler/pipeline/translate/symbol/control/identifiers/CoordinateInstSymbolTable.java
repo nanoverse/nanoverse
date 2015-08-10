@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.control.identifiers;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.control.identifiers.CoordinateLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
@@ -77,6 +78,6 @@ public class CoordinateInstSymbolTable extends MapSymbolTable<Coordinate> {
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new CoordinateLoader();
     }
 }
