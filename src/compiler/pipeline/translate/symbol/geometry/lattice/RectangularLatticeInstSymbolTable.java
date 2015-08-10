@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.geometry.lattice;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.geometry.lattice.RectangularLatticeLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.lattice.RectangularLattice;
@@ -40,6 +41,6 @@ public class RectangularLatticeInstSymbolTable extends MapSymbolTable<Rectangula
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new RectangularLatticeLoader();
     }
 }

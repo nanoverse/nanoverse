@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.geometry.boundary;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.geometry.boundary.PeriodicBoundaryLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.boundaries.Periodic;
@@ -45,6 +46,6 @@ public class PeriodicBoundaryInstSymbolTable extends MapSymbolTable<Periodic> {
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new PeriodicBoundaryLoader();
     }
 }

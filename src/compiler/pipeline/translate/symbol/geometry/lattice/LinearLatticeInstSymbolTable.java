@@ -40,7 +40,7 @@ public class LinearLatticeInstSymbolTable extends MapSymbolTable<LinearLattice> 
     }
 
     @Override
-    public Loader getLoader(ObjectNode node) {
+    public Loader getLoader() {
         return new LinearLatticeLoader();
     }
 }

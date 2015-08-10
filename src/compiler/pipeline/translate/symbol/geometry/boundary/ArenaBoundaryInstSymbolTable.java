@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.geometry.boundary;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.geometry.boundary.ArenaBoundaryLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.boundaries.Arena;
@@ -44,6 +45,6 @@ public class ArenaBoundaryInstSymbolTable extends MapSymbolTable<Arena> {
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new ArenaBoundaryLoader();
     }
 }

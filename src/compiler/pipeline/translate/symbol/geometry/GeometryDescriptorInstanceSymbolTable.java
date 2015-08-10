@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.geometry;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.geometry.GeometryDescriptorLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.geometry.lattice.LatticeClassSymbolTable;
@@ -73,6 +74,6 @@ public class GeometryDescriptorInstanceSymbolTable extends MapSymbolTable<Geomet
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new GeometryDescriptorLoader();
     }
 }

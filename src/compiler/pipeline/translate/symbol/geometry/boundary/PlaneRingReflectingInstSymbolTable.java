@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.geometry.boundary;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.geometry.boundary.PlaneRingReflectingBoundaryLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.boundaries.PlaneRingReflecting;
@@ -44,6 +45,6 @@ public class PlaneRingReflectingInstSymbolTable extends MapSymbolTable<PlaneRing
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new PlaneRingReflectingBoundaryLoader();
     }
 }

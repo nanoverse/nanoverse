@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.geometry.lattice;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.geometry.lattice.CubicLatticeLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.lattice.CubicLattice;
@@ -40,6 +41,6 @@ public class CubicLatticeInstSymbolTable extends MapSymbolTable<CubicLattice> {
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new CubicLatticeLoader();
     }
 }

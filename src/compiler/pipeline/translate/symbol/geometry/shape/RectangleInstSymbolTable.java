@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.geometry.shape;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.geometry.shape.RectangleLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import geometry.shape.Rectangle;
@@ -58,6 +59,6 @@ public class RectangleInstSymbolTable extends ShapeInstSymbolTable<Rectangle> {
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new RectangleLoader();
     }
 }

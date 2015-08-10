@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.geometry.shape;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.geometry.shape.HexagonLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import geometry.shape.Hexagon;
@@ -55,6 +56,6 @@ public class HexagonInstSymbolTable extends ShapeInstSymbolTable<Hexagon> {
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new HexagonLoader();
     }
 }

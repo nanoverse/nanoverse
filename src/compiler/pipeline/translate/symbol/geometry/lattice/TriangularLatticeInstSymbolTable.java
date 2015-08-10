@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.geometry.lattice;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.geometry.lattice.TriangularLatticeLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import geometry.lattice.TriangularLattice;
@@ -40,6 +41,6 @@ public class TriangularLatticeInstSymbolTable extends MapSymbolTable<TriangularL
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new TriangularLatticeLoader();
     }
 }
