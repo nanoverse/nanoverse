@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.lattice;
 
+import compiler.pipeline.instantiate.factory.geometry.lattice.LinearLatticeFactory;
 import geometry.lattice.LinearLattice;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class LinearLatticeLoader extends LatticeLoader<LinearLattice> {
+    private final LinearLatticeFactory factory;
+
+    public LinearLatticeLoader() {
+        factory = new LinearLatticeFactory();
+    }
+
+    public LinearLatticeLoader(LinearLatticeFactory factory) {
+        this.factory = factory;
+    }
 }

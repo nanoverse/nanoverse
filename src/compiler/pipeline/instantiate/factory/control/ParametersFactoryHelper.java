@@ -21,25 +21,15 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.control;
 
-package compiler.pipeline.instantiate.loader.control;
+import control.GeneralParameters;
+import java.util.Random;
 
-import compiler.pipeline.instantiate.factory.control.ProjectFactory;
-import compiler.pipeline.instantiate.loader.Loader;
-import control.run.Runner;
 
-/**
- * Created by dbborens on 8/1/2015.
- */
-public class ProjectLoader extends Loader<Runner> {
+public class ParametersFactoryHelper {
 
-    private final ProjectFactory factory;
-
-    public ProjectLoader() {
-        factory = new ProjectFactory();
-    }
-
-    public ProjectLoader(ProjectFactory factory) {
-        this.factory = factory;
+    public GeneralParameters build(Random random, long randomSeed, int maxStep, int instances, String basePath, String project, boolean isStamp, double epsilon) {
+        return new GeneralParameters(random, randomSeed, maxStep, instances, basePath, project, isStamp, epsilon);
     }
 }

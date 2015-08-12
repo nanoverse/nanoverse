@@ -21,25 +21,41 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.control.identifiers;
 
-package compiler.pipeline.instantiate.loader.control;
+import control.identifiers.Coordinate2D;
+import compiler.pipeline.instantiate.factory.Factory;
 
-import compiler.pipeline.instantiate.factory.control.ProjectFactory;
-import compiler.pipeline.instantiate.loader.Loader;
-import control.run.Runner;
+public class Coordinate2DFactory implements Factory<Coordinate2D> {
 
-/**
- * Created by dbborens on 8/1/2015.
- */
-public class ProjectLoader extends Loader<Runner> {
+    private final Coordinate2DFactoryHelper helper;
 
-    private final ProjectFactory factory;
+    private int x;
+    private int y;
+    private int flags;
 
-    public ProjectLoader() {
-        factory = new ProjectFactory();
+    public Coordinate2DFactory() {
+        helper = new Coordinate2DFactoryHelper();
     }
 
-    public ProjectLoader(ProjectFactory factory) {
-        this.factory = factory;
+    public Coordinate2DFactory(Coordinate2DFactoryHelper helper) {
+        this.helper = helper;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setFlags(int flags) {
+        this.flags = flags;
+    }
+
+    @Override
+    public Coordinate2D build() {
+        return helper.build(x, y, flags);
     }
 }

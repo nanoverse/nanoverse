@@ -30,4 +30,5 @@ import geometry.set.CompleteSet;
  * Created by dbborens on 8/4/2015.
  */
 public class CompleteCoordinateSetLoader extends CoordinateSetLoader<CompleteSet> {
+
 }

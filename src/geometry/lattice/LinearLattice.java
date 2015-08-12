@@ -27,8 +27,14 @@ package geometry.lattice;
 import control.identifiers.Coordinate;
 import control.identifiers.Coordinate1D;
 import control.identifiers.Flags;
+import structural.annotations.FactoryTarget;
 
 public class LinearLattice extends Lattice {
+
+    @FactoryTarget
+    public LinearLattice() {
+        super();
+    }
 
     @Override
     public int getConnectivity() {

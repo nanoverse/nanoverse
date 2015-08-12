@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.boundary;
 
+import compiler.pipeline.instantiate.factory.geometry.boundaries.PeriodicFactory;
 import geometry.boundaries.Periodic;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class PeriodicBoundaryLoader extends BoundaryLoader<Periodic> {
+    private final PeriodicFactory factory;
+
+    public PeriodicBoundaryLoader() {
+        factory = new PeriodicFactory();
+    }
+
+    public PeriodicBoundaryLoader(PeriodicFactory factory) {
+        this.factory = factory;
+    }
 }

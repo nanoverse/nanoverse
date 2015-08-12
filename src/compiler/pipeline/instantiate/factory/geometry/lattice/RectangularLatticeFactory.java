@@ -21,18 +21,27 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.geometry.lattice;
 
-package compiler.pipeline.instantiate.loader.control;
+import geometry.lattice.RectangularLattice;
+import compiler.pipeline.instantiate.factory.Factory;
 
-import control.*;
-import control.run.Runner;
+public class RectangularLatticeFactory implements Factory<RectangularLattice> {
 
-/**
- * Created by dbborens on 7/30/2015.
- */
-public class ProjectFactoryHelper {
+    private final RectangularLatticeFactoryHelper helper;
 
-    public Runner newRunner(GeneralParameters p, Integrator integrator) {
-        return new Runner(p, integrator);
+
+    public RectangularLatticeFactory() {
+        helper = new RectangularLatticeFactoryHelper();
+    }
+
+    public RectangularLatticeFactory(RectangularLatticeFactoryHelper helper) {
+        this.helper = helper;
+    }
+
+
+    @Override
+    public RectangularLattice build() {
+        return helper.build();
     }
 }

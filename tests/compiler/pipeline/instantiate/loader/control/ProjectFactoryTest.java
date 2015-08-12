@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.control;
 
+import compiler.pipeline.instantiate.factory.control.ProjectFactory;
 import control.*;
 import control.run.Runner;
 import org.junit.*;

@@ -24,8 +24,15 @@
 
 package geometry.set;
 
+import structural.annotations.FactoryTarget;
+
 /**
  * Created by dbborens on 7/28/14.
  */
 public class CustomSet extends CoordinateSet {
+
+    @FactoryTarget(displayName = "CustomCoordinateSet")
+    public CustomSet() {
+        super();
+    }
 }

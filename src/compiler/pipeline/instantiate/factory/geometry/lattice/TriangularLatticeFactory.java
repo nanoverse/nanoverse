@@ -21,25 +21,27 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.geometry.lattice;
 
-package compiler.pipeline.instantiate.loader.control;
+import geometry.lattice.TriangularLattice;
+import compiler.pipeline.instantiate.factory.Factory;
 
-import compiler.pipeline.instantiate.factory.control.ProjectFactory;
-import compiler.pipeline.instantiate.loader.Loader;
-import control.run.Runner;
+public class TriangularLatticeFactory implements Factory<TriangularLattice> {
 
-/**
- * Created by dbborens on 8/1/2015.
- */
-public class ProjectLoader extends Loader<Runner> {
+    private final TriangularLatticeFactoryHelper helper;
 
-    private final ProjectFactory factory;
 
-    public ProjectLoader() {
-        factory = new ProjectFactory();
+    public TriangularLatticeFactory() {
+        helper = new TriangularLatticeFactoryHelper();
     }
 
-    public ProjectLoader(ProjectFactory factory) {
-        this.factory = factory;
+    public TriangularLatticeFactory(TriangularLatticeFactoryHelper helper) {
+        this.helper = helper;
+    }
+
+
+    @Override
+    public TriangularLattice build() {
+        return helper.build();
     }
 }
