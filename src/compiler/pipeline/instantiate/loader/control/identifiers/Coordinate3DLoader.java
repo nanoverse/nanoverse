@@ -22,24 +22,22 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.control;
+package compiler.pipeline.instantiate.loader.control.identifiers;
 
-import compiler.pipeline.instantiate.factory.control.ProjectFactory;
-import compiler.pipeline.instantiate.loader.Loader;
-import control.run.Runner;
+import compiler.pipeline.instantiate.factory.control.identifiers.Coordinate3DFactory;
+import control.identifiers.Coordinate3D;
 
 /**
- * Created by dbborens on 8/1/2015.
+ * Created by dbborens on 8/12/15.
  */
-public class ProjectLoader extends Loader<Runner> {
+public class Coordinate3DLoader extends CoordinateSubclassLoader<Coordinate3D> {
+    private final Coordinate3DFactory factory;
 
-    private final ProjectFactory factory;
-
-    public ProjectLoader() {
-        factory = new ProjectFactory();
+    public Coordinate3DLoader() {
+        factory = new Coordinate3DFactory();
     }
 
-    public ProjectLoader(ProjectFactory factory) {
+    public Coordinate3DLoader(Coordinate3DFactory factory) {
         this.factory = factory;
     }
 }

@@ -21,25 +21,14 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.control.identifiers;
 
-package compiler.pipeline.instantiate.loader.control;
+import control.identifiers.Coordinate3D;
 
-import compiler.pipeline.instantiate.factory.control.ProjectFactory;
-import compiler.pipeline.instantiate.loader.Loader;
-import control.run.Runner;
 
-/**
- * Created by dbborens on 8/1/2015.
- */
-public class ProjectLoader extends Loader<Runner> {
+public class Coordinate3DFactoryHelper {
 
-    private final ProjectFactory factory;
-
-    public ProjectLoader() {
-        factory = new ProjectFactory();
-    }
-
-    public ProjectLoader(ProjectFactory factory) {
-        this.factory = factory;
+    public Coordinate3D build(int x, int y, int z, int flags) {
+        return new Coordinate3D(x, y, z, flags);
     }
 }

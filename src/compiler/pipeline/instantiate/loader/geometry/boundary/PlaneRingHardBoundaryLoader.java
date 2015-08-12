@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.boundary;
 
+import compiler.pipeline.instantiate.factory.geometry.boundaries.PlaneRingHardFactory;
 import geometry.boundaries.PlaneRingHard;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class PlaneRingHardBoundaryLoader extends BoundaryLoader<PlaneRingHard> {
+    private final PlaneRingHardFactory factory;
+
+    public PlaneRingHardBoundaryLoader() {
+        factory = new PlaneRingHardFactory();
+    }
+
+    public PlaneRingHardBoundaryLoader(PlaneRingHardFactory factory) {
+        this.factory = factory;
+    }
 }

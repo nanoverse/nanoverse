@@ -28,10 +28,16 @@ import control.identifiers.Coordinate;
 import control.identifiers.Coordinate2D;
 import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 
 public class TriangularLattice extends Lattice {
+
+    @FactoryTarget
+    public TriangularLattice() {
+        super();
+    }
 
     protected void defineBasis() {
         Coordinate southeast = new Coordinate2D(1, 0, 0);

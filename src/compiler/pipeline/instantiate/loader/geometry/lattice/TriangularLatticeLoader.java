@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.lattice;
 
+import compiler.pipeline.instantiate.factory.geometry.lattice.TriangularLatticeFactory;
 import geometry.lattice.TriangularLattice;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class TriangularLatticeLoader extends LatticeLoader<TriangularLattice> {
+    private final TriangularLatticeFactory factory;
+
+    public TriangularLatticeLoader() {
+        factory = new TriangularLatticeFactory();
+    }
+
+    public TriangularLatticeLoader(TriangularLatticeFactory factory) {
+        this.factory = factory;
+    }
 }

@@ -24,10 +24,22 @@
 
 package compiler.pipeline.instantiate.loader.geometry.lattice;
 
+import compiler.pipeline.instantiate.factory.geometry.lattice.CubicLatticeFactory;
 import geometry.lattice.CubicLattice;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class CubicLatticeLoader extends LatticeLoader<CubicLattice> {
+
+    private final CubicLatticeFactory factory;
+
+    public CubicLatticeLoader() {
+        factory = new CubicLatticeFactory();
+    }
+
+    public CubicLatticeLoader(CubicLatticeFactory factory) {
+        this.factory = factory;
+    }
+
 }

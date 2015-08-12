@@ -27,8 +27,14 @@ package geometry.lattice;
 import control.identifiers.Coordinate;
 import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
+import structural.annotations.FactoryTarget;
 
 public class CubicLattice extends Lattice {
+
+    @FactoryTarget
+    public CubicLattice() {
+        super();
+    }
 
     protected void defineBasis() {
         Coordinate i = new Coordinate3D(1, 0, 0, 0);

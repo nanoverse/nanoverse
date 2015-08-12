@@ -22,7 +22,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.control;
+package compiler.pipeline.instantiate.factory.control;
 
 import compiler.pipeline.instantiate.factory.Factory;
 import control.*;

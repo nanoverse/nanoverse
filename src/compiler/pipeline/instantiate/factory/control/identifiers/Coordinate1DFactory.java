@@ -21,25 +21,36 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.control.identifiers;
 
-package compiler.pipeline.instantiate.loader.control;
+import control.identifiers.Coordinate1D;
+import compiler.pipeline.instantiate.factory.Factory;
 
-import compiler.pipeline.instantiate.factory.control.ProjectFactory;
-import compiler.pipeline.instantiate.loader.Loader;
-import control.run.Runner;
+public class Coordinate1DFactory implements Factory<Coordinate1D> {
 
-/**
- * Created by dbborens on 8/1/2015.
- */
-public class ProjectLoader extends Loader<Runner> {
+    private final Coordinate1DFactoryHelper helper;
 
-    private final ProjectFactory factory;
+    private int y;
+    private int flags;
 
-    public ProjectLoader() {
-        factory = new ProjectFactory();
+    public Coordinate1DFactory() {
+        helper = new Coordinate1DFactoryHelper();
     }
 
-    public ProjectLoader(ProjectFactory factory) {
-        this.factory = factory;
+    public Coordinate1DFactory(Coordinate1DFactoryHelper helper) {
+        this.helper = helper;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setFlags(int flags) {
+        this.flags = flags;
+    }
+
+    @Override
+    public Coordinate1D build() {
+        return helper.build(y, flags);
     }
 }

@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.boundary;
 
+import compiler.pipeline.instantiate.factory.geometry.boundaries.TetrisBoundaryFactory;
 import geometry.boundaries.TetrisBoundary;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class TetrisBoundaryLoader extends BoundaryLoader<TetrisBoundary> {
+    private final TetrisBoundaryFactory factory;
+
+    public TetrisBoundaryLoader() {
+        factory = new TetrisBoundaryFactory();
+    }
+
+    public TetrisBoundaryLoader(TetrisBoundaryFactory factory) {
+        this.factory = factory;
+    }
 }

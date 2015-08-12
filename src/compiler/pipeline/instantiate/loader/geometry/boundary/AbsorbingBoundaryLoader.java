@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.boundary;
 
+import compiler.pipeline.instantiate.factory.geometry.boundaries.AbsorbingFactory;
 import geometry.boundaries.Absorbing;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class AbsorbingBoundaryLoader extends BoundaryLoader<Absorbing> {
+    private final AbsorbingFactory factory;
+
+    public AbsorbingBoundaryLoader() {
+        factory = new AbsorbingFactory();
+    }
+
+    public AbsorbingBoundaryLoader(AbsorbingFactory factory) {
+        this.factory = factory;
+    }
 }

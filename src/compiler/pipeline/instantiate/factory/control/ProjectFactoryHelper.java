@@ -22,24 +22,17 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.control;
+package compiler.pipeline.instantiate.factory.control;
 
-import compiler.pipeline.instantiate.factory.control.ProjectFactory;
-import compiler.pipeline.instantiate.loader.Loader;
+import control.*;
 import control.run.Runner;
 
 /**
- * Created by dbborens on 8/1/2015.
+ * Created by dbborens on 7/30/2015.
  */
-public class ProjectLoader extends Loader<Runner> {
+public class ProjectFactoryHelper {
 
-    private final ProjectFactory factory;
-
-    public ProjectLoader() {
-        factory = new ProjectFactory();
-    }
-
-    public ProjectLoader(ProjectFactory factory) {
-        this.factory = factory;
+    public Runner newRunner(GeneralParameters p, Integrator integrator) {
+        return new Runner(p, integrator);
     }
 }

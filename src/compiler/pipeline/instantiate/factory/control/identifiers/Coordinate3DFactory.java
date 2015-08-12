@@ -21,25 +21,46 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.control.identifiers;
 
-package compiler.pipeline.instantiate.loader.control.identifiers;
-
+import control.identifiers.Coordinate3D;
 import compiler.pipeline.instantiate.factory.Factory;
-import compiler.pipeline.instantiate.loader.Loader;
-import control.identifiers.Coordinate;
 
-/**
- * Created by dbborens on 8/10/2015.
- */
-public class CoordinateLoader extends Loader<Coordinate> {
+public class Coordinate3DFactory implements Factory<Coordinate3D> {
 
-    private final CoordinateAdapter adapter;
+    private final Coordinate3DFactoryHelper helper;
 
-    public CoordinateLoader() {
-        adapter = new CoordinateAdapter();
+    private int x;
+    private int y;
+    private int z;
+    private int flags;
+
+    public Coordinate3DFactory() {
+        helper = new Coordinate3DFactoryHelper();
     }
 
-    public CoordinateLoader(CoordinateAdapter adapter) {
-        this.adapter = adapter;
+    public Coordinate3DFactory(Coordinate3DFactoryHelper helper) {
+        this.helper = helper;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public void setZ(int z) {
+        this.z = z;
+    }
+
+    public void setFlags(int flags) {
+        this.flags = flags;
+    }
+
+    @Override
+    public Coordinate3D build() {
+        return helper.build(x, y, z, flags);
     }
 }

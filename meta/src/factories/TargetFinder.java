@@ -54,6 +54,7 @@ public class TargetFinder {
                         throw new IllegalStateException(ex);
                     }
                 })
+                .peek(p -> System.out.println(p.getSimpleName()))
                 .map(helper::getFactoryTarget)
                 .filter(target -> target != null);
     }

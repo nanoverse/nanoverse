@@ -24,10 +24,21 @@
 
 package compiler.pipeline.instantiate.loader.geometry.lattice;
 
+import compiler.pipeline.instantiate.factory.geometry.lattice.RectangularLatticeFactory;
 import geometry.lattice.RectangularLattice;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class RectangularLatticeLoader extends LatticeLoader<RectangularLattice> {
+
+    private final RectangularLatticeFactory factory;
+
+    public RectangularLatticeLoader() {
+        factory = new RectangularLatticeFactory();
+    }
+
+    public RectangularLatticeLoader(RectangularLatticeFactory factory) {
+        this.factory = factory;
+    }
 }

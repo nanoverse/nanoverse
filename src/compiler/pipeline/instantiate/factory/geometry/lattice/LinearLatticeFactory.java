@@ -21,25 +21,27 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.geometry.lattice;
 
-package compiler.pipeline.instantiate.loader.control;
+import geometry.lattice.LinearLattice;
+import compiler.pipeline.instantiate.factory.Factory;
 
-import compiler.pipeline.instantiate.factory.control.ProjectFactory;
-import compiler.pipeline.instantiate.loader.Loader;
-import control.run.Runner;
+public class LinearLatticeFactory implements Factory<LinearLattice> {
 
-/**
- * Created by dbborens on 8/1/2015.
- */
-public class ProjectLoader extends Loader<Runner> {
+    private final LinearLatticeFactoryHelper helper;
 
-    private final ProjectFactory factory;
 
-    public ProjectLoader() {
-        factory = new ProjectFactory();
+    public LinearLatticeFactory() {
+        helper = new LinearLatticeFactoryHelper();
     }
 
-    public ProjectLoader(ProjectFactory factory) {
-        this.factory = factory;
+    public LinearLatticeFactory(LinearLatticeFactoryHelper helper) {
+        this.helper = helper;
+    }
+
+
+    @Override
+    public LinearLattice build() {
+        return helper.build();
     }
 }

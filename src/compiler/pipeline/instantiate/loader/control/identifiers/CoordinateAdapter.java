@@ -22,24 +22,27 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.control;
+package compiler.pipeline.instantiate.loader.control.identifiers;
 
-import compiler.pipeline.instantiate.factory.control.ProjectFactory;
-import compiler.pipeline.instantiate.loader.Loader;
-import control.run.Runner;
+import compiler.pipeline.translate.nodes.ObjectNode;
+import control.identifiers.Coordinate;
+import geometry.Geometry;
 
 /**
- * Created by dbborens on 8/1/2015.
+ * Created by dbborens on 8/12/15.
  */
-public class ProjectLoader extends Loader<Runner> {
+public class CoordinateAdapter {
 
-    private final ProjectFactory factory;
+    public CoordinateSubclassLoader getLoader(Geometry geom) {
+        if (geom.getDimensionality() == 1) {
+            return new Coordinate1DLoader();
+        } else if (geom.getDimensionality() == 2) {
+            return new Coordinate2DLoader();
+        } else if (geom.getDimensionality() == 3) {
+            return new Coordinate3DLoader();
+        }
 
-    public ProjectLoader() {
-        factory = new ProjectFactory();
-    }
-
-    public ProjectLoader(ProjectFactory factory) {
-        this.factory = factory;
+        throw new UnsupportedOperationException("This version of Nanoverse " +
+                "supports only 1D, 2D, and 3D geometries.");
     }
 }

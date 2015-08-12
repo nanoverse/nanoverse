@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.boundary;
 
+import compiler.pipeline.instantiate.factory.geometry.boundaries.HaltArenaFactory;
 import geometry.boundaries.*;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class HaltArenaBoundaryLoader extends BoundaryLoader<HaltArena> {
+    private final HaltArenaFactory factory;
+
+    public HaltArenaBoundaryLoader() {
+        factory = new HaltArenaFactory();
+    }
+
+    public HaltArenaBoundaryLoader(HaltArenaFactory factory) {
+        this.factory = factory;
+    }
 }

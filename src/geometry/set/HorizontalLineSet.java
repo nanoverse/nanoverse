@@ -33,7 +33,7 @@ import java.util.stream.IntStream;
  */
 public class HorizontalLineSet extends CoordinateSet {
 
-    @FactoryTarget
+    @FactoryTarget(displayName = "HLineCoordinateSet")
     public HorizontalLineSet(Geometry geom, Coordinate start, int length) {
         if (geom.getDimensionality() != 2) {
             throw new NotImplementedException();

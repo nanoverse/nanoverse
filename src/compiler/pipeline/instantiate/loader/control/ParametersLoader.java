@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.control;
 
+import compiler.pipeline.instantiate.factory.control.ParametersFactory;
 import compiler.pipeline.instantiate.loader.Loader;
 import control.GeneralParameters;
 
@@ -31,4 +32,14 @@ import control.GeneralParameters;
  * Created by dbborens on 8/10/2015.
  */
 public class ParametersLoader extends Loader<GeneralParameters> {
+
+    private final ParametersFactory factory;
+
+    public ParametersLoader() {
+        factory = new ParametersFactory();
+    }
+
+    public ParametersLoader(ParametersFactory factory) {
+        this.factory = factory;
+    }
 }
