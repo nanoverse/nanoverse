@@ -31,6 +31,7 @@ import cells.BehaviorCell;
 import cells.Cell;
 import cells.MockCell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Boundary;
 import geometry.boundaries.Periodic;
@@ -74,7 +75,7 @@ public class ExpandTest extends EslimeTestCase {
 
         // Place the parent at site 4 and get its target rule
         parentTargetRule = placeNumberedCell(4);
-        parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate(4, 0, 0));
+        parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
 
     }
 
@@ -92,7 +93,7 @@ public class ExpandTest extends EslimeTestCase {
         // Place blocking cell
         placeNumberedCell(5);
 
-        Coordinate target = new Coordinate(3, 0, 0);
+        Coordinate target = new Coordinate2D(3, 0, 0);
         ArrayList<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parentTargetRule.setTargets(targets);
@@ -121,7 +122,7 @@ public class ExpandTest extends EslimeTestCase {
      */
     public void testMultipleVacancies() throws Exception {
 
-        Coordinate target = new Coordinate(3, 0, 0);
+        Coordinate target = new Coordinate2D(3, 0, 0);
         ArrayList<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parent.trigger("replicate-self", null);
@@ -145,7 +146,7 @@ public class ExpandTest extends EslimeTestCase {
         placeNumberedCell(3);
         placeNumberedCell(5);
 
-        Coordinate target = new Coordinate(3, 0, 0);
+        Coordinate target = new Coordinate2D(3, 0, 0);
         ArrayList<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parent.trigger("replicate-self", null);
@@ -162,7 +163,7 @@ public class ExpandTest extends EslimeTestCase {
         Supplier<BehaviorCell> supplier = mock(Supplier.class);
         when(supplier.get()).thenReturn(new MockCell(x));
         BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, supplier);
-        Coordinate coord = new Coordinate(x, 0, 0);
+        Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();
         cell.setDispatcher(bd);
@@ -171,7 +172,7 @@ public class ExpandTest extends EslimeTestCase {
 
         // Cells always divide to the right
         ArrayList<Coordinate> targets = new ArrayList<>(1);
-        Coordinate target = new Coordinate(x + 1, 0, 0);
+        Coordinate target = new Coordinate2D(x + 1, 0, 0);
         targets.add(target);
         targetRule.setTargets(targets);
 
@@ -184,7 +185,7 @@ public class ExpandTest extends EslimeTestCase {
     }
 
     private void checkPosition(int x, int state) {
-        Coordinate c = new Coordinate(x, 0, 0);
+        Coordinate c = new Coordinate2D(x, 0, 0);
         Cell cell = layer.getViewer().getCell(c);
         assertEquals(state, cell.getState());
     }

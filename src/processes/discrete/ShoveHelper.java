@@ -27,6 +27,7 @@ package processes.discrete;
 import control.halt.HaltCondition;
 import control.halt.LatticeFullEvent;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import geometry.Geometry;
 import layers.LayerManager;
@@ -148,7 +149,7 @@ public class ShoveHelper {
             }
         } while (true);
 
-        Coordinate du = new Coordinate(nextDisplacement, d.flags());
+        Coordinate du = new Coordinate2D(nextDisplacement, d.flags());
         doShove(nextLocation, du, sites);
 
         layerManager.getCellLayer().getUpdateManager().swap(currentLocation,
@@ -185,7 +186,7 @@ public class ShoveHelper {
             rel[2] += (int) Math.signum(d.z());
         }
 
-        return new Coordinate(rel, d.flags());
+        return new Coordinate2D(rel, d.flags());
     }
 
     /**

@@ -26,6 +26,7 @@ package layers;
 
 import cells.MockCell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import layers.cell.CellLayerIndices;
 import structural.CanonicalCellMap;
 import test.EslimeTestCase;
@@ -37,7 +38,7 @@ public class CellLayerIndicesTest extends EslimeTestCase {
 
     @Override
     protected void setUp() throws Exception {
-        c = new Coordinate(0, 0, 0);
+        c = new Coordinate2D(0, 0, 0);
         query = new CellLayerIndices();
     }
 

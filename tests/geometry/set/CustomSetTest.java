@@ -26,6 +26,7 @@ package geometry.set;//import junit.framework.TestCase;
 
 import control.arguments.*;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Arena;
 import geometry.boundaries.Boundary;
@@ -45,7 +46,7 @@ import test.EslimeTestCase;
 public class CustomSetTest extends EslimeTestCase {
 
     public void testLifeCycle() throws Exception {
-        Coordinate c = new Coordinate(0, 0, 0);
+        Coordinate c = new Coordinate2D(0, 0, 0);
         CustomSet set = new CustomSet();
 
         assertEquals(0, set.size());
@@ -69,10 +70,10 @@ public class CustomSetTest extends EslimeTestCase {
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
         IntegerArgument radiusArg = new ConstantInteger(0);
-        Coordinate offset = new Coordinate(0, -1, 0);
+        Coordinate offset = new Coordinate2D(0, -1, 0);
         DiscSet discSet = new DiscSet(geom, radiusArg, offset);
 
-        Coordinate c = new Coordinate(0, 0, 0);
+        Coordinate c = new Coordinate2D(0, 0, 0);
         CustomSet customSet = new CustomSet();
         customSet.add(c);
 

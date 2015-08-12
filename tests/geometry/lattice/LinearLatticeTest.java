@@ -25,6 +25,7 @@
 package geometry.lattice;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate1D;
 import control.identifiers.Flags;
 import test.EslimeTestCase;
 
@@ -49,15 +50,15 @@ public class LinearLatticeTest extends EslimeTestCase {
         Coordinate initial, actual, expected;
 
         // The origin should be unaffected
-        initial = new Coordinate(0, 0, 0);
+        initial = new Coordinate1D(0, 0);
         actual = lattice.adjust(initial);
-        expected = new Coordinate(0, 0, 0);
+        expected = new Coordinate1D(0, 0);
         assertEquals(actual, expected);
 
         // Y offset should be unaffected
-        initial = new Coordinate(0, 8, 0);
+        initial = new Coordinate1D(8, 0);
         actual = lattice.adjust(initial);
-        expected = new Coordinate(0, 8, 0);
+        expected = new Coordinate1D(8, 0);
         assertEquals(actual, expected);
 
     }
@@ -67,14 +68,14 @@ public class LinearLatticeTest extends EslimeTestCase {
 
         assertEquals(basis.length, 1);
 
-        Coordinate north = new Coordinate(0, 1, 0);
+        Coordinate north = new Coordinate1D(1, 0);
 
         assertEquals(basis[0], north);
     }
 
     public void testGetAnnulus() {
         Coordinate[] actual, expected;
-        Coordinate origin = new Coordinate(0, 0, 0);
+        Coordinate origin = new Coordinate1D(0, 0);
 
         // r=0
         actual = lattice.getAnnulus(origin, 0);
@@ -84,8 +85,8 @@ public class LinearLatticeTest extends EslimeTestCase {
         // r=1
         actual = lattice.getAnnulus(origin, 1);
         expected = new Coordinate[]{
-                new Coordinate(0, 1, 0),
-                new Coordinate(0, -1, 0)
+                new Coordinate1D(1, 0),
+                new Coordinate1D(-1, 0)
         };
 
         assertArraysEqual(actual, expected, true);
@@ -93,8 +94,8 @@ public class LinearLatticeTest extends EslimeTestCase {
         // r=2
         actual = lattice.getAnnulus(origin, 2);
         expected = new Coordinate[]{
-                new Coordinate(0, 2, 0),
-                new Coordinate(0, -2, 0),
+                new Coordinate1D(2, 0),
+                new Coordinate1D(-2, 0),
         };
 
         assertArraysEqual(actual, expected, true);
@@ -103,13 +104,13 @@ public class LinearLatticeTest extends EslimeTestCase {
 
     public void testGetNeighbors() {
         Coordinate[] actual, expected;
-        Coordinate origin = new Coordinate(0, 0, 0);
+        Coordinate origin = new Coordinate1D(0, 0);
 
         // Should be same as r=1 annulus
         actual = lattice.getNeighbors(origin);
         expected = new Coordinate[]{
-                new Coordinate(0, 1, 0),
-                new Coordinate(0, -1, 0)
+                new Coordinate1D(1, 0),
+                new Coordinate1D(-1, 0)
         };
 
         assertArraysEqual(expected, actual, true);
@@ -119,12 +120,12 @@ public class LinearLatticeTest extends EslimeTestCase {
         Coordinate o, q;
         Coordinate expected, actual;
 
-        o = new Coordinate(0, 0, 0);
-        q = new Coordinate(0, 3, 0);
+        o = new Coordinate1D(0, 0);
+        q = new Coordinate1D(3, 0);
 
         // Vertical
         actual = lattice.getDisplacement(o, q);
-        expected = new Coordinate(0, 3, Flags.VECTOR);
+        expected = new Coordinate1D(3, Flags.VECTOR);
         assertEquals(expected, actual);
 
     }
@@ -133,11 +134,11 @@ public class LinearLatticeTest extends EslimeTestCase {
         Coordinate o, q;
         Coordinate actual, expected;
 
-        o = new Coordinate(0, 0, 0);
-        q = new Coordinate(0, 3, 0);
+        o = new Coordinate1D(0, 0);
+        q = new Coordinate1D(3, 0);
 
         Coordinate oq;
-        oq = new Coordinate(0, 3, Flags.VECTOR);
+        oq = new Coordinate1D(3, Flags.VECTOR);
 
         // Vertical
         actual = lattice.rel2abs(o, oq);
@@ -149,8 +150,8 @@ public class LinearLatticeTest extends EslimeTestCase {
         Coordinate o, q;
         int expected, actual;
 
-        o = new Coordinate(0, 0, 0);
-        q = new Coordinate(0, -3, 0);
+        o = new Coordinate1D(0, 0);
+        q = new Coordinate1D(-3, 0);
 
 
         // Vertical
@@ -163,12 +164,12 @@ public class LinearLatticeTest extends EslimeTestCase {
         Coordinate o, q;
         Coordinate expected, actual;
 
-        o = new Coordinate(0, 0, 0);
-        q = new Coordinate(0, 3, 0);
+        o = new Coordinate1D(0, 0);
+        q = new Coordinate1D(3, 0);
 
         // Vertical
         actual = lattice.getOrthoDisplacement(o, q);
-        expected = new Coordinate(0, 3, Flags.VECTOR);
+        expected = new Coordinate1D(3, Flags.VECTOR);
         assertEquals(expected, actual);
     }
 
@@ -176,15 +177,15 @@ public class LinearLatticeTest extends EslimeTestCase {
         Coordinate initial, actual, expected;
 
         // The origin should be unaffected
-        initial = new Coordinate(0, 0, 0);
+        initial = new Coordinate1D(0, 0);
         actual = lattice.invAdjust(initial);
-        expected = new Coordinate(0, 0, 0);
+        expected = new Coordinate1D(0, 0);
         assertEquals(actual, expected);
 
         // Y offset should be unaffected
-        initial = new Coordinate(0, 8, 0);
+        initial = new Coordinate1D(8, 0);
         actual = lattice.invAdjust(initial);
-        expected = new Coordinate(0, 8, 0);
+        expected = new Coordinate1D(8, 0);
         assertEquals(actual, expected);
     }
 
@@ -195,7 +196,7 @@ public class LinearLatticeTest extends EslimeTestCase {
     }
 
     public void testGetZeroVector() {
-        Coordinate expected = new Coordinate(0, 0, 0);
+        Coordinate expected = new Coordinate1D(0, 0);
         Coordinate actual = lattice.getZeroVector();
         assertEquals(expected, actual);
     }

@@ -25,6 +25,7 @@
 package geometry.shape;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import org.dom4j.Element;
@@ -71,7 +72,7 @@ public class Cuboid extends Shape {
         int x = (width - 1) / 2;
         int y = (height - 1) / 2;
         int z = (depth - 1) / 2;
-        Coordinate center = new Coordinate(x, y, z, 0);
+        Coordinate center = new Coordinate3D(x, y, z, 0);
 
         return center;
     }
@@ -88,24 +89,24 @@ public class Cuboid extends Shape {
         // Front and back
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                include(coords, new Coordinate(x, y, 0, 0));
-                include(coords, new Coordinate(x, y, depth - 1, 0));
+                include(coords, new Coordinate3D(x, y, 0, 0));
+                include(coords, new Coordinate3D(x, y, depth - 1, 0));
             }
         }
 
         // Left and right
         for (int z = 0; z < depth; z++) {
             for (int y = 0; y < height; y++) {
-                include(coords, new Coordinate(0, y, z, 0));
-                include(coords, new Coordinate(width - 1, y, z, 0));
+                include(coords, new Coordinate3D(0, y, z, 0));
+                include(coords, new Coordinate3D(width - 1, y, z, 0));
             }
         }
 
         // Top and bottom
         for (int z = 0; z < depth; z++) {
             for (int x = 0; x < width; x++) {
-                include(coords, new Coordinate(x, 0, z, 0));
-                include(coords, new Coordinate(x, height - 1, z, 0));
+                include(coords, new Coordinate3D(x, 0, z, 0));
+                include(coords, new Coordinate3D(x, height - 1, z, 0));
             }
         }
 
@@ -119,7 +120,7 @@ public class Cuboid extends Shape {
         for (int z = 0; z < depth; z++) {
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
-                    include(coords, new Coordinate(x, y, z, 0));
+                    include(coords, new Coordinate3D(x, y, z, 0));
                 }
             }
         }
@@ -130,7 +131,7 @@ public class Cuboid extends Shape {
     @Override
     public Coordinate getOverbounds(Coordinate coord) {
         // Get orthogonal distance from (0, 0, 0) to this point.
-        Coordinate origin = new Coordinate(0, 0, 0, 0);
+        Coordinate origin = new Coordinate3D(0, 0, 0, 0);
 
         Coordinate d = lattice.getOrthoDisplacement(origin, coord);
 
@@ -166,7 +167,7 @@ public class Cuboid extends Shape {
             dz = 0;
         }
 
-        return new Coordinate(dx, dy, dz, Flags.VECTOR);
+        return new Coordinate3D(dx, dy, dz, Flags.VECTOR);
     }
 
     @Override

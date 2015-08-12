@@ -27,6 +27,7 @@ package processes.discrete;
 import control.GeneralParameters;
 import control.arguments.*;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Arena;
 import geometry.boundaries.Boundary;
@@ -81,7 +82,7 @@ public class ScatterTest extends EslimeTestCase {
     public void testRespectActiveSites() throws Exception {
         CoordinateSet activeSites = new CustomSet();
         for (int y = 2; y < 5; y++) {
-            activeSites.add(new Coordinate(0, y, 0));
+            activeSites.add(new Coordinate2D(0, y, 0));
         }
 
         CellProcessArguments cpArguments = new CellProcessArguments(activeSites, new ConstantInteger(-1));

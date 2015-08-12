@@ -28,6 +28,7 @@ import cells.MockCell;
 import control.arguments.ConstantInteger;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Absorbing;
 import geometry.boundaries.Boundary;
@@ -93,15 +94,15 @@ public class InterfaceCensusWriterTest extends EslimeTestCase {
      * border a 1.
      */
     private void buildInitialCondition() throws HaltCondition {
-        put(new Coordinate(0, 0, 0), 0);
-        put(new Coordinate(1, 0, 0), 1);
-        put(new Coordinate(2, 0, 0), 2);
-        put(new Coordinate(0, 1, 0), 2);
-        put(new Coordinate(1, 1, 0), 1);
-        put(new Coordinate(2, 1, 0), 0);
-        put(new Coordinate(0, 2, 0), 1);
-        put(new Coordinate(1, 2, 0), 2);
-        put(new Coordinate(2, 2, 0), 3);
+        put(new Coordinate2D(0, 0, 0), 0);
+        put(new Coordinate2D(1, 0, 0), 1);
+        put(new Coordinate2D(2, 0, 0), 2);
+        put(new Coordinate2D(0, 1, 0), 2);
+        put(new Coordinate2D(1, 1, 0), 1);
+        put(new Coordinate2D(2, 1, 0), 0);
+        put(new Coordinate2D(0, 2, 0), 1);
+        put(new Coordinate2D(1, 2, 0), 2);
+        put(new Coordinate2D(2, 2, 0), 3);
     }
 
     public void testLifeCycle() throws Exception {
@@ -131,7 +132,7 @@ public class InterfaceCensusWriterTest extends EslimeTestCase {
          *   State 2 --> 3 of 9
          *   State 3 --> 2 of 9
          */
-        replace(new Coordinate(1, 2, 0), 3);
+        replace(new Coordinate2D(1, 2, 0), 3);
         state = new StepState(1.0, 1);
         state.record(layerManager);
         writer.flush(state);

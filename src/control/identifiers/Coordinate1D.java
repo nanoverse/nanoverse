@@ -22,23 +22,25 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.agent.action;
+package control.identifiers;
 
-import agent.action.*;
-import compiler.pipeline.instantiate.factory.agent.action.DieFactory;
+import structural.annotations.FactoryTarget;
 
 /**
- * Created by dbborens on 8/3/2015.
+ * Created by dbborens on 8/11/15.
  */
-public class DieLoader extends ActionLoader<DieDescriptor> {
+public class Coordinate1D extends Coordinate2D {
 
-    private final DieFactory factory;
-
-    public DieLoader() {
-        factory = new DieFactory();
+    @FactoryTarget
+    public Coordinate1D(int y, int flags) {
+        super(0, y, flags);
     }
 
-    public DieLoader(DieFactory factory) {
-        this.factory = factory;
+    public Coordinate1D(Coordinate c) {
+        super(c);
+    }
+
+    public Coordinate1D(int[] vec, int flags) {
+        super(vec, flags);
     }
 }

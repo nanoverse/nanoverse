@@ -25,6 +25,7 @@
 package compiler.pipeline.instantiate.loader.agent.targets;
 
 import agent.targets.TargetDescriptor;
+import compiler.pipeline.instantiate.factory.agent.targets.TargetCallerFactory;
 import compiler.pipeline.instantiate.loader.Loader;
 
 /**

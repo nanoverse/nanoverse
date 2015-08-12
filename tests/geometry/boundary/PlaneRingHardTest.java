@@ -25,6 +25,7 @@
 package geometry.boundary;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import geometry.boundaries.Boundary;
 import geometry.boundaries.PlaneRingHard;
@@ -58,68 +59,68 @@ public class PlaneRingHardTest extends EslimeTestCase {
     public void testApplyInBounds() {
         // These are in bounds for both triangular and rectangular
         Coordinate a, b, c;
-        a = new Coordinate(0, 0, 0);
-        b = new Coordinate(1, 1, 0);
-        c = new Coordinate(2, 2, 0);
+        a = new Coordinate2D(0, 0, 0);
+        b = new Coordinate2D(1, 1, 0);
+        c = new Coordinate2D(2, 2, 0);
 
         // Rectangular
         Coordinate actual, expected;
-        expected = new Coordinate(0, 0, 0);
+        expected = new Coordinate2D(0, 0, 0);
         actual = rect.apply(a);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(1, 1, 0);
+        expected = new Coordinate2D(1, 1, 0);
         actual = rect.apply(b);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(2, 2, 0);
+        expected = new Coordinate2D(2, 2, 0);
         actual = rect.apply(c);
         assertEquals(expected, actual);
 
         // Triangular
-        expected = new Coordinate(0, 0, 0);
+        expected = new Coordinate2D(0, 0, 0);
         actual = tri.apply(a);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(1, 1, 0);
+        expected = new Coordinate2D(1, 1, 0);
         actual = tri.apply(b);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(2, 2, 0);
+        expected = new Coordinate2D(2, 2, 0);
         actual = tri.apply(c);
         assertEquals(expected, actual);
     }
 
     public void testApplyOutsideX() {
         Coordinate p, q;
-        p = new Coordinate(-1, 1, 0);
-        q = new Coordinate(5, 2, 0);
+        p = new Coordinate2D(-1, 1, 0);
+        q = new Coordinate2D(5, 2, 0);
 
         Coordinate expected, actual;
 
         // Rectangular
-        expected = new Coordinate(4, 1, Flags.BOUNDARY_APPLIED);
+        expected = new Coordinate2D(4, 1, Flags.BOUNDARY_APPLIED);
         actual = rect.apply(p);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(0, 2, Flags.BOUNDARY_APPLIED);
+        expected = new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED);
         actual = rect.apply(q);
         assertEquals(expected, actual);
 
         // Triangular
-        expected = new Coordinate(4, 4, Flags.BOUNDARY_APPLIED);
+        expected = new Coordinate2D(4, 4, Flags.BOUNDARY_APPLIED);
         actual = tri.apply(p);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(0, 0, Flags.BOUNDARY_APPLIED);
+        expected = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
         actual = tri.apply(q);
         assertEquals(expected, actual);
     }
 
     public void testApplyOutsideY() {
         Coordinate p, q;
-        p = new Coordinate(0, 4, 0);
-        q = new Coordinate(2, -1, 0);
+        p = new Coordinate2D(0, 4, 0);
+        q = new Coordinate2D(2, -1, 0);
 
         Coordinate actual;
 
@@ -140,8 +141,8 @@ public class PlaneRingHardTest extends EslimeTestCase {
 
     public void testApplyOutsideXY() {
         Coordinate p, q;
-        p = new Coordinate(-1, 4, 0);
-        q = new Coordinate(5, -5, 0);
+        p = new Coordinate2D(-1, 4, 0);
+        q = new Coordinate2D(5, -5, 0);
 
         Coordinate actual;
 

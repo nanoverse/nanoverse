@@ -25,9 +25,20 @@
 package compiler.pipeline.instantiate.loader.agent.targets;
 
 import agent.targets.*;
+import compiler.pipeline.instantiate.factory.agent.targets.TargetAllNeighborsFactory;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class TargetAllNeighborsLoader extends TargetLoader<TargetAllNeighborsDescriptor> {
+
+    private final TargetAllNeighborsFactory factory;
+
+    public TargetAllNeighborsLoader() {
+        factory = new TargetAllNeighborsFactory();
+    }
+
+    public TargetAllNeighborsLoader(TargetAllNeighborsFactory factory) {
+        this.factory = factory;
+    }
 }

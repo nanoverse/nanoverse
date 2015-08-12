@@ -30,6 +30,7 @@ import agent.targets.MockTargetRule;
 import cells.BehaviorCell;
 import cells.Cell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Boundary;
 import geometry.boundaries.Periodic;
@@ -65,7 +66,7 @@ public class SwapTest extends EslimeTestCase {
 
         // Place the parent at site 4 and get its target rule
         parentTargetRule = placeNumberedCell(4);
-        parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate(4, 0, 0));
+        parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
 
     }
 
@@ -78,7 +79,7 @@ public class SwapTest extends EslimeTestCase {
      */
     public void testTwoOccupied() throws Exception {
         placeNumberedCell(5);
-        Coordinate target = new Coordinate(5, 0, 0);
+        Coordinate target = new Coordinate2D(5, 0, 0);
         List<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parent.trigger("swap", null);
@@ -97,7 +98,7 @@ public class SwapTest extends EslimeTestCase {
      * _____4____  Resulting condition
      */
     public void testOneVacant() throws Exception {
-        Coordinate target = new Coordinate(5, 0, 0);
+        Coordinate target = new Coordinate2D(5, 0, 0);
         List<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parentTargetRule.setTargets(targets);
@@ -111,7 +112,7 @@ public class SwapTest extends EslimeTestCase {
 
     private MockTargetRule placeNumberedCell(int x) throws Exception {
         BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, null);
-        Coordinate coord = new Coordinate(x, 0, 0);
+        Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();
         cell.setDispatcher(bd);
@@ -120,7 +121,7 @@ public class SwapTest extends EslimeTestCase {
 
         // Cells always divide to the right
         List<Coordinate> targets = new ArrayList<>(1);
-        Coordinate target = new Coordinate(x + 1, 0, 0);
+        Coordinate target = new Coordinate2D(x + 1, 0, 0);
         targets.add(target);
         targetRule.setTargets(targets);
 
@@ -133,13 +134,13 @@ public class SwapTest extends EslimeTestCase {
     }
 
     private void checkPosition(int x, int state) {
-        Coordinate c = new Coordinate(x, 0, 0);
+        Coordinate c = new Coordinate2D(x, 0, 0);
         Cell cell = layer.getViewer().getCell(c);
         assertEquals(state, cell.getState());
     }
 
     private void checkIsVacant(int x) {
-        Coordinate c = new Coordinate(x, 0, 0);
+        Coordinate c = new Coordinate2D(x, 0, 0);
         assertFalse(layer.getViewer().isOccupied(c));
     }
 

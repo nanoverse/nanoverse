@@ -40,15 +40,15 @@ public class BinaryExtremaLifeCycleTest {
 
     @Test
     public void lifeCycle2D() throws Exception {
-        Coordinate cMin = new Coordinate(1, 2, 0);
-        Coordinate cMax = new Coordinate(2, 1, Flags.BEYOND_BOUNDS);
+        Coordinate cMin = new Coordinate2D(1, 2, 0);
+        Coordinate cMax = new Coordinate2D(2, 1, Flags.BEYOND_BOUNDS);
         doTest(cMin, cMax);
     }
 
     @Test
     public void lifeCycle3D() throws Exception {
-        Coordinate cMin = new Coordinate(1, 2, 3, 0);
-        Coordinate cMax = new Coordinate(2, 1, 0, Flags.BEYOND_BOUNDS);
+        Coordinate cMin = new Coordinate3D(1, 2, 3, 0);
+        Coordinate cMax = new Coordinate3D(2, 1, 0, Flags.BEYOND_BOUNDS);
         doTest(cMin, cMax);
     }
 

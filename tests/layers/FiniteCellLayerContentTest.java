@@ -25,6 +25,7 @@
 package layers;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import layers.cell.CellLayerContent;
 import layers.cell.FiniteCellLayerContent;
 
@@ -37,7 +38,7 @@ public class FiniteCellLayerContentTest extends CellLayerContentTest {
 
         boolean thrown = false;
         try {
-            query.sanityCheck(new Coordinate(-1, 0, 0));
+            query.sanityCheck(new Coordinate2D(-1, 0, 0));
         } catch (Exception ex) {
             thrown = true;
         }

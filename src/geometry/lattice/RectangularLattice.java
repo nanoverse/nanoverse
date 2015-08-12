@@ -25,6 +25,7 @@
 package geometry.lattice;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 
 public class RectangularLattice extends Lattice {
@@ -52,8 +53,8 @@ public class RectangularLattice extends Lattice {
 
     protected void defineBasis() {
 
-        Coordinate east = new Coordinate(1, 0, 0);
-        Coordinate north = new Coordinate(0, 1, 0);
+        Coordinate east = new Coordinate2D(1, 0, 0);
+        Coordinate north = new Coordinate2D(0, 1, 0);
 
         basis = new Coordinate[]{east, north};
     }
@@ -66,7 +67,7 @@ public class RectangularLattice extends Lattice {
 
         // r=0 case (a point)
         if (r == 0) {
-            return new Coordinate[]{new Coordinate(x0, y0, 0)};
+            return new Coordinate[]{new Coordinate2D(x0, y0, 0)};
         }
 
         // All other cases
@@ -77,10 +78,10 @@ public class RectangularLattice extends Lattice {
 
             int base = 4 * i;
 
-            ret[base + 0] = new Coordinate(x0 + i, y0 + j, 0);
-            ret[base + 1] = new Coordinate(x0 + j, y0 - i, 0);
-            ret[base + 2] = new Coordinate(x0 - i, y0 - j, 0);
-            ret[base + 3] = new Coordinate(x0 - j, y0 + i, 0);
+            ret[base + 0] = new Coordinate2D(x0 + i, y0 + j, 0);
+            ret[base + 1] = new Coordinate2D(x0 + j, y0 - i, 0);
+            ret[base + 2] = new Coordinate2D(x0 - i, y0 - j, 0);
+            ret[base + 3] = new Coordinate2D(x0 - j, y0 + i, 0);
         }
 
         return ret;
@@ -106,7 +107,7 @@ public class RectangularLattice extends Lattice {
         int dx = qCoord.x() - pCoord.x();
         int dy = qCoord.y() - pCoord.y();
 
-        return new Coordinate(dx, dy, Flags.VECTOR);
+        return new Coordinate2D(dx, dy, Flags.VECTOR);
     }
 
     @Override
@@ -125,7 +126,7 @@ public class RectangularLattice extends Lattice {
         // Apply y component
         y += displacement.y();
 
-        Coordinate target = new Coordinate(x, y, 0);
+        Coordinate target = new Coordinate2D(x, y, 0);
 
         return target;
     }
@@ -147,6 +148,6 @@ public class RectangularLattice extends Lattice {
 
     @Override
     public Coordinate getZeroVector() {
-        return new Coordinate(0, 0, 0);
+        return new Coordinate2D(0, 0, 0);
     }
 }

@@ -25,6 +25,7 @@
 package io.factory;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import factory.io.visual.VisualizationFactory;
 import factory.io.visual.kymograph.KymographFactory;
 import factory.io.visual.map.MapVisualizationFactory;
@@ -98,8 +99,8 @@ public class VisualizationFactoryTest extends EslimeTestCase {
 
     private Geometry makeMockGeometry() {
         Coordinate[] cc = new Coordinate[]{
-                new Coordinate(0, 0, 0),
-                new Coordinate(0, 1, 0)
+                new Coordinate2D(0, 0, 0),
+                new Coordinate2D(0, 1, 0)
         };
 
         MockGeometry ret = new MockGeometry();

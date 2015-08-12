@@ -25,6 +25,8 @@
 package geometry.geometry;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 import geometry.Geometry;
 import geometry.MockGeometry;
@@ -59,9 +61,9 @@ public class GeometryTest extends EslimeTestCase {
         boundary = new MockBoundary(shape, lattice);
         geom = new Geometry(lattice, shape, boundary);
 
-        p = new Coordinate(1, 2, 0);
-        q = new Coordinate(3, 2, 0);
-        r = new Coordinate(4, 2, 0);    // Wraps around
+        p = new Coordinate2D(1, 2, 0);
+        q = new Coordinate2D(3, 2, 0);
+        r = new Coordinate2D(4, 2, 0);    // Wraps around
     }
 
     public void testCloneAtScale() {
@@ -80,31 +82,31 @@ public class GeometryTest extends EslimeTestCase {
 
         // Within bounds
         actual = geom.getNeighbors(p, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(2, 2, 0),
-                new Coordinate(1, 3, 0),
-                new Coordinate(0, 2, 0),
-                new Coordinate(1, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(2, 2, 0),
+                new Coordinate2D(1, 3, 0),
+                new Coordinate2D(0, 2, 0),
+                new Coordinate2D(1, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // One neighbor of bounds
         actual = geom.getNeighbors(q, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(0, 2, Flags.BOUNDARY_APPLIED),
-                new Coordinate(3, 3, 0),
-                new Coordinate(2, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),
+                new Coordinate2D(3, 3, 0),
+                new Coordinate2D(2, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getNeighbors(q, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(1, 2, Flags.BOUNDARY_APPLIED),
-                new Coordinate(0, 3, Flags.BOUNDARY_APPLIED),
-                new Coordinate(3, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(1, 2, Flags.BOUNDARY_APPLIED),
+                new Coordinate2D(0, 3, Flags.BOUNDARY_APPLIED),
+                new Coordinate2D(3, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -113,21 +115,21 @@ public class GeometryTest extends EslimeTestCase {
 
         // One neighbor of bounds
         actual = geom.getNeighbors(q, Geometry.FLAG_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(4, 2, Flags.BOUNDARY_IGNORED),
-                new Coordinate(3, 3, 0),
-                new Coordinate(2, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(4, 2, Flags.BOUNDARY_IGNORED),
+                new Coordinate2D(3, 3, 0),
+                new Coordinate2D(2, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getNeighbors(q, Geometry.FLAG_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(5, 2, Flags.BOUNDARY_IGNORED),
-                new Coordinate(4, 3, Flags.BOUNDARY_IGNORED),
-                new Coordinate(3, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(5, 2, Flags.BOUNDARY_IGNORED),
+                new Coordinate2D(4, 3, Flags.BOUNDARY_IGNORED),
+                new Coordinate2D(3, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -136,18 +138,18 @@ public class GeometryTest extends EslimeTestCase {
 
         // One neighbor of bounds
         actual = geom.getNeighbors(q, Geometry.EXCLUDE_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(3, 3, 0),
-                new Coordinate(2, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(3, 3, 0),
+                new Coordinate2D(2, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getNeighbors(q, Geometry.EXCLUDE_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(3, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(3, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -156,21 +158,21 @@ public class GeometryTest extends EslimeTestCase {
 
         // One neighbor of bounds
         actual = geom.getNeighbors(q, Geometry.IGNORE_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(4, 2, 0),
-                new Coordinate(3, 3, 0),
-                new Coordinate(2, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(4, 2, 0),
+                new Coordinate2D(3, 3, 0),
+                new Coordinate2D(2, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getNeighbors(q, Geometry.IGNORE_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(5, 2, 0),
-                new Coordinate(4, 3, 0),
-                new Coordinate(3, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(5, 2, 0),
+                new Coordinate2D(4, 3, 0),
+                new Coordinate2D(3, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -179,31 +181,31 @@ public class GeometryTest extends EslimeTestCase {
 
         // Within bounds
         actual = geom.getAnnulus(p, 1, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(2, 2, 0),
-                new Coordinate(1, 3, 0),
-                new Coordinate(0, 2, 0),
-                new Coordinate(1, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(2, 2, 0),
+                new Coordinate2D(1, 3, 0),
+                new Coordinate2D(0, 2, 0),
+                new Coordinate2D(1, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // One neighbor of bounds
         actual = geom.getAnnulus(q, 1, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(0, 2, Flags.BOUNDARY_APPLIED),
-                new Coordinate(3, 3, 0),
-                new Coordinate(2, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),
+                new Coordinate2D(3, 3, 0),
+                new Coordinate2D(2, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getAnnulus(q, 1, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(1, 2, Flags.BOUNDARY_APPLIED),
-                new Coordinate(0, 3, Flags.BOUNDARY_APPLIED),
-                new Coordinate(3, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(1, 2, Flags.BOUNDARY_APPLIED),
+                new Coordinate2D(0, 3, Flags.BOUNDARY_APPLIED),
+                new Coordinate2D(3, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -212,21 +214,21 @@ public class GeometryTest extends EslimeTestCase {
 
         // One neighbor of bounds
         actual = geom.getAnnulus(q, 1, Geometry.FLAG_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(4, 2, Flags.BOUNDARY_IGNORED),
-                new Coordinate(3, 3, 0),
-                new Coordinate(2, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(4, 2, Flags.BOUNDARY_IGNORED),
+                new Coordinate2D(3, 3, 0),
+                new Coordinate2D(2, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getAnnulus(q, 1, Geometry.FLAG_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(5, 2, Flags.BOUNDARY_IGNORED),
-                new Coordinate(4, 3, Flags.BOUNDARY_IGNORED),
-                new Coordinate(3, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(5, 2, Flags.BOUNDARY_IGNORED),
+                new Coordinate2D(4, 3, Flags.BOUNDARY_IGNORED),
+                new Coordinate2D(3, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -235,18 +237,18 @@ public class GeometryTest extends EslimeTestCase {
 
         // One neighbor of bounds
         actual = geom.getAnnulus(q, 1, Geometry.EXCLUDE_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(3, 3, 0),
-                new Coordinate(2, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(3, 3, 0),
+                new Coordinate2D(2, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getAnnulus(q, 1, Geometry.EXCLUDE_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(3, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(3, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -255,47 +257,47 @@ public class GeometryTest extends EslimeTestCase {
 
         // One neighbor of bounds
         actual = geom.getAnnulus(q, 1, Geometry.IGNORE_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(4, 2, 0),
-                new Coordinate(3, 3, 0),
-                new Coordinate(2, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(4, 2, 0),
+                new Coordinate2D(3, 3, 0),
+                new Coordinate2D(2, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getAnnulus(q, 1, Geometry.IGNORE_BOUNDARIES);
-        expected = new Coordinate[]{
-                new Coordinate(5, 2, 0),
-                new Coordinate(4, 3, 0),
-                new Coordinate(3, 2, 0),
-                new Coordinate(3, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(5, 2, 0),
+                new Coordinate2D(4, 3, 0),
+                new Coordinate2D(3, 2, 0),
+                new Coordinate2D(3, 1, 0)
         };
     }
 
     public void testRel2absApply() {
-        Coordinate expected = new Coordinate(0, 2, Flags.BOUNDARY_APPLIED);
-        Coordinate disp = new Coordinate(3, 0, Flags.VECTOR);
+        Coordinate expected = new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED);
+        Coordinate disp = new Coordinate2D(3, 0, Flags.VECTOR);
         Coordinate actual = geom.rel2abs(p, disp, Geometry.APPLY_BOUNDARIES);
         assertEquals(actual, expected);
     }
 
     public void testRel2absFlag() {
-        Coordinate expected = new Coordinate(4, 2, Flags.BOUNDARY_IGNORED);
-        Coordinate disp = new Coordinate(3, 0, Flags.VECTOR);
+        Coordinate expected = new Coordinate2D(4, 2, Flags.BOUNDARY_IGNORED);
+        Coordinate disp = new Coordinate2D(3, 0, Flags.VECTOR);
         Coordinate actual = geom.rel2abs(p, disp, Geometry.FLAG_BOUNDARIES);
         assertEquals(actual, expected);
     }
 
     public void testRel2absExclude() {
-        Coordinate disp = new Coordinate(3, 0, Flags.VECTOR);
+        Coordinate disp = new Coordinate2D(3, 0, Flags.VECTOR);
         Coordinate actual = geom.rel2abs(p, disp, Geometry.EXCLUDE_BOUNDARIES);
         assertNull(actual);
     }
 
     public void testRel2absIgnore() {
-        Coordinate expected = new Coordinate(4, 2, 0);
-        Coordinate disp = new Coordinate(3, 0, Flags.VECTOR);
+        Coordinate expected = new Coordinate2D(4, 2, 0);
+        Coordinate disp = new Coordinate2D(3, 0, Flags.VECTOR);
         Coordinate actual = geom.rel2abs(p, disp, Geometry.IGNORE_BOUNDARIES);
         assertEquals(expected, actual);
     }
@@ -383,27 +385,27 @@ public class GeometryTest extends EslimeTestCase {
 
         // p->p
         actual = geom.getDisplacement(p, p, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         assertEquals(actual, expected);
 
         // p->q
         actual = geom.getDisplacement(p, q, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate(2, 0, Flags.VECTOR);
+        expected = new Coordinate2D(2, 0, Flags.VECTOR);
         assertEquals(actual, expected);
 
         // p->r
         actual = geom.getDisplacement(p, r, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate(-1, 0, Flags.VECTOR);
+        expected = new Coordinate2D(-1, 0, Flags.VECTOR);
         assertEquals(actual, expected);
 
         // r->p
         actual = geom.getDisplacement(r, p, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate(1, 0, Flags.VECTOR);
+        expected = new Coordinate2D(1, 0, Flags.VECTOR);
         assertEquals(actual, expected);
 
         // r->r
         actual = geom.getDisplacement(r, r, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         assertEquals(actual, expected);
     }
 
@@ -432,35 +434,35 @@ public class GeometryTest extends EslimeTestCase {
 
         // p->p
         actual = geom.getDisplacement(p, p, Geometry.IGNORE_BOUNDARIES);
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         assertEquals(actual, expected);
 
         // p->q
         actual = geom.getDisplacement(p, q, Geometry.IGNORE_BOUNDARIES);
-        expected = new Coordinate(2, 0, Flags.VECTOR);
+        expected = new Coordinate2D(2, 0, Flags.VECTOR);
         assertEquals(actual, expected);
 
         // p->r
         actual = geom.getDisplacement(p, r, Geometry.IGNORE_BOUNDARIES);
-        expected = new Coordinate(3, 0, Flags.VECTOR);
+        expected = new Coordinate2D(3, 0, Flags.VECTOR);
         assertEquals(actual, expected);
 
         // r->p
         actual = geom.getDisplacement(r, p, Geometry.IGNORE_BOUNDARIES);
-        expected = new Coordinate(-3, 0, Flags.VECTOR);
+        expected = new Coordinate2D(-3, 0, Flags.VECTOR);
         assertEquals(actual, expected);
 
         // r->r
         actual = geom.getDisplacement(r, r, Geometry.IGNORE_BOUNDARIES);
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         assertEquals(actual, expected);
     }
 
     public void testCanonicalSites() {
         MockGeometry geom = new MockGeometry();
         Coordinate[] canonicals = new Coordinate[]{
-                new Coordinate(1, 2, 3, 4),
-                new Coordinate(0, 0, 0, 0)
+                new Coordinate3D(1, 2, 3, 4),
+                new Coordinate3D(0, 0, 0, 0)
         };
         geom.setCanonicalSites(canonicals);
 
@@ -498,7 +500,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(expected, actual);
 
         actual = geom.apply(r, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate(0, 2, Flags.BOUNDARY_APPLIED);
+        expected = new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED);
         assertEquals(expected, actual);
     }
 
@@ -551,7 +553,7 @@ public class GeometryTest extends EslimeTestCase {
     }
 
     public void testGetZeroVector() {
-        Coordinate expected = new Coordinate(0, 0, 0);
+        Coordinate expected = new Coordinate2D(0, 0, 0);
         Coordinate actual = lattice.getZeroVector();
         assertEquals(expected, actual);
     }
@@ -562,10 +564,10 @@ public class GeometryTest extends EslimeTestCase {
     public void testCoordinateIndex() {
         MockGeometry geom = new MockGeometry();
         Coordinate o, p;
-        o = new Coordinate(0, 0, 0, 0);
+        o = new Coordinate3D(0, 0, 0, 0);
 
         // Notice not canonical.
-        p = new Coordinate(1, 2, 3, 4);
+        p = new Coordinate3D(1, 2, 3, 4);
 
         Coordinate[] canonicals = new Coordinate[]{o};
         geom.setCanonicalSites(canonicals);
@@ -608,7 +610,7 @@ public class GeometryTest extends EslimeTestCase {
             if (x != c.x() || y != c.y()) {
                 flags |= Flags.BOUNDARY_APPLIED;
             }
-            return new Coordinate(x, y, flags);
+            return new Coordinate2D(x, y, flags);
         }
 
         @Override

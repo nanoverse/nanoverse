@@ -25,6 +25,7 @@
 package geometry.boundaries.helpers;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.lattice.Lattice;
 import geometry.shape.Line;
 import geometry.shape.Shape;
@@ -68,11 +69,11 @@ public class WrapHelper1D extends WrapHelper {
         while (over != 0) {
             if (over > 0) {
                 // over == 1 --> wrap to 0
-                ret = new Coordinate(ret.x(), over - 1, ret.flags());
+                ret = new Coordinate2D(ret.x(), over - 1, ret.flags());
 
             } else {
                 // over == -1 --> wrap to xMax (which is width - 1)
-                ret = new Coordinate(ret.x(), length + over, ret.flags());
+                ret = new Coordinate2D(ret.x(), length + over, ret.flags());
             }
 
             over = shape.getOverbounds(ret).y();

@@ -25,6 +25,7 @@
 package io.visual.kymograph;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import io.visual.VisualizationProperties;
 import test.EslimeTestCase;
 
@@ -35,8 +36,8 @@ public class KymoPixelTranslatorTest extends EslimeTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        c0 = new Coordinate(0, 0, 0);
-        c1 = new Coordinate(0, 1, 0);
+        c0 = new Coordinate2D(0, 0, 0);
+        c1 = new Coordinate2D(0, 1, 0);
         Coordinate[] cc = new Coordinate[]{c0, c1};
         VisualizationProperties properties = new VisualizationProperties(null, 10, 1);
         properties.setCoordinates(cc);
@@ -46,25 +47,25 @@ public class KymoPixelTranslatorTest extends EslimeTestCase {
     }
 
     public void testOrigin() throws Exception {
-        Coordinate expected = new Coordinate(5, 15, 0);
+        Coordinate expected = new Coordinate2D(5, 15, 0);
         Coordinate actual = query.resolve(c0, 0, 0.0);
         assertEquals(expected, actual);
     }
 
     public void testIndexToPixels() throws Exception {
         Coordinate actual = query.resolve(c0, 1, 0.0);
-        Coordinate expected = new Coordinate(15, 15, 0);
+        Coordinate expected = new Coordinate2D(15, 15, 0);
         assertEquals(expected, actual);
 
         actual = query.resolve(c1, 0, 0.0);
-        expected = new Coordinate(5, 5, 0);
+        expected = new Coordinate2D(5, 5, 0);
         assertEquals(expected, actual);
     }
 
 
     public void testGetImageDims() throws Exception {
         Coordinate actual = query.getImageDims();
-        Coordinate expected = new Coordinate(20, 20, 0);
+        Coordinate expected = new Coordinate2D(20, 20, 0);
         assertEquals(expected, actual);
     }
 

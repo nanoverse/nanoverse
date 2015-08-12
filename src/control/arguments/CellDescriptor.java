@@ -32,6 +32,7 @@ import cells.Cell;
 import control.halt.HaltCondition;
 import layers.continuum.Reaction;
 import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,22 @@ public class CellDescriptor extends Argument<Cell> {
 
     private List<Reaction> reactions;
     private Map<String, BehaviorDescriptor> behaviorDescriptors;
+
+    @FactoryTarget(displayName = "AgentDescriptor")
+    public CellDescriptor(LayerManager layerManager,
+                          IntegerArgument cellState,
+                          DoubleArgument threshold,
+                          DoubleArgument initialHealth,
+                          List<Reaction> reactions,
+                          Map<String, BehaviorDescriptor> behaviorDescriptors) {
+
+        this.layerManager = layerManager;
+        this.cellState = cellState;
+        this.threshold = threshold;
+        this.initialHealth = initialHealth;
+        this.reactions = reactions;
+        this.behaviorDescriptors = behaviorDescriptors;
+    }
 
     public CellDescriptor(LayerManager layerManager) {
         this.layerManager = layerManager;

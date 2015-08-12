@@ -25,6 +25,7 @@
 package io.serialize;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Extrema;
 import io.serialize.text.ExtremaWriter;
 import test.EslimeTestCase;
@@ -47,8 +48,8 @@ public class ExtremaWriterTest extends EslimeTestCase {
 
     public void testPush() throws Exception {
         Extrema a = new Extrema();
-        a.consider(0.0, new Coordinate(0, 0, 0, 0), 2.0);
-        a.consider(7.0, new Coordinate(1, 0, 0, 0), 1.0);
+        a.consider(0.0, new Coordinate3D(0, 0, 0, 0), 2.0);
+        a.consider(7.0, new Coordinate3D(1, 0, 0, 0), 1.0);
         helper.push("a", a);
 
         String expected = "a>0.0@(0, 0, 0 | 0 | 2.0):7.0@(1, 0, 0 | 0 | 1.0)";

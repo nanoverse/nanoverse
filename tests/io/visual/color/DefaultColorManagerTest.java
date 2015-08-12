@@ -26,6 +26,7 @@ package io.visual.color;
 
 import cells.MockCell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.MockGeometry;
 import junit.framework.TestCase;
 import layers.MockLayerManager;
@@ -46,7 +47,7 @@ public class DefaultColorManagerTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         systemState = new MockSystemState();
-        coord = new Coordinate(0, 0, 0);
+        coord = new Coordinate2D(0, 0, 0);
         query = new DefaultColorManager();
 
         MockGeometry geom = new MockGeometry();

@@ -25,6 +25,7 @@
 package io.deserialize;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Extrema;
 import test.EslimeTestCase;
 
@@ -48,8 +49,8 @@ public class ExtremaReaderTest extends EslimeTestCase {
         Extrema actual = reader.get("extrema");
 
         Extrema expected = new Extrema();
-        expected.consider(0, new Coordinate(0, 0, 0, 0), 2.0);
-        expected.consider(5.0, new Coordinate(1, 0, 0, 0), 1.0);
+        expected.consider(0, new Coordinate3D(0, 0, 0, 0), 2.0);
+        expected.consider(5.0, new Coordinate3D(1, 0, 0, 0), 1.0);
         assertEquals(expected, actual);
     }
 
@@ -63,12 +64,12 @@ public class ExtremaReaderTest extends EslimeTestCase {
 
         // Set up expected values
         a = new Extrema();
-        a.consider(0.0, new Coordinate(0, 0, 0, 0), 2.0);
-        a.consider(7.0, new Coordinate(1, 0, 0, 0), 1.0);
+        a.consider(0.0, new Coordinate3D(0, 0, 0, 0), 2.0);
+        a.consider(7.0, new Coordinate3D(1, 0, 0, 0), 1.0);
 
         c = new Extrema();
-        c.consider(2.0, new Coordinate(0, 2, 0, 0), 2.0);
-        c.consider(9.0, new Coordinate(1, 0, 0, 0), 1.0);
+        c.consider(2.0, new Coordinate3D(0, 2, 0, 0), 2.0);
+        c.consider(9.0, new Coordinate3D(1, 0, 0, 0), 1.0);
 
         // Read file
         String filename = fixturePath + "multi.metadata.txt";

@@ -25,9 +25,20 @@
 package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
+import compiler.pipeline.instantiate.factory.agent.action.TriggerFactory;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class TriggerLoader extends ActionLoader<TriggerDescriptor> {
+
+    private final TriggerFactory factory;
+
+    public TriggerLoader() {
+        factory = new TriggerFactory();
+    }
+
+    public TriggerLoader(TriggerFactory factory) {
+        this.factory = factory;
+    }
 }

@@ -25,6 +25,8 @@
 package io.factory;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 import factory.control.identifiers.CoordinateFactory;
 import geometry.CubicMockGeometry;
@@ -55,17 +57,17 @@ public class CoordinateFactoryTest extends EslimeTestCase {
         Element o2 = new BaseElement("offset");
 
         MockGeometry geom = new SquareMockGeometry();
-        geom.setCenter(new Coordinate(1, 2, 0));
+        geom.setCenter(new Coordinate2D(1, 2, 0));
         addAttributes(o1, 0, 0, 0);
         addAttributes(o2, 1, 0, 0);
 
         Coordinate actual, expected;
 
-        expected = new Coordinate(1, 2, 0);
+        expected = new Coordinate2D(1, 2, 0);
         actual = CoordinateFactory.offset(o1, geom);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(2, 2, 0);
+        expected = new Coordinate2D(2, 2, 0);
         actual = CoordinateFactory.offset(o2, geom);
         assertEquals(expected, actual);
     }
@@ -75,17 +77,17 @@ public class CoordinateFactoryTest extends EslimeTestCase {
         Element o2 = new BaseElement("offset");
 
         MockGeometry geom = new CubicMockGeometry();
-        geom.setCenter(new Coordinate(1, 2, 3, 0));
+        geom.setCenter(new Coordinate3D(1, 2, 3, 0));
         addAttributes(o1, 0, 0, 0, 0);
         addAttributes(o2, 1, 0, 0, 0);
 
         Coordinate actual, expected;
 
-        expected = new Coordinate(1, 2, 3, 0);
+        expected = new Coordinate3D(1, 2, 3, 0);
         actual = CoordinateFactory.offset(o1, geom);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(2, 2, 3, 0);
+        expected = new Coordinate3D(2, 2, 3, 0);
         actual = CoordinateFactory.offset(o2, geom);
         assertEquals(expected, actual);
     }

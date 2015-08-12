@@ -29,6 +29,7 @@ import control.arguments.*;
 import control.halt.HaltCondition;
 import control.halt.ThresholdOccupancyReachedEvent;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Boundary;
 import geometry.boundaries.Periodic;
@@ -109,7 +110,7 @@ public class CheckForThresholdOccupancyTest extends EslimeTestCase {
 
     private void placeNumberedCell(int x) throws HaltCondition {
         BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, null);
-        Coordinate coord = new Coordinate(x, 0, 0);
+        Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
     }
 

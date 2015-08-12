@@ -28,6 +28,7 @@ import agent.Behavior;
 import agent.MockBehavior;
 import cells.BehaviorCell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import junit.framework.TestCase;
 
 /**
@@ -42,8 +43,8 @@ public class BehaviorDispatcherTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         query = new BehaviorDispatcher();
-        caller1 = new Coordinate(0, 0, 0);
-        caller2 = new Coordinate(1, 0, 0);
+        caller1 = new Coordinate2D(0, 0, 0);
+        caller2 = new Coordinate2D(1, 0, 0);
         behavior1 = new MockBehavior();
         behavior2 = new MockBehavior();
     }

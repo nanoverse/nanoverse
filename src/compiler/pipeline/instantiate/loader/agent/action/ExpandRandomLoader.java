@@ -25,9 +25,21 @@
 package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
+import compiler.pipeline.instantiate.factory.agent.action.ExpandFactory;
+import compiler.pipeline.instantiate.factory.agent.action.ExpandRandomFactory;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class ExpandRandomLoader extends ActionLoader<ExpandRandomDescriptor> {
+
+    private final ExpandRandomFactory factory;
+
+    public ExpandRandomLoader() {
+        factory = new ExpandRandomFactory();
+    }
+
+    public ExpandRandomLoader(ExpandRandomFactory factory) {
+        this.factory = factory;
+    }
 }

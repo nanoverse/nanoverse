@@ -29,6 +29,7 @@ import control.arguments.ConstantDouble;
 import control.halt.ExtinctionEvent;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.MockGeometry;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
@@ -103,7 +104,7 @@ public class CheckForExtinctionTest extends EslimeTestCase {
 
     private Coordinate populateSingletonCase() throws Exception {
         makeOneCanonicalSite();
-        Coordinate coord = new Coordinate(0, 0, 1);
+        Coordinate coord = new Coordinate2D(0, 0, 1);
         MockCell cell = new MockCell();
         cell.setState(1);
         layer.getUpdateManager().place(cell, coord);
@@ -112,7 +113,7 @@ public class CheckForExtinctionTest extends EslimeTestCase {
 
     private void makeOneCanonicalSite() {
         Coordinate[] cc = new Coordinate[]{
-                new Coordinate(0, 0, 1)
+                new Coordinate2D(0, 0, 1)
         };
         setup(cc);
     }

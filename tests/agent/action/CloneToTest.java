@@ -31,6 +31,7 @@ import cells.BehaviorCell;
 import cells.Cell;
 import cells.MockCell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Boundary;
 import geometry.boundaries.Periodic;
@@ -107,16 +108,16 @@ public class CloneToTest extends EslimeLatticeTestCase {
      */
     public void testReplacement() throws Exception {
         CellLayer layer = linearLayer(false);
-        Cell cell = layer.getViewer().getCell(new Coordinate(4, 0, 0));
+        Cell cell = layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
 
         // Divide cell at position 4 toward 5
         cell.trigger("replicate-self", null);
 
         // New configuration: _123446_89
-        assertEquals(4, layer.getViewer().getState(new Coordinate(4, 0, 0)));
-        assertEquals(4, layer.getViewer().getState(new Coordinate(5, 0, 0)));
-        assertEquals(6, layer.getViewer().getState(new Coordinate(6, 0, 0)));
-        assertFalse(layer.getViewer().isOccupied(new Coordinate(7, 0, 0)));
+        assertEquals(4, layer.getViewer().getState(new Coordinate2D(4, 0, 0)));
+        assertEquals(4, layer.getViewer().getState(new Coordinate2D(5, 0, 0)));
+        assertEquals(6, layer.getViewer().getState(new Coordinate2D(6, 0, 0)));
+        assertFalse(layer.getViewer().isOccupied(new Coordinate2D(7, 0, 0)));
     }
 
     /**
@@ -140,7 +141,7 @@ public class CloneToTest extends EslimeLatticeTestCase {
         BehaviorCell child = new MockCell(x);
         when(ncSupplier.get()).thenReturn(child);
         BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, ncSupplier);
-        Coordinate coord = new Coordinate(x, 0, 0);
+        Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();
         cell.setDispatcher(bd);
@@ -148,7 +149,7 @@ public class CloneToTest extends EslimeLatticeTestCase {
         MockTargetRule mtr = new MockTargetRule();
 
         // Cells always divide to the right
-        Coordinate target = new Coordinate(x + 1, 0, 0);
+        Coordinate target = new Coordinate2D(x + 1, 0, 0);
         List<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         mtr.setTargets(targets);

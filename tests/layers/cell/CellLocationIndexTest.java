@@ -26,6 +26,7 @@ package layers.cell;
 
 import cells.MockCell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import junit.framework.TestCase;
 
 /**
@@ -43,8 +44,8 @@ public class CellLocationIndexTest extends TestCase {
         o1 = new MockCell();
         o2 = new MockCell();
 
-        c1 = new Coordinate(0, 0, 0);
-        c2 = new Coordinate(0, 1, 0);
+        c1 = new Coordinate2D(0, 0, 0);
+        c2 = new Coordinate2D(0, 1, 0);
 
         locationIndex = new CellLocationIndex();
     }

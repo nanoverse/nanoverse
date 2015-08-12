@@ -25,6 +25,7 @@
 package layers;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import layers.cell.CellIndex;
 import test.EslimeTestCase;
@@ -35,8 +36,8 @@ public class CellIndexTest extends EslimeTestCase {
     private CellIndex index;
 
     protected void setUp() throws Exception {
-        p = new Coordinate(0, 0, 0);
-        q = new Coordinate(0, 0, Flags.BOUNDARY_APPLIED);
+        p = new Coordinate2D(0, 0, 0);
+        q = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
 
         index = new CellIndex();
     }

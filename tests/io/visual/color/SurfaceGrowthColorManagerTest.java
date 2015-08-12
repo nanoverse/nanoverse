@@ -28,6 +28,7 @@ import cells.Cell;
 import cells.MockCell;
 import control.arguments.ConstantDouble;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Absorbing;
 import geometry.boundaries.Boundary;
@@ -99,7 +100,7 @@ public class SurfaceGrowthColorManagerTest extends EslimeTestCase {
     }
 
     private Color getColor(int pos) {
-        Coordinate c = new Coordinate(0, pos, 0);
+        Coordinate c = new Coordinate2D(0, pos, 0);
         Color ret = query.getColor(c, systemState);
 
         return ret;
@@ -115,7 +116,7 @@ public class SurfaceGrowthColorManagerTest extends EslimeTestCase {
     }
 
     private void put(CellLayer layer, int pos, int state) throws Exception {
-        Coordinate coord = new Coordinate(0, pos, 0);
+        Coordinate coord = new Coordinate2D(0, pos, 0);
         Cell cell = new MockCell(state);
         layer.getUpdateManager().place(cell, coord);
     }

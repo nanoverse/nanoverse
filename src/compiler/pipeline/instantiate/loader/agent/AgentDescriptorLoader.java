@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.agent;
 
+import compiler.pipeline.instantiate.factory.control.arguments.AgentDescriptorFactory;
 import compiler.pipeline.instantiate.loader.Loader;
 import control.arguments.CellDescriptor;
 
@@ -31,4 +32,15 @@ import control.arguments.CellDescriptor;
  * Created by dbborens on 8/3/2015.
  */
 public class AgentDescriptorLoader extends Loader<CellDescriptor> {
+
+    private final AgentDescriptorFactory factory;
+
+    public AgentDescriptorLoader() {
+        factory = new AgentDescriptorFactory();
+    }
+
+    public AgentDescriptorLoader(AgentDescriptorFactory factory) {
+        this.factory = factory;
+    }
+
 }

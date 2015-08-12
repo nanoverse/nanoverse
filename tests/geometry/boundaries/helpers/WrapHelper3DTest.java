@@ -25,6 +25,7 @@
 package geometry.boundaries.helpers;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate3D;
 import geometry.lattice.CubicLattice;
 import geometry.lattice.Lattice;
 import geometry.shape.Cuboid;
@@ -45,57 +46,57 @@ public class WrapHelper3DTest extends TestCase {
     }
 
     public void testWrapAll() throws Exception {
-        Coordinate toWrap = new Coordinate(5, 5, 5, 0);
-        Coordinate expected = new Coordinate(0, 0, 0, 0);
+        Coordinate toWrap = new Coordinate3D(5, 5, 5, 0);
+        Coordinate expected = new Coordinate3D(0, 0, 0, 0);
         Coordinate actual = query.wrapAll(toWrap);
         assertEquals(expected, actual);
     }
 
     public void testXWrap() throws Exception {
         // Positive out of bounds X coordinate
-        Coordinate toWrap = new Coordinate(6, 0, 0, 0);
-        Coordinate expected = new Coordinate(1, 0, 0, 0);
+        Coordinate toWrap = new Coordinate3D(6, 0, 0, 0);
+        Coordinate expected = new Coordinate3D(1, 0, 0, 0);
         Coordinate actual = query.xWrap(toWrap);
         assertEquals(expected, actual);
 
         // Negative out of bounds X coordinate
-        toWrap = new Coordinate(-1, 0, 0, 0);
-        expected = new Coordinate(4, 0, 0, 0);
+        toWrap = new Coordinate3D(-1, 0, 0, 0);
+        expected = new Coordinate3D(4, 0, 0, 0);
         actual = query.xWrap(toWrap);
         assertEquals(expected, actual);
     }
 
     public void testYWrap() throws Exception {
         // Positive out of bounds Y coordinate
-        Coordinate toWrap = new Coordinate(0, 6, 0, 0);
-        Coordinate expected = new Coordinate(0, 1, 0, 0);
+        Coordinate toWrap = new Coordinate3D(0, 6, 0, 0);
+        Coordinate expected = new Coordinate3D(0, 1, 0, 0);
         Coordinate actual = query.yWrap(toWrap);
         assertEquals(expected, actual);
 
         // Negative out of bounds Y coordinate
-        toWrap = new Coordinate(0, -1, 0, 0);
-        expected = new Coordinate(0, 4, 0, 0);
+        toWrap = new Coordinate3D(0, -1, 0, 0);
+        expected = new Coordinate3D(0, 4, 0, 0);
         actual = query.yWrap(toWrap);
         assertEquals(expected, actual);
     }
 
     public void testZWrap() throws Exception {
         // Positive out of bounds Z coordinate
-        Coordinate toWrap = new Coordinate(0, 0, 6, 0);
-        Coordinate expected = new Coordinate(0, 0, 1, 0);
+        Coordinate toWrap = new Coordinate3D(0, 0, 6, 0);
+        Coordinate expected = new Coordinate3D(0, 0, 1, 0);
         Coordinate actual = query.zWrap(toWrap);
         assertEquals(expected, actual);
 
         // Negative out of bounds Z coordinate
-        toWrap = new Coordinate(0, 0, -1, 0);
-        expected = new Coordinate(0, 0, 4, 0);
+        toWrap = new Coordinate3D(0, 0, -1, 0);
+        expected = new Coordinate3D(0, 0, 4, 0);
         actual = query.zWrap(toWrap);
         assertEquals(expected, actual);
     }
 
     public void testAllInBounds() throws Exception {
-        Coordinate toWrap = new Coordinate(3, 3, 3, 0);
-        Coordinate expected = new Coordinate(3, 3, 3, 0);
+        Coordinate toWrap = new Coordinate3D(3, 3, 3, 0);
+        Coordinate expected = new Coordinate3D(3, 3, 3, 0);
         Coordinate actual = query.wrapAll(toWrap);
         assertEquals(expected, actual);
     }

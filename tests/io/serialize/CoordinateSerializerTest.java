@@ -25,6 +25,8 @@
 package io.serialize;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 import org.dom4j.Element;
 import structural.utilities.CoordinateSerializer;
@@ -33,8 +35,8 @@ import test.EslimeTestCase;
 public class CoordinateSerializerTest extends EslimeTestCase {
 
     public void testCoordinate() {
-        Coordinate c2 = new Coordinate(1, 2, Flags.PLANAR);
-        Coordinate c3 = new Coordinate(1, 2, 3, 4);
+        Coordinate c2 = new Coordinate2D(1, 2, Flags.PLANAR);
+        Coordinate c3 = new Coordinate3D(1, 2, 3, 4);
 
         Element e2 = CoordinateSerializer.serialize(c2);
         Element e3 = CoordinateSerializer.serialize(c3);
@@ -45,8 +47,8 @@ public class CoordinateSerializerTest extends EslimeTestCase {
 
 
     public void testVector() {
-        Coordinate v2 = new Coordinate(1, 2, Flags.VECTOR | Flags.PLANAR);
-        Coordinate v3 = new Coordinate(1, 2, 3, 4 | Flags.VECTOR);
+        Coordinate v2 = new Coordinate2D(1, 2, Flags.VECTOR | Flags.PLANAR);
+        Coordinate v3 = new Coordinate3D(1, 2, 3, 4 | Flags.VECTOR);
 
         Element e2 = CoordinateSerializer.serialize(v2);
         Element e3 = CoordinateSerializer.serialize(v3);
@@ -60,8 +62,8 @@ public class CoordinateSerializerTest extends EslimeTestCase {
      * some custom tag names are legal for deserialization.
      */
     public void testCustom() {
-        Coordinate v2 = new Coordinate(1, 2, Flags.VECTOR | Flags.PLANAR);
-        Coordinate v3 = new Coordinate(1, 2, 3, 4 | Flags.VECTOR);
+        Coordinate v2 = new Coordinate2D(1, 2, Flags.VECTOR | Flags.PLANAR);
+        Coordinate v3 = new Coordinate3D(1, 2, 3, 4 | Flags.VECTOR);
 
         Element e2 = CoordinateSerializer.serialize(v2, "displacement");
         Element e3 = CoordinateSerializer.serialize(v3, "displacement");

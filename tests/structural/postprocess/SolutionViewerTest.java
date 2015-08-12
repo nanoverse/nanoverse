@@ -25,6 +25,7 @@
 package structural.postprocess;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import geometry.MockGeometry;
 import junit.framework.TestCase;
@@ -44,8 +45,8 @@ public class SolutionViewerTest extends TestCase {
     protected void setUp() throws Exception {
         geom = new MockGeometry();
 
-        origin = new Coordinate(1, 1, Flags.VECTOR);
-        other = new Coordinate(1, 2, Flags.VECTOR);
+        origin = new Coordinate2D(1, 1, Flags.VECTOR);
+        other = new Coordinate2D(1, 2, Flags.VECTOR);
 
         Coordinate[] cc = new Coordinate[]{
                 origin.canonicalize(),
@@ -68,8 +69,8 @@ public class SolutionViewerTest extends TestCase {
     }
 
     public void testGet() throws Exception {
-        Coordinate originOffset = new Coordinate(0, 0, Flags.VECTOR);
-        Coordinate otherOffset = new Coordinate(0, 1, Flags.VECTOR);
+        Coordinate originOffset = new Coordinate2D(0, 0, Flags.VECTOR);
+        Coordinate otherOffset = new Coordinate2D(0, 1, Flags.VECTOR);
 
         assertEquals(1.0, viewer.getRelative(originOffset), EpsilonUtil.epsilon());
         assertEquals(5.0, viewer.getRelative(otherOffset), EpsilonUtil.epsilon());

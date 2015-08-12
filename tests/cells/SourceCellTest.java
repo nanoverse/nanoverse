@@ -25,6 +25,7 @@
 package cells;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 
 import java.util.HashMap;
 
@@ -105,7 +106,7 @@ public class SourceCellTest extends CellTest {
         boolean thrown = false;
 
         try {
-            a.trigger("a", new Coordinate(0, 0, 0));
+            a.trigger("a", new Coordinate2D(0, 0, 0));
         } catch (UnsupportedOperationException ex) {
             thrown = true;
         }

@@ -27,6 +27,7 @@ package io.serialize.text;
 import cells.MockCell;
 import control.arguments.ConstantDouble;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Arena;
 import geometry.boundaries.Boundary;
@@ -68,14 +69,14 @@ public class CorrelationWriterTest extends EslimeTestCase {
     private void loadCheckerboard() throws Exception {
         for (int x = 0; x < SIDE; x += 2) {
             for (int y = 0; y < SIDE; y += 2) {
-                Coordinate c0 = new Coordinate(x, y, 0);
+                Coordinate c0 = new Coordinate2D(x, y, 0);
                 MockCell cell = new MockCell(1);
                 layer.getUpdateManager().place(cell, c0);
 
 
                 if ((x < SIDE - 1) && (y < SIDE - 1)) {
                     cell = new MockCell(1);
-                    Coordinate c1 = new Coordinate(x + 1, y + 1, 0);
+                    Coordinate c1 = new Coordinate2D(x + 1, y + 1, 0);
                     layer.getUpdateManager().place(cell, c1);
                 }
             }
@@ -86,14 +87,14 @@ public class CorrelationWriterTest extends EslimeTestCase {
     private void loadThreeState() throws Exception {
         for (int x = 0; x < SIDE; x += 2) {
             for (int y = 0; y < SIDE; y += 2) {
-                Coordinate c0 = new Coordinate(x, y, 0);
+                Coordinate c0 = new Coordinate2D(x, y, 0);
                 MockCell cell = new MockCell(1);
                 layer.getUpdateManager().place(cell, c0);
 
 
                 if ((x < SIDE - 1) && (y < SIDE - 1)) {
                     cell = new MockCell(2);
-                    Coordinate c1 = new Coordinate(x + 1, y + 1, 0);
+                    Coordinate c1 = new Coordinate2D(x + 1, y + 1, 0);
                     layer.getUpdateManager().place(cell, c1);
                 }
             }

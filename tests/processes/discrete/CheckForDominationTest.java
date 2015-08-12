@@ -28,6 +28,7 @@ import cells.BehaviorCell;
 import control.arguments.*;
 import control.halt.DominationEvent;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Boundary;
 import geometry.boundaries.Periodic;
@@ -120,7 +121,7 @@ public class CheckForDominationTest extends EslimeTestCase {
 
     private void populate(int x, int state) throws Exception {
         BehaviorCell cell = new BehaviorCell(layerManager, state, state, state, null);
-        Coordinate coord = new Coordinate(x, 0, 0);
+        Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
     }
 }

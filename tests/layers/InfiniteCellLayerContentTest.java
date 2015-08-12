@@ -25,6 +25,7 @@
 package layers;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import layers.cell.CellLayerContent;
 import layers.cell.InfiniteCellLayerContent;
 
@@ -37,7 +38,7 @@ public class InfiniteCellLayerContentTest extends CellLayerContentTest {
     public void testSanityCheck() {
         boolean thrown = false;
         try {
-            query.sanityCheck(new Coordinate(-1, 0, 0));
+            query.sanityCheck(new Coordinate2D(-1, 0, 0));
         } catch (Exception ex) {
             thrown = true;
         }
@@ -46,8 +47,8 @@ public class InfiniteCellLayerContentTest extends CellLayerContentTest {
     }
 
     public void testGetImaginarySites() {
-        Coordinate imaginary = new Coordinate(-1, 0, 0);
-        Coordinate real = new Coordinate(0, 0, 0);
+        Coordinate imaginary = new Coordinate2D(-1, 0, 0);
+        Coordinate real = new Coordinate2D(0, 0, 0);
 
         indices.setOccupied(imaginary, true);
         indices.setOccupied(real, true);

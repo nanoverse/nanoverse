@@ -25,6 +25,8 @@
 package geometry;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 
 import java.util.ArrayList;
@@ -90,7 +92,7 @@ public class MockGeometry extends Geometry {
     }
 
     protected void consider(ArrayList<Coordinate> neighbors, int x, int y) {
-        Coordinate candidate = new Coordinate(x, y, 0);
+        Coordinate candidate = new Coordinate2D(x, y, 0);
 
         for (int i = 0; i < canonicalSites.length; i++) {
             if (canonicalSites[i].equals(candidate)) {
@@ -102,7 +104,7 @@ public class MockGeometry extends Geometry {
     }
 
     protected void consider(ArrayList<Coordinate> neighbors, int x, int y, int z) {
-        Coordinate candidate = new Coordinate(x, y, z, 0);
+        Coordinate candidate = new Coordinate3D(x, y, z, 0);
 
         for (int i = 0; i < canonicalSites.length; i++) {
             if (canonicalSites[i].equals(candidate)) {

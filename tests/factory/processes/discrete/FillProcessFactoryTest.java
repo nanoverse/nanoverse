@@ -27,6 +27,7 @@ package factory.processes.discrete;
 import control.GeneralParameters;
 import control.arguments.*;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import factory.control.arguments.CellDescriptorFactory;
 import geometry.Geometry;
 import geometry.boundaries.Absorbing;
@@ -86,7 +87,7 @@ public class FillProcessFactoryTest extends EslimeTestCase {
         Element testElem = root.element("explicit-case");
 
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
-        CoordinateSet activeSites = new DiscSet(geom, new ConstantInteger(2), new Coordinate(0, 0, 0));
+        CoordinateSet activeSites = new DiscSet(geom, new ConstantInteger(2), new Coordinate2D(0, 0, 0));
         IntegerArgument maxTargets = new ConstantInteger(-1);
         CellProcessArguments cpArguments = new CellProcessArguments(activeSites, maxTargets);
         CellDescriptor cd = makeCellDescriptor();

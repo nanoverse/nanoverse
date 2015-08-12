@@ -30,6 +30,7 @@ import control.arguments.CellDescriptor;
 import control.arguments.ConstantInteger;
 import control.arguments.MockCellDescriptor;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Arena;
 import geometry.boundaries.Boundary;
@@ -84,7 +85,7 @@ public class FillTest extends EslimeTestCase {
     public void testRespectActiveSites() throws Exception {
         CoordinateSet activeSites = new CustomSet();
         for (int y = 2; y < 5; y++) {
-            activeSites.add(new Coordinate(0, y, 0));
+            activeSites.add(new Coordinate2D(0, y, 0));
         }
 
         CellProcessArguments cpArguments = new CellProcessArguments(activeSites, new ConstantInteger(-1));
@@ -101,7 +102,7 @@ public class FillTest extends EslimeTestCase {
     }
 
     public void testSkipFilledYes() throws Exception {
-        Coordinate c = new Coordinate(0, 2, 0);
+        Coordinate c = new Coordinate2D(0, 2, 0);
         lm.getCellLayer().getUpdateManager().place(new MockCell(2), c);
         doSkipFilledTest(true);
 
@@ -110,7 +111,7 @@ public class FillTest extends EslimeTestCase {
     }
 
     public void testSkipFilledNo() throws Exception {
-        Coordinate c = new Coordinate(0, 2, 0);
+        Coordinate c = new Coordinate2D(0, 2, 0);
         lm.getCellLayer().getUpdateManager().place(new MockCell(2), c);
         doSkipFilledTest(false);
     }

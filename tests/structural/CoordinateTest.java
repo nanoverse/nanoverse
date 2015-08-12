@@ -25,6 +25,8 @@
 package structural;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 import junit.framework.TestCase;
 
@@ -35,7 +37,7 @@ public class CoordinateTest extends TestCase {
 
     public void testConstructors2D() {
         // Construct a 3D coordinate.
-        Coordinate first = new Coordinate(2, 4, 6, 0);
+        Coordinate first = new Coordinate3D(2, 4, 6, 0);
 
         // Check values and dimensionality flag.
         assertEquals(first.x(), 2);
@@ -50,7 +52,7 @@ public class CoordinateTest extends TestCase {
         assertEquals(first, second);
 
         // Replace one of the coordinates with something different.
-        second = new Coordinate(3, 6, 9, 0);
+        second = new Coordinate3D(3, 6, 9, 0);
 
         // Check values of new coordinate.
         assertEquals(second.x(), 3);
@@ -63,7 +65,7 @@ public class CoordinateTest extends TestCase {
 
     public void testConstructors3D() {
         // Construct a 2D coordinate.
-        Coordinate first = new Coordinate(2, 4, 0);
+        Coordinate first = new Coordinate2D(2, 4, 0);
 
         // Check values and dimensionality flag.
         assertEquals(first.x(), 2);
@@ -77,7 +79,7 @@ public class CoordinateTest extends TestCase {
         assertEquals(first, second);
 
         // Replace one of the coordinates with something different.
-        second = new Coordinate(3, 6, 0);
+        second = new Coordinate2D(3, 6, 0);
 
         // Check values of new coordinate.
         assertEquals(second.x(), 3);
@@ -90,7 +92,7 @@ public class CoordinateTest extends TestCase {
 
     public void testFlags() {
         // Create a coordinate with a couple of flags.
-        Coordinate first = new Coordinate(2, 4, Flags.BOUNDARY_APPLIED | Flags.BEYOND_BOUNDS);
+        Coordinate first = new Coordinate2D(2, 4, Flags.BOUNDARY_APPLIED | Flags.BEYOND_BOUNDS);
 
         // Verify that hasFlag(...) works for each.
         assertEquals(first.flags(), Flags.BOUNDARY_APPLIED | Flags.BEYOND_BOUNDS | Flags.PLANAR);
@@ -99,7 +101,7 @@ public class CoordinateTest extends TestCase {
         assertTrue(first.hasFlag(Flags.PLANAR));
 
         // Create a second coordinate at same location but without flags.
-        Coordinate second = new Coordinate(2, 4, 0);
+        Coordinate second = new Coordinate2D(2, 4, 0);
         assertEquals(second.flags(), Flags.PLANAR);
 
         // Verify non-equality.
@@ -108,7 +110,7 @@ public class CoordinateTest extends TestCase {
 
     public void testStrings() {
         // Create a 2D coordinate.
-        Coordinate first = new Coordinate(2, 4, 0);
+        Coordinate first = new Coordinate2D(2, 4, 0);
 
         // EXPECT_STREQ, but it was acting weird -- done is better than perfect
         // Verify expected string form.
@@ -120,7 +122,7 @@ public class CoordinateTest extends TestCase {
         assertEquals("<2, 4>", firstVector.stringForm());
 
         // Create a 3D coordinate.
-        Coordinate second = new Coordinate(2, 4, 6, 0);
+        Coordinate second = new Coordinate3D(2, 4, 6, 0);
 
         // Verify expected string form.
         assertEquals("(2, 4, 6 | 0)", second.stringForm());
@@ -133,8 +135,8 @@ public class CoordinateTest extends TestCase {
 
     public void testHashing() {
         // Create two logically equivalent coordinates.
-        Coordinate first = new Coordinate(2, 4, 0);
-        Coordinate second = new Coordinate(2, 4, 0);
+        Coordinate first = new Coordinate2D(2, 4, 0);
+        Coordinate second = new Coordinate2D(2, 4, 0);
 
         // Note that GoogleTest's assertEquals does not use the equality operator,
         // which is weird.
@@ -142,7 +144,7 @@ public class CoordinateTest extends TestCase {
         assertEquals(first, second);
 
         // Create a logically different coordinate.
-        Coordinate third = new Coordinate(3, 6, 0);
+        Coordinate third = new Coordinate2D(3, 6, 0);
         assertFalse(second.equals(third));
 
         // Adding two logically different coordinates to a set should be fine.
@@ -163,7 +165,7 @@ public class CoordinateTest extends TestCase {
     }
 
     public void testAddFlags() {
-        Coordinate c = new Coordinate(1, 2, 3, Flags.END_OF_WORLD);
+        Coordinate c = new Coordinate3D(1, 2, 3, Flags.END_OF_WORLD);
         Coordinate d = c.addFlags(Flags.BOUNDARY_APPLIED);
 
         assertFalse(c.hasFlag(Flags.BOUNDARY_APPLIED));
@@ -171,18 +173,18 @@ public class CoordinateTest extends TestCase {
     }
 
     public void testNorm() {
-        Coordinate c = new Coordinate(0, 0, 0, 0);
+        Coordinate c = new Coordinate3D(0, 0, 0, 0);
         assertEquals(0, c.norm());
 
-        c = new Coordinate(1, 0, 0);
+        c = new Coordinate2D(1, 0, 0);
         assertEquals(1, c.norm());
 
-        c = new Coordinate(-2, 2, 5);
+        c = new Coordinate2D(-2, 2, 5);
         assertEquals(4, c.norm());
     }
 
     public void testClone() {
-        Coordinate c = new Coordinate(1, 2, 3, 4);
+        Coordinate c = new Coordinate3D(1, 2, 3, 4);
         Coordinate d = c.clone();
 
         // Memory addresses should be different
@@ -195,8 +197,8 @@ public class CoordinateTest extends TestCase {
     public void testCanonicalize() {
         int flags = Flags.BEYOND_BOUNDS | Flags.BOUNDARY_APPLIED | Flags.BOUNDARY_IGNORED | Flags.END_OF_WORLD;
 
-        Coordinate a = new Coordinate(0, 0, flags);
-        Coordinate b = new Coordinate(0, 0, 0, flags);
+        Coordinate a = new Coordinate2D(0, 0, flags);
+        Coordinate b = new Coordinate3D(0, 0, 0, flags);
 
         Coordinate a1 = a.canonicalize();
         Coordinate b1 = b.canonicalize();

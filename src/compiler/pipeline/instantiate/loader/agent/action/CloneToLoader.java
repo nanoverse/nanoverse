@@ -25,9 +25,20 @@
 package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
+import compiler.pipeline.instantiate.factory.agent.action.CloneToFactory;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class CloneToLoader extends ActionLoader<CloneToDescriptor> {
+
+    private final CloneToFactory factory;
+
+    public CloneToLoader() {
+        factory = new CloneToFactory();
+    }
+
+    public CloneToLoader(CloneToFactory factory) {
+        this.factory = factory;
+    }
 }

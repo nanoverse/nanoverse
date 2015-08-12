@@ -25,10 +25,21 @@
 package compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
 import agent.action.stochastic.WeightedOption;
+import compiler.pipeline.instantiate.factory.agent.action.stochastic.WeightedOptionFactory;
 import compiler.pipeline.instantiate.loader.Loader;
 
 /**
  * Created by dbborens on 8/6/15.
  */
 public class WeightedOptionLoader extends Loader<WeightedOption> {
+
+    private final WeightedOptionFactory factory;
+
+    public WeightedOptionLoader() {
+        factory = new WeightedOptionFactory();
+    }
+
+    public WeightedOptionLoader(WeightedOptionFactory factory) {
+        this.factory = factory;
+    }
 }

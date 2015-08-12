@@ -25,6 +25,7 @@
 package io.visual.map;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import io.visual.VisualizationProperties;
 
 import java.awt.*;
@@ -78,7 +79,7 @@ public class TriPixelTranslator extends PixelTranslator {
         int px = origin.x() + center.x();
         int py = imageDims.y() - origin.y() - center.y();
 
-        Coordinate ret = new Coordinate(px, py, 0);
+        Coordinate ret = new Coordinate2D(px, py, 0);
         return ret;
     }
 
@@ -121,7 +122,7 @@ public class TriPixelTranslator extends PixelTranslator {
 
         int y = (yMax - yMin) + dy;
         int x = xMax - xMin + (2 * edge) + 1;
-        imageDims = new Coordinate(x, y, 0);
+        imageDims = new Coordinate2D(x, y, 0);
         calcYOffset(yMin);
     }
 
@@ -134,13 +135,13 @@ public class TriPixelTranslator extends PixelTranslator {
     protected void calcOrigin() {
         int x = (int) Math.floor(edge);
         int y = dy - yOffset;
-        origin = new Coordinate(x, y, 0);
+        origin = new Coordinate2D(x, y, 0);
     }
 
-    private Coordinate indexToOffset(int x, int y) {
+    private Coordinate2D indexToOffset(int x, int y) {
         int ox = dx * x;
         int oy = -(dy * x / 2) + (dy * y);
-        Coordinate ret = new Coordinate(ox, oy, 0);
+        Coordinate2D ret = new Coordinate2D(ox, oy, 0);
         return (ret);
     }
 

@@ -25,6 +25,7 @@
 package geometry.lattice;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate1D;
 import control.identifiers.Flags;
 
 public class LinearLattice extends Lattice {
@@ -53,7 +54,7 @@ public class LinearLattice extends Lattice {
 
     protected void defineBasis() {
 
-        Coordinate north = new Coordinate(0, 1, 0);
+        Coordinate north = new Coordinate1D(1, 0);
 
         basis = new Coordinate[]{north};
     }
@@ -71,11 +72,11 @@ public class LinearLattice extends Lattice {
 
         // r=0 case (a point)
         if (r == 0) {
-            return new Coordinate[]{new Coordinate(x0, y0, 0)};
+            return new Coordinate[]{new Coordinate1D(y0, 0)};
         }
 
-        Coordinate northern = new Coordinate(x0, y0 + r, 0);
-        Coordinate southern = new Coordinate(x0, y0 - r, 0);
+        Coordinate northern = new Coordinate1D(y0 + r, 0);
+        Coordinate southern = new Coordinate1D(y0 - r, 0);
 
         return new Coordinate[]{northern, southern};
     }
@@ -92,10 +93,9 @@ public class LinearLattice extends Lattice {
             throw new IllegalStateException("Expect strictly 0 x coordinate for" +
                     " linear lattice.");
         }
-        int dx = 0;
         int dy = qCoord.y() - pCoord.y();
 
-        return new Coordinate(dx, dy, Flags.VECTOR);
+        return new Coordinate1D(dy, Flags.VECTOR);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class LinearLattice extends Lattice {
         // Apply y component
         y += displacement.y();
 
-        Coordinate target = new Coordinate(x, y, 0);
+        Coordinate target = new Coordinate1D(y, 0);
 
         return target;
     }
@@ -137,6 +137,6 @@ public class LinearLattice extends Lattice {
 
     @Override
     public Coordinate getZeroVector() {
-        return new Coordinate(0, 0, 0);
+        return new Coordinate1D(0, 0);
     }
 }

@@ -6,6 +6,8 @@
 package geometry.set;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import geometry.Geometry;
 import structural.annotations.FactoryTarget;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -60,14 +62,14 @@ public class HorizontalLineSet extends CoordinateSet {
     }
 
     private Coordinate dxRect(Geometry geom, Coordinate start, int dx) {
-        Coordinate disp = new Coordinate(dx, 0, 0);
+        Coordinate disp = new Coordinate2D(dx, 0, 0);
         return geom.rel2abs(start, disp, Geometry.APPLY_BOUNDARIES);
     }
 
     private Coordinate dxTri(Geometry geom, Coordinate start, int dx) {
         // I really need to refactor the whole geometry hierarchy.
         int yAdj = (start.x() + dx) / 2;
-        Coordinate disp = new Coordinate(dx, 0, yAdj, 0);
+        Coordinate disp = new Coordinate3D(dx, 0, yAdj, 0);
         return geom.rel2abs(start, disp, Geometry.APPLY_BOUNDARIES);
     }
 }

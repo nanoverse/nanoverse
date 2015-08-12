@@ -30,6 +30,7 @@ import agent.targets.MockTargetRule;
 import cells.BehaviorCell;
 import cells.Cell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Boundary;
 import geometry.boundaries.Periodic;
@@ -76,7 +77,7 @@ public class ExpandToTest extends EslimeTestCase {
 
         // Place the parent at site 4 and get its target rule
         parentTargetRule = placeNumberedCell(4);
-        parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate(4, 0, 0));
+        parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
 
         // A cell exists in position 5 for all cases
         placeNumberedCell(5);
@@ -94,7 +95,7 @@ public class ExpandToTest extends EslimeTestCase {
      * ___445____  Resulting condition
      */
     public void testOutwardSymmetricDisplacement() throws Exception {
-        Coordinate target = new Coordinate(3, 0, 0);
+        Coordinate target = new Coordinate2D(3, 0, 0);
         List<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parentTargetRule.setTargets(targets);
@@ -120,7 +121,7 @@ public class ExpandToTest extends EslimeTestCase {
      * ___445____  Resulting condition
      */
     public void testInwardSymmetricParentDisplacement() throws Exception {
-        Coordinate target = new Coordinate(5, 0, 0);
+        Coordinate target = new Coordinate2D(5, 0, 0);
         List<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parentTargetRule.setTargets(targets);
@@ -149,7 +150,7 @@ public class ExpandToTest extends EslimeTestCase {
      * ____445___  Resulting condition
      */
     public void testInwardSymmetricTargetDisplacement() throws Exception {
-        Coordinate target = new Coordinate(5, 0, 0);
+        Coordinate target = new Coordinate2D(5, 0, 0);
         List<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parentTargetRule.setTargets(targets);
@@ -181,7 +182,7 @@ public class ExpandToTest extends EslimeTestCase {
         // A cell exists in position 5 for all cases
         placeNumberedCell(6);
 
-        Coordinate target = new Coordinate(5, 0, 0);
+        Coordinate target = new Coordinate2D(5, 0, 0);
         List<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parentTargetRule.setTargets(targets);
@@ -204,7 +205,7 @@ public class ExpandToTest extends EslimeTestCase {
 
     private MockTargetRule placeNumberedCell(int x) throws Exception {
         BehaviorCell cell = makeNumberedCell(x);
-        Coordinate coord = new Coordinate(x, 0, 0);
+        Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();
         cell.setDispatcher(bd);
@@ -213,7 +214,7 @@ public class ExpandToTest extends EslimeTestCase {
 
         // Cells always divide to the right
         List<Coordinate> targets = new ArrayList<>(1);
-        Coordinate target = new Coordinate(x + 1, 0, 0);
+        Coordinate target = new Coordinate2D(x + 1, 0, 0);
         targets.add(target);
         targetRule.setTargets(targets);
 
@@ -227,7 +228,7 @@ public class ExpandToTest extends EslimeTestCase {
     }
 
     private void checkPosition(int x, int state) {
-        Coordinate c = new Coordinate(x, 0, 0);
+        Coordinate c = new Coordinate2D(x, 0, 0);
         Cell cell = layer.getViewer().getCell(c);
         assertEquals(state, cell.getState());
     }

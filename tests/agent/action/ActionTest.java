@@ -29,6 +29,7 @@ import cells.Cell;
 import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.MockGeometry;
 import layers.LayerManager;
 import layers.MockLayerManager;
@@ -56,7 +57,7 @@ public class ActionTest extends TestBase {
     public void setUp() throws Exception {
         layerManager = new MockLayerManager();
         callback = new BehaviorCell();
-        caller = new Coordinate(0, 0, 0);
+        caller = new Coordinate2D(0, 0, 0);
 
         query = new ExposedAction(callback, layerManager);
     }
