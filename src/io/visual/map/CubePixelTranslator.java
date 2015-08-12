@@ -25,6 +25,7 @@
 package io.visual.map;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import io.visual.VisualizationProperties;
 
 import java.awt.*;
@@ -94,14 +95,14 @@ public class CubePixelTranslator extends PixelTranslator {
 
         int dy = edge * (yMax - yMin + 1);
         int dx = edge * (xMax - xMin + 1);
-        imageDims = new Coordinate(dx, dy, 0);
+        imageDims = new Coordinate2D(dx, dy, 0);
     }
 
     @Override
     protected void calcOrigin() {
         int x = edge / 2;
         int y = edge / 2;
-        origin = new Coordinate(x, y, 0);
+        origin = new Coordinate2D(x, y, 0);
     }
 
     protected Coordinate indexToPixels(Coordinate c) {
@@ -116,12 +117,12 @@ public class CubePixelTranslator extends PixelTranslator {
         int xPixels = x * edge;
         int yPixels = y * edge;
 
-        Coordinate center = new Coordinate(xPixels, yPixels, 0);
+        Coordinate center = new Coordinate2D(xPixels, yPixels, 0);
 
         int px = origin.x() + center.x();
         int py = imageDims.y() - origin.y() - center.y();
 
-        Coordinate ret = new Coordinate(px, py, 0);
+        Coordinate ret = new Coordinate2D(px, py, 0);
         return ret;
     }
 

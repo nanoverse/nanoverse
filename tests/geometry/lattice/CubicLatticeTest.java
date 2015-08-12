@@ -25,6 +25,8 @@
 package geometry.lattice;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 import test.EslimeTestCase;
 
@@ -49,27 +51,27 @@ public class CubicLatticeTest extends EslimeTestCase {
         Coordinate initial, actual, expected;
 
         // The origin should be unaffected
-        initial = new Coordinate(0, 0, 0, 0);
+        initial = new Coordinate3D(0, 0, 0, 0);
         actual = lattice.adjust(initial);
-        expected = new Coordinate(0, 0, 0, 0);
+        expected = new Coordinate3D(0, 0, 0, 0);
         assertEquals(actual, expected);
 
         // X offset should be unaffected
-        initial = new Coordinate(8, 0, 0, 0);
+        initial = new Coordinate3D(8, 0, 0, 0);
         actual = lattice.adjust(initial);
-        expected = new Coordinate(8, 0, 0, 0);
+        expected = new Coordinate3D(8, 0, 0, 0);
         assertEquals(actual, expected);
 
         // Y offset should be unaffected
-        initial = new Coordinate(0, 8, 0, 0);
+        initial = new Coordinate3D(0, 8, 0, 0);
         actual = lattice.adjust(initial);
-        expected = new Coordinate(0, 8, 0, 0);
+        expected = new Coordinate3D(0, 8, 0, 0);
         assertEquals(actual, expected);
 
         // Z offset should be unaffected
-        initial = new Coordinate(0, 0, 8, 0);
+        initial = new Coordinate3D(0, 0, 8, 0);
         actual = lattice.adjust(initial);
-        expected = new Coordinate(0, 0, 8, 0);
+        expected = new Coordinate3D(0, 0, 8, 0);
         assertEquals(actual, expected);
     }
 
@@ -78,9 +80,9 @@ public class CubicLatticeTest extends EslimeTestCase {
 
         assertEquals(basis.length, 3);
 
-        Coordinate i = new Coordinate(1, 0, 0, 0);
-        Coordinate j = new Coordinate(0, 1, 0, 0);
-        Coordinate k = new Coordinate(0, 0, 1, 0);
+        Coordinate i = new Coordinate3D(1, 0, 0, 0);
+        Coordinate j = new Coordinate3D(0, 1, 0, 0);
+        Coordinate k = new Coordinate3D(0, 0, 1, 0);
 
         assertEquals(basis[0], i);
         assertEquals(basis[1], j);
@@ -90,7 +92,7 @@ public class CubicLatticeTest extends EslimeTestCase {
 
     public void testGetAnnulus() {
         Coordinate[] actual, expected;
-        Coordinate origin = new Coordinate(0, 0, 0, 0);
+        Coordinate origin = new Coordinate3D(0, 0, 0, 0);
 
         // r=0
         actual = lattice.getAnnulus(origin, 0);
@@ -100,36 +102,36 @@ public class CubicLatticeTest extends EslimeTestCase {
         // r=1
         actual = lattice.getAnnulus(origin, 1);
         expected = new Coordinate[]{
-                new Coordinate(1, 0, 0, 0),
-                new Coordinate(-1, 0, 0, 0),
-                new Coordinate(0, 1, 0, 0),
-                new Coordinate(0, -1, 0, 0),
-                new Coordinate(0, 0, 1, 0),
-                new Coordinate(0, 0, -1, 0)
+                new Coordinate3D(1, 0, 0, 0),
+                new Coordinate3D(-1, 0, 0, 0),
+                new Coordinate3D(0, 1, 0, 0),
+                new Coordinate3D(0, -1, 0, 0),
+                new Coordinate3D(0, 0, 1, 0),
+                new Coordinate3D(0, 0, -1, 0)
         };
 
         assertArraysEqual(actual, expected, true);
 
         // r=2
         actual = lattice.getAnnulus(origin, 2);
-        expected = new Coordinate[]{new Coordinate(1, 1, 0, 0),
-                new Coordinate(1, -1, 0, 0),
-                new Coordinate(1, 0, 1, 0),
-                new Coordinate(1, 0, -1, 0),
-                new Coordinate(-1, 1, 0, 0),
-                new Coordinate(-1, -1, 0, 0),
-                new Coordinate(-1, 0, 1, 0),
-                new Coordinate(-1, 0, -1, 0),
-                new Coordinate(0, 1, 1, 0),
-                new Coordinate(0, 1, -1, 0),
-                new Coordinate(0, -1, 1, 0),
-                new Coordinate(0, -1, -1, 0),
-                new Coordinate(2, 0, 0, 0),
-                new Coordinate(-2, 0, 0, 0),
-                new Coordinate(0, 2, 0, 0),
-                new Coordinate(0, -2, 0, 0),
-                new Coordinate(0, 0, 2, 0),
-                new Coordinate(0, 0, -2, 0)
+        expected = new Coordinate[]{new Coordinate3D(1, 1, 0, 0),
+                new Coordinate3D(1, -1, 0, 0),
+                new Coordinate3D(1, 0, 1, 0),
+                new Coordinate3D(1, 0, -1, 0),
+                new Coordinate3D(-1, 1, 0, 0),
+                new Coordinate3D(-1, -1, 0, 0),
+                new Coordinate3D(-1, 0, 1, 0),
+                new Coordinate3D(-1, 0, -1, 0),
+                new Coordinate3D(0, 1, 1, 0),
+                new Coordinate3D(0, 1, -1, 0),
+                new Coordinate3D(0, -1, 1, 0),
+                new Coordinate3D(0, -1, -1, 0),
+                new Coordinate3D(2, 0, 0, 0),
+                new Coordinate3D(-2, 0, 0, 0),
+                new Coordinate3D(0, 2, 0, 0),
+                new Coordinate3D(0, -2, 0, 0),
+                new Coordinate3D(0, 0, 2, 0),
+                new Coordinate3D(0, 0, -2, 0)
         };
 
         assertArraysEqual(actual, expected, true);
@@ -137,16 +139,16 @@ public class CubicLatticeTest extends EslimeTestCase {
 
     public void testGetNeighbors() {
         Coordinate[] actual, expected;
-        Coordinate origin = new Coordinate(0, 0, 0);
+        Coordinate origin = new Coordinate2D(0, 0, 0);
 
         // Should be same as r=1 annulus
         actual = lattice.getNeighbors(origin);
-        expected = new Coordinate[]{new Coordinate(1, 0, 0, 0),
-                new Coordinate(-1, 0, 0, 0),
-                new Coordinate(0, 1, 0, 0),
-                new Coordinate(0, -1, 0, 0),
-                new Coordinate(0, 0, 1, 0),
-                new Coordinate(0, 0, -1, 0)
+        expected = new Coordinate[]{new Coordinate3D(1, 0, 0, 0),
+                new Coordinate3D(-1, 0, 0, 0),
+                new Coordinate3D(0, 1, 0, 0),
+                new Coordinate3D(0, -1, 0, 0),
+                new Coordinate3D(0, 0, 1, 0),
+                new Coordinate3D(0, 0, -1, 0)
         };
 
         assertArraysEqual(expected, actual, true);
@@ -156,30 +158,30 @@ public class CubicLatticeTest extends EslimeTestCase {
         Coordinate o, p, q, r, s;
         Coordinate expected, actual;
 
-        o = new Coordinate(0, 0, 0, 0);
-        p = new Coordinate(3, 0, 0, 0);
-        q = new Coordinate(0, 3, 0, 0);
-        r = new Coordinate(0, 0, 3, 0);
-        s = new Coordinate(3, 3, 3, 0);
+        o = new Coordinate3D(0, 0, 0, 0);
+        p = new Coordinate3D(3, 0, 0, 0);
+        q = new Coordinate3D(0, 3, 0, 0);
+        r = new Coordinate3D(0, 0, 3, 0);
+        s = new Coordinate3D(3, 3, 3, 0);
 
         // +i
         actual = lattice.getDisplacement(o, p);
-        expected = new Coordinate(3, 0, 0, Flags.VECTOR);
+        expected = new Coordinate3D(3, 0, 0, Flags.VECTOR);
         assertEquals(expected, actual);
 
         // +j
         actual = lattice.getDisplacement(o, q);
-        expected = new Coordinate(0, 3, 0, Flags.VECTOR);
+        expected = new Coordinate3D(0, 3, 0, Flags.VECTOR);
         assertEquals(expected, actual);
 
         // +k
         actual = lattice.getDisplacement(o, r);
-        expected = new Coordinate(0, 0, 3, Flags.VECTOR);
+        expected = new Coordinate3D(0, 0, 3, Flags.VECTOR);
         assertEquals(expected, actual);
 
         // +ijk
         actual = lattice.getDisplacement(o, s);
-        expected = new Coordinate(3, 3, 3, Flags.VECTOR);
+        expected = new Coordinate3D(3, 3, 3, Flags.VECTOR);
         assertEquals(expected, actual);
     }
 
@@ -187,11 +189,11 @@ public class CubicLatticeTest extends EslimeTestCase {
         Coordinate o, p, q, r, s;
         int expected, actual;
 
-        o = new Coordinate(0, 0, 0, 0);
-        p = new Coordinate(3, 0, 0, 0);
-        q = new Coordinate(0, 3, 0, 0);
-        r = new Coordinate(0, 0, 3, 0);
-        s = new Coordinate(3, 3, 3, 0);
+        o = new Coordinate3D(0, 0, 0, 0);
+        p = new Coordinate3D(3, 0, 0, 0);
+        q = new Coordinate3D(0, 3, 0, 0);
+        r = new Coordinate3D(0, 0, 3, 0);
+        s = new Coordinate3D(3, 3, 3, 0);
 
         // +i
         actual = lattice.getL1Distance(o, p);
@@ -218,16 +220,16 @@ public class CubicLatticeTest extends EslimeTestCase {
         Coordinate o, p, q, r;
         Coordinate actual, expected;
 
-        o = new Coordinate(0, 0, 0, 0);
-        p = new Coordinate(3, 0, 0, 0);
-        q = new Coordinate(0, 3, 0, 0);
-        r = new Coordinate(0, 0, 3, 0);
+        o = new Coordinate3D(0, 0, 0, 0);
+        p = new Coordinate3D(3, 0, 0, 0);
+        q = new Coordinate3D(0, 3, 0, 0);
+        r = new Coordinate3D(0, 0, 3, 0);
 
         Coordinate op, oq, or;
 
-        op = new Coordinate(3, 0, 0, Flags.VECTOR);
-        oq = new Coordinate(0, 3, 0, Flags.VECTOR);
-        or = new Coordinate(0, 0, 3, Flags.VECTOR);
+        op = new Coordinate3D(3, 0, 0, Flags.VECTOR);
+        oq = new Coordinate3D(0, 3, 0, Flags.VECTOR);
+        or = new Coordinate3D(0, 0, 3, Flags.VECTOR);
 
         // +i
         actual = lattice.rel2abs(o, op);
@@ -249,30 +251,30 @@ public class CubicLatticeTest extends EslimeTestCase {
         Coordinate o, p, q, r, s;
         Coordinate expected, actual;
 
-        o = new Coordinate(0, 0, 0, 0);
-        p = new Coordinate(3, 0, 0, 0);
-        q = new Coordinate(0, 3, 0, 0);
-        r = new Coordinate(0, 0, 3, 0);
-        s = new Coordinate(3, 3, 3, 0);
+        o = new Coordinate3D(0, 0, 0, 0);
+        p = new Coordinate3D(3, 0, 0, 0);
+        q = new Coordinate3D(0, 3, 0, 0);
+        r = new Coordinate3D(0, 0, 3, 0);
+        s = new Coordinate3D(3, 3, 3, 0);
 
         // +i
         actual = lattice.getOrthoDisplacement(o, p);
-        expected = new Coordinate(3, 0, 0, Flags.VECTOR);
+        expected = new Coordinate3D(3, 0, 0, Flags.VECTOR);
         assertEquals(expected, actual);
 
         // +j
         actual = lattice.getOrthoDisplacement(o, q);
-        expected = new Coordinate(0, 3, 0, Flags.VECTOR);
+        expected = new Coordinate3D(0, 3, 0, Flags.VECTOR);
         assertEquals(expected, actual);
 
         // +k
         actual = lattice.getOrthoDisplacement(o, r);
-        expected = new Coordinate(0, 0, 3, Flags.VECTOR);
+        expected = new Coordinate3D(0, 0, 3, Flags.VECTOR);
         assertEquals(expected, actual);
 
         // +ijk
         actual = lattice.getOrthoDisplacement(o, s);
-        expected = new Coordinate(3, 3, 3, Flags.VECTOR);
+        expected = new Coordinate3D(3, 3, 3, Flags.VECTOR);
         assertEquals(expected, actual);
     }
 
@@ -280,27 +282,27 @@ public class CubicLatticeTest extends EslimeTestCase {
         Coordinate initial, actual, expected;
 
         // The origin should be unaffected
-        initial = new Coordinate(0, 0, 0, 0);
+        initial = new Coordinate3D(0, 0, 0, 0);
         actual = lattice.invAdjust(initial);
-        expected = new Coordinate(0, 0, 0, 0);
+        expected = new Coordinate3D(0, 0, 0, 0);
         assertEquals(actual, expected);
 
         // X offset should be unaffected
-        initial = new Coordinate(8, 0, 0, 0);
+        initial = new Coordinate3D(8, 0, 0, 0);
         actual = lattice.invAdjust(initial);
-        expected = new Coordinate(8, 0, 0, 0);
+        expected = new Coordinate3D(8, 0, 0, 0);
         assertEquals(actual, expected);
 
         // Y offset should be unaffected
-        initial = new Coordinate(0, 8, 0, 0);
+        initial = new Coordinate3D(0, 8, 0, 0);
         actual = lattice.invAdjust(initial);
-        expected = new Coordinate(0, 8, 0, 0);
+        expected = new Coordinate3D(0, 8, 0, 0);
         assertEquals(actual, expected);
 
         // Z offset should be unaffected
-        initial = new Coordinate(0, 0, 8, 0);
+        initial = new Coordinate3D(0, 0, 8, 0);
         actual = lattice.invAdjust(initial);
-        expected = new Coordinate(0, 0, 8, 0);
+        expected = new Coordinate3D(0, 0, 8, 0);
         assertEquals(actual, expected);
     }
 
@@ -311,7 +313,7 @@ public class CubicLatticeTest extends EslimeTestCase {
     }
 
     public void testGetZeroVector() {
-        Coordinate expected = new Coordinate(0, 0, 0, 0);
+        Coordinate expected = new Coordinate3D(0, 0, 0, 0);
         Coordinate actual = lattice.getZeroVector();
         assertEquals(expected, actual);
     }

@@ -33,6 +33,4 @@ import compiler.pipeline.instantiate.loader.Loader;
  */
 public abstract class ActionLoader<T extends ActionDescriptor> extends Loader<T>  {
 
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
-
 }

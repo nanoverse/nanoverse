@@ -25,6 +25,7 @@
 package geometry.boundaries.helpers;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import geometry.shape.Cuboid;
@@ -70,11 +71,11 @@ public class WrapHelper3D extends WrapHelper {
         while (over != 0) {
             if (over > 0) {
                 // over == 1 --> wrap to 0
-                ret = new Coordinate(over - 1, ret.y(), ret.z(), ret.flags());
+                ret = new Coordinate3D(over - 1, ret.y(), ret.z(), ret.flags());
 
             } else {
                 // over == -1 --> wrap to xMax (which is width - 1)
-                ret = new Coordinate(width + over, ret.y(), ret.z(), ret.flags());
+                ret = new Coordinate3D(width + over, ret.y(), ret.z(), ret.flags());
             }
             over = shape.getOverbounds(ret).x();
         }
@@ -96,11 +97,11 @@ public class WrapHelper3D extends WrapHelper {
         while (over != 0) {
             if (over > 0) {
                 // over == 1 --> wrap to 0
-                ret = new Coordinate(ret.x(), over - 1, ret.z(), ret.flags());
+                ret = new Coordinate3D(ret.x(), over - 1, ret.z(), ret.flags());
 
             } else {
                 // over == -1 --> wrap to xMax (which is width - 1)
-                ret = new Coordinate(ret.x(), height + over, ret.z(), ret.flags());
+                ret = new Coordinate3D(ret.x(), height + over, ret.z(), ret.flags());
             }
 
             over = shape.getOverbounds(ret).y();
@@ -121,11 +122,11 @@ public class WrapHelper3D extends WrapHelper {
         while (over != 0) {
             if (over > 0) {
                 // over == 1 --> wrap to 0
-                ret = new Coordinate(ret.x(), ret.y(), over - 1, ret.flags());
+                ret = new Coordinate3D(ret.x(), ret.y(), over - 1, ret.flags());
 
             } else {
                 // over == -1 --> wrap to xMax (which is width - 1)
-                ret = new Coordinate(ret.x(), ret.y(), depth + over, ret.flags());
+                ret = new Coordinate3D(ret.x(), ret.y(), depth + over, ret.flags());
             }
 
             over = shape.getOverbounds(ret).z();

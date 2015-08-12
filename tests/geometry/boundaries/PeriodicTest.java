@@ -25,6 +25,7 @@
 package geometry.boundaries;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.boundaries.helpers.WrapHelper;
 import geometry.boundary.MockWrapHelper;
 import geometry.lattice.Lattice;
@@ -49,7 +50,7 @@ public class PeriodicTest extends TestCase {
     }
 
     public void testApply() throws Exception {
-        Coordinate c = new Coordinate(0, 0, 0);
+        Coordinate c = new Coordinate2D(0, 0, 0);
         query.apply(c);
         assertTrue(helper.isAllWrapped());
     }

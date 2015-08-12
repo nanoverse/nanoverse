@@ -56,9 +56,9 @@ public class BinaryExtremaReader {
 
         if ((flags & Flags.PLANAR) == 0) {
             int z = input.readInt();
-            c = new Coordinate(x, y, z, flags);
+            c = new Coordinate3D(x, y, z, flags);
         } else {
-            c = new Coordinate(x, y, flags);
+            c = new Coordinate2D(x, y, flags);
         }
         double time = input.readDouble();
 

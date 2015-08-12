@@ -25,6 +25,8 @@
 package io.deserialize;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import test.EslimeTestCase;
 
 import java.io.IOException;
@@ -44,19 +46,19 @@ public class CoordinateDeindexerTest extends EslimeTestCase {
 
     public void testIndex() {
         // This coordinate has index 1 -- see test fixture
-        Coordinate input = new Coordinate(0, 1, 1);
+        Coordinate input = new Coordinate2D(0, 1, 1);
         assertEquals(1, (int) query.getIndex(input));
     }
 
     public void testDeindex() {
-        Coordinate expected = new Coordinate(0, 1, 1);
+        Coordinate expected = new Coordinate2D(0, 1, 1);
         Coordinate actual = query.getCoordinate(1);
         assertEquals(expected, actual);
     }
 
     public void testParseCoordinate() {
         String input = "(3, 5, 9 | 0)";
-        Coordinate expected = new Coordinate(3, 5, 9, 0);
+        Coordinate expected = new Coordinate3D(3, 5, 9, 0);
         Coordinate actual = query.parseCoordinate(input);
         assertEquals(expected, actual);
     }

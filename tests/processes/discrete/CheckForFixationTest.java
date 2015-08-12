@@ -28,6 +28,7 @@ import cells.MockCell;
 import control.halt.FixationEvent;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.MockGeometry;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
@@ -106,7 +107,7 @@ public class CheckForFixationTest extends EslimeTestCase {
     // There's only one site -- automatically fixed once filled
     public void testFixationCaseSingle() throws Exception {
         makeTwoCanonicalSites();
-        Coordinate coord = new Coordinate(0, 0, 1);
+        Coordinate coord = new Coordinate2D(0, 0, 1);
         MockCell cell = new MockCell();
         cell.setState(1);
         layer.getUpdateManager().place(cell, coord);
@@ -117,7 +118,7 @@ public class CheckForFixationTest extends EslimeTestCase {
     public void testFixationCaseMulti() throws Exception {
         makeTwoCanonicalSites();
         for (int i = 0; i < 2; i++) {
-            Coordinate coord = new Coordinate(i, 0, 0);
+            Coordinate coord = new Coordinate2D(i, 0, 0);
             MockCell cell = new MockCell();
             cell.setState(1);
             layer.getUpdateManager().place(cell, coord);
@@ -135,7 +136,7 @@ public class CheckForFixationTest extends EslimeTestCase {
     private void setUpMixedCase() throws Exception {
         makeTwoCanonicalSites();
         for (int i = 0; i < 2; i++) {
-            Coordinate coord = new Coordinate(i, 0, 0);
+            Coordinate coord = new Coordinate2D(i, 0, 0);
             MockCell cell = new MockCell();
             // state 0 is reserved for death / nullity
             cell.setState(i + 1);
@@ -147,7 +148,7 @@ public class CheckForFixationTest extends EslimeTestCase {
     // to grow -- should still be considered "fixation"
     public void testOpenSpaceCase() throws Exception {
         makeTwoCanonicalSites();
-        Coordinate coord = new Coordinate(0, 0, 0);
+        Coordinate coord = new Coordinate2D(0, 0, 0);
         MockCell cell = new MockCell();
         cell.setState(1);
         layer.getUpdateManager().place(cell, coord);
@@ -166,16 +167,16 @@ public class CheckForFixationTest extends EslimeTestCase {
         doTest(false);
 
         // Remove one of the cells. Now there's only one cell type in the system.
-        layer.getUpdateManager().banish(new Coordinate(0, 0, 0));
+        layer.getUpdateManager().banish(new Coordinate2D(0, 0, 0));
 
         // The state should now reflect fixation.
         doTest(true);
     }
 
     private void makeTwoCanonicalSites() {
-        Coordinate[] cc = new Coordinate[]{
-                new Coordinate(0, 0, 1),
-                new Coordinate(1, 0, 1)
+        Coordinate[] cc = new Coordinate2D[]{
+                new Coordinate2D(0, 0, 1),
+                new Coordinate2D(1, 0, 1)
         };
         setup(cc);
     }

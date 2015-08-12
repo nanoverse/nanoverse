@@ -25,6 +25,7 @@
 package geometry.boundaries.helpers;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.lattice.Lattice;
 import geometry.lattice.LinearLattice;
 import geometry.shape.Line;
@@ -44,8 +45,8 @@ public class WrapHelper1DTest extends EslimeTestCase {
     }
 
     public void testWrapAll() throws Exception {
-        Coordinate toWrap = new Coordinate(0, 5, 0);
-        Coordinate expected = new Coordinate(0, 0, 0);
+        Coordinate toWrap = new Coordinate2D(0, 5, 0);
+        Coordinate expected = new Coordinate2D(0, 0, 0);
         Coordinate actual = query.wrapAll(toWrap);
         assertEquals(expected, actual);
     }
@@ -64,14 +65,14 @@ public class WrapHelper1DTest extends EslimeTestCase {
 
     public void testYWrap() throws Exception {
         // Positive out of bounds Y coordinate
-        Coordinate toWrap = new Coordinate(0, 6, 0);
-        Coordinate expected = new Coordinate(0, 1, 0);
+        Coordinate toWrap = new Coordinate2D(0, 6, 0);
+        Coordinate expected = new Coordinate2D(0, 1, 0);
         Coordinate actual = query.yWrap(toWrap);
         assertEquals(expected, actual);
 
         // Negative out of bounds Y coordinate
-        toWrap = new Coordinate(0, -1, 0);
-        expected = new Coordinate(0, 4, 0);
+        toWrap = new Coordinate2D(0, -1, 0);
+        expected = new Coordinate2D(0, 4, 0);
         actual = query.yWrap(toWrap);
         assertEquals(expected, actual);
     }
@@ -89,8 +90,8 @@ public class WrapHelper1DTest extends EslimeTestCase {
     }
 
     public void testAllInBounds() throws Exception {
-        Coordinate toWrap = new Coordinate(0, 3, 0);
-        Coordinate expected = new Coordinate(0, 3, 0);
+        Coordinate toWrap = new Coordinate2D(0, 3, 0);
+        Coordinate expected = new Coordinate2D(0, 3, 0);
         Coordinate actual = query.wrapAll(toWrap);
         assertEquals(expected, actual);
     }

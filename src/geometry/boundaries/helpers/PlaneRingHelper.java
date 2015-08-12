@@ -25,6 +25,7 @@
 package geometry.boundaries.helpers;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 
@@ -73,7 +74,7 @@ public class PlaneRingHelper {
         // Calculate adjustment delta.
         int dx = c.x() - invAdj.x();
         int dy = c.y() - invAdj.y();
-        Coordinate delta = new Coordinate(dx, dy, Flags.VECTOR);
+        Coordinate delta = new Coordinate2D(dx, dy, Flags.VECTOR);
 
         //System.out.println("      Adjustment delta: " + delta);
 
@@ -83,7 +84,7 @@ public class PlaneRingHelper {
         x = c.x() - delta.x();
         y = c.y() - delta.y();
 
-        Coordinate ua = new Coordinate(x, y, c.flags());
+        Coordinate ua = new Coordinate2D(x, y, c.flags());
         //System.out.println("      Coordinate without adjustment: " + ua);
 
         //System.out.println("   2. Wrapping.");
@@ -100,7 +101,7 @@ public class PlaneRingHelper {
         ////System.out.println("      Adjusted x to " + xw);
 
         // Apply adjustment again.
-        Coordinate wrapped = new Coordinate(xw, y, c.flags());
+        Coordinate wrapped = new Coordinate2D(xw, y, c.flags());
         //System.out.println("   3. Wrapped coordinate: " + wrapped);
 
         Coordinate adjusted = lattice.adjust(wrapped);
@@ -127,14 +128,14 @@ public class PlaneRingHelper {
         if (y >= height) {
             ////System.out.println(" A");
             int y1 = (2 * height) - y - 1;
-            return doReflection(new Coordinate(x, y1, flags));
+            return doReflection(new Coordinate2D(x, y1, flags));
         }
 
         // Coordinate is below: reflect up.
         if (y < 0) {
             ////System.out.println(" B");
             int y1 = -1 * (y + 1);
-            return doReflection(new Coordinate(x, y1, flags));
+            return doReflection(new Coordinate2D(x, y1, flags));
         }
 
         // Base case: coordinate is not above or below, so return it.

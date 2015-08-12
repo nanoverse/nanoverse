@@ -26,6 +26,7 @@ package layers;
 
 import cells.MockCell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import geometry.MockGeometry;
 import layers.cell.CellLayerContent;
@@ -44,9 +45,9 @@ public abstract class CellLayerContentTest extends EslimeTestCase {
         super.setUp();
         c = new Coordinate[3];
 
-        c[0] = new Coordinate(0, 0, 0);
-        c[1] = new Coordinate(1, 0, 0);
-        c[2] = new Coordinate(2, 0, 0);
+        c[0] = new Coordinate2D(0, 0, 0);
+        c[1] = new Coordinate2D(1, 0, 0);
+        c[2] = new Coordinate2D(2, 0, 0);
 
         geom = new MockGeometry();
         geom.setCanonicalSites(c);
@@ -122,11 +123,11 @@ public abstract class CellLayerContentTest extends EslimeTestCase {
 
     public void testHasCanonicalForm() {
         // Try something that does...
-        Coordinate yes = new Coordinate(0, 0, Flags.BEYOND_BOUNDS);
+        Coordinate yes = new Coordinate2D(0, 0, Flags.BEYOND_BOUNDS);
         assertTrue(query.hasCanonicalForm(yes));
 
         // Try something that doesn't
-        Coordinate no = new Coordinate(-1, 0, Flags.BEYOND_BOUNDS);
+        Coordinate no = new Coordinate2D(-1, 0, Flags.BEYOND_BOUNDS);
         assertFalse(query.hasCanonicalForm(no));
     }
 

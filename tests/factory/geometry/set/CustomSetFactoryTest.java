@@ -25,6 +25,7 @@
 package factory.geometry.set;//import junit.framework.TestCase;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Arena;
 import geometry.boundaries.Boundary;
@@ -63,9 +64,9 @@ public class CustomSetFactoryTest extends EslimeTestCase {
         CoordinateSet actual = CustomSetFactory.instantiate(e, geom);
 
         CoordinateSet expected = new CustomSet();
-        expected.add(new Coordinate(0, 0, 0));
-        expected.add(new Coordinate(0, 1, 0));
-        expected.add(new Coordinate(0, 2, 0));
+        expected.add(new Coordinate2D(0, 0, 0));
+        expected.add(new Coordinate2D(0, 1, 0));
+        expected.add(new Coordinate2D(0, 2, 0));
         assertEquals(expected, actual);
     }
 

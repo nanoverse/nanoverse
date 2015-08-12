@@ -27,6 +27,7 @@ package processes.discrete;
 import cells.MockCell;
 import control.arguments.ConstantInteger;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Arena;
 import geometry.boundaries.Boundary;
@@ -80,9 +81,9 @@ public class OccupiedNeighborSwapTest extends EslimeTestCase {
         b = new MockCell(2);
         c = new MockCell(3);
 
-        aa = new Coordinate(0, 1, 0);
-        bb = new Coordinate(0, 0, 0);
-        cc = new Coordinate(1, 1, 0);
+        aa = new Coordinate2D(0, 1, 0);
+        bb = new Coordinate2D(0, 0, 0);
+        cc = new Coordinate2D(1, 1, 0);
         cellLayer.getUpdateManager().place(a, aa);
         cellLayer.getUpdateManager().place(b, bb);
         cellLayer.getUpdateManager().place(c, cc);

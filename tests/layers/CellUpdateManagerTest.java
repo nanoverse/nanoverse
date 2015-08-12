@@ -27,6 +27,7 @@ package layers;
 import cells.Cell;
 import cells.MockCell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.MockGeometry;
 import layers.cell.CellUpdateManager;
 import layers.cell.MockCellLayerContent;
@@ -44,8 +45,8 @@ public class CellUpdateManagerTest extends EslimeTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         geom = new MockGeometry();
-        o = new Coordinate(0, 0, 0);
-        t = new Coordinate(1, 0, 0);
+        o = new Coordinate2D(0, 0, 0);
+        t = new Coordinate2D(1, 0, 0);
         Coordinate[] cc = new Coordinate[]{o, t};
         geom.setCanonicalSites(cc);
 

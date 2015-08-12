@@ -28,6 +28,7 @@ import com.google.common.collect.Sets;
 import control.GeneralParameters;
 import control.arguments.*;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate3D;
 import geometry.Geometry;
 import geometry.MockGeometry;
 import geometry.boundaries.Arena;
@@ -193,11 +194,11 @@ public abstract class EslimeTestCase extends TestCase {
      */
     protected MockGeometry buildMockGeometry() {
         Coordinate[] canonicals = new Coordinate[]{
-                new Coordinate(0, 0, 0, 0),
-                new Coordinate(0, 0, 1, 0),
-                new Coordinate(0, 1, 0, 0),
-                new Coordinate(0, 1, 1, 0),
-                new Coordinate(1, 0, 0, 0)
+                new Coordinate3D(0, 0, 0, 0),
+                new Coordinate3D(0, 0, 1, 0),
+                new Coordinate3D(0, 1, 0, 0),
+                new Coordinate3D(0, 1, 1, 0),
+                new Coordinate3D(1, 0, 0, 0)
         };
         MockGeometry ret = new MockGeometry();
         ret.setCanonicalSites(canonicals);

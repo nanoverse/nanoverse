@@ -27,6 +27,7 @@ package layers;
 import cells.Cell;
 import cells.MockCell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.MockGeometry;
 import junit.framework.TestCase;
 import layers.cell.CellLookupManager;
@@ -39,9 +40,9 @@ public class CellLookupManagerTest extends TestCase {
         MockGeometry geometry = new MockGeometry();
         MockCellLayerIndices indices = new MockCellLayerIndices();
         Coordinate[] c = new Coordinate[3];
-        c[0] = new Coordinate(0, 0, 0);
-        c[1] = new Coordinate(1, 0, 0);
-        c[2] = new Coordinate(2, 0, 0);
+        c[0] = new Coordinate2D(0, 0, 0);
+        c[1] = new Coordinate2D(1, 0, 0);
+        c[2] = new Coordinate2D(2, 0, 0);
         geometry.setCanonicalSites(c);
 
         MockCellLayerContent content = new MockCellLayerContent(geometry, indices);

@@ -25,10 +25,21 @@
 package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
+import compiler.pipeline.instantiate.factory.agent.action.MockActionFactory;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class MockActionLoader extends ActionLoader<MockActionDescriptor> {
+
+    private final MockActionFactory factory;
+
+    public MockActionLoader() {
+        factory = new MockActionFactory();
+    }
+
+    public MockActionLoader(MockActionFactory factory) {
+        this.factory = factory;
+    }
 
 }

@@ -27,6 +27,7 @@ package factory.processes.discrete;
 import control.GeneralParameters;
 import control.arguments.*;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Absorbing;
 import geometry.boundaries.Boundary;
@@ -86,7 +87,7 @@ public class TriggerProcessFactoryTest extends EslimeTestCase {
         Element testElem = root.element("explicit-case");
 
         IntegerArgument maxTargets = new ConstantInteger(2);
-        CoordinateSet activeSites = new DiscSet(geom, new ConstantInteger(2), new Coordinate(0, 0, 0));
+        CoordinateSet activeSites = new DiscSet(geom, new ConstantInteger(2), new Coordinate2D(0, 0, 0));
         CellProcessArguments cpArguments = new CellProcessArguments(activeSites, maxTargets);
 
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);

@@ -25,9 +25,20 @@
 package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
+import compiler.pipeline.instantiate.factory.agent.action.InjectFactory;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class InjectLoader extends ActionLoader<InjectDescriptor> {
+
+    private final InjectFactory factory;
+
+    public InjectLoader() {
+        factory = new InjectFactory();
+    }
+
+    public InjectLoader(InjectFactory factory) {
+        this.factory = factory;
+    }
 }

@@ -25,9 +25,20 @@
 package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
+import compiler.pipeline.instantiate.factory.agent.action.ExpandFactory;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class ExpandLoader extends ActionLoader<ExpandDescriptor> {
+
+    private final ExpandFactory factory;
+
+    public ExpandLoader() {
+        factory = new ExpandFactory();
+    }
+
+    public ExpandLoader(ExpandFactory factory) {
+        this.factory = factory;
+    }
 }

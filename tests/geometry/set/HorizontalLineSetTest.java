@@ -6,6 +6,8 @@
 package geometry.set;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import geometry.Geometry;
 import geometry.boundaries.Absorbing;
 import geometry.boundaries.Boundary;
@@ -32,16 +34,16 @@ public class HorizontalLineSetTest extends TestBase {
 
     @Before
     public void init() {
-        start = new Coordinate(0, 0, 0);
+        start = new Coordinate2D(0, 0, 0);
     }
 
     @Test
     public void rectangularCase() throws Exception {
         Lattice lattice = new RectangularLattice();
         Coordinate[] expected = new Coordinate[]{
-                new Coordinate(0, 0, 0),
-                new Coordinate(1, 0, 0),
-                new Coordinate(2, 0, 0)
+                new Coordinate2D(0, 0, 0),
+                new Coordinate2D(1, 0, 0),
+                new Coordinate2D(2, 0, 0)
         };
         doTest(lattice, expected);
     }
@@ -50,21 +52,21 @@ public class HorizontalLineSetTest extends TestBase {
     public void triangularCaseEven() throws Exception {
         Lattice lattice = new TriangularLattice();
         Coordinate[] expected = new Coordinate[]{
-                new Coordinate(0, 0, 0),
-                new Coordinate(1, 0, 0),
-                new Coordinate(2, 1, 0)
+                new Coordinate2D(0, 0, 0),
+                new Coordinate2D(1, 0, 0),
+                new Coordinate2D(2, 1, 0)
         };
         doTest(lattice, expected);
     }
 
     @Test
     public void triangularCaseOdd() throws Exception {
-        start = new Coordinate(1, 0, 0);
+        start = new Coordinate2D(1, 0, 0);
         Lattice lattice = new TriangularLattice();
         Coordinate[] expected = new Coordinate[]{
-                new Coordinate(1, 0, 0),
-                new Coordinate(2, 1, 0),
-                new Coordinate(3, 1, 0)
+                new Coordinate2D(1, 0, 0),
+                new Coordinate2D(2, 1, 0),
+                new Coordinate2D(3, 1, 0)
         };
         doTest(lattice, expected);
     }
@@ -87,7 +89,7 @@ public class HorizontalLineSetTest extends TestBase {
     public void geom3Dthrows() throws Exception {
         Geometry geom = mock(Geometry.class);
         when(geom.getDimensionality()).thenReturn(3);
-        start = new Coordinate(0, 0, 0, 0);
+        start = new Coordinate3D(0, 0, 0, 0);
         new HorizontalLineSet(geom, start, 3);
     }
 

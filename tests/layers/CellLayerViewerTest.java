@@ -27,6 +27,7 @@ package layers;
 import cells.Cell;
 import cells.MockCell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.MockGeometry;
 import layers.cell.CellIndex;
 import layers.cell.CellLayerViewer;
@@ -47,8 +48,8 @@ public class CellLayerViewerTest extends EslimeTestCase {
         super.setUp();
         indices = new MockCellLayerIndices();
 
-        c1 = new Coordinate(1, 0, 0);
-        c2 = new Coordinate(5, 0, 0);
+        c1 = new Coordinate2D(1, 0, 0);
+        c2 = new Coordinate2D(5, 0, 0);
 
         geom = new MockGeometry();
         Coordinate[] cc = new Coordinate[]{c1, c2};
@@ -106,8 +107,8 @@ public class CellLayerViewerTest extends EslimeTestCase {
 
     public void testIsOccupied() {
         CellIndex occupiedSites = new CellIndex();
-        Coordinate c1 = new Coordinate(1, 0, 0);
-        Coordinate c2 = new Coordinate(5, 0, 0);
+        Coordinate c1 = new Coordinate2D(1, 0, 0);
+        Coordinate c2 = new Coordinate2D(5, 0, 0);
 
         occupiedSites.add(c1);
 
@@ -118,8 +119,8 @@ public class CellLayerViewerTest extends EslimeTestCase {
 
     public void testIsDivisible() {
         CellIndex divisibleSites = new CellIndex();
-        Coordinate c1 = new Coordinate(1, 0, 0);
-        Coordinate c2 = new Coordinate(5, 0, 0);
+        Coordinate c1 = new Coordinate2D(1, 0, 0);
+        Coordinate c2 = new Coordinate2D(5, 0, 0);
 
         divisibleSites.add(c1);
 

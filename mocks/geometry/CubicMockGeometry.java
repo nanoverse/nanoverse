@@ -25,6 +25,7 @@
 package geometry;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class CubicMockGeometry extends MockGeometry {
 
         int f1 = coord.flags();
 
-        return new Coordinate(x1, y1, z1, f1);
+        return new Coordinate3D(x1, y1, z1, f1);
     }
 
     public void setWidth(int width) {

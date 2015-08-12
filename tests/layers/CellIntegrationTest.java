@@ -28,6 +28,7 @@ import cells.BehaviorCell;
 import cells.Cell;
 import cells.MockCell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Boundary;
 import geometry.boundaries.PlaneRingHard;
@@ -77,7 +78,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         // Set up a cell
         Cell toPlace = new MockCell(1);
 
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
 
         layer.getUpdateManager().place(toPlace, coord);
 
@@ -97,7 +98,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         MockLayerManager lm = new MockLayerManager();
         lm.setCellLayer(layer);
         Cell toPlace = new BehaviorCell(lm, 1, 0.5, 1.0, null);
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
 
         layer.getUpdateManager().place(toPlace, coord);
 
@@ -120,7 +121,7 @@ public class CellIntegrationTest extends EslimeTestCase {
 
         // Set up one cell
         Cell toPlace = new MockCell(1);
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
         // All neighbors should be vacant
@@ -128,7 +129,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         assertEquals(neighbors.length, 6);
 
         // Add an occupied neighbor
-        Coordinate coordAbove = new Coordinate(3, 3, 0);
+        Coordinate coordAbove = new Coordinate2D(3, 3, 0);
         layer.getUpdateManager().place(new MockCell(2), coordAbove);
 
         // Check that the right cell is placed
@@ -139,14 +140,14 @@ public class CellIntegrationTest extends EslimeTestCase {
         assertEquals(5, layer.getLookupManager().getNearestVacancies(coordAbove, -1).length);
 
         // Add a cell at adjacent to southern boundary
-        Coordinate south = new Coordinate(2, 1, 0);
+        Coordinate south = new Coordinate2D(2, 1, 0);
         layer.getUpdateManager().place(new MockCell(1), south);
 
         // Should be short one vacant neighbor (hard BCs for cells)
         assertEquals(5, layer.getLookupManager().getNearestVacancies(south, -1).length);
 
         // Add a cell at origin (should be just like south)
-        Coordinate origin = new Coordinate(0, 0, 0);
+        Coordinate origin = new Coordinate2D(0, 0, 0);
         layer.getUpdateManager().place(new MockCell(1), origin);
 
         // Should be short one vacant neighbor (hard BCs for cells)
@@ -163,7 +164,7 @@ public class CellIntegrationTest extends EslimeTestCase {
 
         // Set up one cell
         Cell toPlace = new MockCell(1);
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
         // List of vacancies should be canonical neighbors
@@ -212,7 +213,7 @@ public class CellIntegrationTest extends EslimeTestCase {
 
         // Set up one cell
         Cell toPlace = new MockCell(1);
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
         Cell second = new MockCell(2);
@@ -235,11 +236,11 @@ public class CellIntegrationTest extends EslimeTestCase {
 
         // Set up one cell
         Cell toPlace = new MockCell(1);
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
         Cell second = new MockCell(2);
-        Coordinate sc = new Coordinate(3, 3, 0);
+        Coordinate sc = new Coordinate2D(3, 3, 0);
         layer.getUpdateManager().place(second, sc);
 
         boolean thrown = false;
@@ -285,7 +286,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         childCell.setDivisible(true);
         toPlace.setDivisible(true);
         toPlace.setChild(childCell);
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
         // Verify state index integrity

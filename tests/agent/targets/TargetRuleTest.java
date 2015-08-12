@@ -27,6 +27,7 @@ package agent.targets;
 import cells.MockCell;
 import control.arguments.ConstantInteger;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.MockGeometry;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
@@ -61,9 +62,9 @@ public class TargetRuleTest extends EslimeTestCase {
 
         geom = new MockGeometry();
 
-        center = new Coordinate(1, 0, 0);
-        left = new Coordinate(0, 0, 0);
-        right = new Coordinate(2, 0, 0);
+        center = new Coordinate2D(1, 0, 0);
+        left = new Coordinate2D(0, 0, 0);
+        right = new Coordinate2D(2, 0, 0);
 
         cc = new Coordinate[]{center, left, right};
 

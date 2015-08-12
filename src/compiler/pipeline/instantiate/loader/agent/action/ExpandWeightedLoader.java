@@ -25,9 +25,20 @@
 package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
+import compiler.pipeline.instantiate.factory.agent.action.ExpandWeightedFactory;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class ExpandWeightedLoader extends ActionLoader<ExpandWeightedDescriptor> {
+
+    private final ExpandWeightedFactory factory;
+
+    public ExpandWeightedLoader() {
+        factory = new ExpandWeightedFactory();
+    }
+
+    public ExpandWeightedLoader(ExpandWeightedFactory factory) {
+        this.factory = factory;
+    }
 }

@@ -25,9 +25,20 @@
 package compiler.pipeline.instantiate.loader.agent.targets;
 
 import agent.targets.TargetVacantNeighborsDescriptor;
+import compiler.pipeline.instantiate.factory.agent.targets.TargetVacantNeighborsFactory;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class TargetVacantNeighborsLoader extends TargetLoader<TargetVacantNeighborsDescriptor> {
+
+    private final TargetVacantNeighborsFactory factory;
+
+    public TargetVacantNeighborsLoader() {
+        factory = new TargetVacantNeighborsFactory();
+    }
+
+    public TargetVacantNeighborsLoader(TargetVacantNeighborsFactory factory) {
+        this.factory = factory;
+    }
 }

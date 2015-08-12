@@ -25,6 +25,8 @@
 package geometry;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 import geometry.boundaries.Boundary;
 import geometry.lattice.Lattice;
@@ -209,9 +211,9 @@ public class Geometry {
             int flags = c.flags() | Flags.BOUNDARY_IGNORED;
 
             if (c.hasFlag(Flags.PLANAR)) {
-                return new Coordinate(c.x(), c.y(), flags);
+                return new Coordinate2D(c.x(), c.y(), flags);
             } else {
-                return new Coordinate(c.x(), c.y(), c.z(), flags);
+                return new Coordinate3D(c.x(), c.y(), c.z(), flags);
             }
         } else {
             return c;

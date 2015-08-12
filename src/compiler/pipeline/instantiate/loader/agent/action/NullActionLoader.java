@@ -25,9 +25,21 @@
 package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
+import compiler.pipeline.instantiate.factory.agent.action.MockActionFactory;
+import compiler.pipeline.instantiate.factory.agent.action.NullActionFactory;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class NullActionLoader extends ActionLoader<NullActionDescriptor> {
+
+    private final NullActionFactory factory;
+
+    public NullActionLoader() {
+        factory = new NullActionFactory();
+    }
+
+    public NullActionLoader(NullActionFactory factory) {
+        this.factory = factory;
+    }
 }

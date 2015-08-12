@@ -25,6 +25,7 @@
 package processes.discrete.filter;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class NullFilterTest extends TestCase {
 
         original = new ArrayList<>(5);
         for (int i = 0; i < 5; i++) {
-            original.add(new Coordinate(i, i, 0));
+            original.add(new Coordinate2D(i, i, 0));
         }
 
         cloned = (ArrayList<Coordinate>) original.clone();

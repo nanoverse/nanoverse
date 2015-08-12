@@ -25,6 +25,8 @@
 package geometry.integration;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 import geometry.Geometry;
 import geometry.boundaries.Boundary;
@@ -62,7 +64,7 @@ public class HexRingTest extends EslimeTestCase {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 int yAdj = y + (x / 2);
-                Coordinate c = new Coordinate(x, yAdj, 0);
+                Coordinate c = new Coordinate2D(x, yAdj, 0);
                 s.add(c);
             }
         }
@@ -89,29 +91,29 @@ public class HexRingTest extends EslimeTestCase {
         Boundary boundary = new PlaneRingHard(shape, lattice);
         Geometry hr = new Geometry(lattice, shape, boundary);
 
-        Coordinate p = new Coordinate(1, 1, 0);
-        Coordinate q = new Coordinate(2, 4, 0);
+        Coordinate p = new Coordinate2D(1, 1, 0);
+        Coordinate q = new Coordinate2D(2, 4, 0);
 
         Coordinate disp = hr.getDisplacement(p, q, Geometry.APPLY_BOUNDARIES);
-        Coordinate expected = new Coordinate(0, 1, 2, Flags.VECTOR);
+        Coordinate expected = new Coordinate3D(0, 1, 2, Flags.VECTOR);
         assertEquals(expected, disp);
 
         assertEquals(3, hr.getL1Distance(p, q, Geometry.APPLY_BOUNDARIES));
 
-        p = new Coordinate(1, 2, 0);
-        q = new Coordinate(0, 0, 0);
+        p = new Coordinate2D(1, 2, 0);
+        q = new Coordinate2D(0, 0, 0);
 
         disp = hr.getDisplacement(p, q, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate(0, -1, -1, Flags.VECTOR);
+        expected = new Coordinate3D(0, -1, -1, Flags.VECTOR);
         assertEquals(expected, disp);
 
         assertEquals(2, hr.getL1Distance(p, q, Geometry.APPLY_BOUNDARIES));
 
-        p = new Coordinate(0, 0, 0);
-        q = new Coordinate(0, 0, 0);
+        p = new Coordinate2D(0, 0, 0);
+        q = new Coordinate2D(0, 0, 0);
 
         disp = hr.getDisplacement(p, q, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate(0, 0, 0, Flags.VECTOR);
+        expected = new Coordinate3D(0, 0, 0, Flags.VECTOR);
         assertEquals(expected, disp);
 
         assertEquals(0, hr.getL1Distance(p, q, Geometry.APPLY_BOUNDARIES));
@@ -131,35 +133,35 @@ public class HexRingTest extends EslimeTestCase {
         Coordinate actual, expected, initial;
 
         // Over right edge
-        initial = new Coordinate(4, 2, 0);
+        initial = new Coordinate2D(4, 2, 0);
         actual = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate(0, 0, Flags.BOUNDARY_APPLIED);
+        expected = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
         assertEquals(actual, expected);
 
         // Over left edge
-        initial = new Coordinate(-1, 0, 0);
+        initial = new Coordinate2D(-1, 0, 0);
         actual = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate(3, 2, Flags.BOUNDARY_APPLIED);
+        expected = new Coordinate2D(3, 2, Flags.BOUNDARY_APPLIED);
         assertEquals(actual, expected);
 
 
         // Out of bounds
-        initial = new Coordinate(4, 0, 0);
+        initial = new Coordinate2D(4, 0, 0);
         actual = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
         assertNull(actual);
-        //expected = new Coordinate(4, 0, Flags.UNDEFINED | Flags.BOUNDARY_APPLIED);
+        //expected = new Coordinate2D(4, 0, Flags.UNDEFINED | Flags.BOUNDARY_APPLIED);
         //assertEquals(actual, expected);
 
         // No wrap (internal coordinate)
-        initial = new Coordinate(2, 3, 0);
+        initial = new Coordinate2D(2, 3, 0);
         actual = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate(2, 3, 0);
+        expected = new Coordinate2D(2, 3, 0);
         assertEquals(actual, expected);
 
         // Around twice
-        initial = new Coordinate(9, 6, 0);
+        initial = new Coordinate2D(9, 6, 0);
         actual = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
-        expected = new Coordinate(1, 2, Flags.BOUNDARY_APPLIED);
+        expected = new Coordinate2D(1, 2, Flags.BOUNDARY_APPLIED);
         assertEquals(actual, expected);
 
     }
@@ -172,16 +174,16 @@ public class HexRingTest extends EslimeTestCase {
         Geometry hr = new Geometry(lattice, shape, boundary);
 
         // Interior
-        Coordinate initial = new Coordinate(3, 4, 0);
+        Coordinate initial = new Coordinate2D(3, 4, 0);
         Coordinate coord = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
 
         HashSet<Coordinate> interior_exp = new HashSet<Coordinate>();
-        interior_exp.add(new Coordinate(3, 5, 0));
-        interior_exp.add(new Coordinate(4, 5, 0));
-        interior_exp.add(new Coordinate(4, 4, 0));
-        interior_exp.add(new Coordinate(3, 3, 0));
-        interior_exp.add(new Coordinate(2, 3, 0));
-        interior_exp.add(new Coordinate(2, 4, 0));
+        interior_exp.add(new Coordinate2D(3, 5, 0));
+        interior_exp.add(new Coordinate2D(4, 5, 0));
+        interior_exp.add(new Coordinate2D(4, 4, 0));
+        interior_exp.add(new Coordinate2D(3, 3, 0));
+        interior_exp.add(new Coordinate2D(2, 3, 0));
+        interior_exp.add(new Coordinate2D(2, 4, 0));
 
         Coordinate[] neighbors = hr.getNeighbors(coord, Geometry.APPLY_BOUNDARIES);
 
@@ -193,31 +195,31 @@ public class HexRingTest extends EslimeTestCase {
         }
 
         // Side -- check wrapped
-        initial = new Coordinate(5, 5, 0);
+        initial = new Coordinate2D(5, 5, 0);
         coord = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
 
         Coordinate[] side_exp = new Coordinate[]{
-                new Coordinate(5, 6, 0),
-                new Coordinate(0, 3, Flags.BOUNDARY_APPLIED),
-                new Coordinate(0, 2, Flags.BOUNDARY_APPLIED),
-                new Coordinate(5, 4, 0),
-                new Coordinate(4, 4, 0),
-                new Coordinate(4, 5, 0)
+                new Coordinate2D(5, 6, 0),
+                new Coordinate2D(0, 3, Flags.BOUNDARY_APPLIED),
+                new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),
+                new Coordinate2D(5, 4, 0),
+                new Coordinate2D(4, 4, 0),
+                new Coordinate2D(4, 5, 0)
         };
 
         neighbors = hr.getNeighbors(coord, Geometry.APPLY_BOUNDARIES);
         assertArraysEqual(side_exp, neighbors, true);
 
         // Bottom -- check south is missing
-        initial = new Coordinate(2, 1, 0);
+        initial = new Coordinate2D(2, 1, 0);
         coord = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
 
         HashSet<Coordinate> bottom_exp = new HashSet<Coordinate>();
-        bottom_exp.add(new Coordinate(1, 0, 0));
-        bottom_exp.add(new Coordinate(1, 1, 0));
-        bottom_exp.add(new Coordinate(2, 2, 0));
-        bottom_exp.add(new Coordinate(3, 2, 0));
-        bottom_exp.add(new Coordinate(3, 1, 0));
+        bottom_exp.add(new Coordinate2D(1, 0, 0));
+        bottom_exp.add(new Coordinate2D(1, 1, 0));
+        bottom_exp.add(new Coordinate2D(2, 2, 0));
+        bottom_exp.add(new Coordinate2D(3, 2, 0));
+        bottom_exp.add(new Coordinate2D(3, 1, 0));
 
         neighbors = hr.getNeighbors(coord, Geometry.APPLY_BOUNDARIES);
         neighbors = clean(neighbors);
@@ -242,15 +244,15 @@ public class HexRingTest extends EslimeTestCase {
         Geometry hr = new Geometry(lattice, shape, boundary);
 
         // Interior
-        Coordinate coord = new Coordinate(3, 4, 0);
+        Coordinate coord = new Coordinate2D(3, 4, 0);
 
         HashSet<Coordinate> interior_exp = new HashSet<Coordinate>();
-        interior_exp.add(new Coordinate(3, 5, 0));
-        interior_exp.add(new Coordinate(4, 5, 0));
-        interior_exp.add(new Coordinate(4, 4, 0));
-        interior_exp.add(new Coordinate(3, 3, 0));
-        interior_exp.add(new Coordinate(2, 3, 0));
-        interior_exp.add(new Coordinate(2, 4, 0));
+        interior_exp.add(new Coordinate2D(3, 5, 0));
+        interior_exp.add(new Coordinate2D(4, 5, 0));
+        interior_exp.add(new Coordinate2D(4, 4, 0));
+        interior_exp.add(new Coordinate2D(3, 3, 0));
+        interior_exp.add(new Coordinate2D(2, 3, 0));
+        interior_exp.add(new Coordinate2D(2, 4, 0));
 
         Coordinate[] neighbors = hr.getNeighbors(coord, Geometry.APPLY_BOUNDARIES);
 
@@ -261,32 +263,32 @@ public class HexRingTest extends EslimeTestCase {
         }
 
         // Side -- check wrapped
-        coord = new Coordinate(5, 5, 0);
+        coord = new Coordinate2D(5, 5, 0);
 
         Coordinate[] side_exp = new Coordinate[]{
-                new Coordinate(5, 6, 0),
-                new Coordinate(0, 3, Flags.BOUNDARY_APPLIED),
-                new Coordinate(0, 2, Flags.BOUNDARY_APPLIED),
-                new Coordinate(5, 4, 0),
-                new Coordinate(4, 4, 0),
-                new Coordinate(4, 5, 0),
+                new Coordinate2D(5, 6, 0),
+                new Coordinate2D(0, 3, Flags.BOUNDARY_APPLIED),
+                new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),
+                new Coordinate2D(5, 4, 0),
+                new Coordinate2D(4, 4, 0),
+                new Coordinate2D(4, 5, 0),
         };
         neighbors = hr.getNeighbors(coord, Geometry.APPLY_BOUNDARIES);
         assertArraysEqual(side_exp, neighbors, true);
 
         // Bottom -- check south is REFLECTED
-        coord = new Coordinate(2, 1, 0);
+        coord = new Coordinate2D(2, 1, 0);
 
         Coordinate[] bottom_exp = new Coordinate[]{
-                new Coordinate(1, 0, 0),
-                new Coordinate(1, 1, 0),
-                new Coordinate(2, 2, 0),
-                new Coordinate(3, 2, 0),
-                new Coordinate(3, 1, 0),
+                new Coordinate2D(1, 0, 0),
+                new Coordinate2D(1, 1, 0),
+                new Coordinate2D(2, 2, 0),
+                new Coordinate2D(3, 2, 0),
+                new Coordinate2D(3, 1, 0),
 
                 // The cell is counted as a "neighbor" because southerly-moving
                 // solute is reflected back.
-                new Coordinate(2, 1, Flags.BOUNDARY_APPLIED)
+                new Coordinate2D(2, 1, Flags.BOUNDARY_APPLIED)
         };
 
         neighbors = hr.getNeighbors(coord, Geometry.APPLY_BOUNDARIES);
@@ -300,7 +302,7 @@ public class HexRingTest extends EslimeTestCase {
         Boundary boundary = new PlaneRingHard(shape, lattice);
         Geometry hr = new Geometry(lattice, shape, boundary);
 
-        Coordinate coord = new Coordinate(0, 2, 0);
+        Coordinate coord = new Coordinate2D(0, 2, 0);
 
         Coordinate[] result;
 
@@ -355,38 +357,38 @@ public class HexRingTest extends EslimeTestCase {
 
         // (1, 0) stays (1, 0)
         Coordinate initial, actual, expected;
-        initial = new Coordinate(1, 0, 0);
-        expected = new Coordinate(1, 0, 0);
+        initial = new Coordinate2D(1, 0, 0);
+        expected = new Coordinate2D(1, 0, 0);
         actual = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
         assertEquals(expected, actual);
 
         // (1, 1) stays (1, 1)
-        initial = new Coordinate(1, 1, 0);
-        expected = new Coordinate(1, 1, 0);
+        initial = new Coordinate2D(1, 1, 0);
+        expected = new Coordinate2D(1, 1, 0);
         actual = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
         assertEquals(expected, actual);
 
         // (0, 1) stays (0, 1)
-        initial = new Coordinate(0, 1, 0);
-        expected = new Coordinate(0, 1, 0);
+        initial = new Coordinate2D(0, 1, 0);
+        expected = new Coordinate2D(0, 1, 0);
         actual = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
         assertEquals(expected, actual);
 
 
         // (-1, -1) becomes (5, 2)
-        initial = new Coordinate(-1, -1, 0);
-        expected = new Coordinate(5, 2, Flags.BOUNDARY_APPLIED);
+        initial = new Coordinate2D(-1, -1, 0);
+        expected = new Coordinate2D(5, 2, Flags.BOUNDARY_APPLIED);
         actual = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
         assertEquals(expected, actual);
 
         // (-1, 0) becomes (5, 3)
-        initial = new Coordinate(-1, 0, 0);
-        expected = new Coordinate(5, 3, Flags.BOUNDARY_APPLIED);
+        initial = new Coordinate2D(-1, 0, 0);
+        expected = new Coordinate2D(5, 3, Flags.BOUNDARY_APPLIED);
         actual = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
         assertEquals(expected, actual);
 
         // (0, -1) is out of bounds
-        initial = new Coordinate(0, -1, 0);
+        initial = new Coordinate2D(0, -1, 0);
         actual = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
         assertNull(actual);
     }

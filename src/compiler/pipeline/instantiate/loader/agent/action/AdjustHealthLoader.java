@@ -25,9 +25,20 @@
 package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
+import compiler.pipeline.instantiate.factory.agent.action.AdjustHealthFactory;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class AdjustHealthLoader extends ActionLoader<AdjustHealthDescriptor> {
+
+    private final AdjustHealthFactory factory;
+
+    public AdjustHealthLoader() {
+        factory = new AdjustHealthFactory();
+    }
+
+    public AdjustHealthLoader(AdjustHealthFactory factory) {
+        this.factory = factory;
+    }
 }

@@ -28,6 +28,7 @@ import cells.Cell;
 import cells.MockCell;
 import control.halt.BoundaryReachedEvent;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import geometry.Geometry;
 import geometry.boundaries.Arena;
@@ -55,7 +56,7 @@ public class HaltCellLayerContentTest extends EslimeTestCase {
 
     public void testPutInBounds() throws Exception {
         MockCell cell = new MockCell(1);
-        Coordinate c = new Coordinate(0, 0, 0);
+        Coordinate c = new Coordinate2D(0, 0, 0);
         query.put(c, cell);
         Cell actual = query.get(c);
         assertTrue(actual == cell);
@@ -63,7 +64,7 @@ public class HaltCellLayerContentTest extends EslimeTestCase {
 
     public void testPutOutOfBounds() throws Exception {
         MockCell cell = new MockCell(1);
-        Coordinate c = new Coordinate(-1, 0, Flags.END_OF_WORLD);
+        Coordinate c = new Coordinate2D(-1, 0, Flags.END_OF_WORLD);
 
         boolean thrown = false;
         try {

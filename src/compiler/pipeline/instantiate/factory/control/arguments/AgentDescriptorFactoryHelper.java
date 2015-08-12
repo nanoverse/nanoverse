@@ -21,24 +21,19 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.control.arguments;
 
-package compiler.pipeline.instantiate.loader.agent.action;
+import java.util.List;
+import control.arguments.IntegerArgument;
+import control.arguments.DoubleArgument;
+import java.util.Map;
+import layers.LayerManager;
+import control.arguments.CellDescriptor;
 
-import agent.action.*;
-import compiler.pipeline.instantiate.factory.agent.action.DieFactory;
 
-/**
- * Created by dbborens on 8/3/2015.
- */
-public class DieLoader extends ActionLoader<DieDescriptor> {
+public class AgentDescriptorFactoryHelper {
 
-    private final DieFactory factory;
-
-    public DieLoader() {
-        factory = new DieFactory();
-    }
-
-    public DieLoader(DieFactory factory) {
-        this.factory = factory;
+    public CellDescriptor build(LayerManager layerManager, IntegerArgument cellState, DoubleArgument threshold, DoubleArgument initialHealth, List reactions, Map behaviorDescriptors) {
+        return new CellDescriptor(layerManager, cellState, threshold, initialHealth, reactions, behaviorDescriptors);
     }
 }

@@ -25,6 +25,7 @@
 package geometry.shape;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import geometry.lattice.LinearLattice;
@@ -50,12 +51,12 @@ public class LineTest extends EslimeTestCase {
         Coordinate expected, actual;
 
         // Even -- we round down
-        expected = new Coordinate(0, 1, 0);
+        expected = new Coordinate2D(0, 1, 0);
         actual = even.getCenter();
         assertEquals(expected, actual);
 
         // Odd
-        expected = new Coordinate(0, 2, 0);
+        expected = new Coordinate2D(0, 2, 0);
         actual = odd.getCenter();
         assertEquals(expected, actual);
     }
@@ -65,16 +66,16 @@ public class LineTest extends EslimeTestCase {
 
         // Even
         expected = new Coordinate[]{
-                new Coordinate(0, 0, 0),
-                new Coordinate(0, 3, 0),
+                new Coordinate2D(0, 0, 0),
+                new Coordinate2D(0, 3, 0),
         };
         actual = even.getBoundaries();
         assertArraysEqual(expected, actual, true);
 
         // Odd
         expected = new Coordinate[]{
-                new Coordinate(0, 0, 0),
-                new Coordinate(0, 4, 0),
+                new Coordinate2D(0, 0, 0),
+                new Coordinate2D(0, 4, 0),
         };
         actual = odd.getBoundaries();
         assertArraysEqual(expected, actual, true);
@@ -84,10 +85,10 @@ public class LineTest extends EslimeTestCase {
         Coordinate[] expected, actual;
 
         expected = new Coordinate[]{
-                new Coordinate(0, 0, 0),
-                new Coordinate(0, 1, 0),
-                new Coordinate(0, 2, 0),
-                new Coordinate(0, 3, 0),
+                new Coordinate2D(0, 0, 0),
+                new Coordinate2D(0, 1, 0),
+                new Coordinate2D(0, 2, 0),
+                new Coordinate2D(0, 3, 0),
         };
 
         actual = even.getCanonicalSites();
@@ -100,46 +101,46 @@ public class LineTest extends EslimeTestCase {
         // Test coordinates -- in bounds
         Coordinate a, b;
 
-        a = new Coordinate(0, 0, 0);
-        b = new Coordinate(0, 2, 0);
+        a = new Coordinate2D(0, 0, 0);
+        b = new Coordinate2D(0, 2, 0);
 
         // Test coordinates -- out of bounds
         Coordinate q, r;
-        q = new Coordinate(0, 6, 0);
-        r = new Coordinate(0, -1, 0);
+        q = new Coordinate2D(0, 6, 0);
+        r = new Coordinate2D(0, -1, 0);
 
         // Even
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         actual = even.getOverbounds(a);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         actual = even.getOverbounds(b);
         assertEquals(expected, actual);
 
 
-        expected = new Coordinate(0, 3, Flags.VECTOR);
+        expected = new Coordinate2D(0, 3, Flags.VECTOR);
         actual = even.getOverbounds(q);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(0, -1, Flags.VECTOR);
+        expected = new Coordinate2D(0, -1, Flags.VECTOR);
         actual = even.getOverbounds(r);
         assertEquals(expected, actual);
 
         // Odd
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         actual = odd.getOverbounds(a);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         actual = odd.getOverbounds(b);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(0, 2, Flags.VECTOR);
+        expected = new Coordinate2D(0, 2, Flags.VECTOR);
         actual = odd.getOverbounds(q);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(0, -1, Flags.VECTOR);
+        expected = new Coordinate2D(0, -1, Flags.VECTOR);
         actual = odd.getOverbounds(r);
         assertEquals(expected, actual);
     }

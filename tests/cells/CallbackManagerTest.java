@@ -25,6 +25,7 @@
 package cells;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.MockGeometry;
 import junit.framework.TestCase;
 import layers.MockLayerManager;
@@ -44,7 +45,7 @@ public class CallbackManagerTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         MockGeometry geom = new MockGeometry();
-        c = new Coordinate(0, 0, 0);
+        c = new Coordinate2D(0, 0, 0);
         Coordinate[] cc = new Coordinate[]{c};
         geom.setCanonicalSites(cc);
         layer = new CellLayer(geom);

@@ -25,9 +25,20 @@
 package compiler.pipeline.instantiate.loader.agent.targets;
 
 import agent.targets.TargetOccupiedNeighborsDescriptor;
+import compiler.pipeline.instantiate.factory.agent.targets.TargetOccupiedNeighborsFactory;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class TargetOccupiedNeighborsLoader extends TargetLoader<TargetOccupiedNeighborsDescriptor> {
+
+    private final TargetOccupiedNeighborsFactory factory;
+
+    public TargetOccupiedNeighborsLoader() {
+        factory = new TargetOccupiedNeighborsFactory();
+    }
+
+    public TargetOccupiedNeighborsLoader(TargetOccupiedNeighborsFactory factory) {
+        this.factory = factory;
+    }
 }

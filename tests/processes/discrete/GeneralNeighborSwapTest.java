@@ -27,6 +27,7 @@ package processes.discrete;
 import cells.MockCell;
 import control.arguments.ConstantInteger;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Arena;
 import geometry.boundaries.Boundary;
@@ -84,31 +85,31 @@ public class GeneralNeighborSwapTest extends EslimeTestCase {
         b = new MockCell(2);
         c = new MockCell(3);
 
-        ac = new Coordinate(0, 1, 0);
-        bc = new Coordinate(0, 0, 0);
-        cc = new Coordinate(1, 1, 0);
+        ac = new Coordinate2D(0, 1, 0);
+        bc = new Coordinate2D(0, 0, 0);
+        cc = new Coordinate2D(1, 1, 0);
         cellLayer.getUpdateManager().place(a, ac);
         cellLayer.getUpdateManager().place(b, bc);
         cellLayer.getUpdateManager().place(c, cc);
     }
 
     public void testCellsReflectSwap() throws Exception {
-        query.target(null);
-        MockStepState state = new MockStepState();
-
-        CellLayer cl = layerManager.getCellLayer();
-
-        // Enforce that the desired random event happens
-        random.setNextIntValue(1);
-        // a should move
-        assertTrue(cl.getViewer().getCell(ac).equals(a));
-        query.fire(state);
-        assertFalse(cl.getViewer().getCell(ac).equals(a));
-
-        // specifically, a should be swapped with c
-        assertTrue(cl.getViewer().getCell(bc).equals(b));
-        assertTrue(cl.getViewer().getCell(ac).equals(c));
-        assertTrue(cl.getViewer().getCell(cc).equals(a));
-
+//        query.target(null);
+//        MockStepState state = new MockStepState();
+//
+//        CellLayer cl = layerManager.getCellLayer();
+//
+//        // Enforce that the desired random event happens
+//        random.setNextIntValue(1);
+//        // a should move
+//        assertTrue(cl.getViewer().getCell(ac).equals(a));
+//        query.fire(state);
+//        assertFalse(cl.getViewer().getCell(ac).equals(a));
+//
+//        // specifically, a should be swapped with c
+//        assertTrue(cl.getViewer().getCell(bc).equals(b));
+//        assertTrue(cl.getViewer().getCell(ac).equals(c));
+//        assertTrue(cl.getViewer().getCell(cc).equals(a));
+        fail("Rewrite this test using mocks");
     }
 }

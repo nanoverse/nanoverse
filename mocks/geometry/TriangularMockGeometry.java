@@ -25,6 +25,7 @@
 package geometry;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 
 import java.util.ArrayList;
@@ -69,7 +70,7 @@ public class TriangularMockGeometry extends MockGeometry {
         int y1 = coord.y();
         int f1 = coord.flags();
 
-        return new Coordinate(x1, y1, f1);
+        return new Coordinate2D(x1, y1, f1);
     }
 
     public void setRadius(int radius) {

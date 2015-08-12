@@ -26,6 +26,8 @@ package structural;
 
 import cells.MockCell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 import test.EslimeTestCase;
 
@@ -41,9 +43,9 @@ public class CanonicalCellMapTest extends EslimeTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         query = new CanonicalCellMap();
-        c = new Coordinate(0, 0, 0);
-        nc = new Coordinate(0, 0, Flags.BOUNDARY_APPLIED);
-        d = new Coordinate(0, 0, 0, 0);
+        c = new Coordinate2D(0, 0, 0);
+        nc = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
+        d = new Coordinate3D(0, 0, 0, 0);
 
         cell = new MockCell(1);
     }

@@ -25,6 +25,7 @@
 package geometry.shape;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate1D;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import org.dom4j.Element;
@@ -66,7 +67,7 @@ public class Line extends Shape {
         // 0-indexed coordinates
         int y = (length - 1) / 2;
 
-        Coordinate center = new Coordinate(0, y, 0);
+        Coordinate center = new Coordinate1D(y, 0);
 
         Coordinate adjusted = lattice.adjust(center);
 
@@ -77,8 +78,8 @@ public class Line extends Shape {
     public Coordinate[] getBoundaries() {
 
         return new Coordinate[]{
-                new Coordinate(0, 0, 0),
-                new Coordinate(0, length - 1, 0)
+                new Coordinate1D(0, 0),
+                new Coordinate1D(length - 1, 0)
         };
     }
 
@@ -87,7 +88,7 @@ public class Line extends Shape {
         Coordinate[] sites = new Coordinate[length];
 
         for (int y = 0; y < length; y++) {
-            sites[y] = new Coordinate(0, y, 0);
+            sites[y] = new Coordinate1D(y, 0);
         }
 
         return sites;
@@ -96,7 +97,7 @@ public class Line extends Shape {
     @Override
     public Coordinate getOverbounds(Coordinate coord) {
         // Get orthogonal distance from (0, 0) to this point.
-        Coordinate origin = new Coordinate(0, 0, 0);
+        Coordinate origin = new Coordinate1D(0, 0);
         Coordinate d = lattice.getOrthoDisplacement(origin, coord);
 
         int ob;
@@ -108,7 +109,7 @@ public class Line extends Shape {
             ob = 0;
         }
 
-        return new Coordinate(0, ob, Flags.VECTOR);
+        return new Coordinate1D(ob, Flags.VECTOR);
     }
 
     @Override

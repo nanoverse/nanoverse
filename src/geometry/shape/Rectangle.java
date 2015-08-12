@@ -25,6 +25,7 @@
 package geometry.shape;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import org.dom4j.Element;
@@ -68,7 +69,7 @@ public class Rectangle extends Shape {
         int x = (width - 1) / 2;
         int y = (height - 1) / 2;
 
-        Coordinate center = new Coordinate(x, y, 0);
+        Coordinate center = new Coordinate2D(x, y, 0);
 
         Coordinate adjusted = lattice.adjust(center);
 
@@ -84,14 +85,14 @@ public class Rectangle extends Shape {
         // North and south
         for (int x = 0; x < width; x++) {
 
-            include(coords, new Coordinate(x, height - 1, 0));
-            include(coords, new Coordinate(x, 0, 0));
+            include(coords, new Coordinate2D(x, height - 1, 0));
+            include(coords, new Coordinate2D(x, 0, 0));
         }
 
         // East and west
         for (int y = 1; y < height - 1; y++) {
-            include(coords, new Coordinate(width - 1, y, 0));
-            include(coords, new Coordinate(0, y, 0));
+            include(coords, new Coordinate2D(width - 1, y, 0));
+            include(coords, new Coordinate2D(0, y, 0));
         }
 
         return coords.toArray(new Coordinate[0]);
@@ -103,7 +104,7 @@ public class Rectangle extends Shape {
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                include(coords, new Coordinate(x, y, 0));
+                include(coords, new Coordinate2D(x, y, 0));
             }
         }
 
@@ -113,7 +114,7 @@ public class Rectangle extends Shape {
     @Override
     public Coordinate getOverbounds(Coordinate coord) {
         // Get orthogonal distance from (0, 0) to this point.
-        Coordinate origin = new Coordinate(0, 0, 0);
+        Coordinate origin = new Coordinate2D(0, 0, 0);
         Coordinate d = lattice.getOrthoDisplacement(origin, coord);
 
 
@@ -147,7 +148,7 @@ public class Rectangle extends Shape {
             dy = 0;
         }
 
-        return new Coordinate(dx, dy, Flags.VECTOR);
+        return new Coordinate2D(dx, dy, Flags.VECTOR);
     }
 
     /**
@@ -168,7 +169,7 @@ public class Rectangle extends Shape {
         int v = d.z();
         int f = d.flags();
 
-        return new Coordinate(u, v, f);
+        return new Coordinate2D(u, v, f);
     }
 
     @Override

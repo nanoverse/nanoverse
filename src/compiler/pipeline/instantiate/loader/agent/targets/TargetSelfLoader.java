@@ -25,9 +25,20 @@
 package compiler.pipeline.instantiate.loader.agent.targets;
 
 import agent.targets.TargetSelfDescriptor;
+import compiler.pipeline.instantiate.factory.agent.targets.TargetSelfFactory;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class TargetSelfLoader extends TargetLoader<TargetSelfDescriptor> {
+
+    private final TargetSelfFactory factory;
+
+    public TargetSelfLoader() {
+        factory = new TargetSelfFactory();
+    }
+
+    public TargetSelfLoader(TargetSelfFactory factory) {
+        this.factory = factory;
+    }
 }

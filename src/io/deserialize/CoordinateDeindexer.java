@@ -25,6 +25,8 @@
 package io.deserialize;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import structural.utilities.FileConventions;
 
 import java.io.BufferedReader;
@@ -123,10 +125,10 @@ public class CoordinateDeindexer {
         if (matcher.group(4) != null) {
             // (1, 2, 3 | 4)
             int z = Integer.valueOf(matcher.group(4));
-            c = new Coordinate(x, y, z, flags);
+            c = new Coordinate3D(x, y, z, flags);
         } else {
             // (1, 2 | 3)
-            c = new Coordinate(x, y, flags);
+            c = new Coordinate2D(x, y, flags);
         }
 
         return c;

@@ -26,6 +26,7 @@ package cells;
 
 import agent.control.MockBehaviorDispatcher;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import test.EslimeLatticeTestCase;
 
 import java.util.function.Supplier;
@@ -86,7 +87,7 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
 
     public void testTrigger() throws Exception {
         String triggerName = "TEST";
-        Coordinate caller = new Coordinate(0, 0, 0);
+        Coordinate caller = new Coordinate2D(0, 0, 0);
         query.trigger(triggerName, caller);
 
         assertEquals(triggerName, dispatcher.getLastTriggeredName());

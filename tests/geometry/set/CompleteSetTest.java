@@ -25,6 +25,8 @@
 package geometry.set;//import junit.framework.TestCase;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import geometry.Geometry;
 import geometry.boundaries.Arena;
 import geometry.boundaries.Boundary;
@@ -45,10 +47,10 @@ public class CompleteSetTest extends EslimeTestCase {
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
         CustomSet expected = new CustomSet();
-        expected.add(new Coordinate(0, 0, 0));
-        expected.add(new Coordinate(0, 1, 0));
-        expected.add(new Coordinate(0, 2, 0));
-        expected.add(new Coordinate(0, 3, 0));
+        expected.add(new Coordinate2D(0, 0, 0));
+        expected.add(new Coordinate2D(0, 1, 0));
+        expected.add(new Coordinate2D(0, 2, 0));
+        expected.add(new Coordinate2D(0, 3, 0));
         CompleteSet actual = new CompleteSet(geom);
         assertEquals(expected, actual);
     }
@@ -60,13 +62,13 @@ public class CompleteSetTest extends EslimeTestCase {
         Geometry geom = new Geometry(lattice, shape, boundary);
         CompleteSet actual = new CompleteSet(geom);
         CustomSet expected = new CustomSet();
-        expected.add(new Coordinate(0, 0, 0));
-        expected.add(new Coordinate(1, 0, 0));
-        expected.add(new Coordinate(2, 1, 0));
-        expected.add(new Coordinate(2, 2, 0));
-        expected.add(new Coordinate(1, 2, 0));
-        expected.add(new Coordinate(0, 1, 0));
-        expected.add(new Coordinate(1, 1, 0));
+        expected.add(new Coordinate2D(0, 0, 0));
+        expected.add(new Coordinate2D(1, 0, 0));
+        expected.add(new Coordinate2D(2, 1, 0));
+        expected.add(new Coordinate2D(2, 2, 0));
+        expected.add(new Coordinate2D(1, 2, 0));
+        expected.add(new Coordinate2D(0, 1, 0));
+        expected.add(new Coordinate2D(1, 1, 0));
         assertEquals(expected, actual);
     }
 
@@ -76,10 +78,10 @@ public class CompleteSetTest extends EslimeTestCase {
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
         CustomSet expected = new CustomSet();
-        expected.add(new Coordinate(0, 0, 0));
-        expected.add(new Coordinate(0, 1, 0));
-        expected.add(new Coordinate(1, 0, 0));
-        expected.add(new Coordinate(1, 1, 0));
+        expected.add(new Coordinate2D(0, 0, 0));
+        expected.add(new Coordinate2D(0, 1, 0));
+        expected.add(new Coordinate2D(1, 0, 0));
+        expected.add(new Coordinate2D(1, 1, 0));
         CompleteSet actual = new CompleteSet(geom);
         assertEquals(expected, actual);
     }
@@ -90,14 +92,14 @@ public class CompleteSetTest extends EslimeTestCase {
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
         CustomSet expected = new CustomSet();
-        expected.add(new Coordinate(0, 0, 0, 0));
-        expected.add(new Coordinate(0, 0, 1, 0));
-        expected.add(new Coordinate(0, 1, 0, 0));
-        expected.add(new Coordinate(0, 1, 1, 0));
-        expected.add(new Coordinate(1, 0, 0, 0));
-        expected.add(new Coordinate(1, 0, 1, 0));
-        expected.add(new Coordinate(1, 1, 0, 0));
-        expected.add(new Coordinate(1, 1, 1, 0));
+        expected.add(new Coordinate3D(0, 0, 0, 0));
+        expected.add(new Coordinate3D(0, 0, 1, 0));
+        expected.add(new Coordinate3D(0, 1, 0, 0));
+        expected.add(new Coordinate3D(0, 1, 1, 0));
+        expected.add(new Coordinate3D(1, 0, 0, 0));
+        expected.add(new Coordinate3D(1, 0, 1, 0));
+        expected.add(new Coordinate3D(1, 1, 0, 0));
+        expected.add(new Coordinate3D(1, 1, 1, 0));
         CompleteSet actual = new CompleteSet(geom);
         assertEquals(expected, actual);
     }

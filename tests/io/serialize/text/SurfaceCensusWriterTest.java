@@ -27,6 +27,7 @@ package io.serialize.text;//import junit.framework.TestCase;
 import cells.MockCell;
 import control.halt.ManualHaltEvent;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import geometry.boundaries.Arena;
 import geometry.boundaries.Boundary;
@@ -115,7 +116,7 @@ public class SurfaceCensusWriterTest extends EslimeTestCase {
     }
 
     private void replace(int y, int state) throws Exception {
-        Coordinate c = new Coordinate(0, y, 0);
+        Coordinate c = new Coordinate2D(0, y, 0);
         CellUpdateManager u = cellLayer.getUpdateManager();
         u.banish(c);
         MockCell cell = new MockCell(state);
@@ -123,7 +124,7 @@ public class SurfaceCensusWriterTest extends EslimeTestCase {
     }
 
     private void put(int y, int state) throws Exception {
-        Coordinate c = new Coordinate(0, y, 0);
+        Coordinate c = new Coordinate2D(0, y, 0);
         MockCell cell = new MockCell(state);
         CellUpdateManager u = cellLayer.getUpdateManager();
         u.place(cell, c);

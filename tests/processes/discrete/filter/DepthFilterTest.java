@@ -27,6 +27,7 @@ package processes.discrete.filter;//import junit.framework.TestCase;
 import cells.MockCell;
 import control.arguments.ConstantInteger;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
@@ -59,7 +60,7 @@ public class DepthFilterTest extends EslimeTestCase {
     private void placeCells() throws Exception {
         initial = new ArrayList<>();
         for (int y = 2; y < 7; y++) {
-            Coordinate c = new Coordinate(0, y, 0);
+            Coordinate c = new Coordinate2D(0, y, 0);
             MockCell cell = new MockCell(y);
             layerManager.getCellLayer().getUpdateManager().place(cell, c);
             initial.add(c);
@@ -71,8 +72,8 @@ public class DepthFilterTest extends EslimeTestCase {
         List<Coordinate> actual = query.apply(initial);
 
         List<Coordinate> expected = new ArrayList<>();
-        expected.add(new Coordinate(0, 2, 0));
-        expected.add(new Coordinate(0, 6, 0));
+        expected.add(new Coordinate2D(0, 2, 0));
+        expected.add(new Coordinate2D(0, 6, 0));
 
         assertEquals(expected, actual);
     }
@@ -82,10 +83,10 @@ public class DepthFilterTest extends EslimeTestCase {
         List<Coordinate> actual = query.apply(initial);
 
         List<Coordinate> expected = new ArrayList<>();
-        expected.add(new Coordinate(0, 2, 0));
-        expected.add(new Coordinate(0, 3, 0));
-        expected.add(new Coordinate(0, 6, 0));
-        expected.add(new Coordinate(0, 5, 0));
+        expected.add(new Coordinate2D(0, 2, 0));
+        expected.add(new Coordinate2D(0, 3, 0));
+        expected.add(new Coordinate2D(0, 5, 0));
+        expected.add(new Coordinate2D(0, 6, 0));
 
         assertEquals(expected, actual);
     }

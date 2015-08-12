@@ -27,6 +27,8 @@ package processes.discrete;
 import cells.Cell;
 import cells.MockCell;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import geometry.Geometry;
 import geometry.boundaries.Absorbing;
 import geometry.boundaries.Arena;
@@ -85,15 +87,15 @@ public class ShoveHelperTest extends EslimeTestCase {
      * 0123_45689  Result
      */
     public void test1Dshove() throws Exception {
-        Coordinate target = new Coordinate(7, 0, 0);
-        Coordinate origin = new Coordinate(4, 0, 0);
+        Coordinate target = new Coordinate2D(7, 0, 0);
+        Coordinate origin = new Coordinate2D(4, 0, 0);
         query.shove(origin, target);
 
         int[] leftSeq = new int[]{0, 1, 2, 3};
         int[] rightSeq = new int[]{4, 5, 6, 8, 9};
 
         for (int x = 0; x < 4; x++) {
-            Coordinate c = new Coordinate(x, 0, 0);
+            Coordinate c = new Coordinate2D(x, 0, 0);
             Cell observed = layer.getViewer().getCell(c);
             int expected = leftSeq[x];
             int actual = observed.getState();
@@ -101,7 +103,7 @@ public class ShoveHelperTest extends EslimeTestCase {
         }
 
         for (int x = 0; x < 5; x++) {
-            Coordinate c = new Coordinate(x + 5, 0, 0);
+            Coordinate c = new Coordinate2D(x + 5, 0, 0);
             Cell observed = layer.getViewer().getCell(c);
             int expected = rightSeq[x];
             int actual = observed.getState();
@@ -125,34 +127,34 @@ public class ShoveHelperTest extends EslimeTestCase {
             for (int y = 0; y < 4; y++) {
                 for (int z = 0; z < 4; z++) {
                     Cell cell = new MockCell(1);
-                    Coordinate coord = new Coordinate(x, y, z, 0);
+                    Coordinate coord = new Coordinate3D(x, y, z, 0);
                     layer.getUpdateManager().place(cell, coord);
                 }
             }
         }
 
-        Coordinate origin = new Coordinate(1, 2, 3, 0);
-        Coordinate target = new Coordinate(4, 4, 4, 0);
+        Coordinate origin = new Coordinate3D(1, 2, 3, 0);
+        Coordinate target = new Coordinate3D(4, 4, 4, 0);
 
         HashSet<Coordinate> affected = query.shove(origin, target);
 
         // Algorithm will prefer z, then y, then x. So the shoving should
         // progress like this:
-        assertTrue(affected.contains(new Coordinate(1, 2, 4, 0)));
-        assertTrue(affected.contains(new Coordinate(1, 3, 4, 0)));
-        assertTrue(affected.contains(new Coordinate(1, 4, 4, 0)));
-        assertTrue(affected.contains(new Coordinate(2, 4, 4, 0)));
-        assertTrue(affected.contains(new Coordinate(3, 4, 4, 0)));
-        assertTrue(affected.contains(new Coordinate(4, 4, 4, 0)));
+        assertTrue(affected.contains(new Coordinate3D(1, 2, 4, 0)));
+        assertTrue(affected.contains(new Coordinate3D(1, 3, 4, 0)));
+        assertTrue(affected.contains(new Coordinate3D(1, 4, 4, 0)));
+        assertTrue(affected.contains(new Coordinate3D(2, 4, 4, 0)));
+        assertTrue(affected.contains(new Coordinate3D(3, 4, 4, 0)));
+        assertTrue(affected.contains(new Coordinate3D(4, 4, 4, 0)));
 
         // Having shoved, the origin should now be vacant.
         assertFalse(layer.getViewer().isOccupied(origin));
     }
 
     public void testGetTarget() throws Exception {
-        Coordinate origin = new Coordinate(4, 0, 0);
+        Coordinate origin = new Coordinate2D(4, 0, 0);
 
-        Coordinate expected = new Coordinate(7, 0, 0);
+        Coordinate expected = new Coordinate2D(7, 0, 0);
         Coordinate actual = query.chooseVacancy(origin);
         assertEquals(expected, actual);
     }
@@ -169,7 +171,7 @@ public class ShoveHelperTest extends EslimeTestCase {
         Random random = new Random(RANDOM_SEED);
         query = new ShoveHelper(lm, random);
         MockCell cell = new MockCell(1);
-        layer.getUpdateManager().place(cell, new Coordinate(-1, 0, 0));
+        layer.getUpdateManager().place(cell, new Coordinate2D(-1, 0, 0));
         assertEquals(1, layer.getViewer().getImaginarySites().size());
         query.removeImaginary();
         assertEquals(0, layer.getViewer().getImaginarySites().size());
@@ -194,17 +196,17 @@ public class ShoveHelperTest extends EslimeTestCase {
         // initial state: _1234567__
         for (int x = 1; x < 8; x++) {
             Cell cell = new MockCell(1);
-            Coordinate coord = new Coordinate(x, 0, 0);
+            Coordinate coord = new Coordinate2D(x, 0, 0);
             layer.getUpdateManager().place(cell, coord);
         }
 
-        Coordinate origin = new Coordinate(4, 0, 0);
+        Coordinate origin = new Coordinate2D(4, 0, 0);
         HashSet<Coordinate> affectedSites = query.shoveRandom(origin);
 
         // make sure displacement vector between each site is the same
-        Coordinate[] affectedArray = affectedSites.toArray(new Coordinate[0]);
+        Coordinate[] affectedArray = affectedSites.toArray(new Coordinate2D[0]);
         Arrays.sort(affectedArray);
-        Coordinate[] displacements = new Coordinate[affectedArray.length -1];
+        Coordinate[] displacements = new Coordinate2D[affectedArray.length -1];
         for (int i=0; i < affectedArray.length - 1; i++) {
             displacements[i] = lm.getCellLayer().getGeometry().
                     getDisplacement(affectedArray[i],
@@ -231,7 +233,7 @@ public class ShoveHelperTest extends EslimeTestCase {
 
     private void placeNumberedCell(int x) throws Exception {
         MockCell cell = new MockCell(x);
-        Coordinate coord = new Coordinate(x, 0, 0);
+        Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
     }
 

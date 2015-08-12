@@ -29,6 +29,7 @@ import cells.Cell;
 import cells.MockCell;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import layers.LayerManager;
 import layers.MockLayerManager;
 import test.EslimeTestCase;
@@ -50,7 +51,7 @@ public class CompoundActionTest extends EslimeTestCase {
     protected void setUp() throws Exception {
         layerManager = new MockLayerManager();
         callBack = new MockCell();
-        caller = new Coordinate(0, 0, 0);
+        caller = new Coordinate2D(0, 0, 0);
         initActionSequence();
         query = new ExposedCompoundAction(callBack, layerManager, actionSequence);
     }
