@@ -30,6 +30,7 @@ import control.identifiers.Coordinate;
 import layers.cell.*;
 import processes.BaseProcessArguments;
 import processes.MaxTargetHelper;
+import structural.annotations.FactoryTarget;
 
 import java.util.Random;
 

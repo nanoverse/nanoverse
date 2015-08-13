@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.binary;
 
+import compiler.pipeline.instantiate.factory.io.serialize.binary.HighlightWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.binary.HighlightWriter;
 
@@ -31,4 +32,13 @@ import io.serialize.binary.HighlightWriter;
  * Created by dbborens on 8/10/2015.
  */
 public class HighlightWriterLoader extends OutputLoader<HighlightWriter> {
+    private final HighlightWriterFactory factory;
+
+    public HighlightWriterLoader() {
+        factory = new HighlightWriterFactory();
+    }
+
+    public HighlightWriterLoader(HighlightWriterFactory factory) {
+        this.factory = factory;
+    }
 }

@@ -35,7 +35,7 @@ import java.util.Random;
  * <p>
  * Created by David B Borenstein on 4/7/14.
  */
-public class UniformDouble extends DoubleArgument {
+public class UniformDouble extends Argument<Double> {
 
     private Random random;
     private double range;

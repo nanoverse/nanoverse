@@ -30,6 +30,7 @@ import io.visual.Visualization;
 import io.visual.VisualizationProperties;
 import io.visual.highlight.HighlightManager;
 import layers.SystemState;
+import structural.annotations.FactoryTarget;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -41,6 +42,7 @@ public class MapVisualization extends Visualization {
     // All state members associated with this visualization.
     protected PixelTranslator translator;
 
+    @FactoryTarget
     public MapVisualization(VisualizationProperties properties) {
         this.properties = properties;
     }

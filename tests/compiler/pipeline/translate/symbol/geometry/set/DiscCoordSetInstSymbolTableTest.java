@@ -26,6 +26,7 @@ package compiler.pipeline.translate.symbol.geometry.set;
 
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.*;
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import control.identifiers.Coordinate;
 import geometry.set.DiscSet;

@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.io.visual.color;
 
+import compiler.pipeline.instantiate.factory.io.visual.color.SurfaceColorModelFactory;
 import io.visual.color.SurfaceGrowthColorManager;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
 public class SurfaceColorModelLoader extends ColorModelLoader<SurfaceGrowthColorManager> {
+    private final SurfaceColorModelFactory factory;
+
+    public SurfaceColorModelLoader() {
+        factory = new SurfaceColorModelFactory();
+    }
+
+    public SurfaceColorModelLoader(SurfaceColorModelFactory factory) {
+        this.factory = factory;
+    }
 }

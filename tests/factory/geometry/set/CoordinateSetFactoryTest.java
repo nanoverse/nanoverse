@@ -73,7 +73,7 @@ public class CoordinateSetFactoryTest extends EslimeTestCase {
     public void testDisc() throws Exception {
         Element e = root.element("disc-case");
         Coordinate offset = g.getZeroVector();
-        IntegerArgument radius = new ConstantInteger(1);
+        Argument<Integer> radius = new ConstantInteger(1);
         CoordinateSet expected = new DiscSet(g, radius, offset);
         CoordinateSet actual = CoordinateSetFactory.instantiate(e, g, p);
         assertEquals(expected, actual);

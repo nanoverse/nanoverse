@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.text;
 
+import compiler.pipeline.instantiate.factory.io.serialize.text.RunningTimeWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.text.RunningTimeWriter;
 
@@ -31,4 +32,13 @@ import io.serialize.text.RunningTimeWriter;
  * Created by dbborens on 8/10/2015.
  */
 public class RunningTimeWriterLoader extends OutputLoader<RunningTimeWriter> {
+    private final RunningTimeWriterFactory factory;
+
+    public RunningTimeWriterLoader() {
+        factory = new RunningTimeWriterFactory();
+    }
+
+    public RunningTimeWriterLoader(RunningTimeWriterFactory factory) {
+        this.factory = factory;
+    }
 }

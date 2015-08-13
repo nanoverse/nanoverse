@@ -25,6 +25,7 @@
 package io.visual.highlight;
 
 import control.identifiers.Coordinate;
+import structural.annotations.FactoryTarget;
 
 import java.awt.*;
 
@@ -41,6 +42,7 @@ public class DotGlyph extends Glyph {
      * @param color The color of the dot.
      * @param size  The relative size of the dot, specified as a multiple of the edge size.
      */
+    @FactoryTarget
     public DotGlyph(Color color, double size) {
         this.color = color;
         this.size = size;

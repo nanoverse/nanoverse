@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.interactive;
 
+import compiler.pipeline.instantiate.factory.io.serialize.interactive.ProgressReporterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.interactive.ProgressReporter;
 
@@ -31,4 +32,13 @@ import io.serialize.interactive.ProgressReporter;
  * Created by dbborens on 8/10/2015.
  */
 public class ProgressReporterLoader extends OutputLoader<ProgressReporter> {
+    private final ProgressReporterFactory factory;
+
+    public ProgressReporterLoader() {
+        factory = new ProgressReporterFactory();
+    }
+
+    public ProgressReporterLoader(ProgressReporterFactory factory) {
+        this.factory = factory;
+    }
 }

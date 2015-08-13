@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.binary;
 
+import compiler.pipeline.instantiate.factory.io.serialize.binary.TimeWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.binary.TimeWriter;
 
@@ -31,4 +32,13 @@ import io.serialize.binary.TimeWriter;
  * Created by dbborens on 8/10/2015.
  */
 public class TimeWriterLoader extends OutputLoader<TimeWriter> {
+    private final TimeWriterFactory factory;
+
+    public TimeWriterLoader() {
+        factory = new TimeWriterFactory();
+    }
+
+    public TimeWriterLoader(TimeWriterFactory factory) {
+        this.factory = factory;
+    }
 }

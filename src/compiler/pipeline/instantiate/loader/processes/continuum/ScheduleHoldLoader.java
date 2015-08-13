@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.continuum;
 
+import compiler.pipeline.instantiate.factory.processes.continuum.ScheduleHoldFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.continuum.ScheduleHold;
 
@@ -31,4 +32,13 @@ import processes.continuum.ScheduleHold;
  * Created by dbborens on 8/3/2015.
  */
 public class ScheduleHoldLoader extends ProcessLoader<ScheduleHold> {
+    private final ScheduleHoldFactory factory;
+
+    public ScheduleHoldLoader() {
+        factory = new ScheduleHoldFactory();
+    }
+
+    public ScheduleHoldLoader(ScheduleHoldFactory factory) {
+        this.factory = factory;
+    }
 }

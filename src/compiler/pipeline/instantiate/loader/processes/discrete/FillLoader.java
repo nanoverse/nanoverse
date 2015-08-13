@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.FillFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.Fill;
 
@@ -31,4 +32,13 @@ import processes.discrete.Fill;
  * Created by dbborens on 8/3/2015.
  */
 public class FillLoader extends ProcessLoader<Fill> {
+    private final FillFactory factory;
+
+    public FillLoader() {
+        factory = new FillFactory();
+    }
+
+    public FillLoader(FillFactory factory) {
+        this.factory = factory;
+    }
 }

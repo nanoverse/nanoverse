@@ -39,7 +39,7 @@ public class SerializationManager extends Serializer {
 
     private List<Serializer> writers;
 
-    @FactoryTarget
+    @FactoryTarget(displayName = "OutputManager")
     public SerializationManager(GeneralParameters p, LayerManager layerManager, List<Serializer> writers) {
         super(p, layerManager);
         this.writers = writers;

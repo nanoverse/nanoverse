@@ -29,12 +29,14 @@ import geometry.set.CoordinateSet;
 import layers.cell.CellLayer;
 import processes.BaseProcessArguments;
 import processes.NanoverseProcess;
+import structural.annotations.FactoryTarget;
 
 public abstract class CellProcess extends NanoverseProcess {
     // These are easily accessed from the layer manager, but there
     // are very many calls to them thanks to some legacy code.
     private final CellProcessArguments cpArguments;
     private final BaseProcessArguments arguments;
+
     public CellProcess(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
         super(arguments);
         this.cpArguments = cpArguments;
@@ -49,7 +51,7 @@ public abstract class CellProcess extends NanoverseProcess {
         return cpArguments.getActiveSites();
     }
 
-    protected IntegerArgument getMaxTargets() {
+    protected Argument<Integer> getMaxTargets() {
         return cpArguments.getMaxTargets();
     }
 }

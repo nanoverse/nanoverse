@@ -82,7 +82,7 @@ public abstract class SerializationFactory {
             ret = new IndividualHaltWriter(p, lm);
             return ret;
         } else if (writerClass.equalsIgnoreCase("interface-census-writer")) {
-            IntegerArgument focalStateArg = IntegerArgumentFactory.instantiate(e, "focal-state", p.getRandom());
+            Argument<Integer> focalStateArg = IntegerArgumentFactory.instantiate(e, "focal-state", p.getRandom());
             ret = new InterfaceCensusWriter(p, focalStateArg, lm);
             return ret;
         } else if (writerClass.equalsIgnoreCase("interval-writer")) {
@@ -137,7 +137,7 @@ public abstract class SerializationFactory {
     }
 
     private static CorrelationWriter correlationWriter(Element e, GeneralParameters p, LayerManager lm) {
-        DoubleArgument triggerTimeArg = DoubleArgumentFactory.instantiate(e, "trigger-time", 0.0, p.getRandom());
+        Argument<Double> triggerTimeArg = DoubleArgumentFactory.instantiate(e, "trigger-time", 0.0, p.getRandom());
         String filename = XmlUtil.getString(e, "filename", "correlation.txt");
         return new CorrelationWriter(p, filename, triggerTimeArg, lm);
     }

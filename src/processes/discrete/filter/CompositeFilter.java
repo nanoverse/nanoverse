@@ -25,6 +25,7 @@
 package processes.discrete.filter;
 
 import control.identifiers.Coordinate;
+import structural.annotations.FactoryTarget;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +36,7 @@ import java.util.List;
 public class CompositeFilter extends Filter {
     private Filter[] children;
 
+    @FactoryTarget
     public CompositeFilter(Filter[] children) {
         this.children = children;
     }

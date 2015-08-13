@@ -21,17 +21,15 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.io.serialize;
+package compiler.pipeline.instantiate.factory.geometry.set;
 
-import control.GeneralParameters;
-import java.util.List;
-import io.serialize.SerializationManager;
-import layers.LayerManager;
+import geometry.set.CompleteSet;
+import geometry.Geometry;
 
 
-public class SerializationManagerFactoryHelper {
+public class CompleteCoordinateSetFactoryHelper {
 
-    public SerializationManager build(GeneralParameters p, LayerManager layerManager, List writers) {
-        return new SerializationManager(p, layerManager, writers);
+    public CompleteSet build(Geometry geom) {
+        return new CompleteSet(geom);
     }
 }

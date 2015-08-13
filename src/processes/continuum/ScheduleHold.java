@@ -28,6 +28,7 @@ import control.halt.HaltCondition;
 import layers.continuum.ContinuumLayerScheduler;
 import processes.BaseProcessArguments;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 1/22/15.
@@ -35,6 +36,7 @@ import processes.StepState;
 public class ScheduleHold extends ContinuumProcess {
     private ContinuumLayerScheduler scheduler;
 
+    @FactoryTarget
     public ScheduleHold(BaseProcessArguments arguments, ContinuumLayerScheduler scheduler) {
         super(arguments);
         this.scheduler = scheduler;

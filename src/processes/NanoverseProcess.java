@@ -32,20 +32,10 @@ import processes.gillespie.GillespieState;
 public abstract class NanoverseProcess {
 
     private BaseProcessArguments arguments;
-//    protected LayerManager layerManager;
-//    protected GeneralParameters p;
-//    private int id;
-//    private IntegerArgument period;
-//    private IntegerArgument start;
 
 
     public NanoverseProcess(BaseProcessArguments arguments) {
         this.arguments = arguments;
-//        p = arguments.getGeneralParameters();
-//        id = arguments.getId();
-//        start = arguments.getStart();
-//        period = arguments.getPeriod();
-//        this.layerManager = arguments.getLayerManager();
     }
 
     public int getID() {
@@ -85,11 +75,11 @@ public abstract class NanoverseProcess {
         fire(stepState);
     }
 
-    public IntegerArgument getPeriod() {
+    public Argument<Integer> getPeriod() {
         return arguments.getPeriod();
     }
 
-    public IntegerArgument getStart() {
+    public Argument<Integer> getStart() {
         return arguments.getStart();
     }
 

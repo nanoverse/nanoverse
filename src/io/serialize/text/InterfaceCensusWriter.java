@@ -53,7 +53,7 @@ public class InterfaceCensusWriter extends Serializer {
     private HashMap<Integer, Map<Integer, Double>> frameToHistogramMap;
 
     @FactoryTarget
-    public InterfaceCensusWriter(GeneralParameters p, IntegerArgument focalStateArg, LayerManager lm) {
+    public InterfaceCensusWriter(GeneralParameters p, Argument<Integer> focalStateArg, LayerManager lm) {
         super(p, lm);
 
         try {

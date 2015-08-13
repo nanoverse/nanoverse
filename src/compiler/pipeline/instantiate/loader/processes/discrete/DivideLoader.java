@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.DivideFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.Divide;
 
@@ -31,4 +32,13 @@ import processes.discrete.Divide;
  * Created by dbborens on 8/3/2015.
  */
 public class DivideLoader extends ProcessLoader<Divide> {
+    private final DivideFactory factory;
+
+    public DivideLoader() {
+        factory = new DivideFactory();
+    }
+
+    public DivideLoader(DivideFactory factory) {
+        this.factory = factory;
+    }
 }

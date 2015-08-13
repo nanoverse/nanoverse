@@ -24,6 +24,7 @@
 package compiler.pipeline.instantiate.factory.agent.action;
 
 import agent.action.DieDescriptor;
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import layers.LayerManager;
 import compiler.pipeline.instantiate.factory.Factory;
@@ -33,7 +34,7 @@ public class DieFactory implements Factory<DieDescriptor> {
     private final DieFactoryHelper helper;
 
     private LayerManager layerManager;
-    private IntegerArgument channel;
+    private Argument<Integer> channel;
 
     public DieFactory() {
         helper = new DieFactoryHelper();
@@ -47,7 +48,7 @@ public class DieFactory implements Factory<DieDescriptor> {
         this.layerManager = layerManager;
     }
 
-    public void setChannel(IntegerArgument channel) {
+    public void setChannel(Argument<Integer> channel) {
         this.channel = channel;
     }
 

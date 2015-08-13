@@ -25,6 +25,7 @@
 package io.visual.highlight;
 
 import control.arguments.IntegerArgument;
+import structural.annotations.FactoryTarget;
 
 /**
  * A lightweight tuple capturing the visualization rules for a single
@@ -35,6 +36,7 @@ public class Highlight {
     private final Glyph glyph;
     private final Integer channel;
 
+    @FactoryTarget
     public Highlight(Integer channel, Glyph glyph) {
         this.channel = channel;
         this.glyph = glyph;

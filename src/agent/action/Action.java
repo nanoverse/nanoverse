@@ -127,7 +127,7 @@ public abstract class Action {
 
     public abstract Action clone(BehaviorCell child);
 
-    protected void doHighlight(IntegerArgument channelArg, Coordinate toHighlight) throws HaltCondition {
+    protected void doHighlight(Argument<Integer> channelArg, Coordinate toHighlight) throws HaltCondition {
         // If not using highlights, do nothing
         if (channelArg == null) {
             return;

@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.io.visual;
 
+import compiler.pipeline.instantiate.factory.io.visual.kymograph.KymographFactory;
 import io.visual.kymograph.Kymograph;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class KymographLoader extends VisualizationLoader<Kymograph> {
+    private final KymographFactory factory;
+
+    public KymographLoader() {
+        factory = new KymographFactory();
+    }
+
+    public KymographLoader(KymographFactory factory) {
+        this.factory = factory;
+    }
 }

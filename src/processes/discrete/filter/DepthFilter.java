@@ -28,6 +28,7 @@ import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import layers.cell.CellLayer;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,10 +42,11 @@ import java.util.List;
  */
 public class DepthFilter extends Filter {
 
-    private IntegerArgument maxDepth;
+    private Argument<Integer> maxDepth;
     private CellLayer layer;
 
-    public DepthFilter(CellLayer layer, IntegerArgument maxDepth) {
+    @FactoryTarget
+    public DepthFilter(CellLayer layer, Argument<Integer> maxDepth) {
         this.maxDepth = maxDepth;
         this.layer = layer;
     }

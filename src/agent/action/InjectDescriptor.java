@@ -25,6 +25,7 @@
 package agent.action;
 
 import cells.BehaviorCell;
+import control.arguments.Argument;
 import control.arguments.DoubleArgument;
 import layers.LayerManager;
 import structural.annotations.FactoryTarget;
@@ -40,7 +41,7 @@ public class InjectDescriptor extends ActionDescriptor<Inject> {
     @FactoryTarget(displayName = "Inject")
     public InjectDescriptor(LayerManager layerManager,
                             String layerId,
-                            DoubleArgument deltaArg) {
+                            Argument<Double> deltaArg) {
 
         constructor = cell -> new Inject(cell, layerManager, layerId,
                 deltaArg);

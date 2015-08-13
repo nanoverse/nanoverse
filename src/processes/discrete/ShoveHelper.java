@@ -32,6 +32,7 @@ import control.identifiers.Flags;
 import geometry.Geometry;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -45,6 +46,7 @@ public class ShoveHelper {
     private LayerManager layerManager;
     private Random random;
 
+    @FactoryTarget
     public ShoveHelper(LayerManager layerManager, Random random) {
         this.layerManager = layerManager;
         this.random = random;

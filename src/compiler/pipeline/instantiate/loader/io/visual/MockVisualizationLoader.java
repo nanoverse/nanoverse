@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.io.visual;
 
+import compiler.pipeline.instantiate.factory.io.visual.MockVisualizationFactory;
 import io.visual.MockVisualization;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class MockVisualizationLoader extends VisualizationLoader<MockVisualization> {
+    private final MockVisualizationFactory factory;
+
+    public MockVisualizationLoader() {
+        factory = new MockVisualizationFactory();
+    }
+
+    public MockVisualizationLoader(MockVisualizationFactory factory) {
+        this.factory = factory;
+    }
 }

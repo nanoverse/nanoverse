@@ -34,7 +34,7 @@ import java.util.function.Supplier;
 /**
  * Created by dbborens on 3/18/15.
  */
-public class IntegerClassSymbolTable extends ClassSymbolTable<IntegerArgument> {
+public class IntegerClassSymbolTable extends ClassSymbolTable<Argument<Integer>> {
 
     @Override
     public String getDescription() {

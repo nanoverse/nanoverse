@@ -70,7 +70,7 @@ public class CorrelationWriter extends Serializer {
      *                       can be included for the same model!
      */
     @FactoryTarget
-    public CorrelationWriter(GeneralParameters p, String filename, DoubleArgument triggerTimeArg, LayerManager lm) {
+    public CorrelationWriter(GeneralParameters p, String filename, Argument<Double> triggerTimeArg, LayerManager lm) {
         super(p, lm);
         identity = new HashMap<>();
         observations = new HashMap<>();

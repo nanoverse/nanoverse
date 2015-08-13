@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.shape;
 
+import compiler.pipeline.instantiate.factory.geometry.shape.CuboidFactory;
 import geometry.shape.Cuboid;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class CuboidLoader extends ShapeLoader<Cuboid> {
+    private final CuboidFactory factory;
+
+    public CuboidLoader() {
+        factory = new CuboidFactory();
+    }
+
+    public CuboidLoader(CuboidFactory factory) {
+        this.factory = factory;
+    }
 }

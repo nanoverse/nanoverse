@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.text;
 
+import compiler.pipeline.instantiate.factory.io.serialize.text.CoordinateIndexerFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.text.CoordinateIndexer;
 
@@ -31,4 +32,13 @@ import io.serialize.text.CoordinateIndexer;
  * Created by dbborens on 8/10/2015.
  */
 public class CoordinateIndexerLoader extends OutputLoader<CoordinateIndexer> {
+    private final CoordinateIndexerFactory factory;
+
+    public CoordinateIndexerLoader() {
+        factory = new CoordinateIndexerFactory();
+    }
+
+    public CoordinateIndexerLoader(CoordinateIndexerFactory factory) {
+        this.factory = factory;
+    }
 }

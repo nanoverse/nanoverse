@@ -30,6 +30,8 @@ import control.identifiers.Coordinate;
 import geometry.set.CoordinateSet;
 import no.uib.cipr.matrix.DenseVector;
 import processes.*;
+import structural.annotations.FactoryTarget;
+
 import java.util.function.*;
 import java.util.stream.*;
 
@@ -38,12 +40,13 @@ import java.util.stream.*;
  */
 public class InjectionProcess extends ContinuumProcess {
 
-    private final DoubleArgument valueArg;
+    private final Argument<Double> valueArg;
     private final String layerId;
     private final CoordinateSet activeSites;
 
+    @FactoryTarget
     public InjectionProcess(BaseProcessArguments arguments,
-                            DoubleArgument valueArg, String layerId,
+                            Argument<Double> valueArg, String layerId,
                             CoordinateSet activeSites) {
         super(arguments);
         this.valueArg = valueArg;

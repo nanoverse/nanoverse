@@ -24,6 +24,8 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.text;
 
+import compiler.pipeline.instantiate.factory.io.serialize.text.IndividualHaltWriterFactory;
+import compiler.pipeline.instantiate.factory.io.serialize.text.IndividualHaltWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.text.IndividualHaltWriter;
 
@@ -31,4 +33,13 @@ import io.serialize.text.IndividualHaltWriter;
  * Created by dbborens on 8/10/2015.
  */
 public class IndividualHaltWriterLoader extends OutputLoader<IndividualHaltWriter> {
+    private final IndividualHaltWriterFactory factory;
+
+    public IndividualHaltWriterLoader() {
+        factory = new IndividualHaltWriterFactory();
+    }
+
+    public IndividualHaltWriterLoader(IndividualHaltWriterFactory factory) {
+        this.factory = factory;
+    }
 }

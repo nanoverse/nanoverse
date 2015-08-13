@@ -25,6 +25,7 @@
 package agent.action;
 
 import cells.BehaviorCell;
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import layers.LayerManager;
 import structural.annotations.FactoryTarget;
@@ -41,8 +42,8 @@ public class ExpandDescriptor extends ActionDescriptor<Expand> {
 
     @FactoryTarget(displayName = "Expand")
     public ExpandDescriptor(LayerManager layerManager,
-                            IntegerArgument selfChannel,
-                            IntegerArgument targetChannel,
+                            Argument<Integer> selfChannel,
+                            Argument<Integer> targetChannel,
                             Random random) {
 
         constructor = cell -> new Expand(cell, layerManager, selfChannel,

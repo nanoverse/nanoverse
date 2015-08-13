@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.text;
 
+import compiler.pipeline.instantiate.factory.io.serialize.text.InterfaceCensusWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.text.InterfaceCensusWriter;
 
@@ -31,4 +32,13 @@ import io.serialize.text.InterfaceCensusWriter;
  * Created by dbborens on 8/10/2015.
  */
 public class InterfaceCensusWriterLoader extends OutputLoader<InterfaceCensusWriter> {
+    private final InterfaceCensusWriterFactory factory;
+
+    public InterfaceCensusWriterLoader() {
+        factory = new InterfaceCensusWriterFactory();
+    }
+
+    public InterfaceCensusWriterLoader(InterfaceCensusWriterFactory factory) {
+        this.factory = factory;
+    }
 }

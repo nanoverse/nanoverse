@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.io.visual.highlight;
 
+import compiler.pipeline.instantiate.factory.io.visual.highlight.DotGlyphFactory;
 import io.visual.highlight.DotGlyph;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class DotGlyphLoader extends GlyphLoader<DotGlyph> {
+    private final DotGlyphFactory factory;
+
+    public DotGlyphLoader() {
+        factory = new DotGlyphFactory();
+    }
+
+    public DotGlyphLoader(DotGlyphFactory factory) {
+        this.factory = factory;
+    }
 }

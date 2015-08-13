@@ -32,6 +32,7 @@ import processes.MaxTargetHelper;
 import processes.StepState;
 import processes.discrete.filter.Filter;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -50,6 +51,7 @@ public class TriggerProcess extends CellProcess {
     // We use a cell array because triggering may also move cells
     private Cell[] targets;
 
+    @FactoryTarget
     public TriggerProcess(BaseProcessArguments arguments, CellProcessArguments cpArguments,
                           String behaviorName,
                           Filter filter,

@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.ManualHaltFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.ManualHalt;
 
@@ -31,4 +32,13 @@ import processes.discrete.ManualHalt;
  * Created by dbborens on 8/3/2015.
  */
 public class ManualHaltLoader extends ProcessLoader<ManualHalt> {
+    private final ManualHaltFactory factory;
+
+    public ManualHaltLoader() {
+        factory = new ManualHaltFactory();
+    }
+
+    public ManualHaltLoader(ManualHaltFactory factory) {
+        this.factory = factory;
+    }
 }

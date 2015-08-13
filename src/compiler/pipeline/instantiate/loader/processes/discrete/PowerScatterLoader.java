@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.PowerScatterFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.PowerScatter;
 
@@ -31,4 +32,13 @@ import processes.discrete.PowerScatter;
  * Created by dbborens on 8/3/2015.
  */
 public class PowerScatterLoader extends ProcessLoader<PowerScatter> {
+    private final PowerScatterFactory factory;
+
+    public PowerScatterLoader() {
+        factory = new PowerScatterFactory();
+    }
+
+    public PowerScatterLoader(PowerScatterFactory factory) {
+        this.factory = factory;
+    }
 }

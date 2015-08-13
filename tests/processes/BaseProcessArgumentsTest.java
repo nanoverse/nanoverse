@@ -32,8 +32,8 @@ public class BaseProcessArgumentsTest extends EslimeLatticeTestCase {
 
     private GeneralParameters p;
     private int id;
-    private IntegerArgument start;
-    private IntegerArgument period;
+    private Argument<Integer> start;
+    private Argument<Integer> period;
 
     private BaseProcessArguments query;
 

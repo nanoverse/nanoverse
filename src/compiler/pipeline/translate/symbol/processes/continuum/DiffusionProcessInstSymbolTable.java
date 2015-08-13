@@ -25,8 +25,7 @@
 package compiler.pipeline.translate.symbol.processes.continuum;
 
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.instantiate.loader.processes.continuum.OperatorProcessLoader;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.instantiate.loader.processes.continuum.DiffusionProcessLoader;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
@@ -66,6 +65,6 @@ public class DiffusionProcessInstSymbolTable extends OperatorProcessInstSymbolTa
 
     @Override
     public Loader getLoader() {
-        return new OperatorProcessLoader();
+        return new DiffusionProcessLoader();
     }
 }

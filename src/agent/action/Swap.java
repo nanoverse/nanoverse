@@ -40,12 +40,12 @@ import java.util.List;
  */
 public class Swap extends Action {
     private TargetRule targetRule;
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
+    private Argument<Integer> selfChannel;
+    private Argument<Integer> targetChannel;
 
     public Swap(BehaviorCell callback, LayerManager layerManager,
-                TargetRule targetRule, IntegerArgument selfChannel,
-                IntegerArgument targetChannel) {
+                TargetRule targetRule, Argument<Integer> selfChannel,
+                Argument<Integer> targetChannel) {
         super(callback, layerManager);
         this.targetRule = targetRule;
         this.selfChannel = selfChannel;

@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.shape;
 
+import compiler.pipeline.instantiate.factory.geometry.shape.RectangleFactory;
 import geometry.shape.Rectangle;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class RectangleLoader extends ShapeLoader<Rectangle> {
+    private final RectangleFactory factory;
+
+    public RectangleLoader() {
+        factory = new RectangleFactory();
+    }
+
+    public RectangleLoader(RectangleFactory factory) {
+        this.factory = factory;
+    }
 }

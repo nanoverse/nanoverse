@@ -56,8 +56,8 @@ public class ColorManagerFactoryTest extends EslimeTestCase {
         Element element = fixtureRoot.element("surface-growth-case");
 
         ColorManager base = new DefaultColorManager();
-        DoubleArgument saturationScaling = new ConstantDouble(SurfaceGrowthColorManagerFactory.DEFAULT_SATURATION_SCALING);
-        DoubleArgument luminanceScaling = new ConstantDouble(SurfaceGrowthColorManagerFactory.DEFAULT_LUMINANCE_SCALING);
+        Argument<Double> saturationScaling = new ConstantDouble(SurfaceGrowthColorManagerFactory.DEFAULT_SATURATION_SCALING);
+        Argument<Double> luminanceScaling = new ConstantDouble(SurfaceGrowthColorManagerFactory.DEFAULT_LUMINANCE_SCALING);
         SurfaceGrowthColorManager expected = new SurfaceGrowthColorManager(base, luminanceScaling, saturationScaling);
 
         ColorManager actual = ColorManagerFactory.instantiate(element, p);

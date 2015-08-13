@@ -30,6 +30,7 @@ import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import layers.cell.CellLayer;
 import layers.cell.CellLayerViewer;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,13 +43,14 @@ public class CellStateFilter extends Filter {
 
     private CellLayer layer;
 
-    private IntegerArgument toChoose;
+    private Argument<Integer> toChoose;
 
     /**
      * @param toChoose The cell state to retain. If random, a value will be
      *                 chosen each time the filter is applied.
      */
-    public CellStateFilter(CellLayer layer, IntegerArgument toChoose) {
+    @FactoryTarget
+    public CellStateFilter(CellLayer layer, Argument<Integer> toChoose) {
         this.toChoose = toChoose;
         this.layer = layer;
     }

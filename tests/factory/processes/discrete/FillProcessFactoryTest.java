@@ -88,7 +88,7 @@ public class FillProcessFactoryTest extends EslimeTestCase {
 
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
         CoordinateSet activeSites = new DiscSet(geom, new ConstantInteger(2), new Coordinate2D(0, 0, 0));
-        IntegerArgument maxTargets = new ConstantInteger(-1);
+        Argument<Integer> maxTargets = new ConstantInteger(-1);
         CellProcessArguments cpArguments = new CellProcessArguments(activeSites, maxTargets);
         CellDescriptor cd = makeCellDescriptor();
 

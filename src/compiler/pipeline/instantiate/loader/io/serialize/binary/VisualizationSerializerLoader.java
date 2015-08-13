@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.binary;
 
+import compiler.pipeline.instantiate.factory.io.serialize.binary.VisualizationSerializerFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.binary.VisualizationSerializer;
 
@@ -31,4 +32,13 @@ import io.serialize.binary.VisualizationSerializer;
  * Created by dbborens on 8/10/2015.
  */
 public class VisualizationSerializerLoader extends OutputLoader<VisualizationSerializer> {
+    private final VisualizationSerializerFactory factory;
+
+    public VisualizationSerializerLoader() {
+        factory = new VisualizationSerializerFactory();
+    }
+
+    public VisualizationSerializerLoader(VisualizationSerializerFactory factory) {
+        this.factory = factory;
+    }
 }

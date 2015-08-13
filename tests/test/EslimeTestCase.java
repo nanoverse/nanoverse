@@ -225,14 +225,14 @@ public abstract class EslimeTestCase extends TestCase {
     }
 
     protected BaseProcessArguments makeBaseProcessArguments(LayerManager layerManager, GeneralParameters p) {
-        IntegerArgument start = new ConstantInteger(0);
-        IntegerArgument period = new ConstantInteger(1);
+        Argument<Integer> start = new ConstantInteger(0);
+        Argument<Integer> period = new ConstantInteger(1);
         return new BaseProcessArguments(layerManager, p, 0, start, period);
     }
 
     protected CellProcessArguments makeCellProcessArguments(Geometry geom) {
         CoordinateSet activeSites = new CompleteSet(geom);
-        IntegerArgument maxTargets = new ConstantInteger(-1);
+        Argument<Integer> maxTargets = new ConstantInteger(-1);
         return new CellProcessArguments(activeSites, maxTargets);
     }
 

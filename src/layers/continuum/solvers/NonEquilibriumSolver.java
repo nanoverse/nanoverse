@@ -26,6 +26,7 @@ package layers.continuum.solvers;
 
 import layers.continuum.*;
 import no.uib.cipr.matrix.*;
+import structural.annotations.FactoryTarget;
 import structural.utilities.MatrixUtils;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -35,6 +36,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class NonEquilibriumSolver extends ContinuumSolver {
 
 
+    @FactoryTarget
     public NonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, boolean operators) {
         super(content, so);
         if (operators) {

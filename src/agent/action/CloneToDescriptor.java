@@ -43,8 +43,8 @@ public class CloneToDescriptor extends ActionDescriptor<CloneTo> {
     public CloneToDescriptor(LayerManager layerManager,
                              TargetDescriptor targetDescriptor,
                              boolean noReplace,
-                             IntegerArgument selfChannel,
-                             IntegerArgument targetChannel,
+                             Argument<Integer> selfChannel,
+                             Argument<Integer> targetChannel,
                              Random random) {
 
         constructor = cell -> {

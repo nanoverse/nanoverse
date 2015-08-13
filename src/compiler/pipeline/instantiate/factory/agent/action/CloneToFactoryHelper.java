@@ -23,6 +23,7 @@
  */
 package compiler.pipeline.instantiate.factory.agent.action;
 
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import agent.targets.TargetDescriptor;
 import java.util.Random;
@@ -32,7 +33,7 @@ import agent.action.CloneToDescriptor;
 
 public class CloneToFactoryHelper {
 
-    public CloneToDescriptor build(LayerManager layerManager, TargetDescriptor targetDescriptor, boolean noReplace, IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
+    public CloneToDescriptor build(LayerManager layerManager, TargetDescriptor targetDescriptor, boolean noReplace, Argument<Integer> selfChannel, Argument<Integer> targetChannel, Random random) {
         return new CloneToDescriptor(layerManager, targetDescriptor, noReplace, selfChannel, targetChannel, random);
     }
 }

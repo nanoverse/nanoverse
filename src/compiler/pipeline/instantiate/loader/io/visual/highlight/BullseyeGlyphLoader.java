@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.io.visual.highlight;
 
+import compiler.pipeline.instantiate.factory.io.visual.highlight.BullseyeGlyphFactory;
 import io.visual.highlight.*;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class BullseyeGlyphLoader extends GlyphLoader<BullseyeGlyph> {
+    private final BullseyeGlyphFactory factory;
+
+    public BullseyeGlyphLoader() {
+        factory = new BullseyeGlyphFactory();
+    }
+
+    public BullseyeGlyphLoader(BullseyeGlyphFactory factory) {
+        this.factory = factory;
+    }
 }

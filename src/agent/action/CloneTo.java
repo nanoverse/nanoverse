@@ -52,15 +52,15 @@ public class CloneTo extends Action {
     private boolean noReplace;
 
     // Highlight channels for the targeting and targeted cells
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
+    private Argument<Integer> selfChannel;
+    private Argument<Integer> targetChannel;
 
     private Random random;
 
     public CloneTo(BehaviorCell behaviorCell, LayerManager layerManager,
                    TargetRule targetRule, boolean noReplace,
-                   IntegerArgument selfChannel,
-                   IntegerArgument targetChannel, Random random) {
+                   Argument<Integer> selfChannel,
+                   Argument<Integer> targetChannel, Random random) {
 
         super(behaviorCell, layerManager);
         this.targetRule = targetRule;

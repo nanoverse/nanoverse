@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.text;
 
+import compiler.pipeline.instantiate.factory.io.serialize.text.CorrelationWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.text.CorrelationWriter;
 
@@ -31,4 +32,13 @@ import io.serialize.text.CorrelationWriter;
  * Created by dbborens on 8/10/2015.
  */
 public class CorrelationWriterLoader extends OutputLoader<CorrelationWriter> {
+    private final CorrelationWriterFactory factory;
+
+    public CorrelationWriterLoader() {
+        factory = new CorrelationWriterFactory();
+    }
+
+    public CorrelationWriterLoader(CorrelationWriterFactory factory) {
+        this.factory = factory;
+    }
 }

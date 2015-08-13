@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.io.visual.color;
 
+import compiler.pipeline.instantiate.factory.io.visual.color.ContinuumColorModelFactory;
 import io.visual.color.NormalizedContinuumColorManager;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
 public class ContinuumColorModelLoader extends ColorModelLoader<NormalizedContinuumColorManager> {
+    private final ContinuumColorModelFactory factory;
+
+    public ContinuumColorModelLoader() {
+        factory = new ContinuumColorModelFactory();
+    }
+
+    public ContinuumColorModelLoader(ContinuumColorModelFactory factory) {
+        this.factory = factory;
+    }
 }

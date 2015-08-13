@@ -25,6 +25,7 @@
 package agent.action;
 
 import cells.BehaviorCell;
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import layers.LayerManager;
 import structural.annotations.FactoryTarget;
@@ -41,7 +42,7 @@ public class ExpandWeightedDescriptor extends ActionDescriptor<ExpandWeighted> {
 
     @FactoryTarget(displayName = "ExpandWeighted")
     public ExpandWeightedDescriptor(LayerManager layerManager,
-                          IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
+                          Argument<Integer> selfChannel, Argument<Integer> targetChannel, Random random) {
 
         constructor = cell -> new ExpandWeighted(cell, layerManager, selfChannel, targetChannel, random);
     }

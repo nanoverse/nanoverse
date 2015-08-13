@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.GeneralNeighborSwapFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.GeneralNeighborSwap;
 
@@ -31,4 +32,13 @@ import processes.discrete.GeneralNeighborSwap;
  * Created by dbborens on 8/3/2015.
  */
 public class GeneralNeighborSwapLoader extends ProcessLoader<GeneralNeighborSwap> {
+    private final GeneralNeighborSwapFactory factory;
+
+    public GeneralNeighborSwapLoader() {
+        factory = new GeneralNeighborSwapFactory();
+    }
+
+    public GeneralNeighborSwapLoader(GeneralNeighborSwapFactory factory) {
+        this.factory = factory;
+    }
 }

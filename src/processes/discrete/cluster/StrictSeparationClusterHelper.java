@@ -28,11 +28,14 @@ import cells.BehaviorCell;
 import control.identifiers.Coordinate;
 import geometry.Geometry;
 import layers.cell.CellLayer;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 6/14/2015.
  */
 public class StrictSeparationClusterHelper extends ScatterClustersHelper {
+
+    @FactoryTarget
     public StrictSeparationClusterHelper(CellLayer layer) {
         super(layer);
     }

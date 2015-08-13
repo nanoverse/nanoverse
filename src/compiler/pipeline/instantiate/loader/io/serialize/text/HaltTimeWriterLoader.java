@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.text;
 
+import compiler.pipeline.instantiate.factory.io.serialize.text.HaltTimeWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.text.HaltTimeWriter;
 
@@ -31,4 +32,13 @@ import io.serialize.text.HaltTimeWriter;
  * Created by dbborens on 8/10/2015.
  */
 public class HaltTimeWriterLoader extends OutputLoader<HaltTimeWriter> {
+    private final HaltTimeWriterFactory factory;
+
+    public HaltTimeWriterLoader() {
+        factory = new HaltTimeWriterFactory();
+    }
+
+    public HaltTimeWriterLoader(HaltTimeWriterFactory factory) {
+        this.factory = factory;
+    }
 }

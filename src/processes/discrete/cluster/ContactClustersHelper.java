@@ -27,12 +27,14 @@ package processes.discrete.cluster;
 import cells.*;
 import control.identifiers.Coordinate;
 import layers.cell.CellLayer;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 6/13/2015.
  */
 public class ContactClustersHelper extends ScatterClustersHelper {
 
+    @FactoryTarget
     public ContactClustersHelper(CellLayer layer) {
         super(layer);
     }

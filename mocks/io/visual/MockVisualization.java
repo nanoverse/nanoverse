@@ -26,6 +26,7 @@ package io.visual;
 
 import geometry.Geometry;
 import layers.SystemState;
+import structural.annotations.FactoryTarget;
 
 import java.awt.image.BufferedImage;
 
@@ -37,6 +38,7 @@ public class MockVisualization extends Visualization {
     private boolean isConclude;
     private boolean isInit;
 
+    @FactoryTarget
     public MockVisualization() {
         isRender = false;
         isConclude = false;

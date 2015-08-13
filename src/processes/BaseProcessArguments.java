@@ -27,6 +27,7 @@ package processes;
 import control.GeneralParameters;
 import control.arguments.*;
 import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 11/23/14.
@@ -34,12 +35,13 @@ import layers.LayerManager;
 public class BaseProcessArguments {
     private GeneralParameters generalParameters;
     private int id;
-    private IntegerArgument start;
-    private IntegerArgument period;
+    private Argument<Integer> start;
+    private Argument<Integer> period;
 
     private LayerManager layerManager;
 
-    public BaseProcessArguments(LayerManager layerManager, GeneralParameters generalParameters, int id, IntegerArgument start, IntegerArgument period) {
+    @FactoryTarget
+    public BaseProcessArguments(LayerManager layerManager, GeneralParameters generalParameters, int id, Argument<Integer> start, Argument<Integer> period) {
         this.generalParameters = generalParameters;
         this.id = id;
         this.start = start;
@@ -47,11 +49,11 @@ public class BaseProcessArguments {
         this.layerManager = layerManager;
     }
 
-    public IntegerArgument getPeriod() {
+    public Argument<Integer> getPeriod() {
         return period;
     }
 
-    public IntegerArgument getStart() {
+    public Argument<Integer> getStart() {
         return start;
     }
 

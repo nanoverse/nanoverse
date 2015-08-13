@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.processes;
 
+import compiler.pipeline.instantiate.factory.processes.MockProcessFactory;
 import processes.MockProcess;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
 public class MockProcessLoader extends ProcessLoader<MockProcess> {
+    private final MockProcessFactory factory;
+
+    public MockProcessLoader() {
+        factory = new MockProcessFactory();
+    }
+
+    public MockProcessLoader(MockProcessFactory factory) {
+        this.factory = factory;
+    }
 }

@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.shape;
 
+import compiler.pipeline.instantiate.factory.geometry.shape.HexagonFactory;
 import geometry.shape.Hexagon;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class HexagonLoader extends ShapeLoader<Hexagon> {
+    private final HexagonFactory factory;
+
+    public HexagonLoader() {
+        factory = new HexagonFactory();
+    }
+
+    public HexagonLoader(HexagonFactory factory) {
+        this.factory = factory;
+    }
 }

@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize;
 
+import compiler.pipeline.instantiate.factory.io.serialize.OutputManagerFactory;
 import io.serialize.SerializationManager;
 
 /**
  * Created by dbborens on 8/1/2015.
  */
 public class OutputManagerLoader extends OutputLoader<SerializationManager> {
+    private final OutputManagerFactory factory;
+
+    public OutputManagerLoader() {
+        factory = new OutputManagerFactory();
+    }
+
+    public OutputManagerLoader(OutputManagerFactory factory) {
+        this.factory = factory;
+    }
 }

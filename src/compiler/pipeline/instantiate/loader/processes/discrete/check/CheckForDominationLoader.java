@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.check;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.check.CheckForDominationFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.check.CheckForDomination;
 
@@ -31,4 +32,13 @@ import processes.discrete.check.CheckForDomination;
  * Created by dbborens on 8/3/2015.
  */
 public class CheckForDominationLoader extends ProcessLoader<CheckForDomination> {
+    private final CheckForDominationFactory factory;
+
+    public CheckForDominationLoader() {
+        factory = new CheckForDominationFactory();
+    }
+
+    public CheckForDominationLoader(CheckForDominationFactory factory) {
+        this.factory = factory;
+    }
 }

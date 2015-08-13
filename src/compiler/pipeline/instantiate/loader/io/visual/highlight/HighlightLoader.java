@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.visual.highlight;
 
+import compiler.pipeline.instantiate.factory.io.visual.highlight.HighlightFactory;
 import compiler.pipeline.instantiate.loader.Loader;
 import io.visual.highlight.Highlight;
 
@@ -31,4 +32,13 @@ import io.visual.highlight.Highlight;
  * Created by dbborens on 8/4/2015.
  */
 public class HighlightLoader extends Loader<Highlight> {
+    private final HighlightFactory factory;
+
+    public HighlightLoader() {
+        factory = new HighlightFactory();
+    }
+
+    public HighlightLoader(HighlightFactory factory) {
+        this.factory = factory;
+    }
 }

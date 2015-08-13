@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.continuum;
 
+import compiler.pipeline.instantiate.factory.processes.continuum.IntegrateFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.continuum.Integrate;
 
@@ -31,4 +32,13 @@ import processes.continuum.Integrate;
  * Created by dbborens on 8/3/2015.
  */
 public class IntegrateLoader extends ProcessLoader<Integrate> {
+    private final IntegrateFactory factory;
+
+    public IntegrateLoader() {
+        factory = new IntegrateFactory();
+    }
+
+    public IntegrateLoader(IntegrateFactory factory) {
+        this.factory = factory;
+    }
 }

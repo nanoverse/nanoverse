@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.continuum;
 
+import compiler.pipeline.instantiate.factory.processes.continuum.ScheduleReleaseFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.continuum.ScheduleRelease;
 
@@ -31,4 +32,13 @@ import processes.continuum.ScheduleRelease;
  * Created by dbborens on 8/3/2015.
  */
 public class ScheduleReleaseLoader extends ProcessLoader<ScheduleRelease> {
+    private final ScheduleReleaseFactory factory;
+
+    public ScheduleReleaseLoader() {
+        factory = new ScheduleReleaseFactory();
+    }
+
+    public ScheduleReleaseLoader(ScheduleReleaseFactory factory) {
+        this.factory = factory;
+    }
 }

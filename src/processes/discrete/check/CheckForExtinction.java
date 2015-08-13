@@ -32,6 +32,7 @@ import processes.StepState;
 import processes.discrete.CellProcess;
 import processes.discrete.CellProcessArguments;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 /**
  * Checks for extinction or fixation events.
@@ -41,9 +42,10 @@ import processes.gillespie.GillespieState;
 public class CheckForExtinction extends CellProcess {
 
     private double threshold;
-    private DoubleArgument thresholdArg;
+    private Argument<Double> thresholdArg;
 
-    public CheckForExtinction(BaseProcessArguments arguments, CellProcessArguments cpArguments, DoubleArgument thresholdArg) {
+    @FactoryTarget
+    public CheckForExtinction(BaseProcessArguments arguments, CellProcessArguments cpArguments, Argument<Double> thresholdArg) {
         super(arguments, cpArguments);
         this.thresholdArg = thresholdArg;
     }

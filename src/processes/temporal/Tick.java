@@ -28,6 +28,7 @@ import control.arguments.*;
 import control.halt.HaltCondition;
 import processes.BaseProcessArguments;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 /**
  * Advances the clock by a constant dt.
@@ -36,9 +37,10 @@ import processes.StepState;
  */
 public class Tick extends TimeProcess {
 
-    private DoubleArgument dt;
+    private Argument<Double> dt;
 
-    public Tick(BaseProcessArguments arguments, DoubleArgument dt) {
+    @FactoryTarget
+    public Tick(BaseProcessArguments arguments, Argument<Double> dt) {
 
         super(arguments);
         this.dt = dt;

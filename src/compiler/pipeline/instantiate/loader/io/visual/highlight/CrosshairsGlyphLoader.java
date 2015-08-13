@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.io.visual.highlight;
 
+import compiler.pipeline.instantiate.factory.io.visual.highlight.CrosshairsGlyphFactory;
 import io.visual.highlight.CrosshairsGlyph;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class CrosshairsGlyphLoader extends GlyphLoader<CrosshairsGlyph> {
+    private final CrosshairsGlyphFactory factory;
+
+    public CrosshairsGlyphLoader() {
+        factory = new CrosshairsGlyphFactory();
+    }
+
+    public CrosshairsGlyphLoader(CrosshairsGlyphFactory factory) {
+        this.factory = factory;
+    }
 }

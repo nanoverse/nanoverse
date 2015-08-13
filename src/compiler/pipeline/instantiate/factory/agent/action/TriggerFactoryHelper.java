@@ -23,6 +23,7 @@
  */
 package compiler.pipeline.instantiate.factory.agent.action;
 
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import agent.targets.TargetDescriptor;
 import agent.action.TriggerDescriptor;
@@ -31,7 +32,7 @@ import layers.LayerManager;
 
 public class TriggerFactoryHelper {
 
-    public TriggerDescriptor build(LayerManager layerManager, String behaviorName, TargetDescriptor ruleDescriptor, IntegerArgument selfChannel, IntegerArgument targetChannel) {
+    public TriggerDescriptor build(LayerManager layerManager, String behaviorName, TargetDescriptor ruleDescriptor, Argument<Integer> selfChannel, Argument<Integer> targetChannel) {
         return new TriggerDescriptor(layerManager, behaviorName, ruleDescriptor, selfChannel, targetChannel);
     }
 }

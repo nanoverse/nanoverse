@@ -24,6 +24,7 @@
 package compiler.pipeline.instantiate.factory.agent.action;
 
 import agent.action.ActionDescriptor;
+import control.arguments.Argument;
 import control.arguments.DoubleArgument;
 import layers.LayerManager;
 import agent.action.ThresholdDoDescriptor;
@@ -31,7 +32,7 @@ import agent.action.ThresholdDoDescriptor;
 
 public class ThresholdDoFactoryHelper {
 
-    public ThresholdDoDescriptor build(LayerManager layerManager, String layerId, DoubleArgument minimumArg, DoubleArgument maximumArg, ActionDescriptor childDescriptor) {
+    public ThresholdDoDescriptor build(LayerManager layerManager, String layerId, Argument<Double> minimumArg, Argument<Double> maximumArg, ActionDescriptor childDescriptor) {
         return new ThresholdDoDescriptor(layerManager, layerId, minimumArg, maximumArg, childDescriptor);
     }
 }
