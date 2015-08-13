@@ -61,9 +61,6 @@ public abstract class SerializationFactory {
         } else if (writerClass.equalsIgnoreCase("halt-time-writer")) {
             ret = new HaltTimeWriter(p, lm);
             return ret;
-        } else if (writerClass.equalsIgnoreCase("parameter-writer")) {
-            ret = new ParameterWriter(p, lm);
-            return ret;
         } else if (writerClass.equalsIgnoreCase("progress-reporter")) {
             ret = new ProgressReporter(p, lm);
             return ret;
