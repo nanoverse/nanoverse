@@ -25,6 +25,7 @@
 package processes.discrete.filter;
 
 import control.identifiers.Coordinate;
+import structural.annotations.FactoryTarget;
 
 import java.util.List;
 
@@ -33,6 +34,10 @@ import java.util.List;
  * Created by dbborens on 5/5/14.
  */
 public class NullFilter extends Filter {
+
+    @FactoryTarget
+    public NullFilter() {
+    }
 
     @Override
     public boolean equals(Object o) {

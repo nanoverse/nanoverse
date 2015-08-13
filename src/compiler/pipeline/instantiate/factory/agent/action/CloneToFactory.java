@@ -23,6 +23,7 @@
  */
 package compiler.pipeline.instantiate.factory.agent.action;
 
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import agent.targets.TargetDescriptor;
 import java.util.Random;
@@ -37,8 +38,8 @@ public class CloneToFactory implements Factory<CloneToDescriptor> {
     private LayerManager layerManager;
     private TargetDescriptor targetDescriptor;
     private boolean noReplace;
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
+    private Argument<Integer> selfChannel;
+    private Argument<Integer> targetChannel;
     private Random random;
 
     public CloneToFactory() {
@@ -61,11 +62,11 @@ public class CloneToFactory implements Factory<CloneToDescriptor> {
         this.noReplace = noReplace;
     }
 
-    public void setSelfChannel(IntegerArgument selfChannel) {
+    public void setSelfChannel(Argument<Integer> selfChannel) {
         this.selfChannel = selfChannel;
     }
 
-    public void setTargetChannel(IntegerArgument targetChannel) {
+    public void setTargetChannel(Argument<Integer> targetChannel) {
         this.targetChannel = targetChannel;
     }
 

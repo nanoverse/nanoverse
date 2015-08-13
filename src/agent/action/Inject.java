@@ -35,10 +35,10 @@ import layers.LayerManager;
  */
 public class Inject extends Action {
 
-    private final DoubleArgument deltaArg;
+    private final Argument<Double> deltaArg;
     private final String layerId;
 
-    public Inject(BehaviorCell callback, LayerManager layerManager, String layerId, DoubleArgument deltaArg) {
+    public Inject(BehaviorCell callback, LayerManager layerManager, String layerId, Argument<Double> deltaArg) {
         super(callback, layerManager);
         this.deltaArg = deltaArg;
         this.layerId = layerId;

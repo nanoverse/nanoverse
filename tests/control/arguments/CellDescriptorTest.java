@@ -56,9 +56,9 @@ import static org.mockito.Mockito.*;
  */
 public class CellDescriptorTest extends TestBase {
 
-    private DoubleArgument threshold;
-    private DoubleArgument initialHealth;
-    private IntegerArgument cellState;
+    private Argument<Double> threshold;
+    private Argument<Double> initialHealth;
+    private Argument<Integer> cellState;
     private Reaction reaction1, reaction2;
     private BehaviorDescriptor behaviorDescriptor;
     private Behavior behavior;

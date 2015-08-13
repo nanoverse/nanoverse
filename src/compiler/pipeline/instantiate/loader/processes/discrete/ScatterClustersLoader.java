@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.ScatterClustersFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.ScatterClusters;
 
@@ -31,4 +32,13 @@ import processes.discrete.ScatterClusters;
  * Created by dbborens on 8/3/2015.
  */
 public class ScatterClustersLoader extends ProcessLoader<ScatterClusters> {
+    private final ScatterClustersFactory factory;
+
+    public ScatterClustersLoader() {
+        factory = new ScatterClustersFactory();
+    }
+
+    public ScatterClustersLoader(ScatterClustersFactory factory) {
+        this.factory = factory;
+    }
 }

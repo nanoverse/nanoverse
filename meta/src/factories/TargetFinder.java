@@ -24,6 +24,10 @@
 
 package factories;
 
+import geometry.set.CompleteSet;
+import geometry.set.CustomSet;
+import geometry.set.DiscSet;
+import geometry.set.HorizontalLineSet;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
@@ -42,7 +46,7 @@ public class TargetFinder {
     }
 
     public Stream<Constructor> getTargets() {
-        return Stream.of("agent", "cells", "control", "geometry", "io", "layers",
+        Stream<Class> inferred = Stream.of("agent", "cells", "control", "geometry", "io", "layers",
                 "processes", "structural")
                 .map(pkg -> new Reflections(pkg, new SubTypesScanner(false)))
                 .map(r -> r.getAllTypes())
@@ -53,9 +57,22 @@ public class TargetFinder {
                     } catch (ClassNotFoundException ex) {
                         throw new IllegalStateException(ex);
                     }
-                })
-                .peek(p -> System.out.println(p.getSimpleName()))
+                });
+
+        // For whatever reason, Reflections can't see these
+        Stream<Class> cloodge = Stream.of(
+                CompleteSet.class,
+                CustomSet.class,
+                DiscSet.class,
+                HorizontalLineSet.class
+        );
+
+        Stream<Class> all = Stream.concat(inferred, cloodge);
+
+        Stream<Constructor> ret = all
                 .map(helper::getFactoryTarget)
                 .filter(target -> target != null);
+
+        return ret;
     }
 }

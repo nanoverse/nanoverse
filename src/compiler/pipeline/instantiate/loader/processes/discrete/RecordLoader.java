@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.RecordFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.Record;
 
@@ -31,4 +32,13 @@ import processes.discrete.Record;
  * Created by dbborens on 8/3/2015.
  */
 public class RecordLoader extends ProcessLoader<Record> {
+    private final RecordFactory factory;
+
+    public RecordLoader() {
+        factory = new RecordFactory();
+    }
+
+    public RecordLoader(RecordFactory factory) {
+        this.factory = factory;
+    }
 }

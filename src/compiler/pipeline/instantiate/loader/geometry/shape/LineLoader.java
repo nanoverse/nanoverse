@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.shape;
 
+import compiler.pipeline.instantiate.factory.geometry.shape.LineFactory;
 import geometry.shape.Line;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class LineLoader extends ShapeLoader<Line> {
+    private final LineFactory factory;
+
+    public LineLoader() {
+        factory = new LineFactory();
+    }
+
+    public LineLoader(LineFactory factory) {
+        this.factory = factory;
+    }
 }

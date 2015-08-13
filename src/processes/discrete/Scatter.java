@@ -32,6 +32,7 @@ import control.identifiers.Coordinate;
 import processes.BaseProcessArguments;
 import processes.StepState;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 import java.util.HashSet;
 
@@ -40,6 +41,7 @@ public class Scatter extends CellProcess {
     private HashSet<Coordinate> candidates;
     private CellDescriptor cellDescriptor;
 
+    @FactoryTarget
     public Scatter(BaseProcessArguments arguments, CellProcessArguments cpArguments, CellDescriptor cellDescriptor) {
         super(arguments, cpArguments);
         this.cellDescriptor = cellDescriptor;

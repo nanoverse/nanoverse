@@ -26,7 +26,6 @@ package compiler.pipeline.instantiate.loader.io.visual.color;
 
 import compiler.pipeline.instantiate.loader.Loader;
 import io.visual.color.ColorManager;
-import loaders.LoaderSkeletonWriter;
 
 /**
  * Created by dbborens on 8/10/2015.

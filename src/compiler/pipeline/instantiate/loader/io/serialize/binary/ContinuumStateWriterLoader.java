@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.binary;
 
+import compiler.pipeline.instantiate.factory.io.serialize.binary.ContinuumStateWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.binary.ContinuumStateWriter;
 
@@ -31,4 +32,13 @@ import io.serialize.binary.ContinuumStateWriter;
  * Created by dbborens on 8/10/2015.
  */
 public class ContinuumStateWriterLoader extends OutputLoader<ContinuumStateWriter> {
+    private final ContinuumStateWriterFactory factory;
+
+    public ContinuumStateWriterLoader() {
+        factory = new ContinuumStateWriterFactory();
+    }
+
+    public ContinuumStateWriterLoader(ContinuumStateWriterFactory factory) {
+        this.factory = factory;
+    }
 }

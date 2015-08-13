@@ -29,6 +29,7 @@ import control.halt.ManualHaltEvent;
 import processes.BaseProcessArguments;
 import processes.StepState;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 7/31/14.
@@ -36,6 +37,7 @@ import processes.gillespie.GillespieState;
 public class ManualHalt extends CellProcess {
     private String message;
 
+    @FactoryTarget
     public ManualHalt(BaseProcessArguments arguments, CellProcessArguments cpArguments, String message) {
         super(arguments, cpArguments);
         this.message = message;

@@ -25,6 +25,7 @@
 package agent.action;
 
 import cells.BehaviorCell;
+import control.arguments.Argument;
 import control.arguments.DoubleArgument;
 import layers.LayerManager;
 import structural.annotations.FactoryTarget;
@@ -41,8 +42,8 @@ public class ThresholdDoDescriptor extends ActionDescriptor<ThresholdDo> {
     @FactoryTarget(displayName = "ThresholdDo")
     public ThresholdDoDescriptor(LayerManager layerManager,
                                  String layerId,
-                                 DoubleArgument minimumArg,
-                                 DoubleArgument maximumArg,
+                                 Argument<Double> minimumArg,
+                                 Argument<Double> maximumArg,
                                  ActionDescriptor childDescriptor) {
 
         constructor = cell -> {

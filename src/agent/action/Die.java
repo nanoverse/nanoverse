@@ -35,9 +35,9 @@ import layers.LayerManager;
  */
 public class Die extends Action {
 
-    private IntegerArgument channel;
+    private Argument<Integer> channel;
 
-    public Die(BehaviorCell callback, LayerManager layerManager, IntegerArgument channel) {
+    public Die(BehaviorCell callback, LayerManager layerManager, Argument<Integer> channel) {
         super(callback, layerManager);
         this.channel = channel;
     }

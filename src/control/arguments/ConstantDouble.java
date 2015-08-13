@@ -24,6 +24,7 @@
 
 package control.arguments;
 
+import structural.annotations.FactoryTarget;
 import structural.utilities.EpsilonUtil;
 
 /**
@@ -32,31 +33,10 @@ import structural.utilities.EpsilonUtil;
  * <p>
  * Created by David B Borenstein on 4/7/14.
  */
-public class ConstantDouble extends DoubleArgument {
+public class ConstantDouble extends Constant<Double> {
 
-    private Double value;
-
+    @FactoryTarget
     public ConstantDouble(Double value) {
-        this.value = value;
-    }
-
-    @Override
-    public Double next() {
-        return value;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof ConstantDouble)) {
-            return false;
-        }
-
-        ConstantDouble other = (ConstantDouble) obj;
-
-        if (!EpsilonUtil.epsilonEquals(value, other.value)) {
-            return false;
-        }
-
-        return true;
+        super(value);
     }
 }

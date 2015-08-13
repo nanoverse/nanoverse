@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.text;
 
+import compiler.pipeline.instantiate.factory.io.serialize.text.CellStateWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.text.LegacyCellStateWriter;
 
@@ -31,4 +32,13 @@ import io.serialize.text.LegacyCellStateWriter;
  * Created by dbborens on 8/10/2015.
  */
 public class CellStateWriterLoader extends OutputLoader<LegacyCellStateWriter> {
+    private final CellStateWriterFactory factory;
+
+    public CellStateWriterLoader() {
+        factory = new CellStateWriterFactory();
+    }
+
+    public CellStateWriterLoader(CellStateWriterFactory factory) {
+        this.factory = factory;
+    }
 }

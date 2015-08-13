@@ -25,6 +25,7 @@
 package agent.action;
 
 import cells.BehaviorCell;
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import layers.LayerManager;
 import structural.annotations.FactoryTarget;
@@ -39,7 +40,7 @@ public class DieDescriptor extends ActionDescriptor<Die> {
     private final Function<BehaviorCell, Die> constructor;
 
     @FactoryTarget(displayName = "Die")
-    public DieDescriptor(LayerManager layerManager, IntegerArgument channel) {
+    public DieDescriptor(LayerManager layerManager, Argument<Integer> channel) {
         constructor = cell -> new Die(cell, layerManager, channel);
     }
 

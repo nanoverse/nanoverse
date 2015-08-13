@@ -32,6 +32,7 @@ import processes.StepState;
 import processes.discrete.CellProcess;
 import processes.discrete.CellProcessArguments;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 /**
  * Halt the simulation when the target cell type has the specified fraction
@@ -42,12 +43,13 @@ import processes.gillespie.GillespieState;
  * Created by dbborens on 1/13/14.
  */
 public class CheckForDomination extends CellProcess {
-    private DoubleArgument targetFractionArg;
-    private IntegerArgument targetStateArg;
+    private Argument<Double> targetFractionArg;
+    private Argument<Integer> targetStateArg;
     private double targetFraction;
     private int targetState;
 
-    public CheckForDomination(BaseProcessArguments arguments, CellProcessArguments cpArguments, IntegerArgument targetStateArg, DoubleArgument targetFractionArg) {
+    @FactoryTarget
+    public CheckForDomination(BaseProcessArguments arguments, CellProcessArguments cpArguments, Argument<Integer> targetStateArg, Argument<Double> targetFractionArg) {
         super(arguments, cpArguments);
 
         this.targetFractionArg = targetFractionArg;

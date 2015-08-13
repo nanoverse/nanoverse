@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.text;
 
+import compiler.pipeline.instantiate.factory.io.serialize.text.RandomSeedWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.text.RandomSeedWriter;
 
@@ -31,4 +32,13 @@ import io.serialize.text.RandomSeedWriter;
  * Created by dbborens on 8/10/2015.
  */
 public class RandomSeedWriterLoader extends OutputLoader<RandomSeedWriter> {
+    private final RandomSeedWriterFactory factory;
+
+    public RandomSeedWriterLoader() {
+        factory = new RandomSeedWriterFactory();
+    }
+
+    public RandomSeedWriterLoader(RandomSeedWriterFactory factory) {
+        this.factory = factory;
+    }
 }

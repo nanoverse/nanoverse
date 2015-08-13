@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.continuum;
 
+import compiler.pipeline.instantiate.factory.processes.continuum.InjectionProcessFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.continuum.InjectionProcess;
 
@@ -31,4 +32,13 @@ import processes.continuum.InjectionProcess;
  * Created by dbborens on 8/3/2015.
  */
 public class InjectionProcessLoader extends ProcessLoader<InjectionProcess> {
+    private final InjectionProcessFactory factory;
+
+    public InjectionProcessLoader() {
+        factory = new InjectionProcessFactory();
+    }
+
+    public InjectionProcessLoader(InjectionProcessFactory factory) {
+        this.factory = factory;
+    }
 }

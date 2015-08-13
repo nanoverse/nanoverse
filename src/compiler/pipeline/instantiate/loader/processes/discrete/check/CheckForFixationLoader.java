@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.check;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.check.CheckForFixationFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.check.CheckForFixation;
 
@@ -31,4 +32,13 @@ import processes.discrete.check.CheckForFixation;
  * Created by dbborens on 8/3/2015.
  */
 public class CheckForFixationLoader extends ProcessLoader<CheckForFixation> {
+    private final CheckForFixationFactory factory;
+
+    public CheckForFixationLoader() {
+        factory = new CheckForFixationFactory();
+    }
+
+    public CheckForFixationLoader(CheckForFixationFactory factory) {
+        this.factory = factory;
+    }
 }

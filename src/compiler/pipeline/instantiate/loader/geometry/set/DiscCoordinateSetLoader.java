@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.set;
 
+import compiler.pipeline.instantiate.factory.geometry.set.DiscCoordinateSetFactory;
 import geometry.set.DiscSet;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class DiscCoordinateSetLoader extends CoordinateSetLoader<DiscSet> {
+    private final DiscCoordinateSetFactory factory;
+
+    public DiscCoordinateSetLoader() {
+        factory = new DiscCoordinateSetFactory();
+    }
+
+    public DiscCoordinateSetLoader(DiscCoordinateSetFactory factory) {
+        this.factory = factory;
+    }
 }

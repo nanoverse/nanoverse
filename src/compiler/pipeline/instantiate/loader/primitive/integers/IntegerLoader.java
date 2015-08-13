@@ -25,10 +25,11 @@
 package compiler.pipeline.instantiate.loader.primitive.integers;
 
 import compiler.pipeline.instantiate.loader.primitive.PrimitiveLoader;
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 
 /**
  * Created by dbborens on 8/1/2015.
  */
-public class IntegerLoader extends PrimitiveLoader<IntegerArgument> {
+public class IntegerLoader extends PrimitiveLoader<Argument<Integer>> {
 }

@@ -26,6 +26,7 @@ package compiler.pipeline.translate.symbol.agent.action;
 
 import agent.action.*;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import org.junit.*;
 

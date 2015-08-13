@@ -23,6 +23,7 @@
  */
 package compiler.pipeline.instantiate.factory.agent.action;
 
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import agent.action.ExpandRandomDescriptor;
 import java.util.Random;
@@ -31,7 +32,7 @@ import layers.LayerManager;
 
 public class ExpandRandomFactoryHelper {
 
-    public ExpandRandomDescriptor build(LayerManager layerManager, IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
+    public ExpandRandomDescriptor build(LayerManager layerManager, Argument<Integer> selfChannel, Argument<Integer> targetChannel, Random random) {
         return new ExpandRandomDescriptor(layerManager, selfChannel, targetChannel, random);
     }
 }

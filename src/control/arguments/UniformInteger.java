@@ -32,7 +32,7 @@ import java.util.Random;
  * <p>
  * Created by David B Borenstein on 4/7/14.
  */
-public class UniformInteger extends IntegerArgument {
+public class UniformInteger extends Argument<Integer> {
     private Random random;
     private int range;
     private int offset;

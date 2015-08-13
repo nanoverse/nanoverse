@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.text;
 
+import compiler.pipeline.instantiate.factory.io.serialize.text.SurfaceCensusWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.text.SurfaceCensusWriter;
 
@@ -31,4 +32,13 @@ import io.serialize.text.SurfaceCensusWriter;
  * Created by dbborens on 8/10/2015.
  */
 public class SurfaceCensusWriterLoader extends OutputLoader<SurfaceCensusWriter> {
+    private final SurfaceCensusWriterFactory factory;
+
+    public SurfaceCensusWriterLoader() {
+        factory = new SurfaceCensusWriterFactory();
+    }
+
+    public SurfaceCensusWriterLoader(SurfaceCensusWriterFactory factory) {
+        this.factory = factory;
+    }
 }

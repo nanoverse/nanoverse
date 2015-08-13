@@ -23,6 +23,7 @@
  */
 package compiler.pipeline.instantiate.factory.agent.action;
 
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import agent.targets.TargetDescriptor;
 import agent.action.TriggerDescriptor;
@@ -36,8 +37,8 @@ public class TriggerFactory implements Factory<TriggerDescriptor> {
     private LayerManager layerManager;
     private String behaviorName;
     private TargetDescriptor ruleDescriptor;
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
+    private Argument<Integer> selfChannel;
+    private Argument<Integer> targetChannel;
 
     public TriggerFactory() {
         helper = new TriggerFactoryHelper();
@@ -59,11 +60,11 @@ public class TriggerFactory implements Factory<TriggerDescriptor> {
         this.ruleDescriptor = ruleDescriptor;
     }
 
-    public void setSelfChannel(IntegerArgument selfChannel) {
+    public void setSelfChannel(Argument<Integer> selfChannel) {
         this.selfChannel = selfChannel;
     }
 
-    public void setTargetChannel(IntegerArgument targetChannel) {
+    public void setTargetChannel(Argument<Integer> targetChannel) {
         this.targetChannel = targetChannel;
     }
 

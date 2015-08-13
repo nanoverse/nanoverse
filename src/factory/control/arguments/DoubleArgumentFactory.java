@@ -36,7 +36,7 @@ import java.util.Random;
  */
 public abstract class DoubleArgumentFactory {
 
-    public static DoubleArgument instantiate(Element e, String name, double defaultValue, Random random) {
+    public static Argument<Double> instantiate(Element e, String name, double defaultValue, Random random) {
         // No element --> return default
         Element valueElement = e.element(name);
         if (valueElement == null) {
@@ -46,7 +46,7 @@ public abstract class DoubleArgumentFactory {
         return instantiate(e, name, random);
     }
 
-    public static DoubleArgument instantiate(Element e, String name, Random random) {
+    public static Argument<Double> instantiate(Element e, String name, Random random) {
 
         // No element --> return default
         Element valueElement = e.element(name);
@@ -75,7 +75,7 @@ public abstract class DoubleArgumentFactory {
         }
     }
 
-    private static DoubleArgument getUniformDouble(Element valueElement, Random random) {
+    private static Argument<Double> getUniformDouble(Element valueElement, Random random) {
         double min, max;
 
         try {
@@ -84,11 +84,11 @@ public abstract class DoubleArgumentFactory {
         } catch (HaltCondition ex) {
             throw new IllegalStateException(ex);
         }
-        DoubleArgument ret = new UniformDouble(min, max, random);
+        Argument<Double> ret = new UniformDouble(min, max, random);
         return ret;
     }
 
-    private static DoubleArgument getConstant(Element e) {
+    private static Argument<Double> getConstant(Element e) {
         String valueText = e.getTextTrim();
         double ret = Double.valueOf(valueText);
         return new ConstantDouble(ret);

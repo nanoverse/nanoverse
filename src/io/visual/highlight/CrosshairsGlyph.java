@@ -25,6 +25,7 @@
 package io.visual.highlight;
 
 import control.identifiers.Coordinate;
+import structural.annotations.FactoryTarget;
 
 import java.awt.*;
 
@@ -44,6 +45,7 @@ public class CrosshairsGlyph extends Glyph {
      * @param circleSize The relative size of the circle, specified as a multiple of the edge size.
      * @param crossSize  The relative size of the cross, specified as a multiple of the edge size.
      */
+    @FactoryTarget
     public CrosshairsGlyph(Color color, double circleSize, double crossSize) {
         this.color = color;
         this.circleSize = circleSize;

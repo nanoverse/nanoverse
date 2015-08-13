@@ -24,34 +24,15 @@
 
 package control.arguments;
 
+import structural.annotations.FactoryTarget;
+
 /**
  * Created by David B Borenstein on 7/22/15.
  */
-public class ConstantBoolean extends BooleanArgument {
+public class ConstantBoolean extends Constant<Boolean> {
 
-    private Boolean value;
-
+    @FactoryTarget
     public ConstantBoolean(Boolean value) {
-        this.value = value;
-    }
-
-    @Override
-    public Boolean next() {
-        return value;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof ConstantBoolean)) {
-            return false;
-        }
-
-        ConstantBoolean other = (ConstantBoolean) obj;
-
-        if (other.value != value) {
-            return false;
-        }
-
-        return true;
+        super(value);
     }
 }

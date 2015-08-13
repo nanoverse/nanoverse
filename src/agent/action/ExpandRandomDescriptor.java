@@ -25,6 +25,7 @@
 package agent.action;
 
 import cells.BehaviorCell;
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import layers.LayerManager;
 import structural.annotations.FactoryTarget;
@@ -41,7 +42,7 @@ public class ExpandRandomDescriptor extends ActionDescriptor<ExpandRandom> {
 
     @FactoryTarget(displayName = "ExpandRandom")
     public ExpandRandomDescriptor(LayerManager layerManager,
-                        IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
+                        Argument<Integer> selfChannel, Argument<Integer> targetChannel, Random random) {
 
         constructor = cell -> new ExpandRandom(cell, layerManager,
                 selfChannel, targetChannel, random);

@@ -60,8 +60,8 @@ public class CheckForDominationTest extends EslimeTestCase {
         layer = new CellLayer(geom);
         layerManager.setCellLayer(layer);
         MockGeneralParameters p = makeMockGeneralParameters();
-        DoubleArgument thresholdArg = new ConstantDouble(0.2);
-        IntegerArgument stateArg = new ConstantInteger(1);
+        Argument<Double> thresholdArg = new ConstantDouble(0.2);
+        Argument<Integer> stateArg = new ConstantInteger(1);
 
         // Create a 1D lattice of length 10.
         // Create an occupancy test that checks for 30% occupancy.

@@ -24,6 +24,8 @@
 package compiler.pipeline.instantiate.factory.control.arguments;
 
 import java.util.List;
+
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import control.arguments.DoubleArgument;
 import java.util.Map;
@@ -36,9 +38,9 @@ public class AgentDescriptorFactory implements Factory<CellDescriptor> {
     private final AgentDescriptorFactoryHelper helper;
 
     private LayerManager layerManager;
-    private IntegerArgument cellState;
-    private DoubleArgument threshold;
-    private DoubleArgument initialHealth;
+    private Argument<Integer> cellState;
+    private Argument<Double> threshold;
+    private Argument<Double> initialHealth;
     private List reactions;
     private Map behaviorDescriptors;
 
@@ -54,15 +56,15 @@ public class AgentDescriptorFactory implements Factory<CellDescriptor> {
         this.layerManager = layerManager;
     }
 
-    public void setCellState(IntegerArgument cellState) {
+    public void setCellState(Argument<Integer> cellState) {
         this.cellState = cellState;
     }
 
-    public void setThreshold(DoubleArgument threshold) {
+    public void setThreshold(Argument<Double> threshold) {
         this.threshold = threshold;
     }
 
-    public void setInitialHealth(DoubleArgument initialHealth) {
+    public void setInitialHealth(Argument<Double> initialHealth) {
         this.initialHealth = initialHealth;
     }
 

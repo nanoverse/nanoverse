@@ -25,6 +25,7 @@
 package io.visual.highlight;
 
 import control.identifiers.Coordinate;
+import structural.annotations.FactoryTarget;
 
 import java.awt.*;
 
@@ -43,6 +44,7 @@ public class BullseyeGlyph extends Glyph {
      * @param secondary The color of the middle circle.
      * @param size      The relative size of the dot, specified as a multiple of the edge size.
      */
+    @FactoryTarget
     public BullseyeGlyph(Color primary, Color secondary, double size) {
         colors = new Color[]{primary, secondary, primary};
         this.size = size;

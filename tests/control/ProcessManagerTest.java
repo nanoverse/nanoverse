@@ -66,9 +66,9 @@ public class ProcessManagerTest extends EslimeTestCase {
     private void initYesAndNo() {
 
         GeneralParameters p = makeMockGeneralParameters();
-        IntegerArgument period = new ConstantInteger(0);
-        IntegerArgument yesStart = new ConstantInteger(CURRENT_N);
-        IntegerArgument noStart = new ConstantInteger(CURRENT_N + 1);
+        Argument<Integer> period = new ConstantInteger(0);
+        Argument<Integer> yesStart = new ConstantInteger(CURRENT_N);
+        Argument<Integer> noStart = new ConstantInteger(CURRENT_N + 1);
 
         BaseProcessArguments yesArgs = new BaseProcessArguments(layerManager, p, 0, yesStart, period);
         BaseProcessArguments noArgs = new BaseProcessArguments(layerManager, p, 0, noStart, period);
@@ -108,8 +108,8 @@ public class ProcessManagerTest extends EslimeTestCase {
 
     public boolean triggerTest(int start, int period) throws Exception {
         GeneralParameters p = makeMockGeneralParameters();
-        IntegerArgument periodArg = new ConstantInteger(period);
-        IntegerArgument startArg = new ConstantInteger(start);
+        Argument<Integer> periodArg = new ConstantInteger(period);
+        Argument<Integer> startArg = new ConstantInteger(start);
 
         BaseProcessArguments args = new BaseProcessArguments(layerManager, p, 0, startArg, periodArg);
 

@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.io.visual.color;
 
+import compiler.pipeline.instantiate.factory.io.visual.color.IndexedColorModelFactory;
 import io.visual.color.DefaultColorManager;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
 public class IndexedColorModelLoader extends ColorModelLoader<DefaultColorManager> {
+    private final IndexedColorModelFactory factory;
+
+    public IndexedColorModelLoader() {
+        factory = new IndexedColorModelFactory();
+    }
+
+    public IndexedColorModelLoader(IndexedColorModelFactory factory) {
+        this.factory = factory;
+    }
 }

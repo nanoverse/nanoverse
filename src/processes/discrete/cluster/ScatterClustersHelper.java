@@ -28,6 +28,7 @@ import cells.BehaviorCell;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import layers.cell.CellLayer;
+import structural.annotations.FactoryTarget;
 
 import java.util.*;
 import java.util.stream.IntStream;

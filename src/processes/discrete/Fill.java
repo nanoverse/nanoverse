@@ -31,6 +31,7 @@ import control.identifiers.Coordinate;
 import processes.BaseProcessArguments;
 import processes.StepState;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 /**
  * Fills in all sites in the active site set
@@ -49,6 +50,7 @@ public class Fill extends CellProcess {
     // that it expected to fill.
     private boolean skipFilled;
 
+    @FactoryTarget
     public Fill(BaseProcessArguments arguments, CellProcessArguments cpArguments, boolean skipFilled, CellDescriptor cellDescriptor) {
         super(arguments, cpArguments);
         this.skipFilled = skipFilled;

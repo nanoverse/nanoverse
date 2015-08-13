@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.check;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.check.CheckForExtinctionFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.check.CheckForExtinction;
 
@@ -31,4 +32,13 @@ import processes.discrete.check.CheckForExtinction;
  * Created by dbborens on 8/3/2015.
  */
 public class CheckForExtinctionLoader extends ProcessLoader<CheckForExtinction> {
+    private final CheckForExtinctionFactory factory;
+
+    public CheckForExtinctionLoader() {
+        factory = new CheckForExtinctionFactory();
+    }
+
+    public CheckForExtinctionLoader(CheckForExtinctionFactory factory) {
+        this.factory = factory;
+    }
 }

@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.set;
 
+import compiler.pipeline.instantiate.factory.geometry.set.CustomCoordinateSetFactory;
 import geometry.set.CustomSet;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class CustomCoordinateSetLoader extends CoordinateSetLoader<CustomSet> {
+    private final CustomCoordinateSetFactory factory;
+
+    public CustomCoordinateSetLoader() {
+        factory = new CustomCoordinateSetFactory();
+    }
+
+    public CustomCoordinateSetLoader(CustomCoordinateSetFactory factory) {
+        this.factory = factory;
+    }
 }

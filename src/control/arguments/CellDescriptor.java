@@ -48,19 +48,19 @@ public class CellDescriptor extends Argument<Cell> {
 
     private LayerManager layerManager;
 
-    private IntegerArgument cellState;
+    private Argument<Integer> cellState;
 
-    private DoubleArgument threshold;
-    private DoubleArgument initialHealth;
+    private Argument<Double> threshold;
+    private Argument<Double> initialHealth;
 
     private List<Reaction> reactions;
     private Map<String, BehaviorDescriptor> behaviorDescriptors;
 
     @FactoryTarget(displayName = "AgentDescriptor")
     public CellDescriptor(LayerManager layerManager,
-                          IntegerArgument cellState,
-                          DoubleArgument threshold,
-                          DoubleArgument initialHealth,
+                          Argument<Integer> cellState,
+                          Argument<Double> threshold,
+                          Argument<Double> initialHealth,
                           List<Reaction> reactions,
                           Map<String, BehaviorDescriptor> behaviorDescriptors) {
 
@@ -116,15 +116,15 @@ public class CellDescriptor extends Argument<Cell> {
         return cell;
     }
 
-    public void setCellState(IntegerArgument cellState) {
+    public void setCellState(Argument<Integer> cellState) {
         this.cellState = cellState;
     }
 
-    public void setThreshold(DoubleArgument threshold) {
+    public void setThreshold(Argument<Double> threshold) {
         this.threshold = threshold;
     }
 
-    public void setInitialHealth(DoubleArgument initialHealth) {
+    public void setInitialHealth(Argument<Double> initialHealth) {
         this.initialHealth = initialHealth;
     }
 

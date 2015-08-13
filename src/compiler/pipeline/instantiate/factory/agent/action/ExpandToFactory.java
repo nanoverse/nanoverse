@@ -23,6 +23,7 @@
  */
 package compiler.pipeline.instantiate.factory.agent.action;
 
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import agent.targets.TargetDescriptor;
 import java.util.Random;
@@ -36,8 +37,8 @@ public class ExpandToFactory implements Factory<ExpandToDescriptor> {
 
     private LayerManager layerManager;
     private TargetDescriptor ruleDescriptor;
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
+    private Argument<Integer> selfChannel;
+    private Argument<Integer> targetChannel;
     private Random random;
 
     public ExpandToFactory() {
@@ -56,11 +57,11 @@ public class ExpandToFactory implements Factory<ExpandToDescriptor> {
         this.ruleDescriptor = ruleDescriptor;
     }
 
-    public void setSelfChannel(IntegerArgument selfChannel) {
+    public void setSelfChannel(Argument<Integer> selfChannel) {
         this.selfChannel = selfChannel;
     }
 
-    public void setTargetChannel(IntegerArgument targetChannel) {
+    public void setTargetChannel(Argument<Integer> targetChannel) {
         this.targetChannel = targetChannel;
     }
 

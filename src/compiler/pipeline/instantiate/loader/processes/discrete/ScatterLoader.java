@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.ScatterFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.Scatter;
 
@@ -31,4 +32,13 @@ import processes.discrete.Scatter;
  * Created by dbborens on 8/3/2015.
  */
 public class ScatterLoader extends ProcessLoader<Scatter> {
+    private final ScatterFactory factory;
+
+    public ScatterLoader() {
+        factory = new ScatterFactory();
+    }
+
+    public ScatterLoader(ScatterFactory factory) {
+        this.factory = factory;
+    }
 }

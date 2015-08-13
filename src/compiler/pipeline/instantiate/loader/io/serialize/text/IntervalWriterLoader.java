@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.text;
 
+import compiler.pipeline.instantiate.factory.io.serialize.text.IntervalWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
 import io.serialize.text.IntervalWriter;
 
@@ -31,4 +32,13 @@ import io.serialize.text.IntervalWriter;
  * Created by dbborens on 8/10/2015.
  */
 public class IntervalWriterLoader extends OutputLoader<IntervalWriter> {
+    private final IntervalWriterFactory factory;
+
+    public IntervalWriterLoader() {
+        factory = new IntervalWriterFactory();
+    }
+
+    public IntervalWriterLoader(IntervalWriterFactory factory) {
+        this.factory = factory;
+    }
 }

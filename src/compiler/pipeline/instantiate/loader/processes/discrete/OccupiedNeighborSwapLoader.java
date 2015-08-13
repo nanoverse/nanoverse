@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.OccupiedNeighborSwapFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.OccupiedNeighborSwap;
 
@@ -31,4 +32,13 @@ import processes.discrete.OccupiedNeighborSwap;
  * Created by dbborens on 8/3/2015.
  */
 public class OccupiedNeighborSwapLoader extends ProcessLoader<OccupiedNeighborSwap> {
+    private final OccupiedNeighborSwapFactory factory;
+
+    public OccupiedNeighborSwapLoader() {
+        factory = new OccupiedNeighborSwapFactory();
+    }
+
+    public OccupiedNeighborSwapLoader(OccupiedNeighborSwapFactory factory) {
+        this.factory = factory;
+    }
 }

@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.geometry.set;
 
+import compiler.pipeline.instantiate.factory.geometry.set.HLineCoordinateSetFactory;
 import geometry.set.HorizontalLineSet;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class HLineCoordinateSetLoader extends CoordinateSetLoader<HorizontalLineSet> {
+    private final HLineCoordinateSetFactory factory;
+
+    public HLineCoordinateSetLoader() {
+        factory = new HLineCoordinateSetFactory();
+    }
+
+    public HLineCoordinateSetLoader(HLineCoordinateSetFactory factory) {
+        this.factory = factory;
+    }
 }

@@ -24,10 +24,20 @@
 
 package compiler.pipeline.instantiate.loader.io.visual;
 
+import compiler.pipeline.instantiate.factory.io.visual.map.MapVisualizationFactory;
 import io.visual.map.MapVisualization;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class MapVisualizationLoader extends VisualizationLoader<MapVisualization> {
+    private final MapVisualizationFactory factory;
+
+    public MapVisualizationLoader() {
+        factory = new MapVisualizationFactory();
+    }
+
+    public MapVisualizationLoader(MapVisualizationFactory factory) {
+        this.factory = factory;
+    }
 }

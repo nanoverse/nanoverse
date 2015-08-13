@@ -46,8 +46,8 @@ import java.util.Random;
 public class Expand extends Action {
 
     // Highlight channels for the targeting and targeted cells
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
+    private Argument<Integer> selfChannel;
+    private Argument<Integer> targetChannel;
 
     // Displaces cells along a trajectory in the event that the cell is
     // divided into an occupied site and replace is disabled.
@@ -56,7 +56,7 @@ public class Expand extends Action {
     private Random random;
 
     public Expand(BehaviorCell callback, LayerManager layerManager,
-                  IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
+                  Argument<Integer> selfChannel, Argument<Integer> targetChannel, Random random) {
 
         super(callback, layerManager);
         this.selfChannel = selfChannel;

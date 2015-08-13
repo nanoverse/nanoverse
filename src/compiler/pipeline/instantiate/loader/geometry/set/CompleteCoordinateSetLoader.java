@@ -24,11 +24,21 @@
 
 package compiler.pipeline.instantiate.loader.geometry.set;
 
+import compiler.pipeline.instantiate.factory.geometry.set.CompleteCoordinateSetFactory;
 import geometry.set.CompleteSet;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class CompleteCoordinateSetLoader extends CoordinateSetLoader<CompleteSet> {
+    private final CompleteCoordinateSetFactory factory;
+
+    public CompleteCoordinateSetLoader() {
+        factory = new CompleteCoordinateSetFactory();
+    }
+
+    public CompleteCoordinateSetLoader(CompleteCoordinateSetFactory factory) {
+        this.factory = factory;
+    }
 
 }

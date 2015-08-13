@@ -23,6 +23,7 @@
  */
 package compiler.pipeline.instantiate.factory.agent.action;
 
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import agent.targets.TargetDescriptor;
 import layers.LayerManager;
@@ -31,7 +32,7 @@ import agent.action.SwapDescriptor;
 
 public class SwapFactoryHelper {
 
-    public SwapDescriptor build(LayerManager layerManager, TargetDescriptor ruleDescriptor, IntegerArgument selfChannel, IntegerArgument targetChannel) {
+    public SwapDescriptor build(LayerManager layerManager, TargetDescriptor ruleDescriptor, Argument<Integer> selfChannel, Argument<Integer> targetChannel) {
         return new SwapDescriptor(layerManager, ruleDescriptor, selfChannel, targetChannel);
     }
 }

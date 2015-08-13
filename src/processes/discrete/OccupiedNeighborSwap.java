@@ -31,6 +31,7 @@ import processes.BaseProcessArguments;
 import processes.MaxTargetHelper;
 import processes.StepState;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class OccupiedNeighborSwap extends CellProcess {
     private List<Object> candidates;
     private Geometry geom;
 
+    @FactoryTarget
     public OccupiedNeighborSwap(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
 
         super(arguments, cpArguments);

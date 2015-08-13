@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.CullFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.Cull;
 
@@ -31,4 +32,13 @@ import processes.discrete.Cull;
  * Created by dbborens on 8/3/2015.
  */
 public class CullLoader extends ProcessLoader<Cull> {
+    private final CullFactory factory;
+
+    public CullLoader() {
+        factory = new CullFactory();
+    }
+
+    public CullLoader(CullFactory factory) {
+        this.factory = factory;
+    }
 }

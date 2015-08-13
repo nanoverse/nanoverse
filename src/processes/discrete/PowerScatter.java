@@ -32,6 +32,7 @@ import processes.*;
 import processes.discrete.cluster.ScatterClustersHelper;
 import processes.gillespie.GillespieState;
 import structural.RangeMap;
+import structural.annotations.FactoryTarget;
 
 import java.util.*;
 import java.util.stream.*;
@@ -40,17 +41,18 @@ public class PowerScatter extends CellProcess {
 
     private List<Coordinate> candidates;
     private final CellDescriptor cellDescriptor;
-    private final ScatterClustersHelper helper;
+    private final ScatterClustersHelper clustersHelper;
     private final RangeMap<Integer> neighborChooser;
 
+    @FactoryTarget
     public PowerScatter(BaseProcessArguments arguments,
                         CellProcessArguments cpArguments,
                         CellDescriptor cellDescriptor,
-                        ScatterClustersHelper helper) {
+                        ScatterClustersHelper clustersHelper) {
 
         super(arguments, cpArguments);
         this.cellDescriptor = cellDescriptor;
-        this.helper = helper;
+        this.clustersHelper = clustersHelper;
         neighborChooser = makeNeighborChooser();
     }
 
@@ -117,7 +119,7 @@ public class PowerScatter extends CellProcess {
             Coordinate current = cIter.next();
 
             // Place cell at this site, if it is acceptable
-            int placed = helper.attemptPlacement(current, toPlace, m);
+            int placed = clustersHelper.attemptPlacement(current, toPlace, m);
 
             if (placed > 0) {
                 ttlPlaced += placed;

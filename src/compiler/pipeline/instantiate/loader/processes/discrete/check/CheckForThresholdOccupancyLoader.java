@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.check;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.check.CheckForThresholdOccupancyFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.check.CheckForThresholdOccupancy;
 
@@ -31,4 +32,13 @@ import processes.discrete.check.CheckForThresholdOccupancy;
  * Created by dbborens on 8/3/2015.
  */
 public class CheckForThresholdOccupancyLoader extends ProcessLoader<CheckForThresholdOccupancy> {
+    private final CheckForThresholdOccupancyFactory factory;
+
+    public CheckForThresholdOccupancyLoader() {
+        factory = new CheckForThresholdOccupancyFactory();
+    }
+
+    public CheckForThresholdOccupancyLoader(CheckForThresholdOccupancyFactory factory) {
+        this.factory = factory;
+    }
 }

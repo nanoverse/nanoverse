@@ -29,6 +29,7 @@ import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import io.visual.HSLColor;
 import layers.SystemState;
+import structural.annotations.FactoryTarget;
 
 import java.awt.*;
 
@@ -42,12 +43,13 @@ import java.awt.*;
 public class SurfaceGrowthColorManager extends ColorManager {
 
     private ColorManager base;
-    private DoubleArgument luminanceScale;
-    private DoubleArgument saturationScale;
+    private Argument<Double> luminanceScale;
+    private Argument<Double> saturationScale;
 
+    @FactoryTarget(displayName = "SurfaceColorModel")
     public SurfaceGrowthColorManager(ColorManager base,
-                                     DoubleArgument luminanceScale,
-                                     DoubleArgument saturationScale) {
+                                     Argument<Double> luminanceScale,
+                                     Argument<Double> saturationScale) {
         this.base = base;
         this.saturationScale = saturationScale;
         this.luminanceScale = luminanceScale;

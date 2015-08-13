@@ -24,13 +24,14 @@
 package compiler.pipeline.instantiate.factory.agent.action;
 
 import agent.action.DieDescriptor;
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import layers.LayerManager;
 
 
 public class DieFactoryHelper {
 
-    public DieDescriptor build(LayerManager layerManager, IntegerArgument channel) {
+    public DieDescriptor build(LayerManager layerManager, Argument<Integer> channel) {
         return new DieDescriptor(layerManager, channel);
     }
 }

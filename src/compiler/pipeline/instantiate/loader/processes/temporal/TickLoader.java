@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.temporal;
 
+import compiler.pipeline.instantiate.factory.processes.temporal.TickFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.temporal.Tick;
 
@@ -31,4 +32,13 @@ import processes.temporal.Tick;
  * Created by dbborens on 8/3/2015.
  */
 public class TickLoader extends ProcessLoader<Tick> {
+    private final TickFactory factory;
+
+    public TickLoader() {
+        factory = new TickFactory();
+    }
+
+    public TickLoader(TickFactory factory) {
+        this.factory = factory;
+    }
 }

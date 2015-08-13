@@ -30,6 +30,7 @@ import control.identifiers.Coordinate;
 import processes.BaseProcessArguments;
 import processes.StepState;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 
@@ -43,7 +44,11 @@ public class Cull extends CellProcess {
     private Coordinate[] targetsArr;
     private double threshold;
 
-    public Cull(BaseProcessArguments arguments, CellProcessArguments cpArguments, double threshold) {
+    @FactoryTarget
+    public Cull(BaseProcessArguments arguments,
+                CellProcessArguments cpArguments,
+                double threshold) {
+
         super(arguments, cpArguments);
         this.threshold = threshold;
     }

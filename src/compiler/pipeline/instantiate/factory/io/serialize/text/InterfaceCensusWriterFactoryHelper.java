@@ -24,6 +24,7 @@
 package compiler.pipeline.instantiate.factory.io.serialize.text;
 
 import control.GeneralParameters;
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import layers.LayerManager;
 import io.serialize.text.InterfaceCensusWriter;
@@ -31,7 +32,7 @@ import io.serialize.text.InterfaceCensusWriter;
 
 public class InterfaceCensusWriterFactoryHelper {
 
-    public InterfaceCensusWriter build(GeneralParameters p, IntegerArgument focalStateArg, LayerManager lm) {
+    public InterfaceCensusWriter build(GeneralParameters p, Argument<Integer> focalStateArg, LayerManager lm) {
         return new InterfaceCensusWriter(p, focalStateArg, lm);
     }
 }

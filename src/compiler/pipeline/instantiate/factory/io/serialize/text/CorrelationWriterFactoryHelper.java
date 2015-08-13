@@ -23,6 +23,7 @@
  */
 package compiler.pipeline.instantiate.factory.io.serialize.text;
 
+import control.arguments.Argument;
 import io.serialize.text.CorrelationWriter;
 import control.GeneralParameters;
 import control.arguments.DoubleArgument;
@@ -31,7 +32,7 @@ import layers.LayerManager;
 
 public class CorrelationWriterFactoryHelper {
 
-    public CorrelationWriter build(GeneralParameters p, String filename, DoubleArgument triggerTimeArg, LayerManager lm) {
+    public CorrelationWriter build(GeneralParameters p, String filename, Argument<Double> triggerTimeArg, LayerManager lm) {
         return new CorrelationWriter(p, filename, triggerTimeArg, lm);
     }
 }

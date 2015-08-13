@@ -23,6 +23,7 @@
  */
 package compiler.pipeline.instantiate.factory.agent.action;
 
+import control.arguments.Argument;
 import control.arguments.DoubleArgument;
 import layers.LayerManager;
 import agent.action.InjectDescriptor;
@@ -30,7 +31,7 @@ import agent.action.InjectDescriptor;
 
 public class InjectFactoryHelper {
 
-    public InjectDescriptor build(LayerManager layerManager, String layerId, DoubleArgument deltaArg) {
+    public InjectDescriptor build(LayerManager layerManager, String layerId, Argument<Double> deltaArg) {
         return new InjectDescriptor(layerManager, layerId, deltaArg);
     }
 }

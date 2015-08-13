@@ -24,6 +24,7 @@
 package compiler.pipeline.instantiate.factory.io.serialize.text;
 
 import control.GeneralParameters;
+import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import layers.LayerManager;
 import io.serialize.text.InterfaceCensusWriter;
@@ -34,7 +35,7 @@ public class InterfaceCensusWriterFactory implements Factory<InterfaceCensusWrit
     private final InterfaceCensusWriterFactoryHelper helper;
 
     private GeneralParameters p;
-    private IntegerArgument focalStateArg;
+    private Argument<Integer> focalStateArg;
     private LayerManager lm;
 
     public InterfaceCensusWriterFactory() {
@@ -49,7 +50,7 @@ public class InterfaceCensusWriterFactory implements Factory<InterfaceCensusWrit
         this.p = p;
     }
 
-    public void setFocalStateArg(IntegerArgument focalStateArg) {
+    public void setFocalStateArg(Argument<Integer> focalStateArg) {
         this.focalStateArg = focalStateArg;
     }
 

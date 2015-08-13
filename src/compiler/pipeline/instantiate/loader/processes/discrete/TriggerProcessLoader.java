@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.TriggerProcessFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import processes.discrete.TriggerProcess;
 
@@ -31,4 +32,13 @@ import processes.discrete.TriggerProcess;
  * Created by dbborens on 8/3/2015.
  */
 public class TriggerProcessLoader extends ProcessLoader<TriggerProcess> {
+    private final TriggerProcessFactory factory;
+
+    public TriggerProcessLoader() {
+        factory = new TriggerProcessFactory();
+    }
+
+    public TriggerProcessLoader(TriggerProcessFactory factory) {
+        this.factory = factory;
+    }
 }

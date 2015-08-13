@@ -109,17 +109,17 @@ public abstract class CellDescriptorFactory {
     }
 
     private static void setInitialHealth(Element e, CellDescriptor cellDescriptor, Random random) {
-        DoubleArgument initialHealth = DoubleArgumentFactory.instantiate(e, "initial-health", DEFAULT_INIT_HEALTH, random);
+        Argument<Double> initialHealth = DoubleArgumentFactory.instantiate(e, "initial-health", DEFAULT_INIT_HEALTH, random);
         cellDescriptor.setInitialHealth(initialHealth);
     }
 
     private static void setThreshold(Element e, CellDescriptor cellDescriptor, Random random) {
-        DoubleArgument threshold = DoubleArgumentFactory.instantiate(e, "threshold", DEFAULT_THRESHOLD, random);
+        Argument<Double> threshold = DoubleArgumentFactory.instantiate(e, "threshold", DEFAULT_THRESHOLD, random);
         cellDescriptor.setThreshold(threshold);
     }
 
     private static void setCellState(Element e, CellDescriptor cellDescriptor, Random random) {
-        IntegerArgument cellState = IntegerArgumentFactory.instantiate(e, "state", DEFAULT_STATE, random);
+        Argument<Integer> cellState = IntegerArgumentFactory.instantiate(e, "state", DEFAULT_STATE, random);
         cellDescriptor.setCellState(cellState);
     }
 

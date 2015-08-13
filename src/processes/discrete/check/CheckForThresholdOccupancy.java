@@ -32,6 +32,7 @@ import processes.StepState;
 import processes.discrete.CellProcess;
 import processes.discrete.CellProcessArguments;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 /**
  * Throws a halt event when the system's total occupancy exceeds a specified
@@ -39,9 +40,10 @@ import processes.gillespie.GillespieState;
  */
 public class CheckForThresholdOccupancy extends CellProcess {
     private int thresholdCount;
-    private DoubleArgument thresholdOccupancy;
+    private Argument<Double> thresholdOccupancy;
 
-    public CheckForThresholdOccupancy(BaseProcessArguments arguments, CellProcessArguments cpArguments, DoubleArgument thresholdOccupancy) {
+    @FactoryTarget
+    public CheckForThresholdOccupancy(BaseProcessArguments arguments, CellProcessArguments cpArguments, Argument<Double> thresholdOccupancy) {
         super(arguments, cpArguments);
         this.thresholdOccupancy = thresholdOccupancy;
     }

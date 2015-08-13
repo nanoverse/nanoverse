@@ -21,14 +21,17 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.io.visual.color;
 
-package compiler.pipeline.instantiate.loader.processes.continuum;
+import control.arguments.Argument;
+import io.visual.color.ColorManager;
+import io.visual.color.NormalizedContinuumColorManager;
+import control.arguments.DoubleArgument;
 
-import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.continuum.OperatorProcess;
 
-/**
- * Created by dbborens on 8/3/2015.
- */
-public class OperatorProcessLoader extends ProcessLoader<OperatorProcess> {
+public class ContinuumColorModelFactoryHelper {
+
+    public NormalizedContinuumColorManager build(Argument<Double> minHueArg, Argument<Double> maxHueArg, Argument<Double> minSaturationArg, Argument<Double> maxSaturationArg, Argument<Double> minLuminanceArg, Argument<Double> maxLuminanceArg, String continuumId, boolean averageLuminance, ColorManager base) {
+        return new NormalizedContinuumColorManager(minHueArg, maxHueArg, minSaturationArg, maxSaturationArg, minLuminanceArg, maxLuminanceArg, continuumId, averageLuminance, base);
+    }
 }

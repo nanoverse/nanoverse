@@ -21,44 +21,38 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.io.serialize;
+package compiler.pipeline.instantiate.factory.processes.discrete.check;
 
-import control.GeneralParameters;
-import java.util.List;
-import io.serialize.SerializationManager;
-import layers.LayerManager;
+import processes.discrete.check.CheckForFixation;
+import processes.discrete.CellProcessArguments;
+import processes.BaseProcessArguments;
 import compiler.pipeline.instantiate.factory.Factory;
 
-public class SerializationManagerFactory implements Factory<SerializationManager> {
+public class CheckForFixationFactory implements Factory<CheckForFixation> {
 
-    private final SerializationManagerFactoryHelper helper;
+    private final CheckForFixationFactoryHelper helper;
 
-    private GeneralParameters p;
-    private LayerManager layerManager;
-    private List writers;
+    private BaseProcessArguments arguments;
+    private CellProcessArguments cpArguments;
 
-    public SerializationManagerFactory() {
-        helper = new SerializationManagerFactoryHelper();
+    public CheckForFixationFactory() {
+        helper = new CheckForFixationFactoryHelper();
     }
 
-    public SerializationManagerFactory(SerializationManagerFactoryHelper helper) {
+    public CheckForFixationFactory(CheckForFixationFactoryHelper helper) {
         this.helper = helper;
     }
 
-    public void setP(GeneralParameters p) {
-        this.p = p;
+    public void setArguments(BaseProcessArguments arguments) {
+        this.arguments = arguments;
     }
 
-    public void setLayerManager(LayerManager layerManager) {
-        this.layerManager = layerManager;
-    }
-
-    public void setWriters(List writers) {
-        this.writers = writers;
+    public void setCpArguments(CellProcessArguments cpArguments) {
+        this.cpArguments = cpArguments;
     }
 
     @Override
-    public SerializationManager build() {
-        return helper.build(p, layerManager, writers);
+    public CheckForFixation build() {
+        return helper.build(arguments, cpArguments);
     }
 }

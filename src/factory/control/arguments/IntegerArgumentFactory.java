@@ -36,7 +36,7 @@ import java.util.Random;
  */
 public abstract class IntegerArgumentFactory {
 
-    public static IntegerArgument instantiate(Element e, String name, int defaultValue, Random random) {
+    public static Argument<Integer> instantiate(Element e, String name, int defaultValue, Random random) {
         // No element --> return default
         Element valueElement = e.element(name);
         if (valueElement == null) {
@@ -46,7 +46,7 @@ public abstract class IntegerArgumentFactory {
         return instantiate(e, name, random);
     }
 
-    public static IntegerArgument instantiate(Element e, String name, Random random) {
+    public static Argument<Integer> instantiate(Element e, String name, Random random) {
 
         // No element --> return default
         Element valueElement = e.element(name);
@@ -75,7 +75,7 @@ public abstract class IntegerArgumentFactory {
         }
     }
 
-    private static IntegerArgument getUniformInteger(Element valueElement, Random random) {
+    private static Argument<Integer> getUniformInteger(Element valueElement, Random random) {
         int min, max;
         try {
             min = instantiate(valueElement, "min", random).next();
@@ -84,11 +84,11 @@ public abstract class IntegerArgumentFactory {
             throw new IllegalStateException(ex);
         }
 
-        IntegerArgument ret = new UniformInteger(min, max, random);
+        Argument<Integer> ret = new UniformInteger(min, max, random);
         return ret;
     }
 
-    private static IntegerArgument getConstant(Element e) {
+    private static Argument<Integer> getConstant(Element e) {
         String valueText = e.getTextTrim();
         int ret = Integer.valueOf(valueText);
         return new ConstantInteger(ret);

@@ -23,6 +23,7 @@
  */
 package compiler.pipeline.instantiate.factory.io.serialize.text;
 
+import control.arguments.Argument;
 import io.serialize.text.CorrelationWriter;
 import control.GeneralParameters;
 import control.arguments.DoubleArgument;
@@ -35,7 +36,7 @@ public class CorrelationWriterFactory implements Factory<CorrelationWriter> {
 
     private GeneralParameters p;
     private String filename;
-    private DoubleArgument triggerTimeArg;
+    private Argument<Double> triggerTimeArg;
     private LayerManager lm;
 
     public CorrelationWriterFactory() {
@@ -54,7 +55,7 @@ public class CorrelationWriterFactory implements Factory<CorrelationWriter> {
         this.filename = filename;
     }
 
-    public void setTriggerTimeArg(DoubleArgument triggerTimeArg) {
+    public void setTriggerTimeArg(Argument<Double> triggerTimeArg) {
         this.triggerTimeArg = triggerTimeArg;
     }
 

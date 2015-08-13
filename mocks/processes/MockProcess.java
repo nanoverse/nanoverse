@@ -28,6 +28,7 @@ import control.arguments.ConstantInteger;
 import control.halt.HaltCondition;
 import layers.MockLayerManager;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 /**
  * Dummy process that does nothing except report that it
@@ -47,6 +48,7 @@ public class MockProcess extends NanoverseProcess {
     // testing.
     private int timesFired = 0;
 
+    @FactoryTarget
     public MockProcess(BaseProcessArguments arguments, String identifier, double weight, int count) {
         super(arguments);
         this.count = count;

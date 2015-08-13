@@ -26,15 +26,17 @@ package processes.discrete;
 
 import control.arguments.*;
 import geometry.set.CoordinateSet;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 11/23/14.
  */
 public class CellProcessArguments {
     private CoordinateSet activeSites;
-    private IntegerArgument maxTargets;
+    private Argument<Integer> maxTargets;
 
-    public CellProcessArguments(CoordinateSet activeSites, IntegerArgument maxTargets) {
+    @FactoryTarget
+    public CellProcessArguments(CoordinateSet activeSites, Argument<Integer> maxTargets) {
         this.activeSites = activeSites;
         this.maxTargets = maxTargets;
     }
@@ -43,7 +45,7 @@ public class CellProcessArguments {
         return activeSites;
     }
 
-    public IntegerArgument getMaxTargets() {
+    public Argument<Integer> getMaxTargets() {
         return maxTargets;
     }
 
