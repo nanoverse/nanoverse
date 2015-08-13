@@ -33,7 +33,7 @@ import agent.action.CloneToDescriptor;
 
 public class CloneToFactoryHelper {
 
-    public CloneToDescriptor build(LayerManager layerManager, TargetDescriptor targetDescriptor, boolean noReplace, Argument<Integer> selfChannel, Argument<Integer> targetChannel, Random random) {
+    public CloneToDescriptor build(LayerManager layerManager, TargetDescriptor targetDescriptor, boolean noReplace, IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
         return new CloneToDescriptor(layerManager, targetDescriptor, noReplace, selfChannel, targetChannel, random);
     }
 }

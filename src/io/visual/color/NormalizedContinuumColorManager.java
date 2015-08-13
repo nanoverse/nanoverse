@@ -55,12 +55,12 @@ public class NormalizedContinuumColorManager extends ColorManager {
     private final boolean averageLuminance;
 
     @FactoryTarget(displayName = "ContinuumColorModel")
-    public NormalizedContinuumColorManager(Argument<Double> minHueArg,
-                                           Argument<Double> maxHueArg,
-                                           Argument<Double> minSaturationArg,
-                                           Argument<Double> maxSaturationArg,
-                                           Argument<Double> minLuminanceArg,
-                                           Argument<Double> maxLuminanceArg,
+    public NormalizedContinuumColorManager(DoubleArgument minHueArg,
+                                           DoubleArgument maxHueArg,
+                                           DoubleArgument minSaturationArg,
+                                           DoubleArgument maxSaturationArg,
+                                           DoubleArgument minLuminanceArg,
+                                           DoubleArgument maxLuminanceArg,
                                            String continuumId,
                                            boolean averageLuminance,
                                            ColorManager base) {
@@ -81,12 +81,12 @@ public class NormalizedContinuumColorManager extends ColorManager {
         }
     }
 
-    public NormalizedContinuumColorManager(Argument<Double> minHueArg,
-                                           Argument<Double> maxHueArg,
-                                           Argument<Double> minSaturationArg,
-                                           Argument<Double> maxSaturationArg,
-                                           Argument<Double> minLuminanceArg,
-                                           Argument<Double> maxLuminanceArg,
+    public NormalizedContinuumColorManager(DoubleArgument minHueArg,
+                                           DoubleArgument maxHueArg,
+                                           DoubleArgument minSaturationArg,
+                                           DoubleArgument maxSaturationArg,
+                                           DoubleArgument minLuminanceArg,
+                                           DoubleArgument maxLuminanceArg,
                                            ContinuumNormalizationHelper normalizer,
                                            boolean averageLuminance,
                                            ColorManager base) {

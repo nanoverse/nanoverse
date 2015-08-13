@@ -36,7 +36,7 @@ public class CorrelationWriterFactory implements Factory<CorrelationWriter> {
 
     private GeneralParameters p;
     private String filename;
-    private Argument<Double> triggerTimeArg;
+    private DoubleArgument triggerTimeArg;
     private LayerManager lm;
 
     public CorrelationWriterFactory() {
@@ -55,7 +55,7 @@ public class CorrelationWriterFactory implements Factory<CorrelationWriter> {
         this.filename = filename;
     }
 
-    public void setTriggerTimeArg(Argument<Double> triggerTimeArg) {
+    public void setTriggerTimeArg(DoubleArgument triggerTimeArg) {
         this.triggerTimeArg = triggerTimeArg;
     }
 

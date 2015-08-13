@@ -51,7 +51,7 @@ public abstract class CellProcess extends NanoverseProcess {
         return cpArguments.getActiveSites();
     }
 
-    protected Argument<Integer> getMaxTargets() {
+    protected IntegerArgument getMaxTargets() {
         return cpArguments.getMaxTargets();
     }
 }

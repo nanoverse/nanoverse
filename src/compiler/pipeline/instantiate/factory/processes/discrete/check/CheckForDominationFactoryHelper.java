@@ -33,7 +33,7 @@ import processes.BaseProcessArguments;
 
 public class CheckForDominationFactoryHelper {
 
-    public CheckForDomination build(BaseProcessArguments arguments, CellProcessArguments cpArguments, Argument<Integer> targetStateArg, Argument<Double> targetFractionArg) {
+    public CheckForDomination build(BaseProcessArguments arguments, CellProcessArguments cpArguments, IntegerArgument targetStateArg, DoubleArgument targetFractionArg) {
         return new CheckForDomination(arguments, cpArguments, targetStateArg, targetFractionArg);
     }
 }

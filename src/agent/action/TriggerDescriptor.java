@@ -43,8 +43,8 @@ public class TriggerDescriptor extends ActionDescriptor<Trigger> {
     public TriggerDescriptor(LayerManager layerManager,
                              String behaviorName,
                              TargetDescriptor ruleDescriptor,
-                             Argument<Integer> selfChannel,
-                             Argument<Integer> targetChannel) {
+                             IntegerArgument selfChannel,
+                             IntegerArgument targetChannel) {
 
         constructor = cell -> {
             TargetRule targetRule = ruleDescriptor.instantiate(cell);

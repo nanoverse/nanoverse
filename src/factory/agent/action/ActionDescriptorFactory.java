@@ -84,7 +84,7 @@ public abstract class ActionDescriptorFactory {
     }
 
     private static ActionDescriptor inject(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Double> deltaArg = DoubleArgumentFactory.instantiate(e, "delta", p.getRandom());
+        DoubleArgument deltaArg = DoubleArgumentFactory.instantiate(e, "delta", p.getRandom());
         String layerId = e.element("layer").getTextTrim();
         return new InjectDescriptor(layerManager, layerId, deltaArg);
     }
@@ -114,7 +114,7 @@ public abstract class ActionDescriptorFactory {
     }
 
     private static ActionDescriptor<Die> die(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> channel = IntegerArgumentFactory.instantiate(e, "highlight", -1, p.getRandom());
+        IntegerArgument channel = IntegerArgumentFactory.instantiate(e, "highlight", -1, p.getRandom());
         return new DieDescriptor(layerManager, channel);
     }
 
@@ -122,16 +122,16 @@ public abstract class ActionDescriptorFactory {
         Element descriptor = e.element("target");
         TargetDescriptor targetDescriptor = TargetDesciptorFactory.instantiate(layerManager, descriptor, p);
         String behaviorName = e.element("behavior").getTextTrim();
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         return new TriggerDescriptor(layerManager, behaviorName, targetDescriptor, selfChannel, targetChannel);
     }
 
     private static ActionDescriptor<CloneTo> cloneTo(Element e, LayerManager layerManager, GeneralParameters p) {
         Element descriptor = e.element("target");
         TargetDescriptor targetDescriptor = TargetDesciptorFactory.instantiate(layerManager, descriptor, p);
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         boolean noReplace = XmlUtil.getBoolean(e, "no-replacement");
         return new CloneToDescriptor(layerManager, targetDescriptor, noReplace, selfChannel, targetChannel, p.getRandom());
     }
@@ -139,34 +139,34 @@ public abstract class ActionDescriptorFactory {
     private static ActionDescriptor<Swap> swap(Element e, LayerManager layerManager, GeneralParameters p) {
         Element descriptor = e.element("target");
         TargetDescriptor targetDescriptor = TargetDesciptorFactory.instantiate(layerManager, descriptor, p);
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         return new SwapDescriptor(layerManager, targetDescriptor, selfChannel, targetChannel);
     }
 
     private static ActionDescriptor<ExpandTo> expandTo(Element e, LayerManager layerManager, GeneralParameters p) {
         Element descriptor = e.element("target");
         TargetDescriptor targetDescriptor = TargetDesciptorFactory.instantiate(layerManager, descriptor, p);
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         return new ExpandToDescriptor(layerManager, targetDescriptor, selfChannel, targetChannel, p.getRandom());
     }
 
     private static ActionDescriptor<Expand> expand(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         return new ExpandDescriptor(layerManager, selfChannel, targetChannel, p.getRandom());
     }
 
     private static ActionDescriptor<ExpandRandom> expandRandom(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         return new ExpandRandomDescriptor(layerManager, selfChannel, targetChannel, p.getRandom());
     }
 
     private static ActionDescriptor<ExpandWeighted> expandWeighted(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
-        Argument<Integer> targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
+        IntegerArgument selfChannel = IntegerArgumentFactory.instantiate(e, "actor-highlight", -1, p.getRandom());
+        IntegerArgument targetChannel = IntegerArgumentFactory.instantiate(e, "target-highlight", -1, p.getRandom());
         return new ExpandWeightedDescriptor(layerManager, selfChannel, targetChannel, p.getRandom());
     }
 

@@ -42,8 +42,8 @@ public class ExpandDescriptor extends ActionDescriptor<Expand> {
 
     @FactoryTarget(displayName = "Expand")
     public ExpandDescriptor(LayerManager layerManager,
-                            Argument<Integer> selfChannel,
-                            Argument<Integer> targetChannel,
+                            IntegerArgument selfChannel,
+                            IntegerArgument targetChannel,
                             Random random) {
 
         constructor = cell -> new Expand(cell, layerManager, selfChannel,

@@ -36,8 +36,8 @@ public class ThresholdDoFactory implements Factory<ThresholdDoDescriptor> {
 
     private LayerManager layerManager;
     private String layerId;
-    private Argument<Double> minimumArg;
-    private Argument<Double> maximumArg;
+    private DoubleArgument minimumArg;
+    private DoubleArgument maximumArg;
     private ActionDescriptor childDescriptor;
 
     public ThresholdDoFactory() {
@@ -56,11 +56,11 @@ public class ThresholdDoFactory implements Factory<ThresholdDoDescriptor> {
         this.layerId = layerId;
     }
 
-    public void setMinimumArg(Argument<Double> minimumArg) {
+    public void setMinimumArg(DoubleArgument minimumArg) {
         this.minimumArg = minimumArg;
     }
 
-    public void setMaximumArg(Argument<Double> maximumArg) {
+    public void setMaximumArg(DoubleArgument maximumArg) {
         this.maximumArg = maximumArg;
     }
 

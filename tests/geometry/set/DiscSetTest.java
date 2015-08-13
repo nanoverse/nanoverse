@@ -54,7 +54,7 @@ public class DiscSetTest extends EslimeTestCase {
         expected.add(new Coordinate2D(0, 3, 0));
         expected.add(new Coordinate2D(0, 4, 0));
 
-        Argument<Integer> radiusArg = new ConstantInteger(1);
+        IntegerArgument radiusArg = new ConstantInteger(1);
         Coordinate offset = new Coordinate2D(0, -1, 0);
         DiscSet actual = new DiscSet(geom, radiusArg, offset);
 
@@ -74,7 +74,7 @@ public class DiscSetTest extends EslimeTestCase {
         expected.add(new Coordinate2D(1, 2, 0));
         expected.add(new Coordinate2D(0, 1, 0));
         expected.add(new Coordinate2D(1, 1, 0));
-        Argument<Integer> radiusArg = new ConstantInteger(1);
+        IntegerArgument radiusArg = new ConstantInteger(1);
         Coordinate offset = new Coordinate3D(0, -1, 0, 0);
         DiscSet actual = new DiscSet(geom, radiusArg, offset);
         assertEquals(expected, actual);
@@ -87,7 +87,7 @@ public class DiscSetTest extends EslimeTestCase {
         Shape shape = new Rectangle(lattice, 5, 5);
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        Argument<Integer> radiusArg = new ConstantInteger(1);
+        IntegerArgument radiusArg = new ConstantInteger(1);
         Coordinate offset = new Coordinate2D(-1, -1, 0);
         DiscSet actual = new DiscSet(geom, radiusArg, offset);
 
@@ -106,7 +106,7 @@ public class DiscSetTest extends EslimeTestCase {
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
         Coordinate offset = new Coordinate3D(-1, -1, -1, 0);
-        Argument<Integer> radiusArg = new ConstantInteger(1);
+        IntegerArgument radiusArg = new ConstantInteger(1);
         DiscSet actual = new DiscSet(geom, radiusArg, offset);
 
         CustomSet expected = new CustomSet();

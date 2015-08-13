@@ -31,5 +31,5 @@ import control.arguments.IntegerArgument;
 /**
  * Created by dbborens on 8/1/2015.
  */
-public class IntegerLoader extends PrimitiveLoader<Argument<Integer>> {
+public class IntegerLoader extends PrimitiveLoader<IntegerArgument> {
 }

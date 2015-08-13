@@ -35,7 +35,7 @@ public class InterfaceCensusWriterFactory implements Factory<InterfaceCensusWrit
     private final InterfaceCensusWriterFactoryHelper helper;
 
     private GeneralParameters p;
-    private Argument<Integer> focalStateArg;
+    private IntegerArgument focalStateArg;
     private LayerManager lm;
 
     public InterfaceCensusWriterFactory() {
@@ -50,7 +50,7 @@ public class InterfaceCensusWriterFactory implements Factory<InterfaceCensusWrit
         this.p = p;
     }
 
-    public void setFocalStateArg(Argument<Integer> focalStateArg) {
+    public void setFocalStateArg(IntegerArgument focalStateArg) {
         this.focalStateArg = focalStateArg;
     }
 

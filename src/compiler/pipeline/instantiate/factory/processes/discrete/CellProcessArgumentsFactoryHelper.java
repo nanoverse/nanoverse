@@ -31,7 +31,7 @@ import geometry.set.CoordinateSet;
 
 public class CellProcessArgumentsFactoryHelper {
 
-    public CellProcessArguments build(CoordinateSet activeSites, Argument<Integer> maxTargets) {
+    public CellProcessArguments build(CoordinateSet activeSites, IntegerArgument maxTargets) {
         return new CellProcessArguments(activeSites, maxTargets);
     }
 }

@@ -34,7 +34,7 @@ public class CellStateFilterFactory implements Factory<CellStateFilter> {
     private final CellStateFilterFactoryHelper helper;
 
     private CellLayer layer;
-    private Argument<Integer> toChoose;
+    private IntegerArgument toChoose;
 
     public CellStateFilterFactory() {
         helper = new CellStateFilterFactoryHelper();
@@ -48,7 +48,7 @@ public class CellStateFilterFactory implements Factory<CellStateFilter> {
         this.layer = layer;
     }
 
-    public void setToChoose(Argument<Integer> toChoose) {
+    public void setToChoose(IntegerArgument toChoose) {
         this.toChoose = toChoose;
     }
 

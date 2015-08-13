@@ -29,7 +29,7 @@ import structural.annotations.FactoryTarget;
 /**
  * Created by dbborens on 8/12/15.
  */
-public class ConstantString extends Constant<String> {
+public class ConstantString extends Constant<String> implements StringArgument {
 
     @FactoryTarget
     public ConstantString(String value) {

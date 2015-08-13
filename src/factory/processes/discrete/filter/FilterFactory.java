@@ -93,13 +93,13 @@ public abstract class FilterFactory {
     }
 
     private static Filter cellStateFilter(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> toChoose = IntegerArgumentFactory.instantiate(e, "state", p.getRandom());
+        IntegerArgument toChoose = IntegerArgumentFactory.instantiate(e, "state", p.getRandom());
         CellStateFilter ret = new CellStateFilter(layerManager.getCellLayer(), toChoose);
         return ret;
     }
 
     private static Filter depthFilter(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> maxDepth = IntegerArgumentFactory.instantiate(e, "max-depth", 1, p.getRandom());
+        IntegerArgument maxDepth = IntegerArgumentFactory.instantiate(e, "max-depth", 1, p.getRandom());
         DepthFilter ret = new DepthFilter(layerManager.getCellLayer(), maxDepth);
         return ret;
     }

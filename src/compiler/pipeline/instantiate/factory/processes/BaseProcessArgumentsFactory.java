@@ -37,8 +37,8 @@ public class BaseProcessArgumentsFactory implements Factory<BaseProcessArguments
     private LayerManager layerManager;
     private GeneralParameters generalParameters;
     private int id;
-    private Argument<Integer> start;
-    private Argument<Integer> period;
+    private IntegerArgument start;
+    private IntegerArgument period;
 
     public BaseProcessArgumentsFactory() {
         helper = new BaseProcessArgumentsFactoryHelper();
@@ -60,11 +60,11 @@ public class BaseProcessArgumentsFactory implements Factory<BaseProcessArguments
         this.id = id;
     }
 
-    public void setStart(Argument<Integer> start) {
+    public void setStart(IntegerArgument start) {
         this.start = start;
     }
 
-    public void setPeriod(Argument<Integer> period) {
+    public void setPeriod(IntegerArgument period) {
         this.period = period;
     }
 

@@ -86,7 +86,7 @@ public class TriggerProcessFactoryTest extends EslimeTestCase {
     public void testExplicit() throws Exception {
         Element testElem = root.element("explicit-case");
 
-        Argument<Integer> maxTargets = new ConstantInteger(2);
+        IntegerArgument maxTargets = new ConstantInteger(2);
         CoordinateSet activeSites = new DiscSet(geom, new ConstantInteger(2), new Coordinate2D(0, 0, 0));
         CellProcessArguments cpArguments = new CellProcessArguments(activeSites, maxTargets);
 

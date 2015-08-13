@@ -43,7 +43,7 @@ public abstract class ScatterClustersProcessFactory extends ProcessFactory {
         BaseProcessArguments arguments = makeProcessArguments(e, layerManager, p, id);
         CellProcessArguments cpArguments = makeCellProcessArguments(e, layerManager, p);
         CellDescriptor cellDescriptor = makeCellDescriptor(e, "cell-descriptor", layerManager, p);
-        Argument<Integer> neighborCount = IntegerArgumentFactory.instantiate(e, "neighbors", 1, p.getRandom());
+        IntegerArgument neighborCount = IntegerArgumentFactory.instantiate(e, "neighbors", 1, p.getRandom());
         ScatterClustersHelper helper = ScatterClustersHelperFactory.instantiate(e, layerManager, p);
         ScatterClusters scatter = new ScatterClusters(arguments, cpArguments, neighborCount, cellDescriptor, helper);
 

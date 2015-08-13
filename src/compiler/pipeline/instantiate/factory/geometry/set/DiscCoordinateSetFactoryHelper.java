@@ -32,7 +32,7 @@ import geometry.Geometry;
 
 public class DiscCoordinateSetFactoryHelper {
 
-    public DiscSet build(Geometry geom, Argument<Integer> radiusArg, Coordinate offset) {
+    public DiscSet build(Geometry geom, IntegerArgument radiusArg, Coordinate offset) {
         return new DiscSet(geom, radiusArg, offset);
     }
 }

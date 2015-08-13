@@ -32,7 +32,7 @@ import layers.LayerManager;
 
 public class ExpandRandomFactoryHelper {
 
-    public ExpandRandomDescriptor build(LayerManager layerManager, Argument<Integer> selfChannel, Argument<Integer> targetChannel, Random random) {
+    public ExpandRandomDescriptor build(LayerManager layerManager, IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
         return new ExpandRandomDescriptor(layerManager, selfChannel, targetChannel, random);
     }
 }

@@ -43,8 +43,8 @@ public class ExpandToDescriptor extends ActionDescriptor<ExpandTo> {
     @FactoryTarget(displayName = "ExpandTo")
     public ExpandToDescriptor(LayerManager layerManager,
                               TargetDescriptor ruleDescriptor,
-                              Argument<Integer> selfChannel,
-                              Argument<Integer> targetChannel, Random
+                              IntegerArgument selfChannel,
+                              IntegerArgument targetChannel, Random
                                           random) {
 
         constructor = cell -> {

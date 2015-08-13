@@ -32,7 +32,7 @@ import layers.LayerManager;
 
 public class BaseProcessArgumentsFactoryHelper {
 
-    public BaseProcessArguments build(LayerManager layerManager, GeneralParameters generalParameters, int id, Argument<Integer> start, Argument<Integer> period) {
+    public BaseProcessArguments build(LayerManager layerManager, GeneralParameters generalParameters, int id, IntegerArgument start, IntegerArgument period) {
         return new BaseProcessArguments(layerManager, generalParameters, id, start, period);
     }
 }

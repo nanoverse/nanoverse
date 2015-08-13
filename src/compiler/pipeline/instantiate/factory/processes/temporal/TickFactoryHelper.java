@@ -31,7 +31,7 @@ import processes.BaseProcessArguments;
 
 public class TickFactoryHelper {
 
-    public Tick build(BaseProcessArguments arguments, Argument<Double> dt) {
+    public Tick build(BaseProcessArguments arguments, DoubleArgument dt) {
         return new Tick(arguments, dt);
     }
 }

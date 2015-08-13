@@ -29,7 +29,7 @@ import structural.annotations.FactoryTarget;
 /**
  * Created by David B Borenstein on 7/22/15.
  */
-public class ConstantBoolean extends Constant<Boolean> {
+public class ConstantBoolean extends Constant<Boolean> implements BooleanArgument {
 
     @FactoryTarget
     public ConstantBoolean(Boolean value) {

@@ -42,8 +42,8 @@ public class ThresholdDoDescriptor extends ActionDescriptor<ThresholdDo> {
     @FactoryTarget(displayName = "ThresholdDo")
     public ThresholdDoDescriptor(LayerManager layerManager,
                                  String layerId,
-                                 Argument<Double> minimumArg,
-                                 Argument<Double> maximumArg,
+                                 DoubleArgument minimumArg,
+                                 DoubleArgument maximumArg,
                                  ActionDescriptor childDescriptor) {
 
         constructor = cell -> {

@@ -33,12 +33,12 @@ public class ContinuumColorModelFactory implements Factory<NormalizedContinuumCo
 
     private final ContinuumColorModelFactoryHelper helper;
 
-    private Argument<Double> minHueArg;
-    private Argument<Double> maxHueArg;
-    private Argument<Double> minSaturationArg;
-    private Argument<Double> maxSaturationArg;
-    private Argument<Double> minLuminanceArg;
-    private Argument<Double> maxLuminanceArg;
+    private DoubleArgument minHueArg;
+    private DoubleArgument maxHueArg;
+    private DoubleArgument minSaturationArg;
+    private DoubleArgument maxSaturationArg;
+    private DoubleArgument minLuminanceArg;
+    private DoubleArgument maxLuminanceArg;
     private String continuumId;
     private boolean averageLuminance;
     private ColorManager base;
@@ -51,27 +51,27 @@ public class ContinuumColorModelFactory implements Factory<NormalizedContinuumCo
         this.helper = helper;
     }
 
-    public void setMinHueArg(Argument<Double> minHueArg) {
+    public void setMinHueArg(DoubleArgument minHueArg) {
         this.minHueArg = minHueArg;
     }
 
-    public void setMaxHueArg(Argument<Double> maxHueArg) {
+    public void setMaxHueArg(DoubleArgument maxHueArg) {
         this.maxHueArg = maxHueArg;
     }
 
-    public void setMinSaturationArg(Argument<Double> minSaturationArg) {
+    public void setMinSaturationArg(DoubleArgument minSaturationArg) {
         this.minSaturationArg = minSaturationArg;
     }
 
-    public void setMaxSaturationArg(Argument<Double> maxSaturationArg) {
+    public void setMaxSaturationArg(DoubleArgument maxSaturationArg) {
         this.maxSaturationArg = maxSaturationArg;
     }
 
-    public void setMinLuminanceArg(Argument<Double> minLuminanceArg) {
+    public void setMinLuminanceArg(DoubleArgument minLuminanceArg) {
         this.minLuminanceArg = minLuminanceArg;
     }
 
-    public void setMaxLuminanceArg(Argument<Double> maxLuminanceArg) {
+    public void setMaxLuminanceArg(DoubleArgument maxLuminanceArg) {
         this.maxLuminanceArg = maxLuminanceArg;
     }
 

@@ -63,8 +63,8 @@ public class IntegerArgumentFactoryTest extends EslimeTestCase {
     public void testNullWithDefault() {
         Element element = root.element("null-case");
 
-        Argument<Integer> actual = IntegerArgumentFactory.instantiate(element, "not-there", 5, random);
-        Argument<Integer> expected = new ConstantInteger(5);
+        IntegerArgument actual = IntegerArgumentFactory.instantiate(element, "not-there", 5, random);
+        IntegerArgument expected = new ConstantInteger(5);
 
         assertEquals(expected, actual);
     }
@@ -72,29 +72,29 @@ public class IntegerArgumentFactoryTest extends EslimeTestCase {
     public void testConstantImplicit() {
         Element element = root.element("constant-implicit-case");
 
-        Argument<Integer> actual = IntegerArgumentFactory.instantiate(element, "test", 6, random);
-        Argument<Integer> expected = new ConstantInteger(5);
+        IntegerArgument actual = IntegerArgumentFactory.instantiate(element, "test", 6, random);
+        IntegerArgument expected = new ConstantInteger(5);
 
         assertEquals(expected, actual);
     }
 
     public void testConstantExplicit() {
-        Argument<Integer> actual = IntegerArgumentFactory.instantiate(root, "constant-explicit-case", 6, random);
-        Argument<Integer> expected = new ConstantInteger(5);
+        IntegerArgument actual = IntegerArgumentFactory.instantiate(root, "constant-explicit-case", 6, random);
+        IntegerArgument expected = new ConstantInteger(5);
 
         assertEquals(expected, actual);
     }
 
     public void testUniform() {
-        Argument<Integer> actual = IntegerArgumentFactory.instantiate(root, "uniform-case", 6, random);
-        Argument<Integer> expected = new UniformInteger(1, 3, random);
+        IntegerArgument actual = IntegerArgumentFactory.instantiate(root, "uniform-case", 6, random);
+        IntegerArgument expected = new UniformInteger(1, 3, random);
 
         assertEquals(expected, actual);
     }
 
     public void testRecursive() {
-        Argument<Integer> actual = IntegerArgumentFactory.instantiate(root, "recursive-case", 6, random);
-        Argument<Integer> expected = new UniformInteger(-1, 2, random);
+        IntegerArgument actual = IntegerArgumentFactory.instantiate(root, "recursive-case", 6, random);
+        IntegerArgument expected = new UniformInteger(-1, 2, random);
 
         assertEquals(expected, actual);
     }

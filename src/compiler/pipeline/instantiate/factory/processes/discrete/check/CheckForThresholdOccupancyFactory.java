@@ -36,7 +36,7 @@ public class CheckForThresholdOccupancyFactory implements Factory<CheckForThresh
 
     private BaseProcessArguments arguments;
     private CellProcessArguments cpArguments;
-    private Argument<Double> thresholdOccupancy;
+    private DoubleArgument thresholdOccupancy;
 
     public CheckForThresholdOccupancyFactory() {
         helper = new CheckForThresholdOccupancyFactoryHelper();
@@ -54,7 +54,7 @@ public class CheckForThresholdOccupancyFactory implements Factory<CheckForThresh
         this.cpArguments = cpArguments;
     }
 
-    public void setThresholdOccupancy(Argument<Double> thresholdOccupancy) {
+    public void setThresholdOccupancy(DoubleArgument thresholdOccupancy) {
         this.thresholdOccupancy = thresholdOccupancy;
     }
 

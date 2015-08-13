@@ -33,7 +33,7 @@ import agent.action.ExpandToDescriptor;
 
 public class ExpandToFactoryHelper {
 
-    public ExpandToDescriptor build(LayerManager layerManager, TargetDescriptor ruleDescriptor, Argument<Integer> selfChannel, Argument<Integer> targetChannel, Random random) {
+    public ExpandToDescriptor build(LayerManager layerManager, TargetDescriptor ruleDescriptor, IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
         return new ExpandToDescriptor(layerManager, ruleDescriptor, selfChannel, targetChannel, random);
     }
 }

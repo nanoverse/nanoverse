@@ -36,8 +36,8 @@ public class SwapFactory implements Factory<SwapDescriptor> {
 
     private LayerManager layerManager;
     private TargetDescriptor ruleDescriptor;
-    private Argument<Integer> selfChannel;
-    private Argument<Integer> targetChannel;
+    private IntegerArgument selfChannel;
+    private IntegerArgument targetChannel;
 
     public SwapFactory() {
         helper = new SwapFactoryHelper();
@@ -55,11 +55,11 @@ public class SwapFactory implements Factory<SwapDescriptor> {
         this.ruleDescriptor = ruleDescriptor;
     }
 
-    public void setSelfChannel(Argument<Integer> selfChannel) {
+    public void setSelfChannel(IntegerArgument selfChannel) {
         this.selfChannel = selfChannel;
     }
 
-    public void setTargetChannel(Argument<Integer> targetChannel) {
+    public void setTargetChannel(IntegerArgument targetChannel) {
         this.targetChannel = targetChannel;
     }
 

@@ -43,13 +43,13 @@ import java.awt.*;
 public class SurfaceGrowthColorManager extends ColorManager {
 
     private ColorManager base;
-    private Argument<Double> luminanceScale;
-    private Argument<Double> saturationScale;
+    private DoubleArgument luminanceScale;
+    private DoubleArgument saturationScale;
 
     @FactoryTarget(displayName = "SurfaceColorModel")
     public SurfaceGrowthColorManager(ColorManager base,
-                                     Argument<Double> luminanceScale,
-                                     Argument<Double> saturationScale) {
+                                     DoubleArgument luminanceScale,
+                                     DoubleArgument saturationScale) {
         this.base = base;
         this.saturationScale = saturationScale;
         this.luminanceScale = luminanceScale;

@@ -34,7 +34,7 @@ public class DieFactory implements Factory<DieDescriptor> {
     private final DieFactoryHelper helper;
 
     private LayerManager layerManager;
-    private Argument<Integer> channel;
+    private IntegerArgument channel;
 
     public DieFactory() {
         helper = new DieFactoryHelper();
@@ -48,7 +48,7 @@ public class DieFactory implements Factory<DieDescriptor> {
         this.layerManager = layerManager;
     }
 
-    public void setChannel(Argument<Integer> channel) {
+    public void setChannel(IntegerArgument channel) {
         this.channel = channel;
     }
 

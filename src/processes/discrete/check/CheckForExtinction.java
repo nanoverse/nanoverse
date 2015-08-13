@@ -42,10 +42,10 @@ import structural.annotations.FactoryTarget;
 public class CheckForExtinction extends CellProcess {
 
     private double threshold;
-    private Argument<Double> thresholdArg;
+    private DoubleArgument thresholdArg;
 
     @FactoryTarget
-    public CheckForExtinction(BaseProcessArguments arguments, CellProcessArguments cpArguments, Argument<Double> thresholdArg) {
+    public CheckForExtinction(BaseProcessArguments arguments, CellProcessArguments cpArguments, DoubleArgument thresholdArg) {
         super(arguments, cpArguments);
         this.thresholdArg = thresholdArg;
     }

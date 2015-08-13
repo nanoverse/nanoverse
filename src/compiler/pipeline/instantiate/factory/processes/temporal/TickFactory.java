@@ -34,7 +34,7 @@ public class TickFactory implements Factory<Tick> {
     private final TickFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private Argument<Double> dt;
+    private DoubleArgument dt;
 
     public TickFactory() {
         helper = new TickFactoryHelper();
@@ -48,7 +48,7 @@ public class TickFactory implements Factory<Tick> {
         this.arguments = arguments;
     }
 
-    public void setDt(Argument<Double> dt) {
+    public void setDt(DoubleArgument dt) {
         this.dt = dt;
     }
 

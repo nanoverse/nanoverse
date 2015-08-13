@@ -40,13 +40,13 @@ import java.util.stream.*;
  */
 public class InjectionProcess extends ContinuumProcess {
 
-    private final Argument<Double> valueArg;
+    private final DoubleArgument valueArg;
     private final String layerId;
     private final CoordinateSet activeSites;
 
     @FactoryTarget
     public InjectionProcess(BaseProcessArguments arguments,
-                            Argument<Double> valueArg, String layerId,
+                            DoubleArgument valueArg, String layerId,
                             CoordinateSet activeSites) {
         super(arguments);
         this.valueArg = valueArg;

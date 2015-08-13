@@ -40,7 +40,7 @@ public class DieDescriptor extends ActionDescriptor<Die> {
     private final Function<BehaviorCell, Die> constructor;
 
     @FactoryTarget(displayName = "Die")
-    public DieDescriptor(LayerManager layerManager, Argument<Integer> channel) {
+    public DieDescriptor(LayerManager layerManager, IntegerArgument channel) {
         constructor = cell -> new Die(cell, layerManager, channel);
     }
 

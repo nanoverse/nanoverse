@@ -97,10 +97,10 @@ public class StochasticProcessTest extends EslimeTestCase {
 
     private class StochasticProcess extends NanoverseProcess {
 
-        private Argument<Integer> ongoing;
+        private IntegerArgument ongoing;
         private Integer ongoingVal;
 
-        public StochasticProcess(Argument<Integer> ongoing) {
+        public StochasticProcess(IntegerArgument ongoing) {
             super(makeBaseProcessArguments(null, null));
             this.ongoing = ongoing;
         }

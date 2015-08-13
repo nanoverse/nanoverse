@@ -31,7 +31,7 @@ import control.arguments.DoubleArgument;
 
 public class ContinuumColorModelFactoryHelper {
 
-    public NormalizedContinuumColorManager build(Argument<Double> minHueArg, Argument<Double> maxHueArg, Argument<Double> minSaturationArg, Argument<Double> maxSaturationArg, Argument<Double> minLuminanceArg, Argument<Double> maxLuminanceArg, String continuumId, boolean averageLuminance, ColorManager base) {
+    public NormalizedContinuumColorManager build(DoubleArgument minHueArg, DoubleArgument maxHueArg, DoubleArgument minSaturationArg, DoubleArgument maxSaturationArg, DoubleArgument minLuminanceArg, DoubleArgument maxLuminanceArg, String continuumId, boolean averageLuminance, ColorManager base) {
         return new NormalizedContinuumColorManager(minHueArg, maxHueArg, minSaturationArg, maxSaturationArg, minLuminanceArg, maxLuminanceArg, continuumId, averageLuminance, base);
     }
 }

@@ -27,7 +27,7 @@ package control.arguments;
 /**
  * Created by dbborens on 8/12/15.
  */
-public class Constant<T> extends Argument<T> {
+public class Constant<T> implements Argument<T> {
     private T value;
 
     public Constant(T value) {

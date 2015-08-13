@@ -34,7 +34,7 @@ public class DepthFilterFactory implements Factory<DepthFilter> {
     private final DepthFilterFactoryHelper helper;
 
     private CellLayer layer;
-    private Argument<Integer> maxDepth;
+    private IntegerArgument maxDepth;
 
     public DepthFilterFactory() {
         helper = new DepthFilterFactoryHelper();
@@ -48,7 +48,7 @@ public class DepthFilterFactory implements Factory<DepthFilter> {
         this.layer = layer;
     }
 
-    public void setMaxDepth(Argument<Integer> maxDepth) {
+    public void setMaxDepth(IntegerArgument maxDepth) {
         this.maxDepth = maxDepth;
     }
 

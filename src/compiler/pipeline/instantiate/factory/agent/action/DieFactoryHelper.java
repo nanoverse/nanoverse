@@ -31,7 +31,7 @@ import layers.LayerManager;
 
 public class DieFactoryHelper {
 
-    public DieDescriptor build(LayerManager layerManager, Argument<Integer> channel) {
+    public DieDescriptor build(LayerManager layerManager, IntegerArgument channel) {
         return new DieDescriptor(layerManager, channel);
     }
 }

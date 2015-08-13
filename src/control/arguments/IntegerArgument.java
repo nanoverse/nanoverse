@@ -27,5 +27,5 @@ package control.arguments;
 /**
  * Created by dbborens on 7/23/2015.
  */
-public abstract class IntegerArgument extends Argument<Integer> {
+public interface IntegerArgument extends Argument<Integer> {
 }

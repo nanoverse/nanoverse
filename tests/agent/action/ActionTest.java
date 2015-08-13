@@ -147,7 +147,7 @@ public class ActionTest extends TestBase {
         }
 
         @Override
-        public void doHighlight(Argument<Integer> channelArg, Coordinate toHighlight) throws HaltCondition {
+        public void doHighlight(IntegerArgument channelArg, Coordinate toHighlight) throws HaltCondition {
             super.doHighlight(channelArg, toHighlight);
         }
     }

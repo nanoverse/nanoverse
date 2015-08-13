@@ -35,7 +35,7 @@ public class DiscCoordinateSetFactory implements Factory<DiscSet> {
     private final DiscCoordinateSetFactoryHelper helper;
 
     private Geometry geom;
-    private Argument<Integer> radiusArg;
+    private IntegerArgument radiusArg;
     private Coordinate offset;
 
     public DiscCoordinateSetFactory() {
@@ -50,7 +50,7 @@ public class DiscCoordinateSetFactory implements Factory<DiscSet> {
         this.geom = geom;
     }
 
-    public void setRadiusArg(Argument<Integer> radiusArg) {
+    public void setRadiusArg(IntegerArgument radiusArg) {
         this.radiusArg = radiusArg;
     }
 

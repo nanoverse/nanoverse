@@ -35,7 +35,7 @@ import control.arguments.CellDescriptor;
 
 public class AgentDescriptorFactoryHelper {
 
-    public CellDescriptor build(LayerManager layerManager, Argument<Integer> cellState, Argument<Double> threshold, Argument<Double> initialHealth, List reactions, Map behaviorDescriptors) {
+    public CellDescriptor build(LayerManager layerManager, IntegerArgument cellState, DoubleArgument threshold, DoubleArgument initialHealth, List reactions, Map behaviorDescriptors) {
         return new CellDescriptor(layerManager, cellState, threshold, initialHealth, reactions, behaviorDescriptors);
     }
 }

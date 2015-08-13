@@ -32,7 +32,7 @@ import agent.action.ThresholdDoDescriptor;
 
 public class ThresholdDoFactoryHelper {
 
-    public ThresholdDoDescriptor build(LayerManager layerManager, String layerId, Argument<Double> minimumArg, Argument<Double> maximumArg, ActionDescriptor childDescriptor) {
+    public ThresholdDoDescriptor build(LayerManager layerManager, String layerId, DoubleArgument minimumArg, DoubleArgument maximumArg, ActionDescriptor childDescriptor) {
         return new ThresholdDoDescriptor(layerManager, layerId, minimumArg, maximumArg, childDescriptor);
     }
 }

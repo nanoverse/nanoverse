@@ -37,8 +37,8 @@ public class ExpandToFactory implements Factory<ExpandToDescriptor> {
 
     private LayerManager layerManager;
     private TargetDescriptor ruleDescriptor;
-    private Argument<Integer> selfChannel;
-    private Argument<Integer> targetChannel;
+    private IntegerArgument selfChannel;
+    private IntegerArgument targetChannel;
     private Random random;
 
     public ExpandToFactory() {
@@ -57,11 +57,11 @@ public class ExpandToFactory implements Factory<ExpandToDescriptor> {
         this.ruleDescriptor = ruleDescriptor;
     }
 
-    public void setSelfChannel(Argument<Integer> selfChannel) {
+    public void setSelfChannel(IntegerArgument selfChannel) {
         this.selfChannel = selfChannel;
     }
 
-    public void setTargetChannel(Argument<Integer> targetChannel) {
+    public void setTargetChannel(IntegerArgument targetChannel) {
         this.targetChannel = targetChannel;
     }
 
