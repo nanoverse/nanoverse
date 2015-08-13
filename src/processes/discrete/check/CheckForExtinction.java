@@ -33,6 +33,7 @@ import processes.discrete.CellProcess;
 import processes.discrete.CellProcessArguments;
 import processes.gillespie.GillespieState;
 import structural.annotations.FactoryTarget;
+import structural.utilities.EpsilonUtil;
 
 /**
  * Checks for extinction or fixation events.
@@ -70,7 +71,7 @@ public class CheckForExtinction extends CellProcess {
     @Override
     public void fire(StepState state) throws HaltCondition {
         // Handle true extinction exactly
-        boolean thresholdIsZero = getGeneralParameters().epsilonEquals(threshold, 0.0);
+        boolean thresholdIsZero = EpsilonUtil.epsilonEquals(threshold, 0.0);
         boolean noOccupiedSites = getLayer().getViewer().getOccupiedSites().size() == 0;
         if (thresholdIsZero && noOccupiedSites) {
             throw new ExtinctionEvent();

@@ -69,11 +69,6 @@ public class MockGeneralParameters extends GeneralParameters {
         T = t;
     }
 
-    @Override
-    public String getProjectXML() {
-        return "";
-    }
-
     public void initializeRandom(long randomSeed) {
         random = new Random(randomSeed);
         this.randomSeed = randomSeed;

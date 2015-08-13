@@ -65,10 +65,6 @@ public class SerializationFactoryTest extends EslimeLatticeTestCase {
         doTest("halt-time-writer", HaltTimeWriter.class);
     }
 
-    public void testParameterWriter() {
-        doTest("parameter-writer", ParameterWriter.class);
-    }
-
     public void testProgressReporter() {
         doTest("progress-reporter", ProgressReporter.class);
     }
