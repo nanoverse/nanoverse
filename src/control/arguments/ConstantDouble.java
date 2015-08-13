@@ -33,10 +33,27 @@ import structural.utilities.EpsilonUtil;
  * <p>
  * Created by David B Borenstein on 4/7/14.
  */
-public class ConstantDouble extends Constant<Double> {
+public class ConstantDouble extends Constant<Double> implements DoubleArgument {
+
 
     @FactoryTarget
     public ConstantDouble(Double value) {
         super(value);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ConstantDouble)) {
+            return false;
+        }
+
+        ConstantDouble other = (ConstantDouble) obj;
+
+        if (!EpsilonUtil.epsilonEquals(next(), other.next())) {
+            return false;
+        }
+
+        return true;
+
     }
 }

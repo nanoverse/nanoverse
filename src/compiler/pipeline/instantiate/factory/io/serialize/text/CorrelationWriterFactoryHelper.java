@@ -32,7 +32,7 @@ import layers.LayerManager;
 
 public class CorrelationWriterFactoryHelper {
 
-    public CorrelationWriter build(GeneralParameters p, String filename, Argument<Double> triggerTimeArg, LayerManager lm) {
+    public CorrelationWriter build(GeneralParameters p, String filename, DoubleArgument triggerTimeArg, LayerManager lm) {
         return new CorrelationWriter(p, filename, triggerTimeArg, lm);
     }
 }

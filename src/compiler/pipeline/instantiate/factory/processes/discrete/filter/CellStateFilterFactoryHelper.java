@@ -31,7 +31,7 @@ import processes.discrete.filter.CellStateFilter;
 
 public class CellStateFilterFactoryHelper {
 
-    public CellStateFilter build(CellLayer layer, Argument<Integer> toChoose) {
+    public CellStateFilter build(CellLayer layer, IntegerArgument toChoose) {
         return new CellStateFilter(layer, toChoose);
     }
 }

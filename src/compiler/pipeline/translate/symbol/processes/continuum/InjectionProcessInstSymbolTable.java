@@ -26,6 +26,7 @@ package compiler.pipeline.translate.symbol.processes.continuum;
 
 import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.instantiate.loader.agent.action.InjectLoader;
+import compiler.pipeline.instantiate.loader.processes.continuum.InjectionProcessLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
@@ -68,6 +69,6 @@ public class InjectionProcessInstSymbolTable extends ContinuumProcessInstSymbolT
 
     @Override
     public Loader getLoader() {
-        return new InjectLoader();
+        return new InjectionProcessLoader();
     }
 }

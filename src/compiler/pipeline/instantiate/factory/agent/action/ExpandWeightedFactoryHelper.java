@@ -32,7 +32,7 @@ import layers.LayerManager;
 
 public class ExpandWeightedFactoryHelper {
 
-    public ExpandWeightedDescriptor build(LayerManager layerManager, Argument<Integer> selfChannel, Argument<Integer> targetChannel, Random random) {
+    public ExpandWeightedDescriptor build(LayerManager layerManager, IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
         return new ExpandWeightedDescriptor(layerManager, selfChannel, targetChannel, random);
     }
 }

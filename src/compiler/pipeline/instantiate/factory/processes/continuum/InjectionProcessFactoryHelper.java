@@ -32,7 +32,7 @@ import geometry.set.CoordinateSet;
 
 public class InjectionProcessFactoryHelper {
 
-    public InjectionProcess build(BaseProcessArguments arguments, Argument<Double> valueArg, String layerId, CoordinateSet activeSites) {
+    public InjectionProcess build(BaseProcessArguments arguments, DoubleArgument valueArg, String layerId, CoordinateSet activeSites) {
         return new InjectionProcess(arguments, valueArg, layerId, activeSites);
     }
 }

@@ -75,11 +75,11 @@ public abstract class NanoverseProcess {
         fire(stepState);
     }
 
-    public Argument<Integer> getPeriod() {
+    public IntegerArgument getPeriod() {
         return arguments.getPeriod();
     }
 
-    public Argument<Integer> getStart() {
+    public IntegerArgument getStart() {
         return arguments.getStart();
     }
 

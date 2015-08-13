@@ -37,10 +37,10 @@ import structural.annotations.FactoryTarget;
  */
 public class Tick extends TimeProcess {
 
-    private Argument<Double> dt;
+    private DoubleArgument dt;
 
     @FactoryTarget
-    public Tick(BaseProcessArguments arguments, Argument<Double> dt) {
+    public Tick(BaseProcessArguments arguments, DoubleArgument dt) {
 
         super(arguments);
         this.dt = dt;

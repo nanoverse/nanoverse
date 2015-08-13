@@ -31,7 +31,7 @@ import agent.action.InjectDescriptor;
 
 public class InjectFactoryHelper {
 
-    public InjectDescriptor build(LayerManager layerManager, String layerId, Argument<Double> deltaArg) {
+    public InjectDescriptor build(LayerManager layerManager, String layerId, DoubleArgument deltaArg) {
         return new InjectDescriptor(layerManager, layerId, deltaArg);
     }
 }

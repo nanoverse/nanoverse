@@ -43,8 +43,8 @@ public abstract class SurfaceGrowthColorManagerFactory {
 
     public static SurfaceGrowthColorManager instantiate(Element e, GeneralParameters p) {
         ColorManager base = instantiateBase(e, p);
-        Argument<Double> luminanceScale = DoubleArgumentFactory.instantiate(e, "luminance-scale", DEFAULT_LUMINANCE_SCALING, p.getRandom());
-        Argument<Double> saturationScale = DoubleArgumentFactory.instantiate(e, "saturation-scale", DEFAULT_SATURATION_SCALING, p.getRandom());
+        DoubleArgument luminanceScale = DoubleArgumentFactory.instantiate(e, "luminance-scale", DEFAULT_LUMINANCE_SCALING, p.getRandom());
+        DoubleArgument saturationScale = DoubleArgumentFactory.instantiate(e, "saturation-scale", DEFAULT_SATURATION_SCALING, p.getRandom());
 
         SurfaceGrowthColorManager ret = new SurfaceGrowthColorManager(base, luminanceScale, saturationScale);
 

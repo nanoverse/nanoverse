@@ -43,13 +43,13 @@ import structural.annotations.FactoryTarget;
  * Created by dbborens on 1/13/14.
  */
 public class CheckForDomination extends CellProcess {
-    private Argument<Double> targetFractionArg;
-    private Argument<Integer> targetStateArg;
+    private DoubleArgument targetFractionArg;
+    private IntegerArgument targetStateArg;
     private double targetFraction;
     private int targetState;
 
     @FactoryTarget
-    public CheckForDomination(BaseProcessArguments arguments, CellProcessArguments cpArguments, Argument<Integer> targetStateArg, Argument<Double> targetFractionArg) {
+    public CheckForDomination(BaseProcessArguments arguments, CellProcessArguments cpArguments, IntegerArgument targetStateArg, DoubleArgument targetFractionArg) {
         super(arguments, cpArguments);
 
         this.targetFractionArg = targetFractionArg;

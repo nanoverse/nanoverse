@@ -30,13 +30,14 @@ import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
+import processes.continuum.DiffusionProcess;
 
 import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
-public class DiffusionProcessInstSymbolTable extends OperatorProcessInstSymbolTable {
+public class DiffusionProcessInstSymbolTable extends ContinuumProcessInstSymbolTable<DiffusionProcess> {
     @Override
     public String getDescription() {
         return "Schedule a homogeneous diffusion process across the entirety " +

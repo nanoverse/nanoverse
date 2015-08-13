@@ -38,7 +38,7 @@ import org.dom4j.Element;
  */
 public abstract class DiscSetFactory {
     public static DiscSet instantiate(Element e, Geometry geom, GeneralParameters p) {
-        Argument<Integer> radiusArg = IntegerArgumentFactory.instantiate(e, "radius", 1, p.getRandom());
+        IntegerArgument radiusArg = IntegerArgumentFactory.instantiate(e, "radius", 1, p.getRandom());
         Coordinate offset = getOffset(e, geom);
         return new DiscSet(geom, radiusArg, offset);
     }

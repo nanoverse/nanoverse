@@ -34,16 +34,7 @@ import control.halt.HaltCondition;
  * specified distribution.
  * Created by David B Borenstein on 4/7/14.
  */
-public abstract class Argument<T> {
+public interface Argument<T> {
 
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
-
-    @Override
-    public abstract boolean equals(Object obj);
-
-    public abstract T next() throws HaltCondition;
-
-    public Class getInstanceClass() {
-        return type.getRawType();
-    }
+    public T next() throws HaltCondition;
 }

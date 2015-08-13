@@ -31,7 +31,7 @@ import control.arguments.DoubleArgument;
 
 public class SurfaceColorModelFactoryHelper {
 
-    public SurfaceGrowthColorManager build(ColorManager base, Argument<Double> luminanceScale, Argument<Double> saturationScale) {
+    public SurfaceGrowthColorManager build(ColorManager base, DoubleArgument luminanceScale, DoubleArgument saturationScale) {
         return new SurfaceGrowthColorManager(base, luminanceScale, saturationScale);
     }
 }

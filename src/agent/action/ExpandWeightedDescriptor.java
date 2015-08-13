@@ -42,7 +42,7 @@ public class ExpandWeightedDescriptor extends ActionDescriptor<ExpandWeighted> {
 
     @FactoryTarget(displayName = "ExpandWeighted")
     public ExpandWeightedDescriptor(LayerManager layerManager,
-                          Argument<Integer> selfChannel, Argument<Integer> targetChannel, Random random) {
+                          IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
 
         constructor = cell -> new ExpandWeighted(cell, layerManager, selfChannel, targetChannel, random);
     }

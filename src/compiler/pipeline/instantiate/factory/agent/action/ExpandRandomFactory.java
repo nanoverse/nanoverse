@@ -35,8 +35,8 @@ public class ExpandRandomFactory implements Factory<ExpandRandomDescriptor> {
     private final ExpandRandomFactoryHelper helper;
 
     private LayerManager layerManager;
-    private Argument<Integer> selfChannel;
-    private Argument<Integer> targetChannel;
+    private IntegerArgument selfChannel;
+    private IntegerArgument targetChannel;
     private Random random;
 
     public ExpandRandomFactory() {
@@ -51,11 +51,11 @@ public class ExpandRandomFactory implements Factory<ExpandRandomDescriptor> {
         this.layerManager = layerManager;
     }
 
-    public void setSelfChannel(Argument<Integer> selfChannel) {
+    public void setSelfChannel(IntegerArgument selfChannel) {
         this.selfChannel = selfChannel;
     }
 
-    public void setTargetChannel(Argument<Integer> targetChannel) {
+    public void setTargetChannel(IntegerArgument targetChannel) {
         this.targetChannel = targetChannel;
     }
 

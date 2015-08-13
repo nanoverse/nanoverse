@@ -37,8 +37,8 @@ public class CheckForDominationFactory implements Factory<CheckForDomination> {
 
     private BaseProcessArguments arguments;
     private CellProcessArguments cpArguments;
-    private Argument<Integer> targetStateArg;
-    private Argument<Double> targetFractionArg;
+    private IntegerArgument targetStateArg;
+    private DoubleArgument targetFractionArg;
 
     public CheckForDominationFactory() {
         helper = new CheckForDominationFactoryHelper();
@@ -56,11 +56,11 @@ public class CheckForDominationFactory implements Factory<CheckForDomination> {
         this.cpArguments = cpArguments;
     }
 
-    public void setTargetStateArg(Argument<Integer> targetStateArg) {
+    public void setTargetStateArg(IntegerArgument targetStateArg) {
         this.targetStateArg = targetStateArg;
     }
 
-    public void setTargetFractionArg(Argument<Double> targetFractionArg) {
+    public void setTargetFractionArg(DoubleArgument targetFractionArg) {
         this.targetFractionArg = targetFractionArg;
     }
 

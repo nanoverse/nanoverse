@@ -36,7 +36,7 @@ import structural.annotations.FactoryTarget;
 public class DiscSet extends CoordinateSet {
 
     @FactoryTarget(displayName = "DiscCoordinateSet")
-    public DiscSet(Geometry geom, Argument<Integer> radiusArg, Coordinate offset) {
+    public DiscSet(Geometry geom, IntegerArgument radiusArg, Coordinate offset) {
         Coordinate origin = geom.rel2abs(geom.getCenter(), offset, Geometry.APPLY_BOUNDARIES);
         int radius;
         try {

@@ -100,7 +100,7 @@ public class ScatterTest extends EslimeTestCase {
 
     public void testRespectMaxTargets() throws Exception {
         CoordinateSet activeSites = new CompleteSet(geom);
-        Argument<Integer> maxTargets = new ConstantInteger(3);
+        IntegerArgument maxTargets = new ConstantInteger(3);
         CellProcessArguments cpArguments = new CellProcessArguments(activeSites, maxTargets);
         Scatter query = new Scatter(arguments, cpArguments, cd);
         query.init();

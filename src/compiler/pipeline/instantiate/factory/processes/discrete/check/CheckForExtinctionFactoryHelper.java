@@ -32,7 +32,7 @@ import processes.discrete.check.CheckForExtinction;
 
 public class CheckForExtinctionFactoryHelper {
 
-    public CheckForExtinction build(BaseProcessArguments arguments, CellProcessArguments cpArguments, Argument<Double> thresholdArg) {
+    public CheckForExtinction build(BaseProcessArguments arguments, CellProcessArguments cpArguments, DoubleArgument thresholdArg) {
         return new CheckForExtinction(arguments, cpArguments, thresholdArg);
     }
 }

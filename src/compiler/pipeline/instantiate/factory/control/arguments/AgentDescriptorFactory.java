@@ -38,9 +38,9 @@ public class AgentDescriptorFactory implements Factory<CellDescriptor> {
     private final AgentDescriptorFactoryHelper helper;
 
     private LayerManager layerManager;
-    private Argument<Integer> cellState;
-    private Argument<Double> threshold;
-    private Argument<Double> initialHealth;
+    private IntegerArgument cellState;
+    private DoubleArgument threshold;
+    private DoubleArgument initialHealth;
     private List reactions;
     private Map behaviorDescriptors;
 
@@ -56,15 +56,15 @@ public class AgentDescriptorFactory implements Factory<CellDescriptor> {
         this.layerManager = layerManager;
     }
 
-    public void setCellState(Argument<Integer> cellState) {
+    public void setCellState(IntegerArgument cellState) {
         this.cellState = cellState;
     }
 
-    public void setThreshold(Argument<Double> threshold) {
+    public void setThreshold(DoubleArgument threshold) {
         this.threshold = threshold;
     }
 
-    public void setInitialHealth(Argument<Double> initialHealth) {
+    public void setInitialHealth(DoubleArgument initialHealth) {
         this.initialHealth = initialHealth;
     }
 

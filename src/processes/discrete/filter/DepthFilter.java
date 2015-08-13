@@ -42,11 +42,11 @@ import java.util.List;
  */
 public class DepthFilter extends Filter {
 
-    private Argument<Integer> maxDepth;
+    private IntegerArgument maxDepth;
     private CellLayer layer;
 
     @FactoryTarget
-    public DepthFilter(CellLayer layer, Argument<Integer> maxDepth) {
+    public DepthFilter(CellLayer layer, IntegerArgument maxDepth) {
         this.maxDepth = maxDepth;
         this.layer = layer;
     }

@@ -34,7 +34,7 @@ public class CellProcessArgumentsFactory implements Factory<CellProcessArguments
     private final CellProcessArgumentsFactoryHelper helper;
 
     private CoordinateSet activeSites;
-    private Argument<Integer> maxTargets;
+    private IntegerArgument maxTargets;
 
     public CellProcessArgumentsFactory() {
         helper = new CellProcessArgumentsFactoryHelper();
@@ -48,7 +48,7 @@ public class CellProcessArgumentsFactory implements Factory<CellProcessArguments
         this.activeSites = activeSites;
     }
 
-    public void setMaxTargets(Argument<Integer> maxTargets) {
+    public void setMaxTargets(IntegerArgument maxTargets) {
         this.maxTargets = maxTargets;
     }
 

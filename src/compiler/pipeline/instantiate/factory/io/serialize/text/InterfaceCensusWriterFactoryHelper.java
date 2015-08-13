@@ -32,7 +32,7 @@ import io.serialize.text.InterfaceCensusWriter;
 
 public class InterfaceCensusWriterFactoryHelper {
 
-    public InterfaceCensusWriter build(GeneralParameters p, Argument<Integer> focalStateArg, LayerManager lm) {
+    public InterfaceCensusWriter build(GeneralParameters p, IntegerArgument focalStateArg, LayerManager lm) {
         return new InterfaceCensusWriter(p, focalStateArg, lm);
     }
 }

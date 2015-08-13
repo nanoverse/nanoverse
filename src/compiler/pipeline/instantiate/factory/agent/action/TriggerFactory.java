@@ -37,8 +37,8 @@ public class TriggerFactory implements Factory<TriggerDescriptor> {
     private LayerManager layerManager;
     private String behaviorName;
     private TargetDescriptor ruleDescriptor;
-    private Argument<Integer> selfChannel;
-    private Argument<Integer> targetChannel;
+    private IntegerArgument selfChannel;
+    private IntegerArgument targetChannel;
 
     public TriggerFactory() {
         helper = new TriggerFactoryHelper();
@@ -60,11 +60,11 @@ public class TriggerFactory implements Factory<TriggerDescriptor> {
         this.ruleDescriptor = ruleDescriptor;
     }
 
-    public void setSelfChannel(Argument<Integer> selfChannel) {
+    public void setSelfChannel(IntegerArgument selfChannel) {
         this.selfChannel = selfChannel;
     }
 
-    public void setTargetChannel(Argument<Integer> targetChannel) {
+    public void setTargetChannel(IntegerArgument targetChannel) {
         this.targetChannel = targetChannel;
     }
 

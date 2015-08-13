@@ -38,7 +38,7 @@ public class ScatterClustersFactory implements Factory<ScatterClusters> {
 
     private BaseProcessArguments arguments;
     private CellProcessArguments cpArguments;
-    private Argument<Integer> neighborCount;
+    private IntegerArgument neighborCount;
     private CellDescriptor cellDescriptor;
     private ScatterClustersHelper clustersHelper;
 
@@ -58,7 +58,7 @@ public class ScatterClustersFactory implements Factory<ScatterClusters> {
         this.cpArguments = cpArguments;
     }
 
-    public void setNeighborCount(Argument<Integer> neighborCount) {
+    public void setNeighborCount(IntegerArgument neighborCount) {
         this.neighborCount = neighborCount;
     }
 

@@ -36,7 +36,7 @@ public class CheckForExtinctionFactory implements Factory<CheckForExtinction> {
 
     private BaseProcessArguments arguments;
     private CellProcessArguments cpArguments;
-    private Argument<Double> thresholdArg;
+    private DoubleArgument thresholdArg;
 
     public CheckForExtinctionFactory() {
         helper = new CheckForExtinctionFactoryHelper();
@@ -54,7 +54,7 @@ public class CheckForExtinctionFactory implements Factory<CheckForExtinction> {
         this.cpArguments = cpArguments;
     }
 
-    public void setThresholdArg(Argument<Double> thresholdArg) {
+    public void setThresholdArg(DoubleArgument thresholdArg) {
         this.thresholdArg = thresholdArg;
     }
 

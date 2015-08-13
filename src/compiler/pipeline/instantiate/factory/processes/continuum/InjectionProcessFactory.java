@@ -35,7 +35,7 @@ public class InjectionProcessFactory implements Factory<InjectionProcess> {
     private final InjectionProcessFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private Argument<Double> valueArg;
+    private DoubleArgument valueArg;
     private String layerId;
     private CoordinateSet activeSites;
 
@@ -51,7 +51,7 @@ public class InjectionProcessFactory implements Factory<InjectionProcess> {
         this.arguments = arguments;
     }
 
-    public void setValueArg(Argument<Double> valueArg) {
+    public void setValueArg(DoubleArgument valueArg) {
         this.valueArg = valueArg;
     }
 

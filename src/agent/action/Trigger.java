@@ -42,8 +42,8 @@ public class Trigger extends Action {
     private TargetRule targetRule;
 
     // Highlight channels for the targeting and targeted cells
-    private Argument<Integer> selfChannel;
-    private Argument<Integer> targetChannel;
+    private IntegerArgument selfChannel;
+    private IntegerArgument targetChannel;
 
     /**
      * Trigger a predesignated behavior in a cell or set of cells designated by a
@@ -54,7 +54,7 @@ public class Trigger extends Action {
      * @param behaviorName The name of the behavior to be triggered in the targets.
      * @param targetRule   The targeting rule used to identify targets when called.
      */
-    public Trigger(BehaviorCell callback, LayerManager layerManager, String behaviorName, TargetRule targetRule, Argument<Integer> selfChannel, Argument<Integer> targetChannel) {
+    public Trigger(BehaviorCell callback, LayerManager layerManager, String behaviorName, TargetRule targetRule, IntegerArgument selfChannel, IntegerArgument targetChannel) {
         super(callback, layerManager);
         this.behaviorName = behaviorName;
         this.targetRule = targetRule;

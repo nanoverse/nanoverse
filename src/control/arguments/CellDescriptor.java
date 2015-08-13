@@ -44,7 +44,7 @@ import java.util.stream.Stream;
 /**
  * Created by dbborens on 11/23/14.
  */
-public class CellDescriptor extends Argument<Cell> {
+public class CellDescriptor implements Argument<Cell> {
 
     private LayerManager layerManager;
 

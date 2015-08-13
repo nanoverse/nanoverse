@@ -34,7 +34,7 @@ import control.arguments.CellDescriptor;
 
 public class ScatterClustersFactoryHelper {
 
-    public ScatterClusters build(BaseProcessArguments arguments, CellProcessArguments cpArguments, Argument<Integer> neighborCount, CellDescriptor cellDescriptor, ScatterClustersHelper clustersHelper) {
+    public ScatterClusters build(BaseProcessArguments arguments, CellProcessArguments cpArguments, IntegerArgument neighborCount, CellDescriptor cellDescriptor, ScatterClustersHelper clustersHelper) {
         return new ScatterClusters(arguments, cpArguments, neighborCount, cellDescriptor, clustersHelper);
     }
 }

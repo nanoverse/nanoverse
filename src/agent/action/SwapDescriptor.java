@@ -40,8 +40,8 @@ public class SwapDescriptor extends ActionDescriptor<Swap> {
 
     @FactoryTarget(displayName = "Swap")
     public SwapDescriptor(LayerManager layerManager, TargetDescriptor ruleDescriptor,
-                Argument<Integer> selfChannel,
-                Argument<Integer> targetChannel) {
+                IntegerArgument selfChannel,
+                IntegerArgument targetChannel) {
 
         constructor = cell -> {
             TargetRule rule = ruleDescriptor.instantiate(cell);

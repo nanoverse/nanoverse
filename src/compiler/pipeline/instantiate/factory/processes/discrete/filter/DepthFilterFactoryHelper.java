@@ -31,7 +31,7 @@ import layers.cell.CellLayer;
 
 public class DepthFilterFactoryHelper {
 
-    public DepthFilter build(CellLayer layer, Argument<Integer> maxDepth) {
+    public DepthFilter build(CellLayer layer, IntegerArgument maxDepth) {
         return new DepthFilter(layer, maxDepth);
     }
 }

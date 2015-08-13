@@ -32,7 +32,7 @@ import test.EslimeTestCase;
 public class CellProcessArgumentsTest extends EslimeTestCase {
 
     private CoordinateSet activeSites;
-    private Argument<Integer> maxTargets;
+    private IntegerArgument maxTargets;
     private CellProcessArguments query;
 
     @Override

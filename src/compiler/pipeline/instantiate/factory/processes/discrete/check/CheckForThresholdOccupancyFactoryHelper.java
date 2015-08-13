@@ -32,7 +32,7 @@ import processes.BaseProcessArguments;
 
 public class CheckForThresholdOccupancyFactoryHelper {
 
-    public CheckForThresholdOccupancy build(BaseProcessArguments arguments, CellProcessArguments cpArguments, Argument<Double> thresholdOccupancy) {
+    public CheckForThresholdOccupancy build(BaseProcessArguments arguments, CellProcessArguments cpArguments, DoubleArgument thresholdOccupancy) {
         return new CheckForThresholdOccupancy(arguments, cpArguments, thresholdOccupancy);
     }
 }

@@ -34,8 +34,8 @@ public class SurfaceColorModelFactory implements Factory<SurfaceGrowthColorManag
     private final SurfaceColorModelFactoryHelper helper;
 
     private ColorManager base;
-    private Argument<Double> luminanceScale;
-    private Argument<Double> saturationScale;
+    private DoubleArgument luminanceScale;
+    private DoubleArgument saturationScale;
 
     public SurfaceColorModelFactory() {
         helper = new SurfaceColorModelFactoryHelper();
@@ -49,11 +49,11 @@ public class SurfaceColorModelFactory implements Factory<SurfaceGrowthColorManag
         this.base = base;
     }
 
-    public void setLuminanceScale(Argument<Double> luminanceScale) {
+    public void setLuminanceScale(DoubleArgument luminanceScale) {
         this.luminanceScale = luminanceScale;
     }
 
-    public void setSaturationScale(Argument<Double> saturationScale) {
+    public void setSaturationScale(DoubleArgument saturationScale) {
         this.saturationScale = saturationScale;
     }
 

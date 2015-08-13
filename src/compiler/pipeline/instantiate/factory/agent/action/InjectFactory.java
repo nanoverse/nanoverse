@@ -35,7 +35,7 @@ public class InjectFactory implements Factory<InjectDescriptor> {
 
     private LayerManager layerManager;
     private String layerId;
-    private Argument<Double> deltaArg;
+    private DoubleArgument deltaArg;
 
     public InjectFactory() {
         helper = new InjectFactoryHelper();
@@ -53,7 +53,7 @@ public class InjectFactory implements Factory<InjectDescriptor> {
         this.layerId = layerId;
     }
 
-    public void setDeltaArg(Argument<Double> deltaArg) {
+    public void setDeltaArg(DoubleArgument deltaArg) {
         this.deltaArg = deltaArg;
     }
 

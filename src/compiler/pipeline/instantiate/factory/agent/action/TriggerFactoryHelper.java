@@ -32,7 +32,7 @@ import layers.LayerManager;
 
 public class TriggerFactoryHelper {
 
-    public TriggerDescriptor build(LayerManager layerManager, String behaviorName, TargetDescriptor ruleDescriptor, Argument<Integer> selfChannel, Argument<Integer> targetChannel) {
+    public TriggerDescriptor build(LayerManager layerManager, String behaviorName, TargetDescriptor ruleDescriptor, IntegerArgument selfChannel, IntegerArgument targetChannel) {
         return new TriggerDescriptor(layerManager, behaviorName, ruleDescriptor, selfChannel, targetChannel);
     }
 }

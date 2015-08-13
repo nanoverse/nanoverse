@@ -51,8 +51,8 @@ public abstract class ThresholdDoDescriptorFactory {
                                                        GeneralParameters p) {
 
         ActionDescriptor child = getAction(base, layerManager, p);
-        Argument<Double> minimumArg = DoubleArgumentFactory.instantiate(base, "minimum", Double.NEGATIVE_INFINITY, p.getRandom());
-        Argument<Double> maximumArg = DoubleArgumentFactory.instantiate(base, "maximum", Double.POSITIVE_INFINITY, p.getRandom());
+        DoubleArgument minimumArg = DoubleArgumentFactory.instantiate(base, "minimum", Double.NEGATIVE_INFINITY, p.getRandom());
+        DoubleArgument maximumArg = DoubleArgumentFactory.instantiate(base, "maximum", Double.POSITIVE_INFINITY, p.getRandom());
         String layerId = base.element("layer").getTextTrim();
         return new ThresholdDoDescriptor(layerManager, layerId, minimumArg, maximumArg, child);
     }

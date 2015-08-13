@@ -27,5 +27,5 @@ package control.arguments;
 /**
  * Created by dbborens on 7/23/2015.
  */
-public abstract class BooleanArgument extends Argument<Boolean> {
+public interface BooleanArgument extends Argument<Boolean> {
 }

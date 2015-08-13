@@ -32,7 +32,7 @@ import agent.action.SwapDescriptor;
 
 public class SwapFactoryHelper {
 
-    public SwapDescriptor build(LayerManager layerManager, TargetDescriptor ruleDescriptor, Argument<Integer> selfChannel, Argument<Integer> targetChannel) {
+    public SwapDescriptor build(LayerManager layerManager, TargetDescriptor ruleDescriptor, IntegerArgument selfChannel, IntegerArgument targetChannel) {
         return new SwapDescriptor(layerManager, ruleDescriptor, selfChannel, targetChannel);
     }
 }

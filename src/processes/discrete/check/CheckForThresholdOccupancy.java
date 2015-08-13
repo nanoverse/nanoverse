@@ -40,10 +40,10 @@ import structural.annotations.FactoryTarget;
  */
 public class CheckForThresholdOccupancy extends CellProcess {
     private int thresholdCount;
-    private Argument<Double> thresholdOccupancy;
+    private DoubleArgument thresholdOccupancy;
 
     @FactoryTarget
-    public CheckForThresholdOccupancy(BaseProcessArguments arguments, CellProcessArguments cpArguments, Argument<Double> thresholdOccupancy) {
+    public CheckForThresholdOccupancy(BaseProcessArguments arguments, CellProcessArguments cpArguments, DoubleArgument thresholdOccupancy) {
         super(arguments, cpArguments);
         this.thresholdOccupancy = thresholdOccupancy;
     }

@@ -41,7 +41,7 @@ public class InjectDescriptor extends ActionDescriptor<Inject> {
     @FactoryTarget(displayName = "Inject")
     public InjectDescriptor(LayerManager layerManager,
                             String layerId,
-                            Argument<Double> deltaArg) {
+                            DoubleArgument deltaArg) {
 
         constructor = cell -> new Inject(cell, layerManager, layerId,
                 deltaArg);

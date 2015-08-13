@@ -57,7 +57,7 @@ public class HighlightWriterInstSymbolTable extends MapSymbolTable<HighlightWrit
 
     private void channels(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable cst = new IntegerClassSymbolTable();
-        ListSymbolTable<Argument<Integer>> lst = new ListSymbolTable<>(cst);
+        ListSymbolTable<IntegerArgument> lst = new ListSymbolTable<>(cst);
         MemberSymbol ms = new MemberSymbol(lst, "List of channels whose " +
                 "state is to be monitored and recorded.");
         ret.put("channels", ms);

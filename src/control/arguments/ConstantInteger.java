@@ -29,7 +29,7 @@ import structural.annotations.FactoryTarget;
 /**
  * Created by David B Borenstein on 4/7/14.
  */
-public class ConstantInteger extends Constant<Integer> {
+public class ConstantInteger extends Constant<Integer> implements IntegerArgument {
 
     @FactoryTarget
     public ConstantInteger(Integer value) {

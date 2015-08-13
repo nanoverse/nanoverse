@@ -54,16 +54,4 @@ public class CellDescriptorFactoryTest extends EslimeLatticeTestCase {
 
         assertEquals(expected, actual);
     }
-
-//    public void testExplicit() throws Exception {
-//        Element explicitRoot = root.element("explicit-case");
-//        CellDescriptor actual = CellDescriptorFactory.instantiate(explicitRoot, layerManager, p);
-//
-//        CellDescriptor expected = new CellDescriptor(layerManager, p);
-//        expected.setCellState(new ConstantInteger(7));
-//        expected.setInitialHealth(new ConstantDouble(2.0));
-//        expected.setThreshold(new ConstantDouble(3.0));
-//
-//        assertEquals(expected, actual);
-//    }
 }
