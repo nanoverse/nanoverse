@@ -25,7 +25,10 @@
 package compiler.pipeline.translate.symbol.control.run;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.control.ProcessManagerLoader;
 import compiler.pipeline.instantiate.loader.control.ProjectLoader;
+import compiler.pipeline.instantiate.loader.io.serialize.OutputManagerLoader;
+import compiler.pipeline.instantiate.loader.layers.LayerManagerLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.control.ParametersClassSymbolTable;
@@ -78,7 +81,7 @@ public class ProjectSymbolTable extends MapSymbolTable<Runner> {
 
     private void processes(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable cst = new ProcessClassSymbolTable();
-        ListSymbolTable<ProcessManager> lst = new ListSymbolTable<>(cst);
+        ListSymbolTable<ProcessManager> lst = new ListSymbolTable<>(cst, ProcessManagerLoader::new);
         MemberSymbol ms = new MemberSymbol(lst, "A list of top-down processes" +
             " to perform at the outset of the simulation.");
         ret.put("processes", ms);
@@ -99,7 +102,7 @@ public class ProjectSymbolTable extends MapSymbolTable<Runner> {
 
     private void output(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable cst = new OutputClassSymbolTable();
-        ListSymbolTable<SerializationManager> lst = new ListSymbolTable<>(cst);
+        ListSymbolTable<SerializationManager> lst = new ListSymbolTable<>(cst, OutputManagerLoader::new);
         MemberSymbol ms = new MemberSymbol(lst, "A list of the simulation's" +
                 "expected visualizations and reports.");
         ret.put("output", ms);
@@ -107,7 +110,7 @@ public class ProjectSymbolTable extends MapSymbolTable<Runner> {
 
     private void layerManager(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable cst = new LayerClassSymbolTable();
-        ListSymbolTable<LayerManager> lst = new ListSymbolTable<>(cst);
+        ListSymbolTable<LayerManager> lst = new ListSymbolTable<>(cst, LayerManagerLoader::new);
         MemberSymbol ms = new MemberSymbol(lst, "A list of the simulation's" +
                 "topological layers.");
         ret.put("layers", ms);

@@ -32,11 +32,7 @@ import com.google.common.reflect.TypeToken;
 public abstract class Loader<T> {
 
     private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
-    protected final TypeCheckHelper helper;
 
-    public Loader() {
-        helper = new TypeCheckHelper(type.getRawType());
-    }
 
     public Class getInstanceClass() {
         System.out.println("breakpoint");

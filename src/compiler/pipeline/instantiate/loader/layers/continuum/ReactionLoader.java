@@ -22,27 +22,13 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.control;
+package compiler.pipeline.instantiate.loader.layers.continuum;
 
-import compiler.pipeline.instantiate.factory.control.ProjectFactory;
-import control.*;
-import control.run.Runner;
-import org.junit.*;
-import org.mockito.Mock;
+import compiler.pipeline.instantiate.loader.Loader;
+import layers.continuum.Reaction;
 
-import static org.mockito.Mockito.*;
-
-public class ProjectFactoryTest {
-
-    @Mock
-    private Runner runner;
-
-    @Test
-    public void testLifeCycle() {
-        Integrator integrator = mock(Integrator.class);
-        GeneralParameters parameters = mock(GeneralParameters.class);
-        ProjectFactory query = spy(new ProjectFactory());
-        doReturn(runner).when(query).build();
-
-    }
+/**
+ * Created by dbborens on 8/13/15.
+ */
+public class ReactionLoader extends Loader<Reaction> {
 }

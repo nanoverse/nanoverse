@@ -24,9 +24,16 @@
 
 package compiler.pipeline.instantiate.loader.control;
 
-import compiler.pipeline.instantiate.factory.control.ProjectFactory;
+import compiler.pipeline.instantiate.factory.control.run.ProjectFactory;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.Integrator;
+import control.ProcessManager;
+import control.arguments.GeometryDescriptor;
 import control.run.Runner;
+import io.serialize.SerializationManager;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/1/2015.
@@ -34,12 +41,39 @@ import control.run.Runner;
 public class ProjectLoader extends Loader<Runner> {
 
     private final ProjectFactory factory;
+    private final IntegratorLoader integratorLoader;
+    private final ProjectInterpolator interpolator;
 
     public ProjectLoader() {
         factory = new ProjectFactory();
+        interpolator = new ProjectInterpolator();
+        integratorLoader = new IntegratorLoader();
     }
 
-    public ProjectLoader(ProjectFactory factory) {
+    public ProjectLoader(ProjectFactory factory, ProjectInterpolator interpolator, IntegratorLoader integratorLoader) {
         this.factory = factory;
+        this.interpolator = interpolator;
+        this.integratorLoader = integratorLoader;
+    }
+
+    public Runner instantiate(MapObjectNode node) {
+        interpolator.version(node);
+
+        GeneralParameters p = interpolator.generalParameters(node);
+        factory.setP(p);
+
+        Integrator integrator = integrator(node, p);
+        factory.setIntegrator(integrator);
+
+        return factory.build();
+    }
+
+    private Integrator integrator(MapObjectNode node, GeneralParameters p) {
+        GeometryDescriptor geom = interpolator.geometry(node);
+        LayerManager layerManager = interpolator.layers(node, geom);
+        SerializationManager output = interpolator.output(node, p, layerManager);
+        ProcessManager processes = interpolator.processes(node, p, layerManager);
+
+        return integratorLoader.instantiate(p, processes, output);
     }
 }

@@ -22,13 +22,28 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.primitive.strings;
+package compiler.pipeline.instantiate.loader;
 
-import compiler.pipeline.instantiate.loader.primitive.PrimitiveLoader;
-import control.arguments.StringArgument;
+import compiler.error.MissingArgumentError;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 
 /**
- * Created by dbborens on 8/1/2015.
+ * Created by dbborens on 8/13/15.
  */
-public class StringLoader extends PrimitiveLoader<StringArgument> {
+public abstract class LoadHelper {
+    public static Loader getLoader(MapObjectNode parent, String field, boolean require) {
+        ObjectNode node = parent.getMember(field);
+        if (node == null && require) {
+            throw new MissingArgumentError(field, parent.getInstantiatingClass());
+        } else if (node == null) {
+            return null;
+        }
+
+        InstantiableSymbolTable ist = node.getSymbolTable();
+        Loader loader = ist.getLoader();
+        return loader;
+    }
+
 }

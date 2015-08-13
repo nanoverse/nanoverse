@@ -22,19 +22,37 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.layers;
+package compiler.pipeline.instantiate.loader.control;
 
+import compiler.pipeline.instantiate.factory.control.IntegratorFactory;
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.translate.nodes.ObjectNode;
-import control.arguments.GeometryDescriptor;
-import layers.LayerManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import control.GeneralParameters;
+import control.Integrator;
+import control.ProcessManager;
+import io.serialize.SerializationManager;
 
 /**
- * Created by dbborens on 8/1/2015.
+ * Created by dbborens on 8/13/15.
  */
-public class LayerManagerLoader extends Loader<LayerManager> {
-    public LayerManager instantiate(ObjectNode childNode, GeometryDescriptor geom) {
-        throw new NotImplementedException();
+public class IntegratorLoader extends Loader<Integrator> {
+
+    private final IntegratorFactory factory;
+
+    public IntegratorLoader() {
+        factory = new IntegratorFactory();
+    }
+
+    public IntegratorLoader(IntegratorFactory factory) {
+        this.factory = factory;
+    }
+
+    public Integrator instantiate(GeneralParameters p, ProcessManager processManager,
+                      SerializationManager serializationManager) {
+
+        factory.setP(p);
+        factory.setProcessManager(processManager);
+        factory.setSerializationManager(serializationManager);
+
+        return factory.build();
     }
 }

@@ -22,12 +22,11 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.arguments;
+package structural;
 
 /**
- * Created by dbborens on 7/23/2015.
+ * Created by dbborens on 8/13/15.
  */
-public interface StringArgument extends Argument<String> {
-
-
+public class Version {
+    public final static String VERSION = "0.7.0";
 }

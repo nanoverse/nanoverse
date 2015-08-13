@@ -22,12 +22,17 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.arguments;
+package compiler.pipeline.instantiate.loader.control;
 
-/**
- * Created by dbborens on 7/23/2015.
- */
-public interface StringArgument extends Argument<String> {
+import org.junit.*;
 
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
+public class IntegratorLoaderTest {
+
+    @Test
+    public void instantiate() throws Exception {
+        fail();
+    }
 }

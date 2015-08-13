@@ -29,15 +29,9 @@ import compiler.pipeline.translate.nodes.ObjectNode;
 /**
  * Created by dbborens on 8/1/2015.
  */
-public class TypeCheckHelper {
+public abstract class TypeCheckHelper {
 
-    private final Class expected;
-
-    public TypeCheckHelper(Class expected) {
-        this.expected = expected;
-    }
-
-    protected void checkReturnClass(ObjectNode node) {
+    public static void checkReturnClass(ObjectNode node, Class expected) {
         Class actual = node.getInstantiatingClass();
         if (!actual.isAssignableFrom(expected)) {
             throw new IllegalStateException("Unexpected object node " + actual.getSimpleName() + " in loader for " + expected.getSimpleName());

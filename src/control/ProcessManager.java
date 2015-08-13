@@ -28,6 +28,7 @@ import control.halt.HaltCondition;
 import layers.LayerManager;
 import processes.NanoverseProcess;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ public class ProcessManager {
     private List<NanoverseProcess> processes;
     private LayerManager layerManager;
 
+    @FactoryTarget
     public ProcessManager(List<NanoverseProcess> processes, LayerManager layerManager) {
         this.processes = processes;
         this.layerManager = layerManager;

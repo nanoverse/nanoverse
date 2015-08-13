@@ -10,6 +10,8 @@ import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.function.Supplier;
+
 /**
  * Created by dbborens on 3/4/15.
  */
@@ -23,9 +25,13 @@ public class ListSymbolTable<T> implements InstantiableSymbolTable,  ResolvingSy
     private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
 
     private final ClassSymbolTable classSymbolTable;
+    private final Supplier<Loader> loaderSupplier;
 
-    public ListSymbolTable (ClassSymbolTable classSymbolTable) {
+    public ListSymbolTable (ClassSymbolTable classSymbolTable,
+                            Supplier<Loader> loaderSupplier) {
+
         this.classSymbolTable = classSymbolTable;
+        this.loaderSupplier = loaderSupplier;
     }
 
     @Override
@@ -50,6 +56,6 @@ public class ListSymbolTable<T> implements InstantiableSymbolTable,  ResolvingSy
 
     @Override
     public Loader getLoader() {
-        throw new UnsupportedOperationException();
+        return loaderSupplier.get();
     }
 }

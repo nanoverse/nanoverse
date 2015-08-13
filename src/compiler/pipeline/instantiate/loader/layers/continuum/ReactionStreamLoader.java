@@ -22,12 +22,15 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.arguments;
+package compiler.pipeline.instantiate.loader.layers.continuum;
+
+import compiler.pipeline.instantiate.loader.Loader;
+import layers.continuum.Reaction;
+
+import java.util.stream.Stream;
 
 /**
- * Created by dbborens on 7/23/2015.
+ * Created by dbborens on 8/13/15.
  */
-public interface StringArgument extends Argument<String> {
-
-
+public class ReactionStreamLoader extends Loader<Stream<Reaction>> {
 }

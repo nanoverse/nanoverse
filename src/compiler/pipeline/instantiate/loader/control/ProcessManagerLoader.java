@@ -22,12 +22,20 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.arguments;
+package compiler.pipeline.instantiate.loader.control;
+
+import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
+import control.GeneralParameters;
+import control.ProcessManager;
+import layers.LayerManager;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
- * Created by dbborens on 7/23/2015.
+ * Created by dbborens on 8/13/15.
  */
-public interface StringArgument extends Argument<String> {
-
-
+public class ProcessManagerLoader extends Loader<ProcessManager> {
+    public ProcessManager instantiate(ObjectNode childNode, GeneralParameters p, LayerManager layerManager) {
+        throw new NotImplementedException();
+    }
 }
