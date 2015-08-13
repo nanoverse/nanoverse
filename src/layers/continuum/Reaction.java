@@ -24,6 +24,8 @@
 
 package layers.continuum;
 
+import structural.annotations.FactoryTarget;
+
 /**
  * Lightweight tuple or capturing a continuum reaction.
  * <p>
@@ -40,6 +42,7 @@ public class Reaction {
      * @param exp The magnituude of exponentiation (matrix diagonal)
      * @param id  The ID of the layer upon which the reaction occurs
      */
+    @FactoryTarget
     public Reaction(double inj, double exp, String id) {
         this.inj = inj;
         this.exp = exp;

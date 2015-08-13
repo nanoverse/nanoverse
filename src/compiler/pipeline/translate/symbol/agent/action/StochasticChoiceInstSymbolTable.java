@@ -27,6 +27,7 @@ package compiler.pipeline.translate.symbol.agent.action;
 import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.instantiate.loader.agent.action.StochasticChoiceLoader;
+import compiler.pipeline.instantiate.loader.agent.action.stochastic.WeightedOptionStreamLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.agent.action.stochastic.WeightedOptionClassSymbolTable;
@@ -52,7 +53,7 @@ public class StochasticChoiceInstSymbolTable extends ActionInstSymbolTable<Stoch
 
     private void options(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable cst = new WeightedOptionClassSymbolTable();
-        ListSymbolTable lst = new ListSymbolTable(cst);
+        ListSymbolTable lst = new ListSymbolTable(cst, WeightedOptionStreamLoader::new);
         MemberSymbol ms = new MemberSymbol(lst, "List of options from which " +
                 "to select.");
         ret.put("options", ms);

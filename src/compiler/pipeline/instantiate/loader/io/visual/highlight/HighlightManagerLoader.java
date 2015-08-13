@@ -22,12 +22,13 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.arguments;
+package compiler.pipeline.instantiate.loader.io.visual.highlight;
+
+import compiler.pipeline.instantiate.loader.Loader;
+import io.visual.highlight.HighlightManager;
 
 /**
- * Created by dbborens on 7/23/2015.
+ * Created by dbborens on 8/13/15.
  */
-public interface StringArgument extends Argument<String> {
-
-
+public class HighlightManagerLoader extends Loader<HighlightManager> {
 }

@@ -51,7 +51,7 @@ public class CustomCoordSetInstSymbTable extends MapSymbolTable<CustomSet> {
 
     private void members(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable cst = new CoordinateClassSymbolTable();
-        ListSymbolTable lst = new ListSymbolTable(cst);
+        ListSymbolTable lst = new ListSymbolTable(cst, CustomCoordinateSetLoader::new);
         MemberSymbol ms = new MemberSymbol(lst, "The list of coordinates to include.");
         ret.put("members", ms);
     }

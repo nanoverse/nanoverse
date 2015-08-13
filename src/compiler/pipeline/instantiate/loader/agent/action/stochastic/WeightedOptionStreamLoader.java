@@ -22,12 +22,15 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.arguments;
+package compiler.pipeline.instantiate.loader.agent.action.stochastic;
+
+import agent.action.stochastic.WeightedOption;
+import compiler.pipeline.instantiate.loader.Loader;
+
+import java.util.stream.Stream;
 
 /**
- * Created by dbborens on 7/23/2015.
+ * Created by dbborens on 8/13/15.
  */
-public interface StringArgument extends Argument<String> {
-
-
+public class WeightedOptionStreamLoader extends Loader<Stream<WeightedOption>> {
 }

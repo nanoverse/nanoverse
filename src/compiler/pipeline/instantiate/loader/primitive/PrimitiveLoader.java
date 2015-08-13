@@ -36,4 +36,5 @@ public abstract class PrimitiveLoader<T extends Argument> extends Loader<T> {
     public T instantiate(PrimitiveObjectNode<T> node) {
         return node.getValue();
     }
+
 }

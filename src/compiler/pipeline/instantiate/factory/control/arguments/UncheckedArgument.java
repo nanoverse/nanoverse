@@ -22,12 +22,29 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.arguments;
+package compiler.pipeline.instantiate.factory.control.arguments;
+
+import control.arguments.Argument;
+import control.halt.HaltCondition;
 
 /**
- * Created by dbborens on 7/23/2015.
+ * Created by dbborens on 8/13/15.
  */
-public interface StringArgument extends Argument<String> {
+public class UncheckedArgument<T> implements Argument<T> {
 
+    private final Argument<T> inner;
 
+    public UncheckedArgument(Argument<T> inner) {
+        this.inner = inner;
+    }
+
+    @Override
+    public T next() {
+        try {
+            return inner.next();
+        } catch (HaltCondition haltCondition) {
+            throw new IllegalStateException("Unexpected halt event for " +
+                    inner.getClass().getSimpleName());
+        }
+    }
 }

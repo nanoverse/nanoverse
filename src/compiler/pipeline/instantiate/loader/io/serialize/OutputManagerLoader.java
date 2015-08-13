@@ -25,7 +25,11 @@
 package compiler.pipeline.instantiate.loader.io.serialize;
 
 import compiler.pipeline.instantiate.factory.io.serialize.OutputManagerFactory;
+import compiler.pipeline.translate.nodes.ObjectNode;
+import control.GeneralParameters;
 import io.serialize.SerializationManager;
+import layers.LayerManager;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/1/2015.
@@ -39,5 +43,9 @@ public class OutputManagerLoader extends OutputLoader<SerializationManager> {
 
     public OutputManagerLoader(OutputManagerFactory factory) {
         this.factory = factory;
+    }
+
+    public SerializationManager instantiate(ObjectNode childNode, GeneralParameters p, LayerManager layerManager) {
+        throw new NotImplementedException();
     }
 }

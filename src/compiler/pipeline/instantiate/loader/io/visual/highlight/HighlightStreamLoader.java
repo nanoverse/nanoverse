@@ -22,17 +22,15 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.factory.control;
+package compiler.pipeline.instantiate.loader.io.visual.highlight;
 
-import control.*;
-import control.run.Runner;
+import compiler.pipeline.instantiate.loader.Loader;
+import io.visual.highlight.Highlight;
+
+import java.util.stream.Stream;
 
 /**
- * Created by dbborens on 7/30/2015.
+ * Created by dbborens on 8/13/15.
  */
-public class ProjectFactoryHelper {
-
-    public Runner newRunner(GeneralParameters p, Integrator integrator) {
-        return new Runner(p, integrator);
-    }
+public class HighlightStreamLoader extends Loader<Stream<Highlight>> {
 }

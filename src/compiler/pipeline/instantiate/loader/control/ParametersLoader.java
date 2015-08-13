@@ -26,7 +26,9 @@ package compiler.pipeline.instantiate.loader.control;
 
 import compiler.pipeline.instantiate.factory.control.ParametersFactory;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import control.GeneralParameters;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/10/2015.
@@ -41,5 +43,9 @@ public class ParametersLoader extends Loader<GeneralParameters> {
 
     public ParametersLoader(ParametersFactory factory) {
         this.factory = factory;
+    }
+
+    public GeneralParameters instantiate(ObjectNode childNode) {
+        throw new NotImplementedException();
     }
 }

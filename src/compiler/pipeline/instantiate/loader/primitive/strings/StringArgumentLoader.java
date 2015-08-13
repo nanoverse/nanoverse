@@ -22,12 +22,29 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.arguments;
+package compiler.pipeline.instantiate.loader.primitive.strings;
+
+import compiler.pipeline.instantiate.factory.control.arguments.UncheckedArgument;
+import compiler.pipeline.instantiate.loader.primitive.PrimitiveLoader;
+import compiler.pipeline.translate.nodes.ObjectNode;
+import control.arguments.StringArgument;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
- * Created by dbborens on 7/23/2015.
+ * Created by dbborens on 8/1/2015.
  */
-public interface StringArgument extends Argument<String> {
+public class StringArgumentLoader extends PrimitiveLoader<StringArgument> {
 
+    public StringArgument instantiate(ObjectNode node) {
+        throw new NotImplementedException();
+    }
 
+    /**
+     * Builds a bare string based on first return value of argument.
+     * @param node
+     * @return
+     */
+    public String instantiateToFirst(ObjectNode node) {
+        throw new NotImplementedException();
+    }
 }

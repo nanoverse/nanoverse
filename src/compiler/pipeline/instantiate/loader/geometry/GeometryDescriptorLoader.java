@@ -25,10 +25,15 @@
 package compiler.pipeline.instantiate.loader.geometry;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import control.arguments.GeometryDescriptor;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class GeometryDescriptorLoader extends Loader<GeometryDescriptor> {
+    public GeometryDescriptor instantiate(ObjectNode childNode) {
+        throw new NotImplementedException();
+    }
 }
