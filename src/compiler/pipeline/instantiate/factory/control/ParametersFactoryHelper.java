@@ -30,6 +30,6 @@ import java.util.Random;
 public class ParametersFactoryHelper {
 
     public GeneralParameters build(Random random, long randomSeed, int maxStep, int instances, String basePath, String project, boolean isStamp, double epsilon) {
-        return new GeneralParameters(random, randomSeed, maxStep, instances, basePath, project, isStamp, epsilon);
+        return new GeneralParameters(random, randomSeed, maxStep, instances, basePath, project, isStamp);
     }
 }

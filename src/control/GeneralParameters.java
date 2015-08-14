@@ -62,8 +62,7 @@ public class GeneralParameters {
                              int instances,
                              String basePath,
                              String project,
-                             boolean isStamp,
-                             double epsilon) {
+                             boolean isStamp) {
 
         this.random = random;
         this.randomSeed = randomSeed;
@@ -220,5 +219,4 @@ public class GeneralParameters {
     public int getInstance() {
         return instance;
     }
-
 }
