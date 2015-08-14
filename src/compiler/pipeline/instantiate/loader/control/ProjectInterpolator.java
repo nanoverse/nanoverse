@@ -34,23 +34,52 @@ import compiler.pipeline.translate.nodes.ObjectNode;
 import control.GeneralParameters;
 import control.ProcessManager;
 import control.arguments.GeometryDescriptor;
+import geometry.Geometry;
+import geometry.boundaries.Boundary;
+import geometry.boundaries.Periodic;
+import geometry.lattice.Lattice;
+import geometry.lattice.RectangularLattice;
+import geometry.shape.Rectangle;
+import geometry.shape.Shape;
 import io.serialize.SerializationManager;
+import io.serialize.Serializer;
+import io.serialize.interactive.ProgressReporter;
+import io.visual.map.MapVisualization;
 import layers.LayerManager;
+import layers.cell.CellLayer;
 import structural.Version;
 import structural.utilities.EpsilonUtil;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 8/13/15.
  */
 public class ProjectInterpolator {
 
+    private final LoadHelper loadHelper;
+    private final ProjectDefaults defaults;
+
+    public ProjectInterpolator() {
+        loadHelper = new LoadHelper();
+        defaults = new ProjectDefaults();
+    }
+
+    public ProjectInterpolator(LoadHelper loadHelper, ProjectDefaults defaults) {
+        this.loadHelper = loadHelper;
+        this.defaults = defaults;
+    }
+
+
+
     public void version(MapObjectNode node) {
         ObjectNode childNode = node.getMember("version");
         StringArgumentLoader loader = (StringArgumentLoader)
-                LoadHelper.getLoader(node, "version", true);
+                loadHelper.getLoader(node, "version", true);
 
         String version = loader.instantiateToFirst(childNode);
 
@@ -64,10 +93,10 @@ public class ProjectInterpolator {
     public GeneralParameters generalParameters(MapObjectNode node) {
         ObjectNode childNode = node.getMember("parameters");
         ParametersLoader loader = (ParametersLoader)
-                LoadHelper.getLoader(node, "parameters", false);
+                loadHelper.getLoader(node, "parameters", false);
 
         if (loader == null) {
-            return defaultGeneralParameters();
+            return defaults.generalParameters();
         }
 
         GeneralParameters p = loader.instantiate(childNode);
@@ -77,11 +106,10 @@ public class ProjectInterpolator {
     public GeometryDescriptor geometry(MapObjectNode node) {
         ObjectNode childNode = node.getMember("geometry");
         GeometryDescriptorLoader loader = (GeometryDescriptorLoader)
-                LoadHelper.getLoader(node, "geometry", false);
+                loadHelper.getLoader(node, "geometry", false);
 
         if (loader == null) {
-            // TODO Implement default!
-            throw new NotImplementedException();
+            return defaults.geometry();
         }
 
         GeometryDescriptor geom = loader.instantiate(childNode);
@@ -91,11 +119,10 @@ public class ProjectInterpolator {
     public LayerManager layers(MapObjectNode node, GeometryDescriptor geom) {
         ObjectNode childNode = node.getMember("layers");
         LayerManagerLoader loader = (LayerManagerLoader)
-                LoadHelper.getLoader(node, "layers", false);
+                loadHelper.getLoader(node, "layers", false);
 
         if (loader == null) {
-            // TODO Implement default!
-            throw new NotImplementedException();
+            return defaults.layers(geom);
         }
 
         LayerManager layerManager = loader.instantiate(childNode, geom);
@@ -105,11 +132,10 @@ public class ProjectInterpolator {
     public SerializationManager output(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
         ObjectNode childNode = node.getMember("output");
         OutputManagerLoader loader = (OutputManagerLoader)
-                LoadHelper.getLoader(node, "output", false);
+                loadHelper.getLoader(node, "output", false);
 
         if (loader == null) {
-            // TODO Implement default!
-            throw new NotImplementedException();
+            return defaults.output(p, layerManager);
         }
 
         SerializationManager output = loader.instantiate(childNode, p, layerManager);
@@ -119,19 +145,10 @@ public class ProjectInterpolator {
     public ProcessManager processes(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
         ObjectNode childNode = node.getMember("processes");
         ProcessManagerLoader loader = (ProcessManagerLoader)
-                LoadHelper.getLoader(node, "processes", true);
+                loadHelper.getLoader(node, "processes", true);
 
         ProcessManager processes = loader.instantiate(childNode, p, layerManager);
         return processes;
-    }
-
-    /* DEFAULTS */
-
-    private GeneralParameters defaultGeneralParameters() {
-        long seed = System.currentTimeMillis();
-        Random random = new Random(seed);
-        double epsilon = EpsilonUtil.epsilon();
-        return new GeneralParameters(random, seed, 100, 1, ".", "nanoverse", false, epsilon);
     }
 
 

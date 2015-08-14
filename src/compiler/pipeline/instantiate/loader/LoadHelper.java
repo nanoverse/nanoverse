@@ -32,8 +32,8 @@ import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 /**
  * Created by dbborens on 8/13/15.
  */
-public abstract class LoadHelper {
-    public static Loader getLoader(MapObjectNode parent, String field, boolean require) {
+public class LoadHelper {
+    public Loader getLoader(MapObjectNode parent, String field, boolean require) {
         ObjectNode node = parent.getMember(field);
         if (node == null && require) {
             throw new MissingArgumentError(field, parent.getInstantiatingClass());
