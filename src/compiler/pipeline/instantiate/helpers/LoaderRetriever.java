@@ -22,13 +22,27 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.primitive.doubles;
+package compiler.pipeline.instantiate.helpers;
 
-import compiler.pipeline.instantiate.loader.primitive.PrimitiveLoader;
-import control.arguments.DoubleArgument;
+import compiler.error.MissingArgumentError;
+import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.*;
+import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 
 /**
- * Created by dbborens on 8/1/2015.
+ * Created by dbborens on 8/14/2015.
  */
-public class DoubleLoader extends PrimitiveLoader<DoubleArgument> {
+public class LoaderRetriever {
+    public Loader getLoader(MapObjectNode parent, String field, boolean require) {
+        ObjectNode node = parent.getMember(field);
+        if (node == null && require) {
+            throw new MissingArgumentError(field, parent.getInstantiatingClass());
+        } else if (node == null) {
+            return null;
+        }
+
+        InstantiableSymbolTable ist = node.getSymbolTable();
+        Loader loader = ist.getLoader();
+        return loader;
+    }
 }

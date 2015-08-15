@@ -22,22 +22,24 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.geometry;
+package compiler.pipeline.instantiate.loader.primitive.booleans;
 
-import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.ObjectNode;
-import control.arguments.GeometryDescriptor;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import control.arguments.ConstantBoolean;
+
+import java.util.Random;
 
 /**
- * Created by dbborens on 8/4/2015.
+ * Created by dbborens on 8/14/2015.
  */
-public class GeometryDescriptorLoader extends Loader<GeometryDescriptor> {
-    public GeometryDescriptor instantiate(ObjectNode childNode) {
-        throw new NotImplementedException();
+public class ConstantBooleanLoader extends BooleanArgumentLoader<ConstantBoolean> {
+    @Override
+    public ConstantBoolean instantiate(ObjectNode node, Random random) {
+        return null;
     }
 
-    public GeometryDescriptor instantiate() {
-        return instantiate(null);
+    @Override
+    public Boolean instantiateToFirst(ObjectNode node, Random random) {
+        return null;
     }
 }

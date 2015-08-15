@@ -22,13 +22,19 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.primitive.booleans;
+package compiler.pipeline.instantiate.loader.primitive.doubles;
 
-import compiler.pipeline.instantiate.loader.primitive.PrimitiveLoader;
-import control.arguments.BooleanArgument;
+import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
+import control.arguments.DoubleArgument;
+
+import java.util.Random;
 
 /**
  * Created by dbborens on 8/1/2015.
  */
-public class BooleanLoader extends PrimitiveLoader<BooleanArgument> {
+public abstract class DoubleArgumentLoader<T extends DoubleArgument> extends Loader<T> {
+    public abstract T instantiate(ObjectNode node, Random random);
+
+    public abstract Double instantiateToFirst(ObjectNode node, Random random);
 }

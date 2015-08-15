@@ -25,7 +25,7 @@
 package compiler.pipeline.instantiate.loader.primitive.strings;
 
 import compiler.pipeline.instantiate.factory.control.arguments.UncheckedArgument;
-import compiler.pipeline.instantiate.loader.primitive.PrimitiveLoader;
+import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import control.arguments.StringArgument;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -33,7 +33,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 /**
  * Created by dbborens on 8/1/2015.
  */
-public class StringArgumentLoader extends PrimitiveLoader<StringArgument> {
+public class StringArgumentLoader extends Loader<StringArgument> {
 
     public StringArgument instantiate(ObjectNode node) {
         throw new NotImplementedException();

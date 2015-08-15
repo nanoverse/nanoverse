@@ -24,16 +24,13 @@
 
 package compiler.pipeline.instantiate.loader.control;
 
-import compiler.error.MissingArgumentError;
-import compiler.pipeline.instantiate.loader.LoadHelper;
-import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.instantiate.loader.geometry.GeometryDescriptorLoader;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputManagerLoader;
 import compiler.pipeline.instantiate.loader.layers.LayerManagerLoader;
 import compiler.pipeline.instantiate.loader.primitive.strings.StringArgumentLoader;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import compiler.pipeline.translate.nodes.ObjectNode;
-import compiler.pipeline.translate.nodes.PrimitiveObjectNode;
 import control.GeneralParameters;
 import control.ProcessManager;
 import control.arguments.GeometryDescriptor;
@@ -91,7 +88,7 @@ public class ProjectInterpolatorTest {
 
     @Test
     public void generalParameters() throws Exception {
-        ObjectNode cNode = mock(ObjectNode.class);
+        MapObjectNode cNode = mock(MapObjectNode.class);
         when(node.getMember("parameters")).thenReturn(cNode);
 
         ParametersLoader loader = mock(ParametersLoader.class);

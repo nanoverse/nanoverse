@@ -76,10 +76,6 @@ public class ParametersFactory implements Factory<GeneralParameters> {
         this.isStamp = isStamp;
     }
 
-    public void setEpsilon(double epsilon) {
-        this.epsilon = epsilon;
-    }
-
     @Override
     public GeneralParameters build() {
         return helper.build(random, randomSeed, maxStep, instances, basePath, project, isStamp, epsilon);
