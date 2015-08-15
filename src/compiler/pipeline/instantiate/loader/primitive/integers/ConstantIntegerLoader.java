@@ -22,17 +22,25 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.control;
+package compiler.pipeline.instantiate.loader.primitive.integers;
 
-import org.junit.*;
+import compiler.pipeline.translate.nodes.ObjectNode;
+import control.arguments.ConstantInteger;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import java.util.Random;
 
-public class IntegratorLoaderTest {
+/**
+ * Created by dbborens on 8/14/2015.
+ */
+public class ConstantIntegerLoader extends IntegerArgumentLoader<ConstantInteger> {
+    @Override
+    public ConstantInteger instantiate(ObjectNode node, Random random) {
+        throw new NotImplementedException();
+    }
 
-    @Test
-    public void instantiate() throws Exception {
-        fail();
+    @Override
+    public Integer instantiateToFirst(ObjectNode node, Random random) {
+        throw new NotImplementedException();
     }
 }

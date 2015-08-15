@@ -37,4 +37,8 @@ public class LayerManagerLoader extends Loader<LayerManager> {
     public LayerManager instantiate(ObjectNode childNode, GeometryDescriptor geom) {
         throw new NotImplementedException();
     }
+
+    public LayerManager instantiate(GeometryDescriptor geom) {
+        return instantiate(null, geom);
+    }
 }

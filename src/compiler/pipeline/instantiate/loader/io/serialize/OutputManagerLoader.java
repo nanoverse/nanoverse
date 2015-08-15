@@ -48,4 +48,8 @@ public class OutputManagerLoader extends OutputLoader<SerializationManager> {
     public SerializationManager instantiate(ObjectNode childNode, GeneralParameters p, LayerManager layerManager) {
         throw new NotImplementedException();
     }
+
+    public SerializationManager instantiate(GeneralParameters p, LayerManager lm) {
+        return instantiate(null, p, lm);
+    }
 }

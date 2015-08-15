@@ -26,9 +26,11 @@ package compiler.pipeline.instantiate.loader.control;
 
 import compiler.pipeline.instantiate.factory.control.ParametersFactory;
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.Random;
 
 /**
  * Created by dbborens on 8/10/2015.
@@ -36,16 +38,51 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class ParametersLoader extends Loader<GeneralParameters> {
 
     private final ParametersFactory factory;
+    private final ParametersInterpolator interpolator;
 
     public ParametersLoader() {
         factory = new ParametersFactory();
+        interpolator = new ParametersInterpolator();
     }
 
-    public ParametersLoader(ParametersFactory factory) {
+    public ParametersLoader(ParametersFactory factory,
+                            ParametersInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
     }
 
-    public GeneralParameters instantiate(ObjectNode childNode) {
-        throw new NotImplementedException();
+    public GeneralParameters instantiate(MapObjectNode node) {
+        long randomSeed = interpolator.randomSeed(node);
+        factory.setRandomSeed(randomSeed);
+
+        Random random = interpolator.random(randomSeed);
+        factory.setRandom(random);
+
+        String basePath = interpolator.path(node);
+        factory.setBasePath(basePath);
+
+        String project = interpolator.project(node);
+        factory.setProject(project);
+
+        int instances = interpolator.instances(node, random);
+        factory.setInstances(instances);
+
+        int maxStep = interpolator.maxStep(node, random);
+        factory.setMaxStep(maxStep);
+
+        boolean isStamp = interpolator.date(node, random);
+        factory.setIsStamp(isStamp);
+
+        return factory.build();
+    }
+
+    /**
+     * Instantiate using default values.
+     *
+     * @return
+     */
+    public GeneralParameters instantiate() {
+        return instantiate(null);
     }
 }

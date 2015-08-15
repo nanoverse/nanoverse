@@ -24,6 +24,9 @@
 
 package compiler.pipeline.instantiate.loader.control;
 
+import compiler.pipeline.instantiate.loader.geometry.GeometryDescriptorLoader;
+import compiler.pipeline.instantiate.loader.io.serialize.OutputManagerLoader;
+import compiler.pipeline.instantiate.loader.layers.LayerManagerLoader;
 import control.GeneralParameters;
 import control.arguments.GeometryDescriptor;
 import geometry.Geometry;
@@ -49,35 +52,44 @@ import java.util.stream.Stream;
  */
 public class ProjectDefaults {
     public GeneralParameters generalParameters() {
-        long seed = System.currentTimeMillis();
-        Random random = new Random(seed);
-        return new GeneralParameters(random, seed, 100, 1, ".", "nanoverse", false);
+        ParametersLoader loader = new ParametersLoader();
+        return loader.instantiate();
+//        long seed = System.currentTimeMillis();
+//        Random random = new Random(seed);
+//        return new GeneralParameters(random, seed, 100, 1, ".", "nanoverse", false);
     }
 
     public GeometryDescriptor geometry() {
-        Lattice lattice = new RectangularLattice();
-        Shape shape = new Rectangle(lattice, 32, 32);
-        GeometryDescriptor geom = new GeometryDescriptor(lattice, shape);
-        return geom;
+        GeometryDescriptorLoader loader = new GeometryDescriptorLoader();
+        return loader.instantiate();
+//        Lattice lattice = new RectangularLattice();
+//        Shape shape = new Rectangle(lattice, 32, 32);
+//        GeometryDescriptor geom = new GeometryDescriptor(lattice, shape);
+//        return geom;
     }
 
     public LayerManager layers(GeometryDescriptor geom) {
-        Boundary boundary = new Periodic(geom.getShape(), geom.getLattice());
-        Geometry geometry = geom.make(boundary);
-        CellLayer layer = new CellLayer(geometry);
-        LayerManager lm = new LayerManager();
-        lm.setCellLayer(layer);
-        return lm;
+        LayerManagerLoader loader = new LayerManagerLoader();
+        return loader.instantiate(geom);
+//
+//        Boundary boundary = new Periodic(geom.getShape(), geom.getLattice());
+//        Geometry geometry = geom.make(boundary);
+//        CellLayer layer = new CellLayer(geometry);
+//        LayerManager lm = new LayerManager();
+//        lm.setCellLayer(layer);
+//        return lm;
     }
 
     public SerializationManager output(GeneralParameters p,
                                               LayerManager lm) {
 
-        ProgressReporter progressReporter = new ProgressReporter(p, lm);
-        List<Serializer> serializers = Stream.of(progressReporter)
-                .collect(Collectors.toList());
-
-        SerializationManager sm = new SerializationManager(p, lm, serializers);
-        return sm;
+        OutputManagerLoader loader = new OutputManagerLoader();
+        return loader.instantiate(p, lm);
+//        ProgressReporter progressReporter = new ProgressReporter(p, lm);
+//        List<Serializer> serializers = Stream.of(progressReporter)
+//                .collect(Collectors.toList());
+//
+//        SerializationManager sm = new SerializationManager(p, lm, serializers);
+//        return sm;
     }
 }

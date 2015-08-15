@@ -22,14 +22,26 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.primitive.integers;
+package compiler.pipeline.instantiate.loader.primitive.doubles;
 
-import compiler.pipeline.instantiate.loader.primitive.PrimitiveLoader;
-import control.arguments.Argument;
-import control.arguments.IntegerArgument;
+import compiler.pipeline.translate.nodes.ObjectNode;
+import control.arguments.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.Random;
 
 /**
- * Created by dbborens on 8/1/2015.
+ * Created by dbborens on 8/14/2015.
  */
-public class IntegerLoader extends PrimitiveLoader<IntegerArgument> {
+public class ConstantDoubleLoader extends DoubleArgumentLoader<ConstantDouble> {
+
+    @Override
+    public ConstantDouble instantiate(ObjectNode node, Random random) {
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public Double instantiateToFirst(ObjectNode node, Random random) {
+        throw new NotImplementedException();
+    }
 }

@@ -22,28 +22,35 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader;
-
-import compiler.error.MissingArgumentError;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import compiler.pipeline.translate.nodes.ObjectNode;
-import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+package compiler.pipeline.instantiate.loader.control;
 
 /**
- * Created by dbborens on 8/13/15.
+ * Created by dbborens on 8/14/2015.
  */
-public class LoadHelper {
-    public Loader getLoader(MapObjectNode parent, String field, boolean require) {
-        ObjectNode node = parent.getMember(field);
-        if (node == null && require) {
-            throw new MissingArgumentError(field, parent.getInstantiatingClass());
-        } else if (node == null) {
-            return null;
-        }
+public class ParametersDefaults {
 
-        InstantiableSymbolTable ist = node.getSymbolTable();
-        Loader loader = ist.getLoader();
-        return loader;
+    public String randomSeed() {
+        return "*";
+    }
+
+    public int maxStep() {
+        return 100;
+    }
+
+    public int instances() {
+        return 1;
+    }
+
+    public String path() {
+        return ".";
+    }
+
+    public String project() {
+        return "nanoverse";
+    }
+
+    public boolean date() {
+        return true;
     }
 
 }
