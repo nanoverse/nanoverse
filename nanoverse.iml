@@ -10,7 +10,7 @@
       <excludeFolder url="file://$MODULE_DIR$/.clover" />
       <excludeFolder url="file://$MODULE_DIR$/meta/out" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="org.dom4j:com.springsource.org.dom4j:1.6.1" level="project" />
     <orderEntry type="library" exported="" name="com.objectplanet.image.PngEncoder" level="project" />
