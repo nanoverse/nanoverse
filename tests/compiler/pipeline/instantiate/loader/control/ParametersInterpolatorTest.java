@@ -24,35 +24,23 @@
 
 package compiler.pipeline.instantiate.loader.control;
 
-import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.instantiate.loader.InterpolatorTest;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import compiler.pipeline.translate.nodes.ObjectNode;
 import org.junit.*;
-import org.mockito.ArgumentCaptor;
-import org.mockito.internal.matchers.Null;
 
-import java.beans.ParameterDescriptor;
 import java.util.Random;
-import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class ParametersInterpolatorTest extends InterpolatorTest {
 
-    private LoadHelper load;
     private ParametersDefaults defaults;
-    private MapObjectNode node;
-    private Random random;
     private ParametersInterpolator query;
 
     @Before
     public void before() throws Exception {
-        random = new Random(1);
-        load = mock(LoadHelper.class);
+        super.before();
         defaults = mock(ParametersDefaults.class);
-        node = mock(MapObjectNode.class);
         query = new ParametersInterpolator(load, defaults);
     }
 
@@ -73,68 +61,95 @@ public class ParametersInterpolatorTest extends InterpolatorTest {
 
     @Test
     public void randomSeedDefault() throws Exception {
-        when(load.aString(eq(node), eq("seed"), any())).thenReturn("0");
         when(defaults.randomSeed()).thenReturn("7");
-        ArgumentCaptor<Supplier> captor = ArgumentCaptor.forClass(Supplier.class);
-        query.randomSeed(node);
-        verify(load).aString(any(), any(), captor.capture());
-        String actual = (String) captor.getValue().get();
-        assertEquals("7", actual);
+        verifyStringDefault("seed", "7", () -> query.randomSeed(node));
     }
 
     @Test
     public void maxStep() throws Exception {
-        ObjectNode cNode = configureIntegerValue("maxStep", random, 5, load, node);
-
+        when(load.anInteger(eq(node), eq("maxStep"), any(), any())).thenReturn(5);
+        int actual = query.maxStep(node, random);
+        assertEquals(5, actual);
     }
 
     @Test
     public void maxStepDefault() throws Exception {
-
+        when(defaults.maxStep()).thenReturn(3);
+        verifyIntegerDefault("maxStep", 3,
+                () -> query.maxStep(node, random));
     }
 
     @Test
     public void instances() throws Exception {
-
+        when(load.anInteger(eq(node), eq("instances"), any(), any()))
+                .thenReturn(5);
+        int actual = query.instances(node, random);
+        assertEquals(5, actual);
     }
 
     @Test
     public void instancesDefault() throws Exception {
-
+        when(defaults.instances()).thenReturn(3);
+        verifyIntegerDefault("instances", 3,
+                () -> query.instances(node, random));
     }
 
     @Test
     public void path() throws Exception {
-
+        String expected = "/my/path";
+        when(load.aString(eq(node), eq("path"), any())).thenReturn(expected);
+        String actual = query.path(node);
+        assertEquals(expected, actual);
     }
 
     @Test
     public void pathDefault() throws Exception {
-
+        String expected = "/my/path";
+        when(defaults.path()).thenReturn(expected);
+        verifyStringDefault("path", expected, () -> query.path(node));
     }
 
     @Test
     public void project() throws Exception {
-
+        String expected = "myProject";
+        when(load.aString(eq(node), eq("project"), any()))
+                .thenReturn(expected);
+        String actual = query.project(node);
+        assertEquals(expected, actual);
     }
 
     @Test
     public void projectDefault() throws Exception {
-
+        String expected = "myProject";
+        when(defaults.project()).thenReturn(expected);
+        verifyStringDefault("project", expected, () -> query.project(node));
     }
 
     @Test
     public void date() throws Exception {
-
+        Boolean expected = true;
+        when(load.aBoolean(eq(node), eq("date"), any(), any()))
+                .thenReturn(expected);
+        Boolean actual = query.date(node, random);
+        assertEquals(expected, actual);
     }
 
     @Test
     public void dateDefault() throws Exception {
-
+        Boolean expected = true;
+        when(defaults.date()).thenReturn(expected);
+        verifyBooleanDefault("date", expected, () -> query.date(node, random));
     }
 
     @Test
     public void random() throws Exception {
+        Random expected = new Random(1);
+        Random actual = query.random(1);
 
+        for (int i = 0; i < 20; i++) {
+            int p = expected.nextInt();
+            int q = actual.nextInt();
+            assertEquals(p, q);
+        }
     }
 }
