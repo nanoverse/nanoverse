@@ -1,9 +1,10 @@
 #include "EquilibriumPetscSolver.h"
 #include <jni.h>
-#include <math.h>
 #include <petscksp.h>
-#include <pthread.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
 #include <time.h>
+#include <unistd.h>
 
 /**
  * Gets the length of a diagonal in a square matrix
@@ -56,7 +57,7 @@ int _get_col(int diagonal, int index) {
  *        CompDiagMatrix.getDiagonals()
  * @return 0 on success, PetscErrorCode on failure
  */
-int _fill_matrix(JNIEnv *env, Mat *A, jintArray *index,
+PetscErrorCode _fill_matrix(JNIEnv *env, Mat *A, jintArray *index,
 		 jobjectArray *diagonals) {
     // Get matrix dimension
     PetscInt n;
@@ -99,7 +100,7 @@ int _fill_matrix(JNIEnv *env, Mat *A, jintArray *index,
  * @param values a pointer to the JNI double array to use
  * @return 0 on success, PetscErrorCode on failure
  */
-int _fill_vector(JNIEnv *env, Vec *b, jdoubleArray *values) {
+PetscErrorCode _fill_vector(JNIEnv *env, Vec *b, jdoubleArray *values) {
     PetscErrorCode ierr;
 
     // Get size and base pointer for array of values
@@ -124,35 +125,122 @@ int _fill_vector(JNIEnv *env, Vec *b, jdoubleArray *values) {
  * Copies a PETSc vector into a JNI double array. They must be the same size
  * 
  * @param env a pointer to the JNI environment
- * @param x a pointer to the PETSc vector
+ * @param x a pointer to the normal double array (same length as jx)
  * @param jx a pointer to the JNI double array
  */
-int _pvec_to_jarray(JNIEnv *env, Vec *x, jdoubleArray *jx) {
-    PetscErrorCode ierr;
+void _array_to_jarray(JNIEnv *env, double *x, jdoubleArray *jx) {
 
     // Get size and base pointer for JNI double array
     jsize jx_length = (*env) -> GetArrayLength(env, *jx);
     jdouble* jx_array = (*env) -> GetDoubleArrayElements(env, *jx, 0);
 
-    // Make array of indices
-    int indices[jx_length];
-    for (int i = 0; i < jx_length; i++) {
-	indices[i] = i;
-    }
-
-    // Get values from PETSc
-    PetscScalar temp_values[jx_length];
-    ierr = VecGetValues(*x, jx_length, indices, temp_values); CHKERRQ(ierr);
-
     // Copy values into the memory JNI pinned for us
     for (int i = 0; i < jx_length; i++) {
-	jx_array[i] = temp_values[i];
+        jx_array[i] = x[i];
     }
     
     (*env) -> ReleaseDoubleArrayElements(env, *jx, jx_array, 0);
+}
+
+/**
+ * Copies a PETSc vector into an array of doubles. They must be the same size
+ *
+ * @param vec the PETSc vector
+ * @param array a pointer to the double array
+ */
+PetscErrorCode _pvec_to_array(Vec *vec, double *array) {
+    PetscErrorCode ierr;
+    PetscInt size;
+    ierr = VecGetSize(*vec, &size); CHKERRQ(ierr);
+	
+    // Make array of indices
+    int indices[size];
+    for (int i = 0; i < size; i++) {
+        indices[i] = i;
+    }
+
+    // Get values from PETSc
+    ierr = VecGetValues(*vec, size, indices, array); CHKERRQ(ierr);
+
     return 0;
 }
 
+
+/**
+ * Routine for solving a linear equation with PETSc.
+ *
+ * Note that this routine calls MPI teardown routines, so it should
+ * not be called in the main process unless you want to break MPI for
+ * the remainder of the process lifetime.
+ * 
+ * @param solver_args a pointer to the solver_args struct
+ */
+PetscErrorCode _solve_routine(JNIEnv *env, jint n, jintArray *index,
+			     jobjectArray *diagonals, double *solution,
+			     jdoubleArray *rhs) {    
+    PetscErrorCode ierr;
+    KSP ksp;
+    PC pc;
+    Mat A;
+    Vec b;
+    Vec x;
+    PetscInitialize(0, NULL, (char*) NULL, NULL);
+    
+    // Set up matrix A in Ax = b
+    int num_diags = (*env) -> GetArrayLength(env, *index);
+    ierr = MatCreateSeqAIJ(PETSC_COMM_WORLD, n, n, num_diags,
+			   NULL, &A); CHKERRQ(ierr);
+    ierr = MatSetUp(A); CHKERRQ(ierr);
+    ierr = _fill_matrix(env, &A, index, diagonals);
+    CHKERRQ(ierr);
+    ierr = MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY); CHKERRQ(ierr);
+    ierr = MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY); CHKERRQ(ierr);
+
+    // Set up vectors b and x in Ax = b
+    ierr = VecCreate(PETSC_COMM_WORLD, &b); CHKERRQ(ierr);
+    ierr = VecSetSizes(b, PETSC_DECIDE, n); CHKERRQ(ierr);
+    ierr = VecSetType(b, VECSEQ);
+    ierr = VecDuplicate(b, &x);
+    ierr = _fill_vector(env, &b, rhs); CHKERRQ(ierr);
+    ierr = VecAssemblyBegin(b); CHKERRQ(ierr);
+    ierr = VecAssemblyEnd(b); CHKERRQ(ierr);
+    
+    // Set up solver
+    ierr = KSPCreate(PETSC_COMM_WORLD, &ksp); CHKERRQ(ierr);
+    ierr = KSPSetOperators(ksp, A, A); CHKERRQ(ierr);
+
+    // Solver options
+    ierr = KSPSetType(ksp, KSPCG); CHKERRQ(ierr);
+    ierr = KSPGetPC(ksp, &pc); CHKERRQ(ierr);
+    ierr = PCSetType(pc, PCGAMG); CHKERRQ(ierr);
+    PetscOptionsSetValue("-ksp_initial_guess_nonzero", "true");
+    PetscOptionsSetValue("-pc_mg_cycles", "w");
+    PetscOptionsSetValue("-pc_mg_type", "additive");
+    PetscOptionsSetValue("-pc_gamg_type", "agg");
+    PetscOptionsSetValue("-pc_gamg_agg_nsmooths", "1");
+    KSPSetFromOptions(ksp);
+
+    clock_t begin, end;
+    double time_spent;
+
+    begin = clock();
+    ierr = KSPSolve(ksp, b, x); CHKERRQ(ierr);
+    end = clock();
+    time_spent = 1000 * (double)(end - begin) / CLOCKS_PER_SEC;
+    printf("Solver time: %f ms\n", time_spent);
+    
+    // Copy solution into JNI allocated memory
+    ierr = _pvec_to_array(&x, solution); CHKERRQ(ierr);
+    
+    // Clean up and return
+    ierr = MatDestroy(&A); CHKERRQ(ierr);
+    ierr = VecDestroy(&b); CHKERRQ(ierr);
+    ierr = VecDestroy(&x); CHKERRQ(ierr);
+    ierr = KSPDestroy(&ksp);
+    
+    PetscFinalize();
+    return ierr;
+}
 
 /**
  * Solves a linear system Ax = b using PETSc
@@ -165,7 +253,7 @@ int _pvec_to_jarray(JNIEnv *env, Vec *x, jdoubleArray *jx) {
  * @return 0 on success, PetscErrorCode error code on failute
  */
 JNIEXPORT int JNICALL
-Java_layers_continuum_solvers_EquilibriumPetscSolver_solve(
+  Java_layers_continuum_solvers_EquilibriumPetscSolver_solve(
         JNIEnv *env, jobject obj, jint n, jintArray index,
 	jobjectArray diagonals, jdoubleArray solution, jdoubleArray rhs) {
     
@@ -175,54 +263,40 @@ Java_layers_continuum_solvers_EquilibriumPetscSolver_solve(
 		"Type conversion error. Is PetscScalar double precison?\n");
 	exit(1);
     }
-
     PetscErrorCode ierr;
-    KSP ksp;
-    PC pc;
-    Mat A;
-    Vec b;
-    Vec x;
-    PetscInitialize(0, NULL, (char*) NULL, NULL);
-    
-    // Set up matrix A in Ax = b
-    int num_diags = (*env) -> GetArrayLength(env, index);
-    ierr = MatCreateSeqAIJ(PETSC_COMM_WORLD, n, n, num_diags, NULL, &A);
-    CHKERRQ(ierr);
-    ierr = MatSetUp(A); CHKERRQ(ierr);
-    _fill_matrix(env, &A, &index, &diagonals);
-    ierr = MatAssemblyBegin(A, MAT_FINAL_ASSEMBLY); CHKERRQ(ierr);
-    ierr = MatAssemblyEnd(A, MAT_FINAL_ASSEMBLY); CHKERRQ(ierr);
 
-    // Set up vectors b and x in Ax = b
-    ierr = VecCreate(PETSC_COMM_WORLD, &b); CHKERRQ(ierr);
-    ierr = VecSetSizes(b, PETSC_DECIDE, n); CHKERRQ(ierr);
-    ierr = VecSetType(b, VECSEQ);
-    ierr = VecDuplicate(b, &x);
-    _fill_vector(env, &b, &rhs);
-    ierr = VecAssemblyBegin(b); CHKERRQ(ierr);
-    ierr = VecAssemblyEnd(b); CHKERRQ(ierr);
-    
-    // Set up solver
-    ierr = KSPCreate(PETSC_COMM_WORLD, &ksp); CHKERRQ(ierr);
-    ierr = KSPSetOperators(ksp, A, A); CHKERRQ(ierr);
-    // ierr = KSPMonitorSet(ksp, *KSPMonitorDefault, NULL, NULL);
+    /* 
+     * We need to solve our system in a new process so that we can
+     * tear down PETSc without blocking all subsequent MPI calls. So
+     * we will create a shared memory space to hold the solution so that
+     * the parent process can access it
+     */
 
-    // Solver options
-    ierr = KSPSetType(ksp, KSPCG); CHKERRQ(ierr);
-    ierr = KSPGetPC(ksp, &pc); CHKERRQ(ierr);
-    ierr = PCSetType(pc, PCICC); CHKERRQ(ierr);
-    
-    ierr = KSPSolve(ksp, b, x); CHKERRQ(ierr);
+    int memid;
+    memid = shmget(IPC_PRIVATE, sizeof(double) * n, 0666);
+    double *solution_array = shmat(memid, NULL, 0);
 
-    // Copy solution into JNI allocated memory
-    _pvec_to_jarray(env, &x, &solution);
-    
-    // Clean up and return
-    ierr = MatDestroy(&A); CHKERRQ(ierr);
-    ierr = VecDestroy(&b); CHKERRQ(ierr);
-    ierr = VecDestroy(&x); CHKERRQ(ierr);
-    ierr = KSPDestroy(&ksp);
-    
-    PetscFinalize();
-    return 0;
+    // Make new process
+    pid_t child;
+    child = fork();
+    if (child == 0) {  // Fork succeeded
+	// Solve in child process
+	ierr = _solve_routine(env, n, &index, &diagonals, solution_array, &rhs);
+	exit(ierr);
+    } else if (child < 0) { // Fork failed
+	printf("OH SHIT\n");
+	return 1;
+    } else {  // Parent process
+	// Wait for child process to solve the system
+	int status;
+	waitpid(child, &status, 0);
+
+	// Transfer the solution from shared memory to the Java heap
+	_array_to_jarray(env, solution_array, &solution);
+
+	// Clean up and return
+	shmctl(memid, IPC_RMID, NULL);
+	shmdt(solution_array);
+	return status;
+    }
 }
