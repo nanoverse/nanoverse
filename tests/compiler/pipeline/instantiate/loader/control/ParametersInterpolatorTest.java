@@ -25,7 +25,9 @@
 package compiler.pipeline.instantiate.loader.control;
 
 import compiler.pipeline.instantiate.helpers.LoadHelper;
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
 import compiler.pipeline.translate.nodes.MapObjectNode;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
 import org.mockito.internal.matchers.Null;
@@ -37,7 +39,7 @@ import java.util.function.Supplier;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class ParametersInterpolatorTest {
+public class ParametersInterpolatorTest extends InterpolatorTest {
 
     private LoadHelper load;
     private ParametersDefaults defaults;
@@ -82,6 +84,7 @@ public class ParametersInterpolatorTest {
 
     @Test
     public void maxStep() throws Exception {
+        ObjectNode cNode = configureIntegerValue("maxStep", random, 5, load, node);
 
     }
 
