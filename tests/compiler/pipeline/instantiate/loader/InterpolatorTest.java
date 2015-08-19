@@ -25,60 +25,58 @@
 package compiler.pipeline.instantiate.loader;
 
 import compiler.pipeline.instantiate.helpers.LoadHelper;
-import compiler.pipeline.instantiate.loader.primitive.booleans.BooleanArgumentLoader;
-import compiler.pipeline.instantiate.loader.primitive.doubles.DoubleArgumentLoader;
-import compiler.pipeline.instantiate.loader.primitive.integers.IntegerArgumentLoader;
-import compiler.pipeline.instantiate.loader.primitive.strings.StringArgumentLoader;
 import compiler.pipeline.translate.nodes.MapObjectNode;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import org.junit.Before;
+import org.mockito.ArgumentCaptor;
 
 import java.util.Random;
+import java.util.function.Supplier;
 
+import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.*;
+
 
 /**
  * Created by dbborens on 8/19/2015.
  */
-public abstract class InterpolatorTest {
+public class InterpolatorTest {
 
-    protected ObjectNode configureStringValue(String member, String expected, LoadHelper loadHelper, MapObjectNode node) {
-        ObjectNode cNode = mock(ObjectNode.class);
-        when(node.getMember(member)).thenReturn(cNode);
+    protected LoadHelper load;
+    protected MapObjectNode node;
+    protected Random random;
 
-        StringArgumentLoader loader = mock(StringArgumentLoader.class);
-        when(loadHelper.getLoader(eq(node), eq(member), anyBoolean())).thenReturn(loader);
-        when(loader.instantiateToFirst(cNode)).thenReturn(expected);
-        return cNode;
+    @Before
+    public void before() throws Exception {
+        random = new Random(1);
+        load = mock(LoadHelper.class);
+        node = mock(MapObjectNode.class);
     }
 
-    protected ObjectNode configureDoubleValue(String member, Random random, Double expected, LoadHelper loadHelper, MapObjectNode node) {
-        ObjectNode cNode = mock(ObjectNode.class);
-        when(node.getMember(member)).thenReturn(cNode);
-
-        DoubleArgumentLoader loader = mock(DoubleArgumentLoader.class);
-        when(loadHelper.getLoader(eq(node), eq(member), anyBoolean())).thenReturn(loader);
-        when(loader.instantiateToFirst(cNode, random)).thenReturn(expected);
-        return cNode;
+    protected void verifyIntegerDefault(String member, Integer expected, Runnable trigger) {
+        when(load.anInteger(eq(node), eq(member), any(), any())).thenReturn(expected + 1);
+        ArgumentCaptor<Supplier> captor = ArgumentCaptor.forClass(Supplier.class);
+        trigger.run();
+        verify(load).anInteger(any(), any(), eq(random), captor.capture());
+        Integer actual = (Integer) captor.getValue().get();
+        assertEquals(expected, actual);
     }
 
-    protected ObjectNode configureIntegerValue(String member, Random random, Integer expected, LoadHelper loadHelper, MapObjectNode node) {
-        ObjectNode cNode = mock(ObjectNode.class);
-        when(node.getMember(member)).thenReturn(cNode);
-
-        IntegerArgumentLoader loader = mock(IntegerArgumentLoader.class);
-        when(loadHelper.getLoader(eq(node), eq(member), anyBoolean())).thenReturn(loader);
-        when(loader.instantiateToFirst(cNode, random)).thenReturn(expected);
-        return cNode;
+    protected void verifyStringDefault(String member, String expected, Runnable trigger) {
+        when(load.aString(eq(node), eq(member), any())).thenReturn(expected + "1");
+        ArgumentCaptor<Supplier> captor = ArgumentCaptor.forClass(Supplier.class);
+        trigger.run();
+        verify(load).aString(any(), any(), captor.capture());
+        String actual = (String) captor.getValue().get();
+        assertEquals(expected, actual);
     }
 
-    protected ObjectNode configureBooleanValue(String member, Random random, Boolean expected, LoadHelper loadHelper, MapObjectNode node) {
-        ObjectNode cNode = mock(ObjectNode.class);
-        when(node.getMember(member)).thenReturn(cNode);
-
-        BooleanArgumentLoader loader = mock(BooleanArgumentLoader.class);
-        when(loadHelper.getLoader(eq(node), eq(member), anyBoolean())).thenReturn(loader);
-        when(loader.instantiateToFirst(cNode, random)).thenReturn(expected);
-        return cNode;
+    protected void verifyBooleanDefault(String member, Boolean expected, Runnable trigger) {
+        when(load.aBoolean(eq(node), eq(member), any(), any())).thenReturn(!expected);
+        ArgumentCaptor<Supplier> captor = ArgumentCaptor.forClass(Supplier.class);
+        trigger.run();
+        verify(load).aBoolean(any(), any(), eq(random), captor.capture());
+        Boolean actual = (Boolean) captor.getValue().get();
+        assertEquals(expected, actual);
     }
 
 }
