@@ -37,7 +37,7 @@ import layers.cell.CellLayer;
 import org.dom4j.Element;
 import test.EslimeTestCase;
 
-public class CellLayerFactoryTest extends EslimeTestCase {
+public class AgentLayerFactoryTest extends EslimeTestCase {
 
     private Element fixtureRoot;
     private GeometryDescriptor descriptor;

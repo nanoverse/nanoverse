@@ -26,6 +26,7 @@ package compiler.pipeline.translate.symbol.layers;
 
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.geometry.boundary.BoundaryClassSymbolTable;
+import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import layers.Layer;
 
 import java.util.HashMap;
@@ -38,7 +39,14 @@ public abstract class LayerInstSymbolTable<T extends Layer> extends MapSymbolTab
     protected HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret =  super.resolveMembers();
         boundary(ret);
+        id(ret);
         return ret;
+    }
+
+    private void id(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "A unique name for the layer.");
+        ret.put("id", ms);
     }
 
     private void boundary(HashMap<String, MemberSymbol> ret) {

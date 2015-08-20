@@ -22,22 +22,40 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.layers.continuum;
+package compiler.pipeline.instantiate.loader.layers.agent;
 
-import compiler.pipeline.instantiate.loader.layers.LayerLoader;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
+import compiler.pipeline.instantiate.loader.geometry.boundary.BoundaryLoader;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.arguments.GeometryDescriptor;
 import geometry.boundaries.Boundary;
-import layers.continuum.ContinuumLayer;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
- * Created by dbborens on 8/1/2015.
+ * Created by dbborens on 8/20/2015.
  */
-public class ContinuumLayerLoader extends LayerLoader<ContinuumLayer> {
+public class AgentLayerInterpolator {
 
-    @Override
-    public ContinuumLayer instantiate(MapObjectNode child, GeometryDescriptor geom) {
-        throw new NotImplementedException();
+    private final LoadHelper load;
+    private final AgentLayerDefaults defaults;
+
+    public AgentLayerInterpolator() {
+        load = new LoadHelper();
+        defaults = new AgentLayerDefaults();
+    }
+
+    public AgentLayerInterpolator(LoadHelper load, AgentLayerDefaults defaults) {
+        this.load = load;
+        this.defaults = defaults;
+    }
+
+    public Boundary boundary(MapObjectNode node, GeometryDescriptor geom) {
+        MapObjectNode child = (MapObjectNode) node.getMember("boundary");
+        BoundaryLoader loader = (BoundaryLoader) load.getLoader(node, "boundary", false);
+
+        if (loader == null) {
+            return defaults.boundary(geom);
+        }
+
+        return loader.instantiate(child, geom);
     }
 }

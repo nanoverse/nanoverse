@@ -24,11 +24,42 @@
 
 package compiler.pipeline.instantiate.loader.layers.agent;
 
+import compiler.pipeline.instantiate.factory.layers.cell.AgentLayerFactory;
 import compiler.pipeline.instantiate.loader.layers.LayerLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.arguments.GeometryDescriptor;
+import geometry.Geometry;
+import geometry.boundaries.Boundary;
+import layers.Layer;
 import layers.cell.CellLayer;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/1/2015.
  */
 public class AgentLayerLoader extends LayerLoader<CellLayer> {
+
+    private final AgentLayerFactory factory;
+    private final AgentLayerInterpolator interpolator;
+
+    public AgentLayerLoader() {
+        factory = new AgentLayerFactory();
+        interpolator = new AgentLayerInterpolator();
+    }
+
+    public AgentLayerLoader(AgentLayerFactory factory, AgentLayerInterpolator interpolator) {
+        this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public CellLayer instantiate(MapObjectNode child, GeometryDescriptor geom) {
+        Boundary boundary = interpolator.boundary(child, geom);
+        Geometry geometry = geom.make(boundary);
+        return new CellLayer(geometry);
+    }
+
+    public CellLayer instantiate(GeometryDescriptor geom) {
+        return instantiate(null, geom);
+    }
 }

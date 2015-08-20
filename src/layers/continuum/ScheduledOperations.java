@@ -28,6 +28,7 @@ import control.identifiers.Coordinate;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import structural.annotations.FactoryTarget;
 import structural.utilities.MatrixUtils;
 
 import java.util.function.Function;
@@ -46,6 +47,7 @@ public class ScheduledOperations {
     private Function<Coordinate, Integer> indexer;
     private final boolean operators;
 
+    @FactoryTarget
     public ScheduledOperations(Function<Coordinate, Integer> indexer, int n, boolean operators) {
         this.indexer = indexer;
         this.operators = operators;

@@ -21,31 +21,16 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.layers;
 
-package compiler.pipeline.instantiate.loader.geometry.boundary;
+import layers.cell.CellLayer;
+import java.util.HashMap;
+import layers.LayerManager;
 
-import compiler.pipeline.instantiate.factory.geometry.boundaries.HaltArenaFactory;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.arguments.GeometryDescriptor;
-import geometry.boundaries.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-/**
- * Created by dbborens on 8/4/2015.
- */
-public class HaltArenaBoundaryLoader extends BoundaryLoader<HaltArena> {
-    private final HaltArenaFactory factory;
+public class LayerManagerFactoryHelper {
 
-    public HaltArenaBoundaryLoader() {
-        factory = new HaltArenaFactory();
-    }
-
-    public HaltArenaBoundaryLoader(HaltArenaFactory factory) {
-        this.factory = factory;
-    }
-
-    @Override
-    public Boundary instantiate(MapObjectNode child, GeometryDescriptor geom) {
-        throw new NotImplementedException();
+    public LayerManager build(CellLayer cellLayer, HashMap continuumLayers) {
+        return new LayerManager(cellLayer, continuumLayers);
     }
 }

@@ -26,7 +26,7 @@ package compiler.pipeline.translate.symbol.layers.continuum;
 
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
-import control.arguments.BooleanArgument;
+import control.arguments.*;
 import geometry.boundaries.Boundary;
 import layers.continuum.ContinuumLayer;
 import layers.continuum.solvers.ContinuumSolver;
@@ -60,5 +60,10 @@ public class ContinuumLayerInstSymbolTableTest extends MapSymbolTableTest {
     @Test
     public void boundary() throws Exception {
         verifyReturnSymbol("boundary", Boundary.class);
+    }
+
+    @Test
+    public void id() throws Exception {
+        verifyReturnSymbol("id", StringArgument.class);
     }
 }

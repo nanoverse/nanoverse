@@ -26,6 +26,7 @@ package layers.continuum;
 
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import structural.annotations.FactoryTarget;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -42,6 +43,7 @@ public class ReactionLoader {
     private final AgentToOperatorHelper helper;
     private final boolean operators;
 
+    @FactoryTarget
     public ReactionLoader(Consumer<DenseVector> injector, Consumer<CompDiagMatrix> exponentiator,
                           AgentToOperatorHelper helper, boolean operators) {
         this.injector = injector;

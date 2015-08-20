@@ -26,6 +26,7 @@ package compiler.pipeline.translate.symbol.layers.agent;
 
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import control.arguments.StringArgument;
 import geometry.boundaries.Boundary;
 import layers.cell.CellLayer;
 import org.junit.*;
@@ -49,5 +50,10 @@ public class AgentLayerInstSymbolTableTest extends MapSymbolTableTest {
     @Test
     public void boundary() throws Exception {
         verifyReturnSymbol("boundary", Boundary.class);
+    }
+
+    @Test
+    public void id() throws Exception {
+        verifyReturnSymbol("id", StringArgument.class);
     }
 }

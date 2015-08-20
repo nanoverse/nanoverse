@@ -37,7 +37,7 @@ public class CellLayer extends Layer {
 
     protected CellLayerContent content;
 
-    @FactoryTarget
+    @FactoryTarget(displayName = "AgentLayer")
     public CellLayer(Geometry geom) {
         geometry = geom;
         reset();
