@@ -30,7 +30,7 @@ import layers.continuum.solvers.NonEquilibriumSolver;
 
 public class NonEquilibriumSolverFactoryHelper {
 
-    public NonEquilibriumSolver build(ContinuumLayerContent content, ScheduledOperations so, boolean operators) {
-        return new NonEquilibriumSolver(content, so, operators);
+    public NonEquilibriumSolver build(ContinuumLayerContent content, ScheduledOperations so) {
+        return new NonEquilibriumSolver(content, so);
     }
 }

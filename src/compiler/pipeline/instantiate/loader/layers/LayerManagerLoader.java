@@ -29,6 +29,7 @@ import compiler.pipeline.instantiate.factory.layers.LayerManagerFactory;
 import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.instantiate.loader.layers.agent.AgentLayerLoader;
 import compiler.pipeline.translate.nodes.*;
+import control.GeneralParameters;
 import control.arguments.GeometryDescriptor;
 import layers.*;
 import layers.cell.CellLayer;
@@ -57,11 +58,13 @@ public class LayerManagerLoader extends Loader<LayerManager> {
         this.continuumLayers = continuumLayers;
     }
 
-    public LayerManager instantiate(ListObjectNode childNode, GeometryDescriptor geom) {
+    public LayerManager instantiate(ListObjectNode childNode,
+                                    GeometryDescriptor geom,
+                                    GeneralParameters p) {
 
         childNode.getMemberStream()
                 .map(o -> (MapObjectNode) o)
-                .map(node -> loadLayer(node, geom))
+                .map(node -> loadLayer(node, geom, p))
                 .forEach(this::assignLayer);
 
         factory.setContinuumLayers(continuumLayers);
@@ -69,9 +72,9 @@ public class LayerManagerLoader extends Loader<LayerManager> {
         return factory.build();
     }
 
-    public LayerManager instantiate(GeometryDescriptor geom) {
+    public LayerManager instantiate(GeometryDescriptor geom, GeneralParameters p) {
         AgentLayerLoader loader = new AgentLayerLoader();
-        CellLayer layer = loader.instantiate(geom);
+        CellLayer layer = loader.instantiate(geom, p);
         factory.setCellLayer(layer);
         factory.setContinuumLayers(continuumLayers);
         return factory.build();
@@ -105,9 +108,9 @@ public class LayerManagerLoader extends Loader<LayerManager> {
         numCellLayers++;
     }
 
-    private Layer loadLayer(MapObjectNode child, GeometryDescriptor geom) {
+    private Layer loadLayer(MapObjectNode child, GeometryDescriptor geom, GeneralParameters p) {
         LayerLoader loader = (LayerLoader) child.getSymbolTable().getLoader();
-        Layer layer = loader.instantiate(child, geom);
+        Layer layer = loader.instantiate(child, geom, p);
         return layer;
     }
 }

@@ -43,7 +43,7 @@ public class ContinuumLayerSchedulerTest extends LinearMocks {
 
     @Before
     public void init() throws Exception {
-        so = new ScheduledOperations(indexer, 3, true);
+        so = new ScheduledOperations(geom, true);
         holdManager = mock(HoldManager.class);
         runArgument = ArgumentCaptor.forClass(Runnable.class);
 

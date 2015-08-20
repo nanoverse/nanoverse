@@ -39,7 +39,7 @@ public class ScheduledOperationsTest extends LinearMocks {
 
     @Before
     public void initQuery() {
-        query = new ScheduledOperations(indexer, 3, true);
+        query = new ScheduledOperations(geom, true);
     }
 
     @Test

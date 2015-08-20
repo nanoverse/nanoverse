@@ -45,7 +45,9 @@ public class ArenaBoundaryLoader extends BoundaryLoader<Arena> {
     }
 
     @Override
-    public Boundary instantiate(MapObjectNode child, GeometryDescriptor geom) {
-        throw new NotImplementedException();
+    public Boundary instantiate(GeometryDescriptor geom) {
+        factory.setLattice(geom.getLattice());
+        factory.setShape(geom.getShape());
+        return factory.build();
     }
 }

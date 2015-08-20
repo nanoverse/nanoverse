@@ -27,6 +27,7 @@ package compiler.pipeline.instantiate.loader.layers.agent;
 import compiler.pipeline.instantiate.factory.layers.cell.AgentLayerFactory;
 import compiler.pipeline.instantiate.loader.layers.LayerLoader;
 import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import control.arguments.GeometryDescriptor;
 import geometry.Geometry;
 import geometry.boundaries.Boundary;
@@ -53,13 +54,13 @@ public class AgentLayerLoader extends LayerLoader<CellLayer> {
     }
 
     @Override
-    public CellLayer instantiate(MapObjectNode child, GeometryDescriptor geom) {
+    public CellLayer instantiate(MapObjectNode child, GeometryDescriptor geom, GeneralParameters p) {
         Boundary boundary = interpolator.boundary(child, geom);
         Geometry geometry = geom.make(boundary);
         return new CellLayer(geometry);
     }
 
-    public CellLayer instantiate(GeometryDescriptor geom) {
-        return instantiate(null, geom);
+    public CellLayer instantiate(GeometryDescriptor geom, GeneralParameters p) {
+        return instantiate(null, geom, p);
     }
 }

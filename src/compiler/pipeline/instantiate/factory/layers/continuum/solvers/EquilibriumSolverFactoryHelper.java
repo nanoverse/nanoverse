@@ -26,12 +26,11 @@ package compiler.pipeline.instantiate.factory.layers.continuum.solvers;
 import layers.continuum.ContinuumLayerContent;
 import layers.continuum.ScheduledOperations;
 import layers.continuum.solvers.EquilibriumSolver;
-import layers.continuum.solvers.EquilibriumMatrixSolver;
 
 
 public class EquilibriumSolverFactoryHelper {
 
-    public EquilibriumSolver build(ContinuumLayerContent content, ScheduledOperations so, EquilibriumMatrixSolver steadyState) {
-        return new EquilibriumSolver(content, so, steadyState);
+    public EquilibriumSolver build(ContinuumLayerContent content, ScheduledOperations so) {
+        return new EquilibriumSolver(content, so);
     }
 }

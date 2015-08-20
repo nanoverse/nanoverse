@@ -56,7 +56,7 @@ public class AgentLayerInterpolatorTest extends InterpolatorTest {
         when(load.getLoader(eq(node), eq("boundary"), anyBoolean())).thenReturn(loader);
 
         Boundary expected = mock(Boundary.class);
-        when(loader.instantiate(cNode, geom)).thenReturn(expected);
+        when(loader.instantiate(geom)).thenReturn(expected);
 
         Boundary actual = query.boundary(node, geom);
         assertSame(expected, actual);

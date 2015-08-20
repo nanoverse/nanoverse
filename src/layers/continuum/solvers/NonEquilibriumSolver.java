@@ -37,9 +37,9 @@ public class NonEquilibriumSolver extends ContinuumSolver {
 
 
     @FactoryTarget
-    public NonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, boolean operators) {
+    public NonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {
         super(content, so);
-        if (operators) {
+        if (so.isOperators()) {
             throw new NotImplementedException();
         }
     }

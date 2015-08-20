@@ -93,16 +93,19 @@ public class ProjectInterpolator {
         return geom;
     }
 
-    public LayerManager layers(MapObjectNode node, GeometryDescriptor geom) {
+    public LayerManager layers(MapObjectNode node,
+                               GeometryDescriptor geom,
+                               GeneralParameters p) {
+
         ListObjectNode childNode = (ListObjectNode) node.getMember("layers");
         LayerManagerLoader loader = (LayerManagerLoader)
                 load.getLoader(node, "layers", false);
 
         if (loader == null) {
-            return defaults.layers(geom);
+            return defaults.layers(geom, p);
         }
 
-        LayerManager layerManager = loader.instantiate(childNode, geom);
+        LayerManager layerManager = loader.instantiate(childNode, geom, p);
         return layerManager;
     }
 

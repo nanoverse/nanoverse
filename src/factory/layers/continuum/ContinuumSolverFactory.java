@@ -48,7 +48,7 @@ public class ContinuumSolverFactory {
     }
 
     private static ContinuumSolver makeNonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, boolean operators) {
-        return new NonEquilibriumSolver(content, so, operators);
+        return new NonEquilibriumSolver(content, so);
     }
 
     private static ContinuumSolver makeEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, boolean operators) {

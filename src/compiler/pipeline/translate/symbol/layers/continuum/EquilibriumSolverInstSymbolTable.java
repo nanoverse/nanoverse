@@ -25,8 +25,7 @@
 package compiler.pipeline.translate.symbol.layers.continuum;
 
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.instantiate.loader.layers.continuum.EquilibriumSolverLoader;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.instantiate.loader.layers.continuum.solvers.EquilibriumSolverLoader;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import layers.continuum.solvers.EquilibriumSolver;
 

@@ -26,6 +26,7 @@ package layers.continuum.solvers;
 
 import layers.continuum.*;
 import no.uib.cipr.matrix.Vector;
+import structural.annotations.FactoryTarget;
 
 
 /**
@@ -35,6 +36,7 @@ public abstract class ContinuumSolver {
     protected final ContinuumLayerContent content;
     protected final ScheduledOperations so;
 
+    @FactoryTarget
     public ContinuumSolver(ContinuumLayerContent content, ScheduledOperations so) {
         this.content = content;
         this.so = so;

@@ -68,9 +68,9 @@ public class ProjectDefaults {
 //        return geom;
     }
 
-    public LayerManager layers(GeometryDescriptor geom) {
+    public LayerManager layers(GeometryDescriptor geom, GeneralParameters p) {
         LayerManagerLoader loader = new LayerManagerLoader();
-        return loader.instantiate(geom);
+        return loader.instantiate(geom, p);
 //
 //        Boundary boundary = new Periodic(geom.getShape(), geom.getLattice());
 //        Geometry geometry = geom.make(boundary);

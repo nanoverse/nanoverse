@@ -35,9 +35,14 @@ import structural.annotations.FactoryTarget;
  */
 public class EquilibriumSolver extends ContinuumSolver {
 
-    private EquilibriumMatrixSolver steadyState;
+    private final EquilibriumMatrixSolver steadyState;
 
     @FactoryTarget
+    public EquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {
+        super(content, so);
+        steadyState = new EquilibriumMatrixSolver(so.isOperators());
+    }
+
     public EquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, EquilibriumMatrixSolver steadyState) {
         super(content, so);
         this.steadyState = steadyState;
