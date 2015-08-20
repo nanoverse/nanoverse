@@ -29,8 +29,7 @@ import compiler.pipeline.instantiate.loader.geometry.GeometryDescriptorLoader;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputManagerLoader;
 import compiler.pipeline.instantiate.loader.layers.LayerManagerLoader;
 import compiler.pipeline.instantiate.loader.primitive.strings.StringArgumentLoader;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
 import control.ProcessManager;
 import control.arguments.GeometryDescriptor;
@@ -130,7 +129,7 @@ public class ProjectInterpolatorTest {
 
     @Test
     public void layers() throws Exception {
-        ObjectNode cNode = mock(ObjectNode.class);
+        ListObjectNode cNode = mock(ListObjectNode.class);
         when(node.getMember("layers")).thenReturn(cNode);
 
         LayerManagerLoader loader = mock(LayerManagerLoader.class);

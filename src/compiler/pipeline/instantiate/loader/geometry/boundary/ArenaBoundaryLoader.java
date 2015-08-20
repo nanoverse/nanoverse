@@ -25,7 +25,10 @@
 package compiler.pipeline.instantiate.loader.geometry.boundary;
 
 import compiler.pipeline.instantiate.factory.geometry.boundaries.ArenaFactory;
-import geometry.boundaries.Arena;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.arguments.GeometryDescriptor;
+import geometry.boundaries.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.
@@ -39,5 +42,10 @@ public class ArenaBoundaryLoader extends BoundaryLoader<Arena> {
 
     public ArenaBoundaryLoader(ArenaFactory factory) {
         this.factory = factory;
+    }
+
+    @Override
+    public Boundary instantiate(MapObjectNode child, GeometryDescriptor geom) {
+        throw new NotImplementedException();
     }
 }

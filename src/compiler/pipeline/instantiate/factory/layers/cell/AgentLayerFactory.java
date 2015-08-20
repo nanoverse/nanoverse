@@ -21,31 +21,32 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.layers.cell;
 
-package compiler.pipeline.instantiate.loader.geometry.boundary;
+import layers.cell.CellLayer;
+import geometry.Geometry;
+import compiler.pipeline.instantiate.factory.Factory;
 
-import compiler.pipeline.instantiate.factory.geometry.boundaries.HaltArenaFactory;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.arguments.GeometryDescriptor;
-import geometry.boundaries.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+public class AgentLayerFactory implements Factory<CellLayer> {
 
-/**
- * Created by dbborens on 8/4/2015.
- */
-public class HaltArenaBoundaryLoader extends BoundaryLoader<HaltArena> {
-    private final HaltArenaFactory factory;
+    private final AgentLayerFactoryHelper helper;
 
-    public HaltArenaBoundaryLoader() {
-        factory = new HaltArenaFactory();
+    private Geometry geom;
+
+    public AgentLayerFactory() {
+        helper = new AgentLayerFactoryHelper();
     }
 
-    public HaltArenaBoundaryLoader(HaltArenaFactory factory) {
-        this.factory = factory;
+    public AgentLayerFactory(AgentLayerFactoryHelper helper) {
+        this.helper = helper;
+    }
+
+    public void setGeom(Geometry geom) {
+        this.geom = geom;
     }
 
     @Override
-    public Boundary instantiate(MapObjectNode child, GeometryDescriptor geom) {
-        throw new NotImplementedException();
+    public CellLayer build() {
+        return helper.build(geom);
     }
 }

@@ -25,10 +25,13 @@
 package compiler.pipeline.instantiate.loader.geometry.boundary;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.arguments.GeometryDescriptor;
 import geometry.boundaries.Boundary;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public abstract class BoundaryLoader<T extends Boundary> extends Loader<T> {
+    public abstract Boundary instantiate(MapObjectNode child, GeometryDescriptor geom);
 }

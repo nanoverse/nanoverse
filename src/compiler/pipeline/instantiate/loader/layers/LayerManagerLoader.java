@@ -24,21 +24,90 @@
 
 package compiler.pipeline.instantiate.loader.layers;
 
+import compiler.error.UserError;
+import compiler.pipeline.instantiate.factory.layers.LayerManagerFactory;
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.instantiate.loader.layers.agent.AgentLayerLoader;
+import compiler.pipeline.translate.nodes.*;
 import control.arguments.GeometryDescriptor;
-import layers.LayerManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import layers.*;
+import layers.cell.CellLayer;
+import layers.continuum.ContinuumLayer;
+
+import java.util.HashMap;
 
 /**
  * Created by dbborens on 8/1/2015.
  */
 public class LayerManagerLoader extends Loader<LayerManager> {
-    public LayerManager instantiate(ObjectNode childNode, GeometryDescriptor geom) {
-        throw new NotImplementedException();
+
+    private final LayerManagerFactory factory;
+    private final HashMap<String, ContinuumLayer> continuumLayers;
+    private int numCellLayers = 0;
+
+    public LayerManagerLoader() {
+        factory = new LayerManagerFactory();
+        continuumLayers = new HashMap<>();
+    }
+
+    public LayerManagerLoader(LayerManagerFactory factory,
+                              HashMap<String, ContinuumLayer> continuumLayers) {
+
+        this.factory = factory;
+        this.continuumLayers = continuumLayers;
+    }
+
+    public LayerManager instantiate(ListObjectNode childNode, GeometryDescriptor geom) {
+
+        childNode.getMemberStream()
+                .map(o -> (MapObjectNode) o)
+                .map(node -> loadLayer(node, geom))
+                .forEach(this::assignLayer);
+
+        factory.setContinuumLayers(continuumLayers);
+
+        return factory.build();
     }
 
     public LayerManager instantiate(GeometryDescriptor geom) {
-        return instantiate(null, geom);
+        AgentLayerLoader loader = new AgentLayerLoader();
+        CellLayer layer = loader.instantiate(geom);
+        factory.setCellLayer(layer);
+        factory.setContinuumLayers(continuumLayers);
+        return factory.build();
+    }
+
+    private void assignLayer(Layer layer) {
+        if (layer instanceof CellLayer) {
+            assignCellLayer((CellLayer) layer);
+        } else if (layer instanceof ContinuumLayer) {
+            assignContinuumLayer((ContinuumLayer) layer);
+        } else {
+            throw new IllegalStateException();
+        }
+    }
+
+    private void assignContinuumLayer(ContinuumLayer layer) {
+        String id = layer.getId();
+        if (continuumLayers.containsKey(id)) {
+            throw new UserError("Duplicate declaration of layer \"" + id + "\"");
+        }
+
+        continuumLayers.put(id, layer);
+    }
+
+    private void assignCellLayer(CellLayer layer) {
+        if (numCellLayers > 0) {
+            throw new UnsupportedOperationException("Multiple cell layers not implemented.") ;
+        }
+
+        factory.setCellLayer(layer);
+        numCellLayers++;
+    }
+
+    private Layer loadLayer(MapObjectNode child, GeometryDescriptor geom) {
+        LayerLoader loader = (LayerLoader) child.getSymbolTable().getLoader();
+        Layer layer = loader.instantiate(child, geom);
+        return layer;
     }
 }

@@ -22,30 +22,17 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.geometry.boundary;
+package compiler.pipeline.instantiate.loader.layers.agent;
 
-import compiler.pipeline.instantiate.factory.geometry.boundaries.HaltArenaFactory;
-import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.arguments.GeometryDescriptor;
 import geometry.boundaries.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
- * Created by dbborens on 8/4/2015.
+ * Created by dbborens on 8/20/2015.
  */
-public class HaltArenaBoundaryLoader extends BoundaryLoader<HaltArena> {
-    private final HaltArenaFactory factory;
+public class AgentLayerDefaults {
 
-    public HaltArenaBoundaryLoader() {
-        factory = new HaltArenaFactory();
-    }
-
-    public HaltArenaBoundaryLoader(HaltArenaFactory factory) {
-        this.factory = factory;
-    }
-
-    @Override
-    public Boundary instantiate(MapObjectNode child, GeometryDescriptor geom) {
-        throw new NotImplementedException();
+    public Boundary boundary(GeometryDescriptor geom) {
+        return new Arena(geom.getShape(), geom.getLattice());
     }
 }

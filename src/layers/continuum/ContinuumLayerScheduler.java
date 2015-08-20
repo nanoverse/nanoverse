@@ -27,6 +27,7 @@ package layers.continuum;
 import control.identifiers.Coordinate;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 
@@ -38,6 +39,7 @@ public class ContinuumLayerScheduler {
     private ScheduledOperations scheduledOperations;
     private HoldManager holdManager;
 
+    @FactoryTarget
     public ContinuumLayerScheduler(ScheduledOperations scheduledOperations, HoldManager holdManager) {
         this.scheduledOperations = scheduledOperations;
         this.holdManager = holdManager;

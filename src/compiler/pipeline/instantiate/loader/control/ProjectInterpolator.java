@@ -29,8 +29,7 @@ import compiler.pipeline.instantiate.loader.geometry.GeometryDescriptorLoader;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputManagerLoader;
 import compiler.pipeline.instantiate.loader.layers.LayerManagerLoader;
 import compiler.pipeline.instantiate.loader.primitive.strings.StringArgumentLoader;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
 import control.ProcessManager;
 import control.arguments.GeometryDescriptor;
@@ -95,7 +94,7 @@ public class ProjectInterpolator {
     }
 
     public LayerManager layers(MapObjectNode node, GeometryDescriptor geom) {
-        ObjectNode childNode = node.getMember("layers");
+        ListObjectNode childNode = (ListObjectNode) node.getMember("layers");
         LayerManagerLoader loader = (LayerManagerLoader)
                 load.getLoader(node, "layers", false);
 

@@ -21,15 +21,38 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.layers.cell;
+package compiler.pipeline.instantiate.factory.layers;
 
 import layers.cell.CellLayer;
-import geometry.Geometry;
+import java.util.HashMap;
+import layers.LayerManager;
+import compiler.pipeline.instantiate.factory.Factory;
 
+public class LayerManagerFactory implements Factory<LayerManager> {
 
-public class CellLayerFactoryHelper {
+    private final LayerManagerFactoryHelper helper;
 
-    public CellLayer build(Geometry geom) {
-        return new CellLayer(geom);
+    private CellLayer cellLayer;
+    private HashMap continuumLayers;
+
+    public LayerManagerFactory() {
+        helper = new LayerManagerFactoryHelper();
+    }
+
+    public LayerManagerFactory(LayerManagerFactoryHelper helper) {
+        this.helper = helper;
+    }
+
+    public void setCellLayer(CellLayer cellLayer) {
+        this.cellLayer = cellLayer;
+    }
+
+    public void setContinuumLayers(HashMap continuumLayers) {
+        this.continuumLayers = continuumLayers;
+    }
+
+    @Override
+    public LayerManager build() {
+        return helper.build(cellLayer, continuumLayers);
     }
 }

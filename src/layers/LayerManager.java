@@ -29,6 +29,7 @@ import io.deserialize.CoordinateDeindexer;
 import layers.cell.CellLayer;
 import layers.continuum.ContinuumLayer;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.util.HashMap;
 import java.util.function.Function;
@@ -44,21 +45,16 @@ public class LayerManager {
     protected HashMap<String, ContinuumLayer> continuumLayers;
     private StepState stepState;
 
-    public LayerManager() {
-        continuumLayers = new HashMap<>();
-    }
+    @FactoryTarget
+    public LayerManager(CellLayer cellLayer,
+                        HashMap<String, ContinuumLayer> continuumLayers) {
 
-    public void addContinuumLayer(ContinuumLayer continuumLayer) {
-        String id = continuumLayer.getId();
-        continuumLayers.put(id, continuumLayer);
+        this.cellLayer = cellLayer;
+        this.continuumLayers = continuumLayers;
     }
 
     public CellLayer getCellLayer() {
         return cellLayer;
-    }
-
-    public void setCellLayer(CellLayer cellLayer) {
-        this.cellLayer = cellLayer;
     }
 
     @Override
@@ -135,5 +131,22 @@ public class LayerManager {
     // TODO This assumes that all layers have same coordinate index (which they should--but this is not enforced)
     public Function<Integer, Coordinate> getDeindexer() {
         return i -> cellLayer.getGeometry().getCanonicalSites()[i];
+    }
+
+    // TODO: Remove deprecated methods after deploying compiler
+    @Deprecated
+    public LayerManager() {
+        continuumLayers = new HashMap<>();
+    }
+
+    @Deprecated
+    public void addContinuumLayer(ContinuumLayer continuumLayer) {
+        String id = continuumLayer.getId();
+        continuumLayers.put(id, continuumLayer);
+    }
+
+    @Deprecated
+    public void setCellLayer(CellLayer cellLayer) {
+        this.cellLayer = cellLayer;
     }
 }

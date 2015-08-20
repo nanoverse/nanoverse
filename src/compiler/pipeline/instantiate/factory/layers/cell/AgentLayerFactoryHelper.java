@@ -25,28 +25,11 @@ package compiler.pipeline.instantiate.factory.layers.cell;
 
 import layers.cell.CellLayer;
 import geometry.Geometry;
-import compiler.pipeline.instantiate.factory.Factory;
 
-public class CellLayerFactory implements Factory<CellLayer> {
 
-    private final CellLayerFactoryHelper helper;
+public class AgentLayerFactoryHelper {
 
-    private Geometry geom;
-
-    public CellLayerFactory() {
-        helper = new CellLayerFactoryHelper();
-    }
-
-    public CellLayerFactory(CellLayerFactoryHelper helper) {
-        this.helper = helper;
-    }
-
-    public void setGeom(Geometry geom) {
-        this.geom = geom;
-    }
-
-    @Override
-    public CellLayer build() {
-        return helper.build(geom);
+    public CellLayer build(Geometry geom) {
+        return new CellLayer(geom);
     }
 }
