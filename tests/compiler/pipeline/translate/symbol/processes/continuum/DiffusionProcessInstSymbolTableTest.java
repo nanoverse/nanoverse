@@ -28,7 +28,7 @@ import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.processes.ProcessInstSymbolTableTest;
 import control.arguments.*;
 import org.junit.*;
-import processes.continuum.OperatorProcess;
+import processes.continuum.*;
 
 public class DiffusionProcessInstSymbolTableTest extends ProcessInstSymbolTableTest {
 
@@ -39,7 +39,7 @@ public class DiffusionProcessInstSymbolTableTest extends ProcessInstSymbolTableT
 
     @Override
     protected Class getExpectedClass() {
-        return OperatorProcess.class;
+        return DiffusionProcess.class;
     }
 
     @Test
