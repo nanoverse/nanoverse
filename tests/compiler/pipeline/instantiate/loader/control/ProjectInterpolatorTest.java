@@ -66,13 +66,7 @@ public class ProjectInterpolatorTest {
     }
 
     private void configureVersion(String version) {
-        ObjectNode cNode = mock(ObjectNode.class);
-        when(node.getMember("version")).thenReturn(cNode);
-
-        StringArgumentLoader loader = mock(StringArgumentLoader.class);
-        when(loadHelper.getLoader(eq(node), eq("version"), anyBoolean())).thenReturn(loader);
-
-        when(loader.instantiateToFirst(cNode)).thenReturn(version);
+        when(loadHelper.aString(node, "version")).thenReturn(version);
     }
 
     @Test

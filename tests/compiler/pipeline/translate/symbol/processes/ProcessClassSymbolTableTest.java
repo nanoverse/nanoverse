@@ -73,7 +73,7 @@ public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
 
     @Test
     public void diffuse() {
-        verifyReturnSymbol("Diffuse", OperatorProcess.class);
+        verifyReturnSymbol("Diffuse", DiffusionProcess.class);
     }
 
     @Test
