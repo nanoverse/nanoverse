@@ -25,7 +25,9 @@
 package compiler.pipeline.instantiate.loader.geometry.lattice;
 
 import compiler.pipeline.instantiate.factory.geometry.lattice.RectangularLatticeFactory;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import geometry.lattice.RectangularLattice;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.
@@ -40,5 +42,10 @@ public class RectangularLatticeLoader extends LatticeLoader<RectangularLattice> 
 
     public RectangularLatticeLoader(RectangularLatticeFactory factory) {
         this.factory = factory;
+    }
+
+    @Override
+    public RectangularLattice instantiate() {
+        return factory.build();
     }
 }

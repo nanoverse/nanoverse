@@ -112,7 +112,7 @@ public class ProjectInterpolatorTest {
 
     @Test
     public void geometry() throws Exception {
-        ObjectNode cNode = mock(ObjectNode.class);
+        MapObjectNode cNode = mock(MapObjectNode.class);
         when(node.getMember("geometry")).thenReturn(cNode);
 
         GeometryDescriptorLoader loader = mock(GeometryDescriptorLoader.class);

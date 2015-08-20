@@ -24,15 +24,28 @@
 
 package compiler.pipeline.instantiate.loader.geometry.shape;
 
-import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.MapObjectNode;
-import geometry.lattice.Lattice;
-import geometry.shape.Shape;
+
+import java.util.Random;
 
 /**
- * Created by dbborens on 8/4/2015.
+ * Created by dbborens on 8/19/2015.
  */
-public abstract class ShapeLoader<T extends Shape> extends Loader<T> {
+public class HexagonInterpolator {
+    public static final int DEFAULT_RADIUS = 24;
+    public final LoadHelper load;
 
-    public abstract Shape instantiate(MapObjectNode node, Lattice lattice);
+    public HexagonInterpolator() {
+        load = new LoadHelper();
+    }
+
+    public HexagonInterpolator(LoadHelper load) {
+        this.load = load;
+    }
+
+    public int radius(MapObjectNode node, Random random) {
+        return load.anInteger(node, "radius", random,
+                () -> DEFAULT_RADIUS);
+    }
 }

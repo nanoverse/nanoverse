@@ -25,10 +25,13 @@
 package compiler.pipeline.instantiate.loader.geometry.lattice;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import geometry.lattice.Lattice;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
-public class LatticeLoader<T extends Lattice> extends Loader<T> {
+public abstract class LatticeLoader<T extends Lattice> extends Loader<T> {
+
+    public abstract T instantiate();
 }

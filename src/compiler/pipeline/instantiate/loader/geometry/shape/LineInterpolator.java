@@ -24,15 +24,29 @@
 
 package compiler.pipeline.instantiate.loader.geometry.shape;
 
-import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.MapObjectNode;
-import geometry.lattice.Lattice;
-import geometry.shape.Shape;
+
+import java.util.Random;
 
 /**
- * Created by dbborens on 8/4/2015.
+ * Created by dbborens on 8/19/2015.
  */
-public abstract class ShapeLoader<T extends Shape> extends Loader<T> {
+public class LineInterpolator {
 
-    public abstract Shape instantiate(MapObjectNode node, Lattice lattice);
+    public static final int DEFAULT_LENGTH = 256;
+    public final LoadHelper load;
+
+    public LineInterpolator() {
+        load = new LoadHelper();
+    }
+
+    public LineInterpolator(LoadHelper load) {
+        this.load = load;
+    }
+
+    public int length(MapObjectNode node, Random random) {
+        return load.anInteger(node, "length", random,
+                () -> DEFAULT_LENGTH);
+    }
 }

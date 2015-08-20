@@ -21,18 +21,38 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.geometry;
 
-package compiler.pipeline.instantiate.loader.geometry.shape;
-
-import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import geometry.lattice.Lattice;
 import geometry.shape.Shape;
+import control.arguments.GeometryDescriptor;
+import geometry.lattice.Lattice;
+import compiler.pipeline.instantiate.factory.Factory;
 
-/**
- * Created by dbborens on 8/4/2015.
- */
-public abstract class ShapeLoader<T extends Shape> extends Loader<T> {
+public class GeometryDescriptorFactory implements Factory<GeometryDescriptor> {
 
-    public abstract Shape instantiate(MapObjectNode node, Lattice lattice);
+    private final GeometryDescriptorFactoryHelper helper;
+
+    private Lattice lattice;
+    private Shape shape;
+
+    public GeometryDescriptorFactory() {
+        helper = new GeometryDescriptorFactoryHelper();
+    }
+
+    public GeometryDescriptorFactory(GeometryDescriptorFactoryHelper helper) {
+        this.helper = helper;
+    }
+
+    public void setLattice(Lattice lattice) {
+        this.lattice = lattice;
+    }
+
+    public void setShape(Shape shape) {
+        this.shape = shape;
+    }
+
+    @Override
+    public GeometryDescriptor build() {
+        return helper.build(lattice, shape);
+    }
 }

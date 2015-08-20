@@ -25,7 +25,10 @@
 package compiler.pipeline.instantiate.loader.geometry.shape;
 
 import compiler.pipeline.instantiate.factory.geometry.shape.LineFactory;
-import geometry.shape.Line;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import geometry.lattice.Lattice;
+import geometry.shape.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.
@@ -39,5 +42,14 @@ public class LineLoader extends ShapeLoader<Line> {
 
     public LineLoader(LineFactory factory) {
         this.factory = factory;
+    }
+
+    @Override
+    public Shape instantiate(MapObjectNode node, Lattice lattice) {
+        throw new NotImplementedException();
+    }
+
+    public Shape instantiate(Lattice lattice) {
+        return instantiate(null, lattice);
     }
 }
