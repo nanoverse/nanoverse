@@ -82,7 +82,7 @@ public class ProjectInterpolator {
     }
 
     public GeometryDescriptor geometry(MapObjectNode node) {
-        ObjectNode childNode = node.getMember("geometry");
+        MapObjectNode childNode = (MapObjectNode) node.getMember("geometry");
         GeometryDescriptorLoader loader = (GeometryDescriptorLoader)
                 load.getLoader(node, "geometry", false);
 

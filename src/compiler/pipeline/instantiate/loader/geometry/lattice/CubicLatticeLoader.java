@@ -25,7 +25,9 @@
 package compiler.pipeline.instantiate.loader.geometry.lattice;
 
 import compiler.pipeline.instantiate.factory.geometry.lattice.CubicLatticeFactory;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import geometry.lattice.CubicLattice;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.
@@ -42,4 +44,8 @@ public class CubicLatticeLoader extends LatticeLoader<CubicLattice> {
         this.factory = factory;
     }
 
+    @Override
+    public CubicLattice instantiate() {
+        return factory.build();
+    }
 }

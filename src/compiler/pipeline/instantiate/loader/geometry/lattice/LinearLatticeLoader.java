@@ -25,7 +25,9 @@
 package compiler.pipeline.instantiate.loader.geometry.lattice;
 
 import compiler.pipeline.instantiate.factory.geometry.lattice.LinearLatticeFactory;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import geometry.lattice.LinearLattice;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.
@@ -39,5 +41,10 @@ public class LinearLatticeLoader extends LatticeLoader<LinearLattice> {
 
     public LinearLatticeLoader(LinearLatticeFactory factory) {
         this.factory = factory;
+    }
+
+    @Override
+    public LinearLattice instantiate() {
+        return factory.build();
     }
 }

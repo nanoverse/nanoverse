@@ -21,25 +21,16 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.geometry;
 
-package factories;
+import geometry.shape.Shape;
+import control.arguments.GeometryDescriptor;
+import geometry.lattice.Lattice;
 
-import control.run.Runner;
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
 
-import java.util.Set;
+public class GeometryDescriptorFactoryHelper {
 
-/**
- * Created by dbborens on 7/30/2015.
- */
-public class GenerateFactories {
-
-    public static void main(String[] args) {
-        TargetFinder f = new TargetFinder();
-        FactoryHelperWriter writer = new FactoryHelperWriter("meta/out/src");
-
-        f.getTargets()
-                .forEach(clazz -> writer.write(clazz));
+    public GeometryDescriptor build(Lattice lattice, Shape shape) {
+        return new GeometryDescriptor(lattice, shape);
     }
 }

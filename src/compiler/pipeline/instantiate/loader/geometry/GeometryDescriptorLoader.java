@@ -24,17 +24,41 @@
 
 package compiler.pipeline.instantiate.loader.geometry;
 
+import compiler.pipeline.instantiate.factory.geometry.GeometryDescriptorFactory;
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.translate.nodes.*;
 import control.arguments.GeometryDescriptor;
+import geometry.lattice.Lattice;
+import geometry.shape.Shape;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class GeometryDescriptorLoader extends Loader<GeometryDescriptor> {
-    public GeometryDescriptor instantiate(ObjectNode childNode) {
-        throw new NotImplementedException();
+    private final GeometryDescriptorFactory factory;
+    private final GeometryDescriptorInterpolator interpolator;
+
+    public GeometryDescriptorLoader() {
+        factory = new GeometryDescriptorFactory();
+        interpolator = new GeometryDescriptorInterpolator();
+    }
+
+    public GeometryDescriptorLoader(GeometryDescriptorFactory factory,
+                                    GeometryDescriptorInterpolator interpolator) {
+
+        this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    public GeometryDescriptor instantiate(MapObjectNode node) {
+        Lattice lattice = interpolator.lattice(node);
+        factory.setLattice(lattice);
+
+        Shape shape = interpolator.shape(node, lattice);
+        factory.setShape(shape);
+
+        return factory.build();
     }
 
     public GeometryDescriptor instantiate() {
