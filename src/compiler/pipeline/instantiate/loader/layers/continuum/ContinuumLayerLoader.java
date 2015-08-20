@@ -24,20 +24,47 @@
 
 package compiler.pipeline.instantiate.loader.layers.continuum;
 
+import compiler.pipeline.instantiate.factory.layers.continuum.ContinuumLayerFactory;
 import compiler.pipeline.instantiate.loader.layers.LayerLoader;
 import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import control.arguments.GeometryDescriptor;
+import geometry.Geometry;
 import geometry.boundaries.Boundary;
-import layers.continuum.ContinuumLayer;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import layers.continuum.*;
 
 /**
  * Created by dbborens on 8/1/2015.
  */
 public class ContinuumLayerLoader extends LayerLoader<ContinuumLayer> {
 
+    private final ContinuumLayerFactory factory;
+    private final ContinuumLayerInterpolator interpolator;
+
+    public ContinuumLayerLoader() {
+        factory = new ContinuumLayerFactory();
+        interpolator = new ContinuumLayerInterpolator();
+    }
+
+    public ContinuumLayerLoader(ContinuumLayerFactory factory, ContinuumLayerInterpolator interpolator) {
+        this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
     @Override
-    public ContinuumLayer instantiate(MapObjectNode child, GeometryDescriptor geom) {
-        throw new NotImplementedException();
+    public ContinuumLayer instantiate(MapObjectNode node, GeometryDescriptor geom, GeneralParameters p) {
+        Boundary boundary = interpolator.boundary(node, geom);
+
+        Geometry geometry = geom.make(boundary);
+        factory.setGeometry(geometry);
+
+        ContinuumLayerContent content = new ContinuumLayerContent(geometry);
+        factory.setContent(content);
+
+        ContinuumLayerSchedulerLoader schedulerLoader = new ContinuumLayerSchedulerLoader();
+        ContinuumLayerScheduler scheduler = schedulerLoader.instantiate(node, content, geometry, p);
+        factory.setScheduler(scheduler);
+
+        return factory.build();
     }
 }

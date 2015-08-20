@@ -26,6 +26,7 @@ package compiler.pipeline.instantiate.loader.layers;
 
 import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import control.arguments.GeometryDescriptor;
 import layers.Layer;
 
@@ -33,6 +34,8 @@ import layers.Layer;
  * Created by dbborens on 8/1/2015.
  */
 public abstract class LayerLoader<T extends Layer> extends Loader<T> {
-    public abstract Layer instantiate(MapObjectNode child, GeometryDescriptor geom);
+    public abstract Layer instantiate(MapObjectNode child,
+                                      GeometryDescriptor geom,
+                                      GeneralParameters p);
 
 }

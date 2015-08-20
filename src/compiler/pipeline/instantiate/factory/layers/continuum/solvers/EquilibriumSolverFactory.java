@@ -26,7 +26,6 @@ package compiler.pipeline.instantiate.factory.layers.continuum.solvers;
 import layers.continuum.ContinuumLayerContent;
 import layers.continuum.ScheduledOperations;
 import layers.continuum.solvers.EquilibriumSolver;
-import layers.continuum.solvers.EquilibriumMatrixSolver;
 import compiler.pipeline.instantiate.factory.Factory;
 
 public class EquilibriumSolverFactory implements Factory<EquilibriumSolver> {
@@ -35,7 +34,6 @@ public class EquilibriumSolverFactory implements Factory<EquilibriumSolver> {
 
     private ContinuumLayerContent content;
     private ScheduledOperations so;
-    private EquilibriumMatrixSolver steadyState;
 
     public EquilibriumSolverFactory() {
         helper = new EquilibriumSolverFactoryHelper();
@@ -53,12 +51,8 @@ public class EquilibriumSolverFactory implements Factory<EquilibriumSolver> {
         this.so = so;
     }
 
-    public void setSteadyState(EquilibriumMatrixSolver steadyState) {
-        this.steadyState = steadyState;
-    }
-
     @Override
     public EquilibriumSolver build() {
-        return helper.build(content, so, steadyState);
+        return helper.build(content, so);
     }
 }

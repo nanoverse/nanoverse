@@ -36,29 +36,44 @@ import java.util.stream.Stream;
 /**
  * Created by dbborens on 12/31/14.
  */
-public class ReactionLoader {
+public class ReactionLinker {
 
     private final Consumer<DenseVector> injector;
     private final Consumer<CompDiagMatrix> exponentiator;
-    private final AgentToOperatorHelper helper;
+    private final AgentToOperatorHelper atoHelper;
     private final boolean operators;
 
-    @FactoryTarget
-    public ReactionLoader(Consumer<DenseVector> injector, Consumer<CompDiagMatrix> exponentiator,
-                          AgentToOperatorHelper helper, boolean operators) {
+    public ReactionLinker(ScheduledOperations so, AgentToOperatorHelper atoHelper) {
+        injector = vector -> so.inject(vector);
+        operators = so.isOperators();
+
+        if (operators) {
+            exponentiator = matrix -> so.apply(matrix);
+        } else {
+            exponentiator = matrix -> {
+                throw new IllegalStateException("Attempted to schedule matrix operator, but operators are explicitly disabled");
+            };
+        }
+
+        this.atoHelper = atoHelper;
+
+    }
+
+    public ReactionLinker(Consumer<DenseVector> injector, Consumer<CompDiagMatrix> exponentiator,
+                          AgentToOperatorHelper atoHelper, boolean operators) {
         this.injector = injector;
         this.exponentiator = exponentiator;
-        this.helper = helper;
+        this.atoHelper = atoHelper;
         this.operators = operators;
     }
 
     private void inject(List<RelationshipTuple> relationships) {
-        DenseVector delta = helper.getSource(relationships);
+        DenseVector delta = atoHelper.getSource(relationships);
         injector.accept(delta);
     }
 
     private void exponentiate(List<RelationshipTuple> relationshipTuples) {
-        CompDiagMatrix exponents = helper.getOperator(relationshipTuples);
+        CompDiagMatrix exponents = atoHelper.getOperator(relationshipTuples);
         exponentiator.accept(exponents);
     }
 

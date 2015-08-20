@@ -85,4 +85,8 @@ public class ContinuumLayerScheduler {
     public void release() {
         holdManager.release();
     }
+
+    public ScheduledOperations getScheduledOperations() {
+        return scheduledOperations;
+    }
 }

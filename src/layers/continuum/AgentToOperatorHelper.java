@@ -25,8 +25,10 @@
 package layers.continuum;
 
 import control.identifiers.Coordinate;
+import geometry.Geometry;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import structural.annotations.FactoryTarget;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -50,9 +52,10 @@ public class AgentToOperatorHelper {
     // Unless set to true, throws exceptions if operators are scheduled or retrieved
     private final boolean operators;
 
-    public AgentToOperatorHelper(Function<Coordinate, Integer> indexer, int n, boolean operators) {
-        this.n = n;
-        this.indexer = indexer;
+    @FactoryTarget
+    public AgentToOperatorHelper(Geometry geom, boolean operators) {
+        this.n = geom.getCanonicalSites().length;
+        this.indexer = geom.getIndexer();
         this.operators = operators;
     }
 

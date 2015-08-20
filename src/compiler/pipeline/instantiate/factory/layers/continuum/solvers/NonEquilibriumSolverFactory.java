@@ -34,7 +34,6 @@ public class NonEquilibriumSolverFactory implements Factory<NonEquilibriumSolver
 
     private ContinuumLayerContent content;
     private ScheduledOperations so;
-    private boolean operators;
 
     public NonEquilibriumSolverFactory() {
         helper = new NonEquilibriumSolverFactoryHelper();
@@ -52,12 +51,8 @@ public class NonEquilibriumSolverFactory implements Factory<NonEquilibriumSolver
         this.so = so;
     }
 
-    public void setOperators(boolean operators) {
-        this.operators = operators;
-    }
-
     @Override
     public NonEquilibriumSolver build() {
-        return helper.build(content, so, operators);
+        return helper.build(content, so);
     }
 }

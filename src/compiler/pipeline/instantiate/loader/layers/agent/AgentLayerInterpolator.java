@@ -49,13 +49,12 @@ public class AgentLayerInterpolator {
     }
 
     public Boundary boundary(MapObjectNode node, GeometryDescriptor geom) {
-        MapObjectNode child = (MapObjectNode) node.getMember("boundary");
         BoundaryLoader loader = (BoundaryLoader) load.getLoader(node, "boundary", false);
 
         if (loader == null) {
             return defaults.boundary(geom);
         }
 
-        return loader.instantiate(child, geom);
+        return loader.instantiate(geom);
     }
 }

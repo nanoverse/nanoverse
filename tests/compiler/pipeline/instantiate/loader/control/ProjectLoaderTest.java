@@ -71,7 +71,7 @@ public class ProjectLoaderTest {
         when(interpolator.geometry(node)).thenReturn(gd);
 
         LayerManager lm = mock(LayerManager.class);
-        when(interpolator.layers(node, gd)).thenReturn(lm);
+        when(interpolator.layers(node, gd, p)).thenReturn(lm);
 
         ProcessManager pm = mock(ProcessManager.class);
         when(interpolator.processes(node, p, lm)).thenReturn(pm);

@@ -22,12 +22,36 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.layers.continuum;
+package compiler.pipeline.instantiate.loader.layers.continuum.solvers;
 
-import layers.continuum.solvers.EquilibriumSolver;
+import compiler.pipeline.instantiate.factory.layers.continuum.solvers.EquilibriumSolverFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import layers.continuum.*;
+import layers.continuum.solvers.*;
 
 /**
  * Created by dbborens on 8/1/2015.
  */
 public class EquilibriumSolverLoader extends ContinuumSolverLoader<EquilibriumSolver> {
+    private final EquilibriumSolverFactory factory;
+
+    public EquilibriumSolverLoader() {
+        factory = new EquilibriumSolverFactory();
+    }
+
+    public EquilibriumSolverLoader(EquilibriumSolverFactory factory) {
+        this.factory = factory;
+    }
+
+    @Override
+    public ContinuumSolver instantiate(MapObjectNode node, ContinuumLayerContent content, ScheduledOperations so) {
+        factory.setContent(content);
+        factory.setSo(so);
+        return factory.build();
+    }
+
+    public ContinuumSolver instantiate(ContinuumLayerContent content, ScheduledOperations so) {
+        return instantiate(null, content, so);
+    }
+
 }

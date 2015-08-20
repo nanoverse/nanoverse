@@ -33,5 +33,5 @@ import geometry.boundaries.Boundary;
  * Created by dbborens on 8/4/2015.
  */
 public abstract class BoundaryLoader<T extends Boundary> extends Loader<T> {
-    public abstract Boundary instantiate(MapObjectNode child, GeometryDescriptor geom);
+    public abstract Boundary instantiate(GeometryDescriptor geom);
 }

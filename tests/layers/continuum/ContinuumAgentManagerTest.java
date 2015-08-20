@@ -36,7 +36,7 @@ import static org.mockito.Mockito.*;
 public class ContinuumAgentManagerTest extends LinearMocks {
 
     private ContinuumAgentIndex index;
-    private ReactionLoader loader;
+    private ReactionLinker loader;
     private String id;
 
     private ContinuumAgentManager query;
@@ -46,7 +46,7 @@ public class ContinuumAgentManagerTest extends LinearMocks {
         id = "test";
         index = mock(ContinuumAgentIndex.class);
 
-        loader = mock(ReactionLoader.class);
+        loader = mock(ReactionLinker.class);
 
         query = new ContinuumAgentManager(loader, index, id);
     }

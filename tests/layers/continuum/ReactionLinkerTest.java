@@ -39,7 +39,7 @@ import java.util.stream.Stream;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class ReactionLoaderTest extends LinearMocks {
+public class ReactionLinkerTest extends LinearMocks {
 
     private Vector capturedVector;
     private Matrix capturedMatrix;
@@ -47,7 +47,7 @@ public class ReactionLoaderTest extends LinearMocks {
     private AgentToOperatorHelper helper;
     private Stream<RelationshipTuple> stream;
 
-    private ReactionLoader query;
+    private ReactionLinker query;
 
     @Before
     public void init() {
@@ -58,7 +58,7 @@ public class ReactionLoaderTest extends LinearMocks {
         helper = mock(AgentToOperatorHelper.class);
         stream = (Stream<RelationshipTuple>) mock(Stream.class);
 
-        query = new ReactionLoader(vectorCaptor, matrixCaptor, helper, true);
+        query = new ReactionLinker(vectorCaptor, matrixCaptor, helper, true);
     }
 
     @Test

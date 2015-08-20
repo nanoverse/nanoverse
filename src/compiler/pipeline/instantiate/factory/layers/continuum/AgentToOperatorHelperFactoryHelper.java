@@ -21,13 +21,15 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.layers.continuum;
 
-package compiler.pipeline.instantiate.loader.layers.continuum;
+import layers.continuum.AgentToOperatorHelper;
+import geometry.Geometry;
 
-import layers.continuum.solvers.NonEquilibriumSolver;
 
-/**
- * Created by dbborens on 8/1/2015.
- */
-public class NonEquilibriumSolverLoader extends ContinuumSolverLoader<NonEquilibriumSolver> {
+public class AgentToOperatorHelperFactoryHelper {
+
+    public AgentToOperatorHelper build(Geometry geom, boolean operators) {
+        return new AgentToOperatorHelper(geom, operators);
+    }
 }

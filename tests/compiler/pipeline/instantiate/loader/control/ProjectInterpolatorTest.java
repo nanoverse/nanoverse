@@ -136,17 +136,17 @@ public class ProjectInterpolatorTest {
         when(loadHelper.getLoader(eq(node), eq("layers"), anyBoolean())).thenReturn(loader);
 
         LayerManager expected = mock(LayerManager.class);
-        when(loader.instantiate(cNode, geom)).thenReturn(expected);
+        when(loader.instantiate(cNode, geom, p)).thenReturn(expected);
 
-        LayerManager actual = query.layers(node, geom);
+        LayerManager actual = query.layers(node, geom, p);
         assertSame(expected, actual);
     }
 
     @Test
     public void layersOmitted() throws Exception {
         LayerManager expected = mock(LayerManager.class);
-        when(defaults.layers(geom)).thenReturn(expected);
-        LayerManager actual = query.layers(node, geom);
+        when(defaults.layers(geom, p)).thenReturn(expected);
+        LayerManager actual = query.layers(node, geom, p);
 
         assertSame(expected, actual);
     }

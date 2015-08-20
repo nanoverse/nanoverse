@@ -21,14 +21,16 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.layers.continuum;
 
-package compiler.pipeline.instantiate.loader.layers.continuum;
-
-import compiler.pipeline.instantiate.loader.Loader;
 import layers.continuum.solvers.ContinuumSolver;
+import layers.continuum.ContinuumAgentManager;
+import layers.continuum.HoldManager;
 
-/**
- * Created by dbborens on 8/1/2015.
- */
-public abstract class ContinuumSolverLoader<T extends ContinuumSolver> extends Loader<T> {
+
+public class HoldManagerFactoryHelper {
+
+    public HoldManager build(ContinuumAgentManager manager, ContinuumSolver solver) {
+        return new HoldManager(manager, solver);
+    }
 }
