@@ -26,19 +26,40 @@ package compiler.pipeline.instantiate.loader.io.serialize.text;
 
 import compiler.pipeline.instantiate.factory.io.serialize.text.InterfaceCensusWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.IntegerArgument;
+import io.serialize.Serializer;
 import io.serialize.text.InterfaceCensusWriter;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
 public class InterfaceCensusWriterLoader extends OutputLoader<InterfaceCensusWriter> {
+
     private final InterfaceCensusWriterFactory factory;
+    private final InterfaceCensusWriterInterpolator interpolator;
 
     public InterfaceCensusWriterLoader() {
         factory = new InterfaceCensusWriterFactory();
+        interpolator = new InterfaceCensusWriterInterpolator();
     }
 
-    public InterfaceCensusWriterLoader(InterfaceCensusWriterFactory factory) {
+    public InterfaceCensusWriterLoader(InterfaceCensusWriterFactory factory,
+                                       InterfaceCensusWriterInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Serializer instantiate(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
+        factory.setP(p);
+        factory.setLm(layerManager);
+
+        IntegerArgument focalStateArg = interpolator.focalState(node, p.getRandom());
+        factory.setFocalStateArg(focalStateArg);
+
+        return factory.build();
     }
 }

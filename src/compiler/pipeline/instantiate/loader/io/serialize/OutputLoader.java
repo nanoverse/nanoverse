@@ -25,10 +25,17 @@
 package compiler.pipeline.instantiate.loader.io.serialize;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import io.serialize.Serializer;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/1/2015.
  */
-public class OutputLoader<T extends Serializer> extends Loader<T> {
+public abstract class OutputLoader<T extends Serializer> extends Loader<T> {
+
+    public abstract Serializer instantiate(MapObjectNode node,
+                                           GeneralParameters p,
+                                           LayerManager layerManager);
 }

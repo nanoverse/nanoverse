@@ -153,7 +153,7 @@ public class ProjectInterpolatorTest {
 
     @Test
     public void output() throws Exception {
-        ObjectNode cNode = mock(ObjectNode.class);
+        ListObjectNode cNode = mock(ListObjectNode.class);
         when(node.getMember("output")).thenReturn(cNode);
 
         OutputManagerLoader loader = mock(OutputManagerLoader.class);

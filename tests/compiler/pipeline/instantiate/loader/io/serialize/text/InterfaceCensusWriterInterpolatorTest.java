@@ -24,32 +24,29 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.text;
 
-import compiler.pipeline.instantiate.factory.io.serialize.text.RandomSeedWriterFactory;
-import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.GeneralParameters;
-import io.serialize.Serializer;
-import io.serialize.text.RandomSeedWriter;
-import layers.LayerManager;
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import control.arguments.IntegerArgument;
+import io.serialize.text.InterfaceCensusWriter;
+import org.junit.*;
 
-/**
- * Created by dbborens on 8/10/2015.
- */
-public class RandomSeedWriterLoader extends OutputLoader<RandomSeedWriter> {
-    private final RandomSeedWriterFactory factory;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-    public RandomSeedWriterLoader() {
-        factory = new RandomSeedWriterFactory();
+public class InterfaceCensusWriterInterpolatorTest extends InterpolatorTest {
+
+    private InterfaceCensusWriterInterpolator query;
+
+    @Before
+    public void before() throws Exception {
+        super.before();
+        query = new InterfaceCensusWriterInterpolator(load);
     }
 
-    public RandomSeedWriterLoader(RandomSeedWriterFactory factory) {
-        this.factory = factory;
-    }
-
-    @Override
-    public Serializer instantiate(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
-        factory.setP(p);
-        factory.setLm(layerManager);
-        return factory.build();
+    @Test
+    public void focalState() throws Exception {
+        IntegerArgument expected = mock(IntegerArgument.class);
+        when(load.anIntegerArgument(node, "focalState", random)).thenReturn(expected);
+        IntegerArgument actual = query.focalState(node, random);
+        assertSame(expected, actual);
     }
 }

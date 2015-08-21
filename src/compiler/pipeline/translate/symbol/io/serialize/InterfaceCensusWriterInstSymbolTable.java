@@ -26,21 +26,40 @@ package compiler.pipeline.translate.symbol.io.serialize;
 
 import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.instantiate.loader.io.serialize.text.InterfaceCensusWriterLoader;
-import compiler.pipeline.translate.nodes.ObjectNode;
-import compiler.pipeline.translate.symbol.MapSymbolTable;
+import compiler.pipeline.translate.symbol.*;
+import compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
 import io.serialize.text.InterfaceCensusWriter;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.HashMap;
 
 /**
- * Created by dbborens on 7/26/2015.
+ * Created by dbborens on 8/21/2015.
  */
 public class InterfaceCensusWriterInstSymbolTable extends MapSymbolTable<InterfaceCensusWriter> {
-    @Override
-    public String getDescription() {
-        return null;
-    }
 
     @Override
     public Loader getLoader() {
         return new InterfaceCensusWriterLoader();
+    }
+
+    @Override
+    public String getDescription() {
+        return "Reports the populations of neighbors, by type, along the " +
+                "population boundary of a particular cell type.";
+    }
+
+    @Override
+    protected HashMap<String, MemberSymbol> resolveMembers() {
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        focalState(ret);
+        return ret;
+    }
+
+    private void focalState(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "The focal state for the " +
+                "interface census.");
+        ret.put("focalState", ms);
     }
 }

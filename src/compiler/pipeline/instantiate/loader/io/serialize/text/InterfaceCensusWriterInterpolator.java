@@ -24,32 +24,29 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.text;
 
-import compiler.pipeline.instantiate.factory.io.serialize.text.RandomSeedWriterFactory;
-import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.GeneralParameters;
-import io.serialize.Serializer;
-import io.serialize.text.RandomSeedWriter;
-import layers.LayerManager;
+import control.arguments.IntegerArgument;
+import io.serialize.text.InterfaceCensusWriter;
+
+import java.util.Random;
 
 /**
- * Created by dbborens on 8/10/2015.
+ * Created by dbborens on 8/21/2015.
  */
-public class RandomSeedWriterLoader extends OutputLoader<RandomSeedWriter> {
-    private final RandomSeedWriterFactory factory;
+public class InterfaceCensusWriterInterpolator {
 
-    public RandomSeedWriterLoader() {
-        factory = new RandomSeedWriterFactory();
+    private final LoadHelper load;
+
+    public InterfaceCensusWriterInterpolator() {
+        load = new LoadHelper();
     }
 
-    public RandomSeedWriterLoader(RandomSeedWriterFactory factory) {
-        this.factory = factory;
+    public InterfaceCensusWriterInterpolator(LoadHelper load) {
+            this.load = load;
     }
 
-    @Override
-    public Serializer instantiate(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
-        factory.setP(p);
-        factory.setLm(layerManager);
-        return factory.build();
+    public IntegerArgument focalState(MapObjectNode node, Random random) {
+        return load.anIntegerArgument(node, "focalState", random);
     }
 }

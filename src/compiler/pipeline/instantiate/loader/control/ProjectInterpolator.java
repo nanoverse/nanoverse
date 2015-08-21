@@ -110,7 +110,7 @@ public class ProjectInterpolator {
     }
 
     public SerializationManager output(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
-        ObjectNode childNode = node.getMember("output");
+        ListObjectNode childNode = (ListObjectNode) node.getMember("output");
         OutputManagerLoader loader = (OutputManagerLoader)
                 load.getLoader(node, "output", false);
 

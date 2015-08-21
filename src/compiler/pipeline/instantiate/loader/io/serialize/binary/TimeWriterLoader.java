@@ -26,7 +26,11 @@ package compiler.pipeline.instantiate.loader.io.serialize.binary;
 
 import compiler.pipeline.instantiate.factory.io.serialize.binary.TimeWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import io.serialize.Serializer;
 import io.serialize.binary.TimeWriter;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/10/2015.
@@ -40,5 +44,12 @@ public class TimeWriterLoader extends OutputLoader<TimeWriter> {
 
     public TimeWriterLoader(TimeWriterFactory factory) {
         this.factory = factory;
+    }
+
+    @Override
+    public Serializer instantiate(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
+        factory.setP(p);
+        factory.setLm(layerManager);
+        return factory.build();
     }
 }

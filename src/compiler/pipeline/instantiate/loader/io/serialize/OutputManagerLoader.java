@@ -25,31 +25,53 @@
 package compiler.pipeline.instantiate.loader.io.serialize;
 
 import compiler.pipeline.instantiate.factory.io.serialize.OutputManagerFactory;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
-import io.serialize.SerializationManager;
+import io.serialize.*;
 import layers.LayerManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by dbborens on 8/1/2015.
  */
-public class OutputManagerLoader extends OutputLoader<SerializationManager> {
+public class OutputManagerLoader extends Loader<SerializationManager> {
     private final OutputManagerFactory factory;
+    private final OutputManagerChildLoader interpolator;
 
     public OutputManagerLoader() {
         factory = new OutputManagerFactory();
+        interpolator = new OutputManagerChildLoader();
     }
 
-    public OutputManagerLoader(OutputManagerFactory factory) {
+    public OutputManagerLoader(OutputManagerFactory factory, OutputManagerChildLoader interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
     }
 
-    public SerializationManager instantiate(ObjectNode childNode, GeneralParameters p, LayerManager layerManager) {
-        throw new NotImplementedException();
+    public SerializationManager instantiate(ListObjectNode node, GeneralParameters p, LayerManager layerManager) {
+        List<Serializer> writers = node.getMemberStream()
+                .map(o -> (MapObjectNode) o)
+                .map(cNode -> interpolator.output(cNode, p, layerManager))
+                .collect(Collectors.toList());
+
+        factory.setLayerManager(layerManager);
+        factory.setP(p);
+        factory.setWriters(writers);
+
+        return factory.build();
     }
 
     public SerializationManager instantiate(GeneralParameters p, LayerManager lm) {
-        return instantiate(null, p, lm);
+        factory.setLayerManager(lm);
+        factory.setP(p);
+
+        List<Serializer> writers = new ArrayList<>();
+        factory.setWriters(writers);
+
+        return factory.build();
     }
+
 }

@@ -28,12 +28,14 @@ import layers.LayerManager;
 import io.serialize.binary.HighlightWriter;
 import compiler.pipeline.instantiate.factory.Factory;
 
+import java.util.stream.Stream;
+
 public class HighlightWriterFactory implements Factory<HighlightWriter> {
 
     private final HighlightWriterFactoryHelper helper;
 
     private GeneralParameters p;
-    private int[] channels;
+    private Stream<Integer> channels;
     private LayerManager lm;
 
     public HighlightWriterFactory() {
@@ -48,7 +50,7 @@ public class HighlightWriterFactory implements Factory<HighlightWriter> {
         this.p = p;
     }
 
-    public void setChannels(int[] channels) {
+    public void setChannels(Stream<Integer> channels) {
         this.channels = channels;
     }
 

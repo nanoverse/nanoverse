@@ -26,19 +26,39 @@ package compiler.pipeline.instantiate.loader.io.serialize.binary;
 
 import compiler.pipeline.instantiate.factory.io.serialize.binary.HighlightWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import io.serialize.Serializer;
 import io.serialize.binary.HighlightWriter;
+import layers.LayerManager;
+
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
 public class HighlightWriterLoader extends OutputLoader<HighlightWriter> {
     private final HighlightWriterFactory factory;
+    private final HighlightWriterChildLoader childLoader;
 
     public HighlightWriterLoader() {
         factory = new HighlightWriterFactory();
+        childLoader = new HighlightWriterChildLoader();
     }
 
-    public HighlightWriterLoader(HighlightWriterFactory factory) {
+    public HighlightWriterLoader(HighlightWriterFactory factory, HighlightWriterChildLoader childLoader) {
         this.factory = factory;
+        this.childLoader = childLoader;
+    }
+
+    @Override
+    public Serializer instantiate(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
+        factory.setP(p);
+        factory.setLm(layerManager);
+
+        Stream<Integer> channels = childLoader.channels(node, p);
+        factory.setChannels(channels);
+
+        return factory.build();
     }
 }

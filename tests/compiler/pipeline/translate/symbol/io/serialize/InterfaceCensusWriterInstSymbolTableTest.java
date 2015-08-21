@@ -21,18 +21,32 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.io.serialize.binary;
 
-import control.GeneralParameters;
-import layers.LayerManager;
-import io.serialize.binary.HighlightWriter;
+package compiler.pipeline.translate.symbol.io.serialize;
 
-import java.util.stream.Stream;
+import compiler.pipeline.translate.symbol.MapSymbolTable;
+import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import control.arguments.IntegerArgument;
+import io.serialize.text.InterfaceCensusWriter;
+import org.junit.*;
 
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-public class HighlightWriterFactoryHelper {
+public class InterfaceCensusWriterInstSymbolTableTest extends MapSymbolTableTest {
 
-    public HighlightWriter build(GeneralParameters p, Stream<Integer> channels, LayerManager lm) {
-        return new HighlightWriter(p, channels, lm);
+    @Override
+    protected MapSymbolTable getQuery() {
+        return new InterfaceCensusWriterInstSymbolTable();
+    }
+
+    @Override
+    protected Class getExpectedClass() {
+        return InterfaceCensusWriter.class;
+    }
+
+    @Test
+    public void focalState() throws Exception {
+        verifyReturnSymbol("focalState", IntegerArgument.class);
     }
 }

@@ -164,7 +164,7 @@ public class SystemStateReaderTest extends EslimeLatticeTestCase {
                 new TimeWriter(p, layerManager),
                 new ContinuumStateWriter(p, layerManager),
                 new LegacyCellStateWriter(p, layerManager),
-                new HighlightWriter(p, new int[]{0}, layerManager)
+                new HighlightWriter(p, Stream.<Integer>empty(), layerManager)
         };
 
         return ret;

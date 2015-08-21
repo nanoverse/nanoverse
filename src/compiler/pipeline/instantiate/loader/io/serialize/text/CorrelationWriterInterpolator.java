@@ -24,32 +24,34 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.text;
 
-import compiler.pipeline.instantiate.factory.io.serialize.text.RandomSeedWriterFactory;
-import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.GeneralParameters;
-import io.serialize.Serializer;
-import io.serialize.text.RandomSeedWriter;
-import layers.LayerManager;
+import control.arguments.DoubleArgument;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.Random;
 
 /**
- * Created by dbborens on 8/10/2015.
+ * Created by dbborens on 8/21/2015.
  */
-public class RandomSeedWriterLoader extends OutputLoader<RandomSeedWriter> {
-    private final RandomSeedWriterFactory factory;
+public class CorrelationWriterInterpolator {
 
-    public RandomSeedWriterLoader() {
-        factory = new RandomSeedWriterFactory();
+    public static final String DEFAULT_FILENAME = "correlation.txt";
+    private final LoadHelper load;
+
+    public CorrelationWriterInterpolator() {
+        load = new LoadHelper();
     }
 
-    public RandomSeedWriterLoader(RandomSeedWriterFactory factory) {
-        this.factory = factory;
+    public CorrelationWriterInterpolator(LoadHelper load) {
+        this.load = load;
     }
 
-    @Override
-    public Serializer instantiate(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
-        factory.setP(p);
-        factory.setLm(layerManager);
-        return factory.build();
+    public String filename(MapObjectNode node) {
+        return load.aString(node, "filename", () -> DEFAULT_FILENAME);
+    }
+
+    public DoubleArgument time(MapObjectNode node, Random random) {
+        return load.aDoubleArgument(node, "time", random);
     }
 }
