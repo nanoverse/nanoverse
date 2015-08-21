@@ -42,8 +42,8 @@ import layers.LayerManager;
 import org.dom4j.Element;
 import structural.utilities.XmlUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 1/17/14.
@@ -103,7 +103,16 @@ public abstract class SerializationFactory {
         } else if (writerClass.equalsIgnoreCase("highlight-writer")) {
             Element channelsElem = e.element("channels");
             int[] channels = XmlUtil.getIntegerArray(channelsElem, "channel");
-            ret = new HighlightWriter(p, channels, lm);
+
+            // So glad this will all go away with compiler
+            List<Integer> channelList = new ArrayList<>(channels.length);
+
+            for (int channel : channels) {
+                channelList.add(channel);
+            }
+
+            Stream<Integer> channelStream = channelList.stream();
+            ret = new HighlightWriter(p, channelStream, lm);
             return ret;
         } else if (writerClass.equalsIgnoreCase("visualization-serializer")) {
             ret = visualizationSerializer(e, p, lm);

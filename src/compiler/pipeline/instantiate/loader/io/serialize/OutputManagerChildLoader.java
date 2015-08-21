@@ -22,34 +22,26 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.io.serialize.text;
+package compiler.pipeline.instantiate.loader.io.serialize;
 
-import compiler.pipeline.instantiate.factory.io.serialize.text.RandomSeedWriterFactory;
-import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.MapObjectNode;
+import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 import control.GeneralParameters;
 import io.serialize.Serializer;
-import io.serialize.text.RandomSeedWriter;
 import layers.LayerManager;
 
 /**
- * Created by dbborens on 8/10/2015.
+ * Created by dbborens on 8/21/2015.
  */
-public class RandomSeedWriterLoader extends OutputLoader<RandomSeedWriter> {
-    private final RandomSeedWriterFactory factory;
+public class OutputManagerChildLoader {
 
-    public RandomSeedWriterLoader() {
-        factory = new RandomSeedWriterFactory();
-    }
+    public Serializer output(MapObjectNode node,
+                             GeneralParameters p,
+                             LayerManager layerManager) {
 
-    public RandomSeedWriterLoader(RandomSeedWriterFactory factory) {
-        this.factory = factory;
-    }
-
-    @Override
-    public Serializer instantiate(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
-        factory.setP(p);
-        factory.setLm(layerManager);
-        return factory.build();
+        InstantiableSymbolTable ist = node.getSymbolTable();
+        OutputLoader loader = (OutputLoader) ist.getLoader();
+        return loader.instantiate(node, p, layerManager);
     }
 }

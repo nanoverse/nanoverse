@@ -26,8 +26,11 @@ package compiler.pipeline.instantiate.loader;
 
 import com.google.common.reflect.TypeToken;
 import compiler.pipeline.translate.nodes.*;
+import control.GeneralParameters;
 import geometry.lattice.Lattice;
 import geometry.shape.Shape;
+import io.serialize.Serializer;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 7/29/2015.
@@ -41,6 +44,7 @@ public abstract class Loader<T> {
         System.out.println("breakpoint");
         return type.getRawType();
     }
+
 
 
 //    protected final ObjectNode node;

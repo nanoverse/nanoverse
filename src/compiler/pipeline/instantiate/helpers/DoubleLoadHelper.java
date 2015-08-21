@@ -26,6 +26,7 @@ package compiler.pipeline.instantiate.helpers;
 
 import compiler.pipeline.instantiate.loader.primitive.doubles.DoubleArgumentLoader;
 import compiler.pipeline.translate.nodes.*;
+import control.arguments.DoubleArgument;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -58,5 +59,23 @@ public class DoubleLoadHelper {
         }
 
         return loader.instantiateToFirst(cNode, random);
+    }
+
+    public DoubleArgument loadArgument(MapObjectNode node,
+                                       String id,
+                                       Random random,
+                                       Supplier<DoubleArgument> defaultSupplier) {
+
+        boolean required = (defaultSupplier == null);
+
+        ObjectNode cNode = node.getMember(id);
+        DoubleArgumentLoader loader = (DoubleArgumentLoader)
+                retriever.getLoader(node, id, required);
+
+        if (loader == null) {
+            return defaultSupplier.get();
+        }
+
+        return loader.instantiate(cNode, random);
     }
 }

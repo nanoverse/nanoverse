@@ -30,15 +30,17 @@ import structural.MockGeneralParameters;
 import structural.utilities.FileConventions;
 import test.*;
 
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.stream.*;
 
 /**
  * Created by dbborens on 3/28/14.
  */
 public class HighlightWriterTest extends EslimeLatticeTestCase {
 
+    private List<Integer> channels = Stream.of(0, 7).collect(Collectors.toList());
 
-    private int[] channels = new int[]{0, 7};
+//    private int[] channels = new int[]{0, 7};
 
     public void testLifeCycle() throws Exception {
         runLifeCycle();
@@ -55,7 +57,7 @@ public class HighlightWriterTest extends EslimeLatticeTestCase {
 
     private void runLifeCycle() {
         MockGeneralParameters p = makeMockGeneralParameters();
-        HighlightWriter query = new HighlightWriter(p, channels, layerManager);
+        HighlightWriter query = new HighlightWriter(p, channels.stream(), layerManager);
         query.init();
         MockStepState stepState = new MockStepState(0.1, 2);
         stepState.setHighlights(0, Stream.of(x, y));

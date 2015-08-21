@@ -35,6 +35,8 @@ import org.dom4j.tree.BaseElement;
 import structural.MockGeneralParameters;
 import test.EslimeLatticeTestCase;
 
+import java.util.stream.Stream;
+
 /**
  * Created by dbborens on 1/17/14.
  */
@@ -103,7 +105,8 @@ public class SerializationFactoryTest extends EslimeLatticeTestCase {
         e.add(channels);
 
         Serializer actual = SerializationFactory.instantiate(e, p, layerManager);
-        Serializer expected = new HighlightWriter(p, new int[]{3, 5}, layerManager);
+        Serializer expected = new HighlightWriter(p, Stream.of(3, 5), layerManager);
+//        Serializer expected = new HighlightWriter(p, new int[]{3, 5}, layerManager);
         assertEquals(expected, actual);
     }
 

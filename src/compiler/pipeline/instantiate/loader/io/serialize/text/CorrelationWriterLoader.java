@@ -26,19 +26,43 @@ package compiler.pipeline.instantiate.loader.io.serialize.text;
 
 import compiler.pipeline.instantiate.factory.io.serialize.text.CorrelationWriterFactory;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.DoubleArgument;
+import io.serialize.Serializer;
 import io.serialize.text.CorrelationWriter;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
 public class CorrelationWriterLoader extends OutputLoader<CorrelationWriter> {
     private final CorrelationWriterFactory factory;
+    private final CorrelationWriterInterpolator interpolator;
 
     public CorrelationWriterLoader() {
         factory = new CorrelationWriterFactory();
+        interpolator = new CorrelationWriterInterpolator();
     }
 
-    public CorrelationWriterLoader(CorrelationWriterFactory factory) {
+    public CorrelationWriterLoader(CorrelationWriterFactory factory,
+                                   CorrelationWriterInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Serializer instantiate(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
+        factory.setP(p);
+        factory.setLm(layerManager);
+
+        String filename = interpolator.filename(node);
+        factory.setFilename(filename);
+
+        DoubleArgument triggerTimeArg = interpolator.time(node, p.getRandom());
+        factory.setTriggerTimeArg(triggerTimeArg);
+
+        return factory.build();
     }
 }

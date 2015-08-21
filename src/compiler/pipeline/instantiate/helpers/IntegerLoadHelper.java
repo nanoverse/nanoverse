@@ -26,6 +26,7 @@ package compiler.pipeline.instantiate.helpers;
 
 import compiler.pipeline.instantiate.loader.primitive.integers.IntegerArgumentLoader;
 import compiler.pipeline.translate.nodes.*;
+import control.arguments.IntegerArgument;
 
 import java.util.Random;
 import java.util.function.Supplier;
@@ -59,5 +60,21 @@ public class IntegerLoadHelper {
         }
 
         return loader.instantiateToFirst(cNode, random);
+    }
+
+    public IntegerArgument loadArgument(MapObjectNode node, String id, Random random,
+                                        Supplier<IntegerArgument> defaultSupplier) {
+
+        boolean required = (defaultSupplier == null);
+
+        ObjectNode cNode = node.getMember(id);
+        IntegerArgumentLoader loader = (IntegerArgumentLoader)
+                retriever.getLoader(node, id, required);
+
+        if (loader == null) {
+            return defaultSupplier.get();
+        }
+
+        return loader.instantiate(cNode, random);
     }
 }

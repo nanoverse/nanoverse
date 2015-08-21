@@ -24,32 +24,21 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.binary;
 
-import compiler.pipeline.instantiate.factory.io.serialize.binary.ContinuumStateWriterFactory;
-import compiler.pipeline.instantiate.loader.io.serialize.OutputLoader;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.GeneralParameters;
-import io.serialize.Serializer;
-import io.serialize.binary.ContinuumStateWriter;
+import io.visual.Visualization;
 import layers.LayerManager;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.function.Supplier;
 
 /**
- * Created by dbborens on 8/10/2015.
+ * Created by dbborens on 8/21/2015.
  */
-public class ContinuumStateWriterLoader extends OutputLoader<ContinuumStateWriter> {
-    private final ContinuumStateWriterFactory factory;
-
-    public ContinuumStateWriterLoader() {
-        factory = new ContinuumStateWriterFactory();
+public class VisualizationSerializerDefaults {
+    public Supplier<String> prefix() {
+        return () -> "img";
     }
 
-    public ContinuumStateWriterLoader(ContinuumStateWriterFactory factory) {
-        this.factory = factory;
-    }
-
-    @Override
-    public Serializer instantiate(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
-        factory.setP(p);
-        factory.setLm(layerManager);
-        return factory.build();
+    public Visualization visualization(LayerManager layerManager) {
+        throw new NotImplementedException();
     }
 }

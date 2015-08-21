@@ -33,6 +33,7 @@ import compiler.pipeline.instantiate.loader.primitive.strings.StringArgumentLoad
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+import control.arguments.*;
 import javassist.compiler.ast.StringL;
 
 import java.util.Random;
@@ -84,6 +85,16 @@ public class LoadHelper {
         return integerLoadHelper.load(node, id, random, null);
     }
 
+    public IntegerArgument anIntegerArgument(MapObjectNode node, String id, Random random,
+                             Supplier<IntegerArgument> defaultSupplier) {
+
+        return integerLoadHelper.loadArgument(node, id, random, defaultSupplier);
+    }
+
+    public IntegerArgument anIntegerArgument(MapObjectNode node, String id, Random random) {
+        return integerLoadHelper.loadArgument(node, id, random, null);
+    }
+
     public Double aDouble(MapObjectNode node, String id, Random random,
                        Supplier<Double> defaultSupplier) {
 
@@ -92,6 +103,16 @@ public class LoadHelper {
 
     public Double aDouble(MapObjectNode node, String id, Random random) {
         return doubleLoadHelper.load(node, id, random, null);
+    }
+
+    public DoubleArgument aDoubleArgument(MapObjectNode node, String id, Random random) {
+        return doubleLoadHelper.loadArgument(node, id, random, null);
+    }
+
+    public DoubleArgument aDoubleArgument(MapObjectNode node, String id, Random random,
+                                          Supplier<DoubleArgument> defaultSupplier) {
+
+        return doubleLoadHelper.loadArgument(node, id, random, defaultSupplier);
     }
 
     public Boolean aBoolean(MapObjectNode node, String id, Random random,
