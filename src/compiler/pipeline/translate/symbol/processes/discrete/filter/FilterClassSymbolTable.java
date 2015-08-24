@@ -36,12 +36,38 @@ import java.util.function.Supplier;
 public class FilterClassSymbolTable extends ClassSymbolTable<Filter> {
     @Override
     public String getDescription() {
-        return null;
+        return "Filters restrict the targets for processes (system-wide, top-" +
+            "down events) according to a specific rule.";
     }
 
     @Override
     protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        return null;
+        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
+        cellState(ret);
+        composite(ret);
+        depth(ret);
+        nullFilter(ret);
+        return ret;
+    }
+
+    private void cellState(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = CellStateFilterInstSymbolTable::new;
+        ret.put("CellState", st);
+    }
+
+    private void composite(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = CompositeFilterInstSymbolTable::new;
+        ret.put("Composite", st);
+    }
+
+    private void depth(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = DepthFilterInstSymbolTable::new;
+        ret.put("Depth", st);
+    }
+
+    private void nullFilter(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = NullFilterInstSymbolTable::new;
+        ret.put("Null", st);
     }
 
 }
