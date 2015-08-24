@@ -25,10 +25,15 @@
 package compiler.pipeline.instantiate.loader.processes.discrete.filter;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.*;
+import control.GeneralParameters;
+import layers.cell.CellLayer;
 import processes.discrete.filter.Filter;
 
 /**
  * Created by dbborens on 8/24/2015.
  */
 public abstract class FilterLoader<T extends Filter> extends Loader<T> {
+
+    public abstract T instantiate(MapObjectNode node, CellLayer layer, GeneralParameters p);
 }

@@ -31,6 +31,8 @@ import layers.LayerManager;
 import org.dom4j.Element;
 import processes.discrete.filter.*;
 
+import java.util.stream.Stream;
+
 /**
  * Created by dbborens on 5/5/14.
  */
@@ -78,17 +80,11 @@ public abstract class FilterFactory {
     }
 
     private static Filter composite(Element e, LayerManager layerManager, GeneralParameters p) {
-        int nChildren = e.elements().size();
-        Filter[] children = new Filter[nChildren];
+        Stream<Filter> filters = e.elements()
+            .stream()
+            .map(ce -> singleton((Element) ce, layerManager, p));
 
-        int i = 0;
-        for (Object o : e.elements()) {
-            Filter child = singleton((Element) o, layerManager, p);
-            children[i] = child;
-            i++;
-        }
-
-        CompositeFilter ret = new CompositeFilter(children);
+        CompositeFilter ret = new CompositeFilter(filters);
         return ret;
     }
 

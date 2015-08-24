@@ -24,10 +24,39 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.filter;
 
-import processes.discrete.filter.DepthFilter;
+import compiler.pipeline.instantiate.factory.processes.discrete.filter.DepthFilterFactory;
+import compiler.pipeline.translate.nodes.*;
+import control.GeneralParameters;
+import control.arguments.IntegerArgument;
+import layers.cell.CellLayer;
+import processes.discrete.filter.*;
 
 /**
  * Created by dbborens on 8/24/2015.
  */
 public class DepthFilterLoader extends FilterLoader<DepthFilter> {
+    private final DepthFilterFactory factory;
+    private final DepthFilterInterpolator interpolator;
+
+    public DepthFilterLoader() {
+        factory = new DepthFilterFactory();
+        interpolator = new DepthFilterInterpolator();
+    }
+
+    public DepthFilterLoader(DepthFilterFactory factory,
+                                 DepthFilterInterpolator interpolator) {
+
+        this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public DepthFilter instantiate(MapObjectNode node, CellLayer layer, GeneralParameters p) {
+        factory.setLayer(layer);
+
+        IntegerArgument state = interpolator.depth(node, p.getRandom());
+        factory.setMaxDepth(state);
+
+        return factory.build();
+    }
 }

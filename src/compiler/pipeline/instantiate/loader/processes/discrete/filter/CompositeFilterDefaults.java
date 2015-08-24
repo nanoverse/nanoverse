@@ -21,34 +21,18 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.processes.discrete.filter;
 
-import processes.discrete.filter.CompositeFilter;
-import compiler.pipeline.instantiate.factory.Factory;
+package compiler.pipeline.instantiate.loader.processes.discrete.filter;
+
 import processes.discrete.filter.Filter;
 
 import java.util.stream.Stream;
 
-public class CompositeFilterFactory implements Factory<CompositeFilter> {
-
-    private final CompositeFilterFactoryHelper helper;
-
-    private Stream<Filter> children;
-
-    public CompositeFilterFactory() {
-        helper = new CompositeFilterFactoryHelper();
-    }
-
-    public CompositeFilterFactory(CompositeFilterFactoryHelper helper) {
-        this.helper = helper;
-    }
-
-    public void setChildren(Stream<Filter> children) {
-        this.children = children;
-    }
-
-    @Override
-    public CompositeFilter build() {
-        return helper.build(children);
+/**
+ * Created by dbborens on 8/24/2015.
+ */
+public class CompositeFilterDefaults {
+    public Stream<Filter> including() {
+        return Stream.empty();
     }
 }

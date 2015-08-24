@@ -24,10 +24,29 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.filter;
 
-import processes.discrete.filter.NullFilter;
+import compiler.pipeline.instantiate.factory.processes.discrete.filter.NullFilterFactory;
+import compiler.pipeline.translate.nodes.*;
+import control.GeneralParameters;
+import control.arguments.IntegerArgument;
+import layers.cell.CellLayer;
+import processes.discrete.filter.*;
 
 /**
  * Created by dbborens on 8/24/2015.
  */
 public class NullFilterLoader extends FilterLoader<NullFilter> {
+    private final NullFilterFactory factory;
+
+    public NullFilterLoader() {
+        factory = new NullFilterFactory();
+    }
+
+    public NullFilterLoader(NullFilterFactory factory) {
+        this.factory = factory;
+    }
+
+    @Override
+    public NullFilter instantiate(MapObjectNode node, CellLayer layer, GeneralParameters p) {
+        return factory.build();
+    }
 }
