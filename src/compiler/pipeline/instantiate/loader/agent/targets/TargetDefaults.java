@@ -21,17 +21,28 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.agent.targets;
 
+package compiler.pipeline.instantiate.loader.agent.targets;
+
+import compiler.pipeline.instantiate.loader.layers.agent.AgentLayerInterpolator;
+import compiler.pipeline.instantiate.loader.processes.discrete.filter.*;
+import control.GeneralParameters;
+import layers.cell.CellLayer;
 import processes.discrete.filter.Filter;
-import agent.targets.TargetSelfDescriptor;
-import java.util.Random;
-import layers.LayerManager;
 
+/**
+ * Created by dbborens on 8/24/2015.
+ */
+public class TargetDefaults {
 
-public class TargetSelfFactoryHelper implements TargetFactoryHelper<TargetSelfDescriptor> {
+    public static final int DEFAULT_MAXIMUM = -1;
 
-    public TargetSelfDescriptor build(LayerManager layerManager, Filter filter, int maximum, Random random) {
-        return new TargetSelfDescriptor(layerManager, filter, maximum, random);
+    public Integer maximum() {
+        return DEFAULT_MAXIMUM;
+    }
+
+    public Filter filter(CellLayer layer, GeneralParameters p) {
+        NullFilterLoader loader = new NullFilterLoader();
+        return loader.instantiate(layer, p);
     }
 }

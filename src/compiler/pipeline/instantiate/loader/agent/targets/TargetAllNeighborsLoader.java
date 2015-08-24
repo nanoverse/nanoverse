@@ -26,19 +26,24 @@ package compiler.pipeline.instantiate.loader.agent.targets;
 
 import agent.targets.*;
 import compiler.pipeline.instantiate.factory.agent.targets.TargetAllNeighborsFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class TargetAllNeighborsLoader extends TargetLoader<TargetAllNeighborsDescriptor> {
 
-    private final TargetAllNeighborsFactory factory;
 
     public TargetAllNeighborsLoader() {
-        factory = new TargetAllNeighborsFactory();
+        super(new TargetAllNeighborsFactory(), new TargetInterpolator());
     }
 
-    public TargetAllNeighborsLoader(TargetAllNeighborsFactory factory) {
-        this.factory = factory;
+    public TargetAllNeighborsLoader(TargetAllNeighborsFactory factory,
+                                    TargetInterpolator interpolator) {
+
+        super(factory, interpolator);
     }
+
 }

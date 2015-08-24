@@ -49,4 +49,8 @@ public class NullFilterLoader extends FilterLoader<NullFilter> {
     public NullFilter instantiate(MapObjectNode node, CellLayer layer, GeneralParameters p) {
         return factory.build();
     }
+
+    public Filter instantiate(CellLayer layer, GeneralParameters p) {
+        return instantiate(null, layer, p);
+    }
 }

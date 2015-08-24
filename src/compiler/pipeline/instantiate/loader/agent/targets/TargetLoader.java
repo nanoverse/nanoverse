@@ -25,11 +25,41 @@
 package compiler.pipeline.instantiate.loader.agent.targets;
 
 import agent.targets.TargetDescriptor;
-import compiler.pipeline.instantiate.factory.agent.targets.TargetCallerFactory;
+import compiler.pipeline.instantiate.factory.agent.targets.*;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import layers.LayerManager;
+import processes.discrete.filter.Filter;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
-public class TargetLoader<T extends TargetDescriptor> extends Loader<T> {
+public abstract class TargetLoader<T extends TargetDescriptor> extends Loader<T> {
+
+    private final TargetFactory<T> factory;
+    private final TargetInterpolator interpolator;
+
+    protected TargetLoader(TargetFactory<T> factory,
+                           TargetInterpolator interpolator) {
+
+        this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    public T instantiate(MapObjectNode node,
+                         LayerManager lm,
+                         GeneralParameters p) {
+
+        factory.setLayerManager(lm);
+        factory.setRandom(p.getRandom());
+
+        int maximum = interpolator.maximum(node, p.getRandom());
+        factory.setMaximum(maximum);
+
+        Filter filter = interpolator.filter(node, lm.getCellLayer(), p);
+        factory.setFilter(filter);
+
+        return factory.build();
+    }
 }

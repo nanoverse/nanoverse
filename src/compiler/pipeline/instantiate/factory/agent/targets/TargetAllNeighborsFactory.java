@@ -29,41 +29,12 @@ import agent.targets.TargetAllNeighborsDescriptor;
 import layers.LayerManager;
 import compiler.pipeline.instantiate.factory.Factory;
 
-public class TargetAllNeighborsFactory implements Factory<TargetAllNeighborsDescriptor> {
-
-    private final TargetAllNeighborsFactoryHelper helper;
-
-    private LayerManager layerManager;
-    private Filter filter;
-    private int maximum;
-    private Random random;
+public class TargetAllNeighborsFactory extends TargetFactory<TargetAllNeighborsDescriptor> {
 
     public TargetAllNeighborsFactory() {
-        helper = new TargetAllNeighborsFactoryHelper();
+        super(new TargetAllNeighborsFactoryHelper());
     }
-
-    public TargetAllNeighborsFactory(TargetAllNeighborsFactoryHelper helper) {
-        this.helper = helper;
-    }
-
-    public void setLayerManager(LayerManager layerManager) {
-        this.layerManager = layerManager;
-    }
-
-    public void setFilter(Filter filter) {
-        this.filter = filter;
-    }
-
-    public void setMaximum(int maximum) {
-        this.maximum = maximum;
-    }
-
-    public void setRandom(Random random) {
-        this.random = random;
-    }
-
-    @Override
-    public TargetAllNeighborsDescriptor build() {
-        return helper.build(layerManager, filter, maximum, random);
+    public TargetAllNeighborsFactory(TargetFactoryHelper helper) {
+        super(helper);
     }
 }

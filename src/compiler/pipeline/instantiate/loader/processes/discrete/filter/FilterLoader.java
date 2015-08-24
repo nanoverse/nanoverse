@@ -36,4 +36,5 @@ import processes.discrete.filter.Filter;
 public abstract class FilterLoader<T extends Filter> extends Loader<T> {
 
     public abstract T instantiate(MapObjectNode node, CellLayer layer, GeneralParameters p);
+
 }
