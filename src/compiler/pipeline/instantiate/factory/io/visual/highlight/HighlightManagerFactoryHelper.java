@@ -23,12 +23,13 @@
  */
 package compiler.pipeline.instantiate.factory.io.visual.highlight;
 
+import java.util.Map;
 import io.visual.highlight.HighlightManager;
 
 
 public class HighlightManagerFactoryHelper {
 
-    public HighlightManager build() {
-        return new HighlightManager();
+    public HighlightManager build(Map glyphMap) {
+        return new HighlightManager(glyphMap);
     }
 }

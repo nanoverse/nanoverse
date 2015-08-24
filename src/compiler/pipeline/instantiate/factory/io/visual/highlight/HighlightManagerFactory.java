@@ -23,6 +23,7 @@
  */
 package compiler.pipeline.instantiate.factory.io.visual.highlight;
 
+import java.util.Map;
 import io.visual.highlight.HighlightManager;
 import compiler.pipeline.instantiate.factory.Factory;
 
@@ -30,6 +31,7 @@ public class HighlightManagerFactory implements Factory<HighlightManager> {
 
     private final HighlightManagerFactoryHelper helper;
 
+    private Map glyphMap;
 
     public HighlightManagerFactory() {
         helper = new HighlightManagerFactoryHelper();
@@ -39,9 +41,12 @@ public class HighlightManagerFactory implements Factory<HighlightManager> {
         this.helper = helper;
     }
 
+    public void setGlyphMap(Map glyphMap) {
+        this.glyphMap = glyphMap;
+    }
 
     @Override
     public HighlightManager build() {
-        return helper.build();
+        return helper.build(glyphMap);
     }
 }

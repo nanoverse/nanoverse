@@ -30,6 +30,7 @@ import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.booleans.BooleanClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
+import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import io.visual.color.NormalizedContinuumColorManager;
 
 import java.util.HashMap;
@@ -50,6 +51,7 @@ public class ContinuumColorModelInstSymbolTable extends MapSymbolTable<Normalize
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        id(ret);
         base(ret);
         minHue(ret);
         maxHue(ret);
@@ -59,6 +61,13 @@ public class ContinuumColorModelInstSymbolTable extends MapSymbolTable<Normalize
         maxLum(ret);
         useLuminanceAverage(ret);
         return ret;
+    }
+
+    private void id(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "The id of the layer with " +
+            "which this color model should be associated.");
+        ret.put("id", ms);
     }
 
     public void base(HashMap<String, MemberSymbol> ret) {

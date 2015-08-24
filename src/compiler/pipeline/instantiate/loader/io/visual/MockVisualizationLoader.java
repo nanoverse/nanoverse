@@ -25,7 +25,10 @@
 package compiler.pipeline.instantiate.loader.io.visual;
 
 import compiler.pipeline.instantiate.factory.io.visual.MockVisualizationFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import io.visual.MockVisualization;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.
@@ -39,5 +42,10 @@ public class MockVisualizationLoader extends VisualizationLoader<MockVisualizati
 
     public MockVisualizationLoader(MockVisualizationFactory factory) {
         this.factory = factory;
+    }
+
+    @Override
+    public MockVisualization instantiate(MapObjectNode node, GeneralParameters p) {
+        throw new NotImplementedException();
     }
 }

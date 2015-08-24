@@ -25,10 +25,14 @@
 package compiler.pipeline.instantiate.loader.io.visual.highlight;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import io.visual.highlight.Glyph;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
-public class GlyphLoader<T extends Glyph> extends Loader<T> {
+public abstract class GlyphLoader<T extends Glyph> extends Loader<T> {
+
+    public abstract Glyph instantiate(MapObjectNode cNode, GeneralParameters p);
 }

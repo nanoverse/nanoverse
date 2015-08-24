@@ -25,10 +25,15 @@
 package compiler.pipeline.instantiate.loader.io.visual;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import io.visual.Visualization;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
-public class VisualizationLoader<T extends Visualization> extends Loader<T> {
+public abstract class VisualizationLoader<T extends Visualization> extends Loader<T> {
+
+    public abstract T instantiate(MapObjectNode node, GeneralParameters p);
 }

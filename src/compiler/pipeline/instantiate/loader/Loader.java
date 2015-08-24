@@ -30,6 +30,7 @@ import control.GeneralParameters;
 import geometry.lattice.Lattice;
 import geometry.shape.Shape;
 import io.serialize.Serializer;
+import io.visual.highlight.*;
 import layers.LayerManager;
 
 /**

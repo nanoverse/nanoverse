@@ -24,6 +24,9 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.binary;
 
+import compiler.pipeline.instantiate.loader.io.visual.*;
+import control.GeneralParameters;
+import geometry.Geometry;
 import io.visual.Visualization;
 import layers.LayerManager;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -34,11 +37,21 @@ import java.util.function.Supplier;
  * Created by dbborens on 8/21/2015.
  */
 public class VisualizationSerializerDefaults {
-    public Supplier<String> prefix() {
-        return () -> "img";
+    public String prefix() {
+        return "img";
     }
 
-    public Visualization visualization(LayerManager layerManager) {
-        throw new NotImplementedException();
+    public Visualization visualization(LayerManager layerManager, GeneralParameters p) {
+        Geometry geometry = layerManager.getCellLayer().getGeometry();
+
+        if (geometry.getDimensionality() == 1) {
+            KymographLoader loader = new KymographLoader();
+            return loader.instantiate(p);
+        } else if (geometry.getDimensionality() == 2) {
+            MapVisualizationLoader loader = new MapVisualizationLoader();
+            return loader.instantiate(p);
+        } else {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -24,11 +24,46 @@
 
 package compiler.pipeline.instantiate.loader.io.visual.highlight;
 
+import compiler.pipeline.instantiate.factory.io.visual.highlight.*;
 import compiler.pipeline.instantiate.loader.Loader;
-import io.visual.highlight.HighlightManager;
+import compiler.pipeline.translate.nodes.*;
+import control.GeneralParameters;
+import io.visual.highlight.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.Map;
 
 /**
  * Created by dbborens on 8/13/15.
  */
 public class HighlightManagerLoader extends Loader<HighlightManager> {
+
+    private final HighlightManagerFactory factory;
+    private final HighlightManagerChildLoader cLoader;
+
+    public HighlightManagerLoader() {
+        factory = new HighlightManagerFactory();
+        cLoader = new HighlightManagerChildLoader();
+    }
+
+    public HighlightManagerLoader(HighlightManagerFactory factory,
+                                  HighlightManagerChildLoader cLoader) {
+        this.factory = factory;
+        this.cLoader = cLoader;
+    }
+
+    public HighlightManager instantiate(ListObjectNode cNode,
+                                        GeneralParameters p) {
+
+        cNode.getMemberStream()
+            .forEach(node -> cLoader.load(node, p));
+        Map<Integer, Glyph> glyphMap = cLoader.getGlyphMap();
+        factory.setGlyphMap(glyphMap);
+
+        return factory.build();
+    }
+
+    public HighlightManager instantiate(GeneralParameters p) {
+        return instantiate(null, p);
+    }
 }

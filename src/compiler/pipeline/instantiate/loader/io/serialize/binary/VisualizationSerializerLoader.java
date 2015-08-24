@@ -58,7 +58,7 @@ public class VisualizationSerializerLoader extends OutputLoader<VisualizationSer
         String prefix = interpolator.prefix(node);
         factory.setPrefix(prefix);
 
-        Visualization visualization = interpolator.visualization(node, layerManager);
+        Visualization visualization = interpolator.visualization(node, layerManager, p);
         factory.setVisualization(visualization);
 
         return factory.build();

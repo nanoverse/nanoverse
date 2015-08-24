@@ -24,13 +24,19 @@
 
 package compiler.pipeline.instantiate.loader.io.visual.highlight;
 
-import compiler.pipeline.instantiate.loader.Loader;
-import io.visual.highlight.Highlight;
-
-import java.util.stream.Stream;
-
 /**
- * Created by dbborens on 8/13/15.
+ * Created by dbborens on 8/23/2015.
  */
-public class HighlightStreamLoader extends Loader<Stream<Highlight>> {
+public class CrosshairsGlyphDefaults {
+    public String color() {
+        return "white";
+    }
+
+    public Double crossSize() {
+        return 1.5;
+    }
+
+    public Double circleSize() {
+        return 0.15;
+    }
 }

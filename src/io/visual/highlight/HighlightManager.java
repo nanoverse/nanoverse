@@ -37,9 +37,13 @@ import java.util.Map;
  * Created by dbborens on 4/2/14.
  */
 public class HighlightManager {
-    private Map<Integer, Glyph> glyphMap;
+    private final Map<Integer, Glyph> glyphMap;
 
     @FactoryTarget
+    public HighlightManager(Map<Integer, Glyph> glyphMap) {
+        this.glyphMap = glyphMap;
+    }
+
     public HighlightManager() {
         glyphMap = new HashMap<>();
     }

@@ -24,20 +24,41 @@
 
 package compiler.pipeline.instantiate.loader.io.visual.highlight;
 
-import compiler.pipeline.instantiate.factory.io.visual.highlight.DotGlyphFactory;
-import io.visual.highlight.DotGlyph;
+import compiler.pipeline.instantiate.factory.io.visual.highlight.*;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import io.visual.highlight.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.awt.*;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class DotGlyphLoader extends GlyphLoader<DotGlyph> {
+
     private final DotGlyphFactory factory;
+    private final DotGlyphInterpolator interpolator;
 
     public DotGlyphLoader() {
         factory = new DotGlyphFactory();
+        interpolator = new DotGlyphInterpolator();
     }
 
-    public DotGlyphLoader(DotGlyphFactory factory) {
+    public DotGlyphLoader(DotGlyphFactory factory,
+                                 DotGlyphInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Glyph instantiate(MapObjectNode node, GeneralParameters p) {
+        Color color = interpolator.color(node, p);
+        factory.setColor(color);
+
+        double size = interpolator.size(node, p.getRandom());
+        factory.setSize(size);
+
+        return factory.build();
     }
 }

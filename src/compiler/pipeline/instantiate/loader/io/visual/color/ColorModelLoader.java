@@ -25,10 +25,13 @@
 package compiler.pipeline.instantiate.loader.io.visual.color;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import io.visual.color.ColorManager;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
-public class ColorModelLoader<T extends ColorManager> extends Loader<T> {
+public abstract class ColorModelLoader<T extends ColorManager> extends Loader<T> {
+    public abstract ColorManager instantiate(MapObjectNode node, GeneralParameters p);
 }

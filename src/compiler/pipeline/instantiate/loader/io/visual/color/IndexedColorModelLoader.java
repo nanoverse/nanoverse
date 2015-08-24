@@ -25,7 +25,9 @@
 package compiler.pipeline.instantiate.loader.io.visual.color;
 
 import compiler.pipeline.instantiate.factory.io.visual.color.IndexedColorModelFactory;
-import io.visual.color.DefaultColorManager;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import io.visual.color.*;
 
 /**
  * Created by dbborens on 8/10/2015.
@@ -39,5 +41,14 @@ public class IndexedColorModelLoader extends ColorModelLoader<DefaultColorManage
 
     public IndexedColorModelLoader(IndexedColorModelFactory factory) {
         this.factory = factory;
+    }
+
+    @Override
+    public ColorManager instantiate(MapObjectNode cNode, GeneralParameters p) {
+        return factory.build();
+    }
+
+    public ColorManager instantiate(GeneralParameters p) {
+        return instantiate(null, p);
     }
 }
