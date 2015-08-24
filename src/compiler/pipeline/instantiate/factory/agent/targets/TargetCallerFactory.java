@@ -29,41 +29,12 @@ import java.util.Random;
 import layers.LayerManager;
 import compiler.pipeline.instantiate.factory.Factory;
 
-public class TargetCallerFactory implements Factory<TargetCallerDescriptor> {
-
-    private final TargetCallerFactoryHelper helper;
-
-    private LayerManager layerManager;
-    private Filter filter;
-    private int maximum;
-    private Random random;
+public class TargetCallerFactory extends TargetFactory<TargetCallerDescriptor> {
 
     public TargetCallerFactory() {
-        helper = new TargetCallerFactoryHelper();
+        super(new TargetCallerFactoryHelper());
     }
-
-    public TargetCallerFactory(TargetCallerFactoryHelper helper) {
-        this.helper = helper;
-    }
-
-    public void setLayerManager(LayerManager layerManager) {
-        this.layerManager = layerManager;
-    }
-
-    public void setFilter(Filter filter) {
-        this.filter = filter;
-    }
-
-    public void setMaximum(int maximum) {
-        this.maximum = maximum;
-    }
-
-    public void setRandom(Random random) {
-        this.random = random;
-    }
-
-    @Override
-    public TargetCallerDescriptor build() {
-        return helper.build(layerManager, filter, maximum, random);
+    public TargetCallerFactory(TargetFactoryHelper helper) {
+        super(helper);
     }
 }

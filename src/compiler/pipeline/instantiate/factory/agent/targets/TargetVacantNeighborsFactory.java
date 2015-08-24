@@ -29,41 +29,14 @@ import java.util.Random;
 import layers.LayerManager;
 import compiler.pipeline.instantiate.factory.Factory;
 
-public class TargetVacantNeighborsFactory implements Factory<TargetVacantNeighborsDescriptor> {
+public class TargetVacantNeighborsFactory extends TargetFactory<TargetVacantNeighborsDescriptor> {
 
-    private final TargetVacantNeighborsFactoryHelper helper;
-
-    private LayerManager layerManager;
-    private Filter filter;
-    private int maximum;
-    private Random random;
+    public TargetVacantNeighborsFactory(TargetFactoryHelper helper) {
+        super(helper);
+    }
 
     public TargetVacantNeighborsFactory() {
-        helper = new TargetVacantNeighborsFactoryHelper();
+        super(new TargetVacantNeighborsFactoryHelper());
     }
 
-    public TargetVacantNeighborsFactory(TargetVacantNeighborsFactoryHelper helper) {
-        this.helper = helper;
-    }
-
-    public void setLayerManager(LayerManager layerManager) {
-        this.layerManager = layerManager;
-    }
-
-    public void setFilter(Filter filter) {
-        this.filter = filter;
-    }
-
-    public void setMaximum(int maximum) {
-        this.maximum = maximum;
-    }
-
-    public void setRandom(Random random) {
-        this.random = random;
-    }
-
-    @Override
-    public TargetVacantNeighborsDescriptor build() {
-        return helper.build(layerManager, filter, maximum, random);
-    }
 }

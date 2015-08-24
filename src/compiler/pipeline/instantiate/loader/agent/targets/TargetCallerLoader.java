@@ -25,20 +25,20 @@
 package compiler.pipeline.instantiate.loader.agent.targets;
 
 import agent.targets.TargetCallerDescriptor;
-import compiler.pipeline.instantiate.factory.agent.targets.TargetCallerFactory;
+import compiler.pipeline.instantiate.factory.agent.targets.*;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class TargetCallerLoader extends TargetLoader<TargetCallerDescriptor> {
 
-    private final TargetCallerFactory factory;
-
     public TargetCallerLoader() {
-        factory = new TargetCallerFactory();
+        super(new TargetCallerFactory(), new TargetInterpolator());
     }
 
-    public TargetCallerLoader(TargetCallerFactory factory) {
-        this.factory = factory;
+    public TargetCallerLoader(TargetCallerFactory factory,
+                                    TargetInterpolator interpolator) {
+
+        super(factory, interpolator);
     }
 }

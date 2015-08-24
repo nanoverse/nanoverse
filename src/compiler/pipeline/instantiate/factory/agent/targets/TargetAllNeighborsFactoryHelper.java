@@ -23,13 +23,14 @@
  */
 package compiler.pipeline.instantiate.factory.agent.targets;
 
+import agent.targets.*;
 import processes.discrete.filter.Filter;
 import java.util.Random;
-import agent.targets.TargetAllNeighborsDescriptor;
+
 import layers.LayerManager;
 
 
-public class TargetAllNeighborsFactoryHelper {
+public class TargetAllNeighborsFactoryHelper implements TargetFactoryHelper<TargetAllNeighborsDescriptor> {
 
     public TargetAllNeighborsDescriptor build(LayerManager layerManager, Filter filter, int maximum, Random random) {
         return new TargetAllNeighborsDescriptor(layerManager, filter, maximum, random);

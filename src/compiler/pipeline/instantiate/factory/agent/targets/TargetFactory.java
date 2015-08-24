@@ -21,17 +21,51 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+
 package compiler.pipeline.instantiate.factory.agent.targets;
 
-import processes.discrete.filter.Filter;
-import agent.targets.TargetSelfDescriptor;
-import java.util.Random;
+import agent.targets.*;
+import compiler.pipeline.instantiate.factory.Factory;
 import layers.LayerManager;
+import processes.discrete.filter.Filter;
 
+import java.util.Random;
 
-public class TargetSelfFactoryHelper implements TargetFactoryHelper<TargetSelfDescriptor> {
+/**
+ * Created by dbborens on 8/24/2015.
+ */
+public abstract class TargetFactory<T extends TargetDescriptor> implements Factory<T> {
 
-    public TargetSelfDescriptor build(LayerManager layerManager, Filter filter, int maximum, Random random) {
-        return new TargetSelfDescriptor(layerManager, filter, maximum, random);
+    private final TargetFactoryHelper<T> helper;
+
+    private LayerManager layerManager;
+    private Filter filter;
+    private int maximum;
+    private Random random;
+
+    protected TargetFactory(TargetFactoryHelper helper) {
+        this.helper = helper;
     }
+
+    public void setLayerManager(LayerManager layerManager) {
+        this.layerManager = layerManager;
+    }
+
+    public void setFilter(Filter filter) {
+        this.filter = filter;
+    }
+
+    public void setMaximum(int maximum) {
+        this.maximum = maximum;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
+    @Override
+    public T build() {
+        return helper.build(layerManager, filter, maximum, random);
+    }
+
 }

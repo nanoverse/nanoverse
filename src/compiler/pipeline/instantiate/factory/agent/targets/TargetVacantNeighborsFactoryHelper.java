@@ -29,7 +29,7 @@ import java.util.Random;
 import layers.LayerManager;
 
 
-public class TargetVacantNeighborsFactoryHelper {
+public class TargetVacantNeighborsFactoryHelper implements TargetFactoryHelper<TargetVacantNeighborsDescriptor> {
 
     public TargetVacantNeighborsDescriptor build(LayerManager layerManager, Filter filter, int maximum, Random random) {
         return new TargetVacantNeighborsDescriptor(layerManager, filter, maximum, random);
