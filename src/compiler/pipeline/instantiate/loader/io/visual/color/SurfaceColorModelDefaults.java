@@ -22,30 +22,19 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.io.visual;
+package compiler.pipeline.instantiate.loader.io.visual.color;
 
-import compiler.pipeline.instantiate.factory.io.visual.MockVisualizationFactory;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.GeneralParameters;
-import io.visual.MockVisualization;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import control.arguments.DoubleArgument;
 
 /**
- * Created by dbborens on 8/4/2015.
+ * Created by dbborens on 8/24/2015.
  */
-public class MockVisualizationLoader extends VisualizationLoader<MockVisualization> {
-    private final MockVisualizationFactory factory;
-
-    public MockVisualizationLoader() {
-        factory = new MockVisualizationFactory();
+public class SurfaceColorModelDefaults {
+    public DoubleArgument luminance() {
+        return null;
     }
 
-    public MockVisualizationLoader(MockVisualizationFactory factory) {
-        this.factory = factory;
-    }
-
-    @Override
-    public MockVisualization instantiate(MapObjectNode node, GeneralParameters p) {
-        return factory.build();
+    public DoubleArgument saturation() {
+        return null;
     }
 }
