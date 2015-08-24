@@ -26,25 +26,30 @@ package compiler.pipeline.instantiate.loader.primitive.strings;
 
 import compiler.pipeline.instantiate.factory.control.arguments.UncheckedArgument;
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.translate.nodes.ObjectNode;
-import control.arguments.StringArgument;
+import compiler.pipeline.translate.nodes.*;
+import control.arguments.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.Random;
 
 /**
  * Created by dbborens on 8/1/2015.
  */
 public class StringArgumentLoader extends Loader<StringArgument> {
 
-    public StringArgument instantiate(ObjectNode node) {
-        throw new NotImplementedException();
+    public ConstantString instantiate(ObjectNode node) {
+        String value = getValue(node);
+        return new ConstantString(value);
     }
 
-    /**
-     * Builds a bare string based on first return value of argument.
-     * @param node
-     * @return
-     */
     public String instantiateToFirst(ObjectNode node) {
-        throw new NotImplementedException();
+        String value = getValue(node);
+        return value;
+    }
+
+    private String getValue(ObjectNode node) {
+        PrimitiveObjectNode<String> pNode = (PrimitiveObjectNode) node;
+        String value = pNode.getValue();
+        return value;
     }
 }

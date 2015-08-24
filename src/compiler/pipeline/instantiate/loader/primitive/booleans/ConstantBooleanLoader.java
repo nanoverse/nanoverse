@@ -24,7 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.primitive.booleans;
 
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.translate.nodes.*;
 import control.arguments.ConstantBoolean;
 
 import java.util.Random;
@@ -35,11 +35,19 @@ import java.util.Random;
 public class ConstantBooleanLoader extends BooleanArgumentLoader<ConstantBoolean> {
     @Override
     public ConstantBoolean instantiate(ObjectNode node, Random random) {
-        return null;
+        Boolean value = getValue(node);
+        return new ConstantBoolean(value);
     }
 
     @Override
     public Boolean instantiateToFirst(ObjectNode node, Random random) {
-        return null;
+        Boolean value = getValue(node);
+        return value;
+    }
+
+    private Boolean getValue(ObjectNode node) {
+        PrimitiveObjectNode<Boolean> pNode = (PrimitiveObjectNode) node;
+        Boolean value = pNode.getValue();
+        return value;
     }
 }

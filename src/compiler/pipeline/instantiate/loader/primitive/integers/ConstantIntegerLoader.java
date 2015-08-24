@@ -24,7 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.primitive.integers;
 
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.translate.nodes.*;
 import control.arguments.ConstantInteger;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -36,11 +36,19 @@ import java.util.Random;
 public class ConstantIntegerLoader extends IntegerArgumentLoader<ConstantInteger> {
     @Override
     public ConstantInteger instantiate(ObjectNode node, Random random) {
-        throw new NotImplementedException();
+        Integer value = getValue(node);
+        return new ConstantInteger(value);
     }
 
     @Override
     public Integer instantiateToFirst(ObjectNode node, Random random) {
-        throw new NotImplementedException();
+        Integer value = getValue(node);
+        return value;
+    }
+
+    private Integer getValue(ObjectNode node) {
+        PrimitiveObjectNode<Integer> pNode = (PrimitiveObjectNode) node;
+        Integer value = pNode.getValue();
+        return value;
     }
 }

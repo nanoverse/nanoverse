@@ -24,7 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.primitive.doubles;
 
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.translate.nodes.*;
 import control.arguments.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -34,14 +34,21 @@ import java.util.Random;
  * Created by dbborens on 8/14/2015.
  */
 public class ConstantDoubleLoader extends DoubleArgumentLoader<ConstantDouble> {
-
     @Override
     public ConstantDouble instantiate(ObjectNode node, Random random) {
-        throw new NotImplementedException();
+        Double value = getValue(node);
+        return new ConstantDouble(value);
     }
 
     @Override
     public Double instantiateToFirst(ObjectNode node, Random random) {
-        throw new NotImplementedException();
+        Double value = getValue(node);
+        return value;
+    }
+
+    private Double getValue(ObjectNode node) {
+        PrimitiveObjectNode<Double> pNode = (PrimitiveObjectNode) node;
+        Double value = pNode.getValue();
+        return value;
     }
 }

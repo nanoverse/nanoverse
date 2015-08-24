@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.primitive.booleans;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.primitive.booleans.ConstantBooleanLoader;
 import compiler.pipeline.translate.nodes.*;
 import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import control.arguments.*;
@@ -47,6 +48,6 @@ public class ConstantBooleanInstSymbolTable extends ConstantPrimitiveSymbolTable
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new ConstantBooleanLoader();
     }
 }
