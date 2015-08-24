@@ -24,10 +24,43 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.filter;
 
-import processes.discrete.filter.CompositeFilter;
+import compiler.pipeline.instantiate.factory.processes.discrete.filter.CompositeFilterFactory;
+import compiler.pipeline.translate.nodes.*;
+import control.GeneralParameters;
+import layers.cell.CellLayer;
+import processes.discrete.filter.*;
+
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 8/24/2015.
  */
 public class CompositeFilterLoader extends FilterLoader<CompositeFilter> {
+
+    private final CompositeFilterFactory factory;
+    private final CompositeFilterInterpolator interpolator;
+
+    public CompositeFilterLoader() {
+        factory = new CompositeFilterFactory();
+        interpolator = new CompositeFilterInterpolator();
+    }
+
+    public CompositeFilterLoader(CompositeFilterFactory factory,
+                                 CompositeFilterInterpolator interpolator) {
+
+        this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public CompositeFilter instantiate(MapObjectNode node,
+                                       CellLayer layer,
+                                       GeneralParameters p) {
+
+        Stream<Filter> children = interpolator.including(node, layer);
+        factory.setChildren(children);
+
+        return factory.build();
+    }
+
 }

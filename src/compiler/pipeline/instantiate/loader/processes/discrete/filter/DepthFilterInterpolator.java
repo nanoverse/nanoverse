@@ -21,34 +21,31 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.processes.discrete.filter;
 
-import processes.discrete.filter.CompositeFilter;
-import compiler.pipeline.instantiate.factory.Factory;
-import processes.discrete.filter.Filter;
+package compiler.pipeline.instantiate.loader.processes.discrete.filter;
 
-import java.util.stream.Stream;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.IntegerArgument;
 
-public class CompositeFilterFactory implements Factory<CompositeFilter> {
+import java.util.Random;
 
-    private final CompositeFilterFactoryHelper helper;
+/**
+ * Created by dbborens on 8/24/2015.
+ */
+public class DepthFilterInterpolator {
+    private final LoadHelper load;
 
-    private Stream<Filter> children;
-
-    public CompositeFilterFactory() {
-        helper = new CompositeFilterFactoryHelper();
+    public DepthFilterInterpolator() {
+        load = new LoadHelper();
     }
 
-    public CompositeFilterFactory(CompositeFilterFactoryHelper helper) {
-        this.helper = helper;
+    public DepthFilterInterpolator(LoadHelper load) {
+        this.load = load;
     }
 
-    public void setChildren(Stream<Filter> children) {
-        this.children = children;
-    }
-
-    @Override
-    public CompositeFilter build() {
-        return helper.build(children);
+    public IntegerArgument depth(MapObjectNode node, Random random) {
+        return load.anIntegerArgument(node, "depth", random);
     }
 }

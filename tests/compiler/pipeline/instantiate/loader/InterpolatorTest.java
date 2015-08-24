@@ -27,7 +27,7 @@ package compiler.pipeline.instantiate.loader;
 import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
-import control.arguments.DoubleArgument;
+import control.arguments.*;
 import org.junit.Before;
 import org.mockito.ArgumentCaptor;
 import test.TestBase;
@@ -124,6 +124,21 @@ public class InterpolatorTest extends TestBase {
 
         int actual = trigger.get();
         assertEquals(expected, actual);
+    }
+
+    protected void verifyIntegerArgument(String member, Supplier<IntegerArgument> trigger) {
+        IntegerArgument expected = mock(IntegerArgument.class);
+
+        // For values with defaults
+        when(load.anIntegerArgument(eq(node), eq(member), eq(random), any()))
+            .thenReturn(expected);
+
+        // For values without defaults
+        when(load.anIntegerArgument(eq(node), eq(member), eq(random)))
+            .thenReturn(expected);
+
+        IntegerArgument actual = trigger.get();
+        assertSame(expected, actual);
     }
 
     protected void verifyDoubleDefault(String member, Double expected, Runnable trigger) {

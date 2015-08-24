@@ -31,6 +31,8 @@ import org.dom4j.Element;
 import processes.discrete.filter.*;
 import test.EslimeLatticeTestCase;
 
+import java.util.stream.Stream;
+
 public class FilterFactoryTest extends EslimeLatticeTestCase {
     private Element root;
     private GeneralParameters p;
@@ -66,10 +68,10 @@ public class FilterFactoryTest extends EslimeLatticeTestCase {
     public void testCompositeFilter() throws Exception {
         Element e = root.element("composite-case");
 
-        Filter[] children = new Filter[]{
+        Stream<Filter> children = Stream.of(
                 new NullFilter(),
                 new NullFilter()
-        };
+        );
 
         Filter expected = new CompositeFilter(children);
         Filter actual = FilterFactory.instantiate(e, layerManager, p);
@@ -79,12 +81,12 @@ public class FilterFactoryTest extends EslimeLatticeTestCase {
     public void testNestedComposite() throws Exception {
         Element e = root.element("nested-composite-case");
 
-        Filter[] subChildren = new Filter[]{new NullFilter()};
+        Stream<Filter> subChildren = Stream.of(new NullFilter());
 
-        Filter[] children = new Filter[]{
+        Stream<Filter> children = Stream.of(
                 new CompositeFilter(subChildren),
                 new NullFilter()
-        };
+        );
 
         Filter expected = new CompositeFilter(children);
         Filter actual = FilterFactory.instantiate(e, layerManager, p);

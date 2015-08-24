@@ -21,34 +21,31 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.processes.discrete.filter;
 
-import processes.discrete.filter.CompositeFilter;
-import compiler.pipeline.instantiate.factory.Factory;
-import processes.discrete.filter.Filter;
+package compiler.pipeline.instantiate.loader.processes.discrete.filter;
 
-import java.util.stream.Stream;
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import control.arguments.IntegerArgument;
+import org.junit.*;
 
-public class CompositeFilterFactory implements Factory<CompositeFilter> {
+import java.util.function.Supplier;
 
-    private final CompositeFilterFactoryHelper helper;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-    private Stream<Filter> children;
+public class CellStateFilterInterpolatorTest extends InterpolatorTest {
 
-    public CompositeFilterFactory() {
-        helper = new CompositeFilterFactoryHelper();
+    private CellStateFilterInterpolator query;
+
+    @Before
+    public void before() throws Exception {
+        super.before();
+        query = new CellStateFilterInterpolator(load);
     }
 
-    public CompositeFilterFactory(CompositeFilterFactoryHelper helper) {
-        this.helper = helper;
-    }
-
-    public void setChildren(Stream<Filter> children) {
-        this.children = children;
-    }
-
-    @Override
-    public CompositeFilter build() {
-        return helper.build(children);
+    @Test
+    public void state() throws Exception {
+        Supplier<IntegerArgument> trigger = () -> query.state(node, random);
+        verifyIntegerArgument("state", trigger);
     }
 }

@@ -24,40 +24,40 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.filter;
 
-import compiler.pipeline.instantiate.factory.processes.discrete.filter.CellStateFilterFactory;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
-import control.arguments.IntegerArgument;
 import layers.cell.CellLayer;
-import processes.discrete.filter.CellStateFilter;
+import processes.discrete.filter.Filter;
+
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 8/24/2015.
  */
-public class CellStateFilterLoader extends FilterLoader<CellStateFilter> {
+public class CompositeFilterInterpolator {
+    private final LoadHelper load;
+    private final CompositeFilterDefaults defaults;
 
-    private final CellStateFilterFactory factory;
-    private final CellStateFilterInterpolator interpolator;
-
-    public CellStateFilterLoader() {
-        factory = new CellStateFilterFactory();
-        interpolator = new CellStateFilterInterpolator();
+    public CompositeFilterInterpolator() {
+        load = new LoadHelper();
+        defaults = new CompositeFilterDefaults();
     }
 
-    public CellStateFilterLoader(CellStateFilterFactory factory,
-                                 CellStateFilterInterpolator interpolator) {
-
-        this.factory = factory;
-        this.interpolator = interpolator;
+    public CompositeFilterInterpolator(LoadHelper load,
+                                       CompositeFilterDefaults defaults) {
+        this.load = load;
+        this.defaults = defaults;
     }
 
-    @Override
-    public CellStateFilter instantiate(MapObjectNode node, CellLayer layer, GeneralParameters p) {
-        factory.setLayer(layer);
+    public Stream<Filter> including(MapObjectNode node, CellLayer layer) {
+        FilterStreamLoader loader = (FilterStreamLoader) load.getLoader(node, "including", false);
 
-        IntegerArgument state = interpolator.state(node, p.getRandom());
-        factory.setToChoose(state);
+        if (loader == null) {
+            return defaults.including();
+        }
 
-        return factory.build();
+        ListObjectNode cNode = (ListObjectNode) node.getMember("including");
+        return loader.instantiate(cNode, layer);
     }
 }

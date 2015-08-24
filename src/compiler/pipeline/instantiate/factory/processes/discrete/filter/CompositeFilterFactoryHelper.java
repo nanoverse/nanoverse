@@ -26,10 +26,12 @@ package compiler.pipeline.instantiate.factory.processes.discrete.filter;
 import processes.discrete.filter.CompositeFilter;
 import processes.discrete.filter.Filter;
 
+import java.util.stream.Stream;
+
 
 public class CompositeFilterFactoryHelper {
 
-    public CompositeFilter build(Filter[] children) {
+    public CompositeFilter build(Stream<Filter> children) {
         return new CompositeFilter(children);
     }
 }
