@@ -25,7 +25,9 @@
 package compiler.pipeline.instantiate.loader.io.visual.color;
 
 import compiler.pipeline.instantiate.factory.io.visual.color.SurfaceColorModelFactory;
-import io.visual.color.SurfaceGrowthColorManager;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import io.visual.color.*;
 
 /**
  * Created by dbborens on 8/10/2015.
@@ -39,5 +41,10 @@ public class SurfaceColorModelLoader extends ColorModelLoader<SurfaceGrowthColor
 
     public SurfaceColorModelLoader(SurfaceColorModelFactory factory) {
         this.factory = factory;
+    }
+
+    @Override
+    public ColorManager instantiate(MapObjectNode cNode, GeneralParameters p) {
+        return null;
     }
 }

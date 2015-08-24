@@ -26,19 +26,37 @@ package compiler.pipeline.instantiate.loader.io.visual.highlight;
 
 import compiler.pipeline.instantiate.factory.io.visual.highlight.HighlightFactory;
 import compiler.pipeline.instantiate.loader.Loader;
-import io.visual.highlight.Highlight;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import io.visual.highlight.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class HighlightLoader extends Loader<Highlight> {
     private final HighlightFactory factory;
+    private final HighlightInterpolator interpolator;
 
     public HighlightLoader() {
         factory = new HighlightFactory();
+        interpolator = new HighlightInterpolator();
     }
 
-    public HighlightLoader(HighlightFactory factory) {
+    public HighlightLoader(HighlightFactory factory,
+                           HighlightInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    public Highlight instantiate(MapObjectNode mNode, GeneralParameters p) {
+        Integer channel = interpolator.channel(mNode, p.getRandom());
+        factory.setChannel(channel);
+
+        Glyph glyph = interpolator.glyph(mNode, p);
+        factory.setGlyph(glyph);
+
+        return factory.build();
     }
 }

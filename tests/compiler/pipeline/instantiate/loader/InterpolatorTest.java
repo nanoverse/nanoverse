@@ -26,30 +26,36 @@ package compiler.pipeline.instantiate.loader;
 
 import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.DoubleArgument;
 import org.junit.Before;
 import org.mockito.ArgumentCaptor;
+import test.TestBase;
 
 import java.util.Random;
 import java.util.function.Supplier;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertSame;
 import static org.mockito.Mockito.*;
 
 
 /**
  * Created by dbborens on 8/19/2015.
  */
-public class InterpolatorTest {
+public class InterpolatorTest extends TestBase {
 
     protected LoadHelper load;
     protected MapObjectNode node;
     protected Random random;
+    protected GeneralParameters p;
 
     @Before
     public void before() throws Exception {
         random = new Random(1);
         load = mock(LoadHelper.class);
         node = mock(MapObjectNode.class);
+        p = mock(GeneralParameters.class);
     }
 
     protected void verifyIntegerDefault(String member, Integer expected, Runnable trigger) {
@@ -58,6 +64,19 @@ public class InterpolatorTest {
         trigger.run();
         verify(load).anInteger(any(), any(), eq(random), captor.capture());
         Integer actual = (Integer) captor.getValue().get();
+        assertEquals(expected, actual);
+    }
+
+    protected void verifyString(String member, Supplier<String> trigger) {
+        String expected = "expected";
+
+        // For values with defaults
+        when(load.aString(eq(node), eq(member), any())).thenReturn(expected);
+
+        // For values without defaults
+        when(load.aString(eq(node), eq(member))).thenReturn(expected);
+
+        String actual = trigger.get();
         assertEquals(expected, actual);
     }
 
@@ -70,6 +89,21 @@ public class InterpolatorTest {
         assertEquals(expected, actual);
     }
 
+    protected void verifyBoolean(String member, Supplier<Boolean> trigger) {
+        boolean expected = true;
+
+        // For values with defaults
+        when(load.aBoolean(eq(node), eq(member), eq(random), any()))
+            .thenReturn(expected);
+
+        // For values without defaults
+        when(load.aBoolean(eq(node), eq(member), eq(random)))
+            .thenReturn(expected);
+
+        boolean actual = trigger.get();
+        assertEquals(expected, actual);
+    }
+
     protected void verifyBooleanDefault(String member, Boolean expected, Runnable trigger) {
         when(load.aBoolean(eq(node), eq(member), any(), any())).thenReturn(!expected);
         ArgumentCaptor<Supplier> captor = ArgumentCaptor.forClass(Supplier.class);
@@ -79,4 +113,64 @@ public class InterpolatorTest {
         assertEquals(expected, actual);
     }
 
+    protected void verifyInteger(String member, Supplier<Integer> trigger) {
+        int expected = 7;
+
+        // For values with defaults
+        when(load.anInteger(eq(node), eq(member), eq(random), any())).thenReturn(expected);
+
+        // For values without defaults
+        when(load.anInteger(eq(node), eq(member), eq(random))).thenReturn(expected);
+
+        int actual = trigger.get();
+        assertEquals(expected, actual);
+    }
+
+    protected void verifyDoubleDefault(String member, Double expected, Runnable trigger) {
+        when(load.aDouble(eq(node), eq(member), any(), any())).thenReturn(expected + 1.0);
+        ArgumentCaptor<Supplier> captor = ArgumentCaptor.forClass(Supplier.class);
+        trigger.run();
+        verify(load).aDouble(any(), any(), eq(random), captor.capture());
+        Double actual = (Double) captor.getValue().get();
+        assertEquals(expected, actual, epsilon);
+    }
+
+    protected void verifyDouble(String member, Supplier<Double> trigger) {
+        double expected = 7.0;
+
+        // For values with defaults
+        when(load.aDouble(eq(node), eq(member), eq(random), any())).thenReturn(expected);
+
+        // For values without defaults
+        when(load.aDouble(eq(node), eq(member), eq(random))).thenReturn(expected);
+
+        double actual = trigger.get();
+        assertEquals(expected, actual, epsilon);
+    }
+
+    protected void verifyDoubleArgumentDefault(String member, DoubleArgument expected, Runnable trigger) {
+        DoubleArgument notExpected = mock(DoubleArgument.class);
+        when(load.aDoubleArgument(eq(node), eq(member), any(), any()))
+            .thenReturn(notExpected);
+        ArgumentCaptor<Supplier> captor = ArgumentCaptor.forClass(Supplier.class);
+        trigger.run();
+        verify(load).aDoubleArgument(any(), any(), eq(random), captor.capture());
+        DoubleArgument actual = (DoubleArgument) captor.getValue().get();
+        assertSame(expected, actual);
+    }
+
+    protected void verifyDoubleArgument(String member, Supplier<DoubleArgument> trigger) {
+        DoubleArgument expected = mock(DoubleArgument.class);
+
+        // For values with defaults
+        when(load.aDoubleArgument(eq(node), eq(member), eq(random), any()))
+            .thenReturn(expected);
+
+        // For values without defaults
+        when(load.aDoubleArgument(eq(node), eq(member), eq(random)))
+            .thenReturn(expected);
+
+        DoubleArgument actual = trigger.get();
+        assertSame(expected, actual);
+    }
 }

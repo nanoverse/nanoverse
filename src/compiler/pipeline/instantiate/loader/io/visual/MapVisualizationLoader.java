@@ -25,19 +25,40 @@
 package compiler.pipeline.instantiate.loader.io.visual;
 
 import compiler.pipeline.instantiate.factory.io.visual.map.MapVisualizationFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import io.visual.*;
 import io.visual.map.MapVisualization;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class MapVisualizationLoader extends VisualizationLoader<MapVisualization> {
     private final MapVisualizationFactory factory;
+    private final MapVisualizationInterpolator interpolator;
 
     public MapVisualizationLoader() {
         factory = new MapVisualizationFactory();
+        interpolator = new MapVisualizationInterpolator();
     }
 
-    public MapVisualizationLoader(MapVisualizationFactory factory) {
+    public MapVisualizationLoader(MapVisualizationFactory factory,
+                           MapVisualizationInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public MapVisualization instantiate(MapObjectNode node, GeneralParameters p) {
+        VisualizationProperties properties = interpolator.properties(node, p);
+        factory.setProperties(properties);
+
+        return factory.build();
+    }
+
+    public MapVisualization instantiate(GeneralParameters p) {
+        return instantiate(null, p);
     }
 }

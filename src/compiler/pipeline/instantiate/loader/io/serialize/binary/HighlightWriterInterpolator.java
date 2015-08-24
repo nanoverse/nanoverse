@@ -24,34 +24,31 @@
 
 package compiler.pipeline.instantiate.loader.io.serialize.binary;
 
-import compiler.pipeline.instantiate.loader.primitive.integers.IntegerArgumentLoader;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
+import compiler.pipeline.instantiate.loader.io.visual.highlight.IntegerStreamLoader;
 import compiler.pipeline.translate.nodes.*;
-import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 import control.GeneralParameters;
-import control.arguments.IntegerArgument;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.stream.Stream;
 
 /**
- * Created by dbborens on 8/21/2015.
+ * Created by dbborens on 8/23/2015.
  */
-public class HighlightWriterChildLoader {
+public class HighlightWriterInterpolator {
+    private final LoadHelper load;
 
-    public Stream<Integer> channels(MapObjectNode node, GeneralParameters p) {
-        ListObjectNode lNode = (ListObjectNode) node.getMember("channels");
-
-        Stream<Integer> ret = lNode.getMemberStream()
-                .map(o -> (MapObjectNode) o)
-                .map(cNode -> instantiate(cNode, p));
-
-        return ret;
+    public HighlightWriterInterpolator() {
+        load = new LoadHelper();
     }
 
-    private Integer instantiate(MapObjectNode node, GeneralParameters p) {
-        Random random = p.getRandom();
-        InstantiableSymbolTable ist = node.getSymbolTable();
-        IntegerArgumentLoader loader = (IntegerArgumentLoader) ist.getLoader();
-        return loader.instantiateToFirst(node, random);
+    public HighlightWriterInterpolator(LoadHelper load) {
+        this.load = load;
+    }
+
+    public Stream<Integer> channels(MapObjectNode node, GeneralParameters p) {
+        IntegerStreamLoader loader = (IntegerStreamLoader) load.getLoader(node, "channels", true);
+        ListObjectNode cNode = (ListObjectNode) node.getMember("channels");
+
+        return loader.instantiate(cNode, p);
     }
 }

@@ -24,20 +24,44 @@
 
 package compiler.pipeline.instantiate.loader.io.visual.highlight;
 
-import compiler.pipeline.instantiate.factory.io.visual.highlight.CrosshairsGlyphFactory;
-import io.visual.highlight.CrosshairsGlyph;
+import compiler.pipeline.instantiate.factory.io.visual.highlight.*;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import io.visual.highlight.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.awt.*;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class CrosshairsGlyphLoader extends GlyphLoader<CrosshairsGlyph> {
+
     private final CrosshairsGlyphFactory factory;
+    private final CrosshairsGlyphInterpolator interpolator;
 
     public CrosshairsGlyphLoader() {
         factory = new CrosshairsGlyphFactory();
+        interpolator = new CrosshairsGlyphInterpolator();
     }
 
-    public CrosshairsGlyphLoader(CrosshairsGlyphFactory factory) {
+    public CrosshairsGlyphLoader(CrosshairsGlyphFactory factory,
+                               CrosshairsGlyphInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Glyph instantiate(MapObjectNode node, GeneralParameters p) {
+        double crossSize = interpolator.crossSize(node, p.getRandom());
+        factory.setCrossSize(crossSize);
+
+        double circleSize = interpolator.circleSize(node, p.getRandom());
+        factory.setCircleSize(circleSize);
+
+        Color color = interpolator.color(node, p);
+        factory.setColor(color);
+
+        return factory.build();
     }
 }

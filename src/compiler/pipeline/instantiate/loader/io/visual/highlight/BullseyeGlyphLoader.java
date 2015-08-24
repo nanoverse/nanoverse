@@ -25,19 +25,42 @@
 package compiler.pipeline.instantiate.loader.io.visual.highlight;
 
 import compiler.pipeline.instantiate.factory.io.visual.highlight.BullseyeGlyphFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import io.visual.highlight.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.awt.*;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
 public class BullseyeGlyphLoader extends GlyphLoader<BullseyeGlyph> {
     private final BullseyeGlyphFactory factory;
+    private final BullseyeGlyphInterpolator interpolator;
 
     public BullseyeGlyphLoader() {
         factory = new BullseyeGlyphFactory();
+        interpolator = new BullseyeGlyphInterpolator();
     }
 
-    public BullseyeGlyphLoader(BullseyeGlyphFactory factory) {
+    public BullseyeGlyphLoader(BullseyeGlyphFactory factory,
+                               BullseyeGlyphInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Glyph instantiate(MapObjectNode node, GeneralParameters p) {
+        Color primary = interpolator.primary(node, p);
+        factory.setPrimary(primary);
+
+        Color secondary = interpolator.secondary(node, p);
+        factory.setSecondary(secondary);
+
+        Double size = interpolator.size(node, p.getRandom());
+        factory.setSize(size);
+
+        return factory.build();
     }
 }

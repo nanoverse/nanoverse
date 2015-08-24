@@ -39,16 +39,21 @@ import java.util.stream.Stream;
  */
 public class HighlightWriterLoader extends OutputLoader<HighlightWriter> {
     private final HighlightWriterFactory factory;
-    private final HighlightWriterChildLoader childLoader;
+    private final HighlightWriterInterpolator interpolator;
+//    private final HighlightWriterChildLoader childLoader;
 
     public HighlightWriterLoader() {
         factory = new HighlightWriterFactory();
-        childLoader = new HighlightWriterChildLoader();
+        interpolator = new HighlightWriterInterpolator();
+//        childLoader = new HighlightWriterChildLoader();
     }
 
-    public HighlightWriterLoader(HighlightWriterFactory factory, HighlightWriterChildLoader childLoader) {
+    public HighlightWriterLoader(HighlightWriterFactory factory,
+                                 HighlightWriterInterpolator interpolator) {
+//                                 HighlightWriterChildLoader childLoader) {
         this.factory = factory;
-        this.childLoader = childLoader;
+        this.interpolator = interpolator;
+//        this.childLoader = childLoader;
     }
 
     @Override
@@ -56,7 +61,9 @@ public class HighlightWriterLoader extends OutputLoader<HighlightWriter> {
         factory.setP(p);
         factory.setLm(layerManager);
 
-        Stream<Integer> channels = childLoader.channels(node, p);
+        // TODO Refactor to use the native loader for IntegerStream
+        Stream<Integer> channels = interpolator.channels(node, p);
+//        Stream<Integer> channels = childLoader.channels(node, p);
         factory.setChannels(channels);
 
         return factory.build();

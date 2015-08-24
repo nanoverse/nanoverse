@@ -25,19 +25,58 @@
 package compiler.pipeline.instantiate.loader.io.visual.color;
 
 import compiler.pipeline.instantiate.factory.io.visual.color.ContinuumColorModelFactory;
-import io.visual.color.NormalizedContinuumColorManager;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.DoubleArgument;
+import io.visual.color.*;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
 public class ContinuumColorModelLoader extends ColorModelLoader<NormalizedContinuumColorManager> {
     private final ContinuumColorModelFactory factory;
+    private final ContinuumColorModelInterpolator interpolator;
 
     public ContinuumColorModelLoader() {
         factory = new ContinuumColorModelFactory();
+        interpolator = new ContinuumColorModelInterpolator();
     }
 
-    public ContinuumColorModelLoader(ContinuumColorModelFactory factory) {
+    public ContinuumColorModelLoader(ContinuumColorModelFactory factory,
+                                     ContinuumColorModelInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public ColorManager instantiate(MapObjectNode node, GeneralParameters p) {
+        boolean averageLuminance = interpolator.averageLuminance(node, p.getRandom());
+        factory.setAverageLuminance(averageLuminance);
+
+        ColorManager base = interpolator.base(node, p);
+        factory.setBase(base);
+
+        String continuumId = interpolator.id(node);
+        factory.setContinuumId(continuumId);
+
+        DoubleArgument maxHueArg = interpolator.maxHue(node, p.getRandom());
+        factory.setMaxHueArg(maxHueArg);
+
+        DoubleArgument minHueArg = interpolator.minHue(node, p.getRandom());
+        factory.setMinHueArg(minHueArg);
+
+        DoubleArgument maxSaturationArg = interpolator.maxSat(node, p.getRandom());
+        factory.setMaxSaturationArg(maxSaturationArg);
+
+        DoubleArgument minSaturationArg = interpolator.minSat(node, p.getRandom());
+        factory.setMinSaturationArg(minSaturationArg);
+
+        DoubleArgument maxLuminanceArg = interpolator.maxLum(node, p.getRandom());
+        factory.setMaxLuminanceArg(maxLuminanceArg);
+
+        DoubleArgument minLuminanceArg = interpolator.minLum(node, p.getRandom());
+        factory.setMinLuminanceArg(minLuminanceArg);
+
+        return factory.build();
     }
 }

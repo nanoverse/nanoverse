@@ -46,6 +46,11 @@ public class ContinuumColorModelInstSymbolTableTest extends MapSymbolTableTest {
     }
 
     @Test
+    public void id() throws Exception {
+        verifyReturnSymbol("id", StringArgument.class);
+    }
+
+    @Test
     public void base() throws Exception {
         verifyReturnSymbol("base", ColorManager.class);
     }

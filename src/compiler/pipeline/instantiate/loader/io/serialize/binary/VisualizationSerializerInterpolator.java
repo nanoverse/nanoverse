@@ -27,6 +27,7 @@ package compiler.pipeline.instantiate.loader.io.serialize.binary;
 import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.instantiate.loader.io.visual.VisualizationLoader;
 import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import io.visual.Visualization;
 import layers.LayerManager;
 
@@ -50,15 +51,18 @@ public class VisualizationSerializerInterpolator {
         this.defaults = defaults;
     }
     public String prefix(MapObjectNode node) {
-        return load.aString(node, "prefix", defaults.prefix());
+        return load.aString(node, "prefix", defaults::prefix);
     }
 
-    public Visualization visualization(MapObjectNode node, LayerManager layerManager) {
+    public Visualization visualization(MapObjectNode node, LayerManager layerManager, GeneralParameters p) {
         VisualizationLoader loader = (VisualizationLoader) load.getLoader(node, "visualization", false);
         if (loader == null) {
-            return defaults.visualization(layerManager);
+            return defaults.visualization(layerManager, p);
         }
-        return null;
+
+        MapObjectNode cNode = (MapObjectNode) node.getMember("visualization");
+
+        return loader.instantiate(cNode, p);
     }
 
 }

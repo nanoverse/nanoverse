@@ -26,11 +26,9 @@ package compiler.pipeline.translate.symbol.io.serialize;
 
 import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.instantiate.loader.io.serialize.binary.HighlightWriterLoader;
-import compiler.pipeline.instantiate.loader.io.visual.highlight.HighlightStreamLoader;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.instantiate.loader.io.visual.highlight.IntegerStreamLoader;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
-import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import io.serialize.binary.HighlightWriter;
 
@@ -58,7 +56,7 @@ public class HighlightWriterInstSymbolTable extends MapSymbolTable<HighlightWrit
 
     private void channels(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable cst = new IntegerClassSymbolTable();
-        ListSymbolTable<IntegerArgument> lst = new ListSymbolTable<>(cst, HighlightStreamLoader::new);
+        ListSymbolTable<IntegerArgument> lst = new ListSymbolTable<>(cst, IntegerStreamLoader::new);
         MemberSymbol ms = new MemberSymbol(lst, "List of channels whose " +
                 "state is to be monitored and recorded.");
         ret.put("channels", ms);
