@@ -66,7 +66,7 @@ public class SurfaceColorModelInstSymbolTable extends MapSymbolTable<SurfaceGrow
         MemberSymbol ms = new MemberSymbol(rst, "The factor by which the " +
                 "saturation of the base model should be scaled if a site has " +
                 "an adjacent vacancy.");
-        ret.put("saturationScale", ms);
+        ret.put("saturation", ms);
     }
 
     private void luminanceScale(HashMap<String, MemberSymbol> ret) {
@@ -74,7 +74,7 @@ public class SurfaceColorModelInstSymbolTable extends MapSymbolTable<SurfaceGrow
         MemberSymbol ms = new MemberSymbol(rst, "The factor by which the " +
                 "luminance of the base model should be scaled if a site has " +
                 "an adjacent vacancy.");
-        ret.put("luminanceScale", ms);
+        ret.put("luminance", ms);
     }
 
     @Override

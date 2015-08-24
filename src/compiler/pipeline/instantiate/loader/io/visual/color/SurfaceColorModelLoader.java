@@ -27,6 +27,7 @@ package compiler.pipeline.instantiate.loader.io.visual.color;
 import compiler.pipeline.instantiate.factory.io.visual.color.SurfaceColorModelFactory;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
+import control.arguments.DoubleArgument;
 import io.visual.color.*;
 
 /**
@@ -34,17 +35,28 @@ import io.visual.color.*;
  */
 public class SurfaceColorModelLoader extends ColorModelLoader<SurfaceGrowthColorManager> {
     private final SurfaceColorModelFactory factory;
+    private final SurfaceColorModelInterpolator interpolator;
 
     public SurfaceColorModelLoader() {
         factory = new SurfaceColorModelFactory();
+        interpolator = new SurfaceColorModelInterpolator();
     }
 
-    public SurfaceColorModelLoader(SurfaceColorModelFactory factory) {
+    public SurfaceColorModelLoader(SurfaceColorModelFactory factory,
+                                   SurfaceColorModelInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
     }
 
     @Override
-    public ColorManager instantiate(MapObjectNode cNode, GeneralParameters p) {
-        return null;
+    public ColorManager instantiate(MapObjectNode node, GeneralParameters p) {
+        DoubleArgument luminance = interpolator.luminance(node, p.getRandom());
+        factory.setLuminanceScale(luminance);
+
+        DoubleArgument saturation = interpolator.saturation(node, p.getRandom());
+        factory.setSaturationScale(saturation);
+
+        return factory.build();
     }
 }

@@ -25,8 +25,14 @@
 package compiler.pipeline.instantiate.loader.io.visual;
 
 import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import compiler.pipeline.instantiate.loader.io.visual.color.ColorModelLoader;
+import compiler.pipeline.instantiate.loader.io.visual.highlight.HighlightManagerLoader;
+import compiler.pipeline.translate.nodes.*;
+import io.visual.color.ColorManager;
+import io.visual.highlight.HighlightManager;
 import org.junit.*;
 
+import java.awt.image.ColorModel;
 import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
@@ -70,25 +76,51 @@ public class VisualizationPropertiesInterpolatorTest extends InterpolatorTest {
 
     @Test
     public void colorModel() throws Exception {
-        fail();
+        ColorModelLoader loader = mock(ColorModelLoader.class);
+        when(load.getLoader(eq(node), eq("color"), anyBoolean()))
+            .thenReturn(loader);
 
+        MapObjectNode cNode = mock(MapObjectNode.class);
+        when(node.getMember("color")).thenReturn(cNode);
+
+        ColorManager expected = mock(ColorManager.class);
+        when(loader.instantiate(cNode, p)).thenReturn(expected);
+
+        ColorManager actual = query.colorModel(node, p);
+
+        assertSame(expected, actual);
     }
 
     @Test
     public void colorModelDefault() throws Exception {
-        fail();
-
+        ColorManager expected = mock(ColorManager.class);
+        when(defaults.color(p)).thenReturn(expected);
+        ColorManager actual = query.colorModel(node, p);
+        assertSame(expected, actual);
     }
 
     @Test
     public void highlights() throws Exception {
-        fail();
+        HighlightManagerLoader loader = mock(HighlightManagerLoader.class);
+        when(load.getLoader(eq(node), eq("highlights"), anyBoolean()))
+            .thenReturn(loader);
 
+        ListObjectNode cNode = mock(ListObjectNode.class);
+        when(node.getMember("highlights")).thenReturn(cNode);
+
+        HighlightManager expected = mock(HighlightManager.class);
+        when(loader.instantiate(cNode, p)).thenReturn(expected);
+
+        HighlightManager actual = query.highlights(node, p);
+
+        assertSame(expected, actual);
     }
 
     @Test
     public void highlightsDefault() throws Exception {
-        fail();
-
+        HighlightManager expected = mock(HighlightManager.class);
+        when(defaults.highlights(p)).thenReturn(expected);
+        HighlightManager actual = query.highlights(node, p);
+        assertSame(expected, actual);
     }
 }

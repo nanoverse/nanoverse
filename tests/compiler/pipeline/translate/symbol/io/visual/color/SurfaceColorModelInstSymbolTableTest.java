@@ -52,11 +52,11 @@ public class SurfaceColorModelInstSymbolTableTest extends MapSymbolTableTest {
 
     @Test
     public void saturationScale() throws Exception {
-        verifyReturnSymbol("saturationScale", DoubleArgument.class);
+        verifyReturnSymbol("saturation", DoubleArgument.class);
     }
 
     @Test
     public void luminanceScale() throws Exception {
-        verifyReturnSymbol("luminanceScale", DoubleArgument.class);
+        verifyReturnSymbol("luminance", DoubleArgument.class);
     }
 }
