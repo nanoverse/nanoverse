@@ -25,7 +25,9 @@
 package compiler.pipeline.instantiate.loader.agent;
 
 import agent.action.ActionDescriptor;
+import compiler.pipeline.instantiate.loader.agent.action.ActionLoader;
 import compiler.pipeline.translate.nodes.*;
+import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 import control.GeneralParameters;
 import layers.LayerManager;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -42,7 +44,9 @@ public class BehaviorMapChildLoader {
                                    GeneralParameters p) {
 
         MapObjectNode cNode = (MapObjectNode) node.getMember(id);
+        InstantiableSymbolTable ist = cNode.getSymbolTable();
+        ActionLoader loader = (ActionLoader) ist.getLoader();
 
-        throw new NotImplementedException();
+        return loader.instantiate(cNode, lm, p);
     }
 }
