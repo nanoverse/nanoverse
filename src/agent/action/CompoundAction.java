@@ -32,7 +32,7 @@ import layers.LayerManager;
 /**
  * An action that calls other actions on run.
  *
- * @see agent.Behavior
+ * @see agent.Action
  */
 public class CompoundAction extends Action {
 

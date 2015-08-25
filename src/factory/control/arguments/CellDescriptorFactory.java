@@ -24,7 +24,7 @@
 
 package factory.control.arguments;
 
-import agent.action.BehaviorDescriptor;
+import agent.action.ActionDescriptor;
 import control.GeneralParameters;
 import control.arguments.*;
 import factory.agent.BehaviorDescriptorFactory;
@@ -71,13 +71,13 @@ public abstract class CellDescriptorFactory {
         }
 
         List<Object> elements = behaviorElem.elements();
-        HashMap<String, BehaviorDescriptor> behaviorDescriptors = new HashMap<>(elements.size());
+        HashMap<String, ActionDescriptor> behaviorDescriptors = new HashMap<>(elements.size());
         elements.stream()
                 .map(o -> (Element) o)
                 .forEach(element -> {
                     String name = element.getName();
 
-                    BehaviorDescriptor behaviorDescriptor = BehaviorDescriptorFactory.instantiate(element, layerManager, p);
+                    ActionDescriptor behaviorDescriptor = BehaviorDescriptorFactory.instantiate(element, layerManager, p);
                     behaviorDescriptors.put(name, behaviorDescriptor);
                 });
 

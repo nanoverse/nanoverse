@@ -24,7 +24,7 @@
 
 package agent;
 
-import agent.action.Action;
+import agent.action.*;
 import cells.BehaviorCell;
 import control.identifiers.Coordinate;
 
@@ -33,7 +33,7 @@ import java.util.HashMap;
 /**
  * Created by David B Borenstein on 1/21/14.
  */
-public class MockBehavior extends Behavior {
+public class MockBehavior extends CompoundAction {
 
     private int timesRun;
     private HashMap<Coordinate, Integer> callerCounts;
@@ -68,6 +68,11 @@ public class MockBehavior extends Behavior {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof MockBehavior;
+    }
+
     private void increment(Coordinate caller) {
         if (!callerCounts.containsKey(caller)) {
             callerCounts.put(caller, 0);
@@ -88,13 +93,12 @@ public class MockBehavior extends Behavior {
         return callerCounts.get(caller);
     }
 
-    @Override
     protected Action[] getActionSequence() {
         return new Action[0];
     }
 
     @Override
-    public Behavior clone(BehaviorCell child) {
+    public MockBehavior clone(BehaviorCell child) {
         return new MockBehavior(child);
     }
 

@@ -24,12 +24,9 @@
 
 package factory.agent;
 
-import agent.Behavior;
-import agent.action.Action;
+import agent.action.*;
 import cells.BehaviorCell;
 import control.GeneralParameters;
-import agent.action.ActionDescriptor;
-import agent.action.BehaviorDescriptor;
 import factory.agent.action.ActionDescriptorFactory;
 import layers.LayerManager;
 import org.dom4j.Element;
@@ -37,43 +34,22 @@ import org.dom4j.Element;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 /**
  * Created by David B Borenstein on 1/23/14.
  */
 public abstract class BehaviorDescriptorFactory {
 
-    public static BehaviorDescriptor instantiate(Element e, LayerManager layerManager, GeneralParameters p) {
-
-        ActionDescriptor[] actionSequence = getActionSequence(e, layerManager, p);
-
-        Function<BehaviorCell, Behavior> fn = cell -> {
-            Action[] actions = instantiateAll(actionSequence, cell);
-            return new Behavior(cell, layerManager, actions);
-        };
-        return new BehaviorDescriptor(fn);
+    public static ActionDescriptor instantiate(Element e, LayerManager layerManager, GeneralParameters p) {
+        Stream<ActionDescriptor> actionSequence = getActionSequence(e, layerManager, p);
+        return new CompoundActionDescriptor(layerManager, actionSequence);
     }
 
-    private static ActionDescriptor[] getActionSequence(Element e, LayerManager layerManager, GeneralParameters p) {
+    private static Stream<ActionDescriptor> getActionSequence(Element e, LayerManager layerManager, GeneralParameters p) {
         List<Object> elements = e.elements();
-        ActionDescriptor[] ret = new ActionDescriptor[elements.size()];
-        elements.stream()
+        return elements.stream()
                 .map(o -> (Element) o)
-                .map(actionElem -> ActionDescriptorFactory.instantiate(actionElem, layerManager, p))
-                .collect(Collectors.toList()).toArray(ret);
-
-        return ret;
-    }
-
-    private static Action[] instantiateAll(ActionDescriptor[] descriptors, BehaviorCell cell) {
-        Action[] ret = new Action[descriptors.length];
-
-        Arrays.asList(descriptors)
-                .stream()
-                .map(descriptor -> descriptor.instantiate(cell))
-                .collect(Collectors.toList()).toArray(ret);
-
-        return ret;
+                .map(actionElem -> ActionDescriptorFactory.instantiate(actionElem, layerManager, p));
     }
 }

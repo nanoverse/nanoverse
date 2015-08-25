@@ -24,8 +24,8 @@
 
 package agent.control;
 
-import agent.Behavior;
 import agent.MockBehavior;
+import agent.action.Action;
 import cells.BehaviorCell;
 import control.identifiers.Coordinate;
 import control.identifiers.Coordinate2D;
@@ -115,7 +115,8 @@ public class BehaviorDispatcherTest extends TestCase {
         assertFalse(query == clone);
 
         // The new object should have the alternate as a callback.
-        Behavior clonedBehavior = clone.getMappedBehavior(name);
+        // TODO Rewrite me as a modern test
+        Action clonedBehavior = clone.getMappedBehavior(name);
         assertEquals(alternate, clonedBehavior.getCallback());
     }
 

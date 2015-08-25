@@ -24,7 +24,6 @@
 
 package agent.action;
 
-import agent.Behavior;
 import agent.control.BehaviorDispatcher;
 import agent.targets.MockTargetRule;
 import cells.BehaviorCell;
@@ -127,7 +126,7 @@ public class SwapTest extends EslimeTestCase {
 
         Action action = new Swap(cell, layerManager, targetRule, null, null);
 
-        Behavior behavior = new Behavior(cell, layerManager, new Action[]{action});
+        Action behavior = new CompoundAction(cell, layerManager, new Action[]{action});
         bd.map("swap", behavior);
 
         return targetRule;
