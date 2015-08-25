@@ -24,7 +24,6 @@
 
 package agent.action;
 
-import agent.Behavior;
 import agent.control.BehaviorDispatcher;
 import agent.targets.MockTargetRule;
 import cells.*;
@@ -197,7 +196,7 @@ public class ExpandRandomTest extends EslimeTestCase {
 
         ExpandRandom expandRandom = new ExpandRandom(cell, layerManager, null, null, random);
 
-        Behavior behavior = new Behavior(cell, layerManager, new Action[]{expandRandom});
+        Action behavior = new CompoundAction(cell, layerManager, new Action[]{expandRandom});
         bd.map("replicate-self", behavior);
 
         return targetRule;

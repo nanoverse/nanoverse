@@ -24,7 +24,6 @@
 
 package agent.action;
 
-import agent.Behavior;
 import agent.control.BehaviorDispatcher;
 import cells.BehaviorCell;
 import cells.MockCell;
@@ -37,7 +36,7 @@ public class DieTest extends EslimeLatticeTestCase {
     private Action query, identical, different;
     private BehaviorCell cell;
     private BehaviorDispatcher dispatcher;
-    private Behavior behavior;
+    private Action behavior;
     private String eventName;
 
     @Override
@@ -52,7 +51,7 @@ public class DieTest extends EslimeLatticeTestCase {
         // Configure behavior dispatcher
         eventName = "TEST";
         Action[] actionSequence = new Action[]{query};
-        behavior = new Behavior(cell, layerManager, actionSequence);
+        behavior = new CompoundAction(cell, layerManager, actionSequence);
         dispatcher = new BehaviorDispatcher();
         cell.setDispatcher(dispatcher);
         dispatcher.map(eventName, behavior);

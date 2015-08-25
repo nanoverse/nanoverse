@@ -60,7 +60,7 @@ public class AgentDescriptorInstSymbolTable extends MapSymbolTable<CellDescripto
 
     private void behaviors(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable cst = new ActionClassSymbolTable();
-        ResolvingSymbolTable rst = new DictionarySymbolTable<>(cst, BehaviorDictionaryLoader::new);
+        ResolvingSymbolTable rst = new DictionarySymbolTable<>(cst, BehaviorMapLoader::new);
         MemberSymbol ms = new MemberSymbol(rst, "List of named behaviors and their corresponding action sequences.");
         ret.put("behaviors", ms);
     }

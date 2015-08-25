@@ -24,8 +24,7 @@
 
 package control.arguments;
 
-import agent.Behavior;
-import agent.action.BehaviorDescriptor;
+import agent.action.*;
 import agent.control.BehaviorDispatcher;
 import cells.BehaviorCell;
 import cells.Cell;
@@ -54,7 +53,7 @@ public class CellDescriptor implements Argument<Cell> {
     private Argument<Double> initialHealth;
 
     private List<Reaction> reactions;
-    private Map<String, BehaviorDescriptor> behaviorDescriptors;
+    private Map<String, ActionDescriptor> behaviorDescriptors;
 
     @FactoryTarget(displayName = "AgentDescriptor")
     public CellDescriptor(LayerManager layerManager,
@@ -62,7 +61,7 @@ public class CellDescriptor implements Argument<Cell> {
                           Argument<Double> threshold,
                           Argument<Double> initialHealth,
                           List<Reaction> reactions,
-                          Map<String, BehaviorDescriptor> behaviorDescriptors) {
+                          Map<String, ActionDescriptor> behaviorDescriptors) {
 
         this.layerManager = layerManager;
         this.cellState = cellState;
@@ -138,8 +137,8 @@ public class CellDescriptor implements Argument<Cell> {
         behaviorDescriptors.keySet()
                 .stream()
                 .forEach(name -> {
-                    BehaviorDescriptor descriptor = behaviorDescriptors.get(name);
-                    Behavior behavior = descriptor.instantiate(cell);
+                    ActionDescriptor descriptor = behaviorDescriptors.get(name);
+                    Action behavior = descriptor.instantiate(cell);
                     dispatcher.map(name, behavior);
                 });
 
@@ -150,7 +149,7 @@ public class CellDescriptor implements Argument<Cell> {
         this.reactions = reactions.collect(Collectors.toList());
     }
 
-    public void setBehaviorDescriptors(Map<String, BehaviorDescriptor> behaviorDescriptors) {
+    public void setBehaviorDescriptors(Map<String, ActionDescriptor> behaviorDescriptors) {
         this.behaviorDescriptors = behaviorDescriptors;
     }
 }

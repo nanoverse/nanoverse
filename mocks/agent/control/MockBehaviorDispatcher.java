@@ -24,7 +24,7 @@
 
 package agent.control;
 
-import agent.Behavior;
+import agent.action.Action;
 import control.identifiers.Coordinate;
 
 import java.util.ArrayList;
@@ -37,9 +37,9 @@ public class MockBehaviorDispatcher extends BehaviorDispatcher {
     private String lastTriggeredName;
     private Coordinate lastTriggeredCaller;
     private String lastMappedName;
-    private Behavior lastMappedBehavior;
+    private Action lastMappedBehavior;
     private ArrayList<String> mappedNames;
-    private ArrayList<Behavior> mappedBehaviors;
+    private ArrayList<Action> mappedBehaviors;
     private boolean reportEquals;
     private boolean overrideEquals;
 
@@ -52,11 +52,11 @@ public class MockBehaviorDispatcher extends BehaviorDispatcher {
         return mappedNames;
     }
 
-    public ArrayList<Behavior> getMappedBehaviors() {
+    public ArrayList<Action> getMappedBehaviors() {
         return mappedBehaviors;
     }
 
-    public Behavior getLastMappedBehavior() {
+    public Action getLastMappedBehavior() {
         return lastMappedBehavior;
     }
 
@@ -73,7 +73,7 @@ public class MockBehaviorDispatcher extends BehaviorDispatcher {
     }
 
     @Override
-    public void map(String name, Behavior behavior) {
+    public void map(String name, Action behavior) {
         mappedNames.add(name);
         mappedBehaviors.add(behavior);
         lastMappedName = name;

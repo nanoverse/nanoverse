@@ -56,7 +56,7 @@ public abstract class Action {
         return layerManager;
     }
 
-    protected BehaviorCell getCallback() {
+    public BehaviorCell getCallback() {
         return callback;
     }
 

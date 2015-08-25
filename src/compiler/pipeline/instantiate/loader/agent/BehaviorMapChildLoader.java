@@ -24,8 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.agent;
 
-import agent.Behavior;
-import agent.action.BehaviorDescriptor;
+import agent.action.ActionDescriptor;
 import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
 import layers.LayerManager;
@@ -37,7 +36,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class BehaviorMapChildLoader {
 
 
-    public BehaviorDescriptor load(String id,
+    public ActionDescriptor load(String id,
                                    DictionaryObjectNode node,
                                    LayerManager lm,
                                    GeneralParameters p) {

@@ -24,8 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.agent;
 
-import agent.Behavior;
-import agent.action.BehaviorDescriptor;
+import agent.action.ActionDescriptor;
 import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.DictionaryObjectNode;
 import compiler.pipeline.translate.symbol.DictionarySymbolTable;
@@ -38,7 +37,7 @@ import java.util.stream.Collectors;
 /**
  * Created by dbborens on 8/25/2015.
  */
-public class BehaviorMapLoader extends Loader<Map<String, BehaviorDescriptor>> {
+public class BehaviorMapLoader extends Loader<Map<String, ActionDescriptor>> {
 
     private final BehaviorMapChildLoader childLoader;
 
@@ -50,11 +49,11 @@ public class BehaviorMapLoader extends Loader<Map<String, BehaviorDescriptor>> {
         this.childLoader = childLoader;
     }
 
-    public Map<String, BehaviorDescriptor> instantiate(DictionaryObjectNode node,
+    public Map<String, ActionDescriptor> instantiate(DictionaryObjectNode node,
                                                        LayerManager lm,
                                                        GeneralParameters p) {
 
-        Map<String, BehaviorDescriptor> ret = node
+        Map<String, ActionDescriptor> ret = node
             .getMemberIdentifiers()
             .collect(Collectors.toMap(
                 id -> id,
