@@ -26,7 +26,8 @@ package compiler.pipeline.translate.symbol;
 
 import com.google.common.reflect.TypeToken;
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.translate.nodes.ObjectNode;
+
+import java.util.function.Supplier;
 
 /**
  * Represents an unstructured mapping of keys to values. Used for user-
@@ -38,9 +39,13 @@ public class DictionarySymbolTable<T> implements InstantiableSymbolTable, Resolv
     private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
 
     private final ClassSymbolTable classSymbolTable;
+    private final Supplier<Loader<T>> loaderSupplier;
 
-    public DictionarySymbolTable (ClassSymbolTable classSymbolTable) {
+    public DictionarySymbolTable (ClassSymbolTable classSymbolTable,
+                                  Supplier<Loader<T>> loaderSupplier) {
+
         this.classSymbolTable = classSymbolTable;
+        this.loaderSupplier = loaderSupplier;
     }
 
     @Override
@@ -49,8 +54,8 @@ public class DictionarySymbolTable<T> implements InstantiableSymbolTable, Resolv
     }
 
     @Override
-    public Loader getLoader() {
-        throw new UnsupportedOperationException();
+    public Loader<T> getLoader() {
+        return loaderSupplier.get();
     }
 
     @Override

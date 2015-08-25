@@ -25,7 +25,7 @@
 package compiler.pipeline.translate.symbol.agent;
 
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.instantiate.loader.agent.AgentDescriptorLoader;
+import compiler.pipeline.instantiate.loader.agent.*;
 import compiler.pipeline.instantiate.loader.layers.continuum.ReactionStreamLoader;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
@@ -60,7 +60,7 @@ public class AgentDescriptorInstSymbolTable extends MapSymbolTable<CellDescripto
 
     private void behaviors(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable cst = new ActionClassSymbolTable();
-        ResolvingSymbolTable rst = new DictionarySymbolTable<>(cst);
+        ResolvingSymbolTable rst = new DictionarySymbolTable<>(cst, BehaviorDictionaryLoader::new);
         MemberSymbol ms = new MemberSymbol(rst, "List of named behaviors and their corresponding action sequences.");
         ret.put("behaviors", ms);
     }
