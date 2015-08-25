@@ -24,7 +24,6 @@
 
 package agent.action;
 
-import agent.Behavior;
 import cells.BehaviorCell;
 
 import java.util.function.Function;
@@ -34,9 +33,9 @@ import java.util.function.Function;
  */
 public class BehaviorDescriptor extends ActionDescriptor {
 
-    final Function<BehaviorCell, Behavior> constructor;
+    final Function<BehaviorCell, Action> constructor;
 
-    public BehaviorDescriptor(Function<BehaviorCell, Behavior> constructor) {
+    public BehaviorDescriptor(Function<BehaviorCell, Action> constructor) {
         this.constructor = constructor;
     }
 
@@ -46,7 +45,7 @@ public class BehaviorDescriptor extends ActionDescriptor {
     }
 
     @Override
-    public Behavior instantiate(BehaviorCell cell) {
-        return (Behavior) super.instantiate(cell);
+    public Action instantiate(BehaviorCell cell) {
+        return (Action) super.instantiate(cell);
     }
 }

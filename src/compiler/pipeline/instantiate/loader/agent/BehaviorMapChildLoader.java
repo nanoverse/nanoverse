@@ -24,7 +24,6 @@
 
 package compiler.pipeline.instantiate.loader.agent;
 
-import agent.Behavior;
 import agent.action.BehaviorDescriptor;
 import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;

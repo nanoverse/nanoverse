@@ -24,7 +24,6 @@
 
 package agent.action;
 
-import agent.Behavior;
 import agent.control.BehaviorDispatcher;
 import agent.targets.MockTargetRule;
 import cells.BehaviorCell;
@@ -157,7 +156,7 @@ public class CloneToTest extends EslimeLatticeTestCase {
         CloneTo cloneTo = new CloneTo(cell, layerManager, mtr,
                 shoving, null, null, random);
 
-        Behavior behavior = new Behavior(cell, layerManager, new Action[]{cloneTo});
+        Action behavior = new CompoundAction(cell, layerManager, new Action[]{cloneTo});
         bd.map("replicate-self", behavior);
     }
 
