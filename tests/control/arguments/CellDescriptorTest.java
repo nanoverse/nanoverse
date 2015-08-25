@@ -24,8 +24,7 @@
 
 package control.arguments;
 
-import agent.Behavior;
-import agent.action.BehaviorDescriptor;
+import agent.action.*;
 import cells.BehaviorCell;
 import control.identifiers.Coordinate;
 import layers.continuum.Reaction;
@@ -61,7 +60,7 @@ public class CellDescriptorTest extends TestBase {
     private IntegerArgument cellState;
     private Reaction reaction1, reaction2;
     private BehaviorDescriptor behaviorDescriptor;
-    private Behavior behavior;
+    private Action behavior;
 
     private CellDescriptor query;
 
@@ -73,7 +72,7 @@ public class CellDescriptorTest extends TestBase {
 
         // TODO Instantiation of behaviors from descriptors should be handled by a helper
         behaviorDescriptor = mock(BehaviorDescriptor.class);
-        behavior = mock(Behavior.class);
+        behavior = mock(Action.class);
         when(behaviorDescriptor.instantiate(any())).thenReturn(behavior);
         Map<String, BehaviorDescriptor> behaviorDescriptors = new HashMap<>(1);
         behaviorDescriptors.put("behavior", behaviorDescriptor);

@@ -24,9 +24,7 @@
 
 package agent.behaviors;
 
-import agent.Behavior;
-import agent.action.Action;
-import agent.action.MockAction;
+import agent.action.*;
 import cells.BehaviorCell;
 import cells.Cell;
 import cells.MockCell;
@@ -113,12 +111,12 @@ public class BehaviorTest extends EslimeTestCase {
 
     public void testClone() throws Exception {
         BehaviorCell cloneCell = new BehaviorCell();
-        Behavior clone = query.clone(cloneCell);
+        Action clone = query.clone(cloneCell);
         assertEquals(cloneCell, clone.getCallback());
         assertEquals(clone, query);
     }
 
-    private class ExposedBehavior extends Behavior {
+    private class ExposedBehavior extends CompoundAction {
         public ExposedBehavior(BehaviorCell callback, LayerManager layerManager, Action[] actionSequence) {
             super(callback, layerManager, actionSequence);
         }

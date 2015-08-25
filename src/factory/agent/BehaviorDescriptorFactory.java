@@ -24,12 +24,9 @@
 
 package factory.agent;
 
-import agent.Behavior;
-import agent.action.Action;
+import agent.action.*;
 import cells.BehaviorCell;
 import control.GeneralParameters;
-import agent.action.ActionDescriptor;
-import agent.action.BehaviorDescriptor;
 import factory.agent.action.ActionDescriptorFactory;
 import layers.LayerManager;
 import org.dom4j.Element;
@@ -48,9 +45,9 @@ public abstract class BehaviorDescriptorFactory {
 
         ActionDescriptor[] actionSequence = getActionSequence(e, layerManager, p);
 
-        Function<BehaviorCell, Behavior> fn = cell -> {
+        Function<BehaviorCell, Action> fn = cell -> {
             Action[] actions = instantiateAll(actionSequence, cell);
-            return new Behavior(cell, layerManager, actions);
+            return new CompoundAction(cell, layerManager, actions);
         };
         return new BehaviorDescriptor(fn);
     }

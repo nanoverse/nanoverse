@@ -24,8 +24,7 @@
 
 package control.arguments;
 
-import agent.Behavior;
-import agent.action.BehaviorDescriptor;
+import agent.action.*;
 import agent.control.BehaviorDispatcher;
 import cells.BehaviorCell;
 import cells.Cell;
@@ -139,7 +138,7 @@ public class CellDescriptor implements Argument<Cell> {
                 .stream()
                 .forEach(name -> {
                     BehaviorDescriptor descriptor = behaviorDescriptors.get(name);
-                    Behavior behavior = descriptor.instantiate(cell);
+                    Action behavior = descriptor.instantiate(cell);
                     dispatcher.map(name, behavior);
                 });
 
