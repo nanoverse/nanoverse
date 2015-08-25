@@ -32,22 +32,36 @@ import control.GeneralParameters;
 import layers.LayerManager;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.stream.Stream;
+
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class CompoundActionLoader extends Loader<CompoundActionDescriptor> {
 
     private final CompoundActionFactory factory;
+    private final CompoundActionChildLoader childLoader;
 
     public CompoundActionLoader() {
         factory = new CompoundActionFactory();
+        childLoader = new CompoundActionChildLoader();
     }
 
-    public CompoundActionLoader(CompoundActionFactory factory) {
+    public CompoundActionLoader(CompoundActionFactory factory,
+                                CompoundActionChildLoader childLoader) {
         this.factory = factory;
+        this.childLoader = childLoader;
     }
 
     public CompoundActionDescriptor instantiate(ListObjectNode node, LayerManager lm, GeneralParameters p) {
-        throw new NotImplementedException();
+        factory.setLayerManager(lm);
+
+        Stream<ActionDescriptor> children = node.getMemberStream()
+            .map(o -> (MapObjectNode) o)
+            .map(childNode -> childLoader.action(childNode, lm, p));
+
+        factory.setChildren(children);
+        
+        return factory.build();
     }
 }
