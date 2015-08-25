@@ -26,7 +26,7 @@ package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
 import agent.targets.TargetDescriptor;
-import compiler.pipeline.instantiate.factory.agent.action.CloneToFactory;
+import compiler.pipeline.instantiate.factory.agent.action.TriggerActionFactory;
 import compiler.pipeline.instantiate.loader.agent.targets.TargetDefaults;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
@@ -36,30 +36,26 @@ import layers.LayerManager;
 /**
  * Created by dbborens on 8/3/2015.
  */
-public class CloneToLoader extends ActionLoader<CloneToDescriptor> {
+public class TriggerActionLoader extends ActionLoader<TriggerDescriptor> {
 
-    private final CloneToFactory factory;
-    private final CloneToInterpolator interpolator;
+    private final TriggerActionFactory factory;
+    private final TriggerActionInterpolator interpolator;
 
-    public CloneToLoader() {
-        factory = new CloneToFactory();
-        interpolator = new CloneToInterpolator();
+    public TriggerActionLoader() {
+        factory = new TriggerActionFactory();
+        interpolator = new TriggerActionInterpolator();
     }
 
-    public CloneToLoader(CloneToFactory factory,
-                         CloneToInterpolator interpolator) {
+    public TriggerActionLoader(TriggerActionFactory factory,
+                               TriggerActionInterpolator interpolator) {
 
         this.factory = factory;
         this.interpolator = interpolator;
     }
 
     @Override
-    public CloneToDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        factory.setRandom(p.getRandom());
+    public TriggerDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         factory.setLayerManager(lm);
-
-        boolean noReplace = interpolator.noReplacement(node, p.getRandom());
-        factory.setNoReplace(noReplace);
 
         IntegerArgument selfHighlight = interpolator.selfHighlight(node, p.getRandom());
         factory.setSelfChannel(selfHighlight);
@@ -67,8 +63,11 @@ public class CloneToLoader extends ActionLoader<CloneToDescriptor> {
         IntegerArgument targetHighlight = interpolator.targetHighlight(node, p.getRandom());
         factory.setTargetChannel(targetHighlight);
 
+        String behaviorName = interpolator.behavior(node);
+        factory.setBehaviorName(behaviorName);
+
         TargetDescriptor target = interpolator.target(node, lm, p);
-        factory.setTargetDescriptor(target);
+        factory.setRuleDescriptor(target);
 
         return factory.build();
     }

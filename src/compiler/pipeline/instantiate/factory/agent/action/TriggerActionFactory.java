@@ -30,7 +30,7 @@ import agent.action.TriggerDescriptor;
 import layers.LayerManager;
 import compiler.pipeline.instantiate.factory.Factory;
 
-public class TriggerFactory implements Factory<TriggerDescriptor> {
+public class TriggerActionFactory implements Factory<TriggerDescriptor> {
 
     private final TriggerFactoryHelper helper;
 
@@ -40,11 +40,11 @@ public class TriggerFactory implements Factory<TriggerDescriptor> {
     private IntegerArgument selfChannel;
     private IntegerArgument targetChannel;
 
-    public TriggerFactory() {
+    public TriggerActionFactory() {
         helper = new TriggerFactoryHelper();
     }
 
-    public TriggerFactory(TriggerFactoryHelper helper) {
+    public TriggerActionFactory(TriggerFactoryHelper helper) {
         this.helper = helper;
     }
 

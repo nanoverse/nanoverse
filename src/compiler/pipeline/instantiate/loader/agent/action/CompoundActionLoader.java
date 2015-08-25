@@ -26,11 +26,16 @@ package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
 import compiler.pipeline.instantiate.factory.agent.action.CompoundActionFactory;
+import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.*;
+import control.GeneralParameters;
+import layers.LayerManager;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
-public class CompoundActionLoader extends ActionLoader<CompoundActionDescriptor> {
+public class CompoundActionLoader extends Loader<CompoundActionDescriptor> {
 
     private final CompoundActionFactory factory;
 
@@ -40,5 +45,9 @@ public class CompoundActionLoader extends ActionLoader<CompoundActionDescriptor>
 
     public CompoundActionLoader(CompoundActionFactory factory) {
         this.factory = factory;
+    }
+
+    public CompoundActionDescriptor instantiate(ListObjectNode node, LayerManager lm, GeneralParameters p) {
+        throw new NotImplementedException();
     }
 }

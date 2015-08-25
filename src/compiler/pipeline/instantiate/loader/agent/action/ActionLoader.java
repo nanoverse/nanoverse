@@ -27,10 +27,14 @@ package compiler.pipeline.instantiate.loader.agent.action;
 import agent.action.*;
 import com.google.common.reflect.TypeToken;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public abstract class ActionLoader<T extends ActionDescriptor> extends Loader<T>  {
 
+    public abstract T instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p);
 }

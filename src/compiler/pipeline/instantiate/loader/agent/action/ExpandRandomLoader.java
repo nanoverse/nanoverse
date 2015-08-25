@@ -25,8 +25,11 @@
 package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
-import compiler.pipeline.instantiate.factory.agent.action.ExpandFactory;
 import compiler.pipeline.instantiate.factory.agent.action.ExpandRandomFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.IntegerArgument;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/3/2015.
@@ -34,12 +37,31 @@ import compiler.pipeline.instantiate.factory.agent.action.ExpandRandomFactory;
 public class ExpandRandomLoader extends ActionLoader<ExpandRandomDescriptor> {
 
     private final ExpandRandomFactory factory;
+    private final ExpandRandomInterpolator interpolator;
 
     public ExpandRandomLoader() {
         factory = new ExpandRandomFactory();
+        interpolator = new ExpandRandomInterpolator();
     }
 
-    public ExpandRandomLoader(ExpandRandomFactory factory) {
+    public ExpandRandomLoader(ExpandRandomFactory factory,
+                        ExpandRandomInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public ExpandRandomDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        factory.setLayerManager(lm);
+        factory.setRandom(p.getRandom());
+
+        IntegerArgument selfHighlight = interpolator.selfHighlight(node, p.getRandom());
+        factory.setSelfChannel(selfHighlight);
+
+        IntegerArgument targetHighlight = interpolator.targetHighlight(node, p.getRandom());
+        factory.setTargetChannel(targetHighlight);
+
+        return factory.build();
     }
 }

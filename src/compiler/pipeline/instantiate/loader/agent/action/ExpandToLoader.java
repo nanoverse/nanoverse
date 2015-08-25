@@ -25,7 +25,13 @@
 package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
+import agent.targets.TargetDescriptor;
 import compiler.pipeline.instantiate.factory.agent.action.ExpandToFactory;
+import compiler.pipeline.instantiate.loader.agent.targets.TargetDefaults;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.IntegerArgument;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/3/2015.
@@ -33,12 +39,34 @@ import compiler.pipeline.instantiate.factory.agent.action.ExpandToFactory;
 public class ExpandToLoader extends ActionLoader<ExpandToDescriptor> {
 
     private final ExpandToFactory factory;
+    private final ExpandToInterpolator interpolator;
 
     public ExpandToLoader() {
         factory = new ExpandToFactory();
+        interpolator = new ExpandToInterpolator();
     }
 
-    public ExpandToLoader(ExpandToFactory factory) {
+    public ExpandToLoader(ExpandToFactory factory,
+                              ExpandToInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public ExpandToDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        factory.setLayerManager(lm);
+        factory.setRandom(p.getRandom());
+
+        TargetDescriptor target = interpolator.target(node, lm, p);
+        factory.setRuleDescriptor(target);
+
+        IntegerArgument selfHighlight = interpolator.selfHighlight(node, p.getRandom());
+        factory.setSelfChannel(selfHighlight);
+
+        IntegerArgument targetHighlight = interpolator.targetHighlight(node, p.getRandom());
+        factory.setTargetChannel(targetHighlight);
+
+        return factory.build();
     }
 }

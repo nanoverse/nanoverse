@@ -24,30 +24,17 @@
 
 package compiler.pipeline.instantiate.loader.agent.action;
 
-import agent.action.*;
-import compiler.pipeline.instantiate.factory.agent.action.StochasticChoiceFactory;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.GeneralParameters;
-import layers.LayerManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import control.arguments.*;
 
 /**
- * Created by dbborens on 8/3/2015.
+ * Created by dbborens on 8/24/2015.
  */
-public class StochasticChoiceLoader extends ActionLoader<StochasticChoiceDescriptor> {
-
-    private final StochasticChoiceFactory factory;
-
-    public StochasticChoiceLoader() {
-        factory = new StochasticChoiceFactory();
+public class ExpandWeightedDefaults {
+    public IntegerArgument selfHighlight() {
+        return new ConstantInteger(-1);
     }
 
-    public StochasticChoiceLoader(StochasticChoiceFactory factory) {
-        this.factory = factory;
-    }
-
-    @Override
-    public StochasticChoiceDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        throw new NotImplementedException();
+    public IntegerArgument targetHighlight() {
+        return new ConstantInteger(-1);
     }
 }

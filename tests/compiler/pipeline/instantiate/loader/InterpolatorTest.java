@@ -28,6 +28,7 @@ import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
 import control.arguments.*;
+import layers.LayerManager;
 import org.junit.Before;
 import org.mockito.ArgumentCaptor;
 import test.TestBase;
@@ -49,6 +50,7 @@ public class InterpolatorTest extends TestBase {
     protected MapObjectNode node;
     protected Random random;
     protected GeneralParameters p;
+    protected LayerManager lm;
 
     @Before
     public void before() throws Exception {
@@ -56,6 +58,7 @@ public class InterpolatorTest extends TestBase {
         load = mock(LoadHelper.class);
         node = mock(MapObjectNode.class);
         p = mock(GeneralParameters.class);
+        lm = mock(LayerManager.class);
     }
 
     protected void verifyIntegerDefault(String member, Integer expected, Runnable trigger) {
@@ -65,6 +68,17 @@ public class InterpolatorTest extends TestBase {
         verify(load).anInteger(any(), any(), eq(random), captor.capture());
         Integer actual = (Integer) captor.getValue().get();
         assertEquals(expected, actual);
+    }
+
+    protected void verifyIntegerArgumentDefault(String member, IntegerArgument expected, Runnable trigger) {
+        IntegerArgument notExpected = mock(IntegerArgument.class);
+        when(load.anIntegerArgument(eq(node), eq(member), any(), any()))
+            .thenReturn(notExpected);
+        ArgumentCaptor<Supplier> captor = ArgumentCaptor.forClass(Supplier.class);
+        trigger.run();
+        verify(load).anIntegerArgument(any(), any(), eq(random), captor.capture());
+        IntegerArgument actual = (IntegerArgument) captor.getValue().get();
+        assertSame(expected, actual);
     }
 
     protected void verifyString(String member, Supplier<String> trigger) {

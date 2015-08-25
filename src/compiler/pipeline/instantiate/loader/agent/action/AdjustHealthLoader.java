@@ -26,6 +26,9 @@ package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
 import compiler.pipeline.instantiate.factory.agent.action.AdjustHealthFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/3/2015.
@@ -33,12 +36,27 @@ import compiler.pipeline.instantiate.factory.agent.action.AdjustHealthFactory;
 public class AdjustHealthLoader extends ActionLoader<AdjustHealthDescriptor> {
 
     private final AdjustHealthFactory factory;
+    private final AdjustHealthInterpolator interpolator;
 
     public AdjustHealthLoader() {
         factory = new AdjustHealthFactory();
+        interpolator = new AdjustHealthInterpolator();
     }
 
-    public AdjustHealthLoader(AdjustHealthFactory factory) {
+    public AdjustHealthLoader(AdjustHealthFactory factory,
+                              AdjustHealthInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public AdjustHealthDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        factory.setLayerManager(lm);
+
+        double delta = interpolator.delta(node, p.getRandom());
+        factory.setDelta(delta);
+
+        return factory.build();
     }
 }
