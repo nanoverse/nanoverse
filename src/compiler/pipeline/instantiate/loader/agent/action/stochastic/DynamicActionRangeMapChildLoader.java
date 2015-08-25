@@ -21,31 +21,23 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
-import agent.action.stochastic.*;
-import compiler.pipeline.instantiate.factory.Factory;
+package compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
-public class ConstantProbabilitySupplierFactory implements Factory<ConstantProbabilitySupplierDescriptor> {
+import agent.action.stochastic.WeightedOption;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+import control.GeneralParameters;
+import layers.LayerManager;
 
-    private final ConstantProbabilitySupplierFactoryHelper helper;
+/**
+ * Created by dbborens on 8/25/2015.
+ */
+public class DynamicActionRangeMapChildLoader {
 
-    private Double value;
-
-    public ConstantProbabilitySupplierFactory() {
-        helper = new ConstantProbabilitySupplierFactoryHelper();
-    }
-
-    public ConstantProbabilitySupplierFactory(ConstantProbabilitySupplierFactoryHelper helper) {
-        this.helper = helper;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
-    }
-
-    @Override
-    public ConstantProbabilitySupplierDescriptor build() {
-        return helper.build(value);
+    public WeightedOption weightedOption(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        InstantiableSymbolTable ist = node.getSymbolTable();
+        WeightedOptionLoader loader = (WeightedOptionLoader) ist.getLoader();
+        return loader.instantiate(node, lm, p);
     }
 }

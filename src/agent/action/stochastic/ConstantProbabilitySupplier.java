@@ -33,7 +33,6 @@ import structural.annotations.FactoryTarget;
 public class ConstantProbabilitySupplier extends ProbabilitySupplier {
     private final Double value;
 
-    @FactoryTarget
     public ConstantProbabilitySupplier(Double value) {
         this.value = value;
     }

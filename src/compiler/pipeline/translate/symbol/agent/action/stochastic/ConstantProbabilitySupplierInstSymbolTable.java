@@ -24,48 +24,39 @@
 
 package compiler.pipeline.translate.symbol.agent.action.stochastic;
 
-import agent.action.stochastic.WeightedOption;
+import agent.action.stochastic.ConstantProbabilitySupplierDescriptor;
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.instantiate.loader.agent.action.stochastic.WeightedOptionLoader;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.instantiate.loader.agent.action.stochastic.ConstantProbabilitySupplierLoader;
 import compiler.pipeline.translate.symbol.*;
-import compiler.pipeline.translate.symbol.agent.action.ActionClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 
 import java.util.HashMap;
 
 /**
- * Created by dbborens on 7/23/2015.
+ * Created by dbborens on 8/25/2015.
  */
-public class WeightedOptionInstSymbolTable extends MapSymbolTable<WeightedOption> {
+public class ConstantProbabilitySupplierInstSymbolTable extends MapSymbolTable<ConstantProbabilitySupplierDescriptor> {
+
+    @Override
+    public Loader getLoader() {
+        return new ConstantProbabilitySupplierLoader();
+    }
 
     @Override
     public String getDescription() {
-        return "A weighted option";
+        return "The weight of choosing the action is fixed.";
     }
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        weight(ret);
-        action(ret);
+        value(ret);
         return ret;
     }
 
-    private void action(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new ActionClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "The action to perform if this option is selected.");
-        ret.put("action", ms);
-    }
-
-    private void weight(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new ProbabilitySupplierClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "The relative weighting of this option.");
-        ret.put("weight", ms);
-    }
-
-    @Override
-    public Loader getLoader() {
-        return new WeightedOptionLoader();
+    private void value(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new DoubleClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "The weight value to report.");
+        ret.put("value", ms);
     }
 }

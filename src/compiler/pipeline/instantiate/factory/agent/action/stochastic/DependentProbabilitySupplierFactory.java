@@ -23,19 +23,18 @@
  */
 package compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
-import agent.action.stochastic.DependentProbabilitySupplier;
-import cells.BehaviorCell;
-import java.util.function.Function;
+import layers.LayerManager;
+import agent.action.stochastic.DependentProbabilitySupplierDescriptor;
 import compiler.pipeline.instantiate.factory.Factory;
 
-public class DependentProbabilitySupplierFactory implements Factory<DependentProbabilitySupplier> {
+public class DependentProbabilitySupplierFactory implements Factory<DependentProbabilitySupplierDescriptor> {
 
     private final DependentProbabilitySupplierFactoryHelper helper;
 
-    private Function valueLookup;
-    private BehaviorCell cell;
+    private String layer;
     private double coefficient;
     private double offset;
+    private LayerManager layerManager;
 
     public DependentProbabilitySupplierFactory() {
         helper = new DependentProbabilitySupplierFactoryHelper();
@@ -45,12 +44,8 @@ public class DependentProbabilitySupplierFactory implements Factory<DependentPro
         this.helper = helper;
     }
 
-    public void setValueLookup(Function valueLookup) {
-        this.valueLookup = valueLookup;
-    }
-
-    public void setCell(BehaviorCell cell) {
-        this.cell = cell;
+    public void setLayer(String layer) {
+        this.layer = layer;
     }
 
     public void setCoefficient(double coefficient) {
@@ -61,8 +56,12 @@ public class DependentProbabilitySupplierFactory implements Factory<DependentPro
         this.offset = offset;
     }
 
+    public void setLayerManager(LayerManager layerManager) {
+        this.layerManager = layerManager;
+    }
+
     @Override
-    public DependentProbabilitySupplier build() {
-        return helper.build(valueLookup, cell, coefficient, offset);
+    public DependentProbabilitySupplierDescriptor build() {
+        return helper.build(layer, coefficient, offset, layerManager);
     }
 }

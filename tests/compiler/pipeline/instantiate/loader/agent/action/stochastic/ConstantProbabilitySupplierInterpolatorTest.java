@@ -21,31 +21,30 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
-import agent.action.stochastic.*;
-import compiler.pipeline.instantiate.factory.Factory;
+package compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
-public class ConstantProbabilitySupplierFactory implements Factory<ConstantProbabilitySupplierDescriptor> {
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import org.junit.*;
 
-    private final ConstantProbabilitySupplierFactoryHelper helper;
+import java.util.function.Supplier;
 
-    private Double value;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-    public ConstantProbabilitySupplierFactory() {
-        helper = new ConstantProbabilitySupplierFactoryHelper();
+public class ConstantProbabilitySupplierInterpolatorTest extends InterpolatorTest {
+
+    private ConstantProbabilitySupplierInterpolator query;
+
+    @Before @Override
+    public void before() throws Exception {
+        super.before();
+        query = new ConstantProbabilitySupplierInterpolator(load);
     }
 
-    public ConstantProbabilitySupplierFactory(ConstantProbabilitySupplierFactoryHelper helper) {
-        this.helper = helper;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
-    }
-
-    @Override
-    public ConstantProbabilitySupplierDescriptor build() {
-        return helper.build(value);
+    @Test
+    public void value() throws Exception {
+        Supplier<Double> trigger = () -> query.value(node, random);
+        verifyDouble("value", trigger);
     }
 }

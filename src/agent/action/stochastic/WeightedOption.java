@@ -25,6 +25,7 @@
 package agent.action.stochastic;
 
 import agent.action.ActionDescriptor;
+import control.arguments.ProbabilitySupplierDescriptor;
 import structural.annotations.FactoryTarget;
 
 /**
@@ -35,16 +36,16 @@ import structural.annotations.FactoryTarget;
  */
 public class WeightedOption {
 
-    private final double weight;
+    private final ProbabilitySupplierDescriptor weight;
     private final ActionDescriptor action;
 
     @FactoryTarget
-    public WeightedOption(double weight, ActionDescriptor action) {
+    public WeightedOption(ProbabilitySupplierDescriptor weight, ActionDescriptor action) {
         this.weight = weight;
         this.action = action;
     }
 
-    public double getWeight() {
+    public ProbabilitySupplierDescriptor getWeight() {
         return weight;
     }
 

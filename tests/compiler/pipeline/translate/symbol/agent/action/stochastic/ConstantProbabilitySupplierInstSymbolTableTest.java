@@ -21,31 +21,32 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
-import agent.action.stochastic.*;
-import compiler.pipeline.instantiate.factory.Factory;
+package compiler.pipeline.translate.symbol.agent.action.stochastic;
 
-public class ConstantProbabilitySupplierFactory implements Factory<ConstantProbabilitySupplierDescriptor> {
+import agent.action.stochastic.ConstantProbabilitySupplierDescriptor;
+import compiler.pipeline.translate.symbol.MapSymbolTable;
+import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import control.arguments.DoubleArgument;
+import org.junit.Test;
 
-    private final ConstantProbabilitySupplierFactoryHelper helper;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-    private Double value;
+public class ConstantProbabilitySupplierInstSymbolTableTest extends MapSymbolTableTest {
 
-    public ConstantProbabilitySupplierFactory() {
-        helper = new ConstantProbabilitySupplierFactoryHelper();
-    }
-
-    public ConstantProbabilitySupplierFactory(ConstantProbabilitySupplierFactoryHelper helper) {
-        this.helper = helper;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
+    @Override
+    protected MapSymbolTable getQuery() {
+        return new ConstantProbabilitySupplierInstSymbolTable();
     }
 
     @Override
-    public ConstantProbabilitySupplierDescriptor build() {
-        return helper.build(value);
+    protected Class getExpectedClass() {
+        return ConstantProbabilitySupplierDescriptor.class;
+    }
+
+    @Test
+    public void value() throws Exception {
+        verifyReturnSymbol("value", DoubleArgument.class);
     }
 }

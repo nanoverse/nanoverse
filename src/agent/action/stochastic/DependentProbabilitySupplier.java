@@ -46,7 +46,6 @@ public class DependentProbabilitySupplier extends ProbabilitySupplier {
     private BehaviorCell cell;
     private Function<BehaviorCell, Double> valueLookup;
 
-    @FactoryTarget
     public DependentProbabilitySupplier(Function<BehaviorCell, Double> valueLookup, BehaviorCell cell, double coefficient, double offset) {
         this.coefficient = coefficient;
         this.offset = offset;

@@ -27,6 +27,7 @@ package agent.action;
 import agent.action.stochastic.ProbabilitySupplier;
 import cells.BehaviorCell;
 import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,9 +37,17 @@ import java.util.Map;
  */
 public class DynamicActionRangeMap {
 
-    private Map<Action, ProbabilitySupplier> functionMap;
+    private final Map<Action, ProbabilitySupplier> functionMap;
+    private final LayerManager layerManager;
+
     private ActionRangeMap valueMap;
-    private LayerManager layerManager;
+
+    public DynamicActionRangeMap(Map<Action, ProbabilitySupplier> functionMap,
+                                 LayerManager layerManager) {
+
+        this.functionMap = functionMap;
+        this.layerManager = layerManager;
+    }
 
     public DynamicActionRangeMap(LayerManager layerManager) {
         functionMap = new HashMap<>();

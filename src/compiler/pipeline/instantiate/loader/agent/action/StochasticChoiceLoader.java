@@ -28,8 +28,8 @@ import agent.action.*;
 import compiler.pipeline.instantiate.factory.agent.action.StochasticChoiceFactory;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
+import control.arguments.DynamicActionRangeMapDescriptor;
 import layers.LayerManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
@@ -37,17 +37,26 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class StochasticChoiceLoader extends ActionLoader<StochasticChoiceDescriptor> {
 
     private final StochasticChoiceFactory factory;
+    private final StochasticChoiceInterpolator interpolator;
 
     public StochasticChoiceLoader() {
         factory = new StochasticChoiceFactory();
+        interpolator = new StochasticChoiceInterpolator();
     }
 
-    public StochasticChoiceLoader(StochasticChoiceFactory factory) {
+    public StochasticChoiceLoader(StochasticChoiceFactory factory,
+                                  StochasticChoiceInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
     }
 
     @Override
     public StochasticChoiceDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        throw new NotImplementedException();
+        factory.setLayerManager(lm);
+        factory.setRandom(p.getRandom());
+
+        DynamicActionRangeMapDescriptor chooser = interpolator.options(node, lm, p);
+        factory.setChooser(chooser);
+        return factory.build();
     }
 }

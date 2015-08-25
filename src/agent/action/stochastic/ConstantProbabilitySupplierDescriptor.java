@@ -21,31 +21,26 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
-import agent.action.stochastic.*;
-import compiler.pipeline.instantiate.factory.Factory;
+package agent.action.stochastic;
 
-public class ConstantProbabilitySupplierFactory implements Factory<ConstantProbabilitySupplierDescriptor> {
+import cells.BehaviorCell;
+import control.arguments.ProbabilitySupplierDescriptor;
+import structural.annotations.FactoryTarget;
 
-    private final ConstantProbabilitySupplierFactoryHelper helper;
+import java.util.function.Function;
 
-    private Double value;
+/**
+ * Created by dbborens on 8/25/2015.
+ */
+public class ConstantProbabilitySupplierDescriptor
+    extends ProbabilitySupplierDescriptor<ConstantProbabilitySupplier> {
 
-    public ConstantProbabilitySupplierFactory() {
-        helper = new ConstantProbabilitySupplierFactoryHelper();
-    }
+    @FactoryTarget(displayName = "ConstantProbabilitySupplier")
+    public ConstantProbabilitySupplierDescriptor(Double value) {
+        Function<BehaviorCell, ConstantProbabilitySupplier> constructor = cell ->
+            new ConstantProbabilitySupplier(value);
 
-    public ConstantProbabilitySupplierFactory(ConstantProbabilitySupplierFactoryHelper helper) {
-        this.helper = helper;
-    }
-
-    public void setValue(Double value) {
-        this.value = value;
-    }
-
-    @Override
-    public ConstantProbabilitySupplierDescriptor build() {
-        return helper.build(value);
+        super.setConstructor(constructor);
     }
 }

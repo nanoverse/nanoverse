@@ -24,10 +24,15 @@
 
 package control.arguments;
 
-import agent.action.DynamicActionRangeMap;
+import agent.action.*;
+import agent.action.stochastic.*;
 import cells.BehaviorCell;
+import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.*;
 
 /**
  * Created by dbborens on 1/26/15.
@@ -35,7 +40,24 @@ import java.util.function.Function;
 @Deprecated
 public class DynamicActionRangeMapDescriptor {
 
-    private Function<BehaviorCell, DynamicActionRangeMap> constructor;
+    private final Function<BehaviorCell, DynamicActionRangeMap> constructor;
+
+    @FactoryTarget(displayName = "DynamicActionRangeMap")
+    public DynamicActionRangeMapDescriptor(Stream<WeightedOption> options, LayerManager layerManager) {
+        List<WeightedOption> optionList = options.collect(Collectors.toList());
+
+        Function<BehaviorCell, DynamicActionRangeMap> constructor = cell -> {
+            Map<Action, ProbabilitySupplier> map = optionList.stream()
+                .collect(Collectors.toMap(
+                    option -> option.getAction().instantiate(cell),
+                    option -> option.getWeight().instantiate(cell)
+                ));
+
+            return new DynamicActionRangeMap(map, layerManager);
+        };
+
+        this.constructor = constructor;
+    }
 
     public DynamicActionRangeMapDescriptor(Function<BehaviorCell, DynamicActionRangeMap> constructor) {
         this.constructor = constructor;
