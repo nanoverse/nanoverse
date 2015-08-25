@@ -24,21 +24,17 @@
 
 package compiler.pipeline.instantiate.loader.agent.action;
 
-import agent.action.*;
-import compiler.pipeline.instantiate.factory.agent.action.TriggerFactory;
+import control.arguments.*;
 
 /**
- * Created by dbborens on 8/3/2015.
+ * Created by dbborens on 8/24/2015.
  */
-public class TriggerLoader extends ActionLoader<TriggerDescriptor> {
-
-    private final TriggerFactory factory;
-
-    public TriggerLoader() {
-        factory = new TriggerFactory();
+public class ExpandRandomDefaults {
+    public IntegerArgument selfHighlight() {
+        return new ConstantInteger(-1);
     }
 
-    public TriggerLoader(TriggerFactory factory) {
-        this.factory = factory;
+    public IntegerArgument targetHighlight() {
+        return new ConstantInteger(-1);
     }
 }

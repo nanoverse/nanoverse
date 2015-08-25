@@ -24,30 +24,34 @@
 
 package compiler.pipeline.instantiate.loader.agent.action;
 
-import agent.action.*;
-import compiler.pipeline.instantiate.factory.agent.action.StochasticChoiceFactory;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.GeneralParameters;
-import layers.LayerManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import control.arguments.IntegerArgument;
+
+import java.util.Random;
 
 /**
- * Created by dbborens on 8/3/2015.
+ * Created by dbborens on 8/24/2015.
  */
-public class StochasticChoiceLoader extends ActionLoader<StochasticChoiceDescriptor> {
+public class ExpandInterpolator {
+    private final LoadHelper load;
+    private final ExpandDefaults defaults;
 
-    private final StochasticChoiceFactory factory;
-
-    public StochasticChoiceLoader() {
-        factory = new StochasticChoiceFactory();
+    public ExpandInterpolator() {
+        load = new LoadHelper();
+        defaults = new ExpandDefaults();
     }
 
-    public StochasticChoiceLoader(StochasticChoiceFactory factory) {
-        this.factory = factory;
+    public ExpandInterpolator(LoadHelper load, ExpandDefaults defaults) {
+        this.load = load;
+        this.defaults = defaults;
     }
 
-    @Override
-    public StochasticChoiceDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        throw new NotImplementedException();
+    public IntegerArgument targetHighlight(MapObjectNode node, Random random) {
+        return load.anIntegerArgument(node, "targetHighlight", random, defaults::targetHighlight);
+    }
+
+    public IntegerArgument selfHighlight(MapObjectNode node, Random random) {
+        return load.anIntegerArgument(node, "selfHighlight", random, defaults::selfHighlight);
     }
 }

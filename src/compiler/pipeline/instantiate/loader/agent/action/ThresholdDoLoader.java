@@ -26,6 +26,10 @@ package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
 import compiler.pipeline.instantiate.factory.agent.action.ThresholdDoFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.DoubleArgument;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/3/2015.
@@ -33,12 +37,35 @@ import compiler.pipeline.instantiate.factory.agent.action.ThresholdDoFactory;
 public class ThresholdDoLoader extends ActionLoader<ThresholdDoDescriptor> {
 
     private final ThresholdDoFactory factory;
+    private final ThresholdDoInterpolator interpolator;
 
     public ThresholdDoLoader() {
         factory = new ThresholdDoFactory();
+        interpolator = new ThresholdDoInterpolator();
     }
 
-    public ThresholdDoLoader(ThresholdDoFactory factory) {
+    public ThresholdDoLoader(ThresholdDoFactory factory,
+                             ThresholdDoInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public ThresholdDoDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        factory.setLayerManager(lm);
+
+        ActionDescriptor action = interpolator.action(node, lm, p);
+        factory.setChildDescriptor(action);
+
+        DoubleArgument minimum = interpolator.minimum(node, p.getRandom());
+        factory.setMinimumArg(minimum);
+
+        DoubleArgument maximum = interpolator.maximum(node, p.getRandom());
+        factory.setMaximumArg(maximum);
+
+        String layerId = interpolator.layer(node);
+        factory.setLayerId(layerId);
+
+        return factory.build();
     }
 }

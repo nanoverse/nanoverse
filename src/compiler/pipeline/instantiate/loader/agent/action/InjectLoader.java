@@ -26,6 +26,10 @@ package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
 import compiler.pipeline.instantiate.factory.agent.action.InjectFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.DoubleArgument;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/3/2015.
@@ -33,12 +37,30 @@ import compiler.pipeline.instantiate.factory.agent.action.InjectFactory;
 public class InjectLoader extends ActionLoader<InjectDescriptor> {
 
     private final InjectFactory factory;
+    private final InjectInterpolator interpolator;
 
     public InjectLoader() {
         factory = new InjectFactory();
+        interpolator = new InjectInterpolator();
     }
 
-    public InjectLoader(InjectFactory factory) {
+    public InjectLoader(InjectFactory factory,
+                        InjectInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public InjectDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        factory.setLayerManager(lm);
+
+        String layerId = interpolator.layer(node);
+        factory.setLayerId(layerId);
+
+        DoubleArgument delta = interpolator.delta(node, p.getRandom());
+        factory.setDeltaArg(delta);
+
+        return factory.build();
     }
 }

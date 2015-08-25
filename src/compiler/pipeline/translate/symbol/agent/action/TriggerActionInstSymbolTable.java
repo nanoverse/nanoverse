@@ -26,8 +26,7 @@ package compiler.pipeline.translate.symbol.agent.action;
 
 import agent.action.*;
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.instantiate.loader.agent.action.TriggerLoader;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.instantiate.loader.agent.action.TriggerActionLoader;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.agent.targets.TargetRuleClassSymbolTable;
@@ -90,6 +89,6 @@ public class TriggerActionInstSymbolTable extends ActionInstSymbolTable<TriggerD
 
     @Override
     public Loader getLoader() {
-        return new TriggerLoader();
+        return new TriggerActionLoader();
     }
 }

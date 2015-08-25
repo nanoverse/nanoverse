@@ -25,7 +25,13 @@
 package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
+import agent.targets.TargetDescriptor;
 import compiler.pipeline.instantiate.factory.agent.action.SwapFactory;
+import compiler.pipeline.instantiate.loader.agent.targets.TargetDefaults;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.IntegerArgument;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/3/2015.
@@ -33,12 +39,33 @@ import compiler.pipeline.instantiate.factory.agent.action.SwapFactory;
 public class SwapLoader extends ActionLoader<SwapDescriptor> {
 
     private final SwapFactory factory;
+    private final SwapInterpolator interpolator;
 
     public SwapLoader() {
         factory = new SwapFactory();
+        interpolator = new SwapInterpolator();
     }
 
-    public SwapLoader(SwapFactory factory) {
+    public SwapLoader(SwapFactory factory,
+                      SwapInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public SwapDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        factory.setLayerManager(lm);
+
+        TargetDescriptor target = interpolator.target(node, lm, p);
+        factory.setRuleDescriptor(target);
+
+        IntegerArgument selfHighlight = interpolator.selfHighlight(node, p.getRandom());
+        factory.setSelfChannel(selfHighlight);
+
+        IntegerArgument targetHighlight = interpolator.targetHighlight(node, p.getRandom());
+        factory.setTargetChannel(targetHighlight);
+
+        return factory.build();
     }
 }

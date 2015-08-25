@@ -24,30 +24,28 @@
 
 package compiler.pipeline.instantiate.loader.agent.action;
 
-import agent.action.*;
-import compiler.pipeline.instantiate.factory.agent.action.StochasticChoiceFactory;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.GeneralParameters;
-import layers.LayerManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import org.junit.*;
 
-/**
- * Created by dbborens on 8/3/2015.
- */
-public class StochasticChoiceLoader extends ActionLoader<StochasticChoiceDescriptor> {
+import java.util.function.Supplier;
 
-    private final StochasticChoiceFactory factory;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-    public StochasticChoiceLoader() {
-        factory = new StochasticChoiceFactory();
-    }
+public class AdjustHealthInterpolatorTest extends InterpolatorTest {
 
-    public StochasticChoiceLoader(StochasticChoiceFactory factory) {
-        this.factory = factory;
-    }
+    private AdjustHealthInterpolator query;
 
+    @Before
     @Override
-    public StochasticChoiceDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        throw new NotImplementedException();
+    public void before() throws Exception {
+        super.before();
+        query = new AdjustHealthInterpolator(load);
+    }
+
+    @Test
+    public void delta() throws Exception {
+        Supplier<Double> trigger = () -> query.delta(node, random);
+        verifyDouble("delta", trigger);
     }
 }

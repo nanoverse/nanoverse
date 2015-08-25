@@ -26,6 +26,10 @@ package compiler.pipeline.instantiate.loader.agent.action;
 
 import agent.action.*;
 import compiler.pipeline.instantiate.factory.agent.action.DieFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.IntegerArgument;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/3/2015.
@@ -33,12 +37,27 @@ import compiler.pipeline.instantiate.factory.agent.action.DieFactory;
 public class DieLoader extends ActionLoader<DieDescriptor> {
 
     private final DieFactory factory;
+    private final DieInterpolator interpolator;
 
     public DieLoader() {
         factory = new DieFactory();
+        interpolator = new DieInterpolator();
     }
 
-    public DieLoader(DieFactory factory) {
+    public DieLoader(DieFactory factory,
+                     DieInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public DieDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        factory.setLayerManager(lm);
+
+        IntegerArgument highlight = interpolator.highlight(node, p.getRandom());
+        factory.setChannel(highlight);
+
+        return factory.build();
     }
 }
