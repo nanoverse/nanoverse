@@ -24,41 +24,43 @@
 
 package compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
-import agent.action.ActionDescriptor;
 import agent.action.stochastic.*;
-import compiler.pipeline.instantiate.factory.agent.action.stochastic.WeightedOptionFactory;
-import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.factory.agent.action.stochastic.ConstantProbabilitySupplierFactory;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
-import control.arguments.ProbabilitySupplierDescriptor;
 import layers.LayerManager;
 
 /**
- * Created by dbborens on 8/6/15.
+ * Created by dbborens on 8/25/2015.
  */
-public class WeightedOptionLoader extends Loader<WeightedOption> {
+public class ConstantProbabilitySupplierLoader
+    extends ProbabilitySupplierLoader<ConstantProbabilitySupplierDescriptor> {
 
-    private final WeightedOptionFactory factory;
-    private final WeightedOptionInterpolator interpolator;
+    private final ConstantProbabilitySupplierFactory factory;
+    private final ConstantProbabilitySupplierInterpolator interpolator;
 
-    public WeightedOptionLoader() {
-        factory = new WeightedOptionFactory();
-        interpolator = new WeightedOptionInterpolator();
+    public ConstantProbabilitySupplierLoader() {
+        factory = new ConstantProbabilitySupplierFactory();
+        interpolator = new ConstantProbabilitySupplierInterpolator();
     }
 
-    public WeightedOptionLoader(WeightedOptionFactory factory,
-                                WeightedOptionInterpolator interpolator) {
+    public ConstantProbabilitySupplierLoader(
+        ConstantProbabilitySupplierFactory factory,
+        ConstantProbabilitySupplierInterpolator interpolator) {
+
         this.factory = factory;
         this.interpolator = interpolator;
     }
 
-    public WeightedOption instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    @Override
+    public ConstantProbabilitySupplierDescriptor instantiate(
+        MapObjectNode node,
+        LayerManager lm,
+        GeneralParameters p) {
 
-        ActionDescriptor action = interpolator.action(node, lm, p);
-        factory.setAction(action);
+        double value = interpolator.value(node, p.getRandom());
+        factory.setValue(value);
 
-        ProbabilitySupplierDescriptor weight = interpolator.weight(node, lm, p);
-        factory.setWeight(weight);
-        return null;
+        return factory.build();
     }
 }

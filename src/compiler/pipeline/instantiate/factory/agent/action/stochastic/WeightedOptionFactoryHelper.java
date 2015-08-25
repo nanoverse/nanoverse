@@ -25,11 +25,12 @@ package compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
 import agent.action.ActionDescriptor;
 import agent.action.stochastic.WeightedOption;
+import control.arguments.ProbabilitySupplierDescriptor;
 
 
 public class WeightedOptionFactoryHelper {
 
-    public WeightedOption build(double weight, ActionDescriptor action) {
+    public WeightedOption build(ProbabilitySupplierDescriptor weight, ActionDescriptor action) {
         return new WeightedOption(weight, action);
     }
 }

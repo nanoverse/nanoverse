@@ -23,14 +23,13 @@
  */
 package compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
-import agent.action.stochastic.DependentProbabilitySupplier;
-import cells.BehaviorCell;
-import java.util.function.Function;
+import layers.LayerManager;
+import agent.action.stochastic.DependentProbabilitySupplierDescriptor;
 
 
 public class DependentProbabilitySupplierFactoryHelper {
 
-    public DependentProbabilitySupplier build(Function valueLookup, BehaviorCell cell, double coefficient, double offset) {
-        return new DependentProbabilitySupplier(valueLookup, cell, coefficient, offset);
+    public DependentProbabilitySupplierDescriptor build(String layer, double coefficient, double offset, LayerManager layerManager) {
+        return new DependentProbabilitySupplierDescriptor(layer, coefficient, offset, layerManager);
     }
 }

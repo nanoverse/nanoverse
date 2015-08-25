@@ -25,40 +25,39 @@
 package compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
 import agent.action.ActionDescriptor;
-import agent.action.stochastic.*;
-import compiler.pipeline.instantiate.factory.agent.action.stochastic.WeightedOptionFactory;
-import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
+import compiler.pipeline.instantiate.loader.agent.action.ActionLoader;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
 import control.arguments.ProbabilitySupplierDescriptor;
 import layers.LayerManager;
 
 /**
- * Created by dbborens on 8/6/15.
+ * Created by dbborens on 8/25/2015.
  */
-public class WeightedOptionLoader extends Loader<WeightedOption> {
+public class WeightedOptionInterpolator {
 
-    private final WeightedOptionFactory factory;
-    private final WeightedOptionInterpolator interpolator;
+    private final LoadHelper load;
 
-    public WeightedOptionLoader() {
-        factory = new WeightedOptionFactory();
-        interpolator = new WeightedOptionInterpolator();
+    public WeightedOptionInterpolator() {
+        load = new LoadHelper();
     }
 
-    public WeightedOptionLoader(WeightedOptionFactory factory,
-                                WeightedOptionInterpolator interpolator) {
-        this.factory = factory;
-        this.interpolator = interpolator;
+    public WeightedOptionInterpolator(LoadHelper load) {
+        this.load = load;
     }
 
-    public WeightedOption instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    public ActionDescriptor action(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        ActionLoader loader = (ActionLoader) load.getLoader(node, "action", true);
+        MapObjectNode cNode = (MapObjectNode) node.getMember("action");
 
-        ActionDescriptor action = interpolator.action(node, lm, p);
-        factory.setAction(action);
+        return loader.instantiate(cNode, lm, p);
+    }
 
-        ProbabilitySupplierDescriptor weight = interpolator.weight(node, lm, p);
-        factory.setWeight(weight);
-        return null;
+    public ProbabilitySupplierDescriptor weight(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        ProbabilitySupplierLoader loader = (ProbabilitySupplierLoader) load.getLoader(node, "weight", true);
+        MapObjectNode cNode = (MapObjectNode) node.getMember("weight");
+
+        return loader.instantiate(cNode, lm, p);
     }
 }

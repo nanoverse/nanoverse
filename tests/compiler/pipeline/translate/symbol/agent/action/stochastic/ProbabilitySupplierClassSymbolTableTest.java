@@ -24,32 +24,35 @@
 
 package compiler.pipeline.translate.symbol.agent.action.stochastic;
 
-import agent.action.ActionDescriptor;
-import agent.action.stochastic.WeightedOption;
-import compiler.pipeline.translate.symbol.MapSymbolTable;
-import compiler.pipeline.translate.symbol.tables.*;
-import control.arguments.*;
+import agent.action.stochastic.*;
+import compiler.pipeline.translate.symbol.ClassSymbolTable;
+import compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
+import control.arguments.ProbabilitySupplierDescriptor;
 import org.junit.*;
 
-public class WeightedOptionInstSymbolTableTest extends MapSymbolTableTest {
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+public class ProbabilitySupplierClassSymbolTableTest extends ClassSymbolTableTest {
+
 
     @Override
-    protected MapSymbolTable getQuery() {
-        return new WeightedOptionInstSymbolTable();
+    protected ClassSymbolTable getQuery() {
+        return new ProbabilitySupplierClassSymbolTable();
     }
 
     @Override
     protected Class getExpectedClass() {
-        return WeightedOption.class;
+        return ProbabilitySupplierDescriptor.class;
     }
 
     @Test
-    public void action() throws Exception {
-        verifyReturnSymbol("action", ActionDescriptor.class);
+    public void constant() throws Exception {
+        verifyReturnSymbol("Constant", ConstantProbabilitySupplierDescriptor.class);
     }
 
     @Test
-    public void weight() throws Exception {
-        verifyReturnSymbol("weight", ProbabilitySupplierDescriptor.class);
+    public void dependent() throws Exception {
+        verifyReturnSymbol("Dependent", DependentProbabilitySupplierDescriptor.class);
     }
 }

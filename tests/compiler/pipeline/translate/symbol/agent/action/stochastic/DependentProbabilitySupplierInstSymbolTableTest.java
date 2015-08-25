@@ -24,32 +24,39 @@
 
 package compiler.pipeline.translate.symbol.agent.action.stochastic;
 
-import agent.action.ActionDescriptor;
-import agent.action.stochastic.WeightedOption;
+import agent.action.stochastic.DependentProbabilitySupplierDescriptor;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
-import compiler.pipeline.translate.symbol.tables.*;
+import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import control.arguments.*;
-import org.junit.*;
+import org.junit.Test;
 
-public class WeightedOptionInstSymbolTableTest extends MapSymbolTableTest {
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+public class DependentProbabilitySupplierInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
     protected MapSymbolTable getQuery() {
-        return new WeightedOptionInstSymbolTable();
+        return new DependentProbabilitySupplierInstSymbolTable();
     }
 
     @Override
     protected Class getExpectedClass() {
-        return WeightedOption.class;
+        return DependentProbabilitySupplierDescriptor.class;
     }
 
     @Test
-    public void action() throws Exception {
-        verifyReturnSymbol("action", ActionDescriptor.class);
+    public void coefficient() throws Exception {
+        verifyReturnSymbol("coefficient", DoubleArgument.class);
     }
 
     @Test
-    public void weight() throws Exception {
-        verifyReturnSymbol("weight", ProbabilitySupplierDescriptor.class);
+    public void offset() throws Exception {
+        verifyReturnSymbol("offset", DoubleArgument.class);
+    }
+
+    @Test
+    public void layer() throws Exception {
+        verifyReturnSymbol("layer", StringArgument.class);
     }
 }

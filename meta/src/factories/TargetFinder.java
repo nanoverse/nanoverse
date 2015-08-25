@@ -24,6 +24,7 @@
 
 package factories;
 
+import agent.action.stochastic.DependentProbabilitySupplierDescriptor;
 import geometry.set.CompleteSet;
 import geometry.set.CustomSet;
 import geometry.set.DiscSet;
@@ -64,7 +65,8 @@ public class TargetFinder {
                 CompleteSet.class,
                 CustomSet.class,
                 DiscSet.class,
-                HorizontalLineSet.class
+                HorizontalLineSet.class,
+                DependentProbabilitySupplierDescriptor.class
         );
 
         Stream<Class> all = Stream.concat(inferred, cloodge);

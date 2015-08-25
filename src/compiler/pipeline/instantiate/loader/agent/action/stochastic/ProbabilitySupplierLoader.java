@@ -24,13 +24,17 @@
 
 package compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
-import agent.action.stochastic.WeightedOption;
 import compiler.pipeline.instantiate.loader.Loader;
-
-import java.util.stream.Stream;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.ProbabilitySupplierDescriptor;
+import layers.LayerManager;
 
 /**
- * Created by dbborens on 8/13/15.
+ * Created by dbborens on 8/25/2015.
  */
-public class WeightedOptionStreamLoader extends Loader<Stream<WeightedOption>> {
+public abstract class ProbabilitySupplierLoader<T extends ProbabilitySupplierDescriptor>
+    extends Loader<T> {
+
+    public abstract T instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p);
 }

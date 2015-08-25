@@ -23,36 +23,36 @@
  */
 package compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
-import agent.action.ActionDescriptor;
-import agent.action.stochastic.WeightedOption;
+import java.util.stream.Stream;
+import control.arguments.DynamicActionRangeMapDescriptor;
+import layers.LayerManager;
 import compiler.pipeline.instantiate.factory.Factory;
-import control.arguments.ProbabilitySupplierDescriptor;
 
-public class WeightedOptionFactory implements Factory<WeightedOption> {
+public class DynamicActionRangeMapFactory implements Factory<DynamicActionRangeMapDescriptor> {
 
-    private final WeightedOptionFactoryHelper helper;
+    private final DynamicActionRangeMapFactoryHelper helper;
 
-    private ProbabilitySupplierDescriptor weight;
-    private ActionDescriptor action;
+    private Stream options;
+    private LayerManager layerManager;
 
-    public WeightedOptionFactory() {
-        helper = new WeightedOptionFactoryHelper();
+    public DynamicActionRangeMapFactory() {
+        helper = new DynamicActionRangeMapFactoryHelper();
     }
 
-    public WeightedOptionFactory(WeightedOptionFactoryHelper helper) {
+    public DynamicActionRangeMapFactory(DynamicActionRangeMapFactoryHelper helper) {
         this.helper = helper;
     }
 
-    public void setWeight(ProbabilitySupplierDescriptor weight) {
-        this.weight = weight;
+    public void setOptions(Stream options) {
+        this.options = options;
     }
 
-    public void setAction(ActionDescriptor action) {
-        this.action = action;
+    public void setLayerManager(LayerManager layerManager) {
+        this.layerManager = layerManager;
     }
 
     @Override
-    public WeightedOption build() {
-        return helper.build(weight, action);
+    public DynamicActionRangeMapDescriptor build() {
+        return helper.build(options, layerManager);
     }
 }

@@ -23,12 +23,12 @@
  */
 package compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
-import agent.action.stochastic.ConstantProbabilitySupplier;
+import agent.action.stochastic.*;
 
 
 public class ConstantProbabilitySupplierFactoryHelper {
 
-    public ConstantProbabilitySupplier build(Double value) {
-        return new ConstantProbabilitySupplier(value);
+    public ConstantProbabilitySupplierDescriptor build(Double value) {
+        return new ConstantProbabilitySupplierDescriptor(value);
     }
 }
