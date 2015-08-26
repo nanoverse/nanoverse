@@ -24,9 +24,17 @@
 
 package compiler.pipeline.instantiate.loader.agent;
 
+import agent.action.*;
 import compiler.pipeline.instantiate.factory.control.arguments.AgentDescriptorFactory;
 import compiler.pipeline.instantiate.loader.Loader;
-import control.arguments.CellDescriptor;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.*;
+import layers.LayerManager;
+import layers.continuum.Reaction;
+
+import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 8/3/2015.
@@ -34,13 +42,38 @@ import control.arguments.CellDescriptor;
 public class AgentDescriptorLoader extends Loader<CellDescriptor> {
 
     private final AgentDescriptorFactory factory;
+    private final AgentDescriptorInterpolator interpolator;
 
     public AgentDescriptorLoader() {
         factory = new AgentDescriptorFactory();
+        interpolator = new AgentDescriptorInterpolator();
     }
 
-    public AgentDescriptorLoader(AgentDescriptorFactory factory) {
+    public AgentDescriptorLoader(AgentDescriptorFactory factory,
+                                 AgentDescriptorInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    public CellDescriptor load(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        factory.setLayerManager(lm);
+
+        Map<String, ActionDescriptor> behaviors = interpolator.behaviors(node, lm, p);
+        factory.setBehaviorDescriptors(behaviors);
+
+        IntegerArgument clazz = interpolator.clazz(node, p.getRandom());
+        factory.setCellState(clazz);
+
+        DoubleArgument initialHealth = interpolator.initialHealth(node, p.getRandom());
+        factory.setInitialHealth(initialHealth);
+
+        DoubleArgument threshold = interpolator.threshold(node, p.getRandom());
+        factory.setThreshold(threshold);
+
+        Stream<Reaction> reactions = interpolator.reactions(node, p.getRandom());
+        factory.setReactions(reactions);
+
+        return factory.build();
     }
 
 }

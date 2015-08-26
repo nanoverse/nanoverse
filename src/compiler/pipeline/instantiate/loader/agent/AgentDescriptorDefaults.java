@@ -22,19 +22,37 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader;
+package compiler.pipeline.instantiate.loader.agent;
 
-import com.google.common.reflect.TypeToken;
+import agent.action.ActionDescriptor;
+import control.arguments.*;
+import layers.continuum.Reaction;
+
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
- * Created by dbborens on 7/29/2015.
+ * Created by dbborens on 8/25/2015.
  */
-public abstract class Loader<T> {
+public class AgentDescriptorDefaults {
+    public Map<String, ActionDescriptor> behaviors() {
+        return new HashMap<>(0);
+    }
 
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
+    public IntegerArgument clazz() {
+        return new ConstantInteger(1);
+    }
 
-    public Class getInstanceClass() {
-        return type.getRawType();
+    public DoubleArgument initialHealth() {
+        return new ConstantDouble(1.0);
+    }
+
+    public DoubleArgument threshold() {
+        return new ConstantDouble(1.0);
+    }
+
+    public Stream<Reaction> reactions() {
+        return Stream.empty();
     }
 
 }

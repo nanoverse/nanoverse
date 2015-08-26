@@ -24,43 +24,39 @@
 
 package compiler.pipeline.instantiate.loader.layers.continuum;
 
-import compiler.pipeline.instantiate.factory.layers.continuum.ReactionFactory;
-import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.MapObjectNode;
-import layers.continuum.Reaction;
 
 import java.util.Random;
 
 /**
- * Created by dbborens on 8/13/15.
+ * Created by dbborens on 8/25/2015.
  */
-public class ReactionLoader extends Loader<Reaction> {
+public class ReactionInterpolator {
+    private final LoadHelper load;
+    private final ReactionDefaults defaults;
 
-    private final ReactionFactory factory;
-    private final ReactionInterpolator interpolator;
-
-    public ReactionLoader() {
-        factory = new ReactionFactory();
-        interpolator = new ReactionInterpolator();
+    public ReactionInterpolator() {
+        load = new LoadHelper();
+        defaults = new ReactionDefaults();
     }
 
-    public ReactionLoader(ReactionFactory factory,
-                          ReactionInterpolator interpolator) {
+    public ReactionInterpolator(LoadHelper load,
+                                ReactionDefaults defaults) {
 
-        this.factory = factory;
-        this.interpolator = interpolator;
+        this.load = load;
+        this.defaults = defaults;
     }
 
-    public Reaction instantiate(MapObjectNode node, Random random) {
-        double exp = interpolator.exp(node, random);
-        factory.setExp(exp);
+    public double exp(MapObjectNode node, Random random) {
+        return load.aDouble(node, "exp", random, defaults::exp);
+    }
 
-        double inj = interpolator.inj(node, random);
-        factory.setInj(inj);
+    public double inj(MapObjectNode node, Random random) {
+        return load.aDouble(node, "inj", random, defaults::inj);
+    }
 
-        String layer = interpolator.layer(node);
-        factory.setId(layer);
-
-        return factory.build();
+    public String layer(MapObjectNode node) {
+        return load.aString(node, "layer");
     }
 }

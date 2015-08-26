@@ -22,19 +22,30 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader;
+package compiler.pipeline.translate.symbol.layers.continuum;
 
-import com.google.common.reflect.TypeToken;
+import compiler.pipeline.translate.symbol.ClassSymbolTable;
+import compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
+import layers.continuum.Reaction;
+import org.junit.*;
 
-/**
- * Created by dbborens on 7/29/2015.
- */
-public abstract class Loader<T> {
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
+public class ReactionClassSymbolTableTest extends ClassSymbolTableTest {
 
-    public Class getInstanceClass() {
-        return type.getRawType();
+    @Override
+    protected ClassSymbolTable getQuery() {
+        return new ReactionClassSymbolTable();
     }
 
+    @Override
+    protected Class getExpectedClass() {
+        return Reaction.class;
+    }
+
+    @Test
+    public void reaction() throws Exception {
+        verifyReturnSymbol("Reaction", Reaction.class);
+    }
 }

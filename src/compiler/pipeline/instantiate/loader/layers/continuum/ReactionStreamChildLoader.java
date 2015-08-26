@@ -22,19 +22,22 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader;
+package compiler.pipeline.instantiate.loader.layers.continuum;
 
-import com.google.common.reflect.TypeToken;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+import layers.continuum.Reaction;
+
+import java.util.Random;
 
 /**
- * Created by dbborens on 7/29/2015.
+ * Created by dbborens on 8/25/2015.
  */
-public abstract class Loader<T> {
+public class ReactionStreamChildLoader {
+    public Reaction load(MapObjectNode node, Random random) {
+        InstantiableSymbolTable ist = node.getSymbolTable();
+        ReactionLoader loader = (ReactionLoader) ist.getLoader();
 
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
-
-    public Class getInstanceClass() {
-        return type.getRawType();
+        return loader.instantiate(node, random);
     }
-
 }
