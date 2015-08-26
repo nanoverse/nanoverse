@@ -25,17 +25,21 @@ package compiler.pipeline.instantiate.factory.control.arguments;
 
 import java.util.List;
 
+import agent.action.*;
 import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import control.arguments.DoubleArgument;
 import java.util.Map;
+import java.util.stream.Stream;
+
 import layers.LayerManager;
 import control.arguments.CellDescriptor;
+import layers.continuum.Reaction;
 
 
 public class AgentDescriptorFactoryHelper {
 
-    public CellDescriptor build(LayerManager layerManager, IntegerArgument cellState, DoubleArgument threshold, DoubleArgument initialHealth, List reactions, Map behaviorDescriptors) {
+    public CellDescriptor build(LayerManager layerManager, IntegerArgument cellState, DoubleArgument threshold, DoubleArgument initialHealth, Stream<Reaction> reactions, Map<String, ActionDescriptor> behaviorDescriptors) {
         return new CellDescriptor(layerManager, cellState, threshold, initialHealth, reactions, behaviorDescriptors);
     }
 }

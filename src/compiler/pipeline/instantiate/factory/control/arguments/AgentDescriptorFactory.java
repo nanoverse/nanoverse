@@ -25,13 +25,17 @@ package compiler.pipeline.instantiate.factory.control.arguments;
 
 import java.util.List;
 
+import agent.action.*;
 import control.arguments.Argument;
 import control.arguments.IntegerArgument;
 import control.arguments.DoubleArgument;
 import java.util.Map;
+import java.util.stream.Stream;
+
 import layers.LayerManager;
 import control.arguments.CellDescriptor;
 import compiler.pipeline.instantiate.factory.Factory;
+import layers.continuum.Reaction;
 
 public class AgentDescriptorFactory implements Factory<CellDescriptor> {
 
@@ -41,8 +45,8 @@ public class AgentDescriptorFactory implements Factory<CellDescriptor> {
     private IntegerArgument cellState;
     private DoubleArgument threshold;
     private DoubleArgument initialHealth;
-    private List reactions;
-    private Map behaviorDescriptors;
+    private Stream<Reaction> reactions;
+    private Map<String, ActionDescriptor> behaviorDescriptors;
 
     public AgentDescriptorFactory() {
         helper = new AgentDescriptorFactoryHelper();
@@ -68,11 +72,11 @@ public class AgentDescriptorFactory implements Factory<CellDescriptor> {
         this.initialHealth = initialHealth;
     }
 
-    public void setReactions(List reactions) {
+    public void setReactions(Stream<Reaction> reactions) {
         this.reactions = reactions;
     }
 
-    public void setBehaviorDescriptors(Map behaviorDescriptors) {
+    public void setBehaviorDescriptors(Map<String, ActionDescriptor> behaviorDescriptors) {
         this.behaviorDescriptors = behaviorDescriptors;
     }
 

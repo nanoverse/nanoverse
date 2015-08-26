@@ -22,19 +22,17 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader;
-
-import com.google.common.reflect.TypeToken;
+package compiler.pipeline.instantiate.loader.layers.continuum;
 
 /**
- * Created by dbborens on 7/29/2015.
+ * Created by dbborens on 8/25/2015.
  */
-public abstract class Loader<T> {
-
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
-
-    public Class getInstanceClass() {
-        return type.getRawType();
+public class ReactionDefaults {
+    public Double exp() {
+        return 0.0;
     }
 
+    public Double inj() {
+        return 0.0;
+    }
 }

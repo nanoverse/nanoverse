@@ -24,34 +24,39 @@
 
 package compiler.pipeline.translate.symbol.layers.continuum;
 
-import compiler.pipeline.translate.symbol.*;
+import compiler.pipeline.translate.symbol.MapSymbolTable;
+import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import control.arguments.*;
 import layers.continuum.Reaction;
+import org.junit.*;
 
-import java.util.HashMap;
-import java.util.function.Supplier;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 7/24/2015.
- */
-public class ReactionClassSymbolTable extends ClassSymbolTable<Reaction> {
+public class ReactionInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
-        reaction(ret);
-        return ret;
+    protected MapSymbolTable getQuery() {
+        return new ReactionInstSymbolTable();
     }
 
     @Override
-    public String getDescription() {
-        return "Agents can interact with the local value of a continuum. " +
-            "Reactions specify the terms of those interactions, allowing " +
-            "both constant increase or decrease (injection) and proportional " +
-            "scaling (exponentiation).";
+    protected Class getExpectedClass() {
+        return Reaction.class;
     }
 
-    private void reaction(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = ReactionInstSymbolTable::new;
-        ret.put("Reaction", supplier);
+    @Test
+    public void inj() throws Exception {
+        verifyReturnSymbol("inj", DoubleArgument.class);
+    }
+
+    @Test
+    public void exp() throws Exception {
+        verifyReturnSymbol("exp", DoubleArgument.class);
+    }
+
+    @Test
+    public void layer() throws Exception {
+        verifyReturnSymbol("layer", StringArgument.class);
     }
 }

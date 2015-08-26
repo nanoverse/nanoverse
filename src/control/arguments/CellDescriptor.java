@@ -60,14 +60,14 @@ public class CellDescriptor implements Argument<Cell> {
                           Argument<Integer> cellState,
                           Argument<Double> threshold,
                           Argument<Double> initialHealth,
-                          List<Reaction> reactions,
+                          Stream<Reaction> reactions,
                           Map<String, ActionDescriptor> behaviorDescriptors) {
 
         this.layerManager = layerManager;
         this.cellState = cellState;
         this.threshold = threshold;
         this.initialHealth = initialHealth;
-        this.reactions = reactions;
+        this.reactions = reactions.collect(Collectors.toList());
         this.behaviorDescriptors = behaviorDescriptors;
     }
 
