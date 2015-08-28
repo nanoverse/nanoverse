@@ -29,18 +29,18 @@ import control.arguments.IntegerArgument;
 import geometry.set.CoordinateSet;
 import compiler.pipeline.instantiate.factory.Factory;
 
-public class CellProcessArgumentsFactory implements Factory<CellProcessArguments> {
+public class DiscreteProcessArgumentsFactory implements Factory<CellProcessArguments> {
 
     private final CellProcessArgumentsFactoryHelper helper;
 
     private CoordinateSet activeSites;
     private IntegerArgument maxTargets;
 
-    public CellProcessArgumentsFactory() {
+    public DiscreteProcessArgumentsFactory() {
         helper = new CellProcessArgumentsFactoryHelper();
     }
 
-    public CellProcessArgumentsFactory(CellProcessArgumentsFactoryHelper helper) {
+    public DiscreteProcessArgumentsFactory(CellProcessArgumentsFactoryHelper helper) {
         this.helper = helper;
     }
 

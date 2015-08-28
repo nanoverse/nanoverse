@@ -26,6 +26,12 @@ package compiler.pipeline.instantiate.loader.processes.continuum;
 
 import compiler.pipeline.instantiate.factory.processes.continuum.InjectionProcessFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.DoubleArgument;
+import geometry.set.CoordinateSet;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
 import processes.continuum.InjectionProcess;
 
 /**
@@ -33,12 +39,32 @@ import processes.continuum.InjectionProcess;
  */
 public class InjectionProcessLoader extends ProcessLoader<InjectionProcess> {
     private final InjectionProcessFactory factory;
+    private final InjectionProcessInterpolator interpolator;
 
     public InjectionProcessLoader() {
         factory = new InjectionProcessFactory();
+        interpolator = new InjectionProcessInterpolator();
     }
 
-    public InjectionProcessLoader(InjectionProcessFactory factory) {
+    public InjectionProcessLoader(InjectionProcessFactory factory,
+                                  InjectionProcessInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public InjectionProcess instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments base = interpolator.arguments(node, lm, p);
+        factory.setArguments(base);
+
+        CoordinateSet activeSites = interpolator.activeSites(node, lm, p);
+        factory.setActiveSites(activeSites);
+
+        String layer = interpolator.layer(node);
+        factory.setLayerId(layer);
+
+        DoubleArgument valueArg = interpolator.value(node, p.getRandom());
+        factory.setValueArg(valueArg);
+        return null;
     }
 }

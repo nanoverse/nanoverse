@@ -25,10 +25,15 @@
 package compiler.pipeline.instantiate.loader.geometry.set;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.*;
+import control.GeneralParameters;
 import geometry.set.CoordinateSet;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/4/2015.
  */
-public class CoordinateSetLoader<T extends CoordinateSet> extends Loader<T> {
+public abstract class CoordinateSetLoader<T extends CoordinateSet> extends Loader<T> {
+
+    public abstract T instantiate(ObjectNode o, LayerManager lm, GeneralParameters p);
 }

@@ -26,19 +26,46 @@ package compiler.pipeline.instantiate.loader.processes.continuum;
 
 import compiler.pipeline.instantiate.factory.processes.continuum.DiffusionProcessFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.continuum.DiffusionProcess;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import layers.LayerManager;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import processes.BaseProcessArguments;
+import processes.continuum.*;
+
+import java.util.function.Consumer;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class DiffusionProcessLoader extends ProcessLoader<DiffusionProcess> {
     private final DiffusionProcessFactory factory;
+    private final DiffusionProcessInterpolator interpolator;
 
     public DiffusionProcessLoader() {
         factory = new DiffusionProcessFactory();
+        interpolator = new DiffusionProcessInterpolator();
     }
 
-    public DiffusionProcessLoader(DiffusionProcessFactory factory) {
+    public DiffusionProcessLoader(DiffusionProcessFactory factory,
+                                  DiffusionProcessInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public DiffusionProcess instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        String layer = interpolator.layer(node);
+        double constant = interpolator.constant(node);
+        DiffusionOperator operator = interpolator.operator(layer, constant, lm);
+        factory.setOperator(operator);
+
+        Consumer<CompDiagMatrix> target = interpolator.target(layer, lm);
+        factory.setTarget(target);
+
+        return factory.build();
     }
 }

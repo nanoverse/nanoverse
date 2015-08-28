@@ -26,19 +26,40 @@ package compiler.pipeline.instantiate.loader.processes.temporal;
 
 import compiler.pipeline.instantiate.factory.processes.temporal.TickFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.DoubleArgument;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
 import processes.temporal.Tick;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class TickLoader extends ProcessLoader<Tick> {
     private final TickFactory factory;
+    private final TickInterpolator interpolator;
 
     public TickLoader() {
         factory = new TickFactory();
+        interpolator = new TickInterpolator();
     }
 
-    public TickLoader(TickFactory factory) {
+    public TickLoader(TickFactory factory,
+                                TickInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Tick instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        DoubleArgument dt = interpolator.dt(node, p.getRandom());
+        factory.setDt(dt);
+
+        return factory.build();
     }
 }

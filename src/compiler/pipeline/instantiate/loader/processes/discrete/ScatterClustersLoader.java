@@ -26,19 +26,50 @@ package compiler.pipeline.instantiate.loader.processes.discrete;
 
 import compiler.pipeline.instantiate.factory.processes.discrete.ScatterClustersFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.discrete.ScatterClusters;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.*;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
+import processes.discrete.*;
+import processes.discrete.cluster.ScatterClustersHelper;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class ScatterClustersLoader extends ProcessLoader<ScatterClusters> {
     private final ScatterClustersFactory factory;
+    private final ScatterClustersInterpolator interpolator;
 
     public ScatterClustersLoader() {
         factory = new ScatterClustersFactory();
+        interpolator = new ScatterClustersInterpolator();
     }
 
-    public ScatterClustersLoader(ScatterClustersFactory factory) {
+    public ScatterClustersLoader(ScatterClustersFactory factory,
+                              ScatterClustersInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public ScatterClusters instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        factory.setCpArguments(cpArguments);
+
+        CellDescriptor description = interpolator.description(node, lm, p);
+        factory.setCellDescriptor(description);
+
+        ScatterClustersHelper helper = interpolator.helper(node, lm, p);
+        factory.setClustersHelper(helper);
+
+        IntegerArgument neighbors = interpolator.neighbors(node, p.getRandom());
+        factory.setNeighborCount(neighbors);
+
+        return factory.build();
     }
 }

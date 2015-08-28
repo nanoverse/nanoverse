@@ -32,6 +32,7 @@ import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.booleans.BooleanClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import compiler.pipeline.translate.symbol.processes.discrete.DiscreteProcessInstSymbolTable;
+import compiler.pipeline.translate.symbol.processes.discrete.filter.FilterClassSymbolTable;
 import processes.discrete.TriggerProcess;
 
 import java.util.HashMap;
@@ -51,7 +52,15 @@ public class TriggerProcessInstSymbolTable extends DiscreteProcessInstSymbolTabl
         behavior(ret);
         skipVacantSites(ret);
         requireNeighbors(ret);
+        filter(ret);
         return ret;
+    }
+
+    private void filter(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new FilterClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Filter for narrowing down " +
+            "sites to be included in process.");
+        ret.put("filter", ms);
     }
 
     private void requireNeighbors(HashMap<String, MemberSymbol> ret) {

@@ -29,6 +29,7 @@ import compiler.pipeline.translate.symbol.processes.discrete.*;
 import control.arguments.*;
 import org.junit.*;
 import processes.discrete.TriggerProcess;
+import processes.discrete.filter.Filter;
 
 public class TriggerProcessInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {
 
@@ -55,5 +56,9 @@ public class TriggerProcessInstSymbolTableTest extends DiscreteProcessInstSymbol
     @Test
     public void requireNeighbors() throws Exception {
         verifyReturnSymbol("requireNeighbors", BooleanArgument.class);
+    }
+
+    public void filter() throws Exception {
+        verifyReturnSymbol("filter", Filter.class);
     }
 }

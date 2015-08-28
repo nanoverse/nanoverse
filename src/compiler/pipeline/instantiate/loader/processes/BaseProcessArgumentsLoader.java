@@ -26,6 +26,10 @@ package compiler.pipeline.instantiate.loader.processes;
 
 import compiler.pipeline.instantiate.factory.processes.BaseProcessArgumentsFactory;
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.IntegerArgument;
+import layers.LayerManager;
 import processes.BaseProcessArguments;
 
 /**
@@ -34,13 +38,30 @@ import processes.BaseProcessArguments;
 public class BaseProcessArgumentsLoader extends Loader<BaseProcessArguments> {
 
     private final BaseProcessArgumentsFactory factory;
+    private final BaseProcessArgumentsInterpolator interpolator;
 
     public BaseProcessArgumentsLoader() {
         factory = new BaseProcessArgumentsFactory();
+        interpolator = new BaseProcessArgumentsInterpolator();
     }
 
-    public BaseProcessArgumentsLoader(BaseProcessArgumentsFactory factory) {
+    public BaseProcessArgumentsLoader(BaseProcessArgumentsFactory factory,
+                                      BaseProcessArgumentsInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
     }
 
+    public BaseProcessArguments instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        factory.setLayerManager(lm);
+        factory.setGeneralParameters(p);
+        factory.setId(0);
+
+        IntegerArgument period = interpolator.period(node, p.getRandom());
+        factory.setPeriod(period);
+
+        IntegerArgument start = interpolator.start(node, p.getRandom());
+        factory.setStart(start);
+
+        return factory.build();
+    }
 }

@@ -24,21 +24,49 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
-import compiler.pipeline.instantiate.factory.processes.discrete.PowerScatterFactory;
+import compiler.pipeline.instantiate.factory.processes.discrete.*;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.discrete.PowerScatter;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.CellDescriptor;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
+import processes.discrete.*;
+import processes.discrete.cluster.ScatterClustersHelper;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class PowerScatterLoader extends ProcessLoader<PowerScatter> {
     private final PowerScatterFactory factory;
+    private final PowerScatterInterpolator interpolator;
 
     public PowerScatterLoader() {
         factory = new PowerScatterFactory();
+        interpolator = new PowerScatterInterpolator();
     }
 
-    public PowerScatterLoader(PowerScatterFactory factory) {
+    public PowerScatterLoader(PowerScatterFactory factory,
+                      PowerScatterInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public PowerScatter instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        factory.setCpArguments(cpArguments);
+
+        CellDescriptor description = interpolator.description(node, lm, p);
+        factory.setCellDescriptor(description);
+
+        ScatterClustersHelper helper = interpolator.helper(node, lm, p);
+        factory.setClustersHelper(helper);
+
+        return factory.build();
     }
 }

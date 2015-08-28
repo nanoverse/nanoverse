@@ -24,21 +24,46 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
-import compiler.pipeline.instantiate.factory.processes.discrete.ScatterFactory;
+import compiler.pipeline.instantiate.factory.processes.discrete.*;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.discrete.Scatter;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.*;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
+import processes.discrete.*;
+import processes.discrete.cluster.ScatterClustersHelper;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class ScatterLoader extends ProcessLoader<Scatter> {
     private final ScatterFactory factory;
+    private final ScatterInterpolator interpolator;
 
     public ScatterLoader() {
         factory = new ScatterFactory();
+        interpolator = new ScatterInterpolator();
     }
 
-    public ScatterLoader(ScatterFactory factory) {
+    public ScatterLoader(ScatterFactory factory,
+                                 ScatterInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Scatter instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        factory.setCpArguments(cpArguments);
+
+        CellDescriptor description = interpolator.description(node, lm, p);
+        factory.setCellDescriptor(description);
+
+        return factory.build();
     }
 }

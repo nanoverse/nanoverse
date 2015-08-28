@@ -24,21 +24,47 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.check;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.DiscreteProcessArgumentsFactory;
 import compiler.pipeline.instantiate.factory.processes.discrete.check.CheckForExtinctionFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.discrete.check.CheckForExtinction;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.DoubleArgument;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
+import processes.discrete.CellProcessArguments;
+import processes.discrete.check.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class CheckForExtinctionLoader extends ProcessLoader<CheckForExtinction> {
     private final CheckForExtinctionFactory factory;
+    private final CheckForExtinctionInterpolator interpolator;
 
     public CheckForExtinctionLoader() {
         factory = new CheckForExtinctionFactory();
+        interpolator = new CheckForExtinctionInterpolator();
     }
 
-    public CheckForExtinctionLoader(CheckForExtinctionFactory factory) {
+    public CheckForExtinctionLoader(CheckForExtinctionFactory factory,
+                                    CheckForExtinctionInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public CheckForExtinction instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        factory.setCpArguments(cpArguments);
+
+        DoubleArgument threshold = interpolator.threshold(node, p.getRandom());
+        factory.setThresholdArg(threshold);
+
+        return factory.build();
     }
 }

@@ -24,21 +24,48 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
-import compiler.pipeline.instantiate.factory.processes.discrete.FillFactory;
+import compiler.pipeline.instantiate.factory.processes.discrete.*;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.discrete.Fill;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.CellDescriptor;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
+import processes.discrete.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class FillLoader extends ProcessLoader<Fill> {
     private final FillFactory factory;
+    private final FillInterpolator interpolator;
 
     public FillLoader() {
         factory = new FillFactory();
+        interpolator = new FillInterpolator();
     }
 
-    public FillLoader(FillFactory factory) {
+    public FillLoader(FillFactory factory,
+                      FillInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Fill instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        factory.setCpArguments(cpArguments);
+
+        CellDescriptor description = interpolator.description(node, lm, p);
+        factory.setCellDescriptor(description);
+
+        boolean skipFilled = interpolator.skipFilled(node, p.getRandom());
+        factory.setSkipFilled(skipFilled);
+
+        return factory.build();
     }
 }
