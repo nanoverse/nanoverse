@@ -24,22 +24,35 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
-import compiler.pipeline.instantiate.factory.processes.discrete.CellProcessArgumentsFactory;
-import compiler.pipeline.instantiate.loader.Loader;
-import processes.discrete.CellProcessArguments;
+import org.junit.*;
 
-/**
- * Created by dbborens on 8/12/15.
- */
-public class CellProcessArgumentsLoader extends Loader<CellProcessArguments> {
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-    private final CellProcessArgumentsFactory factory;
+public class FillInterpolatorTest {
 
-    public CellProcessArgumentsLoader() {
-        factory = new CellProcessArgumentsFactory();
+    @Before
+    public void before() throws Exception {
+
     }
 
-    public CellProcessArgumentsLoader(CellProcessArgumentsFactory factory) {
-        this.factory = factory;
+    @Test
+    public void skipFilled() throws Exception {
+        fail();
+    }
+
+    @Test
+    public void skipFilledDefault() throws Exception {
+        fail();
+    }
+
+    @Test
+    public void description() throws Exception {
+        fail();
+    }
+
+    @Test
+    public void descriptionDefault() throws Exception {
+        fail();
     }
 }

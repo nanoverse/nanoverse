@@ -25,20 +25,38 @@
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
 import compiler.pipeline.instantiate.factory.processes.discrete.RecordFactory;
-import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.discrete.Record;
+import compiler.pipeline.instantiate.loader.processes.*;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
+import processes.discrete.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class RecordLoader extends ProcessLoader<Record> {
     private final RecordFactory factory;
+    private final ProcessInterpolator interpolator;
 
     public RecordLoader() {
         factory = new RecordFactory();
+        interpolator = new ProcessInterpolator();
     }
 
-    public RecordLoader(RecordFactory factory) {
+    public RecordLoader(RecordFactory factory,
+                        ProcessInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Record instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        return factory.build();
     }
 }

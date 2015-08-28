@@ -25,19 +25,44 @@
 package compiler.pipeline.instantiate.loader.processes;
 
 import compiler.pipeline.instantiate.factory.processes.MockProcessFactory;
-import processes.MockProcess;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import layers.LayerManager;
+import processes.*;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
 public class MockProcessLoader extends ProcessLoader<MockProcess> {
     private final MockProcessFactory factory;
+    private final MockProcessInterpolator interpolator;
 
     public MockProcessLoader() {
         factory = new MockProcessFactory();
+        interpolator = new MockProcessInterpolator();
     }
 
-    public MockProcessLoader(MockProcessFactory factory) {
+    public MockProcessLoader(MockProcessFactory factory,
+                             MockProcessInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public MockProcess instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments base = interpolator.arguments(node, lm, p);
+        factory.setArguments(base);
+
+        int count = interpolator.count(node, p.getRandom());
+        factory.setCount(count);
+
+        String identifier = interpolator.identifier(node);
+        factory.setIdentifier(identifier);
+
+        double weight = interpolator.weight(node, p.getRandom());
+        factory.setWeight(weight);
+
+        return factory.build();
     }
 }

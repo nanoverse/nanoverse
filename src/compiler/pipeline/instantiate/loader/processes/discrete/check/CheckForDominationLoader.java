@@ -26,19 +26,48 @@ package compiler.pipeline.instantiate.loader.processes.discrete.check;
 
 import compiler.pipeline.instantiate.factory.processes.discrete.check.CheckForDominationFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.*;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
+import processes.discrete.CellProcessArguments;
 import processes.discrete.check.CheckForDomination;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class CheckForDominationLoader extends ProcessLoader<CheckForDomination> {
     private final CheckForDominationFactory factory;
+    private final CheckForDominationInterpolator interpolator;
 
     public CheckForDominationLoader() {
         factory = new CheckForDominationFactory();
+        interpolator = new CheckForDominationInterpolator();
     }
 
-    public CheckForDominationLoader(CheckForDominationFactory factory) {
+    public CheckForDominationLoader(CheckForDominationFactory factory,
+                                 CheckForDominationInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public CheckForDomination instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        factory.setCpArguments(cpArguments);
+
+        DoubleArgument threshold = interpolator.threshold(node, p.getRandom());
+        factory.setTargetFractionArg(threshold);
+
+        IntegerArgument target = interpolator.target(node, p.getRandom());
+        factory.setTargetStateArg(target);
+
+        return factory.build();
     }
 }

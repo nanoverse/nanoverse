@@ -25,6 +25,10 @@
 package compiler.pipeline.instantiate.loader.processes;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import compiler.pipeline.translate.symbol.MapSymbolTable;
+import control.GeneralParameters;
+import layers.LayerManager;
 import processes.NanoverseProcess;
 
 /**
@@ -32,4 +36,5 @@ import processes.NanoverseProcess;
  */
 public abstract class ProcessLoader<T extends NanoverseProcess> extends Loader<T> {
 
+    public abstract T instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p);
 }

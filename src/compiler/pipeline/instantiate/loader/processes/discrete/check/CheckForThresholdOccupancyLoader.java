@@ -24,21 +24,47 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.check;
 
+import compiler.pipeline.instantiate.factory.processes.discrete.DiscreteProcessArgumentsFactory;
 import compiler.pipeline.instantiate.factory.processes.discrete.check.CheckForThresholdOccupancyFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.discrete.check.CheckForThresholdOccupancy;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.DoubleArgument;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
+import processes.discrete.CellProcessArguments;
+import processes.discrete.check.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class CheckForThresholdOccupancyLoader extends ProcessLoader<CheckForThresholdOccupancy> {
     private final CheckForThresholdOccupancyFactory factory;
+    private final CheckForThresholdOccupancyInterpolator interpolator;
 
     public CheckForThresholdOccupancyLoader() {
         factory = new CheckForThresholdOccupancyFactory();
+        interpolator = new CheckForThresholdOccupancyInterpolator();
     }
 
-    public CheckForThresholdOccupancyLoader(CheckForThresholdOccupancyFactory factory) {
+    public CheckForThresholdOccupancyLoader(CheckForThresholdOccupancyFactory factory,
+                                    CheckForThresholdOccupancyInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public CheckForThresholdOccupancy instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        factory.setCpArguments(cpArguments);
+
+        DoubleArgument threshold = interpolator.threshold(node, p.getRandom());
+        factory.setThresholdOccupancy(threshold);
+
+        return factory.build();
     }
 }

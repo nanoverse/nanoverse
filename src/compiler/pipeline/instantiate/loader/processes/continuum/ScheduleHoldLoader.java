@@ -26,19 +26,41 @@ package compiler.pipeline.instantiate.loader.processes.continuum;
 
 import compiler.pipeline.instantiate.factory.processes.continuum.ScheduleHoldFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.continuum.ScheduleHold;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import layers.LayerManager;
+import layers.continuum.ContinuumLayerScheduler;
+import processes.BaseProcessArguments;
+import processes.continuum.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class ScheduleHoldLoader extends ProcessLoader<ScheduleHold> {
     private final ScheduleHoldFactory factory;
+    private final ScheduleHoldInterpolator interpolator;
 
     public ScheduleHoldLoader() {
         factory = new ScheduleHoldFactory();
+        interpolator = new ScheduleHoldInterpolator();
     }
 
-    public ScheduleHoldLoader(ScheduleHoldFactory factory) {
+    public ScheduleHoldLoader(ScheduleHoldFactory factory,
+                           ScheduleHoldInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public ScheduleHold instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        String layer = interpolator.layer(node);
+        ContinuumLayerScheduler scheduler = interpolator.scheduler(lm, layer);
+        factory.setScheduler(scheduler);
+
+        return factory.build();
     }
 }

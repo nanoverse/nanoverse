@@ -26,19 +26,39 @@ package compiler.pipeline.instantiate.loader.processes.discrete;
 
 import compiler.pipeline.instantiate.factory.processes.discrete.GeneralNeighborSwapFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.discrete.GeneralNeighborSwap;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
+import processes.discrete.*;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class GeneralNeighborSwapLoader extends ProcessLoader<GeneralNeighborSwap> {
     private final GeneralNeighborSwapFactory factory;
+    private final DiscreteProcessInterpolator interpolator;
 
     public GeneralNeighborSwapLoader() {
         factory = new GeneralNeighborSwapFactory();
+        interpolator = new DiscreteProcessInterpolator();
     }
 
-    public GeneralNeighborSwapLoader(GeneralNeighborSwapFactory factory) {
+    public GeneralNeighborSwapLoader(GeneralNeighborSwapFactory factory,
+                                     DiscreteProcessInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public GeneralNeighborSwap instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        factory.setCpArguments(cpArguments);
+
+        return factory.build();
     }
 }

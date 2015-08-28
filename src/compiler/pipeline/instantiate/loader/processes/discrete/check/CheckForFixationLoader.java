@@ -26,6 +26,13 @@ package compiler.pipeline.instantiate.loader.processes.discrete.check;
 
 import compiler.pipeline.instantiate.factory.processes.discrete.check.CheckForFixationFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
+import compiler.pipeline.instantiate.loader.processes.discrete.DiscreteProcessInterpolator;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.DoubleArgument;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
+import processes.discrete.CellProcessArguments;
 import processes.discrete.check.CheckForFixation;
 
 /**
@@ -33,12 +40,27 @@ import processes.discrete.check.CheckForFixation;
  */
 public class CheckForFixationLoader extends ProcessLoader<CheckForFixation> {
     private final CheckForFixationFactory factory;
+    private final DiscreteProcessInterpolator interpolator;
 
     public CheckForFixationLoader() {
         factory = new CheckForFixationFactory();
+        interpolator = new DiscreteProcessInterpolator();
     }
 
-    public CheckForFixationLoader(CheckForFixationFactory factory) {
+    public CheckForFixationLoader(CheckForFixationFactory factory,
+                                  DiscreteProcessInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public CheckForFixation instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        factory.setCpArguments(cpArguments);
+
+        return factory.build();
     }
 }

@@ -25,7 +25,11 @@
 package compiler.pipeline.instantiate.loader.geometry.set;
 
 import compiler.pipeline.instantiate.factory.geometry.set.DiscCoordinateSetFactory;
+import compiler.pipeline.translate.nodes.ObjectNode;
+import control.GeneralParameters;
 import geometry.set.DiscSet;
+import layers.LayerManager;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.
@@ -39,5 +43,10 @@ public class DiscCoordinateSetLoader extends CoordinateSetLoader<DiscSet> {
 
     public DiscCoordinateSetLoader(DiscCoordinateSetFactory factory) {
         this.factory = factory;
+    }
+
+    @Override
+    public DiscSet instantiate(ObjectNode o, LayerManager lm, GeneralParameters p) {
+        throw new NotImplementedException();
     }
 }

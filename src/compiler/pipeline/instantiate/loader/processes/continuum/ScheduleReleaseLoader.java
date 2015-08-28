@@ -26,19 +26,40 @@ package compiler.pipeline.instantiate.loader.processes.continuum;
 
 import compiler.pipeline.instantiate.factory.processes.continuum.ScheduleReleaseFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.continuum.ScheduleRelease;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import layers.LayerManager;
+import layers.continuum.ContinuumLayerScheduler;
+import processes.BaseProcessArguments;
+import processes.continuum.*;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class ScheduleReleaseLoader extends ProcessLoader<ScheduleRelease> {
     private final ScheduleReleaseFactory factory;
+    private final ScheduleReleaseInterpolator interpolator;
 
     public ScheduleReleaseLoader() {
         factory = new ScheduleReleaseFactory();
+        interpolator = new ScheduleReleaseInterpolator();
     }
 
-    public ScheduleReleaseLoader(ScheduleReleaseFactory factory) {
+    public ScheduleReleaseLoader(ScheduleReleaseFactory factory,
+                              ScheduleReleaseInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public ScheduleRelease instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        String layer = interpolator.layer(node);
+        ContinuumLayerScheduler scheduler = interpolator.scheduler(lm, layer);
+        factory.setScheduler(scheduler);
+
+        return factory.build();
     }
 }

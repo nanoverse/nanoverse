@@ -26,19 +26,42 @@ package compiler.pipeline.instantiate.loader.processes.discrete;
 
 import compiler.pipeline.instantiate.factory.processes.discrete.ManualHaltFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.discrete.ManualHalt;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
+import processes.discrete.*;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class ManualHaltLoader extends ProcessLoader<ManualHalt> {
     private final ManualHaltFactory factory;
+    private final ManualHaltInterpolator interpolator;
 
     public ManualHaltLoader() {
         factory = new ManualHaltFactory();
+        interpolator = new ManualHaltInterpolator();
     }
 
-    public ManualHaltLoader(ManualHaltFactory factory) {
+    public ManualHaltLoader(ManualHaltFactory factory,
+                            ManualHaltInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public ManualHalt instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        factory.setCpArguments(cpArguments);
+
+        String message = interpolator.message(node);
+        factory.setMessage(message);
+
+        return factory.build();
     }
 }

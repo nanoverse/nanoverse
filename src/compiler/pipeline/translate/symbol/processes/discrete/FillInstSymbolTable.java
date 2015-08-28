@@ -57,7 +57,7 @@ public class FillInstSymbolTable extends DiscreteProcessInstSymbolTable<Fill> {
         MemberSymbol ms = new MemberSymbol(rst, "If true, occupied sites are " +
                 "ignored during fill operation. If false, filling over an " +
                 "occupied site will result in an error.");
-        ret.put("skipFilledSites", ms);
+        ret.put("skipFilled", ms);
     }
 
     private void description(HashMap<String, MemberSymbol> ret) {

@@ -30,6 +30,7 @@ import compiler.pipeline.instantiate.loader.processes.continuum.InjectionProcess
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.MemberSymbol;
 import compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import compiler.pipeline.translate.symbol.geometry.set.CoordinateSetClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import processes.continuum.InjectionProcess;
@@ -52,7 +53,15 @@ public class InjectionProcessInstSymbolTable extends ContinuumProcessInstSymbolT
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         value(ret);
         layer(ret);
+        activeSites(ret);
         return ret;
+    }
+
+    private void activeSites(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new CoordinateSetClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Sites that this process should update.");
+        ret.put("activeSites", ms);
+
     }
 
     private void layer(HashMap<String, MemberSymbol> ret) {

@@ -26,19 +26,41 @@ package compiler.pipeline.instantiate.loader.processes.continuum;
 
 import compiler.pipeline.instantiate.factory.processes.continuum.IntegrateFactory;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import layers.LayerManager;
+import layers.continuum.ContinuumLayerScheduler;
+import processes.BaseProcessArguments;
 import processes.continuum.Integrate;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class IntegrateLoader extends ProcessLoader<Integrate> {
     private final IntegrateFactory factory;
+    private final IntegrateInterpolator interpolator;
 
     public IntegrateLoader() {
         factory = new IntegrateFactory();
+        interpolator = new IntegrateInterpolator();
     }
 
-    public IntegrateLoader(IntegrateFactory factory) {
+    public IntegrateLoader(IntegrateFactory factory,
+                                  IntegrateInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Integrate instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        String layer = interpolator.layer(node);
+        ContinuumLayerScheduler scheduler = interpolator.scheduler(lm, layer);
+        factory.setScheduler(scheduler);
+
+        return factory.build();
     }
 }

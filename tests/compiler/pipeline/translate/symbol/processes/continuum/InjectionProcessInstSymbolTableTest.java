@@ -26,7 +26,11 @@ package compiler.pipeline.translate.symbol.processes.continuum;
 
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.processes.ProcessInstSymbolTableTest;
+import control.arguments.*;
+import geometry.set.CoordinateSet;
+import org.junit.Test;
 import processes.continuum.InjectionProcess;
+import structural.utilities.CoordinateSerializer;
 
 public class InjectionProcessInstSymbolTableTest extends ProcessInstSymbolTableTest {
 
@@ -38,5 +42,20 @@ public class InjectionProcessInstSymbolTableTest extends ProcessInstSymbolTableT
     @Override
     protected Class getExpectedClass() {
         return InjectionProcess.class;
+    }
+
+    @Test
+    public void layer() {
+        verifyReturnSymbol("layer", StringArgument.class);
+    }
+
+    @Test
+    public void value() {
+        verifyReturnSymbol("value", DoubleArgument.class);
+    }
+
+    @Test
+    public void activeSites() {
+        verifyReturnSymbol("activeSites", CoordinateSet.class);
     }
 }

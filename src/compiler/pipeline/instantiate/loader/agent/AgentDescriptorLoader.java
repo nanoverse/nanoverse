@@ -55,7 +55,7 @@ public class AgentDescriptorLoader extends Loader<CellDescriptor> {
         this.interpolator = interpolator;
     }
 
-    public CellDescriptor load(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    public CellDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         factory.setLayerManager(lm);
 
         Map<String, ActionDescriptor> behaviors = interpolator.behaviors(node, lm, p);

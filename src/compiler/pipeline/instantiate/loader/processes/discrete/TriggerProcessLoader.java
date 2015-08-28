@@ -24,21 +24,54 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
-import compiler.pipeline.instantiate.factory.processes.discrete.TriggerProcessFactory;
+import compiler.pipeline.instantiate.factory.processes.discrete.*;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.discrete.TriggerProcess;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
+import processes.discrete.*;
+import processes.discrete.filter.Filter;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class TriggerProcessLoader extends ProcessLoader<TriggerProcess> {
     private final TriggerProcessFactory factory;
+    private final TriggerProcessInterpolator interpolator;
 
     public TriggerProcessLoader() {
         factory = new TriggerProcessFactory();
+        interpolator = new TriggerProcessInterpolator();
     }
 
-    public TriggerProcessLoader(TriggerProcessFactory factory) {
+    public TriggerProcessLoader(TriggerProcessFactory factory,
+                         TriggerProcessInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public TriggerProcess instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        factory.setCpArguments(cpArguments);
+
+        Filter filter = interpolator.filter(node, lm, p);
+        factory.setFilter(filter);
+
+        String behavior = interpolator.behavior(node);
+        factory.setBehaviorName(behavior);
+
+        Boolean requireNeighbors = interpolator.requireNeighbors(node, p.getRandom());
+        factory.setRequireNeighbors(requireNeighbors);
+
+        Boolean skipVacantSites = interpolator.skipVacantSites(node, p.getRandom());
+        factory.setSkipVacant(skipVacantSites);
+
+        return factory.build();
     }
 }

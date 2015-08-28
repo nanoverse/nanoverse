@@ -25,7 +25,11 @@
 package compiler.pipeline.instantiate.loader.geometry.set;
 
 import compiler.pipeline.instantiate.factory.geometry.set.HLineCoordinateSetFactory;
+import compiler.pipeline.translate.nodes.ObjectNode;
+import control.GeneralParameters;
 import geometry.set.HorizontalLineSet;
+import layers.LayerManager;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.
@@ -39,5 +43,10 @@ public class HLineCoordinateSetLoader extends CoordinateSetLoader<HorizontalLine
 
     public HLineCoordinateSetLoader(HLineCoordinateSetFactory factory) {
         this.factory = factory;
+    }
+
+    @Override
+    public HorizontalLineSet instantiate(ObjectNode o, LayerManager lm, GeneralParameters p) {
+        throw new NotImplementedException();
     }
 }

@@ -24,21 +24,45 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
-import compiler.pipeline.instantiate.factory.processes.discrete.CullFactory;
+import compiler.pipeline.instantiate.factory.processes.discrete.*;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
-import processes.discrete.Cull;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import control.arguments.DoubleArgument;
+import layers.LayerManager;
+import processes.BaseProcessArguments;
+import processes.discrete.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
 public class CullLoader extends ProcessLoader<Cull> {
     private final CullFactory factory;
+    private final CullInterpolator interpolator;
 
     public CullLoader() {
         factory = new CullFactory();
+        interpolator = new CullInterpolator();
     }
 
-    public CullLoader(CullFactory factory) {
+    public CullLoader(CullFactory factory,
+                                    CullInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Cull instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
+        factory.setArguments(arguments);
+
+        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        factory.setCpArguments(cpArguments);
+
+        double threshold = interpolator.threshold(node, p.getRandom());
+        factory.setThreshold(threshold);
+
+        return factory.build();
     }
 }
