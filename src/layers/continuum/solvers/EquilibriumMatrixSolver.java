@@ -37,7 +37,7 @@ import static structural.utilities.MatrixUtils.*;
 /**
  * Created by dbborens on 12/26/14.
  */
-public class EquilibriumMatrixSolver {
+public abstract class EquilibriumMatrixSolver {
     public EquilibriumMatrixSolver(boolean operators) {
         if (!operators) {
             throw new NotImplementedException();
@@ -151,34 +151,6 @@ public class EquilibriumMatrixSolver {
      * @param initial
      * @return
      */
-    private DenseVector ssSolve(Vector source, Matrix operator, Vector initial) {
-        steadyState(operator);
-
-        int n = operator.numRows();
-
-        IterativeSolver solver = new CGS(initial);
-        Preconditioner preconditioner = new DiagonalPreconditioner(n);
-        preconditioner.setMatrix(operator);
-
-        DenseVector sol = new DenseVector(n);
-
-        try {
-            solver.solve(operator, source, sol);
-        } catch (IterativeSolverNotConvergedException ex) {
-            ex.printStackTrace();
-        }
-
-        return sol;
-    }
-
-    /**
-     * Modifies an operator Q in place to I - Q.
-     *
-     * @param operator
-     * @return
-     */
-    private void steadyState(Matrix operator) {
-        operator.scale(-1.0);
-        operator.add(MatrixUtils.CompDiagIdentity(operator.numRows()));
-    }
+    abstract DenseVector ssSolve(Vector source, CompDiagMatrix operator,
+                                 Vector initial);
 }
