@@ -136,6 +136,9 @@ public abstract class ProcessFactory {
         } else if (processClass.equalsIgnoreCase("inject")) {
             return injectionProcess(e, p, arguments);
 
+        } else if (processClass.equalsIgnoreCase("dirichlet-boundary-enforcer")) {
+           return dirichletBoundaryEnforcer(e, p, arguments);
+
         } else if (processClass.equalsIgnoreCase("release")) {
             ContinuumLayer layer = resolveLayer(e, layerManager);
             return new ScheduleRelease(arguments, layer.getScheduler());
@@ -187,11 +190,21 @@ public abstract class ProcessFactory {
         InjectionProcess process = new InjectionProcess(arguments, valueArg, layerId, activeSites);
         return process;
     }
+
+    private static DirichletBoundaryEnforcer dirichletBoundaryEnforcer(Element e,
+        GeneralParameters p, BaseProcessArguments arguments) {
+        Argument<Double> value = DoubleArgumentFactory.instantiate(e, "value", p.getRandom());
+        String layerId = XmlUtil.getString(e, "layer");
+        Geometry geom = arguments.getLayerManager().getCellLayer().getGeometry();
+        CoordinateSet activeSites = getActiveSites(e, geom, p);
+        DirichletBoundaryEnforcer process = new DirichletBoundaryEnforcer(arguments, value, layerId, activeSites);
+        return process;
+    }
+
     protected static BaseProcessArguments makeProcessArguments(Element e,
                                                                LayerManager layerManager,
                                                                GeneralParameters p,
                                                                int id) {
-
         Argument<Integer> start = IntegerArgumentFactory.instantiate(e, "start", 0, p.getRandom());
         Argument<Integer> period = IntegerArgumentFactory.instantiate(e, "period", 1, p.getRandom());
         return new BaseProcessArguments(layerManager, p, id, start, period);

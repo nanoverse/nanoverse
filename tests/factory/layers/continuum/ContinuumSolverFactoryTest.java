@@ -67,6 +67,11 @@ public class ContinuumSolverFactoryTest {
     }
 
     @Test
+    public void equilibriumBandLU() throws Exception {
+
+    }
+
+    @Test
     public void nonEquilibriumCase() throws Exception {
         doTest("non-equilibrium", NonEquilibriumSolver.class, false);
     }
