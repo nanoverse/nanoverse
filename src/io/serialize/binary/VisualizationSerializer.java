@@ -24,7 +24,7 @@
 
 package io.serialize.binary;
 
-import com.objectplanet.image.PngEncoder;
+import com.keypoint.PngEncoder;
 import control.GeneralParameters;
 import control.halt.HaltCondition;
 import geometry.Geometry;
@@ -106,7 +106,8 @@ public class VisualizationSerializer extends Serializer {
         File file = new File(fileName);
         try {
             FileOutputStream fos = new FileOutputStream(file);
-            pngEncoder.encode(image, fos);
+            pngEncoder.setImage(image);
+            fos.write(pngEncoder.pngEncode());
             fos.close();
 //            ImageIO.write(image, mode, file);
         } catch (IOException ex) {

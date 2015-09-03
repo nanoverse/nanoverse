@@ -31,7 +31,6 @@ import control.arguments.*;
 import factory.agent.BehaviorDescriptorFactory;
 import factory.control.arguments.DoubleArgumentFactory;
 import layers.LayerManager;
-import lombok.core.Agent;
 import org.dom4j.*;
 
 import java.util.*;
