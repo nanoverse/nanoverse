@@ -1,0 +1,28 @@
+apply plugin: 'java'
+
+version = '1.6.13'
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+sourceSets {
+    main {
+        java.srcDirs = ['src', 'mocks']
+    }
+    test {
+        java.srcDirs = ['tests']
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.google.guava:guava:14.+',
+            'com.googlecode.matrix-toolkits-java:mtj:1.+',
+            'com.keypoint:png-encoder:1.+',
+            'dom4j:dom4j:1.+'
+    testCompile 'junit:junit:4.+',
+                'org.apache.directory.studio:org.apache.commons.io:2.+',
+                'org.mockito:mockito-all:1.+'
+}
