@@ -1,5 +1,6 @@
-# Shared libraries (should be built on-the-fly)
-lib/*.dylib
+# Libraries (should be dynamically downloaded or generated)
+lib/*
+!lib/petsc  # Except for PETSc, which is a git submodule
 
 # Gradle
 .gradle
