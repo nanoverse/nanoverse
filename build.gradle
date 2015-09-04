@@ -1,8 +1,12 @@
-apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'idea'
 
 version = '1.6.13'
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+mainClassName = 'control.run.ConsoleLauncher'
+
+// Run with command line argument "-PpetscDebug=true" to enable PETSc debugging
+ext.petscDebug = project.hasProperty('petscDebug') ?
+        project.getProperty('petscDebug') : false
 
 sourceSets {
     main {
@@ -25,4 +29,73 @@ dependencies {
     testCompile 'junit:junit:4.+',
                 'org.apache.directory.studio:org.apache.commons.io:2.+',
                 'org.mockito:mockito-all:1.+'
+    runtime files('./lib/libpetscsolver.dylib') {
+        builtBy 'buildPetscSolver'
+    }
+}
+
+// Set native library path for test JVMs and runtime JVMs
+def libraryPath = projectDir.toString() + '/lib'
+tasks.withType(Test) {
+    systemProperty "java.library.path", libraryPath
+}
+applicationDefaultJvmArgs = ['-Djava.library.path=' + libraryPath]
+
+
+/*
+ * Building PETSc and the PETSc solver
+ */
+
+// Downloads PETSc if the user forgot to run git clone --recursive
+task updateGitSubmodules(type:Exec) {
+    commandLine 'git', 'submodule', 'update', '--init', '--recursive'
+}
+
+// Configures a debug build of PETSc
+task configurePetscDebug(type:Exec, dependsOn:'updateGitSubmodules') {
+    workingDir './lib/petsc'
+    outputs.dir(new File('./lib/petsc/petsc-debug'))
+    commandLine './configure', 'PETSC_ARCH=petsc-debug', '--with-cc=gcc ',
+                '--with-cxx=0', '--with-fc=0', '--with-mpi=0',
+                '--download-f2cblaslapack'
+}
+
+// Configures an optimized build of PETSc
+task configurePetscOpt(type:Exec, dependsOn:'updateGitSubmodules') {
+    workingDir './lib/petsc'
+    outputs.dir(new File('./lib/petsc/petsc-opt'))
+    commandLine './configure', 'PETSC_ARCH=petsc-opt', '--with-cc=gcc ',
+                '--with-cxx=0', '--with-fc=0', '--with-mpi=0',
+                '--download-f2cblaslapack', '--with-debugging=0',
+                'COPTFLAGS=\'-O3 -march=native -mtune=native\''
+}
+
+// Compiles a debug build of PETSc
+task makePetscDebug(type:Exec, dependsOn:'configurePetscDebug') {
+    workingDir './lib/petsc'
+    outputs.dir(new File('./lib/petsc/petsc-debug'))
+    commandLine 'make', 'PETSC_DIR=' + projectDir.toString() + '/lib/petsc',
+                'PETSC_ARCH=petsc-debug', 'all', 'test'
+}
+
+// Compiles an optimized build of PETSc
+task makePetscOpt(type:Exec, dependsOn:'configurePetscOpt') {
+    workingDir './lib/petsc'
+    outputs.dir(new File('./lib/petsc/petsc-opt'))
+    commandLine 'make', 'PETSC_DIR=' + projectDir.toString() + '/lib/petsc',
+            'PETSC_ARCH=petsc-opt', 'all', 'test'
+}
+
+task buildPetscSolver(type:Exec, dependsOn:['makePetscDebug', 'makePetscOpt']) {
+    workingDir './src/petscSolver'
+    inputs.dir(new File('./src/petscSolver/src'))
+    inputs.property('petscDebug', petscDebug)
+    outputs.file(new File('./lib/libpetscsolver.dylib'))
+    environment('PETSC_DIR', projectDir.toString() + '/lib/petsc')
+    if (petscDebug) {
+        environment('PETSC_ARCH', 'petsc-debug')
+    } else {
+        environment('PETSC_ARCH', 'petsc-opt')
+    }
+    commandLine 'make', '../../lib/libpetscsolver.dylib'
 }
