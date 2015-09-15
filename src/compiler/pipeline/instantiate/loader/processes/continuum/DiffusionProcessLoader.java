@@ -59,7 +59,7 @@ public class DiffusionProcessLoader extends ProcessLoader<DiffusionProcess> {
         factory.setArguments(arguments);
 
         String layer = interpolator.layer(node);
-        double constant = interpolator.constant(node);
+        double constant = interpolator.constant(node, p.getRandom());
         DiffusionOperator operator = interpolator.operator(layer, constant, lm);
         factory.setOperator(operator);
 

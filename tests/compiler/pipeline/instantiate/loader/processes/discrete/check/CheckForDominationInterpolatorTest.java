@@ -24,32 +24,47 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.check;
 
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import control.arguments.DoubleArgument;
+import control.arguments.IntegerArgument;
 import org.junit.*;
+import sun.jvm.hotspot.utilities.IntArray;
+
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class CheckForDominationInterpolatorTest {
+public class CheckForDominationInterpolatorTest extends InterpolatorTest {
+
+    private CheckForDominationDefaults defaults;
+    private CheckForDominationInterpolator query;
 
     @Before
     public void before() throws Exception {
-
+        super.before();
+        defaults = mock(CheckForDominationDefaults.class);
+        query = new CheckForDominationInterpolator(load, null, null, defaults);
     }
 
     @Test
     public void threshold() throws Exception {
-        fail();
+        Supplier<DoubleArgument> trigger = () -> query.threshold(node, random);
+        verifyDoubleArgument("threshold", trigger);
     }
 
     @Test
     public void thresholdDefault() throws Exception {
-        fail();
+        DoubleArgument expected = mock(DoubleArgument.class);
+        when(defaults.threshold()).thenReturn(expected);
 
+        Runnable trigger = () -> query.threshold(node, random);
+        verifyDoubleArgumentDefault("threshold", expected, trigger);
     }
 
     @Test
     public void target() throws Exception {
-        fail();
-
+        Supplier<IntegerArgument> trigger = () -> query.target(node, random);
+        verifyIntegerArgument("target", trigger);
     }
 }

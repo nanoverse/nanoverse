@@ -77,17 +77,17 @@ public class TargetInterpolatorTest extends InterpolatorTest {
         when(load.getLoader(eq(node), eq("filter"), anyBoolean())).thenReturn(loader);
 
         Filter expected = mock(Filter.class);
-        when(loader.instantiate(cNode, layer, p)).thenReturn(expected);
+        when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
 
-        Filter actual = query.filter(node, layer, p);
+        Filter actual = query.filter(node, lm, p);
         assertSame(expected, actual);
     }
 
     @Test
     public void filterDefault() throws Exception {
         Filter expected = mock(Filter.class);
-        when(defaults.filter(layer, p)).thenReturn(expected);
-        Filter actual = query.filter(node, layer, p);
+        when(defaults.filter(lm, p)).thenReturn(expected);
+        Filter actual = query.filter(node, lm, p);
         assertSame(expected, actual);
     }
 }

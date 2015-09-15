@@ -24,25 +24,36 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
 import org.junit.*;
+
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class ManualHaltInterpolatorTest {
+public class ManualHaltInterpolatorTest extends InterpolatorTest {
+
+    private ManualHaltDefaults defaults;
+    private ManualHaltInterpolator query;
 
     @Before
     public void before() throws Exception {
-
+        super.before();
+        defaults = mock(ManualHaltDefaults.class);
+        query = new ManualHaltInterpolator(load, null, null, defaults);
     }
 
     @Test
     public void message() throws Exception {
-        fail();
+        Supplier<String> trigger = () -> query.message(node);
+        verifyString("message", trigger);
     }
 
     @Test
     public void messageDefault() throws Exception {
-        fail();
+        when(defaults.message()).thenReturn("test");
+        Runnable trigger = () -> query.message(node);
+        verifyStringDefault("message", "test", trigger);
     }
 }

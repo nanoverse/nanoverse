@@ -24,39 +24,65 @@
 
 package compiler.pipeline.instantiate.loader.processes.continuum;
 
+import agent.targets.TargetDescriptor;
 import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import compiler.pipeline.instantiate.loader.agent.targets.TargetLoader;
+import compiler.pipeline.instantiate.loader.geometry.set.CoordinateSetLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.arguments.DoubleArgument;
+import geometry.set.CoordinateSet;
 import org.junit.*;
+
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class InjectionProcessInterpolatorTest extends InterpolatorTest {
 
+    private InjectionProcessDefaults defaults;
+    private InjectionProcessInterpolator query;
+
     @Before
     public void before() throws Exception {
-
+        super.before();
+        defaults = mock(InjectionProcessDefaults.class);
+        query = new InjectionProcessInterpolator(load, null, defaults);
     }
 
     @Test
     public void activeSites() throws Exception {
-        fail();
+        MapObjectNode cNode = mock(MapObjectNode.class);
+        when(node.getMember("activeSites")).thenReturn(cNode);
+
+        CoordinateSetLoader loader = mock(CoordinateSetLoader.class);
+        when(load.getLoader(eq(node), eq("activeSites"), anyBoolean())).thenReturn(loader);
+
+        CoordinateSet expected = mock(CoordinateSet.class);
+        when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
+
+        CoordinateSet actual = query.activeSites(node, lm, p);
+        assertSame(expected, actual);
     }
 
     @Test
     public void activeSitesDefault() throws Exception {
-        fail();
+        CoordinateSet expected = mock(CoordinateSet.class);
+        when(defaults.activeSites(lm, p)).thenReturn(expected);
 
+        CoordinateSet actual = query.activeSites(node, lm, p);
+        assertSame(expected, actual);
     }
 
     @Test
     public void layer() throws Exception {
-        fail();
-
+        Supplier<String> trigger = () -> query.layer(node);
+        verifyString("layer", trigger);
     }
 
     @Test
     public void value() throws Exception {
-        fail();
-
+        Supplier<DoubleArgument> trigger = () -> query.value(node, random);
+        verifyDoubleArgument("value", trigger);
     }
 }

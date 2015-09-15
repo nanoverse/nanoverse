@@ -24,7 +24,9 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.loader.geometry.set.CompleteCoordinateSetLoader;
 import control.GeneralParameters;
+import control.arguments.ConstantInteger;
 import control.arguments.IntegerArgument;
 import geometry.set.CoordinateSet;
 import layers.LayerManager;
@@ -34,10 +36,11 @@ import layers.LayerManager;
  */
 public class DiscreteProcessArgumentsDefaults {
     public CoordinateSet activeSites(LayerManager lm, GeneralParameters p) {
-        return null;
+        CompleteCoordinateSetLoader loader = new CompleteCoordinateSetLoader();
+        return loader.instantiate(lm, p);
     }
 
     public IntegerArgument maxTargets() {
-        return null;
+        return new ConstantInteger(-1);
     }
 }

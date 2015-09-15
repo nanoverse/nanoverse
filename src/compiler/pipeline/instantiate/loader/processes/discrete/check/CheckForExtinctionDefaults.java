@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.check;
 
+import control.arguments.ConstantDouble;
 import control.arguments.DoubleArgument;
 
 /**
@@ -31,6 +32,6 @@ import control.arguments.DoubleArgument;
  */
 public class CheckForExtinctionDefaults {
     public DoubleArgument threshold() {
-        return null;
+        return new ConstantDouble(0D);
     }
 }

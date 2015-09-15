@@ -28,6 +28,7 @@ import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.instantiate.loader.processes.discrete.filter.FilterLoader;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
+import layers.LayerManager;
 import layers.cell.CellLayer;
 import processes.discrete.filter.Filter;
 
@@ -55,14 +56,14 @@ public class TargetInterpolator {
         return load.anInteger(node, "maximum", random, defaults::maximum);
     }
 
-    public Filter filter(MapObjectNode node, CellLayer layer, GeneralParameters p) {
+    public Filter filter(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         FilterLoader loader = (FilterLoader) load.getLoader(node, "filter", false);
 
         if (loader == null) {
-            return defaults.filter(layer, p);
+            return defaults.filter(lm, p);
         }
 
         MapObjectNode cNode = (MapObjectNode) node.getMember("filter");
-        return loader.instantiate(cNode, layer, p);
+        return loader.instantiate(cNode, lm, p);
     }
 }

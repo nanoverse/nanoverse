@@ -22,28 +22,30 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.agent.targets;
+package compiler.pipeline.instantiate.loader.processes.discrete.cluster;
 
-import compiler.pipeline.instantiate.loader.layers.agent.AgentLayerInterpolator;
-import compiler.pipeline.instantiate.loader.processes.discrete.filter.*;
+import compiler.pipeline.instantiate.factory.processes.discrete.cluster.StrictSeparationClusterHelperFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
 import layers.LayerManager;
 import layers.cell.CellLayer;
-import processes.discrete.filter.Filter;
+import processes.discrete.cluster.StrictSeparationClusterHelper;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
- * Created by dbborens on 8/24/2015.
+ * Created by dbborens on 8/29/15.
  */
-public class TargetDefaults {
+public class StrictSeparationClusterHelperLoader extends ScatterClustersHelperLoader<StrictSeparationClusterHelper> {
 
-    public static final int DEFAULT_MAXIMUM = -1;
-
-    public Integer maximum() {
-        return DEFAULT_MAXIMUM;
+    private StrictSeparationClusterHelperFactory factory;
+    @Override
+    public StrictSeparationClusterHelper instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        CellLayer layer = lm.getCellLayer();
+        factory.setLayer(layer);
+        return factory.build();
     }
 
-    public Filter filter(LayerManager lm, GeneralParameters p) {
-        NullFilterLoader loader = new NullFilterLoader();
-        return loader.instantiate(lm, p);
+    public StrictSeparationClusterHelper instantiate(LayerManager lm, GeneralParameters p) {
+        return instantiate(null, lm, p);
     }
 }

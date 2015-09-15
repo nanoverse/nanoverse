@@ -24,26 +24,39 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.check;
 
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import control.arguments.DoubleArgument;
 import org.junit.*;
+
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class CheckForThresholdOccupancyInterpolatorTest {
+public class CheckForThresholdOccupancyInterpolatorTest extends InterpolatorTest {
+
+    private CheckForThresholdOccupancyDefaults defaults;
+    private CheckForThresholdOccupancyInterpolator query;
 
     @Before
     public void before() throws Exception {
-
+        super.before();
+        defaults = mock(CheckForThresholdOccupancyDefaults.class);
+        query = new CheckForThresholdOccupancyInterpolator(load, null, null, defaults);
     }
 
     @Test
     public void threshold() throws Exception {
-        fail();
+        Supplier<DoubleArgument> trigger = () -> query.threshold(node, random);
+        verifyDoubleArgument("threshold", trigger);
     }
 
     @Test
     public void thresholdDefault() throws Exception {
-        fail();
-    }
+        DoubleArgument expected = mock(DoubleArgument.class);
+        when(defaults.threshold()).thenReturn(expected);
 
+        Runnable trigger = () -> query.threshold(node, random);
+        verifyDoubleArgumentDefault("threshold", expected, trigger);
+    }
 }

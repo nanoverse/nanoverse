@@ -28,6 +28,7 @@ import compiler.pipeline.instantiate.factory.processes.discrete.filter.CellState
 import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
 import control.arguments.IntegerArgument;
+import layers.LayerManager;
 import layers.cell.CellLayer;
 import processes.discrete.filter.CellStateFilter;
 
@@ -52,8 +53,8 @@ public class CellStateFilterLoader extends FilterLoader<CellStateFilter> {
     }
 
     @Override
-    public CellStateFilter instantiate(MapObjectNode node, CellLayer layer, GeneralParameters p) {
-        factory.setLayer(layer);
+    public CellStateFilter instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        factory.setLayer(lm.getCellLayer());
 
         IntegerArgument state = interpolator.state(node, p.getRandom());
         factory.setToChoose(state);

@@ -24,20 +24,25 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.loader.agent.AgentDescriptorLoader;
+import compiler.pipeline.instantiate.loader.processes.discrete.cluster.StrictSeparationClusterHelperLoader;
 import control.GeneralParameters;
 import control.arguments.CellDescriptor;
 import layers.LayerManager;
 import processes.discrete.cluster.ScatterClustersHelper;
+import processes.discrete.cluster.StrictSeparationClusterHelper;
 
 /**
  * Created by dbborens on 8/27/2015.
  */
 public class PowerScatterDefaults {
-    public ScatterClustersHelper helper() {
-        return null;
+    public ScatterClustersHelper helper(LayerManager lm, GeneralParameters p) {
+        StrictSeparationClusterHelperLoader loader = new StrictSeparationClusterHelperLoader();
+        return loader.instantiate(lm, p);
     }
 
     public CellDescriptor description(LayerManager lm, GeneralParameters p) {
-        return null;
+        AgentDescriptorLoader loader = new AgentDescriptorLoader();
+        return loader.instantiate(lm, p);
     }
 }

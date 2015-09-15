@@ -24,25 +24,38 @@
 
 package compiler.pipeline.instantiate.loader.processes.temporal;
 
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import control.arguments.DoubleArgument;
 import org.junit.*;
+
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class TickInterpolatorTest {
+public class TickInterpolatorTest extends InterpolatorTest {
 
+    private  TickDefaults defaults;
+    private TickInterpolator query;
     @Before
     public void before() throws Exception {
-
+        super.before();
+        defaults = mock(TickDefaults.class);
+        query = new TickInterpolator(load, null, defaults);
     }
 
     @Test
     public void dt() throws Exception {
-        fail();
+        Supplier<DoubleArgument> trigger = () -> query.dt(node, random);
+        verifyDoubleArgument("dt", trigger);
     }
 
     @Test
     public void dtDefault() throws Exception {
-        fail();
+        DoubleArgument expected = mock(DoubleArgument.class);
+        when(defaults.dt()).thenReturn(expected);
+
+        Runnable trigger = () -> query.dt(node, random);
+        verifyDoubleArgumentDefault("dt", expected, trigger);
     }
 }

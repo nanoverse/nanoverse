@@ -56,6 +56,10 @@ public class AgentDescriptorInterpolator {
     }
 
     public Map<String, ActionDescriptor> behaviors(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        if (node == null) {
+            return defaults.behaviors();
+        }
+
         BehaviorMapLoader loader = (BehaviorMapLoader) load.getLoader(node, "behaviors", false);
 
         if (loader == null) {
@@ -79,6 +83,10 @@ public class AgentDescriptorInterpolator {
     }
 
     public Stream<Reaction> reactions(MapObjectNode node, Random random) {
+        if (node == null) {
+            return defaults.reactions();
+        }
+
         ReactionStreamLoader loader = (ReactionStreamLoader) load.getLoader(node, "reactions", false);
 
         if (loader == null) {

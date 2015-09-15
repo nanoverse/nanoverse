@@ -25,8 +25,10 @@
 package compiler.pipeline.instantiate.loader.processes;
 
 import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import control.arguments.DoubleArgument;
 import org.junit.*;
-import processes.MockProcess;
+
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -34,37 +36,44 @@ import static org.mockito.Mockito.*;
 public class MockProcessInterpolatorTest extends InterpolatorTest {
 
     private MockProcessDefaults defaults;
-    private MockProcessInterpolator interpolator;
+    private MockProcessInterpolator query;
 
     @Before
     public void before() throws Exception {
         super.before();
         defaults = mock(MockProcessDefaults.class);
-        interpolator = new MockProcessInterpolator(load, null, defaults);
+        query = new MockProcessInterpolator(load, null, defaults);
     }
 
     @Test
     public void identifier() throws Exception {
-        fail();
+        Supplier<String> trigger = () -> query.identifier(node);
+        verifyString("identifier", trigger);
     }
 
     @Test
     public void count() throws Exception {
-        fail();
+        Supplier<Integer> trigger = () -> query.count(node, random);
+        verifyInteger("count", trigger);
     }
 
     @Test
     public void countDefault() throws Exception {
-        fail();
+        when(defaults.count()).thenReturn(7);
+        Runnable trigger = () -> query.count(node, random);
+        verifyIntegerDefault("count", 7, trigger);
     }
 
     @Test
     public void weight() throws Exception {
-        fail();
+        Supplier<Double> trigger = () -> query.weight(node, random);
+        verifyDouble("weight", trigger);
     }
 
     @Test
     public void weightDefault() throws Exception {
-        fail();
+        when(defaults.weight()).thenReturn(7.0);
+        Runnable trigger = () -> query.weight(node, random);
+        verifyDoubleDefault("weight", 7.0, trigger);
     }
 }

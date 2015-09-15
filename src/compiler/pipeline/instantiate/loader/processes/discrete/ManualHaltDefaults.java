@@ -29,6 +29,6 @@ package compiler.pipeline.instantiate.loader.processes.discrete;
  */
 public class ManualHaltDefaults {
     public String message() {
-        return null;
+        return "";
     }
 }

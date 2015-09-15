@@ -24,25 +24,42 @@
 
 package compiler.pipeline.instantiate.loader.processes.continuum;
 
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import layers.continuum.ContinuumLayer;
+import layers.continuum.ContinuumLayerScheduler;
 import org.junit.*;
+
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class IntegrateInterpolatorTest {
+public class IntegrateInterpolatorTest extends InterpolatorTest {
+
+    private IntegrateInterpolator query;
 
     @Before
     public void before() throws Exception {
-
+        super.before();
+        query = new IntegrateInterpolator(load, null);
     }
 
     @Test
     public void layer() throws Exception {
-        fail();
+        Supplier<String> trigger = () -> query.layer(node);
+        verifyString("layer", trigger);
     }
 
     @Test
     public void scheduler() throws Exception {
-        fail();
+        ContinuumLayer cl = mock(ContinuumLayer.class);
+        when(lm.getContinuumLayer("test")).thenReturn(cl);
+
+        ContinuumLayerScheduler expected = mock(ContinuumLayerScheduler.class);
+        when(cl.getScheduler()).thenReturn(expected);
+
+        ContinuumLayerScheduler actual = query.scheduler(lm, "test");
+
+        assertSame(expected, actual);
     }
 }

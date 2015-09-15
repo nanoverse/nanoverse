@@ -65,6 +65,7 @@ public class InjectionProcessLoader extends ProcessLoader<InjectionProcess> {
 
         DoubleArgument valueArg = interpolator.value(node, p.getRandom());
         factory.setValueArg(valueArg);
-        return null;
+
+        return factory.build();
     }
 }

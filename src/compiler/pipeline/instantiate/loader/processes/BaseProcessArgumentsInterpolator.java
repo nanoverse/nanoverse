@@ -55,6 +55,6 @@ public class BaseProcessArgumentsInterpolator {
     }
 
     public IntegerArgument start(MapObjectNode node, Random random) {
-        return load.anIntegerArgument(node, "period", random, defaults::start);
+        return load.anIntegerArgument(node, "start", random, defaults::start);
     }
 }

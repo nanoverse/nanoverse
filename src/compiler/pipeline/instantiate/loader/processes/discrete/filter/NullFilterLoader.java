@@ -28,6 +28,7 @@ import compiler.pipeline.instantiate.factory.processes.discrete.filter.NullFilte
 import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
 import control.arguments.IntegerArgument;
+import layers.LayerManager;
 import layers.cell.CellLayer;
 import processes.discrete.filter.*;
 
@@ -46,11 +47,11 @@ public class NullFilterLoader extends FilterLoader<NullFilter> {
     }
 
     @Override
-    public NullFilter instantiate(MapObjectNode node, CellLayer layer, GeneralParameters p) {
+    public NullFilter instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         return factory.build();
     }
 
-    public Filter instantiate(CellLayer layer, GeneralParameters p) {
-        return instantiate(null, layer, p);
+    public Filter instantiate(LayerManager lm, GeneralParameters p) {
+        return instantiate(null, lm, p);
     }
 }

@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.loader.agent.AgentDescriptorLoader;
 import control.GeneralParameters;
 import control.arguments.CellDescriptor;
 import layers.LayerManager;
@@ -33,10 +34,11 @@ import layers.LayerManager;
  */
 public class FillDefaults {
     public Boolean skipFilled() {
-        return null;
+        return true;
     }
 
     public CellDescriptor description(LayerManager lm, GeneralParameters p) {
-        return null;
+        AgentDescriptorLoader loader = new AgentDescriptorLoader();
+        return loader.instantiate(lm, p);
     }
 }

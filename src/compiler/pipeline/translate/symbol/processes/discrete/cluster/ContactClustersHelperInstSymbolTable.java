@@ -22,19 +22,23 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.processes.discrete;
+package compiler.pipeline.translate.symbol.processes.discrete.cluster;
 
-import compiler.pipeline.instantiate.loader.agent.AgentDescriptorLoader;
-import control.GeneralParameters;
-import control.arguments.CellDescriptor;
-import layers.LayerManager;
+import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.symbol.MapSymbolTable;
+import processes.discrete.cluster.ContactClustersHelper;
 
 /**
- * Created by dbborens on 8/27/2015.
+ * Created by dbborens on 9/15/15.
  */
-public class ScatterDefaults {
-    public CellDescriptor description(LayerManager lm, GeneralParameters p) {
-        AgentDescriptorLoader loader = new AgentDescriptorLoader();
-        return loader.instantiate(lm, p);
+public class ContactClustersHelperInstSymbolTable extends MapSymbolTable<ContactClustersHelper> {
+    @Override
+    public Loader getLoader() {
+        return null;
+    }
+
+    @Override
+    public String getDescription() {
+        return null;
     }
 }

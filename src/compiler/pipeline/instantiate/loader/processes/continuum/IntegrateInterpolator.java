@@ -35,6 +35,14 @@ import layers.continuum.*;
  */
 public class IntegrateInterpolator extends ProcessInterpolator {
 
+    public IntegrateInterpolator() {
+        super();
+    }
+
+    public IntegrateInterpolator(LoadHelper load, BaseProcessArgumentsLoader bpaLoader) {
+        super(load, bpaLoader);
+    }
+
     public String layer(MapObjectNode node) {
         return load.aString(node, "layer");
     }

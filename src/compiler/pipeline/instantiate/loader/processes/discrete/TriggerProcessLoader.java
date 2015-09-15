@@ -69,7 +69,7 @@ public class TriggerProcessLoader extends ProcessLoader<TriggerProcess> {
         Boolean requireNeighbors = interpolator.requireNeighbors(node, p.getRandom());
         factory.setRequireNeighbors(requireNeighbors);
 
-        Boolean skipVacantSites = interpolator.skipVacantSites(node, p.getRandom());
+        Boolean skipVacantSites = interpolator.skipVacant(node, p.getRandom());
         factory.setSkipVacant(skipVacantSites);
 
         return factory.build();

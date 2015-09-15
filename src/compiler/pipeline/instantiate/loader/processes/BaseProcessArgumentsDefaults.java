@@ -24,6 +24,7 @@
 
 package compiler.pipeline.instantiate.loader.processes;
 
+import control.arguments.ConstantInteger;
 import control.arguments.IntegerArgument;
 
 /**
@@ -31,10 +32,10 @@ import control.arguments.IntegerArgument;
  */
 public class BaseProcessArgumentsDefaults {
     public IntegerArgument period() {
-        return null;
+        return new ConstantInteger(1);
     }
 
     public IntegerArgument start() {
-        return null;
+        return new ConstantInteger(0);
     }
 }
