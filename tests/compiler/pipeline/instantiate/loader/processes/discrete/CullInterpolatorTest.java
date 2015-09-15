@@ -24,25 +24,37 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import control.arguments.DoubleArgument;
 import org.junit.*;
+
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class CullInterpolatorTest {
+public class CullInterpolatorTest extends InterpolatorTest {
+
+    private CullDefaults defaults;
+    private CullInterpolator query;
 
     @Before
     public void before() throws Exception {
-
+        super.before();
+        defaults = mock(CullDefaults.class);
+        query = new CullInterpolator(load, null, null, defaults);
     }
 
     @Test
     public void threshold() throws Exception {
-
+        Supplier<Double> trigger = () -> query.threshold(node, random);
+        verifyDouble("threshold", trigger);
     }
 
     @Test
     public void thresholdDefault() throws Exception {
-
+        when(defaults.threshold()).thenReturn(7.0);
+        Runnable trigger = () -> query.threshold(node, random);
+        verifyDoubleDefault("threshold", 7.0, trigger);
     }
 }

@@ -76,4 +76,8 @@ public class AgentDescriptorLoader extends Loader<CellDescriptor> {
         return factory.build();
     }
 
+
+    public CellDescriptor instantiate(LayerManager lm, GeneralParameters p) {
+        return instantiate(null, lm, p);
+    }
 }

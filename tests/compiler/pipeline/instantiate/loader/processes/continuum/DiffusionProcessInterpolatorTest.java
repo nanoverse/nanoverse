@@ -24,35 +24,34 @@
 
 package compiler.pipeline.instantiate.loader.processes.continuum;
 
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import control.arguments.DoubleArgument;
 import org.junit.*;
+
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class DiffusionProcessInterpolatorTest {
+public class DiffusionProcessInterpolatorTest extends InterpolatorTest {
+
+    private DiffusionProcessInterpolator query;
 
     @Before
     public void before() throws Exception {
-
+        super.before();
+        query = new DiffusionProcessInterpolator(load, null);
     }
 
     @Test
     public void layer() throws Exception {
-        fail();
+        Supplier<String> trigger = () -> query.layer(node);
+        verifyString("layer", trigger);
     }
 
     @Test
     public void constant() throws Exception {
-        fail();
-    }
-
-    @Test
-    public void operator() throws Exception {
-        fail();
-    }
-
-    @Test
-    public void target() throws Exception {
-        fail();
+        Supplier<Double> trigger = () -> query.constant(node, random);
+        verifyDouble("constant", trigger);
     }
 }

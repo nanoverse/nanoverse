@@ -24,20 +24,30 @@
 
 package compiler.pipeline.instantiate.loader.processes;
 
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
 import org.junit.*;
+import processes.BaseProcessArguments;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class ProcessInterpolatorTest {
+public class ProcessInterpolatorTest extends InterpolatorTest {
+
+    private BaseProcessArgumentsLoader bpaLoader;
+    private ProcessInterpolator query;
 
     @Before
     public void before() throws Exception {
-
+        bpaLoader = mock(BaseProcessArgumentsLoader.class);
+        query = new ProcessInterpolator(load, bpaLoader);
     }
 
     @Test
-    public void base() throws Exception {
-        fail();
+    public void baseArguments() throws Exception {
+        BaseProcessArguments expected = mock(BaseProcessArguments.class);
+        when(bpaLoader.instantiate(node, lm, p)).thenReturn(expected);
+
+        BaseProcessArguments actual = query.arguments(node, lm, p);
+        assertSame(expected, actual);
     }
 }

@@ -56,7 +56,7 @@ public class ScatterClustersInterpolator extends DiscreteProcessInterpolator {
     }
 
     public IntegerArgument neighbors(MapObjectNode node, Random random) {
-        return load.anIntegerArgument(node, "neighbors", random);
+        return load.anIntegerArgument(node, "neighbors", random, defaults::neighbors);
     }
 
     public CellDescriptor description(MapObjectNode node, LayerManager lm, GeneralParameters p) {
@@ -74,7 +74,7 @@ public class ScatterClustersInterpolator extends DiscreteProcessInterpolator {
         ScatterClustersHelperLoader loader = (ScatterClustersHelperLoader) load.getLoader(node, "separation", false);
 
         if (loader == null) {
-            return defaults.helper();
+            return defaults.helper(lm, p);
         }
 
         MapObjectNode cNode = (MapObjectNode) node.getMember("separation");

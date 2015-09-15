@@ -25,6 +25,8 @@
 package compiler.pipeline.instantiate.loader.processes.continuum;
 
 import control.GeneralParameters;
+import geometry.Geometry;
+import geometry.set.CompleteSet;
 import geometry.set.CoordinateSet;
 import layers.LayerManager;
 
@@ -33,6 +35,7 @@ import layers.LayerManager;
  */
 public class InjectionProcessDefaults {
     public CoordinateSet activeSites(LayerManager lm, GeneralParameters p) {
-        return null;
+        Geometry geom = lm.getCellLayer().getGeometry();
+        return new CompleteSet(geom);
     }
 }

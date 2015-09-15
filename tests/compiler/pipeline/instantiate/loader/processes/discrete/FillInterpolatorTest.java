@@ -24,35 +24,66 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import compiler.pipeline.instantiate.loader.agent.AgentDescriptorLoader;
+import compiler.pipeline.instantiate.loader.geometry.set.CoordinateSetLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.arguments.BooleanArgument;
+import control.arguments.CellDescriptor;
+import geometry.set.CoordinateSet;
 import org.junit.*;
+
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class FillInterpolatorTest {
+public class FillInterpolatorTest extends InterpolatorTest {
+
+    private FillDefaults defaults;
+    private FillInterpolator query;
 
     @Before
     public void before() throws Exception {
-
+        super.before();
+        defaults = mock(FillDefaults.class);
+        query = new FillInterpolator(load, null, null, defaults);
     }
 
     @Test
     public void skipFilled() throws Exception {
-        fail();
+        Supplier<Boolean> trigger = () -> query.skipFilled(node, random);
+        verifyBoolean("skipFilled", trigger);
     }
 
     @Test
     public void skipFilledDefault() throws Exception {
-        fail();
+        when(defaults.skipFilled()).thenReturn(true);
+        Runnable trigger = () -> query.skipFilled(node, random);
+        verifyBooleanDefault("skipFilled", true, trigger);
     }
 
     @Test
     public void description() throws Exception {
-        fail();
+        MapObjectNode cNode = mock(MapObjectNode.class);
+        when(node.getMember("description")).thenReturn(cNode);
+
+        AgentDescriptorLoader loader = mock(AgentDescriptorLoader.class);
+        when(load.getLoader(eq(node), eq("description"), anyBoolean())).thenReturn(loader);
+
+        CellDescriptor expected = mock(CellDescriptor.class);
+        when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
+
+        CellDescriptor actual = query.description(node, lm, p);
+        assertSame(expected, actual);
     }
 
     @Test
     public void descriptionDefault() throws Exception {
-        fail();
+        CellDescriptor expected = mock(CellDescriptor.class);
+        when(defaults.description(lm, p)).thenReturn(expected);
+
+        CellDescriptor actual = query.description(node, lm, p);
+        assertSame(expected, actual);
     }
 }

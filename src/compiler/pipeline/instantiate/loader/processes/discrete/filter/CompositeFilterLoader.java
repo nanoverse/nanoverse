@@ -27,6 +27,7 @@ package compiler.pipeline.instantiate.loader.processes.discrete.filter;
 import compiler.pipeline.instantiate.factory.processes.discrete.filter.CompositeFilterFactory;
 import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
+import layers.LayerManager;
 import layers.cell.CellLayer;
 import processes.discrete.filter.*;
 
@@ -54,10 +55,10 @@ public class CompositeFilterLoader extends FilterLoader<CompositeFilter> {
 
     @Override
     public CompositeFilter instantiate(MapObjectNode node,
-                                       CellLayer layer,
+                                       LayerManager lm,
                                        GeneralParameters p) {
 
-        Stream<Filter> children = interpolator.including(node, layer);
+        Stream<Filter> children = interpolator.including(node, lm.getCellLayer());
         factory.setChildren(children);
 
         return factory.build();

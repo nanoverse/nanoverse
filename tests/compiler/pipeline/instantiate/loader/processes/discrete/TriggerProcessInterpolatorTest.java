@@ -24,55 +24,84 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import compiler.pipeline.instantiate.loader.processes.discrete.cluster.ScatterClustersHelperLoader;
+import compiler.pipeline.instantiate.loader.processes.discrete.filter.FilterLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
 import org.junit.*;
+import processes.discrete.cluster.ScatterClustersHelper;
+import processes.discrete.filter.Filter;
+
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class TriggerProcessInterpolatorTest {
+public class TriggerProcessInterpolatorTest extends InterpolatorTest {
+
+    private TriggerProcessDefaults defaults;
+    private TriggerProcessInterpolator query;
 
     @Before
     public void before() throws Exception {
-
+        super.before();
+        defaults = mock(TriggerProcessDefaults.class);
+        query = new TriggerProcessInterpolator(load, null, null, defaults);
     }
 
     @Test
     public void filter() throws Exception {
-        fail();
+        MapObjectNode cNode = mock(MapObjectNode.class);
+        when(node.getMember("filter")).thenReturn(cNode);
+
+        FilterLoader loader = mock(FilterLoader.class);
+        when(load.getLoader(eq(node), eq("filter"), anyBoolean())).thenReturn(loader);
+
+        Filter expected = mock(Filter.class);
+        when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
+
+        Filter actual = query.filter(node, lm, p);
+        assertSame(expected, actual);
     }
 
     @Test
     public void filterDefault() throws Exception {
-        fail();
+        Filter expected = mock(Filter.class);
+        when(defaults.filter(lm, p)).thenReturn(expected);
+
+        Filter actual = query.filter(node, lm, p);
+        assertSame(expected, actual);
     }
 
     @Test
     public void behavior() throws Exception {
-        fail();
-
+        Supplier<String> trigger = () -> query.behavior(node);
+        verifyString("behavior", trigger);
     }
 
     @Test
     public void requireNeighbors() throws Exception {
-        fail();
-
+        Supplier<Boolean> trigger = () -> query.requireNeighbors(node, random);
+        verifyBoolean("requireNeighbors", trigger);
     }
 
     @Test
     public void requireNeighborsDefault() throws Exception {
-        fail();
-
+        when(defaults.requireNeighbors()).thenReturn(true);
+        Runnable trigger = () -> query.requireNeighbors(node, random);
+        verifyBooleanDefault("requireNeighbors", true, trigger);
     }
 
     @Test
-    public void skipVacantSites() throws Exception {
-        fail();
-
+    public void skipVacant() throws Exception {
+        Supplier<Boolean> trigger = () -> query.skipVacant(node, random);
+        verifyBoolean("skipVacant", trigger);
     }
 
     @Test
-    public void skipVacantSitesDefault() throws Exception {
-        fail();
-
+    public void skipVacantDefault() throws Exception {
+        when(defaults.skipVacant()).thenReturn(true);
+        Runnable trigger = () -> query.skipVacant(node, random);
+        verifyBooleanDefault("skipVacant", true, trigger);
     }
 }

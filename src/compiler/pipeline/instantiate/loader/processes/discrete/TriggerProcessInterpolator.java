@@ -62,7 +62,7 @@ public class TriggerProcessInterpolator extends DiscreteProcessInterpolator {
         }
 
         MapObjectNode cNode = (MapObjectNode) node.getMember("filter");
-        return loader.instantiate(cNode, lm.getCellLayer(), p);
+        return loader.instantiate(cNode, lm, p);
     }
 
     public String behavior(MapObjectNode node) {
@@ -73,7 +73,7 @@ public class TriggerProcessInterpolator extends DiscreteProcessInterpolator {
         return load.aBoolean(node, "requireNeighbors", random, defaults::requireNeighbors);
     }
 
-    public Boolean skipVacantSites(MapObjectNode node, Random random) {
+    public Boolean skipVacant(MapObjectNode node, Random random) {
         return load.aBoolean(node, "skipVacant", random, defaults::skipVacant);
     }
 }

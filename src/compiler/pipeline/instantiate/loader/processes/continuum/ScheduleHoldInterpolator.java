@@ -24,6 +24,8 @@
 
 package compiler.pipeline.instantiate.loader.processes.continuum;
 
+import compiler.pipeline.instantiate.helpers.LoadHelper;
+import compiler.pipeline.instantiate.loader.processes.BaseProcessArgumentsLoader;
 import compiler.pipeline.instantiate.loader.processes.ProcessInterpolator;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
@@ -36,6 +38,14 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * Created by dbborens on 8/26/2015.
  */
 public class ScheduleHoldInterpolator extends ProcessInterpolator {
+
+    public ScheduleHoldInterpolator() {
+        super();
+    }
+
+    public ScheduleHoldInterpolator(LoadHelper load, BaseProcessArgumentsLoader bpaLoader) {
+        super(load, bpaLoader);
+    }
 
     public String layer(MapObjectNode node) {
         return load.aString(node, "layer");

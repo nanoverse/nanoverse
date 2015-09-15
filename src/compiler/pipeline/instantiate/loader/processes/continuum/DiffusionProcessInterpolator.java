@@ -24,32 +24,59 @@
 
 package compiler.pipeline.instantiate.loader.processes.continuum;
 
+import compiler.pipeline.instantiate.helpers.LoadHelper;
+import compiler.pipeline.instantiate.loader.processes.BaseProcessArgumentsLoader;
 import compiler.pipeline.instantiate.loader.processes.ProcessInterpolator;
 import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
+import geometry.Geometry;
 import layers.LayerManager;
+import layers.continuum.ContinuumLayer;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import processes.continuum.DiffusionConstantHelper;
 import processes.continuum.DiffusionOperator;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Random;
 import java.util.function.Consumer;
 
 /**
  * Created by dbborens on 8/26/2015.
  */
 public class DiffusionProcessInterpolator extends ProcessInterpolator {
-    public String layer(MapObjectNode node) {
-        return null;
+    public DiffusionProcessInterpolator() {
+        super();
     }
 
-    public double constant(MapObjectNode node) {
-        throw new NotImplementedException();
+    public DiffusionProcessInterpolator(LoadHelper load, BaseProcessArgumentsLoader bpaLoader) {
+        super(load, bpaLoader);
+    }
+
+    public String layer(MapObjectNode node) {
+        return load.aString(node, "layer");
+    }
+
+    public double constant(MapObjectNode node, Random random) {
+        return load.aDouble(node, "constant", random);
     }
 
     public DiffusionOperator operator(String layer, double constant, LayerManager lm) {
-        return null;
+        Geometry g = lm.getContinuumLayer(layer).getGeometry();
+        int connectivity = g.getConnectivity();
+        int dimensionality = g.getDimensionality();
+        DiffusionConstantHelper helper = new DiffusionConstantHelper(constant,
+                connectivity,
+                dimensionality);
+
+        return new DiffusionOperator(helper, g);
     }
 
     public Consumer<CompDiagMatrix> target(String layer, LayerManager lm) {
-        return null;
+        ContinuumLayer cl = lm.getContinuumLayer(layer);
+        Consumer<CompDiagMatrix> target = matrix -> cl
+                .getScheduler()
+                .apply(matrix);
+
+        return target;
     }
 }

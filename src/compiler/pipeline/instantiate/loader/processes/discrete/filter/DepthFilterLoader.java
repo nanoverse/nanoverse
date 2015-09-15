@@ -28,6 +28,7 @@ import compiler.pipeline.instantiate.factory.processes.discrete.filter.DepthFilt
 import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
 import control.arguments.IntegerArgument;
+import layers.LayerManager;
 import layers.cell.CellLayer;
 import processes.discrete.filter.*;
 
@@ -51,8 +52,8 @@ public class DepthFilterLoader extends FilterLoader<DepthFilter> {
     }
 
     @Override
-    public DepthFilter instantiate(MapObjectNode node, CellLayer layer, GeneralParameters p) {
-        factory.setLayer(layer);
+    public DepthFilter instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        factory.setLayer(lm.getCellLayer());
 
         IntegerArgument state = interpolator.depth(node, p.getRandom());
         factory.setMaxDepth(state);

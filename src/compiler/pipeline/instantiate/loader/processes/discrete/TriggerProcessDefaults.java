@@ -24,23 +24,27 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.loader.processes.discrete.filter.FilterLoader;
+import compiler.pipeline.instantiate.loader.processes.discrete.filter.NullFilterLoader;
 import control.GeneralParameters;
 import layers.LayerManager;
 import processes.discrete.filter.Filter;
+import processes.discrete.filter.NullFilter;
 
 /**
  * Created by dbborens on 8/27/2015.
  */
 public class TriggerProcessDefaults {
     public Filter filter(LayerManager lm, GeneralParameters p) {
-        return null;
+        NullFilterLoader loader = new NullFilterLoader();
+        return loader.instantiate(lm, p);
     }
 
     public Boolean requireNeighbors() {
-        return null;
+        return false;
     }
 
     public Boolean skipVacant() {
-        return null;
+        return true;
     }
 }

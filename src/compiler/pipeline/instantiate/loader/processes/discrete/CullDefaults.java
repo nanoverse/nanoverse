@@ -29,6 +29,6 @@ package compiler.pipeline.instantiate.loader.processes.discrete;
  */
 public class CullDefaults {
     public Double threshold() {
-        return null;
+        return 0.0;
     }
 }

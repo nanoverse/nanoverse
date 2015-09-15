@@ -24,20 +24,31 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
 import org.junit.*;
+import processes.discrete.CellProcessArguments;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class DiscreteProcessInterpolatorTest {
+public class DiscreteProcessInterpolatorTest extends InterpolatorTest {
+
+    private DiscreteProcessArgumentsLoader dpaLoader;
+    private DiscreteProcessInterpolator query;
 
     @Before
     public void before() throws Exception {
-
+        super.before();
+        dpaLoader = mock(DiscreteProcessArgumentsLoader.class);
+        query = new DiscreteProcessInterpolator(load, null, dpaLoader);
     }
 
     @Test
     public void cpArguments() throws Exception {
-        fail();
+        CellProcessArguments expected = mock(CellProcessArguments.class);
+        when(dpaLoader.instantiate(node, lm, p)).thenReturn(expected);
+
+        CellProcessArguments actual = query.cpArguments(node, lm, p);
+        assertSame(expected, actual);
     }
 }

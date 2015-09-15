@@ -24,25 +24,91 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete;
 
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
+import compiler.pipeline.instantiate.loader.agent.AgentDescriptorLoader;
+import compiler.pipeline.instantiate.loader.processes.discrete.cluster.ScatterClustersHelperLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.arguments.CellDescriptor;
+import control.arguments.IntegerArgument;
 import org.junit.*;
+import processes.discrete.cluster.ScatterClustersHelper;
+
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class ScatterClustersInterpolatorTest {
+public class ScatterClustersInterpolatorTest extends InterpolatorTest {
+
+    private ScatterClustersDefaults defaults;
+    private ScatterClustersInterpolator query;
 
     @Before
     public void before() throws Exception {
-
+        super.before();
+        defaults = mock(ScatterClustersDefaults.class);
+        query = new ScatterClustersInterpolator(load, null, null, defaults);
     }
 
     @Test
     public void neighbors() throws Exception {
-        fail();
+        Supplier<IntegerArgument> trigger = () -> query.neighbors(node, random);
+        verifyIntegerArgument("neighbors", trigger);
     }
 
     @Test
     public void neighborsDefault() throws Exception {
-        fail();
+        IntegerArgument expected = mock(IntegerArgument.class);
+        when(defaults.neighbors()).thenReturn(expected);
+        Runnable trigger = () -> query.neighbors(node, random);
+        verifyIntegerArgumentDefault("neighbors", expected, trigger);
+    }
+
+    @Test
+    public void helper() throws Exception {
+        MapObjectNode cNode = mock(MapObjectNode.class);
+        when(node.getMember("separation")).thenReturn(cNode);
+
+        ScatterClustersHelperLoader loader = mock(ScatterClustersHelperLoader.class);
+        when(load.getLoader(eq(node), eq("separation"), anyBoolean())).thenReturn(loader);
+
+        ScatterClustersHelper expected = mock(ScatterClustersHelper.class);
+        when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
+
+        ScatterClustersHelper actual = query.helper(node, lm, p);
+        assertSame(expected, actual);
+    }
+
+    @Test
+    public void helperDefault() throws Exception {
+        ScatterClustersHelper expected = mock(ScatterClustersHelper.class);
+        when(defaults.helper(lm, p)).thenReturn(expected);
+
+        ScatterClustersHelper actual = query.helper(node, lm, p);
+        assertSame(expected, actual);
+    }
+
+    @Test
+    public void description() throws Exception {
+        MapObjectNode cNode = mock(MapObjectNode.class);
+        when(node.getMember("description")).thenReturn(cNode);
+
+        AgentDescriptorLoader loader = mock(AgentDescriptorLoader.class);
+        when(load.getLoader(eq(node), eq("description"), anyBoolean())).thenReturn(loader);
+
+        CellDescriptor expected = mock(CellDescriptor.class);
+        when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
+
+        CellDescriptor actual = query.description(node, lm, p);
+        assertSame(expected, actual);
+    }
+
+    @Test
+    public void descriptionDefault() throws Exception {
+        CellDescriptor expected = mock(CellDescriptor.class);
+        when(defaults.description(lm, p)).thenReturn(expected);
+
+        CellDescriptor actual = query.description(node, lm, p);
+        assertSame(expected, actual);
     }
 }

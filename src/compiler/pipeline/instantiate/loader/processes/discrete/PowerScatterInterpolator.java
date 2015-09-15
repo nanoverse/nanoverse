@@ -57,7 +57,7 @@ public class PowerScatterInterpolator extends DiscreteProcessInterpolator {
         ScatterClustersHelperLoader loader = (ScatterClustersHelperLoader) load.getLoader(node, "separation", false);
 
         if (loader == null) {
-            return defaults.helper();
+            return defaults.helper(lm, p);
         }
 
         MapObjectNode cNode = (MapObjectNode) node.getMember("separation");

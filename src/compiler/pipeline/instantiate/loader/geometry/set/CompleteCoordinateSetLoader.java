@@ -27,6 +27,7 @@ package compiler.pipeline.instantiate.loader.geometry.set;
 import compiler.pipeline.instantiate.factory.geometry.set.CompleteCoordinateSetFactory;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import control.GeneralParameters;
+import geometry.Geometry;
 import geometry.set.CompleteSet;
 import layers.LayerManager;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -47,6 +48,11 @@ public class CompleteCoordinateSetLoader extends CoordinateSetLoader<CompleteSet
 
     @Override
     public CompleteSet instantiate(ObjectNode o, LayerManager lm, GeneralParameters p) {
-        throw new NotImplementedException();
+        Geometry geom = lm.getCellLayer().getGeometry();
+        return new CompleteSet(geom);
+    }
+
+    public CompleteSet instantiate(LayerManager lm, GeneralParameters p) {
+        return instantiate(null, lm, p);
     }
 }

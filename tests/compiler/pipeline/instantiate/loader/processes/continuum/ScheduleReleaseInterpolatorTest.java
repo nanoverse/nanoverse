@@ -24,17 +24,13 @@
 
 package compiler.pipeline.instantiate.loader.processes.continuum;
 
+import compiler.pipeline.instantiate.loader.InterpolatorTest;
 import org.junit.*;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class ScheduleReleaseInterpolatorTest {
-
-    @Before
-    public void before() throws Exception {
-
-    }
+public class ScheduleReleaseInterpolatorTest extends InterpolatorTest {
 
     @Test
     public void layer() throws Exception {

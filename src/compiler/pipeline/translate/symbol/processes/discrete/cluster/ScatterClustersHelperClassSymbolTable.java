@@ -42,6 +42,22 @@ public class ScatterClustersHelperClassSymbolTable extends ClassSymbolTable<Scat
 
     @Override
     protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
-        return null;
+        HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
+        strict(ret);
+        compact(ret);
+        contact(ret);
+        return ret;
+    }
+
+    private void strict(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+//        Supplier<InstantiableSymbolTable> supplier = new
+    }
+
+    private void compact(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+
+    }
+
+    private void contact(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+
     }
 }
