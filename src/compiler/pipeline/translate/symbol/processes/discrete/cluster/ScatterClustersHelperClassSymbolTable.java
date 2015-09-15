@@ -50,14 +50,17 @@ public class ScatterClustersHelperClassSymbolTable extends ClassSymbolTable<Scat
     }
 
     private void strict(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-//        Supplier<InstantiableSymbolTable> supplier = new
+        Supplier<InstantiableSymbolTable> supplier = () -> new StrictSeparationClusterHelperInstSymbolTable();
+        ret.put("strict", supplier);
     }
 
     private void compact(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = () -> new CompactSeparatedClustersHelperInstSymbolTable();
+        ret.put("compact", supplier);
     }
 
     private void contact(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-
+        Supplier<InstantiableSymbolTable> supplier = () -> new ContactClustersHelperInstSymbolTable();
+        ret.put("contact", supplier);
     }
 }
