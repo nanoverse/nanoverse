@@ -24,22 +24,23 @@
 
 package compiler.pipeline.translate.symbol.processes.discrete.cluster;
 
-import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
-import processes.discrete.cluster.CompactSeparatedClustersHelper;
+import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import org.junit.*;
+import processes.discrete.cluster.ContactClustersHelper;
 
-/**
- * Created by dbborens on 9/15/15.
- */
-public class CompactSeparatedClustersHelperInstSymbolTable extends MapSymbolTable<CompactSeparatedClustersHelper> {
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+public class ContactClustersHelperInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
-    public Loader getLoader() {
-        return null;
+    protected MapSymbolTable getQuery() {
+        return new ContactClustersHelperInstSymbolTable();
     }
 
     @Override
-    public String getDescription() {
-        return null;
+    protected Class getExpectedClass() {
+        return ContactClustersHelper.class;
     }
 }
