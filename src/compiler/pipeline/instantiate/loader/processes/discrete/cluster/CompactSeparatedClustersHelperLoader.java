@@ -24,39 +24,40 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.cluster;
 
-import compiler.pipeline.instantiate.factory.processes.discrete.cluster.StrictSeparationClusterHelperFactory;
+import compiler.pipeline.instantiate.factory.processes.discrete.cluster.CompactSeparatedClustersHelperFactory;
+import compiler.pipeline.instantiate.factory.processes.discrete.cluster.CompactSeparatedClustersHelperFactory;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
 import layers.LayerManager;
 import layers.cell.CellLayer;
-import processes.discrete.cluster.StrictSeparationClusterHelper;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import processes.discrete.cluster.CompactSeparatedClustersHelper;
+import processes.discrete.cluster.CompactSeparatedClustersHelper;
 
 /**
  * Created by dbborens on 8/29/15.
  */
-public class StrictSeparationClusterHelperLoader extends ScatterClustersHelperLoader<StrictSeparationClusterHelper> {
+public class CompactSeparatedClustersHelperLoader extends ScatterClustersHelperLoader<CompactSeparatedClustersHelper> {
 
-    private StrictSeparationClusterHelperFactory factory;
+    private CompactSeparatedClustersHelperFactory factory;
 
-    public StrictSeparationClusterHelperLoader() {
+    public CompactSeparatedClustersHelperLoader() {
         this.factory = factory;
     }
 
-    public StrictSeparationClusterHelperLoader
-            (StrictSeparationClusterHelperFactory factory) {
+    public CompactSeparatedClustersHelperLoader
+            (CompactSeparatedClustersHelperFactory factory) {
 
         this.factory = factory;
     }
 
     @Override
-    public StrictSeparationClusterHelper instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    public CompactSeparatedClustersHelper instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         CellLayer layer = lm.getCellLayer();
         factory.setLayer(layer);
         return factory.build();
     }
 
-    public StrictSeparationClusterHelper instantiate(LayerManager lm, GeneralParameters p) {
+    public CompactSeparatedClustersHelper instantiate(LayerManager lm, GeneralParameters p) {
         return instantiate(null, lm, p);
     }
 }

@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.processes.discrete.cluster;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.processes.discrete.cluster.ContactClustersHelperLoader;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import processes.discrete.cluster.ContactClustersHelper;
 
@@ -34,11 +35,12 @@ import processes.discrete.cluster.ContactClustersHelper;
 public class ContactClustersHelperInstSymbolTable extends MapSymbolTable<ContactClustersHelper> {
     @Override
     public Loader getLoader() {
-        return null;
+        return new ContactClustersHelperLoader();
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "Clusters that are allowed to intersect and that may take any " +
+                "shape.";
     }
 }

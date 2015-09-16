@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.processes.discrete.cluster;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.processes.discrete.cluster.CompactSeparatedClustersHelperLoader;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import processes.discrete.cluster.CompactSeparatedClustersHelper;
 
@@ -35,11 +36,12 @@ public class CompactSeparatedClustersHelperInstSymbolTable extends MapSymbolTabl
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new CompactSeparatedClustersHelperLoader();
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "Clusters of agents that never intersect and that minimize " +
+                "each cluster's surface-to-volume ratio.";
     }
 }
