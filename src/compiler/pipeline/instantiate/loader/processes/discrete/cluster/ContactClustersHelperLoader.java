@@ -24,39 +24,38 @@
 
 package compiler.pipeline.instantiate.loader.processes.discrete.cluster;
 
-import compiler.pipeline.instantiate.factory.processes.discrete.cluster.StrictSeparationClusterHelperFactory;
+import compiler.pipeline.instantiate.factory.processes.discrete.cluster.ContactClustersHelperFactory;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
 import layers.LayerManager;
 import layers.cell.CellLayer;
-import processes.discrete.cluster.StrictSeparationClusterHelper;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import processes.discrete.cluster.ContactClustersHelper;
 
 /**
  * Created by dbborens on 8/29/15.
  */
-public class StrictSeparationClusterHelperLoader extends ScatterClustersHelperLoader<StrictSeparationClusterHelper> {
+public class ContactClustersHelperLoader extends ScatterClustersHelperLoader<ContactClustersHelper> {
 
-    private StrictSeparationClusterHelperFactory factory;
+    private ContactClustersHelperFactory factory;
 
-    public StrictSeparationClusterHelperLoader() {
+    public ContactClustersHelperLoader() {
         this.factory = factory;
     }
 
-    public StrictSeparationClusterHelperLoader
-            (StrictSeparationClusterHelperFactory factory) {
+    public ContactClustersHelperLoader
+            (ContactClustersHelperFactory factory) {
 
         this.factory = factory;
     }
 
     @Override
-    public StrictSeparationClusterHelper instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    public ContactClustersHelper instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         CellLayer layer = lm.getCellLayer();
         factory.setLayer(layer);
         return factory.build();
     }
 
-    public StrictSeparationClusterHelper instantiate(LayerManager lm, GeneralParameters p) {
+    public ContactClustersHelper instantiate(LayerManager lm, GeneralParameters p) {
         return instantiate(null, lm, p);
     }
 }

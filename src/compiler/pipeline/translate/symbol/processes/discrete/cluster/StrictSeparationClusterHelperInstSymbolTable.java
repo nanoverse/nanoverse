@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.processes.discrete.cluster;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.processes.discrete.cluster.StrictSeparationClusterHelperLoader;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import processes.discrete.cluster.StrictSeparationClusterHelper;
 
@@ -35,11 +36,12 @@ public class StrictSeparationClusterHelperInstSymbolTable extends MapSymbolTable
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new StrictSeparationClusterHelperLoader();
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "Clusters of agents that never intersect, but which may take " +
+                "any shape.";
     }
 }
