@@ -21,6 +21,7 @@ repositories {
     mavenCentral()
 }
 
+def osName = System.getProperty('os.name').toLowerCase().split()[0]
 dependencies {
     compile 'com.google.guava:guava:14.+',
             'com.googlecode.matrix-toolkits-java:mtj:1.+',
@@ -29,8 +30,10 @@ dependencies {
     testCompile 'junit:junit:4.+',
                 'org.apache.directory.studio:org.apache.commons.io:2.+',
                 'org.mockito:mockito-all:1.+'
-    runtime files('./lib/libpetscsolver.dylib') {
-        builtBy 'buildPetscSolver'
+    if (osName.equals("linux") || osName.equals("mac")) {
+        runtime files('./lib/libpetscsolver.dylib') {
+            builtBy 'buildPetscSolver'
+        }
     }
 }
 
