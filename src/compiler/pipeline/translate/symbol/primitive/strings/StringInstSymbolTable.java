@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.primitive.strings;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.primitive.strings.StringArgumentLoader;
 import compiler.pipeline.translate.nodes.*;
 import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import control.arguments.StringArgument;
@@ -51,7 +52,7 @@ public class StringInstSymbolTable
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new StringArgumentLoader();
     }
 
 }

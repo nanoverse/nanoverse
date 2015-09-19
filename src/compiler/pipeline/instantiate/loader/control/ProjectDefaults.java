@@ -41,6 +41,8 @@ import io.serialize.Serializer;
 import io.serialize.interactive.ProgressReporter;
 import layers.LayerManager;
 import layers.cell.CellLayer;
+import org.slf4j.*;
+import structural.Version;
 
 import java.util.List;
 import java.util.Random;
@@ -51,33 +53,22 @@ import java.util.stream.Stream;
  * Created by dbborens on 8/13/15.
  */
 public class ProjectDefaults {
+
+    private final Logger logger = LoggerFactory.getLogger(ProjectDefaults.class);
+
     public GeneralParameters generalParameters() {
         ParametersLoader loader = new ParametersLoader();
         return loader.instantiate();
-//        long seed = System.currentTimeMillis();
-//        Random random = new Random(seed);
-//        return new GeneralParameters(random, seed, 100, 1, ".", "nanoverse", false);
     }
 
     public GeometryDescriptor geometry() {
         GeometryDescriptorLoader loader = new GeometryDescriptorLoader();
         return loader.instantiate();
-//        Lattice lattice = new RectangularLattice();
-//        Shape shape = new Rectangle(lattice, 32, 32);
-//        GeometryDescriptor geom = new GeometryDescriptor(lattice, shape);
-//        return geom;
     }
 
     public LayerManager layers(GeometryDescriptor geom, GeneralParameters p) {
         LayerManagerLoader loader = new LayerManagerLoader();
         return loader.instantiate(geom, p);
-//
-//        Boundary boundary = new Periodic(geom.getShape(), geom.getLattice());
-//        Geometry geometry = geom.make(boundary);
-//        CellLayer layer = new CellLayer(geometry);
-//        LayerManager lm = new LayerManager();
-//        lm.setCellLayer(layer);
-//        return lm;
     }
 
     public SerializationManager output(GeneralParameters p,
@@ -85,11 +76,13 @@ public class ProjectDefaults {
 
         OutputManagerLoader loader = new OutputManagerLoader();
         return loader.instantiate(p, lm);
-//        ProgressReporter progressReporter = new ProgressReporter(p, lm);
-//        List<Serializer> serializers = Stream.of(progressReporter)
-//                .collect(Collectors.toList());
-//
-//        SerializationManager sm = new SerializationManager(p, lm, serializers);
-//        return sm;
+    }
+
+    public String version() {
+        logger.warn("Nanoverse version not specified in project definition. " +
+            "Compiler cannot verify compatibility. Project may not run " +
+            "as expected!");
+
+        return Version.VERSION;
     }
 }

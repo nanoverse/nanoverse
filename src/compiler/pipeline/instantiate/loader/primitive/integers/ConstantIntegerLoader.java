@@ -26,7 +26,6 @@ package compiler.pipeline.instantiate.loader.primitive.integers;
 
 import compiler.pipeline.translate.nodes.*;
 import control.arguments.ConstantInteger;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Random;
 

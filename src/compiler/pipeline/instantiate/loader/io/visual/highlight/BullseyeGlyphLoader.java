@@ -28,7 +28,6 @@ import compiler.pipeline.instantiate.factory.io.visual.highlight.BullseyeGlyphFa
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
 import io.visual.highlight.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.*;
 

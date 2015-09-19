@@ -28,7 +28,6 @@ import compiler.pipeline.instantiate.factory.geometry.boundaries.PeriodicFactory
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.arguments.GeometryDescriptor;
 import geometry.boundaries.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.

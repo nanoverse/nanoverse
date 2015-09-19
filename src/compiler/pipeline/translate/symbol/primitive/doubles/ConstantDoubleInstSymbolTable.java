@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.primitive.doubles;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.primitive.doubles.ConstantDoubleLoader;
 import compiler.pipeline.translate.nodes.*;
 import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import control.arguments.*;
@@ -47,6 +48,6 @@ public class ConstantDoubleInstSymbolTable extends ConstantPrimitiveSymbolTable<
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new ConstantDoubleLoader();
     }
 }

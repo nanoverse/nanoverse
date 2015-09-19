@@ -30,7 +30,6 @@ import control.GeneralParameters;
 import geometry.Geometry;
 import geometry.set.CompleteSet;
 import layers.LayerManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.

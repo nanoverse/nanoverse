@@ -51,13 +51,17 @@ public class IntegerLoadHelper {
 
         boolean required = (defaultSupplier == null);
 
+        if (!required && node == null) {
+            return defaultSupplier.get();
+        }
+
+        if (!required && !node.hasMember(id)) {
+            return defaultSupplier.get();
+        }
+
         ObjectNode cNode = node.getMember(id);
         IntegerArgumentLoader loader = (IntegerArgumentLoader)
                 retriever.getLoader(node, id, required);
-
-        if (loader == null) {
-            return defaultSupplier.get();
-        }
 
         return loader.instantiateToFirst(cNode, random);
     }
@@ -67,13 +71,17 @@ public class IntegerLoadHelper {
 
         boolean required = (defaultSupplier == null);
 
+        if (!required && node == null) {
+            return defaultSupplier.get();
+        }
+
+        if (!required && !node.hasMember(id)) {
+            return defaultSupplier.get();
+        }
+
         ObjectNode cNode = node.getMember(id);
         IntegerArgumentLoader loader = (IntegerArgumentLoader)
                 retriever.getLoader(node, id, required);
-
-        if (loader == null) {
-            return defaultSupplier.get();
-        }
 
         return loader.instantiate(cNode, random);
     }

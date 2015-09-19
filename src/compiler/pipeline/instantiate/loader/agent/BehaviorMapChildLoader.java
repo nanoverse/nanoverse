@@ -30,7 +30,6 @@ import compiler.pipeline.translate.nodes.*;
 import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 import control.GeneralParameters;
 import layers.LayerManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/25/2015.

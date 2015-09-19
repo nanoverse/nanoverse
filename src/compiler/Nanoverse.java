@@ -35,8 +35,7 @@ public class Nanoverse {
     private final Compiler compiler;
 
     private final static String usage =
-        "Compiles and executes a Nanoverse simulation.\n" +
-        "Usage:\n\n" +
+        "\nExpected exactly one argument. Usage:\n" +
         "\tNanoverse <filename>";
 
     public static void main(String[] args) {

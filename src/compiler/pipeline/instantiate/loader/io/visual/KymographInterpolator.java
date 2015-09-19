@@ -28,7 +28,6 @@ import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
 import io.visual.VisualizationProperties;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/23/2015.

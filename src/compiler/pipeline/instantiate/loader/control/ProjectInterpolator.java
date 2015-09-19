@@ -58,36 +58,41 @@ public class ProjectInterpolator {
 
 
     public void version(MapObjectNode node) {
-        String version = load.aString(node, "version");
+        String version = load.aString(node, "version", defaults::version);
 
         if (!version.equals(Version.VERSION)) {
             throw new IllegalArgumentException("Version mismatch: Source file " +
-                    "written for Nanoverse " + version + ", but this is " +
+                    "written for Nanoverse v. " + version + ", but this is v. " +
                     Version.VERSION + ".");
         }
     }
 
     public GeneralParameters generalParameters(MapObjectNode node) {
+        if (!node.hasMember("parameters")) {
+            return defaults.generalParameters();
+        }
+
         MapObjectNode childNode = (MapObjectNode) node.getMember("parameters");
         ParametersLoader loader = (ParametersLoader)
                 load.getLoader(node, "parameters", false);
 
-        if (loader == null) {
-            return defaults.generalParameters();
-        }
+//        if (loader == null) {
+//            return defaults.generalParameters();
+//        }
 
         GeneralParameters p = loader.instantiate(childNode);
         return p;
     }
 
     public GeometryDescriptor geometry(MapObjectNode node) {
-        MapObjectNode childNode = (MapObjectNode) node.getMember("geometry");
         GeometryDescriptorLoader loader = (GeometryDescriptorLoader)
                 load.getLoader(node, "geometry", false);
 
         if (loader == null) {
             return defaults.geometry();
         }
+
+        MapObjectNode childNode = (MapObjectNode) node.getMember("geometry");
 
         GeometryDescriptor geom = loader.instantiate(childNode);
         return geom;
@@ -97,7 +102,6 @@ public class ProjectInterpolator {
                                GeometryDescriptor geom,
                                GeneralParameters p) {
 
-        ListObjectNode childNode = (ListObjectNode) node.getMember("layers");
         LayerManagerLoader loader = (LayerManagerLoader)
                 load.getLoader(node, "layers", false);
 
@@ -105,12 +109,14 @@ public class ProjectInterpolator {
             return defaults.layers(geom, p);
         }
 
+        ListObjectNode childNode = (ListObjectNode) node.getMember("layers");
+
+
         LayerManager layerManager = loader.instantiate(childNode, geom, p);
         return layerManager;
     }
 
     public SerializationManager output(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
-        ListObjectNode childNode = (ListObjectNode) node.getMember("output");
         OutputManagerLoader loader = (OutputManagerLoader)
                 load.getLoader(node, "output", false);
 
@@ -118,18 +124,19 @@ public class ProjectInterpolator {
             return defaults.output(p, layerManager);
         }
 
+        ListObjectNode childNode = (ListObjectNode) node.getMember("output");
+
         SerializationManager output = loader.instantiate(childNode, p, layerManager);
         return output;
     }
 
     public ProcessManager processes(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
-        ObjectNode childNode = node.getMember("processes");
         ProcessManagerLoader loader = (ProcessManagerLoader)
                 load.getLoader(node, "processes", true);
+
+        ObjectNode childNode = node.getMember("processes");
 
         ProcessManager processes = loader.instantiate(childNode, p, layerManager);
         return processes;
     }
-
-
 }

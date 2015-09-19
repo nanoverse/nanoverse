@@ -33,7 +33,6 @@ import layers.LayerManager;
 import processes.BaseProcessArguments;
 import processes.discrete.*;
 import processes.discrete.cluster.ScatterClustersHelper;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/3/2015.

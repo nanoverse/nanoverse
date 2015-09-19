@@ -28,7 +28,6 @@ import compiler.error.UnrecognizedIdentifierError;
 import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.awt.*;
 
