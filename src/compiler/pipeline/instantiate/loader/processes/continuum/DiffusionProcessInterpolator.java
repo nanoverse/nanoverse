@@ -35,7 +35,6 @@ import layers.continuum.ContinuumLayer;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import processes.continuum.DiffusionConstantHelper;
 import processes.continuum.DiffusionOperator;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Random;
 import java.util.function.Consumer;

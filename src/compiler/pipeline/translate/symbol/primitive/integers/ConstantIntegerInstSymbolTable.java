@@ -25,6 +25,7 @@
 package compiler.pipeline.translate.symbol.primitive.integers;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.loader.primitive.integers.ConstantIntegerLoader;
 import compiler.pipeline.translate.nodes.*;
 import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import control.arguments.*;
@@ -48,6 +49,6 @@ public class ConstantIntegerInstSymbolTable
 
     @Override
     public Loader getLoader() {
-        return null;
+        return new ConstantIntegerLoader();
     }
 }

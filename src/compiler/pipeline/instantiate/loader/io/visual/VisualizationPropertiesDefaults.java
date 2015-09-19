@@ -29,7 +29,6 @@ import compiler.pipeline.instantiate.loader.io.visual.highlight.*;
 import control.GeneralParameters;
 import io.visual.color.*;
 import io.visual.highlight.HighlightManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/21/2015.

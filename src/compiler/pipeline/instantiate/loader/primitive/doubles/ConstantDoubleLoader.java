@@ -26,7 +26,6 @@ package compiler.pipeline.instantiate.loader.primitive.doubles;
 
 import compiler.pipeline.translate.nodes.*;
 import control.arguments.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Random;
 

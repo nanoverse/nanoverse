@@ -50,7 +50,7 @@ public class NanoPrimitiveStringVisitor extends AbstractNanoNodeVisitor {
 
         String valueText = child.getText();
         valueText = valueText.replaceAll("^\"|\"$", "");
-        ASTContainerNode valueNode = new ASTContainerNode(valueText, null);
+        ASTContainerNode valueNode = new ASTContainerNode(valueText, Stream.empty());
         Stream<ASTNode> children = Stream.of(valueNode);
         ASTContainerNode container = new ASTContainerNode(IDENTIFIER, children);
         return container;

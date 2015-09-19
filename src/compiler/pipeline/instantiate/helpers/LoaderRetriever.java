@@ -34,9 +34,12 @@ import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
  */
 public class LoaderRetriever {
     public Loader getLoader(MapObjectNode parent, String field, boolean require) {
+        if (parent == null || !parent.hasMember(field)) {
+            return handleMissingData(parent, field, require);
+        }
+
         ObjectNode node = parent.getMember(field);
         if (node == null && require) {
-            throw new MissingArgumentError(field, parent.getInstantiatingClass());
         } else if (node == null) {
             return null;
         }
@@ -44,5 +47,14 @@ public class LoaderRetriever {
         InstantiableSymbolTable ist = node.getSymbolTable();
         Loader loader = ist.getLoader();
         return loader;
+    }
+
+    private Loader handleMissingData(MapObjectNode parent, String field, boolean require) {
+        if (require) {
+            throw new MissingArgumentError(field, parent.getInstantiatingClass());
+        } else {
+            return null;
+        }
+
     }
 }

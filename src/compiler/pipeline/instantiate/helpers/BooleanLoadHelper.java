@@ -49,13 +49,17 @@ public class BooleanLoadHelper {
 
         boolean required = (defaultSupplier == null);
 
+        if (!required && node == null) {
+            return defaultSupplier.get();
+        }
+
+        if (!required && !node.hasMember(id)) {
+            return defaultSupplier.get();
+        }
+
         ObjectNode cNode = node.getMember(id);
         BooleanArgumentLoader loader = (BooleanArgumentLoader)
                 retriever.getLoader(node, id, required);
-
-        if (loader == null) {
-            return defaultSupplier.get();
-        }
 
         return loader.instantiateToFirst(cNode, random);
     }

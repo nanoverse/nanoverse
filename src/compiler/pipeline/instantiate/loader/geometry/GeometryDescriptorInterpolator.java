@@ -64,13 +64,14 @@ public class GeometryDescriptorInterpolator {
     }
 
     public Shape shape(MapObjectNode node, Lattice lattice) {
-        MapObjectNode childNode = (MapObjectNode) node.getMember("shape");
         ShapeLoader loader = (ShapeLoader)
                 load.getLoader(node, "shape", false);
 
         if (loader == null) {
             return defaults.shape(lattice);
         }
+
+        MapObjectNode childNode = (MapObjectNode) node.getMember("shape");
 
         Shape shape = loader.instantiate(childNode, lattice);
         return shape;

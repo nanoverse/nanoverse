@@ -30,7 +30,6 @@ import compiler.pipeline.translate.nodes.*;
 import control.arguments.GeometryDescriptor;
 import geometry.lattice.Lattice;
 import geometry.shape.Shape;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.

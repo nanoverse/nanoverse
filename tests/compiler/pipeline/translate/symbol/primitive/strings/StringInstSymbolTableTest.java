@@ -22,33 +22,22 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.primitive.strings;
+package compiler.pipeline.translate.symbol.primitive.strings;
 
-import compiler.pipeline.instantiate.factory.control.arguments.UncheckedArgument;
-import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.translate.nodes.*;
-import control.arguments.*;
+import org.junit.*;
 
-import java.util.Random;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 8/1/2015.
- */
-public class StringArgumentLoader extends Loader<StringArgument> {
+public class StringInstSymbolTableTest {
 
-    public ConstantString instantiate(ObjectNode node) {
-        String value = getValue(node);
-        return new ConstantString(value);
+    @Before
+    public void before() throws Exception {
+
     }
 
-    public String instantiateToFirst(ObjectNode node) {
-        String value = getValue(node);
-        return value;
-    }
-
-    private String getValue(ObjectNode node) {
-        PrimitiveObjectNode<String> pNode = (PrimitiveObjectNode) node;
-        String value = pNode.getValue();
-        return value;
+    @Test
+    public void testNothing() {
+        fail("Implement me");
     }
 }

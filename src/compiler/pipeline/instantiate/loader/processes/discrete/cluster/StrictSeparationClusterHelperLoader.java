@@ -30,7 +30,6 @@ import control.GeneralParameters;
 import layers.LayerManager;
 import layers.cell.CellLayer;
 import processes.discrete.cluster.StrictSeparationClusterHelper;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/29/15.

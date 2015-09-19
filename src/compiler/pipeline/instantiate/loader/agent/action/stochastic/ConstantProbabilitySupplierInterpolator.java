@@ -24,10 +24,8 @@
 
 package compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
-import agent.action.stochastic.ConstantProbabilitySupplier;
 import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.MapObjectNode;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Random;
 

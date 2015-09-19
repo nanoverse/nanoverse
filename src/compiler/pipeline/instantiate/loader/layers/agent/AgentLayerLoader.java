@@ -33,7 +33,6 @@ import geometry.Geometry;
 import geometry.boundaries.Boundary;
 import layers.Layer;
 import layers.cell.CellLayer;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/1/2015.
@@ -57,7 +56,9 @@ public class AgentLayerLoader extends LayerLoader<CellLayer> {
     public CellLayer instantiate(MapObjectNode child, GeometryDescriptor geom, GeneralParameters p) {
         Boundary boundary = interpolator.boundary(child, geom);
         Geometry geometry = geom.make(boundary);
-        return new CellLayer(geometry);
+
+        factory.setGeom(geometry);
+        return factory.build();
     }
 
     public CellLayer instantiate(GeometryDescriptor geom, GeneralParameters p) {

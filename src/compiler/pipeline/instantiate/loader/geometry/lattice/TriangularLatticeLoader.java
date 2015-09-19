@@ -27,7 +27,6 @@ package compiler.pipeline.instantiate.loader.geometry.lattice;
 import compiler.pipeline.instantiate.factory.geometry.lattice.TriangularLatticeFactory;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import geometry.lattice.TriangularLattice;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/4/2015.

@@ -44,7 +44,15 @@ public class PrimitiveVisitor {
 
     public ObjectNode translate(ASTContainerNode toTranslate, ConstantPrimitiveSymbolTable symbolTable) {
         logger.debug("Translating primitive.");
-        String valueStr = toTranslate.getIdentifier();
+
+        // TODO Repeat this construction for the other primitive STs. Create tests.
+        ASTContainerNode valueNode = (ASTContainerNode) toTranslate
+            .getChildren()
+            .findFirst()
+            .get();
+
+        String valueStr = valueNode.getIdentifier();
+
         Object value = symbolTable.getValue(valueStr);
         return new PrimitiveObjectNode<>(symbolTable, value);
     }

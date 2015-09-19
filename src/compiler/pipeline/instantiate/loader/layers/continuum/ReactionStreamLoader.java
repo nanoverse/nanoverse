@@ -27,7 +27,6 @@ package compiler.pipeline.instantiate.loader.layers.continuum;
 import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.*;
 import layers.continuum.Reaction;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Random;
 import java.util.stream.Stream;
