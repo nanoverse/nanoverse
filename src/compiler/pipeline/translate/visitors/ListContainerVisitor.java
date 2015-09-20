@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.visitors;
 
-import compiler.pipeline.interpret.nodes.ASTContainerNode;
+import compiler.pipeline.interpret.nodes.ASTNode;
 import compiler.pipeline.translate.helpers.TranslationCallback;
 import compiler.pipeline.translate.nodes.*;
 import compiler.pipeline.translate.symbol.*;
@@ -46,7 +46,7 @@ public class ListContainerVisitor {
         this.walker = walker;
     }
 
-    public ObjectNode translate(ASTContainerNode toTranslate, ListSymbolTable symbolTable) {
+    public ObjectNode translate(ASTNode toTranslate, ListSymbolTable symbolTable) {
         logger.debug("Translating {} using LST for class {}", toTranslate.getIdentifier(),
                 symbolTable.getBroadClass().getSimpleName());
 

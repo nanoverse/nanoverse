@@ -81,19 +81,19 @@ public class NanoAssignmentVisitor extends AbstractNanoNodeVisitor {
         }
     }
 
-    private ASTContainerNode blockCase(AssignmentContext ctx, String id) {
+    private ASTNode blockCase(AssignmentContext ctx, String id) {
         logger.debug("Resolving assignment of block to {}", id);
         BlockContext child = (BlockContext) ctx.getChild(1);
         Stream<ASTNode> children = blockVisitor.getChildrenAsNodes(child);
-        return new ASTContainerNode(id, children);
+        return new ASTNode(id, children);
     }
 
-    private ASTContainerNode singletonCase(AssignmentContext ctx, String id) {
+    private ASTNode singletonCase(AssignmentContext ctx, String id) {
         logger.debug("Resolving assignment of singleton to {}", id);
         ParseTree child = ctx.getChild(2);
         ASTNode value = child.accept(singletonVisitor);
         Stream<ASTNode> children = Stream.of(value);
-        return new ASTContainerNode(id, children);
+        return new ASTNode(id, children);
     }
 
     private String getIdentifier(AssignmentContext ctx) {

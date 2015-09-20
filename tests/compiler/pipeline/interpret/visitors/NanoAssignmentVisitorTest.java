@@ -75,7 +75,7 @@ public class NanoAssignmentVisitorTest {
         ASTNode value = mock(ASTNode.class);
         when(child2.accept(singletonVisitor)).thenReturn(value);
 
-        ASTNode expected = new ASTContainerNode(identifier,
+        ASTNode expected = new ASTNode(identifier,
                 Stream.of(value));
         ASTNode actual = query.visitAssignment(ctx);
         assertEquals(expected, actual);
@@ -87,7 +87,7 @@ public class NanoAssignmentVisitorTest {
         ASTNode dummy = mock(ASTNode.class);
         when(blockVisitor.getChildrenAsNodes(child1))
                 .thenReturn(Stream.of(dummy));
-        ASTNode expected = new ASTContainerNode(identifier,
+        ASTNode expected = new ASTNode(identifier,
                 Stream.of(dummy));
         ASTNode actual = query.visitAssignment(ctx);
         assertEquals(expected, actual);
