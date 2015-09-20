@@ -52,10 +52,10 @@ public class NanoStandaloneIdVisitor extends AbstractNanoNodeVisitor {
 
     @Override
     public ASTNode visitId(@NotNull NanosyntaxParser.IdContext ctx) {
-        logger.debug("Visiting stand-alone ID: {}", ctx.getText());
         ParseTree idTree = ctx.getChild(0);
         verifyPayload(idTree, CommonToken.class);
         String identifier = idTree.getText();
+        logger.debug("Translated stand-alone ID \"{}\" as \"{}\"", ctx.getText(), idTree.getText());
         return new ASTContainerNode(identifier, Stream.empty());
     }
 }
