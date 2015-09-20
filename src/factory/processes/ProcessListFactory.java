@@ -31,16 +31,17 @@ import processes.NanoverseProcess;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 11/23/14.
  */
 public abstract class ProcessListFactory {
 
-    public static List<NanoverseProcess> instantiate(Element root, LayerManager layerManager, GeneralParameters p) {
+    public static Stream<NanoverseProcess> instantiate(Element root, LayerManager layerManager, GeneralParameters p) {
         ArrayList<NanoverseProcess> processes = new ArrayList<>();
         if (root == null) {
-            return processes;
+            return processes.stream();
         }
         int id = 0;
         for (Object o : root.elements()) {
@@ -49,6 +50,6 @@ public abstract class ProcessListFactory {
             processes.add(process);
             id++;
         }
-        return processes;
+        return processes.stream();
     }
 }

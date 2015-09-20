@@ -26,6 +26,7 @@ package compiler.pipeline.instantiate.loader.geometry.shape;
 
 import compiler.pipeline.instantiate.factory.geometry.shape.LineFactory;
 import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import geometry.lattice.Lattice;
 import geometry.shape.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -35,21 +36,31 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class LineLoader extends ShapeLoader<Line> {
     private final LineFactory factory;
+    private final LineInterpolator interpolator;
 
     public LineLoader() {
         factory = new LineFactory();
+        interpolator = new LineInterpolator();
     }
 
-    public LineLoader(LineFactory factory) {
+    public LineLoader(LineFactory factory,
+                      LineInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
     }
 
     @Override
-    public Shape instantiate(MapObjectNode node, Lattice lattice) {
-        throw new NotImplementedException();
+    public Shape instantiate(MapObjectNode node, Lattice lattice, GeneralParameters p) {
+        factory.setLattice(lattice);
+
+        int length = interpolator.length(node, p.getRandom());
+        factory.setLength(length);
+
+        return factory.build();
     }
 
-    public Shape instantiate(Lattice lattice) {
-        return instantiate(null, lattice);
+    public Shape instantiate(Lattice lattice, GeneralParameters p) {
+        return instantiate(null, lattice, p);
     }
 }

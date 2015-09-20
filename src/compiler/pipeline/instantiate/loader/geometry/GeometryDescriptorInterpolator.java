@@ -29,6 +29,7 @@ import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.instantiate.loader.geometry.lattice.LatticeLoader;
 import compiler.pipeline.instantiate.loader.geometry.shape.ShapeLoader;
 import compiler.pipeline.translate.nodes.*;
+import control.GeneralParameters;
 import control.arguments.GeometryDescriptor;
 import geometry.lattice.Lattice;
 import geometry.shape.Shape;
@@ -63,17 +64,17 @@ public class GeometryDescriptorInterpolator {
         return lattice;
     }
 
-    public Shape shape(MapObjectNode node, Lattice lattice) {
+    public Shape shape(MapObjectNode node, Lattice lattice, GeneralParameters p) {
         ShapeLoader loader = (ShapeLoader)
                 load.getLoader(node, "shape", false);
 
         if (loader == null) {
-            return defaults.shape(lattice);
+            return defaults.shape(lattice, p);
         }
 
         MapObjectNode childNode = (MapObjectNode) node.getMember("shape");
 
-        Shape shape = loader.instantiate(childNode, lattice);
+        Shape shape = loader.instantiate(childNode, lattice, p);
         return shape;
     }
 }

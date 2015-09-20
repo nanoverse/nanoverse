@@ -68,33 +68,30 @@ public class ProjectInterpolator {
     }
 
     public GeneralParameters generalParameters(MapObjectNode node) {
-        if (!node.hasMember("parameters")) {
+        ParametersLoader loader = (ParametersLoader)
+            load.getLoader(node, "parameters", false);
+
+        if (loader == null) {
             return defaults.generalParameters();
         }
 
         MapObjectNode childNode = (MapObjectNode) node.getMember("parameters");
-        ParametersLoader loader = (ParametersLoader)
-                load.getLoader(node, "parameters", false);
-
-//        if (loader == null) {
-//            return defaults.generalParameters();
-//        }
 
         GeneralParameters p = loader.instantiate(childNode);
         return p;
     }
 
-    public GeometryDescriptor geometry(MapObjectNode node) {
+    public GeometryDescriptor geometry(MapObjectNode node, GeneralParameters p) {
         GeometryDescriptorLoader loader = (GeometryDescriptorLoader)
                 load.getLoader(node, "geometry", false);
 
         if (loader == null) {
-            return defaults.geometry();
+            return defaults.geometry(p);
         }
 
         MapObjectNode childNode = (MapObjectNode) node.getMember("geometry");
 
-        GeometryDescriptor geom = loader.instantiate(childNode);
+        GeometryDescriptor geom = loader.instantiate(childNode, p);
         return geom;
     }
 
@@ -134,9 +131,9 @@ public class ProjectInterpolator {
         ProcessManagerLoader loader = (ProcessManagerLoader)
                 load.getLoader(node, "processes", true);
 
-        ObjectNode childNode = node.getMember("processes");
+        ListObjectNode childNode = (ListObjectNode) node.getMember("processes");
 
-        ProcessManager processes = loader.instantiate(childNode, p, layerManager);
+        ProcessManager processes = loader.instantiate(childNode, layerManager, p);
         return processes;
     }
 }

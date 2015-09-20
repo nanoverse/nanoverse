@@ -27,6 +27,7 @@ package compiler.pipeline.instantiate.loader.geometry;
 import compiler.pipeline.instantiate.factory.geometry.GeometryDescriptorFactory;
 import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.*;
+import control.GeneralParameters;
 import control.arguments.GeometryDescriptor;
 import geometry.lattice.Lattice;
 import geometry.shape.Shape;
@@ -50,17 +51,17 @@ public class GeometryDescriptorLoader extends Loader<GeometryDescriptor> {
         this.interpolator = interpolator;
     }
 
-    public GeometryDescriptor instantiate(MapObjectNode node) {
+    public GeometryDescriptor instantiate(MapObjectNode node, GeneralParameters p) {
         Lattice lattice = interpolator.lattice(node);
         factory.setLattice(lattice);
 
-        Shape shape = interpolator.shape(node, lattice);
+        Shape shape = interpolator.shape(node, lattice, p);
         factory.setShape(shape);
 
         return factory.build();
     }
 
-    public GeometryDescriptor instantiate() {
-        return instantiate(null);
+    public GeometryDescriptor instantiate(GeneralParameters p) {
+        return instantiate(null, p);
     }
 }

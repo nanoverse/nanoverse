@@ -22,34 +22,24 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.control.identifiers;
+package compiler.pipeline.instantiate.loader.geometry.set;
 
-import compiler.pipeline.instantiate.factory.Factory;
-import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
-import control.identifiers.Coordinate;
+import control.arguments.*;
+import control.identifiers.*;
 import geometry.Geometry;
 import layers.LayerManager;
 
 /**
- * Created by dbborens on 8/10/2015.
+ * Created by dbborens on 9/19/2015.
  */
-public class CoordinateLoader extends Loader<Coordinate> {
-
-    private final CoordinateAdapter adapter;
-
-    public CoordinateLoader() {
-        adapter = new CoordinateAdapter();
-    }
-
-    public CoordinateLoader(CoordinateAdapter adapter) {
-        this.adapter = adapter;
-    }
-
-    public Coordinate instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+public class DiscCoordinateSetDefaults {
+    public Coordinate offset(LayerManager lm) {
         Geometry geom = lm.getCellLayer().getGeometry();
-        CoordinateSubclassLoader loader = adapter.getLoader(geom);
-        return loader.instantiate(node, lm, p);
+        return geom.getZeroVector();
+    }
+
+    public IntegerArgument radius() {
+        return new ConstantInteger(1);
     }
 }

@@ -26,6 +26,7 @@ package compiler.pipeline.instantiate.loader.geometry.shape;
 
 import compiler.pipeline.instantiate.factory.geometry.shape.CuboidFactory;
 import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import geometry.lattice.Lattice;
 import geometry.shape.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -35,21 +36,37 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class CuboidLoader extends ShapeLoader<Cuboid> {
     private final CuboidFactory factory;
+    private final CuboidInterpolator interpolator;
 
     public CuboidLoader() {
         factory = new CuboidFactory();
+        interpolator = new CuboidInterpolator();
     }
 
-    public CuboidLoader(CuboidFactory factory) {
+    public CuboidLoader(CuboidFactory factory,
+                        CuboidInterpolator interpolator) {
+
         this.factory = factory;
+        this.interpolator = interpolator;
     }
 
     @Override
-    public Shape instantiate(MapObjectNode node, Lattice lattice) {
-        throw new NotImplementedException();
+    public Shape instantiate(MapObjectNode node, Lattice lattice, GeneralParameters p) {
+        factory.setLattice(lattice);
+
+        int height = interpolator.height(node, p.getRandom());
+        factory.setHeight(height);
+
+        int width = interpolator.width(node, p.getRandom());
+        factory.setWidth(width);
+
+        int depth = interpolator.depth(node, p.getRandom());
+        factory.setDepth(depth);
+
+        return factory.build();
     }
 
-    public Shape instantiate(Lattice lattice) {
-        return instantiate(null, lattice);
+    public Shape instantiate(Lattice lattice, GeneralParameters p) {
+        return instantiate(null, lattice, p);
     }
 }

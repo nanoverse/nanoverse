@@ -29,6 +29,7 @@ import processes.NanoverseProcess;
 import processes.StepState;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 1/13/14.
@@ -41,7 +42,7 @@ public class MockProcessManager extends ProcessManager {
     private double stepStateDt;
 
     public MockProcessManager() {
-        super(null, null);
+        super(Stream.empty(), null);
         timesIterated = 0;
         doTriggeredProcessedCalled = false;
         stepStateDt = 0.0;

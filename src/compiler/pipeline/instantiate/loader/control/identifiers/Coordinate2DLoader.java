@@ -25,19 +25,41 @@
 package compiler.pipeline.instantiate.loader.control.identifiers;
 
 import compiler.pipeline.instantiate.factory.control.identifiers.Coordinate2DFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import control.identifiers.Coordinate2D;
+import layers.LayerManager;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/12/15.
  */
 public class Coordinate2DLoader extends CoordinateSubclassLoader<Coordinate2D> {
     private final Coordinate2DFactory factory;
+    private final Coordinate2DInterpolator interpolator;
 
     public Coordinate2DLoader() {
         factory = new Coordinate2DFactory();
+        interpolator = new Coordinate2DInterpolator();
     }
 
-    public Coordinate2DLoader(Coordinate2DFactory factory) {
+    public Coordinate2DLoader(Coordinate2DFactory factory,
+                              Coordinate2DInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Coordinate2D instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        int x = interpolator.x(node, p.getRandom());
+        factory.setX(x);
+
+        int y = interpolator.y(node, p.getRandom());
+        factory.setY(y);
+
+        int flags = interpolator.flags(node, p.getRandom());
+        factory.setFlags(flags);
+
+        return factory.build();
     }
 }

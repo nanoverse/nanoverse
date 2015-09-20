@@ -26,6 +26,7 @@ package compiler.pipeline.instantiate.loader.geometry.shape;
 
 import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import geometry.lattice.Lattice;
 import geometry.shape.Shape;
 
@@ -34,5 +35,5 @@ import geometry.shape.Shape;
  */
 public abstract class ShapeLoader<T extends Shape> extends Loader<T> {
 
-    public abstract Shape instantiate(MapObjectNode node, Lattice lattice);
+    public abstract Shape instantiate(MapObjectNode node, Lattice lattice, GeneralParameters p);
 }

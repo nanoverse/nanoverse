@@ -25,8 +25,11 @@
 package compiler.pipeline.instantiate.loader.geometry.set;
 
 import compiler.pipeline.instantiate.factory.geometry.set.DiscCoordinateSetFactory;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
+import control.arguments.IntegerArgument;
+import control.identifiers.Coordinate;
+import geometry.Geometry;
 import geometry.set.DiscSet;
 import layers.LayerManager;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -36,17 +39,31 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class DiscCoordinateSetLoader extends CoordinateSetLoader<DiscSet> {
     private final DiscCoordinateSetFactory factory;
+    private final DiscCoordinateSetInterpolator interpolator;
 
     public DiscCoordinateSetLoader() {
         factory = new DiscCoordinateSetFactory();
+        interpolator = new DiscCoordinateSetInterpolator();
     }
 
-    public DiscCoordinateSetLoader(DiscCoordinateSetFactory factory) {
+    public DiscCoordinateSetLoader(DiscCoordinateSetFactory factory,
+                                   DiscCoordinateSetInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
     }
 
     @Override
-    public DiscSet instantiate(ObjectNode o, LayerManager lm, GeneralParameters p) {
-        throw new NotImplementedException();
+    public DiscSet instantiate(ObjectNode oNode, LayerManager lm, GeneralParameters p) {
+        MapObjectNode node = (MapObjectNode) oNode;
+        Geometry geom = interpolator.geometry(lm);
+        factory.setGeom(geom);
+
+        Coordinate offset = interpolator.offset(node, lm, p);
+        factory.setOffset(offset);
+
+        IntegerArgument radiusArg = interpolator.radiusArg(node, p.getRandom());
+        factory.setRadiusArg(radiusArg);
+
+        return factory.build();
     }
 }

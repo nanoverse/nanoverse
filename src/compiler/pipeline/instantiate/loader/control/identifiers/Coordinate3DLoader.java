@@ -25,19 +25,44 @@
 package compiler.pipeline.instantiate.loader.control.identifiers;
 
 import compiler.pipeline.instantiate.factory.control.identifiers.Coordinate3DFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import control.identifiers.Coordinate3D;
+import layers.LayerManager;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/12/15.
  */
 public class Coordinate3DLoader extends CoordinateSubclassLoader<Coordinate3D> {
     private final Coordinate3DFactory factory;
+    private final Coordinate3DInterpolator interpolator;
 
     public Coordinate3DLoader() {
         factory = new Coordinate3DFactory();
+        interpolator = new Coordinate3DInterpolator();
     }
 
-    public Coordinate3DLoader(Coordinate3DFactory factory) {
+    public Coordinate3DLoader(Coordinate3DFactory factory,
+                              Coordinate3DInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Coordinate3D instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        int x = interpolator.x(node, p.getRandom());
+        factory.setX(x);
+
+        int y = interpolator.y(node, p.getRandom());
+        factory.setY(y);
+
+        int z = interpolator.z(node, p.getRandom());
+        factory.setZ(z);
+
+        int flags = interpolator.flags(node, p.getRandom());
+        factory.setFlags(flags);
+
+        return factory.build();
     }
 }

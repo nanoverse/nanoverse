@@ -58,7 +58,7 @@ public class CompositeFilterLoader extends FilterLoader<CompositeFilter> {
                                        LayerManager lm,
                                        GeneralParameters p) {
 
-        Stream<Filter> children = interpolator.including(node, lm.getCellLayer());
+        Stream<Filter> children = interpolator.including(node, lm, p);
         factory.setChildren(children);
 
         return factory.build();

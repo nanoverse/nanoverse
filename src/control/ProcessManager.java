@@ -32,26 +32,27 @@ import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.*;
 
 /**
  * Created by dbborens on 1/6/14.
  */
 public class ProcessManager {
 
-    private List<NanoverseProcess> processes;
+    private List<NanoverseProcess> processList;
     private LayerManager layerManager;
 
     @FactoryTarget
-    public ProcessManager(List<NanoverseProcess> processes, LayerManager layerManager) {
-        this.processes = processes;
+    public ProcessManager(Stream<NanoverseProcess> processes, LayerManager layerManager) {
+        processList = processes.collect(Collectors.toList());
         this.layerManager = layerManager;
     }
 
     protected List<NanoverseProcess> getTriggeredProcesses(int n) throws HaltCondition {
 
-        ArrayList<NanoverseProcess> triggeredProcesses = new ArrayList<>(processes.size());
+        ArrayList<NanoverseProcess> triggeredProcesses = new ArrayList<>(processList.size());
 
-        for (NanoverseProcess process : processes) {
+        for (NanoverseProcess process : processList) {
             if (triggered(n, process)) {
                 triggeredProcesses.add(process);
             }
@@ -123,7 +124,7 @@ public class ProcessManager {
      */
     public void init() {
         layerManager.reset();
-        for (NanoverseProcess process : processes) {
+        for (NanoverseProcess process : processList) {
             process.init();
         }
     }
@@ -140,13 +141,13 @@ public class ProcessManager {
 
         ProcessManager other = (ProcessManager) obj;
 
-        if (other.processes.size() != this.processes.size()) {
+        if (other.processList.size() != this.processList.size()) {
             return false;
         }
 
-        for (int i = 0; i < processes.size(); i++) {
-            NanoverseProcess mine = processes.get(i);
-            NanoverseProcess theirs = other.processes.get(i);
+        for (int i = 0; i < processList.size(); i++) {
+            NanoverseProcess mine = processList.get(i);
+            NanoverseProcess theirs = other.processList.get(i);
 
             if (!mine.equals(theirs)) {
                 return false;

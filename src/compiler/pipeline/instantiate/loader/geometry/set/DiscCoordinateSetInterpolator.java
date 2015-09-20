@@ -22,43 +22,53 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.processes.discrete.filter;
+package compiler.pipeline.instantiate.loader.geometry.set;
 
 import compiler.pipeline.instantiate.helpers.LoadHelper;
+import compiler.pipeline.instantiate.loader.control.identifiers.CoordinateLoader;
 import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
+import control.arguments.IntegerArgument;
+import control.identifiers.Coordinate;
+import geometry.Geometry;
 import layers.LayerManager;
-import layers.cell.CellLayer;
-import processes.discrete.filter.Filter;
 
-import java.util.stream.Stream;
+import java.util.Random;
 
 /**
- * Created by dbborens on 8/24/2015.
+ * Created by dbborens on 9/19/2015.
  */
-public class CompositeFilterInterpolator {
-    private final LoadHelper load;
-    private final CompositeFilterDefaults defaults;
+public class DiscCoordinateSetInterpolator {
 
-    public CompositeFilterInterpolator() {
+    private final LoadHelper load;
+    private final DiscCoordinateSetDefaults defaults;
+
+    public DiscCoordinateSetInterpolator() {
         load = new LoadHelper();
-        defaults = new CompositeFilterDefaults();
+        defaults = new DiscCoordinateSetDefaults();
     }
 
-    public CompositeFilterInterpolator(LoadHelper load,
-                                       CompositeFilterDefaults defaults) {
+    public DiscCoordinateSetInterpolator(LoadHelper load,
+                                         DiscCoordinateSetDefaults defaults) {
         this.load = load;
         this.defaults = defaults;
     }
 
-    public Stream<Filter> including(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        FilterStreamLoader loader = (FilterStreamLoader) load.getLoader(node, "including", false);
+    public Geometry geometry(LayerManager lm) {
+        return lm.getCellLayer().getGeometry();
+    }
 
+    public Coordinate offset(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        CoordinateLoader loader = (CoordinateLoader) load.getLoader(node, "offset", false);
         if (loader == null) {
-            return defaults.including();
+            return defaults.offset(lm);
         }
 
-        ListObjectNode cNode = (ListObjectNode) node.getMember("including");
+        MapObjectNode cNode = (MapObjectNode) node.getMember("offset");
         return loader.instantiate(cNode, lm, p);
+    }
+
+    public IntegerArgument radiusArg(MapObjectNode node, Random random) {
+        return load.anIntegerArgument(node, "radius", random, defaults::radius);
     }
 }

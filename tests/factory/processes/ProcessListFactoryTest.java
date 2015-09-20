@@ -33,6 +33,7 @@ import test.EslimeLatticeTestCase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.*;
 
 public class ProcessListFactoryTest extends EslimeLatticeTestCase {
 
@@ -48,32 +49,33 @@ public class ProcessListFactoryTest extends EslimeLatticeTestCase {
 
     public void testImplicit() throws Exception {
         Element implicit = root.element("implicit-case");
-        List<NanoverseProcess> expected = new ArrayList<>(0);
-        List<NanoverseProcess> actual = ProcessListFactory.instantiate(implicit, layerManager, p);
+        Stream<NanoverseProcess> expected = Stream.empty();
+        Stream actual = ProcessListFactory.instantiate(implicit, layerManager, p);
 
         doComparison(expected, actual);
     }
 
     public void testSingleton() throws Exception {
         Element singleton = root.element("singleton-case");
-        List<NanoverseProcess> expected = new ArrayList<>(1);
-        expected.add(makeProcess("test"));
-        List<NanoverseProcess> actual = ProcessListFactory.instantiate(singleton, layerManager, p);
+        Stream<NanoverseProcess> expected = Stream.of(makeProcess("test"));
+        Stream<NanoverseProcess> actual = ProcessListFactory.instantiate(singleton, layerManager, p);
 
         doComparison(expected, actual);
     }
 
     public void testMultiple() throws Exception {
         Element multiple = root.element("multiple-case");
-        List<NanoverseProcess> expected = new ArrayList<>(2);
-        expected.add(makeProcess("test1"));
-        expected.add(makeProcess("test2"));
-        List<NanoverseProcess> actual = ProcessListFactory.instantiate(multiple, layerManager, p);
+        Stream<NanoverseProcess> expected = Stream.of(
+            makeProcess("test1"),
+            makeProcess("test2"));
+        Stream<NanoverseProcess> actual = ProcessListFactory.instantiate(multiple, layerManager, p);
 
         doComparison(expected, actual);
     }
 
-    private void doComparison(List<NanoverseProcess> expected, List<NanoverseProcess> actual) {
+    private void doComparison(Stream<NanoverseProcess> expStream, Stream<NanoverseProcess> actStream) {
+        List<NanoverseProcess> expected = expStream.collect(Collectors.toList());
+        List<NanoverseProcess> actual = actStream.collect(Collectors.toList());
         assertEquals(expected.size(), actual.size());
 
         for (int i = 0; i < expected.size(); i++) {

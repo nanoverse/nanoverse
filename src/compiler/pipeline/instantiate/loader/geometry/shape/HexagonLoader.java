@@ -26,6 +26,7 @@ package compiler.pipeline.instantiate.loader.geometry.shape;
 
 import compiler.pipeline.instantiate.factory.geometry.shape.HexagonFactory;
 import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import geometry.lattice.Lattice;
 import geometry.shape.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -35,21 +36,30 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  */
 public class HexagonLoader extends ShapeLoader<Hexagon> {
     private final HexagonFactory factory;
+    private final HexagonInterpolator interpolator;
 
     public HexagonLoader() {
         factory = new HexagonFactory();
+        interpolator = new HexagonInterpolator();
     }
 
-    public HexagonLoader(HexagonFactory factory) {
+    public HexagonLoader(HexagonFactory factory,
+                         HexagonInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
     }
 
     @Override
-    public Shape instantiate(MapObjectNode node, Lattice lattice) {
-        throw new NotImplementedException();
+    public Shape instantiate(MapObjectNode node, Lattice lattice, GeneralParameters p) {
+        factory.setLattice(lattice);
+
+        int radius = interpolator.radius(node, p.getRandom());
+        factory.setRadius(radius);
+
+        return factory.build();
     }
 
-    public Shape instantiate(Lattice lattice) {
-        return instantiate(null, lattice);
+    public Shape instantiate(Lattice lattice, GeneralParameters p) {
+        return instantiate(null, lattice, p);
     }
 }

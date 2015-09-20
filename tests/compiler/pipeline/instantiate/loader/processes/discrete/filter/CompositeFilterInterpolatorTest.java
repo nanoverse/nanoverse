@@ -60,9 +60,9 @@ public class CompositeFilterInterpolatorTest extends InterpolatorTest {
         when(load.getLoader(eq(node), eq("including"), anyBoolean())).thenReturn(loader);
 
         Stream<Filter> expected = mock(Stream.class);
-        when(loader.instantiate(cNode, layer)).thenReturn(expected);
+        when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
 
-        Stream<Filter> actual = query.including(node, layer);
+        Stream<Filter> actual = query.including(node, lm, p);
         assertSame(expected, actual);
     }
 
@@ -70,7 +70,7 @@ public class CompositeFilterInterpolatorTest extends InterpolatorTest {
     public void includingDefault() throws Exception {
         Stream<Filter> expected = mock(Stream.class);
         when(defaults.including()).thenReturn(expected);
-        Stream<Filter> actual = query.including(node, layer);
+        Stream<Filter> actual = query.including(node, lm, p);
         assertSame(expected, actual);
     }
 }
