@@ -32,17 +32,17 @@ import java.util.stream.Stream;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
-public class ASTContainerNodeTest extends TestBase {
+public class ASTNodeTest extends TestBase {
 
     private ASTNode child1, child2;
-    private ASTContainerNode query;
+    private ASTNode query;
 
     @Before
     public void init() throws Exception {
         child1 = mock(ASTNode.class);
         child2 = mock(ASTNode.class);
         Stream<ASTNode> stream = Stream.of(child1, child2);
-        query = new ASTContainerNode("id", stream);
+        query = new ASTNode("id", stream);
     }
 
     @Test
@@ -65,21 +65,21 @@ public class ASTContainerNodeTest extends TestBase {
     @Test
     public void equals() throws Exception {
         Stream<ASTNode> stream = Stream.of(child1, child2);
-        ASTContainerNode other = new ASTContainerNode("id", stream);
+        ASTNode other = new ASTNode("id", stream);
         assertEquals(query, other);
     }
 
     @Test
     public void notEqDiffId() throws Exception {
         Stream<ASTNode> stream = Stream.of(child1, child2);
-        ASTContainerNode other = new ASTContainerNode("something else", stream);
+        ASTNode other = new ASTNode("something else", stream);
         assertNotEquals(query, other);
     }
 
     @Test
     public void notEqDiffChildren() throws Exception {
         Stream<ASTNode> stream = Stream.empty();
-        ASTContainerNode other = new ASTContainerNode("id", stream);
+        ASTNode other = new ASTNode("id", stream);
         assertNotEquals(query, other);
     }
 }

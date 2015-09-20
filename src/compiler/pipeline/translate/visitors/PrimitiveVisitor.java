@@ -24,7 +24,7 @@
 
 package compiler.pipeline.translate.visitors;
 
-import compiler.pipeline.interpret.nodes.ASTContainerNode;
+import compiler.pipeline.interpret.nodes.ASTNode;
 import compiler.pipeline.translate.nodes.*;
 import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import org.slf4j.*;
@@ -42,11 +42,11 @@ public class PrimitiveVisitor {
         logger = LoggerFactory.getLogger(PrimitiveVisitor.class);
     }
 
-    public ObjectNode translate(ASTContainerNode toTranslate, ConstantPrimitiveSymbolTable symbolTable) {
+    public ObjectNode translate(ASTNode toTranslate, ConstantPrimitiveSymbolTable symbolTable) {
         logger.debug("Translating primitive.");
 
         // TODO Repeat this construction for the other primitive STs. Create tests.
-        ASTContainerNode valueNode = (ASTContainerNode) toTranslate
+        ASTNode valueNode = (ASTNode) toTranslate
             .getChildren()
             .findFirst()
             .get();

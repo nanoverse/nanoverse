@@ -24,7 +24,6 @@
 
 package compiler.pipeline.interpret.visitors;
 
-import compiler.pipeline.interpret.nanosyntax.NanosyntaxParser;
 import compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.BoolPrimitiveContext;
 import compiler.pipeline.interpret.nodes.*;
 import org.antlr.v4.runtime.CommonToken;
@@ -52,9 +51,9 @@ public class NanoPrimitiveBooleanVisitor extends AbstractNanoNodeVisitor {
         verifyPayload(child, CommonToken.class);
 
         String valueText = child.getText();
-        ASTContainerNode valueNode = new ASTContainerNode(valueText, Stream.empty());
+        ASTNode valueNode = new ASTNode(valueText, Stream.empty());
         Stream<ASTNode> children = Stream.of(valueNode);
-        ASTContainerNode container = new ASTContainerNode(IDENTIFIER, children);
+        ASTNode container = new ASTNode(IDENTIFIER, children);
 
         logger.debug("Translated literal \"{}\" as a Boolean primitive.", valueText);
         return container;

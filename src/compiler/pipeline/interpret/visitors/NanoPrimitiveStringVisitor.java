@@ -52,9 +52,9 @@ public class NanoPrimitiveStringVisitor extends AbstractNanoNodeVisitor {
 
         String valueText = child.getText();
         valueText = valueText.replaceAll("^\"|\"$", "");
-        ASTContainerNode valueNode = new ASTContainerNode(valueText, Stream.empty());
+        ASTNode valueNode = new ASTNode(valueText, Stream.empty());
         Stream<ASTNode> children = Stream.of(valueNode);
-        ASTContainerNode container = new ASTContainerNode(IDENTIFIER, children);
+        ASTNode container = new ASTNode(IDENTIFIER, children);
         logger.debug("Translated literal \"{}\" as a String primitive.", valueText);
         return container;
     }

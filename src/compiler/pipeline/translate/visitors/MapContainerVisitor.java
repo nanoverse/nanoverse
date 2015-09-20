@@ -46,7 +46,7 @@ public class MapContainerVisitor {
         this.walker = walker;
     }
 
-    public ObjectNode translate(ASTContainerNode toTranslate, MapSymbolTable symbolTable) {
+    public ObjectNode translate(ASTNode toTranslate, MapSymbolTable symbolTable) {
         logger.debug("Translating {} using MST for class {}", toTranslate.getIdentifier(),
                 symbolTable.getInstanceClass().getSimpleName());
 
@@ -65,11 +65,12 @@ public class MapContainerVisitor {
 
                     ObjectNode childNode;
 
-                    // If the child is a list, pass it back to be resolved.
-                    if (childRST instanceof ListSymbolTable) {
+                    // If the child is a list or dictionary, pass it back to be resolved.
+                    if (childRST instanceof ListSymbolTable ||
+                        childRST instanceof DictionarySymbolTable) {
+
                         childNode = walker.walk(child, childRST);
 
-                    // Otherwise, it is the granchild that will be resolved.
                     } else {
 
                         // The child will have exactly one child of its own: the instance.
@@ -84,8 +85,8 @@ public class MapContainerVisitor {
                     }
 
                     logger.debug("Loading new {} to property \"{}\"",
-                            childNode.getInstantiatingClass().getSimpleName(),
-                            identifier);
+                        childNode.getInstantiatingClass().getSimpleName(),
+                        identifier);
 
                     node.loadMember(identifier, childNode);
                 });

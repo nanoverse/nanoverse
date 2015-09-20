@@ -51,7 +51,7 @@ public class NanoRootVisitor extends AbstractNanoBlockVisitor {
     public ASTNode visitRoot(@NotNull NanosyntaxParser.RootContext ctx) {
         logger.debug("Visiting root with {} children", ctx.getChildCount());
         Stream<ASTNode> children = doVisit(ctx, 0, ctx.getChildCount());
-        ASTContainerNode ret = new ASTContainerNode("root", children);
+        ASTNode ret = new ASTNode("root", children);
         return ret;
     }
 }

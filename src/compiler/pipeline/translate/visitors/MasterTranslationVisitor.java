@@ -85,15 +85,24 @@ public class MasterTranslationVisitor {
 
     public ObjectNode translate(ASTNode toTranslate, SymbolTable symbolTable) {
         if (symbolTable instanceof ListSymbolTable) {
-            return listVisitor.translate((ASTContainerNode) toTranslate, (ListSymbolTable) symbolTable);
+            logDebug("a List", toTranslate);
+            return listVisitor.translate((ASTNode) toTranslate, (ListSymbolTable) symbolTable);
         } else if (symbolTable instanceof MapSymbolTable) {
-            return mapVisitor.translate((ASTContainerNode) toTranslate, (MapSymbolTable) symbolTable);
+            logDebug("a Map", toTranslate);
+            return mapVisitor.translate((ASTNode) toTranslate, (MapSymbolTable) symbolTable);
         } else if (symbolTable instanceof DictionarySymbolTable) {
-            return dictVisitor.translate((ASTContainerNode) toTranslate, (DictionarySymbolTable) symbolTable);
+            logDebug("a Dictionary", toTranslate);
+            return dictVisitor.translate((ASTNode) toTranslate, (DictionarySymbolTable) symbolTable);
         } else if (symbolTable instanceof ConstantPrimitiveSymbolTable) {
-            return primitiveVisitor.translate((ASTContainerNode) toTranslate, (ConstantPrimitiveSymbolTable) symbolTable);
+            logDebug("a Primitive", toTranslate);
+            return primitiveVisitor.translate((ASTNode) toTranslate, (ConstantPrimitiveSymbolTable) symbolTable);
         } else {
             throw new IllegalArgumentException("Unexpected symbol table class");
         }
+    }
+
+    private void logDebug(String typeStr, ASTNode toTranslate) {
+        logger.debug("Walking container node \"{}\" as {}.", toTranslate.getIdentifier(), typeStr);
+
     }
 }

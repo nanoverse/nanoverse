@@ -46,8 +46,8 @@ public class DictionaryContainerVisitor {
         this.walker = walker;
     }
 
-    public ObjectNode translate(ASTContainerNode toTranslate, DictionarySymbolTable symbolTable) {
-        logger.debug("Translating {} using DST for class {}", toTranslate.getIdentifier(),
+    public ObjectNode translate(ASTNode toTranslate, DictionarySymbolTable symbolTable) {
+        logger.debug("Translating \"{}\" using DST for class {}", toTranslate.getIdentifier(),
                 symbolTable.getBroadClass().getSimpleName());
 
         DictionaryObjectNode node = new DictionaryObjectNode(symbolTable);
@@ -68,22 +68,20 @@ public class DictionaryContainerVisitor {
     private ObjectNode translateChild(ASTNode child, DictionarySymbolTable symbolTable) {
         // The child's value is an instantiable value of the subclass of the
         // list class.
-        ASTContainerNode childValue = getChildValue(child);
+        ASTNode childValue = getChildValue(child);
         String childClass = childValue.getIdentifier();
         InstantiableSymbolTable ist = symbolTable.getSymbolTable(childClass);
-        ASTContainerNode gcValue = getChildValue(childValue);
-        ObjectNode childNode = walker.walk(gcValue, ist);
+        ObjectNode childNode = walker.walk(childValue, ist);
         return childNode;
     }
 
-    private ASTContainerNode getChildValue(ASTNode child) {
-        List<ASTContainerNode> grandchildren = child
+    private ASTNode getChildValue(ASTNode child) {
+        List<ASTNode> grandchildren = child
                 .getChildren()
-                .map(x -> (ASTContainerNode) x)
                 .collect(Collectors.toList());
 
         if (grandchildren.size() != 1) {
-            throw new SyntaxError("Unexpected dictionary value on element " + child.getIdentifier());
+            throw new SyntaxError("Unexpected dictionary value on element " + child.getIdentifier() + ". Detail:\n\n" + child.toString());
         }
         return grandchildren.get(0);
     }
