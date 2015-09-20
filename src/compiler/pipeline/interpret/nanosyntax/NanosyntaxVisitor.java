@@ -1,6 +1,5 @@
-// Generated from C:/Users/dbborens/IdeaProjects/nanoverse/src\Nanosyntax.g4 by ANTLR 4.5
+// Generated from D:/Users/dbborens/IdeaProjects/nanoverse/src\Nanosyntax.g4 by ANTLR 4.5.1
 package compiler.pipeline.interpret.nanosyntax;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -16,65 +15,65 @@ public interface NanosyntaxVisitor<T> extends ParseTreeVisitor<T> {
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRoot(@NotNull NanosyntaxParser.RootContext ctx);
+	T visitRoot(NanosyntaxParser.RootContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NanosyntaxParser#statement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatement(@NotNull NanosyntaxParser.StatementContext ctx);
+	T visitStatement(NanosyntaxParser.StatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NanosyntaxParser#assignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssignment(@NotNull NanosyntaxParser.AssignmentContext ctx);
+	T visitAssignment(NanosyntaxParser.AssignmentContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NanosyntaxParser#block}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBlock(@NotNull NanosyntaxParser.BlockContext ctx);
+	T visitBlock(NanosyntaxParser.BlockContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NanosyntaxParser#singleton}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSingleton(@NotNull NanosyntaxParser.SingletonContext ctx);
+	T visitSingleton(NanosyntaxParser.SingletonContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NanosyntaxParser#id}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitId(@NotNull NanosyntaxParser.IdContext ctx);
+	T visitId(NanosyntaxParser.IdContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NanosyntaxParser#primitive}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPrimitive(@NotNull NanosyntaxParser.PrimitiveContext ctx);
+	T visitPrimitive(NanosyntaxParser.PrimitiveContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NanosyntaxParser#stringPrimitive}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStringPrimitive(@NotNull NanosyntaxParser.StringPrimitiveContext ctx);
+	T visitStringPrimitive(NanosyntaxParser.StringPrimitiveContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NanosyntaxParser#floatPrimitive}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFloatPrimitive(@NotNull NanosyntaxParser.FloatPrimitiveContext ctx);
+	T visitFloatPrimitive(NanosyntaxParser.FloatPrimitiveContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NanosyntaxParser#intPrimitive}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIntPrimitive(@NotNull NanosyntaxParser.IntPrimitiveContext ctx);
+	T visitIntPrimitive(NanosyntaxParser.IntPrimitiveContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link NanosyntaxParser#boolPrimitive}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBoolPrimitive(@NotNull NanosyntaxParser.BoolPrimitiveContext ctx);
+	T visitBoolPrimitive(NanosyntaxParser.BoolPrimitiveContext ctx);
 }

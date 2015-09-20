@@ -29,6 +29,7 @@ import compiler.pipeline.interpret.nodes.*;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.slf4j.*;
 
 import java.util.stream.Stream;
 
@@ -37,6 +38,7 @@ import java.util.stream.Stream;
  */
 public class NanoPrimitiveStringVisitor extends AbstractNanoNodeVisitor {
 
+    private final Logger logger = LoggerFactory.getLogger(NanoPrimitiveIntegerVisitor.class);
     public static final String IDENTIFIER = "ConstantString";
 
     @Override
@@ -53,6 +55,7 @@ public class NanoPrimitiveStringVisitor extends AbstractNanoNodeVisitor {
         ASTContainerNode valueNode = new ASTContainerNode(valueText, Stream.empty());
         Stream<ASTNode> children = Stream.of(valueNode);
         ASTContainerNode container = new ASTContainerNode(IDENTIFIER, children);
+        logger.debug("Translated literal \"{}\" as a String primitive.", valueText);
         return container;
     }
 }

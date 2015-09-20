@@ -31,8 +31,10 @@ import compiler.pipeline.translate.nodes.MapObjectNode;
 import compiler.pipeline.translate.symbol.control.run.ProjectSymbolTable;
 import compiler.pipeline.translate.visitors.MasterTranslationVisitor;
 import control.run.Runner;
+import org.slf4j.*;
 
 import java.io.File;
+import java.util.logging.LogManager;
 
 /**
  * Created by dbborens on 9/17/2015.
@@ -45,6 +47,7 @@ public class Compiler {
     private final MasterTranslationVisitor translator;
     private final ProjectLoader instantiator;
 
+    private final Logger logger = LoggerFactory.getLogger(Compiler.class);
     /**
      * Standard Nanoverse compiler.
      *
@@ -82,16 +85,19 @@ public class Compiler {
     }
 
     public Runner compile() {
-        // TODO Interpreter should check file validity, not entry point
         File target = new File(targetFilename);
 
+        logger.info("Interpreting source code");
         ASTNode rootASTNode = interpreter.interpret(target);
 
+        logger.info("Translating abstract syntax tree");
         MapObjectNode rootObjNode = (MapObjectNode) translator
             .translate(rootASTNode, rootIST);
 
+        logger.info("Instantiating Java objects");
         Runner runner = instantiator.instantiate(rootObjNode);
 
+        logger.info("Compilation complete.");
         return runner;
     }
 }

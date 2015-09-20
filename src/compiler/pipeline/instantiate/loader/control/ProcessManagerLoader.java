@@ -62,4 +62,8 @@ public class ProcessManagerLoader extends Loader<ProcessManager> {
 
         return factory.build();
     }
+
+    public ProcessManager instantiate(LayerManager lm, GeneralParameters p) {
+        return instantiate(null, lm, p);
+    }
 }

@@ -29,6 +29,7 @@ import compiler.pipeline.interpret.nodes.*;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.slf4j.*;
 
 import java.util.stream.Stream;
 
@@ -37,7 +38,9 @@ import java.util.stream.Stream;
  */
 public class NanoPrimitiveIntegerVisitor extends AbstractNanoNodeVisitor {
 
+    private final Logger logger = LoggerFactory.getLogger(NanoPrimitiveIntegerVisitor.class);
     public static final String IDENTIFIER = "ConstantInteger";
+
     @Override
     public ASTNode visitIntPrimitive(@NotNull NanosyntaxParser.IntPrimitiveContext ctx) {
         if (ctx.getChildCount() != 1) {
@@ -48,9 +51,10 @@ public class NanoPrimitiveIntegerVisitor extends AbstractNanoNodeVisitor {
         verifyPayload(child, CommonToken.class);
 
         String valueText = child.getText();
-        ASTContainerNode valueNode = new ASTContainerNode(valueText, null);
+        ASTContainerNode valueNode = new ASTContainerNode(valueText, Stream.empty());
         Stream<ASTNode> children = Stream.of(valueNode);
         ASTContainerNode container = new ASTContainerNode(IDENTIFIER, children);
+        logger.debug("Translated literal \"{}\" as an Integer primitive.", valueText);
         return container;
     }
 }

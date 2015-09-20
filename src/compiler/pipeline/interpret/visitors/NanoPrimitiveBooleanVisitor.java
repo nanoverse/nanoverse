@@ -30,6 +30,7 @@ import compiler.pipeline.interpret.nodes.*;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.slf4j.*;
 
 import java.util.stream.Stream;
 
@@ -38,6 +39,7 @@ import java.util.stream.Stream;
  */
 public class NanoPrimitiveBooleanVisitor extends AbstractNanoNodeVisitor {
 
+    private final Logger logger = LoggerFactory.getLogger(NanoPrimitiveBooleanVisitor.class);
     public static final String IDENTIFIER = "ConstantBoolean";
 
     @Override
@@ -50,9 +52,11 @@ public class NanoPrimitiveBooleanVisitor extends AbstractNanoNodeVisitor {
         verifyPayload(child, CommonToken.class);
 
         String valueText = child.getText();
-        ASTContainerNode valueNode = new ASTContainerNode(valueText, null);
+        ASTContainerNode valueNode = new ASTContainerNode(valueText, Stream.empty());
         Stream<ASTNode> children = Stream.of(valueNode);
         ASTContainerNode container = new ASTContainerNode(IDENTIFIER, children);
+
+        logger.debug("Translated literal \"{}\" as a Boolean primitive.", valueText);
         return container;
     }
 

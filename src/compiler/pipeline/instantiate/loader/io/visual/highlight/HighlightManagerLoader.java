@@ -30,7 +30,7 @@ import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
 import io.visual.highlight.*;
 
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by dbborens on 8/13/15.
@@ -54,9 +54,7 @@ public class HighlightManagerLoader extends Loader<HighlightManager> {
     public HighlightManager instantiate(ListObjectNode cNode,
                                         GeneralParameters p) {
 
-        cNode.getMemberStream()
-            .forEach(node -> cLoader.load(node, p));
-        Map<Integer, Glyph> glyphMap = cLoader.getGlyphMap();
+        Map<Integer, Glyph> glyphMap = resolveGlyphMap(cNode, p);
         factory.setGlyphMap(glyphMap);
 
         return factory.build();
@@ -64,5 +62,18 @@ public class HighlightManagerLoader extends Loader<HighlightManager> {
 
     public HighlightManager instantiate(GeneralParameters p) {
         return instantiate(null, p);
+    }
+
+    private Map<Integer, Glyph> resolveGlyphMap(ListObjectNode cNode, GeneralParameters p) {
+        Map<Integer, Glyph> glyphMap;
+
+        if (cNode == null) {
+            glyphMap = new HashMap<>(0);
+        } else {
+            cNode.getMemberStream()
+                .forEach(node -> cLoader.load(node, p));
+            glyphMap = cLoader.getGlyphMap();
+        }
+        return glyphMap;
     }
 }

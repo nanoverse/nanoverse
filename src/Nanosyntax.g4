@@ -10,9 +10,8 @@ grammar Nanosyntax;
 root: (statement)*;
 
 statement
-    : id ';'
-    | primitive ';'
-    | block ';'
+    : primitive ';'
+    | id ';'
     | assignment ';';
 
 assignment
@@ -22,8 +21,8 @@ assignment
 block: '{' (statement)* '}' ;
 
 singleton
-    : id
-    | primitive
+    : primitive
+    | id
     | assignment;
 
 id
@@ -41,7 +40,7 @@ floatPrimitive: FLOAT;
 intPrimitive: INTEGER;
 boolPrimitive: BOOLEAN;
 
-ID : [a-zA-Z] [a-zA-Z0-9]*;
+BOOLEAN: 'True' | 'False' ;
 
 STRING :  '"' (~["\\])* '"' ;
 
@@ -54,9 +53,9 @@ INTEGER: '-'? INT;
 fragment INT :   '0' | [1-9] [0-9]* ; // no leading zeros
 fragment EXP :   [Ee] [+\-]? INT ; // \- since - means "range" inside [...]
 
-BOOLEAN: 'True' | 'False' ;
+ID : [a-zA-Z] [a-zA-Z0-9]*;
 
-WS  :  [ \t\r\n\u000C]+ -> skip
+WS  :  [ \t\r\n\u000C]+ -> channel(HIDDEN)
     ;
 
 COMMENT

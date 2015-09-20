@@ -28,5 +28,5 @@ package structural;
  * Created by dbborens on 8/13/15.
  */
 public class Version {
-    public final static String VERSION = "0.7.0";
+    public final static String VERSION = "1.0.0-a1";
 }
