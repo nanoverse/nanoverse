@@ -24,32 +24,11 @@
 
 package compiler.pipeline.instantiate.loader.control.identifiers;
 
-import compiler.pipeline.instantiate.factory.Factory;
-import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.GeneralParameters;
-import control.identifiers.Coordinate;
-import geometry.Geometry;
-import layers.LayerManager;
-
 /**
- * Created by dbborens on 8/10/2015.
+ * Created by dbborens on 9/19/2015.
  */
-public class CoordinateLoader extends Loader<Coordinate> {
-
-    private final CoordinateAdapter adapter;
-
-    public CoordinateLoader() {
-        adapter = new CoordinateAdapter();
-    }
-
-    public CoordinateLoader(CoordinateAdapter adapter) {
-        this.adapter = adapter;
-    }
-
-    public Coordinate instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        Geometry geom = lm.getCellLayer().getGeometry();
-        CoordinateSubclassLoader loader = adapter.getLoader(geom);
-        return loader.instantiate(node, lm, p);
+public class Coordinate2DDefaults {
+    public Integer flags() {
+        return 0;
     }
 }

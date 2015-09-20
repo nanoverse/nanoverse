@@ -24,32 +24,34 @@
 
 package compiler.pipeline.instantiate.loader.control.identifiers;
 
-import compiler.pipeline.instantiate.factory.Factory;
-import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.GeneralParameters;
-import control.identifiers.Coordinate;
-import geometry.Geometry;
-import layers.LayerManager;
+
+import java.util.Random;
 
 /**
- * Created by dbborens on 8/10/2015.
+ * Created by dbborens on 9/19/2015.
  */
-public class CoordinateLoader extends Loader<Coordinate> {
+public class Coordinate1DInterpolator {
+    private final LoadHelper load;
+    private final Coordinate1DDefaults defaults;
 
-    private final CoordinateAdapter adapter;
-
-    public CoordinateLoader() {
-        adapter = new CoordinateAdapter();
+    public Coordinate1DInterpolator() {
+        load = new LoadHelper();
+        defaults = new Coordinate1DDefaults();
     }
 
-    public CoordinateLoader(CoordinateAdapter adapter) {
-        this.adapter = adapter;
+    public Coordinate1DInterpolator(LoadHelper load,
+                                    Coordinate1DDefaults defaults) {
+        this.load = load;
+        this.defaults = defaults;
     }
 
-    public Coordinate instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        Geometry geom = lm.getCellLayer().getGeometry();
-        CoordinateSubclassLoader loader = adapter.getLoader(geom);
-        return loader.instantiate(node, lm, p);
+    public int y(MapObjectNode node, Random random) {
+        return load.anInteger(node, "y", random);
+    }
+
+    public int flags(MapObjectNode node, Random random) {
+        return load.anInteger(node, "flags", random, defaults::flags);
     }
 }

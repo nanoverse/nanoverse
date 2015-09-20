@@ -68,7 +68,7 @@ public class ProjectLoaderTest {
         when(interpolator.generalParameters(node)).thenReturn(p);
 
         GeometryDescriptor gd = mock(GeometryDescriptor.class);
-        when(interpolator.geometry(node)).thenReturn(gd);
+        when(interpolator.geometry(node, p)).thenReturn(gd);
 
         LayerManager lm = mock(LayerManager.class);
         when(interpolator.layers(node, gd, p)).thenReturn(lm);

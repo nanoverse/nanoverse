@@ -25,8 +25,12 @@
 package compiler.pipeline.instantiate.loader.control.identifiers;
 
 import compiler.pipeline.instantiate.factory.control.identifiers.Coordinate1DFactory;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import control.identifiers.Coordinate;
 import control.identifiers.Coordinate1D;
+import layers.LayerManager;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/12/15.
@@ -34,12 +38,27 @@ import control.identifiers.Coordinate1D;
 public class Coordinate1DLoader extends CoordinateSubclassLoader<Coordinate1D> {
 
     private final Coordinate1DFactory factory;
+    private final Coordinate1DInterpolator interpolator;
 
     public Coordinate1DLoader() {
         factory = new Coordinate1DFactory();
+        interpolator = new Coordinate1DInterpolator();
     }
 
-    public Coordinate1DLoader(Coordinate1DFactory factory) {
+    public Coordinate1DLoader(Coordinate1DFactory factory,
+                              Coordinate1DInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    @Override
+    public Coordinate1D instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        int y = interpolator.y(node, p.getRandom());
+        factory.setY(y);
+
+        int flags = interpolator.flags(node, p.getRandom());
+        factory.setFlags(flags);
+
+        return factory.build();
     }
 }

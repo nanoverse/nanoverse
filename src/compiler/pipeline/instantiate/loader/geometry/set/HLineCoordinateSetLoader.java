@@ -25,8 +25,10 @@
 package compiler.pipeline.instantiate.loader.geometry.set;
 
 import compiler.pipeline.instantiate.factory.geometry.set.HLineCoordinateSetFactory;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
+import control.identifiers.Coordinate;
+import geometry.Geometry;
 import geometry.set.HorizontalLineSet;
 import layers.LayerManager;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -35,18 +37,34 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * Created by dbborens on 8/4/2015.
  */
 public class HLineCoordinateSetLoader extends CoordinateSetLoader<HorizontalLineSet> {
+
     private final HLineCoordinateSetFactory factory;
+    private final HLineCoordinateSetInterpolator interpolator;
 
     public HLineCoordinateSetLoader() {
         factory = new HLineCoordinateSetFactory();
+        interpolator = new HLineCoordinateSetInterpolator();
     }
 
-    public HLineCoordinateSetLoader(HLineCoordinateSetFactory factory) {
+    public HLineCoordinateSetLoader(HLineCoordinateSetFactory factory,
+                                    HLineCoordinateSetInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
     }
 
     @Override
-    public HorizontalLineSet instantiate(ObjectNode o, LayerManager lm, GeneralParameters p) {
-        throw new NotImplementedException();
+    public HorizontalLineSet instantiate(ObjectNode oNode, LayerManager lm, GeneralParameters p) {
+        MapObjectNode node = (MapObjectNode) oNode;
+
+        Geometry geometry = interpolator.geometry(lm);
+        factory.setGeom(geometry);
+
+        int length = interpolator.length(node, p.getRandom());
+        factory.setLength(length);
+
+        Coordinate start = interpolator.start(node, lm, p);
+        factory.setStart(start);
+
+        return factory.build();
     }
 }

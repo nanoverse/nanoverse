@@ -21,23 +21,19 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package compiler.pipeline.instantiate.factory.control;
 
-package compiler.pipeline.instantiate.loader;
+import java.util.List;
+import java.util.stream.Stream;
 
-import com.google.common.reflect.TypeToken;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.GeneralParameters;
-import control.identifiers.Coordinate;
+import control.ProcessManager;
 import layers.LayerManager;
+import processes.NanoverseProcess;
 
-/**
- * Created by dbborens on 7/29/2015.
- */
-public abstract class Loader<T> {
 
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
+public class ProcessManagerFactoryHelper {
 
-    public Class getInstanceClass() {
-        return type.getRawType();
+    public ProcessManager build(Stream<NanoverseProcess> processes, LayerManager layerManager) {
+        return new ProcessManager(processes, layerManager);
     }
 }

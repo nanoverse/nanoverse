@@ -65,7 +65,7 @@ public class ProjectInterpolatorTest {
     }
 
     private void configureVersion(String version) {
-        when(loadHelper.aString(node, "version")).thenReturn(version);
+        when(loadHelper.aString(eq(node), eq("version"), any())).thenReturn(version);
     }
 
     @Test
@@ -112,17 +112,17 @@ public class ProjectInterpolatorTest {
         when(loadHelper.getLoader(eq(node), eq("geometry"), anyBoolean())).thenReturn(loader);
 
         GeometryDescriptor expected = mock(GeometryDescriptor.class);
-        when(loader.instantiate(cNode)).thenReturn(expected);
+        when(loader.instantiate(cNode, p)).thenReturn(expected);
 
-        GeometryDescriptor actual = query.geometry(node);
+        GeometryDescriptor actual = query.geometry(node, p);
         assertSame(expected, actual);
     }
 
     @Test
     public void geometryOmitted() throws Exception {
         GeometryDescriptor expected = mock(GeometryDescriptor.class);
-        when(defaults.geometry()).thenReturn(expected);
-        GeometryDescriptor actual = query.geometry(node);
+        when(defaults.geometry(p)).thenReturn(expected);
+        GeometryDescriptor actual = query.geometry(node, p);
 
         assertSame(expected, actual);
     }
@@ -177,14 +177,14 @@ public class ProjectInterpolatorTest {
 
     @Test
     public void processes() throws Exception {
-        ObjectNode cNode = mock(ObjectNode.class);
+        ListObjectNode cNode = mock(ListObjectNode.class);
         when(node.getMember("processes")).thenReturn(cNode);
 
         ProcessManagerLoader loader = mock(ProcessManagerLoader.class);
         when(loadHelper.getLoader(eq(node), eq("processes"), anyBoolean())).thenReturn(loader);
 
         ProcessManager expected = mock(ProcessManager.class);
-        when(loader.instantiate(cNode, p, lm)).thenReturn(expected);
+        when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
 
         ProcessManager actual = query.processes(node, p, lm);
         assertSame(expected, actual);

@@ -34,6 +34,7 @@ import test.EslimeTestCase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by David B Borenstein on 1/7/14.
@@ -54,9 +55,8 @@ public class ProcessManagerTest extends EslimeTestCase {
     }
 
     private void buildQuery() {
-        List<NanoverseProcess> processes = new ArrayList<>(2);
-        processes.add(yes);
-        processes.add(no);
+        Stream<NanoverseProcess> processes = Stream.of(
+            yes, no);
         query = new ProcessManager(processes, layerManager);
     }
 

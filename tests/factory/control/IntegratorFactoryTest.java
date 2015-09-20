@@ -39,6 +39,7 @@ import test.EslimeLatticeTestCase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class IntegratorFactoryTest extends EslimeLatticeTestCase {
 
@@ -58,8 +59,7 @@ public class IntegratorFactoryTest extends EslimeLatticeTestCase {
 
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
         NanoverseProcess process = new MockProcess(arguments, "test1", 1.0, 1);
-        List<NanoverseProcess> processes = new ArrayList<>(1);
-        processes.add(process);
+        Stream<NanoverseProcess> processes = Stream.of(process);
         ProcessManager processManager = new ProcessManager(processes, layerManager);
 
         Serializer writer = new ProgressReporter(p, layerManager);
@@ -75,7 +75,7 @@ public class IntegratorFactoryTest extends EslimeLatticeTestCase {
     public void testImplicitCase() throws Exception {
         Element implicitRoot = root.element("implicit-case");
         Integrator actual = IntegratorFactory.instantiate(implicitRoot, p, layerManager);
-        ProcessManager processManager = new ProcessManager(new ArrayList<NanoverseProcess>(0), layerManager);
+        ProcessManager processManager = new ProcessManager(Stream.empty(), layerManager);
         SerializationManager serializationManager = new SerializationManager(p, layerManager, new ArrayList<Serializer>(0));
         Integrator expected = new Integrator(p, processManager, serializationManager);
 

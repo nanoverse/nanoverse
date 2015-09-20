@@ -22,38 +22,46 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.processes.discrete.filter;
+package compiler.pipeline.instantiate.loader.control;
 
+import compiler.pipeline.instantiate.helpers.LoadHelper;
 import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import compiler.pipeline.translate.nodes.*;
 import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 import control.GeneralParameters;
 import layers.LayerManager;
-import layers.cell.CellLayer;
-import processes.discrete.filter.Filter;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import processes.NanoverseProcess;
 
 import java.util.stream.Stream;
 
 /**
- * Created by dbborens on 8/24/2015.
+ * Created by dbborens on 9/19/2015.
  */
-public class FilterStreamLoader extends Loader<Stream<Filter>> {
+public class ProcessManagerInterpolator {
 
-    public Stream<Filter> instantiate(ListObjectNode node, LayerManager lm, GeneralParameters p) {
+    private final ProcessManagerDefaults defaults;
+
+    public ProcessManagerInterpolator() {
+        defaults = new ProcessManagerDefaults();
+    }
+
+    public ProcessManagerInterpolator(ProcessManagerDefaults defaults) {
+        this.defaults = defaults;
+    }
+    public Stream<NanoverseProcess> processes(ListObjectNode node, LayerManager lm, GeneralParameters p) {
         if (node == null) {
-            return Stream.empty();
+            return defaults.processes();
         }
 
         return node.getMemberStream()
             .map(cNode -> (MapObjectNode) cNode)
-            .map(cNode -> toFilter(cNode, lm, p));
+            .map(cNode -> toProcess(cNode, lm, p));
     }
 
-    private Filter toFilter(MapObjectNode cNode, LayerManager lm, GeneralParameters p) {
+    private NanoverseProcess toProcess(MapObjectNode cNode, LayerManager lm, GeneralParameters p) {
         InstantiableSymbolTable ist = cNode.getSymbolTable();
-        FilterLoader loader = (FilterLoader) ist.getLoader();
+        ProcessLoader loader = (ProcessLoader) ist.getLoader();
         return loader.instantiate(cNode, lm, p);
     }
 }

@@ -22,43 +22,46 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.processes.discrete.filter;
+package compiler.pipeline.instantiate.loader.control.identifiers;
 
 import compiler.pipeline.instantiate.helpers.LoadHelper;
-import compiler.pipeline.translate.nodes.*;
-import control.GeneralParameters;
-import layers.LayerManager;
-import layers.cell.CellLayer;
-import processes.discrete.filter.Filter;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.identifiers.Coordinate3D;
 
-import java.util.stream.Stream;
+import java.util.Random;
 
 /**
- * Created by dbborens on 8/24/2015.
+ * Created by dbborens on 9/19/2015.
  */
-public class CompositeFilterInterpolator {
-    private final LoadHelper load;
-    private final CompositeFilterDefaults defaults;
+public class Coordinate3DInterpolator {
 
-    public CompositeFilterInterpolator() {
+    private final LoadHelper load;
+    private final Coordinate3DDefaults defaults;
+
+    public Coordinate3DInterpolator() {
         load = new LoadHelper();
-        defaults = new CompositeFilterDefaults();
+        defaults = new Coordinate3DDefaults();
     }
 
-    public CompositeFilterInterpolator(LoadHelper load,
-                                       CompositeFilterDefaults defaults) {
+    public Coordinate3DInterpolator(LoadHelper load,
+                                    Coordinate3DDefaults defaults) {
         this.load = load;
         this.defaults = defaults;
     }
 
-    public Stream<Filter> including(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        FilterStreamLoader loader = (FilterStreamLoader) load.getLoader(node, "including", false);
+    public int x(MapObjectNode node, Random random) {
+        return load.anInteger(node, "x", random);
+    }
 
-        if (loader == null) {
-            return defaults.including();
-        }
+    public int y(MapObjectNode node, Random random) {
+        return load.anInteger(node, "y", random);
+    }
 
-        ListObjectNode cNode = (ListObjectNode) node.getMember("including");
-        return loader.instantiate(cNode, lm, p);
+    public int z(MapObjectNode node, Random random) {
+        return load.anInteger(node, "z", random);
+    }
+
+    public int flags(MapObjectNode node, Random random) {
+        return load.anInteger(node, "flags", random, defaults::flags);
     }
 }

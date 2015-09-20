@@ -22,22 +22,17 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader;
+package compiler.pipeline.instantiate.loader.control;
 
-import com.google.common.reflect.TypeToken;
-import compiler.pipeline.translate.nodes.MapObjectNode;
-import control.GeneralParameters;
-import control.identifiers.Coordinate;
-import layers.LayerManager;
+import processes.NanoverseProcess;
+
+import java.util.stream.Stream;
 
 /**
- * Created by dbborens on 7/29/2015.
+ * Created by dbborens on 9/19/2015.
  */
-public abstract class Loader<T> {
-
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
-
-    public Class getInstanceClass() {
-        return type.getRawType();
+public class ProcessManagerDefaults {
+    public Stream<NanoverseProcess> processes() {
+        return Stream.empty();
     }
 }

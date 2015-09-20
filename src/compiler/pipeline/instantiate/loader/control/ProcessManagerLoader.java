@@ -24,18 +24,42 @@
 
 package compiler.pipeline.instantiate.loader.control;
 
+import compiler.pipeline.instantiate.factory.control.ProcessManagerFactory;
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.translate.nodes.ObjectNode;
+import compiler.pipeline.translate.nodes.*;
 import control.GeneralParameters;
 import control.ProcessManager;
 import layers.LayerManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import processes.NanoverseProcess;
+
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 8/13/15.
  */
 public class ProcessManagerLoader extends Loader<ProcessManager> {
-    public ProcessManager instantiate(ObjectNode childNode, GeneralParameters p, LayerManager layerManager) {
-        throw new NotImplementedException();
+
+    private final ProcessManagerFactory factory;
+    private final ProcessManagerInterpolator interpolator;
+
+    public ProcessManagerLoader() {
+        factory = new ProcessManagerFactory();
+        interpolator = new ProcessManagerInterpolator();
+    }
+
+    public ProcessManagerLoader(ProcessManagerFactory factory,
+                                ProcessManagerInterpolator interpolator) {
+
+        this.factory = factory;
+        this.interpolator = interpolator;
+    }
+
+    public ProcessManager instantiate(ListObjectNode node, LayerManager lm, GeneralParameters p) {
+        factory.setLayerManager(lm);
+
+        Stream<NanoverseProcess> processes = interpolator.processes(node, lm, p);
+        factory.setProcesses(processes);
+
+        return factory.build();
     }
 }

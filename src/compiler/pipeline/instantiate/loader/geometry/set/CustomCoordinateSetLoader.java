@@ -47,6 +47,6 @@ public class CustomCoordinateSetLoader extends CoordinateSetLoader<CustomSet> {
 
     @Override
     public CustomSet instantiate(ObjectNode o, LayerManager lm, GeneralParameters p) {
-        throw new NotImplementedException();
+        return factory.build();
     }
 }

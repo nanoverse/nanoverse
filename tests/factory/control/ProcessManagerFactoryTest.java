@@ -34,6 +34,7 @@ import test.EslimeLatticeTestCase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ProcessManagerFactoryTest extends EslimeLatticeTestCase {
 
@@ -53,7 +54,7 @@ public class ProcessManagerFactoryTest extends EslimeLatticeTestCase {
 
         ProcessManager actual = ProcessManagerFactory.instantiate(implicitRoot, p, layerManager);
 
-        List<NanoverseProcess> processes = new ArrayList<>(0);
+        Stream<NanoverseProcess> processes = Stream.empty();
         ProcessManager expected = new ProcessManager(processes, layerManager);
 
         assertEquals(expected, actual);
@@ -64,9 +65,10 @@ public class ProcessManagerFactoryTest extends EslimeLatticeTestCase {
 
         ProcessManager actual = ProcessManagerFactory.instantiate(explicitRoot, p, layerManager);
 
-        List<NanoverseProcess> processes = new ArrayList<>(2);
-        processes.add(mockProcess("test1"));
-        processes.add(mockProcess("test2"));
+        Stream<NanoverseProcess> processes = Stream.of(
+            mockProcess("test1"),
+            mockProcess("test2"));
+
         ProcessManager expected = new ProcessManager(processes, layerManager);
 
         assertEquals(expected, actual);

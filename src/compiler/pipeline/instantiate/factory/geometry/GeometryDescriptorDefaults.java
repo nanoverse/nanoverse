@@ -25,6 +25,7 @@
 package compiler.pipeline.instantiate.factory.geometry;
 
 import compiler.pipeline.instantiate.loader.geometry.shape.*;
+import control.GeneralParameters;
 import geometry.lattice.*;
 import geometry.shape.*;
 
@@ -37,19 +38,19 @@ public class GeometryDescriptorDefaults {
         return new RectangularLattice();
     }
 
-    public Shape shape(Lattice lattice) {
+    public Shape shape(Lattice lattice, GeneralParameters p) {
         if (lattice instanceof RectangularLattice) {
             RectangleLoader loader = new RectangleLoader();
-            return loader.instantiate(lattice);
+            return loader.instantiate(lattice, p);
         } else if (lattice instanceof TriangularLattice) {
             HexagonLoader loader = new HexagonLoader();
-            return loader.instantiate(lattice);
+            return loader.instantiate(lattice, p);
         } else if (lattice instanceof LinearLattice) {
             LineLoader loader = new LineLoader();
-            return loader.instantiate(lattice);
+            return loader.instantiate(lattice, p);
         } else if (lattice instanceof  CubicLattice) {
             CuboidLoader loader = new CuboidLoader();
-            return loader.instantiate(lattice);
+            return loader.instantiate(lattice, p);
         } else {
             throw new IllegalStateException();
         }

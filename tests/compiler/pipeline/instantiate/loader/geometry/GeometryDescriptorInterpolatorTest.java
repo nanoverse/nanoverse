@@ -83,9 +83,9 @@ public class GeometryDescriptorInterpolatorTest extends InterpolatorTest {
 
         Shape expected = mock(Shape.class);
         Lattice lattice = mock(Lattice.class);
-        when(loader.instantiate(cNode, lattice)).thenReturn(expected);
+        when(loader.instantiate(cNode, lattice, p)).thenReturn(expected);
 
-        Shape actual = query.shape(node, lattice);
+        Shape actual = query.shape(node, lattice, p);
         assertSame(expected, actual);
     }
 
@@ -93,8 +93,8 @@ public class GeometryDescriptorInterpolatorTest extends InterpolatorTest {
     public void shapeDefault() throws Exception {
         Lattice lattice = mock(Lattice.class);
         Shape expected = mock(Shape.class);
-        when(defaults.shape(lattice)).thenReturn(expected);
-        Shape actual = query.shape(node, lattice);
+        when(defaults.shape(lattice, p)).thenReturn(expected);
+        Shape actual = query.shape(node, lattice, p);
         assertSame(expected, actual);
     }
 }

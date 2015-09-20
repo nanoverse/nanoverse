@@ -69,7 +69,7 @@ public class ProjectLoader extends Loader<Runner> {
     }
 
     private Integrator integrator(MapObjectNode node, GeneralParameters p) {
-        GeometryDescriptor geom = interpolator.geometry(node);
+        GeometryDescriptor geom = interpolator.geometry(node, p);
         LayerManager layerManager = interpolator.layers(node, geom, p);
         SerializationManager output = interpolator.output(node, p, layerManager);
         ProcessManager processes = interpolator.processes(node, p, layerManager);

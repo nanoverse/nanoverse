@@ -25,10 +25,15 @@
 package compiler.pipeline.instantiate.loader.control.identifiers;
 
 import compiler.pipeline.instantiate.loader.Loader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
+import control.GeneralParameters;
 import control.identifiers.Coordinate;
+import layers.LayerManager;
 
 /**
  * Created by dbborens on 8/12/15.
  */
-public class CoordinateSubclassLoader<T extends Coordinate> extends Loader<T> {
+public abstract class CoordinateSubclassLoader<T extends Coordinate> extends Loader<T> {
+
+    public abstract T instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p);
 }

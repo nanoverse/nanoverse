@@ -61,9 +61,9 @@ public class ProjectDefaults {
         return loader.instantiate();
     }
 
-    public GeometryDescriptor geometry() {
+    public GeometryDescriptor geometry(GeneralParameters p) {
         GeometryDescriptorLoader loader = new GeometryDescriptorLoader();
-        return loader.instantiate();
+        return loader.instantiate(p);
     }
 
     public LayerManager layers(GeometryDescriptor geom, GeneralParameters p) {

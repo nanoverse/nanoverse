@@ -22,43 +22,52 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.instantiate.loader.processes.discrete.filter;
+package compiler.pipeline.instantiate.loader.geometry.set;
 
 import compiler.pipeline.instantiate.helpers.LoadHelper;
-import compiler.pipeline.translate.nodes.*;
+import compiler.pipeline.instantiate.loader.control.identifiers.CoordinateLoader;
+import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
+import control.identifiers.Coordinate;
+import geometry.Geometry;
 import layers.LayerManager;
-import layers.cell.CellLayer;
-import processes.discrete.filter.Filter;
 
-import java.util.stream.Stream;
+import java.util.Random;
 
 /**
- * Created by dbborens on 8/24/2015.
+ * Created by dbborens on 9/19/2015.
  */
-public class CompositeFilterInterpolator {
+public class HLineCoordinateSetInterpolator {
     private final LoadHelper load;
-    private final CompositeFilterDefaults defaults;
+    private final HLineCoordinateSetDefaults defaults;
 
-    public CompositeFilterInterpolator() {
+    public HLineCoordinateSetInterpolator() {
         load = new LoadHelper();
-        defaults = new CompositeFilterDefaults();
+        defaults = new HLineCoordinateSetDefaults();
     }
 
-    public CompositeFilterInterpolator(LoadHelper load,
-                                       CompositeFilterDefaults defaults) {
+    public HLineCoordinateSetInterpolator(LoadHelper load,
+                                          HLineCoordinateSetDefaults defaults) {
+
         this.load = load;
         this.defaults = defaults;
     }
 
-    public Stream<Filter> including(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        FilterStreamLoader loader = (FilterStreamLoader) load.getLoader(node, "including", false);
+    public int length(MapObjectNode node, Random random) {
+        return load.anInteger(node, "length", random, defaults::length);
+    }
 
+    public Geometry geometry(LayerManager lm) {
+        return lm.getCellLayer().getGeometry();
+    }
+
+    public Coordinate start(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        CoordinateLoader loader = (CoordinateLoader) load.getLoader(node, "start", false);
         if (loader == null) {
-            return defaults.including();
+            return defaults.start(lm);
         }
 
-        ListObjectNode cNode = (ListObjectNode) node.getMember("including");
+        MapObjectNode cNode = (MapObjectNode) node.getMember("start");
         return loader.instantiate(cNode, lm, p);
     }
 }
