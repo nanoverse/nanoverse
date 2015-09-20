@@ -88,7 +88,8 @@ public class Integrator {
         // of the instance.
         serializationManager.dispatchHalt(ex);
 
-        System.out.println(p.getInstancePath());
+        System.out.println("Working directory: " + System.getProperty("user.dir"));
+        System.out.println("Simulation path: " + p.getInstancePath());
 
         // This instructs the parameter handler to re-initialize the random
         // number generator and to update paths to reflect the next

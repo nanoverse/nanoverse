@@ -29,12 +29,14 @@ import compiler.pipeline.instantiate.loader.primitive.booleans.ConstantBooleanLo
 import compiler.pipeline.translate.nodes.*;
 import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import control.arguments.*;
+import org.slf4j.*;
 
 /**
  * Created by dbborens on 7/22/2015.
  */
 public class ConstantBooleanInstSymbolTable extends ConstantPrimitiveSymbolTable<BooleanArgument, Boolean> {
 
+    private final Logger logger = LoggerFactory.getLogger(ConstantBooleanInstSymbolTable.class);
     @Override
     public String getDescription() {
         return "A constant boolean.";
@@ -42,7 +44,9 @@ public class ConstantBooleanInstSymbolTable extends ConstantPrimitiveSymbolTable
 
     @Override
     public Boolean getValue(String valueStr) {
+        logger.debug("Attempting to interpret literal \"{}\" as Boolean.", valueStr);
         Boolean value = Boolean.valueOf(valueStr);
+        logger.debug("Translated literal \"{}\" as {}", valueStr, value);
         return value;
     }
 

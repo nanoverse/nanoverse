@@ -59,14 +59,17 @@ public class NanoSingletonVisitor extends AbstractNanoNodeVisitor {
 
     @Override
     public ASTNode visitSingleton(@NotNull NanosyntaxParser.SingletonContext ctx) {
-        logger.debug("Visiting singleton: {}", ctx.getText());
+//        logger.debug("Visiting singleton: {}", ctx.getText());
         ParseTree child = ctx.getChild(0);
-        if (child instanceof IdContext) {
+        if (child instanceof  PrimitiveContext) {
+            logger.debug("Recognized singleton {} as a primitive. Recurring on child {}.", ctx.getText(), child.getText());
+            return child.accept(primitiveVisitor);
+        } else if (child instanceof IdContext) {
+            logger.debug("Recognized singleton {} as a stand-alone ID. Recurring on child {}.", ctx.getText(), child.getText());
             return child.accept(idVisitor);
         } else if (child instanceof AssignmentContext) {
+            logger.debug("Recognized singleton {} as an assignment. Recurring on child {}.", ctx.getText(), child.getText());
             return child.accept(assignmentVisitor);
-        } else if (child instanceof PrimitiveContext) {
-            return child.accept(primitiveVisitor);
         } else {
             throw new IllegalStateException("Unexpected singleton child element " +
                     child.getClass().getSimpleName());

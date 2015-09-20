@@ -129,7 +129,11 @@ public class ProjectInterpolator {
 
     public ProcessManager processes(MapObjectNode node, GeneralParameters p, LayerManager layerManager) {
         ProcessManagerLoader loader = (ProcessManagerLoader)
-                load.getLoader(node, "processes", true);
+                load.getLoader(node, "processes", false);
+
+        if (loader == null) {
+            return defaults.processes(p, layerManager);
+        }
 
         ListObjectNode childNode = (ListObjectNode) node.getMember("processes");
 

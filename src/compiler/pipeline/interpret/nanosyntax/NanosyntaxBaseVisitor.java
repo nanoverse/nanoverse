@@ -1,6 +1,5 @@
-// Generated from C:/Users/dbborens/IdeaProjects/nanoverse/src\Nanosyntax.g4 by ANTLR 4.5
+// Generated from D:/Users/dbborens/IdeaProjects/nanoverse/src\Nanosyntax.g4 by ANTLR 4.5.1
 package compiler.pipeline.interpret.nanosyntax;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -18,75 +17,75 @@ public class NanosyntaxBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitRoot(@NotNull NanosyntaxParser.RootContext ctx) { return visitChildren(ctx); }
+	@Override public T visitRoot(NanosyntaxParser.RootContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStatement(@NotNull NanosyntaxParser.StatementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStatement(NanosyntaxParser.StatementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAssignment(@NotNull NanosyntaxParser.AssignmentContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAssignment(NanosyntaxParser.AssignmentContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBlock(@NotNull NanosyntaxParser.BlockContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBlock(NanosyntaxParser.BlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSingleton(@NotNull NanosyntaxParser.SingletonContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSingleton(NanosyntaxParser.SingletonContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitId(@NotNull NanosyntaxParser.IdContext ctx) { return visitChildren(ctx); }
+	@Override public T visitId(NanosyntaxParser.IdContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPrimitive(@NotNull NanosyntaxParser.PrimitiveContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPrimitive(NanosyntaxParser.PrimitiveContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStringPrimitive(@NotNull NanosyntaxParser.StringPrimitiveContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStringPrimitive(NanosyntaxParser.StringPrimitiveContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFloatPrimitive(@NotNull NanosyntaxParser.FloatPrimitiveContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFloatPrimitive(NanosyntaxParser.FloatPrimitiveContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIntPrimitive(@NotNull NanosyntaxParser.IntPrimitiveContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIntPrimitive(NanosyntaxParser.IntPrimitiveContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBoolPrimitive(@NotNull NanosyntaxParser.BoolPrimitiveContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBoolPrimitive(NanosyntaxParser.BoolPrimitiveContext ctx) { return visitChildren(ctx); }
 }

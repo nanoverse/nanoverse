@@ -25,12 +25,12 @@
 package compiler.pipeline.interpret.visitors;
 
 import compiler.pipeline.interpret.nanosyntax.NanosyntaxParser;
+import compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.*;
 import compiler.pipeline.interpret.nodes.ASTNode;
+import compiler.pipeline.translate.visitors.PrimitiveVisitor;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.*;
-
-import static compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.AssignmentContext;
 
 /**
  * Created by dbborens on 4/22/15.
@@ -38,30 +38,58 @@ import static compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.Assignment
 public class NanoStatementVisitor extends AbstractNanoNodeVisitor {
     private final Logger logger;
     private final NanoAssignmentVisitor assignmentVisitor;
+    private final NanoPrimitiveVisitor primitiveVisitor;
+    private final NanoStandaloneIdVisitor standaloneVisitor;
 
     private final Class[] legalChildContexts = new Class[] {
-            AssignmentContext.class,
+        AssignmentContext.class,
+        PrimitiveContext.class,
+        IdContext.class
     };
 
     public NanoStatementVisitor() {
         logger = LoggerFactory.getLogger(NanoStatementVisitor.class);
         NanoBlockVisitor blockVisitor = new NanoBlockVisitor(this);
+
         assignmentVisitor = new NanoAssignmentVisitor(blockVisitor);
+        primitiveVisitor = new NanoPrimitiveVisitor();
+        standaloneVisitor = new NanoStandaloneIdVisitor();
     }
 
-    public NanoStatementVisitor(NanoAssignmentVisitor assignmentVisitor) {
+    public NanoStatementVisitor(NanoAssignmentVisitor assignmentVisitor,
+                                NanoPrimitiveVisitor primitiveVisitor,
+                                NanoStandaloneIdVisitor standaloneVisitor) {
         logger = LoggerFactory.getLogger(NanoStatementVisitor.class);
+
         this.assignmentVisitor = assignmentVisitor;
+        this.primitiveVisitor = primitiveVisitor;
+        this.standaloneVisitor = standaloneVisitor;
     }
 
     @Override
     public ASTNode visitStatement(@NotNull NanosyntaxParser.StatementContext ctx) {
-        logger.debug("Visiting statement: {}", ctx.getText());
 
         // Second child is a semicolon (checked by ANTLR -- ignored)
         ParseTree child = ctx.getChild(0);
         verifyPayload(child, legalChildContexts);
 
-        return child.accept(assignmentVisitor);
+        if (child instanceof AssignmentContext) {
+            logDebug("an assignment", ctx, child);
+            return child.accept(assignmentVisitor);
+        } else if (child instanceof PrimitiveContext) {
+            logDebug("a primitive", ctx, child);
+            return child.accept(primitiveVisitor);
+        } else if (child instanceof IdContext) {
+            logDebug("a stand-alone ID", ctx, child);
+            return child.accept(standaloneVisitor);
+        } else {
+            throw new IllegalStateException("Unexpected statement child element " +
+                child.getClass().getSimpleName());
+        }
+    }
+
+    private void logDebug(String typeStr, ParseTree parent, ParseTree child) {
+        logger.debug("Statement {} recognized as {}. Recurring on child {}.",
+            parent.getText(), typeStr, child.getText());
     }
 }

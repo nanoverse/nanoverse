@@ -27,7 +27,7 @@ package compiler.pipeline.instantiate.loader.control;
 import compiler.pipeline.instantiate.loader.geometry.GeometryDescriptorLoader;
 import compiler.pipeline.instantiate.loader.io.serialize.OutputManagerLoader;
 import compiler.pipeline.instantiate.loader.layers.LayerManagerLoader;
-import control.GeneralParameters;
+import control.*;
 import control.arguments.GeometryDescriptor;
 import geometry.Geometry;
 import geometry.boundaries.Boundary;
@@ -84,5 +84,10 @@ public class ProjectDefaults {
             "as expected!");
 
         return Version.VERSION;
+    }
+
+    public ProcessManager processes(GeneralParameters p, LayerManager layerManager) {
+        ProcessManagerLoader loader = new ProcessManagerLoader();
+        return loader.instantiate(layerManager, p);
     }
 }

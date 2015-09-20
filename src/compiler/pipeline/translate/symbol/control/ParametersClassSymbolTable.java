@@ -51,4 +51,5 @@ public class ParametersClassSymbolTable extends ClassSymbolTable<GeneralParamete
         Supplier<InstantiableSymbolTable> supplier = ParametersInstSymbolTable::new;
         ret.put("Parameters", supplier);
     }
+
 }

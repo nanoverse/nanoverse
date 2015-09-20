@@ -40,36 +40,53 @@ public class NanoPrimitiveVisitor extends AbstractNanoNodeVisitor {
     private final NanoPrimitiveDoubleVisitor doubleVisitor;
     private final NanoPrimitiveIntegerVisitor intVisitor;
     private final NanoPrimitiveStringVisitor stringVisitor;
+    private final NanoPrimitiveBooleanVisitor booleanVisitor;
 
     public NanoPrimitiveVisitor() {
         this(new NanoPrimitiveDoubleVisitor(),
              new NanoPrimitiveIntegerVisitor(),
-             new NanoPrimitiveStringVisitor());
+             new NanoPrimitiveStringVisitor(),
+             new NanoPrimitiveBooleanVisitor());
     }
 
     public NanoPrimitiveVisitor(NanoPrimitiveDoubleVisitor doubleVisitor,
                                 NanoPrimitiveIntegerVisitor intVisitor,
-                                NanoPrimitiveStringVisitor stringVisitor) {
+                                NanoPrimitiveStringVisitor stringVisitor,
+                                NanoPrimitiveBooleanVisitor booleanVisitor) {
 
         logger = LoggerFactory.getLogger(NanoPrimitiveVisitor.class);
         this.doubleVisitor = doubleVisitor;
         this.intVisitor = intVisitor;
         this.stringVisitor = stringVisitor;
+        this.booleanVisitor = booleanVisitor;
     }
 
     @Override
     public ASTNode visitPrimitive(@NotNull NanosyntaxParser.PrimitiveContext ctx) {
-        logger.debug("Visiting primitive: {}", ctx.getText());
         ParseTree child = ctx.getChild(0);
         if (child instanceof IntPrimitiveContext) {
+            logDebug("an Integer", ctx, child);
             return child.accept(intVisitor);
         } else if (child instanceof StringPrimitiveContext) {
+            logDebug("a String", ctx, child);
             return child.accept(stringVisitor);
         } else if (child instanceof FloatPrimitiveContext) {
+            logDebug("a Double", ctx, child);
             return child.accept(doubleVisitor);
+        } else if (child instanceof BoolPrimitiveContext) {
+            logDebug("a Boolean", ctx, child);
+            return child.accept(booleanVisitor);
         } else {
             throw new IllegalStateException("Unexpected narrow primitive " +
                     "class " + child.getClass().getSimpleName());
         }
+    }
+
+    private void logDebug(String type, ParseTree parent, ParseTree child) {
+        logger.debug("Primitive literal {} is identified as " +
+                "{}. Recurring on child {}.",
+            parent.getText(),
+            type,
+            child.getText());
     }
 }
