@@ -62,7 +62,7 @@ public class MatrixUtilsTest extends TestCase {
     public void testCompDiagIdentity() throws Exception {
         int size = 3;
         CompDiagMatrix expected = new CompDiagMatrix(Matrices.identity(size));
-        CompDiagMatrix actual = MatrixUtils.CompDiagIdentity(size);
+        CompDiagMatrix actual = MatrixUtils.compDiagIdentity(size);
 
         // We have to do this because CompDiagMatrix doesn't override
         // Object.equals()
@@ -75,7 +75,7 @@ public class MatrixUtilsTest extends TestCase {
     }
 
     public void testIsIdentity() throws Exception {
-        Matrix identity1 = MatrixUtils.CompDiagIdentity(3);
+        Matrix identity1 = MatrixUtils.compDiagIdentity(3);
         Matrix identity2 = Matrices.identity(3);
 
         assertTrue(MatrixUtils.isIdentity(identity1));
@@ -151,5 +151,21 @@ public class MatrixUtilsTest extends TestCase {
         assertTrue(MatrixUtils.isRowSumOne(operator));
         operator.set(2, 2, 1);
         assertFalse(MatrixUtils.isRowSumOne(operator));
+    }
+
+    public void testZeroRow() throws Exception {
+        CompDiagMatrix operator = MatrixUtils.compDiagIdentity(3);
+        CompDiagMatrix expected = new CompDiagMatrix(3, 3);
+        expected.set(0, 0, 1);
+        expected.set(1, 1, 0);
+        expected.set(2, 2, 1);
+
+        MatrixUtils.zeroRow(operator, 1);
+
+        for (int i = 0; i < operator.numRows(); i++) {
+            for (int j = 0; j < operator.numColumns(); j++) {
+                assertEquals(expected.get(i, j), operator.get(i, j));
+            }
+        }
     }
 }

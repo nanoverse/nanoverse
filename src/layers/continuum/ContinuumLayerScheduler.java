@@ -61,6 +61,16 @@ public class ContinuumLayerScheduler {
         holdManager.resolve(() -> scheduledOperations.exp(target, b));
     }
 
+    public void setBoundaryCondition(Coordinate target, double b) {
+        if (!holdManager.isHeld()) {
+            System.err.println("Warning: Dirichlet boundary condition is " +
+                    "being enforced without hold on layer");
+        }
+
+        scheduledOperations.zeroOperatorRow(target);
+        scheduledOperations.setSource(target, b);
+    }
+
     public void reset() {
         holdManager.reset();
         scheduledOperations.reset();

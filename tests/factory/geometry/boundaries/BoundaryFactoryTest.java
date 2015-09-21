@@ -75,6 +75,10 @@ public class BoundaryFactoryTest extends EslimeTestCase {
         doTest("tetris-case", TetrisBoundary.class);
     }
 
+    public void testReflectingTetrisCase() {
+        doTest("reflecting-tetris-case", TetrisReflectingBoundary.class);
+    }
+
     private void doTest(String eName, Class expected) {
         Element e = root.element(eName);
         Class actual = BoundaryFactory.instantiate(e, geometryDescriptor).getClass();

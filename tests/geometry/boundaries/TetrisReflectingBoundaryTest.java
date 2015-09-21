@@ -25,10 +25,10 @@
 package geometry.boundaries;
 
 import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import geometry.lattice.RectangularLattice;
+import geometry.lattice.TriangularLattice;
 import geometry.shape.Hexagon;
 import geometry.shape.Rectangle;
 import geometry.shape.Shape;
@@ -43,34 +43,35 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
- * Integration test of the TetrisBoundary. (Setting this
- * up as a true mock would be needlessly difficult.)
+ * Created on 7/22/15.
+ *
+ * @author Daniel Greenidge
  */
-public class TetrisBoundaryTest extends TestBase {
+public class TetrisReflectingBoundaryTest extends TestBase {
 
     private Shape shape;
     private Lattice lattice;
-    private TetrisBoundary query;
+    private TetrisReflectingBoundary query;
 
     @Before
     public void init() {
         lattice = new RectangularLattice();
         shape = new Rectangle(lattice, 2, 2);
-        query = new TetrisBoundary(shape, lattice);
+        query = new TetrisReflectingBoundary(shape, lattice);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void d1Throws() {
-        Shape shape = mock(Shape.class);
-        Lattice lattice = mock(Lattice.class);
+        Shape shape = mock(Rectangle.class);
+        Lattice lattice = mock(RectangularLattice.class);
         when(lattice.getDimensionality()).thenReturn(1);
         new TetrisBoundary(shape, lattice);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void d3Throws() {
-        Shape shape = mock(Shape.class);
-        Lattice lattice = mock(Lattice.class);
+        Shape shape = mock(Rectangle.class);
+        Lattice lattice = mock(RectangularLattice.class);
         when(lattice.getDimensionality()).thenReturn(3);
         new TetrisBoundary(shape, lattice);
     }
@@ -78,74 +79,82 @@ public class TetrisBoundaryTest extends TestBase {
     @Test(expected = IllegalArgumentException.class)
     public void nonRectangleThrows() {
         Shape shape = mock(Hexagon.class);
-        Lattice lattice = mock(Lattice.class);
+        Lattice lattice = mock(RectangularLattice.class);
         when(lattice.getDimensionality()).thenReturn(2);
-        new TetrisBoundary(shape, lattice);
+        new TetrisReflectingBoundary(shape, lattice);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void nonRectangularLatticeThrows() {
+        Shape shape = mock(Rectangle.class);
+        Lattice lattice = mock(TriangularLattice.class);
+        when(lattice.getDimensionality()).thenReturn(2);
+        new TetrisReflectingBoundary(shape, lattice);
     }
 
     @Test
     public void rightOverboundWraps() {
-        Coordinate input = new Coordinate2D(2, 0, 0);
-        Coordinate expected = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
+        Coordinate input = new Coordinate(2, 0, 0);
+        Coordinate expected = new Coordinate(0, 0, Flags.BOUNDARY_APPLIED);
+        doTest(input, expected);
+
+    }
+
+    @Test
+    public void leftOverBoundWraps() {
+        Coordinate input = new Coordinate(-1, 0, 0);
+        Coordinate expected = new Coordinate(1, 0, Flags.BOUNDARY_APPLIED);
         doTest(input, expected);
     }
 
     @Test
-    public void leftOverboundWraps() {
-        Coordinate input = new Coordinate2D(-1, 0, 0);
-        Coordinate expected = new Coordinate2D(1, 0, Flags.BOUNDARY_APPLIED);
+    public void belowWorldReflects() {
+        Coordinate input = new Coordinate(1, -2, 0);
+        Coordinate expected = new Coordinate(1, 1, Flags.BOUNDARY_APPLIED);
         doTest(input, expected);
     }
 
     @Test
-    public void bottomOverboundIsNull() {
-        Coordinate input = new Coordinate2D(0, -1, 0);
+    public void aboveWorldIsNull() {
+        Coordinate input = new Coordinate(1, 3, 0);
         doNullTest(input);
-    }
-
-    @Test
-    public void topOverboundEndOfWorld() {
-        Coordinate input = new Coordinate2D(0, 2, 0);
-        Coordinate expected = new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED | Flags.END_OF_WORLD);
-        doTest(input, expected);
-    }
-
-    @Test
-    public void lowerLeftIsNull() {
-        Coordinate input = new Coordinate2D(-1, -1, 0);
-        doNullTest(input);
-    }
-
-    @Test
-    public void lowerRightIsNull() {
-        Coordinate input = new Coordinate2D(2, -1, 0);
-        doNullTest(input);
-    }
-
-    @Test
-    public void upperLeftWrappedAndEndOfWorld() {
-        Coordinate input = new Coordinate2D(-1, 2, 0);
-        Coordinate expected = new Coordinate2D(1, 2, Flags.BOUNDARY_APPLIED | Flags.END_OF_WORLD);
-        doTest(input, expected);
-    }
-
-    @Test
-    public void upperRightWrappedAndEndOfWorld() {
-        Coordinate input = new Coordinate2D(2, 2, 0);
-        Coordinate expected = new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED | Flags.END_OF_WORLD);
-        doTest(input, expected);
     }
 
     @Test
     public void inBoundsDoesNothing() {
-        Coordinate input = new Coordinate2D(0, 0, 0);
-        Coordinate expected = new Coordinate2D(0, 0, 0);
+        Coordinate input = new Coordinate(1, 1, 0);
+        Coordinate expected = new Coordinate(1, 1, 0);
+        doTest(input, expected);
+    }
+
+    @Test
+    public void upperRightIsNull() {
+        Coordinate input = new Coordinate(2, 2, 0);
+        doNullTest(input);
+    }
+
+    @Test
+    public void upperLeftIsNull() {
+        Coordinate input = new Coordinate(-1, 2, 0);
+        doNullTest(input);
+    }
+
+    @Test
+    public void lowerLeftWrappedAndReflected() {
+        Coordinate input = new Coordinate(-1, -1, 0);
+        Coordinate expected = new Coordinate(1, 0, Flags.BOUNDARY_APPLIED);
+        doTest(input, expected);
+    }
+
+    @Test
+    public void lowerRightWrappedAndReflected() {
+        Coordinate input = new Coordinate(2, -1, 0);
+        Coordinate expected = new Coordinate(0, 0, Flags.BOUNDARY_APPLIED);
         doTest(input, expected);
     }
 
     @Test
     public void itCanCloneItself() {
-        Lattice lattice = new RectangularLattice();
         Shape scaledShape = new Rectangle(lattice, 4, 4);
         Boundary clone = query.clone(scaledShape, lattice);
 

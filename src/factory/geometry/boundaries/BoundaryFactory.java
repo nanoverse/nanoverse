@@ -55,6 +55,8 @@ public abstract class BoundaryFactory {
             return new HaltArena(shape, lattice);
         } else if (className.equalsIgnoreCase("tetris")) {
             return new TetrisBoundary(shape, lattice);
+        } else if (className.equalsIgnoreCase("tetris-reflecting")) {
+            return new TetrisReflectingBoundary(shape, lattice);
         } else {
             String msg = "Unrecognized boundary class '" +
                     className + "'.";
