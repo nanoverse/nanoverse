@@ -34,9 +34,10 @@ import org.slf4j.*;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class ConstantBooleanInstSymbolTable extends ConstantPrimitiveSymbolTable<BooleanArgument, Boolean> {
+public class ConstantBooleanInstSymbolTable extends ConstantPrimitiveSymbolTable<ConstantBoolean, Boolean> {
 
     private final Logger logger = LoggerFactory.getLogger(ConstantBooleanInstSymbolTable.class);
+
     @Override
     public String getDescription() {
         return "A constant boolean.";

@@ -30,9 +30,6 @@ import control.arguments.IntegerArgument;
 import io.serialize.binary.HighlightWriter;
 import org.junit.*;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class HighlightWriterInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override

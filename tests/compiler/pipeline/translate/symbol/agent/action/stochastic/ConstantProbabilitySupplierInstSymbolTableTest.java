@@ -30,9 +30,6 @@ import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import control.arguments.DoubleArgument;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class ConstantProbabilitySupplierInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override

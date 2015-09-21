@@ -26,11 +26,7 @@ package compiler.pipeline.translate.symbol.processes.discrete.filter;
 
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
-import org.junit.Before;
 import processes.discrete.filter.NullFilter;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class NullFilterInstSymbolTableTest extends MapSymbolTableTest {
 

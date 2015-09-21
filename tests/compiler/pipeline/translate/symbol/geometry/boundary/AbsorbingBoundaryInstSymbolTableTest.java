@@ -27,10 +27,6 @@ package compiler.pipeline.translate.symbol.geometry.boundary;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import geometry.boundaries.Absorbing;
-import org.junit.Before;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class AbsorbingBoundaryInstSymbolTableTest extends MapSymbolTableTest {
 

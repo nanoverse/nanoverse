@@ -31,9 +31,6 @@ import geometry.boundaries.Boundary;
 import layers.cell.CellLayer;
 import org.junit.*;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class AgentLayerInstSymbolTableTest extends MapSymbolTableTest {
 
 

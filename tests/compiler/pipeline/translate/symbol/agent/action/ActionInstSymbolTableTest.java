@@ -24,9 +24,7 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import agent.action.ActionDescriptor;
 import compiler.pipeline.translate.symbol.tables.*;
-import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 

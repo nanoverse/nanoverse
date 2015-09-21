@@ -30,9 +30,6 @@ import control.arguments.IntegerArgument;
 import org.junit.*;
 import processes.discrete.filter.CellStateFilter;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class CellStateFilterInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override

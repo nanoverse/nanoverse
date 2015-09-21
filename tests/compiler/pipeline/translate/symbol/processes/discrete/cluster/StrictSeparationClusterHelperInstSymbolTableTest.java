@@ -26,11 +26,7 @@ package compiler.pipeline.translate.symbol.processes.discrete.cluster;
 
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
-import org.junit.*;
 import processes.discrete.cluster.StrictSeparationClusterHelper;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class StrictSeparationClusterHelperInstSymbolTableTest extends MapSymbolTableTest {
 

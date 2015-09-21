@@ -28,9 +28,6 @@ import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import geometry.boundaries.TetrisBoundary;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class TetrisBoundaryInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
