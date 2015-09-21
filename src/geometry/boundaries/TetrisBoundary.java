@@ -86,6 +86,6 @@ public class TetrisBoundary extends Boundary implements HaltBoundary {
 
     @Override
     public Boundary clone(Shape scaledShape, Lattice clonedLattice) {
-        return null;
+        return new TetrisBoundary(scaledShape, clonedLattice);
     }
 }

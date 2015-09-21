@@ -57,10 +57,20 @@ public class ScheduledOperationsTest extends LinearMocks {
     public void injScalarDoesNotAffectOperator() throws Exception {
         query.inject(a, 1.0);
 
-        Matrix expected = MatrixUtils.CompDiagIdentity(3);
+        Matrix expected = MatrixUtils.compDiagIdentity(3);
         Matrix actual = query.getOperator();
 
         assertMatricesEqual(expected, actual, epsilon);
+    }
+
+    @Test
+    public void setSourceOverwritesValue() throws Exception {
+        query.setSource(a, 1.0);
+
+       Vector expected = vector(1.0, 0.0, 0.0);
+       Vector actual = query.getSource();
+
+        assertVectorsEqual(expected, actual, epsilon);
     }
 
     @Test
@@ -80,7 +90,7 @@ public class ScheduledOperationsTest extends LinearMocks {
         DenseVector vector = vector(1.0, 2.0, 3.0);
         query.inject(vector);
 
-        Matrix expected = MatrixUtils.CompDiagIdentity(3);
+        Matrix expected = MatrixUtils.compDiagIdentity(3);
         Matrix actual = query.getOperator();
 
         assertMatricesEqual(expected, actual, epsilon);
@@ -108,6 +118,16 @@ public class ScheduledOperationsTest extends LinearMocks {
     }
 
     @Test
+    public void zeroOperatorRowZerosRow() throws Exception {
+        query.zeroOperatorRow(a);
+
+        Matrix expected = matrix(0, 1, 1);
+        Matrix actual = query.getOperator();
+
+        assertMatricesEqual(expected, actual, epsilon);
+    }
+
+    @Test
     public void resetSetsSourceToZero() throws Exception {
         query.inject(a, 1.0);
         query.reset();
@@ -124,7 +144,7 @@ public class ScheduledOperationsTest extends LinearMocks {
         query.apply(toApply);
         query.reset();
 
-        Matrix expected = MatrixUtils.CompDiagIdentity(3);
+        Matrix expected = MatrixUtils.compDiagIdentity(3);
         Matrix actual = query.getOperator();
 
         assertMatricesEqual(expected, actual, epsilon);
