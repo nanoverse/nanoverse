@@ -24,8 +24,7 @@
 
 package geometry.boundaries;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Flags;
+import control.identifiers.*;
 import geometry.lattice.Lattice;
 import geometry.lattice.RectangularLattice;
 import geometry.shape.Rectangle;
@@ -116,10 +115,10 @@ public class TetrisReflectingBoundary extends Boundary {
 
         if (ob.x() > 0) {
             // Out of bounds to the right: set to left edge
-            return new Coordinate(0, c.y(), flags);
+            return new Coordinate2D(0, c.y(), flags);
         } else {
             // Out of bounds to the left: set to right edge
-            return new Coordinate(WIDTH - 1, c.y(), flags);
+            return new Coordinate2D(WIDTH - 1, c.y(), flags);
         }
     }
 
@@ -140,7 +139,7 @@ public class TetrisReflectingBoundary extends Boundary {
         } else if (y < 0) {
             int y1 = -1 * (y + 1);
             int flags = c.flags() | Flags.BOUNDARY_APPLIED;
-            return applyY(new Coordinate(x, y1, flags));
+            return applyY(new Coordinate2D(x, y1, flags));
         }
 
         // Base case: coordinate is not above or below, so return it.
