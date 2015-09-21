@@ -30,9 +30,6 @@ import control.arguments.IntegerArgument;
 import io.visual.highlight.*;
 import org.junit.*;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class HighlightInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override

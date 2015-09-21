@@ -27,10 +27,6 @@ package compiler.pipeline.translate.symbol.layers.continuum;
 import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.tables.*;
 import layers.continuum.solvers.EquilibriumSolver;
-import org.junit.Before;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class EquilibriumSolverInstSymbolTableTest extends MapSymbolTableTest {
 

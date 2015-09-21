@@ -27,10 +27,6 @@ package compiler.pipeline.translate.symbol.io.serialize;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import io.serialize.text.CensusWriter;
-import org.junit.Before;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class CensusWriterInstSymbolTableTest extends MapSymbolTableTest {
 

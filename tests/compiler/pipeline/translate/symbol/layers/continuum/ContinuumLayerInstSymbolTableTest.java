@@ -32,9 +32,6 @@ import layers.continuum.ContinuumLayer;
 import layers.continuum.solvers.ContinuumSolver;
 import org.junit.*;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class ContinuumLayerInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override

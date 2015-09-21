@@ -22,21 +22,28 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler.pipeline.translate.symbol.io.serialize;
+package compiler.pipeline.translate.symbol.primitive.booleans;
 
-import compiler.pipeline.translate.symbol.MapSymbolTable;
-import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
-import io.serialize.text.RandomSeedWriter;
+import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+import compiler.pipeline.translate.symbol.tables.InstantiableSymbolTableTest;
+import control.arguments.BooleanArgument;
+import control.arguments.ConstantBoolean;
 
-public class RandomSeedWriterInstSymbolTableTest extends MapSymbolTableTest {
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+/**
+ * Created by dbborens on 9/21/2015.
+ */
+public class ConstantBooleanInstSymbolTableTest extends InstantiableSymbolTableTest {
 
     @Override
-    protected MapSymbolTable getQuery() {
-        return new RandomSeedWriterInstSymbolTable();
+    protected InstantiableSymbolTable getQuery() {
+        return new ConstantBooleanInstSymbolTable();
     }
 
     @Override
     protected Class getExpectedClass() {
-        return RandomSeedWriter.class;
+        return ConstantBoolean.class;
     }
 }

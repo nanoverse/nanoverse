@@ -24,20 +24,24 @@
 
 package compiler.pipeline.translate.symbol.primitive.strings;
 
+import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+import compiler.pipeline.translate.symbol.MapSymbolTable;
+import compiler.pipeline.translate.symbol.tables.InstantiableSymbolTableTest;
+import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import control.arguments.StringArgument;
 import org.junit.*;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
-public class StringInstSymbolTableTest {
+public class StringInstSymbolTableTest extends InstantiableSymbolTableTest {
 
-    @Before
-    public void before() throws Exception {
-
+    @Override
+    protected InstantiableSymbolTable getQuery() {
+        return new StringInstSymbolTable();
     }
 
-    @Test
-    public void testNothing() {
-        fail("Implement me");
+    @Override
+    protected Class getExpectedClass() {
+        return StringArgument.class;
     }
 }

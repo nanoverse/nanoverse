@@ -30,9 +30,6 @@ import control.arguments.*;
 import io.visual.color.*;
 import org.junit.*;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class ContinuumColorModelInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override

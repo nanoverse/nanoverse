@@ -31,9 +31,6 @@ import io.serialize.binary.VisualizationSerializer;
 import io.visual.Visualization;
 import org.junit.*;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class VisualizationSerializerInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override

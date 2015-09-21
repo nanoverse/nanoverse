@@ -33,7 +33,7 @@ import control.arguments.*;
 /**
  * Created by dbborens on 3/5/15.
  */
-public class ConstantDoubleInstSymbolTable extends ConstantPrimitiveSymbolTable<DoubleArgument, Double> {
+public class ConstantDoubleInstSymbolTable extends ConstantPrimitiveSymbolTable<ConstantDouble, Double> {
 
     @Override
     public String getDescription() {

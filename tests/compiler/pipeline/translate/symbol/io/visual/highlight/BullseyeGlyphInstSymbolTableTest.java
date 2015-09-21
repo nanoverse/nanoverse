@@ -30,10 +30,7 @@ import control.arguments.*;
 import io.visual.highlight.BullseyeGlyph;
 import org.junit.*;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-public class BullseyeGlyphInstSymbolTableTest extends MapSymbolTableTest{
+public class BullseyeGlyphInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
     protected MapSymbolTable getQuery() {

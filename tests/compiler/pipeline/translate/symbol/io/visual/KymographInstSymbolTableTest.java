@@ -32,9 +32,6 @@ import io.visual.highlight.*;
 import io.visual.kymograph.Kymograph;
 import org.junit.*;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class KymographInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override

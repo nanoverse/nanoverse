@@ -30,9 +30,6 @@ import control.arguments.*;
 import io.visual.highlight.CrosshairsGlyph;
 import org.junit.*;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class CrosshairsGlyphInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override

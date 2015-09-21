@@ -28,9 +28,6 @@ import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import io.serialize.binary.TimeWriter;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class TimeWriterInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override

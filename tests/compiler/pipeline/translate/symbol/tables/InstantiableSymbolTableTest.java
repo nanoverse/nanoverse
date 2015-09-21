@@ -25,23 +25,45 @@
 package compiler.pipeline.translate.symbol.tables;
 
 import compiler.pipeline.instantiate.loader.Loader;
-import compiler.pipeline.translate.symbol.*;
+import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 import org.junit.*;
 import test.TestBase;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import static junit.framework.TestCase.*;
+import static org.junit.Assert.assertEquals;
 
 /**
- * Created by dbborens on 7/21/2015.
+ * Created by dbborens on 9/21/2015.
  */
-public abstract class MapSymbolTableTest extends InstantiableSymbolTableTest {
+public abstract class InstantiableSymbolTableTest extends TestBase {
 
-    protected void verifyReturnSymbol(String identifier, Class expected) {
-        MapSymbolTable queryAsMap = (MapSymbolTable) getQuery();
-        ResolvingSymbolTable rst = queryAsMap.getSymbolTable(identifier);
-        Class actual = rst.getBroadClass();
+    protected InstantiableSymbolTable query;
+
+    protected abstract InstantiableSymbolTable getQuery();
+    protected abstract Class getExpectedClass();
+
+    @Before
+    public void before() throws Exception {
+        query = getQuery();
+    }
+
+    @Test
+    public void instanceClassAsExpected() {
+        Class expected = getExpectedClass();
+        Class actual = query.getInstanceClass();
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void descriptionIsNotNull() {
+        assertNotNull(query.getDescription());
+    }
+
+    @Test
+    public void verifyLoaderClass() {
+        Loader loader = query.getLoader();
+        Class expected = getExpectedClass();
+        Class actual = loader.getInstanceClass();
+        assertEquals(expected, actual);
+    }
 }

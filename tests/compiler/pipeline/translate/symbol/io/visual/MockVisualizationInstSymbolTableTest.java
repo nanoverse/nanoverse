@@ -27,10 +27,6 @@ package compiler.pipeline.translate.symbol.io.visual;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import io.visual.MockVisualization;
-import org.junit.Before;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class MockVisualizationInstSymbolTableTest extends MapSymbolTableTest {
 

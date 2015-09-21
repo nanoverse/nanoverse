@@ -24,15 +24,11 @@
 
 package compiler.pipeline.translate.symbol.io.serialize;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import control.arguments.*;
 import io.serialize.text.ContinuumHistoWriter;
 import org.junit.*;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class ContinuumHistoWriterInstSymbolTableTest extends MapSymbolTableTest {
 

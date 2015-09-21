@@ -28,9 +28,6 @@ import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import io.serialize.text.RunningTimeWriter;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class RunningTimeWriterInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override

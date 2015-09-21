@@ -30,7 +30,7 @@ import control.arguments.IntegerArgument;
 import geometry.shape.Hexagon;
 import org.junit.Test;
 
-public class HexagonInstSymbolTableTest extends MapSymbolTableTest{
+public class HexagonInstSymbolTableTest extends MapSymbolTableTest {
     @Override
     protected MapSymbolTable getQuery() {
         return new HexagonInstSymbolTable();

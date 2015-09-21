@@ -29,9 +29,6 @@ import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import org.junit.*;
 import processes.discrete.filter.*;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
 public class CompositeFilterInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override

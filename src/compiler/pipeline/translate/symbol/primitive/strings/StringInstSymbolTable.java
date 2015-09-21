@@ -46,11 +46,6 @@ public class StringInstSymbolTable
     }
 
     @Override
-    public Class getInstanceClass() {
-        return String.class;
-    }
-
-    @Override
     public Loader getLoader() {
         return new StringArgumentLoader();
     }

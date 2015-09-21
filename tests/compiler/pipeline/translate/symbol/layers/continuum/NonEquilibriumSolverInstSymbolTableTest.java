@@ -27,10 +27,6 @@ package compiler.pipeline.translate.symbol.layers.continuum;
 import compiler.pipeline.translate.symbol.MapSymbolTable;
 import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import layers.continuum.solvers.NonEquilibriumSolver;
-import org.junit.Before;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class NonEquilibriumSolverInstSymbolTableTest extends MapSymbolTableTest {
 
