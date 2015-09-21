@@ -40,7 +40,7 @@ public class EquilibriumSolver extends ContinuumSolver {
     @FactoryTarget
     public EquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {
         super(content, so);
-        steadyState = new EquilibriumMatrixSolver(so.isOperators());
+        steadyState = new EquilibriumBandSolver(so.isOperators());
     }
 
     public EquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, EquilibriumMatrixSolver steadyState) {

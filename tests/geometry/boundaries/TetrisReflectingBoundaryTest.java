@@ -24,8 +24,7 @@
 
 package geometry.boundaries;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Flags;
+import control.identifiers.*;
 import geometry.lattice.Lattice;
 import geometry.lattice.RectangularLattice;
 import geometry.lattice.TriangularLattice;
@@ -94,62 +93,62 @@ public class TetrisReflectingBoundaryTest extends TestBase {
 
     @Test
     public void rightOverboundWraps() {
-        Coordinate input = new Coordinate(2, 0, 0);
-        Coordinate expected = new Coordinate(0, 0, Flags.BOUNDARY_APPLIED);
+        Coordinate input = new Coordinate2D(2, 0, 0);
+        Coordinate expected = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
         doTest(input, expected);
 
     }
 
     @Test
     public void leftOverBoundWraps() {
-        Coordinate input = new Coordinate(-1, 0, 0);
-        Coordinate expected = new Coordinate(1, 0, Flags.BOUNDARY_APPLIED);
+        Coordinate input = new Coordinate2D(-1, 0, 0);
+        Coordinate expected = new Coordinate2D(1, 0, Flags.BOUNDARY_APPLIED);
         doTest(input, expected);
     }
 
     @Test
     public void belowWorldReflects() {
-        Coordinate input = new Coordinate(1, -2, 0);
-        Coordinate expected = new Coordinate(1, 1, Flags.BOUNDARY_APPLIED);
+        Coordinate input = new Coordinate2D(1, -2, 0);
+        Coordinate expected = new Coordinate2D(1, 1, Flags.BOUNDARY_APPLIED);
         doTest(input, expected);
     }
 
     @Test
     public void aboveWorldIsNull() {
-        Coordinate input = new Coordinate(1, 3, 0);
+        Coordinate input = new Coordinate2D(1, 3, 0);
         doNullTest(input);
     }
 
     @Test
     public void inBoundsDoesNothing() {
-        Coordinate input = new Coordinate(1, 1, 0);
-        Coordinate expected = new Coordinate(1, 1, 0);
+        Coordinate input = new Coordinate2D(1, 1, 0);
+        Coordinate expected = new Coordinate2D(1, 1, 0);
         doTest(input, expected);
     }
 
     @Test
     public void upperRightIsNull() {
-        Coordinate input = new Coordinate(2, 2, 0);
+        Coordinate input = new Coordinate2D(2, 2, 0);
         doNullTest(input);
     }
 
     @Test
     public void upperLeftIsNull() {
-        Coordinate input = new Coordinate(-1, 2, 0);
+        Coordinate input = new Coordinate2D(-1, 2, 0);
         doNullTest(input);
     }
 
     @Test
     public void lowerLeftWrappedAndReflected() {
-        Coordinate input = new Coordinate(-1, -1, 0);
-        Coordinate expected = new Coordinate(1, 0, Flags.BOUNDARY_APPLIED);
+        Coordinate input = new Coordinate2D(-1, -1, 0);
+        Coordinate expected = new Coordinate2D(1, 0, Flags.BOUNDARY_APPLIED);
         doTest(input, expected);
     }
 
     @Test
     public void lowerRightWrappedAndReflected() {
-        Coordinate input = new Coordinate(2, -1, 0);
-        Coordinate expected = new Coordinate(0, 0, Flags.BOUNDARY_APPLIED);
+        Coordinate input = new Coordinate2D(2, -1, 0);
+        Coordinate expected = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
         doTest(input, expected);
     }
 
