@@ -44,7 +44,7 @@ public class NanoPrimitiveIntegerVisitor extends AbstractNanoNodeVisitor {
     @Override
     public ASTNode visitIntPrimitive(@NotNull NanosyntaxParser.IntPrimitiveContext ctx) {
         if (ctx.getChildCount() != 1) {
-            throw new IllegalArgumentException("Malformed primitive");
+            throw new IllegalStateException("Malformed primitive");
         }
 
         ParseTree child = ctx.getChild(0);

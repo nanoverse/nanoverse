@@ -33,20 +33,20 @@ public abstract class AbstractNanoNodeVisitor extends RejectingVisitor {
 
     protected void verifyPayload(ParseTree child, Class expected) {
         if (child.getPayload() == null) {
-            throw new IllegalArgumentException("Empty payload");
+            throw new IllegalStateException("Internal error: empty payload");
         }
 
         Object payload = child.getPayload();
 
         if (!expected.isInstance(payload)) {
-            throw new IllegalArgumentException("Unexpected payload class");
+            throw new IllegalStateException("Internal error: unexpected payload class");
         }
     }
 
     protected void verifyPayload(ParseTree child, Class[] legalChildClasses) {
 
         if (child.getPayload() == null) {
-            throw new IllegalArgumentException("Empty payload");
+            throw new IllegalStateException("Internal error: empty payload");
         }
 
         Object payload = child.getPayload();
@@ -57,6 +57,6 @@ public abstract class AbstractNanoNodeVisitor extends RejectingVisitor {
             }
         }
 
-        throw new IllegalArgumentException("Unexpected payload class: " + child.getPayload().getClass().getSimpleName());
+        throw new IllegalStateException("Unexpected payload class: " + child.getPayload().getClass().getSimpleName());
     }
 }

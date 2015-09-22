@@ -44,7 +44,7 @@ public class NanoPrimitiveStringVisitor extends AbstractNanoNodeVisitor {
     @Override
     public ASTNode visitStringPrimitive(@NotNull NanosyntaxParser.StringPrimitiveContext ctx) {
         if (ctx.getChildCount() != 1) {
-            throw new IllegalArgumentException("Malformed primitive");
+            throw new IllegalStateException("Malformed primitive");
         }
 
         ParseTree child = ctx.getChild(0);

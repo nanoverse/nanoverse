@@ -26,6 +26,7 @@ package compiler.pipeline.interpret.visitors;
 
 import compiler.pipeline.interpret.nanosyntax.NanosyntaxParser;
 import compiler.pipeline.interpret.nodes.*;
+import compiler.pipeline.interpret.visitors.helpers.NanoBlockHelper;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.slf4j.*;
 
@@ -34,24 +35,26 @@ import java.util.stream.Stream;
 /**
  * Created by dbborens on 4/21/15.
  */
-public class NanoRootVisitor extends AbstractNanoBlockVisitor {
+public class NanoRootVisitor extends AbstractNanoNodeVisitor {
 
+    public static final String IDENTIFIER = "root";
     private final Logger logger;
+    private final NanoBlockHelper helper;
 
     public NanoRootVisitor() {
-        this(new NanoStatementVisitor());
+        logger = LoggerFactory.getLogger(NanoRootVisitor.class);
+        helper = new NanoBlockHelper();
     }
 
-    public NanoRootVisitor(NanoStatementVisitor statementVisitor) {
-        super(statementVisitor);
+    public NanoRootVisitor(NanoBlockHelper helper) {
+        this.helper = helper;
         logger = LoggerFactory.getLogger(NanoRootVisitor.class);
     }
 
-    @Override
     public ASTNode visitRoot(@NotNull NanosyntaxParser.RootContext ctx) {
         logger.debug("Visiting root with {} children", ctx.getChildCount());
-        Stream<ASTNode> children = doVisit(ctx, 0, ctx.getChildCount());
-        ASTNode ret = new ASTNode("root", children);
+        Stream<ASTNode> children = helper.doVisit(ctx, 0, ctx.getChildCount());
+        ASTNode ret = new ASTNode(IDENTIFIER, children);
         return ret;
     }
 }

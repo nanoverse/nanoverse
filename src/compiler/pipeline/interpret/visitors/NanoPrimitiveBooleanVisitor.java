@@ -44,7 +44,7 @@ public class NanoPrimitiveBooleanVisitor extends AbstractNanoNodeVisitor {
     @Override
     public ASTNode visitBoolPrimitive(@NotNull BoolPrimitiveContext ctx) {
         if (ctx.getChildCount() != 1) {
-            throw new IllegalArgumentException("Malformed primitive");
+            throw new IllegalStateException("Internal error: malformed primitive");
         }
 
         ParseTree child = ctx.getChild(0);
