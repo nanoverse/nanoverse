@@ -29,7 +29,7 @@ import compiler.pipeline.interpret.nodes.ASTNode;
 import compiler.pipeline.interpret.visitors.*;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.slf4j.Logger;
+import org.slf4j.*;
 
 import java.util.stream.*;
 
@@ -41,26 +41,26 @@ public class NanoBlockHelper extends AbstractNanoNodeVisitor {
     private final NanoStatementVisitor statementVisitor;
     private final Logger logger;
 
-    public NanoBlockHelper(NanoStatementVisitor statementVisitor) {
-        this.statementVisitor = statementVisitor;
-        logger = org.slf4j.LoggerFactory.getLogger(AbstractNanoBlockVisitor.class);
+    public NanoBlockHelper() {
+        statementVisitor = new NanoStatementVisitor();
+        logger = LoggerFactory.getLogger(NanoBlockHelper.class);
     }
 
-    private Class[] validPayloadContexts = new Class[] {
-            StatementContext.class,
-    };
+    public NanoBlockHelper(NanoStatementVisitor statementVisitor) {
+        this.statementVisitor = statementVisitor;
+        logger = LoggerFactory.getLogger(NanoBlockHelper.class);
+    }
 
     public Stream<ASTNode> doVisit(ParserRuleContext ctx, int start, int end) {
         logger.debug("Visiting block: {}", ctx.getText());
-        Stream<ASTNode> children = IntStream.range(start, end)
+
+        return IntStream.range(start, end)
                 .mapToObj(ctx::getChild)
                 .map(this::verifyAndAccept);
-
-        return children;
     }
 
     private ASTNode verifyAndAccept(ParseTree child) {
-        verifyPayload(child, validPayloadContexts);
+        verifyPayload(child, StatementContext.class);
         ASTNode ret = child.accept(statementVisitor);
         return ret;
     }

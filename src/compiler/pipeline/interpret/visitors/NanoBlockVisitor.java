@@ -35,23 +35,24 @@ import java.util.stream.Stream;
 /**
  * Created by dbborens on 4/22/15.
  */
-public class NanoBlockVisitor extends AbstractNanoBlockVisitor {
+public class NanoBlockVisitor extends AbstractNanoNodeVisitor {
 
+    private final NanoBlockHelper helper;
     private final Logger logger;
 
-    public NanoBlockVisitor(NanoStatementVisitor statementVisitor) {
-        super(statementVisitor);
+    public NanoBlockVisitor() {
+        helper = new NanoBlockHelper();
         logger = LoggerFactory.getLogger(NanoBlockVisitor.class);
     }
 
     public NanoBlockVisitor(NanoBlockHelper helper) {
-        super(helper);
+        this.helper = helper;
         logger = LoggerFactory.getLogger(NanoBlockVisitor.class);
     }
 
     public Stream<ASTNode> getChildrenAsNodes(@NotNull NanosyntaxParser.BlockContext ctx) {
         logger.debug("Visiting block with {} children", ctx.getChildCount());
-        Stream<ASTNode> children = doVisit(ctx, 1, ctx.getChildCount()-1);
+        Stream<ASTNode> children = helper.doVisit(ctx, 1, ctx.getChildCount()-1);
         return children;
     }
 }

@@ -40,10 +40,11 @@ public class NanoPrimitiveDoubleVisitor extends AbstractNanoNodeVisitor {
 
     private final Logger logger = LoggerFactory.getLogger(NanoPrimitiveDoubleVisitor.class);
     public static final String IDENTIFIER = "ConstantDouble";
+
     @Override
     public ASTNode visitFloatPrimitive(@NotNull NanosyntaxParser.FloatPrimitiveContext ctx) {
         if (ctx.getChildCount() != 1) {
-            throw new IllegalArgumentException("Malformed primitive");
+            throw new IllegalStateException("Internal error: malformed primitive");
         }
 
         ParseTree child = ctx.getChild(0);

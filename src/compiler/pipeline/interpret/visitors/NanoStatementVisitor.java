@@ -49,16 +49,16 @@ public class NanoStatementVisitor extends AbstractNanoNodeVisitor {
 
     public NanoStatementVisitor() {
         logger = LoggerFactory.getLogger(NanoStatementVisitor.class);
-        NanoBlockVisitor blockVisitor = new NanoBlockVisitor(this);
+        NanoBlockVisitor blockVisitor = new NanoBlockVisitor();
 
         assignmentVisitor = new NanoAssignmentVisitor(blockVisitor);
         primitiveVisitor = new NanoPrimitiveVisitor();
         standaloneVisitor = new NanoStandaloneIdVisitor();
     }
 
-    public NanoStatementVisitor(NanoAssignmentVisitor assignmentVisitor,
-                                NanoPrimitiveVisitor primitiveVisitor,
-                                NanoStandaloneIdVisitor standaloneVisitor) {
+    public NanoStatementVisitor( NanoStandaloneIdVisitor standaloneVisitor,
+                                 NanoPrimitiveVisitor primitiveVisitor,
+                                 NanoAssignmentVisitor assignmentVisitor) {
         logger = LoggerFactory.getLogger(NanoStatementVisitor.class);
 
         this.assignmentVisitor = assignmentVisitor;
@@ -71,7 +71,6 @@ public class NanoStatementVisitor extends AbstractNanoNodeVisitor {
 
         // Second child is a semicolon (checked by ANTLR -- ignored)
         ParseTree child = ctx.getChild(0);
-        verifyPayload(child, legalChildContexts);
 
         if (child instanceof AssignmentContext) {
             logDebug("an assignment", ctx, child);
