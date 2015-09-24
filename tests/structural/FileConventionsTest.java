@@ -24,13 +24,16 @@
 
 package structural;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 import structural.utilities.FileConventions;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 3/26/14.
  */
-public class FileConventionsTest extends TestCase {
+public class FileConventionsTest {
+
+    @Test
     public void testMakeContinuumStateFilename() throws Exception {
         String soluteId = "Test";
         String expected = "Test.state.bin";
@@ -38,6 +41,7 @@ public class FileConventionsTest extends TestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testGetMetadataFilename() throws Exception {
         String soluteId = "Test";
         String expected = "Test.extrema.bin";
@@ -45,6 +49,7 @@ public class FileConventionsTest extends TestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testMakeHighlightFilename() throws Exception {
         int channel = 0;
         String expected = "channel0.highlight.bin";
@@ -52,6 +57,7 @@ public class FileConventionsTest extends TestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testMakeInterfaceFilename() throws Exception {
         int state = 0;
         String expected = "interface_0.txt";

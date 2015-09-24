@@ -24,29 +24,30 @@
 
 package geometry.lattice;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Coordinate3D;
-import control.identifiers.Flags;
+import control.identifiers.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 public class CubicLatticeTest extends EslimeTestCase {
     private Lattice lattice;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
-        super.setUp();
         lattice = new CubicLattice();
     }
 
+    @Test
     public void testDimensionality() {
         assertEquals(3, lattice.getDimensionality());
     }
 
+    @Test
     public void testConnectivity() {
         assertEquals(3, lattice.getConnectivity());
     }
 
+    @Test
     public void testAdjust() {
         Coordinate initial, actual, expected;
 
@@ -75,6 +76,7 @@ public class CubicLatticeTest extends EslimeTestCase {
         assertEquals(actual, expected);
     }
 
+    @Test
     public void testBasis() {
         Coordinate[] basis = lattice.getBasis();
 
@@ -89,7 +91,7 @@ public class CubicLatticeTest extends EslimeTestCase {
         assertEquals(basis[2], k);
     }
 
-
+    @Test
     public void testGetAnnulus() {
         Coordinate[] actual, expected;
         Coordinate origin = new Coordinate3D(0, 0, 0, 0);
@@ -137,6 +139,7 @@ public class CubicLatticeTest extends EslimeTestCase {
         assertArraysEqual(actual, expected, true);
     }
 
+    @Test
     public void testGetNeighbors() {
         Coordinate[] actual, expected;
         Coordinate origin = new Coordinate2D(0, 0, 0);
@@ -154,6 +157,7 @@ public class CubicLatticeTest extends EslimeTestCase {
         assertArraysEqual(expected, actual, true);
     }
 
+    @Test
     public void testGetDisplacement() {
         Coordinate o, p, q, r, s;
         Coordinate expected, actual;
@@ -185,6 +189,7 @@ public class CubicLatticeTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testGetL1Distance() {
         Coordinate o, p, q, r, s;
         int expected, actual;
@@ -216,6 +221,7 @@ public class CubicLatticeTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testRel2Abs() {
         Coordinate o, p, q, r;
         Coordinate actual, expected;
@@ -247,6 +253,7 @@ public class CubicLatticeTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testOrthoDisplacement() {
         Coordinate o, p, q, r, s;
         Coordinate expected, actual;
@@ -278,6 +285,7 @@ public class CubicLatticeTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testInvAdjust() {
         Coordinate initial, actual, expected;
 
@@ -306,12 +314,14 @@ public class CubicLatticeTest extends EslimeTestCase {
         assertEquals(actual, expected);
     }
 
+    @Test
     public void testClone() {
         Object cloned = lattice.clone();
         assertEquals(lattice.getClass(), cloned.getClass());
         assertFalse(lattice == cloned);
     }
 
+    @Test
     public void testGetZeroVector() {
         Coordinate expected = new Coordinate3D(0, 0, 0, 0);
         Coordinate actual = lattice.getZeroVector();

@@ -26,10 +26,12 @@ package io.deserialize;
 
 import control.identifiers.Coordinate;
 import layers.LightweightSystemState;
+import org.junit.*;
 import test.EslimeLatticeTestCase;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by dbborens on 3/26/14.
@@ -39,8 +41,9 @@ public class HighlightReaderTest extends EslimeLatticeTestCase {
     private HighlightReader query;
     private MockCoordinateDeindexer deindexer;
 
+    @Before
     @Override
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
         String root = fixturePath;
         int[] channels = new int[]{0};
@@ -49,6 +52,7 @@ public class HighlightReaderTest extends EslimeLatticeTestCase {
         query = new HighlightReader(root, channels, deindexer);
     }
 
+    @Test
     public void testNext() throws Exception {
         Map<Integer, Set<Coordinate>> actual = query.next();
 
@@ -65,6 +69,7 @@ public class HighlightReaderTest extends EslimeLatticeTestCase {
         assertFalse(highlights.contains(origin));
     }
 
+    @Test
     public void testPopulate() throws Exception {
         LightweightSystemState state = new LightweightSystemState(geom);
         query.populate(state);

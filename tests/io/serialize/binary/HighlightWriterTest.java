@@ -24,7 +24,7 @@
 
 package io.serialize.binary;
 
-import control.identifiers.Coordinate;
+import org.junit.Test;
 import processes.MockStepState;
 import structural.MockGeneralParameters;
 import structural.utilities.FileConventions;
@@ -42,6 +42,7 @@ public class HighlightWriterTest extends EslimeLatticeTestCase {
 
 //    private int[] channels = new int[]{0, 7};
 
+    @Test
     public void testLifeCycle() throws Exception {
         runLifeCycle();
         checkFiles();

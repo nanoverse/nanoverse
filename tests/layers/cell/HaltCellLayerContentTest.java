@@ -22,30 +22,26 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package layers.cell;//import junit.framework.TestCase;
+package layers.cell;
 
-import cells.Cell;
-import cells.MockCell;
+import cells.*;
 import control.halt.BoundaryReachedEvent;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Flags;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.shape.Line;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.*;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.assertTrue;
 
 public class HaltCellLayerContentTest extends EslimeTestCase {
 
     private HaltCellLayerContent query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         Lattice lattice = new LinearLattice();
         Shape shape = new Line(lattice, 5);
         Boundary boundary = new Arena(shape, lattice);
@@ -54,6 +50,7 @@ public class HaltCellLayerContentTest extends EslimeTestCase {
         query = new HaltCellLayerContent(geometry, indices);
     }
 
+    @Test
     public void testPutInBounds() throws Exception {
         MockCell cell = new MockCell(1);
         Coordinate c = new Coordinate2D(0, 0, 0);
@@ -62,6 +59,7 @@ public class HaltCellLayerContentTest extends EslimeTestCase {
         assertTrue(actual == cell);
     }
 
+    @Test
     public void testPutOutOfBounds() throws Exception {
         MockCell cell = new MockCell(1);
         Coordinate c = new Coordinate2D(-1, 0, Flags.END_OF_WORLD);

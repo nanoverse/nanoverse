@@ -25,9 +25,8 @@
 package cells;
 
 import control.identifiers.Coordinate;
-import layers.continuum.ContinuumAgentLinker;
-import layers.continuum.ContinuumAgentNotifier;
-import org.junit.Before;
+import layers.continuum.*;
+import org.junit.*;
 import test.LinearMocks;
 
 import java.util.function.Supplier;
@@ -66,6 +65,7 @@ public class AgentContinuumManagerTest extends LinearMocks {
 //        query = new AgentContinuumScheduler(cell, index, locate, );
     }
 
+    @Test
     public void nothing() throws Exception {
         fail("Implement me");
     }

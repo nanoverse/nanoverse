@@ -24,16 +24,16 @@
 
 package io.serialize;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Coordinate3D;
-import control.identifiers.Flags;
+import control.identifiers.*;
 import org.dom4j.Element;
+import org.junit.Test;
 import structural.utilities.CoordinateSerializer;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 public class CoordinateSerializerTest extends EslimeTestCase {
 
+    @Test
     public void testCoordinate() {
         Coordinate c2 = new Coordinate2D(1, 2, Flags.PLANAR);
         Coordinate c3 = new Coordinate3D(1, 2, 3, 4);
@@ -45,7 +45,19 @@ public class CoordinateSerializerTest extends EslimeTestCase {
         doTest(c3, e3, "coordinate");
     }
 
+    private void doTest(Coordinate c, Element e, String name) {
+        assertEquals(Integer.toString(c.x()), e.attribute("x").getValue());
+        assertEquals(Integer.toString(c.y()), e.attribute("y").getValue());
+        assertEquals(Integer.toString(c.flags()), e.attribute("flags").getValue());
 
+        if (!c.hasFlag(Flags.PLANAR)) {
+            assertEquals(Integer.toString(c.z()), e.attribute("z").getValue());
+        }
+
+        assertEquals(name, e.getName());
+    }
+
+    @Test
     public void testVector() {
         Coordinate v2 = new Coordinate2D(1, 2, Flags.VECTOR | Flags.PLANAR);
         Coordinate v3 = new Coordinate3D(1, 2, 3, 4 | Flags.VECTOR);
@@ -61,6 +73,7 @@ public class CoordinateSerializerTest extends EslimeTestCase {
      * Test the ability to specify arbitrary tag names. Note that only
      * some custom tag names are legal for deserialization.
      */
+    @Test
     public void testCustom() {
         Coordinate v2 = new Coordinate2D(1, 2, Flags.VECTOR | Flags.PLANAR);
         Coordinate v3 = new Coordinate3D(1, 2, 3, 4 | Flags.VECTOR);
@@ -70,17 +83,5 @@ public class CoordinateSerializerTest extends EslimeTestCase {
 
         doTest(v2, e2, "displacement");
         doTest(v3, e3, "displacement");
-    }
-
-    private void doTest(Coordinate c, Element e, String name) {
-        assertEquals(Integer.toString(c.x()), e.attribute("x").getValue());
-        assertEquals(Integer.toString(c.y()), e.attribute("y").getValue());
-        assertEquals(Integer.toString(c.flags()), e.attribute("flags").getValue());
-
-        if (!c.hasFlag(Flags.PLANAR)) {
-            assertEquals(Integer.toString(c.z()), e.attribute("z").getValue());
-        }
-
-        assertEquals(name, e.getName());
     }
 }

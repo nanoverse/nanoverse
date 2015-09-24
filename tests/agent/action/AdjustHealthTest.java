@@ -25,13 +25,14 @@
 package agent.action;
 
 import agent.control.BehaviorDispatcher;
-import cells.BehaviorCell;
-import cells.MockCell;
+import cells.*;
 import geometry.MockGeometry;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import test.EslimeLatticeTestCase;
 
+import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 2/5/14.
  */
@@ -42,8 +43,8 @@ public class AdjustHealthTest extends EslimeLatticeTestCase {
     private Action behavior;
     private String eventName;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
         // Set up test objects
         layerManager = new MockLayerManager();
@@ -65,12 +66,14 @@ public class AdjustHealthTest extends EslimeLatticeTestCase {
         dispatcher.map(eventName, behavior);
     }
 
+    @Test
     public void testRun() throws Exception {
         assertEquals(0.5, cell.getHealth(), epsilon);
         cell.trigger("TEST", null);
         assertEquals(1.0, cell.getHealth(), epsilon);
     }
 
+    @Test
     public void testEquals() throws Exception {
         // Create two equivalent AdjustHealth objects.
         // Should be equal.
@@ -81,7 +84,7 @@ public class AdjustHealthTest extends EslimeLatticeTestCase {
         assertNotEquals(query, different);
     }
 
-
+    @Test
     public void testClone() throws Exception {
         MockCell cloneCell = new MockCell();
 

@@ -24,29 +24,28 @@
 
 package geometry.shape;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Coordinate3D;
-import control.identifiers.Flags;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.TriangularLattice;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import org.junit.*;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 public class HexagonTest extends EslimeTestCase {
 
     private Hexagon hex;
     private Lattice lattice;
 
-    @Override
+    @Before
     public void setUp() {
         lattice = new TriangularLattice();
 
         hex = new Hexagon(lattice, 2);
     }
 
+    @Test
     public void testGetCenter() {
         Coordinate actual, expected;
         Lattice lattice = new TriangularLattice();
@@ -59,6 +58,7 @@ public class HexagonTest extends EslimeTestCase {
         }
     }
 
+    @Test
     public void testGetBoundaries() {
         Coordinate[] actual, expected;
 
@@ -81,6 +81,7 @@ public class HexagonTest extends EslimeTestCase {
         assertArraysEqual(actual, expected, true);
     }
 
+    @Test
     public void testCanonicalSites() {
 
         Coordinate[] actual, expected;
@@ -111,6 +112,7 @@ public class HexagonTest extends EslimeTestCase {
     }
 
 
+    @Test
     public void testOverboundsInside() {
 
 
@@ -141,6 +143,7 @@ public class HexagonTest extends EslimeTestCase {
     }
 
 
+    @Test
     public void testOverboundsCorners() {
         Coordinate p, q, r, s, t, u;
 
@@ -179,6 +182,7 @@ public class HexagonTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testOverboundsOffCorners() {
         Coordinate p, q, r, s, t;
         p = new Coordinate2D(-1, 0, 0); // Expect -u
@@ -210,6 +214,7 @@ public class HexagonTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testOverboundsAmbiguous() {
         Coordinate p, q, r;
         p = new Coordinate2D(-1, 3, 0); // Expect -u +w (because we prefer minimum in each direction).
@@ -232,6 +237,7 @@ public class HexagonTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testDimensions() {
         int[] actual, expected;
         expected = new int[]{5, 5, 5};
@@ -239,23 +245,12 @@ public class HexagonTest extends EslimeTestCase {
         assertArraysEqual(actual, expected, false);
     }
 
-	/*public void testGetLimits() {
-        Coordinate[] actual, expected;
-
-		// Even
-		expected = new Coordinate[] {
-			new Coordinate2D(-2, -2, -2, Flags.VECTOR),
-			new Coordinate2D(2, 2, 2, Flags.VECTOR)
-		};
-		
-		actual = hex.getLimits();
-		assertArraysEqual(actual, expected, false);
-	}*/
 
     /**
      * Make sure that getNeighbors() returns the correct
      * coordinates.
      */
+    @Test
     public void testNeighbors() {
 
         // Make a bigger geometry than the one from setUp
@@ -279,6 +274,13 @@ public class HexagonTest extends EslimeTestCase {
         assertNeighborCount(4, query, geometry);
     }
 
+    private void assertNeighborCount(int expected, Coordinate query, Geometry geometry) {
+        Coordinate[] neighbors = geometry.getNeighbors(query, Geometry.EXCLUDE_BOUNDARIES);
+        int actual = neighbors.length;
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void testCloneAtScale() {
         Lattice clonedLattice = lattice.clone();
         Shape cloned = hex.cloneAtScale(clonedLattice, 2.0);
@@ -286,11 +288,5 @@ public class HexagonTest extends EslimeTestCase {
         assertEquals(hex.getClass(), cloned.getClass());
         assertEquals(19, hex.getCanonicalSites().length);
         assertEquals(61, cloned.getCanonicalSites().length);
-    }
-
-    private void assertNeighborCount(int expected, Coordinate query, Geometry geometry) {
-        Coordinate[] neighbors = geometry.getNeighbors(query, Geometry.EXCLUDE_BOUNDARIES);
-        int actual = neighbors.length;
-        assertEquals(expected, actual);
     }
 }

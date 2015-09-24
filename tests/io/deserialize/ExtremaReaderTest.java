@@ -24,12 +24,13 @@
 
 package io.deserialize;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate3D;
-import control.identifiers.Extrema;
+import control.identifiers.*;
+import org.junit.Test;
 import test.EslimeTestCase;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by dbborens on 12/11/13.
@@ -40,6 +41,7 @@ public class ExtremaReaderTest extends EslimeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testReadSingleton() throws Exception {
         String filename = fixturePath + "solute42.metadata.txt";
 
@@ -59,6 +61,7 @@ public class ExtremaReaderTest extends EslimeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testReadMulti() throws Exception {
         Extrema a, c, actual;
 

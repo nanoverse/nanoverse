@@ -26,27 +26,22 @@ package factory.processes.discrete;
 
 import control.GeneralParameters;
 import control.arguments.*;
-import control.identifiers.Coordinate;
 import control.identifiers.Coordinate2D;
 import factory.control.arguments.CellDescriptorFactory;
 import geometry.Geometry;
-import geometry.boundaries.Absorbing;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.set.CoordinateSet;
-import geometry.set.DiscSet;
-import geometry.shape.Line;
-import geometry.shape.Shape;
-import layers.LayerManager;
-import layers.MockLayerManager;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.set.*;
+import geometry.shape.*;
+import layers.*;
 import layers.cell.CellLayer;
 import org.dom4j.Element;
+import org.junit.*;
 import processes.BaseProcessArguments;
-import processes.discrete.CellProcessArguments;
-import processes.discrete.Scatter;
+import processes.discrete.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 public class ScatterProcessFactoryTest extends EslimeTestCase {
 
     private GeneralParameters p;
@@ -54,9 +49,8 @@ public class ScatterProcessFactoryTest extends EslimeTestCase {
     private LayerManager layerManager;
     private Geometry geom;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         p = makeMockGeneralParameters();
         root = readXmlFile("factories/processes/discrete/ScatterProcessFactoryTest.xml");
 
@@ -70,6 +64,7 @@ public class ScatterProcessFactoryTest extends EslimeTestCase {
         layerManager.setCellLayer(layer);
     }
 
+    @Test
     public void testImplicit() throws Exception {
         Element testElem = root.element("implicit-case");
 
@@ -83,6 +78,7 @@ public class ScatterProcessFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testExplicit() throws Exception {
         Element testElem = root.element("explicit-case");
 

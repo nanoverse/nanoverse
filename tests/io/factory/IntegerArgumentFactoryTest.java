@@ -27,10 +27,12 @@ package io.factory;
 import control.arguments.*;
 import factory.control.arguments.IntegerArgumentFactory;
 import org.dom4j.Element;
+import org.junit.*;
 import test.EslimeTestCase;
 
 import java.util.Random;
 
+import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 4/7/14.
  */
@@ -39,13 +41,13 @@ public class IntegerArgumentFactoryTest extends EslimeTestCase {
     private Element root;
     private Random random;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         root = readXmlFile("factories/IntegerArgumentFactoryTest.xml");
         random = new Random(RANDOM_SEED);
     }
 
+    @Test
     public void testNullNoDefault() {
         Element element = root.element("null-case");
 
@@ -60,6 +62,7 @@ public class IntegerArgumentFactoryTest extends EslimeTestCase {
         assertTrue(thrown);
     }
 
+    @Test
     public void testNullWithDefault() {
         Element element = root.element("null-case");
 
@@ -69,6 +72,7 @@ public class IntegerArgumentFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testConstantImplicit() {
         Element element = root.element("constant-implicit-case");
 
@@ -78,6 +82,7 @@ public class IntegerArgumentFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testConstantExplicit() {
         IntegerArgument actual = IntegerArgumentFactory.instantiate(root, "constant-explicit-case", 6, random);
         IntegerArgument expected = new ConstantInteger(5);
@@ -85,6 +90,7 @@ public class IntegerArgumentFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testUniform() {
         IntegerArgument actual = IntegerArgumentFactory.instantiate(root, "uniform-case", 6, random);
         IntegerArgument expected = new UniformInteger(1, 3, random);
@@ -92,6 +98,7 @@ public class IntegerArgumentFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testRecursive() {
         IntegerArgument actual = IntegerArgumentFactory.instantiate(root, "recursive-case", 6, random);
         IntegerArgument expected = new UniformInteger(-1, 2, random);

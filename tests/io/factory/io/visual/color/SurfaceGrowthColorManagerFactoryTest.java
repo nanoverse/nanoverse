@@ -26,25 +26,26 @@ package io.factory.io.visual.color;
 
 import control.arguments.*;
 import factory.io.visual.color.SurfaceGrowthColorManagerFactory;
-import io.visual.color.ColorManager;
-import io.visual.color.DefaultColorManager;
-import io.visual.color.SurfaceGrowthColorManager;
+import io.visual.color.*;
 import org.dom4j.Element;
+import org.junit.*;
 import structural.MockGeneralParameters;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 public class SurfaceGrowthColorManagerFactoryTest extends EslimeTestCase {
     private Element root;
     private MockGeneralParameters p;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
 
         root = readXmlFile("factories/io/visual/color/SurfaceGrowthColorManagerFactoryTest.xml");
         p = makeMockGeneralParameters();
     }
 
+    @Test
     public void testImplicit() throws Exception {
         Element e = root.element("implicit-case");
         SurfaceGrowthColorManager actual = SurfaceGrowthColorManagerFactory.instantiate(e, p);
@@ -57,6 +58,7 @@ public class SurfaceGrowthColorManagerFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testExplicit() throws Exception {
         Element e = root.element("explicit-case");
         SurfaceGrowthColorManager actual = SurfaceGrowthColorManagerFactory.instantiate(e, p);

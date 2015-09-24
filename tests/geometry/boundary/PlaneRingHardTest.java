@@ -24,22 +24,19 @@
 
 package geometry.boundary;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Flags;
-import geometry.boundaries.Boundary;
-import geometry.boundaries.PlaneRingHard;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.lattice.TriangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import control.identifiers.*;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 public class PlaneRingHardTest extends EslimeTestCase {
     private Boundary rect;
     private Boundary tri;
 
+    @Before
     public void setUp() {
         Lattice rectLattice = new RectangularLattice();
         Lattice triLattice = new TriangularLattice();
@@ -51,11 +48,13 @@ public class PlaneRingHardTest extends EslimeTestCase {
         tri = new PlaneRingHard(triShape, triLattice);
     }
 
+    @Test
     public void testInfinite() {
         assertFalse(rect.isInfinite());
         assertFalse(tri.isInfinite());
     }
 
+    @Test
     public void testApplyInBounds() {
         // These are in bounds for both triangular and rectangular
         Coordinate a, b, c;
@@ -91,6 +90,7 @@ public class PlaneRingHardTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testApplyOutsideX() {
         Coordinate p, q;
         p = new Coordinate2D(-1, 1, 0);
@@ -117,6 +117,7 @@ public class PlaneRingHardTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testApplyOutsideY() {
         Coordinate p, q;
         p = new Coordinate2D(0, 4, 0);
@@ -139,6 +140,7 @@ public class PlaneRingHardTest extends EslimeTestCase {
         assertNull(actual);
     }
 
+    @Test
     public void testApplyOutsideXY() {
         Coordinate p, q;
         p = new Coordinate2D(-1, 4, 0);
@@ -161,6 +163,7 @@ public class PlaneRingHardTest extends EslimeTestCase {
         assertNull(actual);
     }
 
+    @Test
     public void testCloneWithArguments() {
         Lattice lattice = new RectangularLattice();
         Shape singleton = new Rectangle(lattice, 1, 1);

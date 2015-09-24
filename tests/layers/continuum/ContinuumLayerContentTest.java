@@ -25,19 +25,18 @@
 package layers.continuum;
 
 import no.uib.cipr.matrix.DenseVector;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import test.LinearMocks;
 
 import java.util.stream.Stream;
 
-import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
 
 public class ContinuumLayerContentTest extends LinearMocks {
 
     private ContinuumLayerContent query;
     private DenseVector vector;
+
     @Before
     public void init() {
         query = new ContinuumLayerContent(indexer, 3);

@@ -27,10 +27,12 @@ package io.factory;
 import control.arguments.*;
 import factory.control.arguments.DoubleArgumentFactory;
 import org.dom4j.Element;
+import org.junit.*;
 import test.EslimeTestCase;
 
 import java.util.Random;
 
+import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 4/7/14.
  */
@@ -38,13 +40,13 @@ public class DoubleArgumentFactoryTest extends EslimeTestCase {
     private Element root;
     private Random random;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         root = readXmlFile("factories/DoubleArgumentFactoryTest.xml");
         random = new Random(RANDOM_SEED);
     }
 
+    @Test
     public void testNullNoDefault() {
         Element element = root.element("null-case");
 
@@ -59,6 +61,7 @@ public class DoubleArgumentFactoryTest extends EslimeTestCase {
         assertTrue(thrown);
     }
 
+    @Test
     public void testNullWithDefault() {
         Element element = root.element("null-case");
 
@@ -68,6 +71,7 @@ public class DoubleArgumentFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testConstantImplicit() {
         Element element = root.element("constant-implicit-case");
 
@@ -77,6 +81,7 @@ public class DoubleArgumentFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testConstantExplicit() {
         DoubleArgument actual = DoubleArgumentFactory.instantiate(root, "constant-explicit-case", 6.0, random);
         DoubleArgument expected = new ConstantDouble(5.0);
@@ -84,6 +89,7 @@ public class DoubleArgumentFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testUniform() {
         DoubleArgument actual = DoubleArgumentFactory.instantiate(root, "uniform-case", 6.0, random);
         DoubleArgument expected = new UniformDouble(1.7, 2.4, random);
@@ -91,6 +97,7 @@ public class DoubleArgumentFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testRecursive() {
         DoubleArgument actual = DoubleArgumentFactory.instantiate(root, "recursive-case", 6.0, random);
         DoubleArgument expected = new UniformDouble(-1.0, 2.0, random);

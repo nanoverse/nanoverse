@@ -26,12 +26,11 @@ package compiler.pipeline.instantiate.loader.io.visual.highlight;
 
 import compiler.pipeline.instantiate.loader.InterpolatorTest;
 import compiler.pipeline.instantiate.loader.io.visual.color.ColorLoader;
-import org.mockito.ArgumentCaptor;
 
 import java.awt.*;
 import java.util.function.Supplier;
 
-import static junit.framework.TestCase.assertSame;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 /**

@@ -22,7 +22,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package geometry.boundaries;//import junit.framework.TestCase;
+package geometry.boundaries;
 
 import geometry.boundary.ArenaTest;
 import geometry.lattice.Lattice;

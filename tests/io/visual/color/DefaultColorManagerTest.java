@@ -25,27 +25,26 @@
 package io.visual.color;
 
 import cells.MockCell;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import control.identifiers.*;
 import geometry.MockGeometry;
-import junit.framework.TestCase;
-import layers.MockLayerManager;
-import layers.MockSystemState;
+import layers.*;
 import layers.cell.CellLayer;
+import org.junit.*;
 
 import java.awt.*;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/2/14.
  */
-public class DefaultColorManagerTest extends TestCase {
+public class DefaultColorManagerTest {
     private MockSystemState systemState;
     private Coordinate coord;
     private ColorManager query;
     private CellLayer layer;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         systemState = new MockSystemState();
         coord = new Coordinate2D(0, 0, 0);
         query = new DefaultColorManager();
@@ -60,6 +59,7 @@ public class DefaultColorManagerTest extends TestCase {
 
     // There are only three supported modes in the default color model,
     // so we can test all of them.
+    @Test
     public void testGetColor() throws Exception {
         // Test dead
 //        systemState.setState(coord, 0);
@@ -75,6 +75,7 @@ public class DefaultColorManagerTest extends TestCase {
         assertEquals(Color.RED, query.getColor(coord, systemState));
     }
 
+    @Test
     public void testGetBorderColor() throws Exception {
         assertEquals(Color.DARK_GRAY, query.getBorderColor());
     }

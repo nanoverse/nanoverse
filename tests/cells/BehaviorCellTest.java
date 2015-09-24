@@ -25,15 +25,14 @@
 package cells;
 
 import agent.control.MockBehaviorDispatcher;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import control.identifiers.*;
+import org.junit.*;
 import test.EslimeLatticeTestCase;
 
 import java.util.function.Supplier;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 /**
  * Created by David B Borenstein on 1/25/14.
  */
@@ -42,8 +41,8 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
     private BehaviorCell query;
     private MockBehaviorDispatcher dispatcher;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
         dispatcher = new MockBehaviorDispatcher();
         Supplier<BehaviorCell> supplier = mock(Supplier.class);
@@ -53,6 +52,7 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
         cellLayer.getUpdateManager().place(query, origin);
     }
 
+    @Test
     public void testConsiderAndApply() {
         int result = query.consider();
         assertEquals(1, result);
@@ -67,6 +67,7 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
         assertEquals(1, result);
     }
 
+    @Test
     public void testDivide() throws Exception {
         Cell child = query.divide();
         assertEquals(child, query);
@@ -76,6 +77,7 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
         assertEquals(0.5, child.getHealth(), epsilon);
     }
 
+    @Test
     public void testCloneNoArgument() throws Exception {
         Cell clone = query.replicate();
         assertEquals(clone, query);
@@ -85,6 +87,7 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
         assertEquals(1.0, clone.getHealth(), epsilon);
     }
 
+    @Test
     public void testTrigger() throws Exception {
         String triggerName = "TEST";
         Coordinate caller = new Coordinate2D(0, 0, 0);
@@ -94,12 +97,14 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
         assertEquals(caller, dispatcher.getLastTriggeredCaller());
     }
 
+    @Test
     public void testDie() throws Exception {
         assertTrue(cellLayer.getViewer().isOccupied(origin));
         query.die();
         assertFalse(cellLayer.getViewer().isOccupied(origin));
     }
 
+    @Test
     public void testEquals() throws Exception {
         // Difference based on dispatcher (in)equality.
         BehaviorCell other = new BehaviorCell(layerManager, 1, 1.0, 0.5, null);
@@ -132,6 +137,7 @@ public class BehaviorCellTest extends EslimeLatticeTestCase {
      * to setHealth() puts it above or below the threshold,
      * that should be noted.
      */
+    @Test
     public void testDivisibilityThresholding() throws Exception {
         double threshold = query.getThreshold();
 

@@ -36,10 +36,8 @@ import test.TestBase;
 import java.util.Random;
 import java.util.function.Supplier;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertSame;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-
 
 /**
  * Created by dbborens on 8/19/2015.

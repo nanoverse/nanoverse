@@ -24,18 +24,16 @@
 
 package layers;
 
-import cells.Cell;
-import cells.MockCell;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import cells.*;
+import control.identifiers.*;
 import geometry.MockGeometry;
 import junit.framework.TestCase;
-import layers.cell.CellLookupManager;
-import layers.cell.MockCellLayerContent;
-import layers.cell.MockCellLayerIndices;
+import layers.cell.*;
+import org.junit.Test;
 
 public class CellLookupManagerTest extends TestCase {
 
+    @Test
     public void testGetNeighborStates() throws Exception {
         MockGeometry geometry = new MockGeometry();
         MockCellLayerIndices indices = new MockCellLayerIndices();

@@ -29,12 +29,14 @@ import control.identifiers.Coordinate;
 import geometry.MockGeometry;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import processes.BaseProcessArguments;
 import processes.discrete.filter.NullFilter;
 import processes.gillespie.GillespieState;
 import structural.MockGeneralParameters;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 /**
  * This is a test for the TriggerProcess object, which is a discrete process
  * that triggers behaviors in cells. It should not be confused with the Trigger
@@ -51,8 +53,8 @@ public class TriggerProcessTest extends EslimeTestCase {
     private MockGeneralParameters p;
     private MockGeometry geom;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         geom = buildMockGeometry();
 
         p = new MockGeneralParameters();
@@ -72,6 +74,7 @@ public class TriggerProcessTest extends EslimeTestCase {
      * Make sure that the "target" method works as expected when
      * using Gillespie mode.
      */
+    @Test
     public void testTargetGillespie() throws Exception {
         Integer[] keys = new Integer[]{0};
         GillespieState state = new GillespieState(keys);
@@ -84,6 +87,7 @@ public class TriggerProcessTest extends EslimeTestCase {
         assertEquals(1.0, state.getTotalWeight(), epsilon);
     }
 
+    @Test
     public void testLifeCycle() throws Exception {
         MockCell cell = new MockCell();
         Coordinate c = layer.getGeometry().getCanonicalSites()[0];
@@ -95,30 +99,13 @@ public class TriggerProcessTest extends EslimeTestCase {
         assertNull(cell.getLastTriggeredCaller());
     }
 
-//    public void testXmlConstructor() {
-//        Element base = new BaseElement("trigger");
-//        Element behaviorName = new BaseElement("behavior");
-//        behaviorName.setText("test-behavior");
-//        base.add(behaviorName);
-//        Element skipVacant = new BaseElement("skip-vacant-sites");
-//        base.add(skipVacant);
-//
-//        MockProcessLoader loader = new MockProcessLoader();
-//        loader.setElement(0, base);
-//
-//        trigger = new TriggerProcess(layerManager, 0, "test", p, true, false, -1, false);
-//        TriggerProcess actual = new TriggerProcess(loader, layerManager, 0, null);
-//        TriggerProcess expected = new TriggerProcess(layerManager, "test-behavior", p, true, false, -1);
-//
-//        assertEquals(expected, actual);
-//    }
-
     /**
      * Make sure that, if cells are required to have occupied neigbhors in order
      * to be triggered, that the requirement is honored.
      *
      * @throws Exception
      */
+    @Test
     public void testRequireNeighborsFlag() throws Exception {
         // Unlike the other tests, we want a trigger process that requires
         // cells to have at least one occupied neighbor in order to be

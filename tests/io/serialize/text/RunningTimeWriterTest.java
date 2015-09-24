@@ -25,12 +25,13 @@
 package io.serialize.text;
 
 import control.GeneralParameters;
+import org.junit.Test;
 import processes.StepState;
 import test.EslimeLatticeTestCase;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 
+import static org.junit.Assert.*;
 /**
  * Since the running time writer actuall tracks wall clock time, it is
  * impossible to make a deterministic test. The only thing we can say
@@ -38,6 +39,8 @@ import java.io.FileReader;
  * by sleeping for a certain number of miliseconds.
  */
 public class RunningTimeWriterTest extends EslimeLatticeTestCase {
+
+    @Test
     public void testLifeCycle() throws Exception {
         runWithPauses();
         verifyFile();

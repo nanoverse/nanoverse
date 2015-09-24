@@ -24,21 +24,17 @@
 
 package geometry.integration;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Coordinate3D;
-import control.identifiers.Flags;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.TriangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.Test;
 import test.EslimeTestCase;
 
 import java.util.HashSet;
 
+import static org.junit.Assert.*;
 /**
  * Regression/integration tests from earliest version of geometry
  * model. These tests use an arena geometry. Originally ported
@@ -56,6 +52,7 @@ public class HexArenaTest extends EslimeTestCase {
     //
     // Also note that calling the z coordinate of a 2D point will,
     // by design, return 0.
+    @Test
     public void testIndex() {
         Coordinate o2 = new Coordinate2D(0, 0, 0);
         Coordinate o3 = new Coordinate3D(0, 0, 0, 0);
@@ -83,6 +80,7 @@ public class HexArenaTest extends EslimeTestCase {
         assertEquals(0, p2.z());
     }
 
+    @Test
     public void testCanonicalSites() {
         // Produce 6x4 HexArena
         int height = 6;
@@ -115,6 +113,7 @@ public class HexArenaTest extends EslimeTestCase {
 
     // getL1Distance(...)
     // getDisplacement(...)
+    @Test
     public void testL1AndDisplacement() {
         Lattice lattice = new TriangularLattice();
         Shape shape = new Rectangle(lattice, 4, 6);
@@ -149,6 +148,7 @@ public class HexArenaTest extends EslimeTestCase {
 
 
     // Test (non-)wrapping
+    @Test
     public void testWrap() {
 
         Lattice lattice = new TriangularLattice();
@@ -188,6 +188,7 @@ public class HexArenaTest extends EslimeTestCase {
         assertEquals(actual, expected);
     }
 
+    @Test
     public void testCellNeighbors() {
 
         Lattice lattice = new TriangularLattice();
@@ -258,6 +259,7 @@ public class HexArenaTest extends EslimeTestCase {
     // All cases but top/bottom should be same as getCellNeighbors(...)
     // for the HexTorus geometry.
     // getSoluteNeighbors(...)
+    @Test
     public void testSoluteNeighbors() {
         Lattice lattice = new TriangularLattice();
         Shape shape = new Rectangle(lattice, 6, 6);
@@ -323,6 +325,7 @@ public class HexArenaTest extends EslimeTestCase {
     }
 
     // getAnnulus(...)
+    @Test
     public void testAnnulus() {
         Lattice lattice = new TriangularLattice();
         Shape shape = new Rectangle(lattice, 6, 6);
@@ -349,6 +352,7 @@ public class HexArenaTest extends EslimeTestCase {
 
     // Tests for correct behavior in vicinity of origin when dimensions
     // are 6x6, as in the lattice tests.
+    @Test
     public void originWrap() {
         // Explicitly test wrapping behavior in vicinity of origin
         Lattice lattice = new TriangularLattice();

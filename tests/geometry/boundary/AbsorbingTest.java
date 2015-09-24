@@ -24,22 +24,20 @@
 
 package geometry.boundary;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import geometry.boundaries.Absorbing;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.lattice.TriangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import control.identifiers.*;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 public class AbsorbingTest extends EslimeTestCase {
 
     private Boundary rect;
     private Boundary tri;
 
+    @Before
     public void setUp() {
         Lattice rectLattice = new RectangularLattice();
         Lattice triLattice = new TriangularLattice();
@@ -51,11 +49,13 @@ public class AbsorbingTest extends EslimeTestCase {
         tri = new Absorbing(triShape, triLattice);
     }
 
+    @Test
     public void testInfinite() {
         assertFalse(rect.isInfinite());
         assertFalse(tri.isInfinite());
     }
 
+    @Test
     public void testApplyInBounds() {
         // These are in bounds for both triangular and rectangular
         Coordinate2D a, b, c;
@@ -91,6 +91,7 @@ public class AbsorbingTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testApplyOutsideX() {
         Coordinate2D p, q;
         p = new Coordinate2D(-1, 1, 0);
@@ -113,6 +114,7 @@ public class AbsorbingTest extends EslimeTestCase {
         assertNull(actual);
     }
 
+    @Test
     public void testApplyOutsideY() {
         Coordinate2D p, q;
         p = new Coordinate2D(0, 5, 0);
@@ -135,6 +137,7 @@ public class AbsorbingTest extends EslimeTestCase {
         assertNull(actual);
     }
 
+    @Test
     public void testApplyOutsideXY() {
         Coordinate p, q;
         p = new Coordinate2D(-1, 4, 0);
@@ -157,6 +160,7 @@ public class AbsorbingTest extends EslimeTestCase {
         assertNull(actual);
     }
 
+    @Test
     public void testCloneWithArguments() {
         Lattice lattice = new RectangularLattice();
         Shape singleton = new Rectangle(lattice, 1, 1);

@@ -29,8 +29,7 @@ import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 import org.junit.*;
 import test.TestBase;
 
-import static junit.framework.TestCase.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 /**
  * Created by dbborens on 9/21/2015.
@@ -39,13 +38,12 @@ public abstract class InstantiableSymbolTableTest extends TestBase {
 
     protected InstantiableSymbolTable query;
 
-    protected abstract InstantiableSymbolTable getQuery();
-    protected abstract Class getExpectedClass();
-
     @Before
     public void before() throws Exception {
         query = getQuery();
     }
+
+    protected abstract InstantiableSymbolTable getQuery();
 
     @Test
     public void instanceClassAsExpected() {
@@ -53,6 +51,8 @@ public abstract class InstantiableSymbolTableTest extends TestBase {
         Class actual = query.getInstanceClass();
         assertEquals(expected, actual);
     }
+
+    protected abstract Class getExpectedClass();
 
     @Test
     public void descriptionIsNotNull() {

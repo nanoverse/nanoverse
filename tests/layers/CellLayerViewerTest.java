@@ -24,17 +24,14 @@
 
 package layers;
 
-import cells.Cell;
-import cells.MockCell;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import cells.*;
+import control.identifiers.*;
 import geometry.MockGeometry;
-import layers.cell.CellIndex;
-import layers.cell.CellLayerViewer;
-import layers.cell.MockCellLayerContent;
-import layers.cell.MockCellLayerIndices;
+import layers.cell.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 public class CellLayerViewerTest extends EslimeTestCase {
 
     CellLayerViewer query;
@@ -43,9 +40,8 @@ public class CellLayerViewerTest extends EslimeTestCase {
     MockGeometry geom;
     Coordinate c1, c2;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         indices = new MockCellLayerIndices();
 
         c1 = new Coordinate2D(1, 0, 0);
@@ -59,6 +55,7 @@ public class CellLayerViewerTest extends EslimeTestCase {
         query = new CellLayerViewer(content);
     }
 
+    @Test
     public void testGetOccupiedSites() {
         CellIndex expected = new CellIndex();
 
@@ -72,6 +69,7 @@ public class CellLayerViewerTest extends EslimeTestCase {
         assertTrue(query.getOccupiedSites().contains(c2));
     }
 
+    @Test
     public void testGetDivisibleSites() {
         CellIndex expected = new CellIndex();
 
@@ -86,6 +84,7 @@ public class CellLayerViewerTest extends EslimeTestCase {
     }
 
 
+    @Test
     public void testGetCell() throws Exception {
 
         Cell cell = new MockCell();
@@ -93,18 +92,21 @@ public class CellLayerViewerTest extends EslimeTestCase {
         assertEquals(cell, query.getCell(c1));
     }
 
+    @Test
     public void testGetHealthVector() {
         double[] healthes = new double[]{0.1, 0.2};
         content.setHealthVector(healthes);
         assertArraysEqual(healthes, query.getHealthVector(), false);
     }
 
+    @Test
     public void testGetStateVector() {
         int[] states = new int[]{1, 2};
         content.setStateVector(states);
         assertArraysEqual(states, query.getStateVector(), false);
     }
 
+    @Test
     public void testIsOccupied() {
         CellIndex occupiedSites = new CellIndex();
         Coordinate c1 = new Coordinate2D(1, 0, 0);
@@ -117,6 +119,7 @@ public class CellLayerViewerTest extends EslimeTestCase {
         assertFalse(query.isOccupied(c2));
     }
 
+    @Test
     public void testIsDivisible() {
         CellIndex divisibleSites = new CellIndex();
         Coordinate c1 = new Coordinate2D(1, 0, 0);
@@ -129,10 +132,12 @@ public class CellLayerViewerTest extends EslimeTestCase {
         assertFalse(query.isDivisible(c2));
     }
 
+    @Test
     public void getStateVacant() {
         fail("Not yet implemented");
     }
 
+    @Test
     public void getStateNonVacant() {
         fail("Not yet implemented");
     }

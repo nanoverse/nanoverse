@@ -22,19 +22,20 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package processes.discrete.filter;//import junit.framework.TestCase;
+package processes.discrete.filter;
 
 import cells.MockCell;
 import control.arguments.ConstantInteger;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import control.identifiers.*;
 import geometry.Geometry;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import test.EslimeTestCase;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static org.junit.Assert.*;
 
 public class DepthFilterTest extends EslimeTestCase {
 
@@ -44,9 +45,8 @@ public class DepthFilterTest extends EslimeTestCase {
     private CellLayer layer;
     private List<Coordinate> initial;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         geom = makeLinearGeometry(10);
         layer = new CellLayer(geom);
         layerManager = new MockLayerManager();
@@ -67,6 +67,7 @@ public class DepthFilterTest extends EslimeTestCase {
         }
     }
 
+    @Test
     public void testSurfaceCase() {
         DepthFilter query = new DepthFilter(layer, new ConstantInteger(0));
         List<Coordinate> actual = query.apply(initial);
@@ -78,6 +79,7 @@ public class DepthFilterTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testDepth1Case() {
         DepthFilter query = new DepthFilter(layer, new ConstantInteger(1));
         List<Coordinate> actual = query.apply(initial);

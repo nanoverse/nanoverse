@@ -24,8 +24,11 @@
 
 package control.arguments;
 
+import org.junit.*;
+
 import java.util.Random;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by David B Borenstein on 4/7/14.
  */
@@ -35,9 +38,8 @@ public class UniformIntegerTest extends ArgumentTest {
     private int min = 0;
     private int max = 10;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         Random random = new Random(super.RANDOM_SEED);
         UniformInteger query = new UniformInteger(min, max, random);
 
@@ -47,6 +49,7 @@ public class UniformIntegerTest extends ArgumentTest {
         }
     }
 
+    @Test
     public void testMean() throws Exception {
         double expected = 5.0;
         double actual = mean(results);

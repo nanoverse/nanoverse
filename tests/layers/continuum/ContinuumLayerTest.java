@@ -24,11 +24,9 @@
 
 package layers.continuum;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import test.LinearMocks;
 
-import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -63,9 +61,6 @@ public class ContinuumLayerTest extends LinearMocks {
         verify(content).reset();
     }
 
-    public void getStateStreamAsksContent() throws Exception {
-        fail();
-    }
     // TODO I can't figure out how to capture a lambda with Mockito.
     @Test
     public void linkerCanQueryContent() throws Exception {

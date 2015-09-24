@@ -24,15 +24,17 @@
 
 package processes.discrete;
 
-import processes.BaseProcessArguments;
-import processes.MockStepState;
+import org.junit.Test;
+import processes.*;
 import test.EslimeLatticeTestCase;
 
+import static org.junit.Assert.assertTrue;
 /**
  * Created by dbborens on 4/24/14.
  */
 public class RecordTest extends EslimeLatticeTestCase {
 
+    @Test
     public void testLifeCycle() throws Exception {
         MockStepState stepState = new MockStepState();
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, null);

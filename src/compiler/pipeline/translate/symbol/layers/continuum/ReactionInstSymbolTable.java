@@ -30,11 +30,9 @@ import compiler.pipeline.translate.symbol.*;
 import compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import layers.continuum.Reaction;
-import org.junit.Test;
 
 import java.util.HashMap;
 
-import static junit.framework.TestCase.fail;
 
 /**
  * Created by dbborens on 8/25/2015.

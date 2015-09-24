@@ -24,20 +24,22 @@
 
 package structural;
 
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 3/5/14.
  */
 public class RangeMapTest extends EslimeTestCase {
     private RangeMap<Integer> query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         query = new RangeMap<>();
     }
 
+    @Test
     public void testAdd() throws Exception {
         // Verify that rangemap is empty.
         assertEquals(0.0, query.getTotalWeight(), epsilon);
@@ -53,6 +55,7 @@ public class RangeMapTest extends EslimeTestCase {
         assertEquals(1, query.getNumBins());
     }
 
+    @Test
     public void testSelectTarget() throws Exception {
         setupThreeElementCase();
         Integer actual, expected;
@@ -73,6 +76,13 @@ public class RangeMapTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    private void setupThreeElementCase() {
+        query.add(5, 0.5);
+        query.add(-3, 1.0);
+        query.add(0, 0.5);
+    }
+
+    @Test
     public void testLowerBoundInclusivity() throws Exception {
         setupThreeElementCase();
         Integer actual, expected;
@@ -93,6 +103,7 @@ public class RangeMapTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testGetTotalWeight() throws Exception {
         setupThreeElementCase();
         assertEquals(2.0, query.getTotalWeight(), epsilon);
@@ -105,6 +116,7 @@ public class RangeMapTest extends EslimeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testInequalityClassCase() throws Exception {
         setupThreeElementCase();
         RangeMap<String> other = new RangeMap<>();
@@ -119,6 +131,7 @@ public class RangeMapTest extends EslimeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testInequalityValueCase() throws Exception {
         setupThreeElementCase();
         RangeMap<Integer> other = new RangeMap<>();
@@ -136,6 +149,7 @@ public class RangeMapTest extends EslimeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testInequalityWeightsCase() throws Exception {
         setupThreeElementCase();
         RangeMap<Integer> other = new RangeMap<>();
@@ -153,6 +167,7 @@ public class RangeMapTest extends EslimeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testInequalityOrderCase() throws Exception {
         setupThreeElementCase();
         RangeMap<Integer> other = new RangeMap<>();
@@ -170,6 +185,7 @@ public class RangeMapTest extends EslimeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testEquals() throws Exception {
         setupThreeElementCase();
         RangeMap<Integer> other = new RangeMap<>();
@@ -180,15 +196,10 @@ public class RangeMapTest extends EslimeTestCase {
         assertEquals(query, other);
     }
 
+    @Test
     public void testClone() throws Exception {
         RangeMap<Integer> clone = query.clone();
         assertEquals(query, clone);
-    }
-
-    private void setupThreeElementCase() {
-        query.add(5, 0.5);
-        query.add(-3, 1.0);
-        query.add(0, 0.5);
     }
 
 }

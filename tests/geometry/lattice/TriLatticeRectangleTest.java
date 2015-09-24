@@ -24,13 +24,12 @@
 
 package geometry.lattice;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Flags;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import control.identifiers.*;
+import geometry.shape.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Tests that the rectangle geometry shape works as expected
  * with the triangular lattice.
@@ -42,7 +41,7 @@ public class TriLatticeRectangleTest extends EslimeTestCase {
     private Shape odd;
     private Shape even;
 
-    @Override
+    @Before
     public void setUp() {
         Lattice oddLattice = new TriangularLattice();
         Lattice evenLattice = new TriangularLattice();
@@ -51,6 +50,7 @@ public class TriLatticeRectangleTest extends EslimeTestCase {
         odd = new Rectangle(oddLattice, 5, 3);
     }
 
+    @Test
     public void testGetCenter() {
         Coordinate actual, expected;
 
@@ -65,6 +65,7 @@ public class TriLatticeRectangleTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testGetBoundaries() {
         Coordinate[] actual, expected;
 
@@ -102,6 +103,7 @@ public class TriLatticeRectangleTest extends EslimeTestCase {
         assertArraysEqual(expected, actual, true);
     }
 
+    @Test
     public void testCanonicalSites() {
         Coordinate[] actual, expected;
 
@@ -119,6 +121,7 @@ public class TriLatticeRectangleTest extends EslimeTestCase {
         assertArraysEqual(actual, expected, true);
     }
 
+    @Test
     public void testOverbounds() {
 
         // In bounds coordinates
@@ -195,6 +198,7 @@ public class TriLatticeRectangleTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testDimensions() {
         int[] actual, expected;
 

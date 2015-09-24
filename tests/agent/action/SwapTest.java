@@ -26,23 +26,20 @@ package agent.action;
 
 import agent.control.BehaviorDispatcher;
 import agent.targets.MockTargetRule;
-import cells.BehaviorCell;
-import cells.Cell;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import cells.*;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Boundary;
-import geometry.boundaries.Periodic;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import test.EslimeTestCase;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static org.junit.Assert.*;
 
 public class SwapTest extends EslimeTestCase {
 
@@ -51,9 +48,8 @@ public class SwapTest extends EslimeTestCase {
     private CellLayer layer;
     private MockTargetRule parentTargetRule;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
 
         Lattice lattice = new RectangularLattice();
         layerManager = new MockLayerManager();
@@ -68,46 +64,6 @@ public class SwapTest extends EslimeTestCase {
         parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
 
     }
-
-    /**
-     * 0123456789
-     * ____45____  Initial condition
-     * ^^
-     * 0123456789
-     * ____54____  Resulting condition
-     */
-    public void testTwoOccupied() throws Exception {
-        placeNumberedCell(5);
-        Coordinate target = new Coordinate2D(5, 0, 0);
-        List<Coordinate> targets = new ArrayList<>(1);
-        targets.add(target);
-        parent.trigger("swap", null);
-
-        checkIsVacant(3);
-        checkPosition(4, 5);
-        checkPosition(5, 4);
-        checkIsVacant(6);
-    }
-
-    /**
-     * 0123456789
-     * ____4_____  Initial condition
-     * ^^
-     * 0123456789
-     * _____4____  Resulting condition
-     */
-    public void testOneVacant() throws Exception {
-        Coordinate target = new Coordinate2D(5, 0, 0);
-        List<Coordinate> targets = new ArrayList<>(1);
-        targets.add(target);
-        parentTargetRule.setTargets(targets);
-        parent.trigger("swap", null);
-
-        checkIsVacant(3);
-        checkIsVacant(4);
-        checkPosition(5, 4);
-    }
-
 
     private MockTargetRule placeNumberedCell(int x) throws Exception {
         BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, null);
@@ -132,6 +88,27 @@ public class SwapTest extends EslimeTestCase {
         return targetRule;
     }
 
+    /**
+     * 0123456789
+     * ____45____  Initial condition
+     * ^^
+     * 0123456789
+     * ____54____  Resulting condition
+     */
+    @Test
+    public void testTwoOccupied() throws Exception {
+        placeNumberedCell(5);
+        Coordinate target = new Coordinate2D(5, 0, 0);
+        List<Coordinate> targets = new ArrayList<>(1);
+        targets.add(target);
+        parent.trigger("swap", null);
+
+        checkIsVacant(3);
+        checkPosition(4, 5);
+        checkPosition(5, 4);
+        checkIsVacant(6);
+    }
+
     private void checkPosition(int x, int state) {
         Coordinate c = new Coordinate2D(x, 0, 0);
         Cell cell = layer.getViewer().getCell(c);
@@ -141,6 +118,26 @@ public class SwapTest extends EslimeTestCase {
     private void checkIsVacant(int x) {
         Coordinate c = new Coordinate2D(x, 0, 0);
         assertFalse(layer.getViewer().isOccupied(c));
+    }
+
+    /**
+     * 0123456789
+     * ____4_____  Initial condition
+     * ^^
+     * 0123456789
+     * _____4____  Resulting condition
+     */
+    @Test
+    public void testOneVacant() throws Exception {
+        Coordinate target = new Coordinate2D(5, 0, 0);
+        List<Coordinate> targets = new ArrayList<>(1);
+        targets.add(target);
+        parentTargetRule.setTargets(targets);
+        parent.trigger("swap", null);
+
+        checkIsVacant(3);
+        checkIsVacant(4);
+        checkPosition(5, 4);
     }
 
 }

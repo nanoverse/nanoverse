@@ -24,16 +24,17 @@
 
 package layers;
 
-import control.identifiers.Coordinate;
 import control.identifiers.Coordinate2D;
-import layers.cell.CellLayerContent;
-import layers.cell.FiniteCellLayerContent;
+import layers.cell.*;
+import org.junit.Test;
 
+import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 4/10/14.
  */
 public class FiniteCellLayerContentTest extends CellLayerContentTest {
 
+    @Test
     public void testImaginaryBehavior() {
 
         boolean thrown = false;

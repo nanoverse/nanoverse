@@ -24,22 +24,17 @@
 
 package geometry.integration;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Coordinate3D;
-import control.identifiers.Flags;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Boundary;
-import geometry.boundaries.PlaneRingHard;
-import geometry.boundaries.PlaneRingReflecting;
-import geometry.lattice.Lattice;
-import geometry.lattice.TriangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.Test;
 import test.EslimeTestCase;
 
 import java.util.HashSet;
 
+import static org.junit.Assert.*;
 /**
  * Regression/integration tests from earliest version of geometry
  * model. These tests use reflecting and hard ring geometries.
@@ -49,7 +44,7 @@ import java.util.HashSet;
  */
 public class HexRingTest extends EslimeTestCase {
 
-    // DONE
+    @Test
     public void testCanonicalSites() {
         // Produce 6x4 HexRing
         int height = 6;
@@ -81,7 +76,7 @@ public class HexRingTest extends EslimeTestCase {
 
     }
 
-    // DONE
+    @Test
     // getL1Distance(...)
     // getDisplacement(...)
     public void testL1AndDisplacement() {
@@ -120,7 +115,7 @@ public class HexRingTest extends EslimeTestCase {
 
     }
 
-    // DONE
+    @Test
     // Test wrapping
     public void testWrap() {
 
@@ -166,6 +161,7 @@ public class HexRingTest extends EslimeTestCase {
 
     }
 
+    @Test
     public void testCellNeighbors() {
         //HexRing hr = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -236,6 +232,7 @@ public class HexRingTest extends EslimeTestCase {
     // All cases but top/bottom should be same as getCellNeighbors(...)
     // for the HexTorus geometry.
     // getSoluteNeighbors(...)
+    @Test
     public void testSoluteNeighbors() {
         //HexRing hr = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -296,6 +293,7 @@ public class HexRingTest extends EslimeTestCase {
     }
 
     // getAnnulus(...)
+    @Test
     public void testAnnulus() {
         Lattice lattice = new TriangularLattice();
         Shape shape = new Rectangle(lattice, 4, 4);
@@ -347,6 +345,7 @@ public class HexRingTest extends EslimeTestCase {
 
     // Tests for correct behavior in vicinity of origin when dimensions
     // are 6x6, as in the lattice tests.
+    @Test
     public void testOriginWrap() {
         // Explicitly test wrapping behavior in vicinity of origin
         //HexRing hr = new HexRing(6, 6);

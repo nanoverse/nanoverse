@@ -26,22 +26,24 @@ package factory.processes.discrete;
 
 import control.GeneralParameters;
 import org.dom4j.Element;
-import processes.BaseProcessArguments;
-import processes.MockProcess;
+import org.junit.*;
+import processes.*;
 import test.EslimeLatticeTestCase;
 
+import static org.junit.Assert.assertEquals;
 public class MockProcessFactoryTest extends EslimeLatticeTestCase {
 
     private GeneralParameters p;
     private Element root;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
         root = readXmlFile("factories/processes/discrete/MockProcessFactoryTest.xml");
         p = makeMockGeneralParameters();
     }
 
+    @Test
     public void testDefault() throws Exception {
         Element testElem = root.element("implicit-case");
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
@@ -52,6 +54,7 @@ public class MockProcessFactoryTest extends EslimeLatticeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testExplicit() throws Exception {
         Element testElem = root.element("explicit-case");
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);

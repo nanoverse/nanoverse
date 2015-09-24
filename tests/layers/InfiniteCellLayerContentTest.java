@@ -24,17 +24,19 @@
 
 package layers;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import layers.cell.CellLayerContent;
-import layers.cell.InfiniteCellLayerContent;
+import control.identifiers.*;
+import layers.cell.*;
+import org.junit.Test;
 
 import java.util.Set;
 
+import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 4/10/14.
  */
 public class InfiniteCellLayerContentTest extends CellLayerContentTest {
+
+    @Test
     public void testSanityCheck() {
         boolean thrown = false;
         try {
@@ -46,6 +48,7 @@ public class InfiniteCellLayerContentTest extends CellLayerContentTest {
         assertFalse(thrown);
     }
 
+    @Test
     public void testGetImaginarySites() {
         Coordinate imaginary = new Coordinate2D(-1, 0, 0);
         Coordinate real = new Coordinate2D(0, 0, 0);

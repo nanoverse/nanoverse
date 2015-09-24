@@ -28,8 +28,7 @@ import compiler.pipeline.translate.symbol.*;
 import org.junit.*;
 import test.TestBase;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * Created by dbborens on 7/21/2015.
@@ -44,7 +43,6 @@ public abstract class ClassSymbolTableTest extends TestBase {
     }
 
     protected abstract ClassSymbolTable getQuery();
-    protected abstract Class getExpectedClass();
 
     @Test
     public void broadClassAsExpected() {
@@ -52,6 +50,8 @@ public abstract class ClassSymbolTableTest extends TestBase {
         Class actual = query.getBroadClass();
         assertEquals(expected, actual);
     }
+
+    protected abstract Class getExpectedClass();
 
     protected void verifyReturnSymbol(String identifier, Class expected) {
         InstantiableSymbolTable ist = query.getSymbolTable(identifier);

@@ -26,23 +26,24 @@ package layers.cell;
 
 import cells.MockCell;
 import control.identifiers.Coordinate;
-import geometry.Geometry;
-import geometry.MockGeometry;
+import geometry.*;
 import geometry.boundaries.HaltArena;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 /**
  * Created by dbborens on 4/25/14.
  */
 public class CellLayerTest extends EslimeTestCase {
     private MockGeometry geom;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         geom = buildMockGeometry();
     }
 
+    @Test
     public void testClone() {
         CellLayer query = new CellLayer(geom);
         CellLayer clone = query.clone();
@@ -50,6 +51,7 @@ public class CellLayerTest extends EslimeTestCase {
         assertFalse(query == clone);
     }
 
+    @Test
     public void testHaltBoundaryCase() {
         Class[] componentClasses = new Class[]{
                 Object.class,
@@ -63,18 +65,21 @@ public class CellLayerTest extends EslimeTestCase {
         assertEquals(HaltCellLayerContent.class, query.getContent().getClass());
     }
 
+    @Test
     public void testFiniteBoundaryCase() {
         geom.setInfinite(false);
         ExposedCellLayer query = new ExposedCellLayer(geom);
         assertEquals(FiniteCellLayerContent.class, query.getContent().getClass());
     }
 
+    @Test
     public void testInfiniteBoundaryCase() {
         geom.setInfinite(true);
         ExposedCellLayer query = new ExposedCellLayer(geom);
         assertEquals(InfiniteCellLayerContent.class, query.getContent().getClass());
     }
 
+    @Test
     public void testReset() throws Exception {
         // Put some stuff on the lattice.
         ExposedCellLayer query = new ExposedCellLayer(geom);

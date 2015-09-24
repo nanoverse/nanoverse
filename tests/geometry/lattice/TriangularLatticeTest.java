@@ -24,20 +24,18 @@
 
 package geometry.lattice;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Coordinate3D;
-import control.identifiers.Flags;
+import control.identifiers.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 public class TriangularLatticeTest extends EslimeTestCase {
 
     private Lattice lattice;
     private Coordinate o, p, q, r, s, t;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
-        super.setUp();
         lattice = new TriangularLattice();
 
         // Origin
@@ -59,14 +57,17 @@ public class TriangularLatticeTest extends EslimeTestCase {
         t = new Coordinate2D(6, 6, 0);
     }
 
+    @Test
     public void testDimensionality() {
         assertEquals(2, lattice.getDimensionality());
     }
 
+    @Test
     public void testConnectivity() {
         assertEquals(3, lattice.getConnectivity());
     }
 
+    @Test
     public void testAdjust() {
         Coordinate initial, actual, expected;
 
@@ -107,6 +108,7 @@ public class TriangularLatticeTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testBasis() {
         Coordinate[] basis = lattice.getBasis();
 
@@ -121,6 +123,7 @@ public class TriangularLatticeTest extends EslimeTestCase {
         assertEquals(basis[2], north);
     }
 
+    @Test
     public void testGetAnnulus() {
         Coordinate[] actual, expected;
         Coordinate origin = new Coordinate2D(0, 0, 0);
@@ -161,6 +164,7 @@ public class TriangularLatticeTest extends EslimeTestCase {
         assertArraysEqual(actual, expected, true);
     }
 
+    @Test
     public void testGetNeighbors() {
         Coordinate[] actual, expected;
         Coordinate origin = new Coordinate2D(0, 0, 0);
@@ -178,6 +182,7 @@ public class TriangularLatticeTest extends EslimeTestCase {
         assertArraysEqual(expected, actual, true);
     }
 
+    @Test
     public void testGetDisplacement() {
         Coordinate expected, actual;
 
@@ -208,6 +213,7 @@ public class TriangularLatticeTest extends EslimeTestCase {
 
     }
 
+    @Test
     public void testGetRel2Abs() {
         Coordinate actual, expected;
 
@@ -240,6 +246,7 @@ public class TriangularLatticeTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testGetL1Distance() {
         int expected, actual;
 
@@ -269,6 +276,7 @@ public class TriangularLatticeTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testOrthoDisplacement() {
         Coordinate expected, actual;
 
@@ -298,6 +306,7 @@ public class TriangularLatticeTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testInvAdjust() {
         Coordinate initial, actual, expected;
 
@@ -338,12 +347,14 @@ public class TriangularLatticeTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testClone() {
         Object cloned = lattice.clone();
         assertEquals(lattice.getClass(), cloned.getClass());
         assertFalse(lattice == cloned);
     }
 
+    @Test
     public void testGetZeroVector() {
         Coordinate expected = new Coordinate2D(0, 0, 0);
         Coordinate actual = lattice.getZeroVector();

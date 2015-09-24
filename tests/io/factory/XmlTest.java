@@ -24,21 +24,21 @@
 
 package io.factory;
 
-import org.dom4j.Attribute;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
+import org.dom4j.*;
 import org.dom4j.io.SAXReader;
+import org.junit.Test;
 import test.EslimeTestCase;
 
 import java.io.File;
 import java.util.List;
 
+import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 12/22/13.
  */
 public class XmlTest extends EslimeTestCase {
 
+    @Test
     public void testOrder() throws DocumentException {
 
         // Open the fixture.

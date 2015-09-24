@@ -24,9 +24,7 @@
 
 package compiler.pipeline.translate.symbol.agent.action;
 
-import compiler.pipeline.translate.symbol.tables.*;
-
-import static junit.framework.TestCase.assertEquals;
+import compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 
 /**
  * Created by dbborens on 7/23/2015.

@@ -24,16 +24,14 @@
 
 package layers;
 
-import cells.Cell;
-import cells.MockCell;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import cells.*;
+import control.identifiers.*;
 import geometry.MockGeometry;
-import layers.cell.CellUpdateManager;
-import layers.cell.MockCellLayerContent;
-import layers.cell.MockCellLayerIndices;
+import layers.cell.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 public class CellUpdateManagerTest extends EslimeTestCase {
     private MockGeometry geom;
     private MockCellLayerIndices indices;
@@ -41,9 +39,8 @@ public class CellUpdateManagerTest extends EslimeTestCase {
     private Coordinate o, t;
     private CellUpdateManager query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         geom = new MockGeometry();
         o = new Coordinate2D(0, 0, 0);
         t = new Coordinate2D(1, 0, 0);
@@ -55,6 +52,7 @@ public class CellUpdateManagerTest extends EslimeTestCase {
         query = new CellUpdateManager(content);
     }
 
+    @Test
     public void testConsiderApply() throws Exception {
         MockCell cell = new MockCell();
         query.place(cell, o);
@@ -65,6 +63,7 @@ public class CellUpdateManagerTest extends EslimeTestCase {
 
     }
 
+    @Test
     public void testDivideTo() throws Exception {
         MockCell cell = new MockCell(1);
         query.place(cell, o);
@@ -83,6 +82,7 @@ public class CellUpdateManagerTest extends EslimeTestCase {
         assertEquals(t, content.locate(child));
     }
 
+    @Test
     public void testDivide() throws Exception {
         MockCell cell = new MockCell(1);
         MockCell child = new MockCell(2);
@@ -95,6 +95,7 @@ public class CellUpdateManagerTest extends EslimeTestCase {
     }
 
 
+    @Test
     public void testBanish() throws Exception {
         Cell cell = new MockCell();
         content.put(o, cell);
@@ -104,6 +105,7 @@ public class CellUpdateManagerTest extends EslimeTestCase {
         assertFalse(content.has(o));
     }
 
+    @Test
     public void testMove() throws Exception {
         Cell cell = new MockCell(1);
         query.place(cell, o);
@@ -120,6 +122,7 @@ public class CellUpdateManagerTest extends EslimeTestCase {
         assertTrue(content.has(t));
     }
 
+    @Test
     public void testSwap() throws Exception {
         Cell cell1 = new MockCell(1);
         Cell cell2 = new MockCell(2);
@@ -142,6 +145,7 @@ public class CellUpdateManagerTest extends EslimeTestCase {
 
     }
 
+    @Test
     public void testPlace() throws Exception {
         Cell cell = new MockCell(1);
 

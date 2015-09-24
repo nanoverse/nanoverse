@@ -24,26 +24,22 @@
 
 package agent.action;
 
-import agent.targets.MockTargetRule;
-import agent.targets.TargetOccupiedNeighbors;
-import agent.targets.TargetRule;
+import agent.targets.*;
 import cells.MockCell;
 import control.arguments.ConstantInteger;
 import control.identifiers.Coordinate;
 import geometry.MockGeometry;
 import layers.MockLayerManager;
-import layers.cell.CellLayer;
-import layers.cell.CellUpdateManager;
+import layers.cell.*;
+import org.junit.*;
 import processes.StepState;
-import processes.discrete.filter.Filter;
-import processes.discrete.filter.NullFilter;
+import processes.discrete.filter.*;
 import test.EslimeTestCase;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Stream;
 
+import static org.junit.Assert.*;
 /**
  * Created by dbborens on 2/11/14.
  */
@@ -60,8 +56,8 @@ public class TriggerTest extends EslimeTestCase {
     private Random random;
 //    private ConstantInteger selfChannel, targetChannel;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         // Restart "random" number generator with fixed seed
         random = new Random(RANDOM_SEED);
 
@@ -88,6 +84,7 @@ public class TriggerTest extends EslimeTestCase {
         query = new Trigger(causeCell, layerManager, effectName, targetRule, null, null);
     }
 
+    @Test
     public void testRun() throws Exception {
         /*
           A note on "callers" in this test: the trigger action causes
@@ -118,6 +115,7 @@ public class TriggerTest extends EslimeTestCase {
         assertEquals(q, effectCell.getLastTriggeredCaller());
     }
 
+    @Test
     public void testEquals() throws Exception {
         /*
          Trigger actions
@@ -141,6 +139,7 @@ public class TriggerTest extends EslimeTestCase {
         assertNotEquals(query, differentTargeter);
     }
 
+    @Test
     public void testClone() throws Exception {
         MockCell cloneCell = new MockCell();
         Action cloned = query.clone(cloneCell);
@@ -150,6 +149,7 @@ public class TriggerTest extends EslimeTestCase {
         assertEquals(causeCell, query.getCallback());
     }
 
+    @Test
     public void testHighlighting() throws Exception {
         StepState stepState = new StepState(0.0, 0);
         layerManager.setStepState(stepState);
@@ -181,6 +181,7 @@ public class TriggerTest extends EslimeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testSkipNewlyVacant() throws Exception {
         // Begin as with testRun() above.
         MockCell dummy = new MockCell();
@@ -205,6 +206,7 @@ public class TriggerTest extends EslimeTestCase {
      * If a cell is set to trigger something after it's dead, it skips
      * that action instead. Regression test for issue #83973358.
      */
+    @Test
     public void testDeadCannotTrigger() throws Exception {
         // Begin as with testRun() above.
         MockCell dummy = new MockCell();

@@ -24,17 +24,16 @@
 
 package structural;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Coordinate3D;
-import control.identifiers.Flags;
-import junit.framework.TestCase;
+import control.identifiers.*;
+import org.junit.Test;
 
 import java.util.HashSet;
 
+import static org.junit.Assert.*;
 
-public class CoordinateTest extends TestCase {
+public class CoordinateTest {
 
+    @Test
     public void testConstructors2D() {
         // Construct a 3D coordinate.
         Coordinate first = new Coordinate3D(2, 4, 6, 0);
@@ -63,6 +62,7 @@ public class CoordinateTest extends TestCase {
         assertFalse(first.equals(second));
     }
 
+    @Test
     public void testConstructors3D() {
         // Construct a 2D coordinate.
         Coordinate first = new Coordinate2D(2, 4, 0);
@@ -90,6 +90,7 @@ public class CoordinateTest extends TestCase {
         assertFalse(first.equals(second));
     }
 
+    @Test
     public void testFlags() {
         // Create a coordinate with a couple of flags.
         Coordinate first = new Coordinate2D(2, 4, Flags.BOUNDARY_APPLIED | Flags.BEYOND_BOUNDS);
@@ -108,6 +109,7 @@ public class CoordinateTest extends TestCase {
         assertFalse(first.equals(second));
     }
 
+    @Test
     public void testStrings() {
         // Create a 2D coordinate.
         Coordinate first = new Coordinate2D(2, 4, 0);
@@ -133,6 +135,7 @@ public class CoordinateTest extends TestCase {
 
     }
 
+    @Test
     public void testHashing() {
         // Create two logically equivalent coordinates.
         Coordinate first = new Coordinate2D(2, 4, 0);
@@ -164,6 +167,7 @@ public class CoordinateTest extends TestCase {
         assertEquals(coords.size(), 2);
     }
 
+    @Test
     public void testAddFlags() {
         Coordinate c = new Coordinate3D(1, 2, 3, Flags.END_OF_WORLD);
         Coordinate d = c.addFlags(Flags.BOUNDARY_APPLIED);
@@ -172,6 +176,7 @@ public class CoordinateTest extends TestCase {
         assertEquals(c.flags() | Flags.BOUNDARY_APPLIED, d.flags());
     }
 
+    @Test
     public void testNorm() {
         Coordinate c = new Coordinate3D(0, 0, 0, 0);
         assertEquals(0, c.norm());
@@ -183,6 +188,7 @@ public class CoordinateTest extends TestCase {
         assertEquals(4, c.norm());
     }
 
+    @Test
     public void testClone() {
         Coordinate c = new Coordinate3D(1, 2, 3, 4);
         Coordinate d = c.clone();
@@ -194,6 +200,7 @@ public class CoordinateTest extends TestCase {
         assertEquals(c, d);
     }
 
+    @Test
     public void testCanonicalize() {
         int flags = Flags.BEYOND_BOUNDS | Flags.BOUNDARY_APPLIED | Flags.BOUNDARY_IGNORED | Flags.END_OF_WORLD;
 
@@ -205,6 +212,5 @@ public class CoordinateTest extends TestCase {
 
         assertEquals(Flags.PLANAR, a1.flags());
         assertEquals(0, b1.flags());
-
     }
 }

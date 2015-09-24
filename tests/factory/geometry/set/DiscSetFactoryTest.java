@@ -22,23 +22,21 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package factory.geometry.set;//import junit.framework.TestCase;
+package factory.geometry.set;
 
 import control.arguments.*;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.set.CoordinateSet;
-import geometry.set.DiscSet;
-import geometry.shape.Line;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.set.*;
+import geometry.shape.*;
 import org.dom4j.Element;
+import org.junit.*;
 import structural.MockGeneralParameters;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 public class DiscSetFactoryTest extends EslimeTestCase {
 
@@ -46,14 +44,22 @@ public class DiscSetFactoryTest extends EslimeTestCase {
     private Element root;
     private MockGeneralParameters p;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         root = readXmlFile("factories/geometry/set/DiscSetFactoryTest.xml");
         p = makeMockGeneralParameters();
         geom = makeGeometry();
     }
 
+    private Geometry makeGeometry() {
+        Lattice lattice = new LinearLattice();
+        Shape shape = new Line(lattice, 10);
+        Boundary boundary = new Arena(shape, lattice);
+        Geometry ret = new Geometry(lattice, shape, boundary);
+        return ret;
+    }
+
+    @Test
     public void testDefault() {
         Element e = root.element("default-case");
 
@@ -66,6 +72,7 @@ public class DiscSetFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testExplicit() {
         Element e = root.element("explicit-case");
 
@@ -75,13 +82,5 @@ public class DiscSetFactoryTest extends EslimeTestCase {
         CoordinateSet actual = DiscSetFactory.instantiate(e, geom, p);
 
         assertEquals(expected, actual);
-    }
-
-    private Geometry makeGeometry() {
-        Lattice lattice = new LinearLattice();
-        Shape shape = new Line(lattice, 10);
-        Boundary boundary = new Arena(shape, lattice);
-        Geometry ret = new Geometry(lattice, shape, boundary);
-        return ret;
     }
 }

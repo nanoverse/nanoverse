@@ -26,21 +26,17 @@ package agent.targets;
 
 import cells.MockCell;
 import control.arguments.ConstantInteger;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import control.identifiers.*;
 import geometry.MockGeometry;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
-import processes.discrete.filter.CellStateFilter;
-import processes.discrete.filter.Filter;
-import processes.discrete.filter.NullFilter;
+import org.junit.*;
+import processes.discrete.filter.*;
 import test.EslimeTestCase;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
+import static org.junit.Assert.*;
 /**
  * Created by dbborens on 2/10/14.
  */
@@ -55,7 +51,7 @@ public class TargetRuleTest extends EslimeTestCase {
     private Random random;
     private Filter filter;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         // Restart RN generator
         random = new Random(RANDOM_SEED);
@@ -88,6 +84,7 @@ public class TargetRuleTest extends EslimeTestCase {
         filter = new NullFilter();
     }
 
+    @Test
     public void testTargetAllNeighbors() {
         TargetRule query = new TargetAllNeighbors(self, layerManager, filter, -1, random);
 
@@ -99,6 +96,7 @@ public class TargetRuleTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testTargetVacantNeighbors() {
         TargetRule query = new TargetVacantNeighbors(self, layerManager, filter, -1, random);
 
@@ -110,6 +108,7 @@ public class TargetRuleTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testTargetOccupiedNeighbors() {
         TargetRule query = new TargetOccupiedNeighbors(self, layerManager, filter, -1, random);
 
@@ -121,6 +120,7 @@ public class TargetRuleTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testTargetSelf() {
         TargetRule query = new TargetSelf(self, layerManager, filter, -1, random);
 
@@ -132,6 +132,7 @@ public class TargetRuleTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testTargetCaller() {
         // Left caller
         TargetRule query = new TargetCaller(self, layerManager, filter, -1, random);
@@ -143,6 +144,7 @@ public class TargetRuleTest extends EslimeTestCase {
     }
 
     // Null caller: should blow up
+    @Test
     public void testTargetCallerNull() {
         TargetRule query = new TargetCaller(self, layerManager, filter, -1, random);
         boolean thrown = false;
@@ -157,6 +159,7 @@ public class TargetRuleTest extends EslimeTestCase {
         assertTrue(thrown);
     }
 
+    @Test
     public void testEquality() {
         // Equality is defined at the superclass level, so one test is sufficient.
 
@@ -176,6 +179,7 @@ public class TargetRuleTest extends EslimeTestCase {
         assertNotEquals(p, r);
     }
 
+    @Test
     public void testClone() {
         MockCell parent = new MockCell();
         TargetRule[] rules = new TargetRule[]{
@@ -191,10 +195,19 @@ public class TargetRuleTest extends EslimeTestCase {
         }
     }
 
+    private void doCloneTest(TargetRule original, MockCell parent) {
+        MockCell child = new MockCell();
+        TargetRule cloned = original.clone(child);
+        assertEquals(original, cloned);
+        assertEquals(parent, original.getCallback());
+        assertEquals(child, cloned.getCallback());
+    }
+
     /*
       All other tests are based on a no-maximum scheme, so an additional
       testNoMaximum method is not necessary.
      */
+    @Test
     public void testMaximum() {
         TargetRule query = new TargetAllNeighbors(self, layerManager, filter, 1, random);
 
@@ -206,14 +219,7 @@ public class TargetRuleTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
-    private void doCloneTest(TargetRule original, MockCell parent) {
-        MockCell child = new MockCell();
-        TargetRule cloned = original.clone(child);
-        assertEquals(original, cloned);
-        assertEquals(parent, original.getCallback());
-        assertEquals(child, cloned.getCallback());
-    }
-
+    @Test
     public void testFilterApplied() throws Exception {
         MockCell anotherNeighbor = new MockCell(3);
         cellLayer.getUpdateManager().place(anotherNeighbor, right);

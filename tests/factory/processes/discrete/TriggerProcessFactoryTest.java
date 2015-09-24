@@ -26,38 +26,30 @@ package factory.processes.discrete;
 
 import control.GeneralParameters;
 import control.arguments.*;
-import control.identifiers.Coordinate;
 import control.identifiers.Coordinate2D;
 import geometry.Geometry;
-import geometry.boundaries.Absorbing;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.set.CoordinateSet;
-import geometry.set.DiscSet;
-import geometry.shape.Line;
-import geometry.shape.Shape;
-import layers.LayerManager;
-import layers.MockLayerManager;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.set.*;
+import geometry.shape.*;
+import layers.*;
 import layers.cell.CellLayer;
 import org.dom4j.Element;
+import org.junit.*;
 import processes.BaseProcessArguments;
-import processes.discrete.CellProcessArguments;
-import processes.discrete.TriggerProcess;
-import processes.discrete.filter.DepthFilter;
-import processes.discrete.filter.Filter;
-import processes.discrete.filter.NullFilter;
+import processes.discrete.*;
+import processes.discrete.filter.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 public class TriggerProcessFactoryTest extends EslimeTestCase {
     private GeneralParameters p;
     private Element root;
     private LayerManager layerManager;
     private Geometry geom;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         p = makeMockGeneralParameters();
         root = readXmlFile("factories/processes/discrete/TriggerProcessFactoryTest.xml");
 
@@ -71,6 +63,7 @@ public class TriggerProcessFactoryTest extends EslimeTestCase {
         layerManager.setCellLayer(layer);
     }
 
+    @Test
     public void testImplicit() throws Exception {
         Element testElem = root.element("implicit-case");
 
@@ -83,6 +76,7 @@ public class TriggerProcessFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testExplicit() throws Exception {
         Element testElem = root.element("explicit-case");
 

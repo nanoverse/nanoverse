@@ -24,15 +24,17 @@
 
 package processes;
 
-import processes.gillespie.GillespieChooser;
-import processes.gillespie.GillespieState;
+import org.junit.Test;
+import processes.gillespie.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 public class GillespieTest extends EslimeTestCase {
 
     /**
      * Test the GillespieState object.
      */
+    @Test
     public void testGillespieStateLifeCycle() {
         Integer[] arr = new Integer[]{100, 200};
         GillespieState gs = new GillespieState(arr);
@@ -56,6 +58,7 @@ public class GillespieTest extends EslimeTestCase {
     /**
      * Test that the weighted target selector works.
      */
+    @Test
     public void testSelectTarget() {
         Integer[] arr = new Integer[]{100, 200, 300};
         GillespieState gs = new GillespieState(arr);

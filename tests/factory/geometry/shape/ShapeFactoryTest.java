@@ -22,24 +22,26 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package factory.geometry.shape;//import junit.framework.TestCase;
+package factory.geometry.shape;
 
 import geometry.lattice.*;
 import geometry.shape.*;
 import org.dom4j.Element;
+import org.junit.*;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 public class ShapeFactoryTest extends EslimeTestCase {
 
     private Element root;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
+    @Before
+    public void setUp() throws Exception {
         root = readXmlFile("factories/geometry/shape/ShapeFactoryTest.xml");
     }
 
+    @Test
     public void testLineCase() {
         Element e = root.element("line-case");
         Lattice lattice = new LinearLattice();
@@ -48,6 +50,7 @@ public class ShapeFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testRectangleCase() {
         Element e = root.element("rectangle-case");
         Lattice lattice = new RectangularLattice();
@@ -56,6 +59,7 @@ public class ShapeFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testHexagonCase() {
         Element e = root.element("hexagon-case");
         Lattice lattice = new TriangularLattice();
@@ -64,6 +68,7 @@ public class ShapeFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testCuboidCase() {
         Element e = root.element("cuboid-case");
         Lattice lattice = new CubicLattice();

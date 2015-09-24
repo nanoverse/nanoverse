@@ -24,6 +24,7 @@
 
 package io.deserialize;
 
+import org.junit.*;
 import test.EslimeTestCase;
 
 /**
@@ -33,18 +34,19 @@ public class TimeReaderTest extends EslimeTestCase {
 
     private TimeReader query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         query = new TimeReader(fixturePath);
     }
 
+    @Test
     public void testGetTimes() throws Exception {
         double[] expected = new double[]{0.5, 1.3};
         double[] actual = query.getTimes();
         assertArraysEqual(expected, actual, false);
     }
 
+    @Test
     public void testGetFrames() throws Exception {
         int[] expected = new int[]{2, 4};
         int[] actual = query.getFrames();
