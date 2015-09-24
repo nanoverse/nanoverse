@@ -27,6 +27,7 @@ package geometry.boundaries;
 import control.identifiers.Coordinate;
 import geometry.lattice.Lattice;
 import geometry.shape.Shape;
+import structural.annotations.FactoryTarget;
 
 public abstract class Boundary {
 

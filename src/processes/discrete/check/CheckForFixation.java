@@ -32,6 +32,7 @@ import processes.StepState;
 import processes.discrete.CellProcess;
 import processes.discrete.CellProcessArguments;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 /**
  * Checks for extinction or fixation events.
@@ -39,6 +40,8 @@ import processes.gillespie.GillespieState;
  * Created by dbborens on 1/13/14.
  */
 public class CheckForFixation extends CellProcess {
+
+    @FactoryTarget
     public CheckForFixation(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
         super(arguments, cpArguments);
     }

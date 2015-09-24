@@ -24,30 +24,32 @@
 
 package agent.control;
 
-import agent.Behavior;
 import agent.MockBehavior;
+import agent.action.Action;
 import cells.BehaviorCell;
-import control.identifiers.Coordinate;
-import junit.framework.TestCase;
+import control.identifiers.*;
+import org.junit.*;
 
+import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 1/21/14.
  */
-public class BehaviorDispatcherTest extends TestCase {
+public class BehaviorDispatcherTest {
 
     private BehaviorDispatcher query;
     private Coordinate caller1, caller2;
     private MockBehavior behavior1, behavior2;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         query = new BehaviorDispatcher();
-        caller1 = new Coordinate(0, 0, 0);
-        caller2 = new Coordinate(1, 0, 0);
+        caller1 = new Coordinate2D(0, 0, 0);
+        caller2 = new Coordinate2D(1, 0, 0);
         behavior1 = new MockBehavior();
         behavior2 = new MockBehavior();
     }
 
+    @Test
     public void testLifeCycle() throws Exception {
         String name = "testBehavior";
 
@@ -76,6 +78,7 @@ public class BehaviorDispatcherTest extends TestCase {
         assertEquals(1, behavior2.getTimesRun());
     }
 
+    @Test
     public void testTriggerWithCallback() throws Exception {
         // Set up
         String name = "testBehavior";
@@ -100,6 +103,7 @@ public class BehaviorDispatcherTest extends TestCase {
         assertEquals(1, behavior1.timesCaller(caller2));
     }
 
+    @Test
     public void testClone() throws Exception {
         String name = "testBehavior";
         query.map(name, behavior1);
@@ -114,7 +118,8 @@ public class BehaviorDispatcherTest extends TestCase {
         assertFalse(query == clone);
 
         // The new object should have the alternate as a callback.
-        Behavior clonedBehavior = clone.getMappedBehavior(name);
+        // TODO Rewrite me as a modern test
+        Action clonedBehavior = clone.getMappedBehavior(name);
         assertEquals(alternate, clonedBehavior.getCallback());
     }
 

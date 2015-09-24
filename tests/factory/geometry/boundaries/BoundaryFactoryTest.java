@@ -22,66 +22,74 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package factory.geometry.boundaries;//import junit.framework.TestCase;
+package factory.geometry.boundaries;
 
 import control.arguments.GeometryDescriptor;
 import geometry.boundaries.*;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.lattice.*;
+import geometry.shape.*;
 import org.dom4j.Element;
+import org.junit.*;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 public class BoundaryFactoryTest extends EslimeTestCase {
 
     private Element root;
     private GeometryDescriptor geometryDescriptor;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         root = readXmlFile("factories/geometry/boundary/BoundaryFactoryTest.xml");
         Lattice lattice = new RectangularLattice();
         Shape shape = new Rectangle(lattice, 1, 1);
         geometryDescriptor = new GeometryDescriptor(lattice, shape);
     }
 
+    @Test
     public void testArenaCase() {
         doTest("arena-case", Arena.class);
-    }
-
-    public void testPlaneRingHardCase() {
-        doTest("plane-ring-hard-case", PlaneRingHard.class);
-    }
-
-    public void testPlaneRingReflectingCase() {
-        doTest("plane-ring-reflecting-case", PlaneRingReflecting.class);
-    }
-
-    public void testAbsorbingCase() {
-        doTest("absorbing-case", Absorbing.class);
-    }
-
-    public void testPeriodicCase() {
-        doTest("periodic-case", Periodic.class);
-    }
-
-    public void testHaltCase() {
-        doTest("halt-case", HaltArena.class);
-    }
-
-    public void testTetrisCase() {
-        doTest("tetris-case", TetrisBoundary.class);
-    }
-
-    public void testReflectingTetrisCase() {
-        doTest("reflecting-tetris-case", TetrisReflectingBoundary.class);
     }
 
     private void doTest(String eName, Class expected) {
         Element e = root.element(eName);
         Class actual = BoundaryFactory.instantiate(e, geometryDescriptor).getClass();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testPlaneRingHardCase() {
+        doTest("plane-ring-hard-case", PlaneRingHard.class);
+    }
+
+    @Test
+    public void testPlaneRingReflectingCase() {
+        doTest("plane-ring-reflecting-case", PlaneRingReflecting.class);
+    }
+
+    @Test
+    public void testAbsorbingCase() {
+        doTest("absorbing-case", Absorbing.class);
+    }
+
+    @Test
+    public void testPeriodicCase() {
+        doTest("periodic-case", Periodic.class);
+    }
+
+    @Test
+    public void testHaltCase() {
+        doTest("halt-case", HaltArena.class);
+    }
+
+    @Test
+    public void testTetrisCase() {
+        doTest("tetris-case", TetrisBoundary.class);
+    }
+
+    @Test
+    public void testReflectingTetrisCase() {
+        doTest("reflecting-tetris-case", TetrisReflectingBoundary.class);
     }
 }

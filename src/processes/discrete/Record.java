@@ -25,16 +25,18 @@
 package processes.discrete;
 
 import control.halt.HaltCondition;
-import processes.BaseProcessArguments;
-import processes.StepState;
+import processes.*;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 4/24/14.
  */
-public class Record extends CellProcess {
-    public Record(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
-        super(arguments, cpArguments);
+public class Record extends NanoverseProcess {
+
+    @FactoryTarget
+    public Record(BaseProcessArguments arguments) {
+        super(arguments);
     }
 
     @Override

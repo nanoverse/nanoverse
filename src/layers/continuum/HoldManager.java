@@ -26,6 +26,7 @@ package layers.continuum;
 
 import control.identifiers.Coordinate;
 import layers.continuum.solvers.*;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 
@@ -37,6 +38,7 @@ public class HoldManager {
     private ContinuumSolver solver;
     private boolean held;
 
+    @FactoryTarget
     public HoldManager(ContinuumAgentManager manager, ContinuumSolver solver) {
         this.manager = manager;
         this.solver = solver;

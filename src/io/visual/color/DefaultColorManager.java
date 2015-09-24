@@ -26,6 +26,7 @@ package io.visual.color;
 
 import control.identifiers.Coordinate;
 import layers.SystemState;
+import structural.annotations.FactoryTarget;
 
 import java.awt.*;
 
@@ -33,6 +34,10 @@ import java.awt.*;
  * Created by dbborens on 4/1/14.
  */
 public class DefaultColorManager extends ColorManager {
+
+    @FactoryTarget(displayName = "IndexedColorModel")
+    public DefaultColorManager() {
+    }
 
     @Override
     public boolean equals(Object obj) {

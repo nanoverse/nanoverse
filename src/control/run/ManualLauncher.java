@@ -40,8 +40,9 @@ public class ManualLauncher {
 //        String path = "e:/nanoverse/2015-06-04/depletion.xml";
 //        String path = "e:/Dropbox/T6SS/xml/2015-06-07/depletion/models/max_solute=41.00.xml";
 //        String path = "e:/Dropbox/T6SS/xml/2015-06-07/depletion/models/test.xml";
+        String path = "e:/Dropbox/nanoverse/sandbox/diffusion.xml";
 //        String path = "/Users/dbborens/Dropbox/T6SS/Manuscript/revised/new_sources/draft2/p0_structure/deterministic/d.xml";
-        String path = "/Users/dbborens/Dropbox/T6SS/xml/2015-07-09/blended_baseline.xml";
+//        String path = "/Users/dbborens/Dropbox/T6SS/xml/2015-07-09/blended_baseline.xml";
         Runner runner = RunnerFactory.instantiate(path);
         runner.run();
     }

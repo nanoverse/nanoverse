@@ -27,17 +27,14 @@ package io.serialize.text;
 import cells.MockCell;
 import control.arguments.ConstantInteger;
 import control.halt.HaltCondition;
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Absorbing;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import layers.MockLayerManager;
-import layers.cell.CellLayer;
-import layers.cell.CellUpdateManager;
+import layers.cell.*;
+import org.junit.*;
 import processes.StepState;
 import structural.MockGeneralParameters;
 import test.*;
@@ -49,7 +46,7 @@ public class InterfaceCensusWriterTest extends EslimeTestCase {
     private CellLayer cellLayer;
     private MockLayerManager layerManager;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         Lattice lattice = new RectangularLattice();
         Shape shape = new Rectangle(lattice, 3, 3);
@@ -93,17 +90,24 @@ public class InterfaceCensusWriterTest extends EslimeTestCase {
      * border a 1.
      */
     private void buildInitialCondition() throws HaltCondition {
-        put(new Coordinate(0, 0, 0), 0);
-        put(new Coordinate(1, 0, 0), 1);
-        put(new Coordinate(2, 0, 0), 2);
-        put(new Coordinate(0, 1, 0), 2);
-        put(new Coordinate(1, 1, 0), 1);
-        put(new Coordinate(2, 1, 0), 0);
-        put(new Coordinate(0, 2, 0), 1);
-        put(new Coordinate(1, 2, 0), 2);
-        put(new Coordinate(2, 2, 0), 3);
+        put(new Coordinate2D(0, 0, 0), 0);
+        put(new Coordinate2D(1, 0, 0), 1);
+        put(new Coordinate2D(2, 0, 0), 2);
+        put(new Coordinate2D(0, 1, 0), 2);
+        put(new Coordinate2D(1, 1, 0), 1);
+        put(new Coordinate2D(2, 1, 0), 0);
+        put(new Coordinate2D(0, 2, 0), 1);
+        put(new Coordinate2D(1, 2, 0), 2);
+        put(new Coordinate2D(2, 2, 0), 3);
     }
 
+    private void put(Coordinate c, int state) throws HaltCondition {
+        MockCell cell = new MockCell(state);
+        CellUpdateManager u = cellLayer.getUpdateManager();
+        u.place(cell, c);
+    }
+
+    @Test
     public void testLifeCycle() throws Exception {
         MockGeneralParameters p = makeMockGeneralParameters();
         p.setInstancePath(outputPath);
@@ -131,7 +135,7 @@ public class InterfaceCensusWriterTest extends EslimeTestCase {
          *   State 2 --> 3 of 9
          *   State 3 --> 2 of 9
          */
-        replace(new Coordinate(1, 2, 0), 3);
+        replace(new Coordinate2D(1, 2, 0), 3);
         state = new StepState(1.0, 1);
         state.record(layerManager);
         writer.flush(state);
@@ -146,11 +150,5 @@ public class InterfaceCensusWriterTest extends EslimeTestCase {
         CellUpdateManager u = cellLayer.getUpdateManager();
         u.banish(c);
         put(c, state);
-    }
-
-    private void put(Coordinate c, int state) throws HaltCondition {
-        MockCell cell = new MockCell(state);
-        CellUpdateManager u = cellLayer.getUpdateManager();
-        u.place(cell, c);
     }
 }

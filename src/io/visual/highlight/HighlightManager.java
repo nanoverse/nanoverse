@@ -25,9 +25,9 @@
 package io.visual.highlight;
 
 import control.identifiers.Coordinate;
-import io.visual.glyph.Glyph;
 import io.visual.map.PixelTranslator;
 import layers.SystemState;
+import structural.annotations.FactoryTarget;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -37,7 +37,12 @@ import java.util.Map;
  * Created by dbborens on 4/2/14.
  */
 public class HighlightManager {
-    private Map<Integer, Glyph> glyphMap;
+    private final Map<Integer, Glyph> glyphMap;
+
+    @FactoryTarget
+    public HighlightManager(Map<Integer, Glyph> glyphMap) {
+        this.glyphMap = glyphMap;
+    }
 
     public HighlightManager() {
         glyphMap = new HashMap<>();

@@ -31,6 +31,7 @@ import control.identifiers.Coordinate;
 import processes.*;
 import processes.discrete.cluster.ScatterClustersHelper;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 import java.util.*;
 import java.util.stream.*;
@@ -38,20 +39,21 @@ import java.util.stream.*;
 public class ScatterClusters extends CellProcess {
 
     private List<Coordinate> candidates;
-    private final Argument<Integer> neighborCount;
+    private final IntegerArgument neighborCount;
     private final CellDescriptor cellDescriptor;
-    private final ScatterClustersHelper helper;
+    private final ScatterClustersHelper clustersHelper;
 
+    @FactoryTarget
     public ScatterClusters(BaseProcessArguments arguments,
                            CellProcessArguments cpArguments,
-                           Argument<Integer> neighborCount,
+                           IntegerArgument neighborCount,
                            CellDescriptor cellDescriptor,
-                           ScatterClustersHelper helper) {
+                           ScatterClustersHelper clustersHelper) {
 
         super(arguments, cpArguments);
         this.cellDescriptor = cellDescriptor;
         this.neighborCount = neighborCount;
-        this.helper = helper;
+        this.clustersHelper = clustersHelper;
     }
 
     @Override
@@ -118,7 +120,7 @@ public class ScatterClusters extends CellProcess {
             Coordinate current = cIter.next();
 
             // Place cell at this site, if it is acceptable
-            int curPlaced = helper.attemptPlacement(current, toPlace, m);
+            int curPlaced = clustersHelper.attemptPlacement(current, toPlace, m);
             if (curPlaced > 0) {
                 placed += curPlaced;
                 toPlace = cellDescriptor.next();

@@ -25,7 +25,7 @@
 package agent.action;
 
 import cells.BehaviorCell;
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import layers.LayerManager;
@@ -39,12 +39,12 @@ import layers.LayerManager;
  */
 public class ThresholdDo extends Action {
 
-    private final Argument<Double> minimumArg;
-    private final Argument<Double> maximumArg;
+    private final DoubleArgument minimumArg;
+    private final DoubleArgument maximumArg;
     private final String layerId;
     private final Action child;
 
-    public ThresholdDo(BehaviorCell callback, LayerManager layerManager, String layerId, Argument<Double> minimumArg, Argument<Double> maximumArg, Action child) {
+    public ThresholdDo(BehaviorCell callback, LayerManager layerManager, String layerId, DoubleArgument minimumArg, DoubleArgument maximumArg, Action child) {
         super(callback, layerManager);
         if (layerManager.getContinuumLayer(layerId) == null) {
             throw new IllegalArgumentException("Unrecognized continuum layer '"

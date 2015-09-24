@@ -28,13 +28,20 @@ import layers.continuum.ContinuumLayerContent;
 import layers.continuum.ScheduledOperations;
 import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 12/12/14.
  */
 public class EquilibriumSolver extends ContinuumSolver {
 
-    private EquilibriumMatrixSolver steadyState;
+    private final EquilibriumMatrixSolver steadyState;
+
+    @FactoryTarget
+    public EquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {
+        super(content, so);
+        steadyState = new EquilibriumBandSolver(so.isOperators());
+    }
 
     public EquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so, EquilibriumMatrixSolver steadyState) {
         super(content, so);

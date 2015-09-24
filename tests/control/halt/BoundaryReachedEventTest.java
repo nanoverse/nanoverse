@@ -22,24 +22,28 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.halt;//import junit.framework.TestCase;
+package control.halt;
 
+import org.junit.*;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 public class BoundaryReachedEventTest extends EslimeTestCase {
     private BoundaryReachedEvent query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         query = new BoundaryReachedEvent();
     }
 
+    @Test
     public void testGillespie() {
         query.setGillespie(1.0);
-        assertEquals(1.0, query.getGillespie());
+        assertEquals(1.0, query.getGillespie(), epsilon);
     }
 
+    @Test
     public void testToString() {
         assertEquals("BoundaryReachedEvent", query.toString());
     }

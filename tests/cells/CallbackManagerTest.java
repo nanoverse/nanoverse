@@ -24,27 +24,26 @@
 
 package cells;
 
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.MockGeometry;
-import junit.framework.TestCase;
 import layers.MockLayerManager;
-import layers.cell.CellLayer;
-import layers.cell.CellLayerViewer;
+import layers.cell.*;
+import org.junit.*;
 
+import static org.junit.Assert.*;
 /**
  * Created by dbborens on 2/21/14.
  */
-public class CallbackManagerTest extends TestCase {
+public class CallbackManagerTest {
     private CallbackManager query;
     private CellLayer layer;
     private Coordinate c;
     private BehaviorCell cell;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         MockGeometry geom = new MockGeometry();
-        c = new Coordinate(0, 0, 0);
+        c = new Coordinate2D(0, 0, 0);
         Coordinate[] cc = new Coordinate[]{c};
         geom.setCanonicalSites(cc);
         layer = new CellLayer(geom);
@@ -57,7 +56,8 @@ public class CallbackManagerTest extends TestCase {
     }
 
 
-    public void testRefreshDivisibility() throws Exception {
+    @Test
+    public void refreshDivisibility() throws Exception {
         /*
           On the face of it, this looks nearly identical to a test
           in BehaviorCellTest. However, since MockCell does automatically
@@ -82,17 +82,18 @@ public class CallbackManagerTest extends TestCase {
         assertDivisibilityStatus(false);
     }
 
-    public void testDie() {
+    private void assertDivisibilityStatus(boolean expected) {
+        boolean actual = layer.getViewer().isDivisible(c);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void die() {
         // Perform the test
         CellLayerViewer viewer = layer.getViewer();
         boolean isOccupied = viewer.isOccupied(c);
         assertTrue(isOccupied);
         query.die();
         assertFalse(layer.getViewer().isOccupied(c));
-    }
-
-    private void assertDivisibilityStatus(boolean expected) {
-        boolean actual = layer.getViewer().isDivisible(c);
-        assertEquals(expected, actual);
     }
 }

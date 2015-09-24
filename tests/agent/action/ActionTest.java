@@ -24,24 +24,20 @@
 
 package agent.action;
 
-import cells.BehaviorCell;
-import cells.Cell;
-import control.arguments.Argument;
-import control.arguments.ConstantInteger;
+import cells.*;
+import control.arguments.*;
 import control.halt.HaltCondition;
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.MockGeometry;
-import layers.LayerManager;
-import layers.MockLayerManager;
+import layers.*;
 import layers.cell.CellLayer;
 import org.junit.*;
 import processes.StepState;
-import test.*;
+import test.TestBase;
 
 import java.util.stream.Stream;
 
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by David B Borenstein on 1/23/14.
@@ -57,7 +53,7 @@ public class ActionTest extends TestBase {
     public void setUp() throws Exception {
         layerManager = new MockLayerManager();
         callback = new BehaviorCell();
-        caller = new Coordinate(0, 0, 0);
+        caller = new Coordinate2D(0, 0, 0);
 
         query = new ExposedAction(callback, layerManager);
     }
@@ -126,14 +122,14 @@ public class ActionTest extends TestBase {
         }
 
         @Override
-        public void run(Coordinate caller) {
-            isRun = true;
-            lastCaller = caller;
+        public BehaviorCell getCallback() {
+            return super.getCallback();
         }
 
         @Override
-        public BehaviorCell getCallback() {
-            return super.getCallback();
+        public void run(Coordinate caller) {
+            isRun = true;
+            lastCaller = caller;
         }
 
         @Override
@@ -147,7 +143,7 @@ public class ActionTest extends TestBase {
         }
 
         @Override
-        public void doHighlight(Argument<Integer> channelArg, Coordinate toHighlight) throws HaltCondition {
+        public void doHighlight(IntegerArgument channelArg, Coordinate toHighlight) throws HaltCondition {
             super.doHighlight(channelArg, toHighlight);
         }
     }

@@ -24,17 +24,19 @@
 
 package processes.discrete;
 
-import control.arguments.Argument;
+import control.arguments.*;
 import geometry.set.CoordinateSet;
 import layers.cell.CellLayer;
 import processes.BaseProcessArguments;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
+import structural.annotations.FactoryTarget;
 
-public abstract class CellProcess extends EcoProcess {
+public abstract class CellProcess extends NanoverseProcess {
     // These are easily accessed from the layer manager, but there
     // are very many calls to them thanks to some legacy code.
     private final CellProcessArguments cpArguments;
     private final BaseProcessArguments arguments;
+
     public CellProcess(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
         super(arguments);
         this.cpArguments = cpArguments;
@@ -49,7 +51,7 @@ public abstract class CellProcess extends EcoProcess {
         return cpArguments.getActiveSites();
     }
 
-    protected Argument<Integer> getMaxTargets() {
+    protected IntegerArgument getMaxTargets() {
         return cpArguments.getMaxTargets();
     }
 }

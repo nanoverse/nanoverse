@@ -24,12 +24,12 @@
 
 package processes;
 
+import org.junit.*;
 import test.EslimeTestCase;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 3/7/14.
  */
@@ -38,9 +38,8 @@ public class MaxTargetHelperTest extends EslimeTestCase {
     private Object[] omega;
     private Random random;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         omega = new Object[10];
         for (int i = 0; i < 10; i++) {
             omega[i] = new Object();
@@ -49,34 +48,39 @@ public class MaxTargetHelperTest extends EslimeTestCase {
         random = new Random(RANDOM_SEED);
     }
 
+    @Test
     public void testOverMaximum() throws Exception {
         doTest(1, 1);
     }
 
+    private void doTest(int maxTargetsArg, int expected) {
+        Object[] actualArr = MaxTargetHelper.respectMaxTargets(omega, maxTargetsArg, random);
+        int actual = actualArr.length;
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void testUnderMaximum() throws Exception {
         doTest(15, 10);
     }
 
+    @Test
     public void testNoMaximum() throws Exception {
         doTest(-1, 10);
     }
 
+    @Test
     public void testTrivial() throws Exception {
         doTest(0, 0);
     }
 
+    @Test
     public void testListCase() {
         List<Object> omegaList = Arrays.asList(omega);
         Object[] coordinates = MaxTargetHelper.respectMaxTargets(omegaList, 1, random);
         int actual = coordinates.length;
         int expected = 1;
 
-        assertEquals(expected, actual);
-    }
-
-    private void doTest(int maxTargetsArg, int expected) {
-        Object[] actualArr = MaxTargetHelper.respectMaxTargets(omega, maxTargetsArg, random);
-        int actual = actualArr.length;
         assertEquals(expected, actual);
     }
 }

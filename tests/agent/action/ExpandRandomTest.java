@@ -24,29 +24,25 @@
 
 package agent.action;
 
-import agent.Behavior;
 import agent.control.BehaviorDispatcher;
 import agent.targets.MockTargetRule;
 import cells.*;
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Boundary;
-import geometry.boundaries.Periodic;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import structural.MockRandom;
 import test.EslimeTestCase;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 /**
  * Created by annie on 3/3/15.
  */
@@ -58,9 +54,8 @@ public class ExpandRandomTest extends EslimeTestCase {
     private CellLayer layer;
     private MockTargetRule parentTargetRule;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
 
         Lattice lattice = new RectangularLattice();
         layerManager = new MockLayerManager();
@@ -73,8 +68,34 @@ public class ExpandRandomTest extends EslimeTestCase {
 
         // Place the parent at site 4 and get its target rule
         parentTargetRule = placeNumberedCell(4);
-        parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate(4, 0, 0));
+        parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
 
+    }
+
+    private MockTargetRule placeNumberedCell(int x) throws Exception {
+        Supplier<BehaviorCell> ncSupplier = mock(Supplier.class);
+        BehaviorCell child = new MockCell(x);
+        when(ncSupplier.get()).thenReturn(child);
+        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, ncSupplier);
+        Coordinate coord = new Coordinate2D(x, 0, 0);
+        layer.getUpdateManager().place(cell, coord);
+        BehaviorDispatcher bd = new BehaviorDispatcher();
+        cell.setDispatcher(bd);
+
+        MockTargetRule targetRule = new MockTargetRule();
+
+        // Cells always divide to the right
+        ArrayList<Coordinate> targets = new ArrayList<>(1);
+        Coordinate target = new Coordinate2D(x + 1, 0, 0);
+        targets.add(target);
+        targetRule.setTargets(targets);
+
+        ExpandRandom expandRandom = new ExpandRandom(cell, layerManager, null, null, random);
+
+        Action behavior = new CompoundAction(cell, layerManager, new Action[]{expandRandom});
+        bd.map("replicate-self", behavior);
+
+        return targetRule;
     }
 
     /**
@@ -94,8 +115,9 @@ public class ExpandRandomTest extends EslimeTestCase {
      * in a helper object (ShoveHelper) which is testes separately,
      * we consider only case 1.
      */
+    @Test
     public void testRandomShove() throws Exception {
-        Coordinate target = new Coordinate(3, 0, 0);
+        Coordinate target = new Coordinate2D(3, 0, 0);
         ArrayList<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parent.trigger("replicate-self", null);
@@ -104,48 +126,11 @@ public class ExpandRandomTest extends EslimeTestCase {
         checkPosition(4, 4);
     }
 
-    /**
-     * Cell divides left two times. Second time still goes left even though closer vacancy right
-     * <p>
-     * 0123456789
-     * _12345678_  Initial condition
-     *        Cell 4 divides left
-     * <p>
-     * 0123456789
-     * 123445678_ after one division
-     *
-     * <p>
-     * Cell divides left (keeps displacement vector and goes left instead of towards the nearest vacancy)
-     * 0123456789
-     * 2344456781 Resulting condition
-     */
-//    public void testVacancyOppositeDirection() throws Exception {
-//        placeNumberedCell(1);
-//        placeNumberedCell(2);
-//        placeNumberedCell(3);
-//        placeNumberedCell(5);
-//        placeNumberedCell(6);
-//        placeNumberedCell(7);
-//        placeNumberedCell(8);
-//
-//        Coordinate target = new Coordinate(3, 0, 0);
-//        ArrayList<Coordinate> targets = new ArrayList<>(1);
-//        targets.add(target);
-//        parentTargetRule.setTargets(targets);
-//        parent.trigger("replicate-self", null);
-//        parent.trigger("replicate-self", null);
-//
-//        checkPosition(0, 2);
-//        checkPosition(1, 3);
-//        checkPosition(2, 4);
-//        checkPosition(3, 4);
-//        checkPosition(4, 4);
-//        checkPosition(5, 5);
-//        checkPosition(6, 6);
-//        checkPosition(7, 7);
-//        checkPosition(8, 8);
-//        checkPosition(9, 1);
-//    }
+    private void checkPosition(int x, int state) {
+        Coordinate c = new Coordinate2D(x, 0, 0);
+        Cell cell = layer.getViewer().getCell(c);
+        assertEquals(state, cell.getState());
+    }
 
     /**
      * Cell divides left and shoves.
@@ -157,12 +142,13 @@ public class ExpandRandomTest extends EslimeTestCase {
      * 0123456789
      * 12344_____  Resulting condition
      */
+    @Test
     public void testVacancySameDirection() throws Exception {
         placeNumberedCell(1);
         placeNumberedCell(2);
         placeNumberedCell(3);
 
-        Coordinate target = new Coordinate(3, 0, 0);
+        Coordinate target = new Coordinate2D(3, 0, 0);
         ArrayList<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parentTargetRule.setTargets(targets);
@@ -173,38 +159,5 @@ public class ExpandRandomTest extends EslimeTestCase {
         checkPosition(2, 3);
         checkPosition(3, 4);
         checkPosition(4, 4);
-    }
-
-
-    private MockTargetRule placeNumberedCell(int x) throws Exception {
-        Supplier<BehaviorCell> ncSupplier = mock(Supplier.class);
-        BehaviorCell child = new MockCell(x);
-        when(ncSupplier.get()).thenReturn(child);
-        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, ncSupplier);
-        Coordinate coord = new Coordinate(x, 0, 0);
-        layer.getUpdateManager().place(cell, coord);
-        BehaviorDispatcher bd = new BehaviorDispatcher();
-        cell.setDispatcher(bd);
-
-        MockTargetRule targetRule = new MockTargetRule();
-
-        // Cells always divide to the right
-        ArrayList<Coordinate> targets = new ArrayList<>(1);
-        Coordinate target = new Coordinate(x + 1, 0, 0);
-        targets.add(target);
-        targetRule.setTargets(targets);
-
-        ExpandRandom expandRandom = new ExpandRandom(cell, layerManager, null, null, random);
-
-        Behavior behavior = new Behavior(cell, layerManager, new Action[]{expandRandom});
-        bd.map("replicate-self", behavior);
-
-        return targetRule;
-    }
-
-    private void checkPosition(int x, int state) {
-        Coordinate c = new Coordinate(x, 0, 0);
-        Cell cell = layer.getViewer().getCell(c);
-        assertEquals(state, cell.getState());
     }
 }

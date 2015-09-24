@@ -25,6 +25,7 @@
 package io.serialize;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.MockGeometry;
 import io.serialize.text.CoordinateIndexer;
 import layers.MockLayerManager;
@@ -49,10 +50,10 @@ public class CoordinateIndexerTest extends FileAssertions {
         geom = new MockGeometry();
 
         Coordinate[] canonicals = new Coordinate[]{
-                new Coordinate(0, 0, 0),
-                new Coordinate(0, 1, 0),
-                new Coordinate(1, 0, 0),
-                new Coordinate(1, 1, 0)
+                new Coordinate2D(0, 0, 0),
+                new Coordinate2D(0, 1, 0),
+                new Coordinate2D(1, 0, 0),
+                new Coordinate2D(1, 1, 0)
         };
 
         geom.setCanonicalSites(canonicals);

@@ -28,6 +28,7 @@ import cells.MockCell;
 import control.halt.ManualHaltEvent;
 import control.identifiers.Coordinate;
 import layers.cell.CellUpdateManager;
+import org.junit.*;
 import processes.StepState;
 import structural.MockGeneralParameters;
 import test.*;
@@ -40,14 +41,15 @@ public class CensusWriterTest extends EslimeLatticeTestCase {
     private CensusWriter writer;
     private ManualHaltEvent haltEvent;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
         p = makeMockGeneralParameters();
         writer = new CensusWriter(p, layerManager);
         haltEvent = new ManualHaltEvent("");
     }
 
+    @Test
     public void testLifeCycle() throws Exception {
         writer.init();
         // Create original configuration
@@ -79,10 +81,23 @@ public class CensusWriterTest extends EslimeLatticeTestCase {
         FileAssertions.assertOutputMatchesFixture("census.txt", true);
     }
 
+    private void replace(Coordinate c, int state) throws Exception {
+        CellUpdateManager u = cellLayer.getUpdateManager();
+        u.banish(c);
+        put(c, state);
+    }
+
+    private void put(Coordinate c, int state) throws Exception {
+        MockCell cell = new MockCell(state);
+        CellUpdateManager u = cellLayer.getUpdateManager();
+        u.place(cell, c);
+    }
+
     /**
      * Verifies that two cycles of the CensusWriter do not affect one another.
      * Regression test for bug 981770-71079096.
      */
+    @Test
     public void testCycleIndependence() throws Exception {
         haltEvent.setGillespie(0);
         p.setInstancePath(outputPath + "censusWriterTest/1/");
@@ -105,17 +120,5 @@ public class CensusWriterTest extends EslimeLatticeTestCase {
 
         FileAssertions.assertOutputMatchesFixture("censusWriterTest/1/census.txt", true);
         FileAssertions.assertOutputMatchesFixture("censusWriterTest/2/census.txt", true);
-    }
-
-    private void replace(Coordinate c, int state) throws Exception {
-        CellUpdateManager u = cellLayer.getUpdateManager();
-        u.banish(c);
-        put(c, state);
-    }
-
-    private void put(Coordinate c, int state) throws Exception {
-        MockCell cell = new MockCell(state);
-        CellUpdateManager u = cellLayer.getUpdateManager();
-        u.place(cell, c);
     }
 }

@@ -25,6 +25,7 @@
 package geometry.boundaries.helpers;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import geometry.lattice.TriangularLattice;
@@ -73,11 +74,11 @@ public class WrapHelper2D extends WrapHelper {
         while (over != 0) {
             if (over > 0) {
                 // over == 1 --> wrap to 0
-                ret = new Coordinate(over - 1, ret.y(), ret.flags());
+                ret = new Coordinate2D(over - 1, ret.y(), ret.flags());
 
             } else {
                 // over == -1 --> wrap to xMax (which is width - 1)
-                ret = new Coordinate(width + over, ret.y(), ret.flags());
+                ret = new Coordinate2D(width + over, ret.y(), ret.flags());
             }
             over = shape.getOverbounds(ret).x();
         }
@@ -99,11 +100,11 @@ public class WrapHelper2D extends WrapHelper {
         while (over != 0) {
             if (over > 0) {
                 // over == 1 --> wrap to 0
-                ret = new Coordinate(ret.x(), over - 1, ret.flags());
+                ret = new Coordinate2D(ret.x(), over - 1, ret.flags());
 
             } else {
                 // over == -1 --> wrap to xMax (which is width - 1)
-                ret = new Coordinate(ret.x(), height + over, ret.flags());
+                ret = new Coordinate2D(ret.x(), height + over, ret.flags());
             }
 
             over = shape.getOverbounds(ret).y();

@@ -26,38 +26,29 @@ package test;
 
 import com.google.common.collect.Sets;
 import control.GeneralParameters;
-import control.arguments.Argument;
-import control.arguments.ConstantInteger;
-import control.identifiers.Coordinate;
-import geometry.Geometry;
-import geometry.MockGeometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.set.CompleteSet;
-import geometry.set.CoordinateSet;
-import geometry.shape.Line;
-import geometry.shape.Shape;
-import junit.framework.TestCase;
+import control.arguments.*;
+import control.identifiers.*;
+import geometry.*;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.set.*;
+import geometry.shape.*;
 import layers.LayerManager;
 import no.uib.cipr.matrix.Vector;
-import org.apache.commons.io.FileUtils;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
+import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.dom4j.tree.BaseElement;
 import processes.BaseProcessArguments;
 import processes.discrete.CellProcessArguments;
 import structural.MockGeneralParameters;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.stream.*;
 
-public abstract class EslimeTestCase extends TestCase {
+import static org.junit.Assert.*;
+
+public abstract class EslimeTestCase {
 
     protected final String eslimeRoot = "./";
     protected final String outputPath = eslimeRoot + "/output/";
@@ -68,6 +59,19 @@ public abstract class EslimeTestCase extends TestCase {
     protected static void assertNotEquals(Object p, Object q) {
         boolean equality = p.equals(q);
         assertFalse(equality);
+    }
+
+    protected static <T> void assertSetsEqual(Set<T> expected, Set<T> actual) {
+        Set<T> difference = Sets.symmetricDifference(expected, actual);
+        String differenceString = difference.stream().map(Object::toString).collect(Collectors.joining(", "));
+        String errorString = "Unexpected difference between sets: " + differenceString;
+        assertEquals(errorString, 0, difference.size());
+    }
+
+    protected static <T> void assertStreamsEqual(Stream<T> expected, Stream<T> actual) {
+        List<T> expList = expected.collect(Collectors.toList());
+        List<T> actList = actual.collect(Collectors.toList());
+        assertEquals(expList, actList);
     }
 
     // Superceded by Comparable[] implementation
@@ -82,19 +86,6 @@ public abstract class EslimeTestCase extends TestCase {
         for (int i = 0; i < expected.length; i++) {
             assertEquals(expected[i], actual[i]);
         }
-    }
-
-    protected static <T> void assertSetsEqual(Set<T> expected, Set<T> actual) {
-        Set<T> difference = Sets.symmetricDifference(expected, actual);
-        String differenceString = difference.stream().map(Object::toString).collect(Collectors.joining(", "));
-        String errorString = "Unexpected difference between sets: " + differenceString;
-        assertEquals(errorString, 0, difference.size());
-    }
-
-    protected static <T> void assertStreamsEqual(Stream<T> expected, Stream<T> actual) {
-        List<T> expList = expected.collect(Collectors.toList());
-        List<T> actList = actual.collect(Collectors.toList());
-        assertEquals(expList, actList);
     }
 
     protected void assertArraysEqual(double[] expected, double[] actual, boolean sort) {
@@ -194,11 +185,11 @@ public abstract class EslimeTestCase extends TestCase {
      */
     protected MockGeometry buildMockGeometry() {
         Coordinate[] canonicals = new Coordinate[]{
-                new Coordinate(0, 0, 0, 0),
-                new Coordinate(0, 0, 1, 0),
-                new Coordinate(0, 1, 0, 0),
-                new Coordinate(0, 1, 1, 0),
-                new Coordinate(1, 0, 0, 0)
+                new Coordinate3D(0, 0, 0, 0),
+                new Coordinate3D(0, 0, 1, 0),
+                new Coordinate3D(0, 1, 0, 0),
+                new Coordinate3D(0, 1, 1, 0),
+                new Coordinate3D(1, 0, 0, 0)
         };
         MockGeometry ret = new MockGeometry();
         ret.setCanonicalSites(canonicals);
@@ -225,14 +216,14 @@ public abstract class EslimeTestCase extends TestCase {
     }
 
     protected BaseProcessArguments makeBaseProcessArguments(LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> start = new ConstantInteger(0);
-        Argument<Integer> period = new ConstantInteger(1);
+        IntegerArgument start = new ConstantInteger(0);
+        IntegerArgument period = new ConstantInteger(1);
         return new BaseProcessArguments(layerManager, p, 0, start, period);
     }
 
     protected CellProcessArguments makeCellProcessArguments(Geometry geom) {
         CoordinateSet activeSites = new CompleteSet(geom);
-        Argument<Integer> maxTargets = new ConstantInteger(-1);
+        IntegerArgument maxTargets = new ConstantInteger(-1);
         return new CellProcessArguments(activeSites, maxTargets);
     }
 
@@ -265,16 +256,6 @@ public abstract class EslimeTestCase extends TestCase {
         return true;
     }
 
-    protected void assertCollectionsEqual(Collection p, Collection q) {
-        if (p.size() != q.size()) {
-            fail("Expected " + p.size() + " elements but found " + q.size());
-        }
-
-        if (!p.containsAll(q)) {
-            fail("Contents of sets do not match");
-        }
-    }
-
     protected void assertMapsEqual(Map p, Map q) {
         assertCollectionsEqual(p.keySet(), q.keySet());
 
@@ -285,6 +266,16 @@ public abstract class EslimeTestCase extends TestCase {
             if (!pVal.equals(qVal)) {
                 fail("Value of key" + o + " does not match");
             }
+        }
+    }
+
+    protected void assertCollectionsEqual(Collection p, Collection q) {
+        if (p.size() != q.size()) {
+            fail("Expected " + p.size() + " elements but found " + q.size());
+        }
+
+        if (!p.containsAll(q)) {
+            fail("Contents of sets do not match");
         }
     }
 

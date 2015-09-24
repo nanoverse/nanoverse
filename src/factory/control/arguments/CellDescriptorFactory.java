@@ -24,10 +24,11 @@
 
 package factory.control.arguments;
 
+import agent.action.ActionDescriptor;
 import control.GeneralParameters;
 import control.arguments.*;
 import factory.agent.BehaviorDescriptorFactory;
-import factory.cell.Reaction;
+import layers.continuum.Reaction;
 import factory.cell.ReactionFactory;
 import layers.LayerManager;
 import org.dom4j.Element;
@@ -70,13 +71,13 @@ public abstract class CellDescriptorFactory {
         }
 
         List<Object> elements = behaviorElem.elements();
-        HashMap<String, BehaviorDescriptor> behaviorDescriptors = new HashMap<>(elements.size());
+        HashMap<String, ActionDescriptor> behaviorDescriptors = new HashMap<>(elements.size());
         elements.stream()
                 .map(o -> (Element) o)
                 .forEach(element -> {
                     String name = element.getName();
 
-                    BehaviorDescriptor behaviorDescriptor = BehaviorDescriptorFactory.instantiate(element, layerManager, p);
+                    ActionDescriptor behaviorDescriptor = BehaviorDescriptorFactory.instantiate(element, layerManager, p);
                     behaviorDescriptors.put(name, behaviorDescriptor);
                 });
 
@@ -108,17 +109,17 @@ public abstract class CellDescriptorFactory {
     }
 
     private static void setInitialHealth(Element e, CellDescriptor cellDescriptor, Random random) {
-        Argument<Double> initialHealth = DoubleArgumentFactory.instantiate(e, "initial-health", DEFAULT_INIT_HEALTH, random);
+        DoubleArgument initialHealth = DoubleArgumentFactory.instantiate(e, "initial-health", DEFAULT_INIT_HEALTH, random);
         cellDescriptor.setInitialHealth(initialHealth);
     }
 
     private static void setThreshold(Element e, CellDescriptor cellDescriptor, Random random) {
-        Argument<Double> threshold = DoubleArgumentFactory.instantiate(e, "threshold", DEFAULT_THRESHOLD, random);
+        DoubleArgument threshold = DoubleArgumentFactory.instantiate(e, "threshold", DEFAULT_THRESHOLD, random);
         cellDescriptor.setThreshold(threshold);
     }
 
     private static void setCellState(Element e, CellDescriptor cellDescriptor, Random random) {
-        Argument<Integer> cellState = IntegerArgumentFactory.instantiate(e, "state", DEFAULT_STATE, random);
+        IntegerArgument cellState = IntegerArgumentFactory.instantiate(e, "state", DEFAULT_STATE, random);
         cellDescriptor.setCellState(cellState);
     }
 

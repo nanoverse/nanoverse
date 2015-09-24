@@ -25,7 +25,7 @@
 package factory.io.visual.highlight;
 
 import factory.io.visual.glyph.GlyphFactory;
-import io.visual.glyph.Glyph;
+import io.visual.highlight.Glyph;
 import io.visual.highlight.HighlightManager;
 import org.dom4j.Attribute;
 import org.dom4j.Element;

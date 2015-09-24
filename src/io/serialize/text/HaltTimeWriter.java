@@ -30,6 +30,7 @@ import control.halt.HaltCondition;
 import io.serialize.Serializer;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.io.BufferedWriter;
 
@@ -38,6 +39,7 @@ public class HaltTimeWriter extends Serializer {
     private static final String FILENAME = "tth.txt";
     private BufferedWriter bw;
 
+    @FactoryTarget
     public HaltTimeWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
 

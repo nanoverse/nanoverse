@@ -24,43 +24,35 @@
 
 package agent.action;
 
-import agent.Behavior;
 import agent.control.BehaviorDispatcher;
 import agent.targets.MockTargetRule;
-import cells.BehaviorCell;
-import cells.Cell;
-import cells.MockCell;
-import control.identifiers.Coordinate;
+import cells.*;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Boundary;
-import geometry.boundaries.Periodic;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import layers.cell.CellLayer;
+import org.junit.*;
 import test.EslimeLatticeTestCase;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Supplier;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 public class CloneToTest extends EslimeLatticeTestCase {
 
+    private static final int MOCK_PROGENY_STATE = 7;
     private BehaviorCell original;
     private MockTargetRule targetRule;
     private CloneTo query;
     private Random random;
     private Supplier<BehaviorCell> supplier;
 
-    private static final int MOCK_PROGENY_STATE = 7;
-
     @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
 
         // Create mock targeter that lists other two sites as targets.
@@ -88,6 +80,7 @@ public class CloneToTest extends EslimeLatticeTestCase {
 
     }
 
+    @Test
     public void testLifeCycle() throws Exception {
         // Trigger the replicate event.
         query.run(null);
@@ -105,18 +98,19 @@ public class CloneToTest extends EslimeLatticeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testReplacement() throws Exception {
         CellLayer layer = linearLayer(false);
-        Cell cell = layer.getViewer().getCell(new Coordinate(4, 0, 0));
+        Cell cell = layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
 
         // Divide cell at position 4 toward 5
         cell.trigger("replicate-self", null);
 
         // New configuration: _123446_89
-        assertEquals(4, layer.getViewer().getState(new Coordinate(4, 0, 0)));
-        assertEquals(4, layer.getViewer().getState(new Coordinate(5, 0, 0)));
-        assertEquals(6, layer.getViewer().getState(new Coordinate(6, 0, 0)));
-        assertFalse(layer.getViewer().isOccupied(new Coordinate(7, 0, 0)));
+        assertEquals(4, layer.getViewer().getState(new Coordinate2D(4, 0, 0)));
+        assertEquals(4, layer.getViewer().getState(new Coordinate2D(5, 0, 0)));
+        assertEquals(6, layer.getViewer().getState(new Coordinate2D(6, 0, 0)));
+        assertFalse(layer.getViewer().isOccupied(new Coordinate2D(7, 0, 0)));
     }
 
     /**
@@ -135,31 +129,6 @@ public class CloneToTest extends EslimeLatticeTestCase {
         return layer;
     }
 
-    private void placeNumberedCell(int x, CellLayer layer, boolean shoving) throws Exception {
-        Supplier<BehaviorCell> ncSupplier = mock(Supplier.class);
-        BehaviorCell child = new MockCell(x);
-        when(ncSupplier.get()).thenReturn(child);
-        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, ncSupplier);
-        Coordinate coord = new Coordinate(x, 0, 0);
-        layer.getUpdateManager().place(cell, coord);
-        BehaviorDispatcher bd = new BehaviorDispatcher();
-        cell.setDispatcher(bd);
-
-        MockTargetRule mtr = new MockTargetRule();
-
-        // Cells always divide to the right
-        Coordinate target = new Coordinate(x + 1, 0, 0);
-        List<Coordinate> targets = new ArrayList<>(1);
-        targets.add(target);
-        mtr.setTargets(targets);
-
-        CloneTo cloneTo = new CloneTo(cell, layerManager, mtr,
-                shoving, null, null, random);
-
-        Behavior behavior = new Behavior(cell, layerManager, new Action[]{cloneTo});
-        bd.map("replicate-self", behavior);
-    }
-
     private void placeCells(CellLayer layer, boolean shoving) throws Exception {
         for (int x = 1; x < 7; x++) {
             placeNumberedCell(x, layer, shoving);
@@ -168,6 +137,31 @@ public class CloneToTest extends EslimeLatticeTestCase {
         for (int x = 8; x <= 9; x++) {
             placeNumberedCell(x, layer, shoving);
         }
+    }
+
+    private void placeNumberedCell(int x, CellLayer layer, boolean shoving) throws Exception {
+        Supplier<BehaviorCell> ncSupplier = mock(Supplier.class);
+        BehaviorCell child = new MockCell(x);
+        when(ncSupplier.get()).thenReturn(child);
+        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, ncSupplier);
+        Coordinate coord = new Coordinate2D(x, 0, 0);
+        layer.getUpdateManager().place(cell, coord);
+        BehaviorDispatcher bd = new BehaviorDispatcher();
+        cell.setDispatcher(bd);
+
+        MockTargetRule mtr = new MockTargetRule();
+
+        // Cells always divide to the right
+        Coordinate target = new Coordinate2D(x + 1, 0, 0);
+        List<Coordinate> targets = new ArrayList<>(1);
+        targets.add(target);
+        mtr.setTargets(targets);
+
+        CloneTo cloneTo = new CloneTo(cell, layerManager, mtr,
+                shoving, null, null, random);
+
+        Action behavior = new CompoundAction(cell, layerManager, new Action[]{cloneTo});
+        bd.map("replicate-self", behavior);
     }
 
 }

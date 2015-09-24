@@ -26,13 +26,14 @@ package io.serialize.text;
 
 import cells.Cell;
 import control.GeneralParameters;
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import io.serialize.Serializer;
 import layers.LayerManager;
 import layers.cell.CellLayer;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 import structural.utilities.FileConventions;
 
 import java.io.BufferedWriter;
@@ -51,7 +52,8 @@ public class InterfaceCensusWriter extends Serializer {
 
     private HashMap<Integer, Map<Integer, Double>> frameToHistogramMap;
 
-    public InterfaceCensusWriter(GeneralParameters p, Argument<Integer> focalStateArg, LayerManager lm) {
+    @FactoryTarget
+    public InterfaceCensusWriter(GeneralParameters p, IntegerArgument focalStateArg, LayerManager lm) {
         super(p, lm);
 
         try {

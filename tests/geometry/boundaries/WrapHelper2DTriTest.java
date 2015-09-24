@@ -24,14 +24,14 @@
 
 package geometry.boundaries;
 
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.boundaries.helpers.WrapHelper2D;
-import geometry.lattice.Lattice;
-import geometry.lattice.TriangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 /**
  * Integration test for the interaction between
  * the 2D wrap helper and a triangular lattice
@@ -41,71 +41,79 @@ public class WrapHelper2DTriTest extends EslimeTestCase {
 
     private WrapHelper2D query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         Lattice lattice = new TriangularLattice();
         Shape shape = new Rectangle(lattice, 2, 2);
         query = new WrapHelper2D(shape, lattice);
     }
 
+    @Test
     public void testWrapUpperRight() throws Exception {
-        Coordinate toWrap = new Coordinate(2, 2, 0);
-        Coordinate expected = new Coordinate(0, 1, 0);
+        Coordinate toWrap = new Coordinate2D(2, 2, 0);
+        Coordinate expected = new Coordinate2D(0, 1, 0);
         Coordinate actual = query.wrapAll(toWrap);
         assertEquals(expected, actual);
     }
 
 
+    @Test
     public void testWrapUpperLeft() throws Exception {
-        Coordinate toWrap = new Coordinate(-1, 1, 0);
-        Coordinate expected = new Coordinate(1, 0, 0);
+        Coordinate toWrap = new Coordinate2D(-1, 1, 0);
+        Coordinate expected = new Coordinate2D(1, 0, 0);
         Coordinate actual = query.wrapAll(toWrap);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testWrapLowerRight() throws Exception {
-        Coordinate toWrap = new Coordinate(2, 0, 0);
-        Coordinate expected = new Coordinate(0, 1, 0);
+        Coordinate toWrap = new Coordinate2D(2, 0, 0);
+        Coordinate expected = new Coordinate2D(0, 1, 0);
         Coordinate actual = query.wrapAll(toWrap);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testWrapLowerLeft() throws Exception {
-        Coordinate toWrap = new Coordinate(-1, 1, 0);
-        Coordinate expected = new Coordinate(1, 0, 0);
+        Coordinate toWrap = new Coordinate2D(-1, 1, 0);
+        Coordinate expected = new Coordinate2D(1, 0, 0);
         Coordinate actual = query.wrapAll(toWrap);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testWrapRight() throws Exception {
-        Coordinate toWrap = new Coordinate(2, 1, 0);
-        Coordinate expected = new Coordinate(0, 0, 0);
+        Coordinate toWrap = new Coordinate2D(2, 1, 0);
+        Coordinate expected = new Coordinate2D(0, 0, 0);
         Coordinate actual = query.xWrap(toWrap);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testWrapLeft() throws Exception {
-        Coordinate toWrap = new Coordinate(-1, 0, 0);
-        Coordinate expected = new Coordinate(1, 1, 0);
+        Coordinate toWrap = new Coordinate2D(-1, 0, 0);
+        Coordinate expected = new Coordinate2D(1, 1, 0);
         Coordinate actual = query.xWrap(toWrap);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testWrapTop() throws Exception {
-        Coordinate toWrap = new Coordinate(1, 2, 0);
-        Coordinate expected = new Coordinate(1, 0, 0);
+        Coordinate toWrap = new Coordinate2D(1, 2, 0);
+        Coordinate expected = new Coordinate2D(1, 0, 0);
         Coordinate actual = query.yWrap(toWrap);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testWrapBottom() throws Exception {
-        Coordinate toWrap = new Coordinate(1, -1, 0);
-        Coordinate expected = new Coordinate(1, 1, 0);
+        Coordinate toWrap = new Coordinate2D(1, -1, 0);
+        Coordinate expected = new Coordinate2D(1, 1, 0);
         Coordinate actual = query.yWrap(toWrap);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testZWrap() throws Exception {
         boolean thrown = false;
 
@@ -118,9 +126,10 @@ public class WrapHelper2DTriTest extends EslimeTestCase {
         assertTrue(thrown);
     }
 
+    @Test
     public void testAllInBounds() throws Exception {
-        Coordinate toWrap = new Coordinate(1, 1, 0);
-        Coordinate expected = new Coordinate(1, 1, 0);
+        Coordinate toWrap = new Coordinate2D(1, 1, 0);
+        Coordinate expected = new Coordinate2D(1, 1, 0);
         Coordinate actual = query.wrapAll(toWrap);
         assertEquals(expected, actual);
     }

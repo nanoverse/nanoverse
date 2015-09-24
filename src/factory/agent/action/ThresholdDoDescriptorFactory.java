@@ -50,15 +50,11 @@ public abstract class ThresholdDoDescriptorFactory {
     public static ActionDescriptor<ThresholdDo> instantiate(Element base, LayerManager layerManager,
                                                        GeneralParameters p) {
 
-        ActionDescriptor actionDescriptor = getAction(base, layerManager, p);
-        Argument<Double> minimumArg = DoubleArgumentFactory.instantiate(base, "minimum", Double.NEGATIVE_INFINITY, p.getRandom());
-        Argument<Double> maximumArg = DoubleArgumentFactory.instantiate(base, "maximum", Double.POSITIVE_INFINITY, p.getRandom());
+        ActionDescriptor child = getAction(base, layerManager, p);
+        DoubleArgument minimumArg = DoubleArgumentFactory.instantiate(base, "minimum", Double.NEGATIVE_INFINITY, p.getRandom());
+        DoubleArgument maximumArg = DoubleArgumentFactory.instantiate(base, "maximum", Double.POSITIVE_INFINITY, p.getRandom());
         String layerId = base.element("layer").getTextTrim();
-        Function<BehaviorCell, ThresholdDo> function = callback -> {
-            Action child = actionDescriptor.instantiate(callback);
-            return new ThresholdDo(callback, layerManager, layerId, minimumArg, maximumArg, child);
-        };
-        return new ActionDescriptor<>(function);
+        return new ThresholdDoDescriptor(layerManager, layerId, minimumArg, maximumArg, child);
     }
 
     private static ActionDescriptor getAction(Element option, LayerManager layerManager, GeneralParameters p) {

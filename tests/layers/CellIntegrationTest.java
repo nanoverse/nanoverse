@@ -24,22 +24,19 @@
 
 package layers;
 
-import cells.BehaviorCell;
-import cells.Cell;
-import cells.MockCell;
-import control.identifiers.Coordinate;
+import cells.*;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Boundary;
-import geometry.boundaries.PlaneRingHard;
-import geometry.lattice.Lattice;
-import geometry.lattice.TriangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
-import layers.cell.CellLayer;
-import layers.cell.StateMapViewer;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
+import layers.cell.*;
+import org.junit.Test;
 import test.EslimeTestCase;
 
 import java.util.HashSet;
+
+import static org.junit.Assert.*;
 
 /**
  * Integration tests for the CellLayer object and
@@ -51,6 +48,7 @@ import java.util.HashSet;
  */
 public class CellIntegrationTest extends EslimeTestCase {
 
+    @Test
     public void testConstructor() {
         //HexRing geom = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -65,6 +63,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         }
     }
 
+    @Test
     public void testInterrogate() throws Exception {
         //HexRing geom = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -77,7 +76,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         // Set up a cell
         Cell toPlace = new MockCell(1);
 
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
 
         layer.getUpdateManager().place(toPlace, coord);
 
@@ -87,6 +86,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         assertEquals(toPlace.getState(), layer.getViewer().getCell(coord).getState());
     }
 
+    @Test
     public void testFeed() throws Exception {
         //HexRing geom = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -97,19 +97,20 @@ public class CellIntegrationTest extends EslimeTestCase {
         MockLayerManager lm = new MockLayerManager();
         lm.setCellLayer(layer);
         Cell toPlace = new BehaviorCell(lm, 1, 0.5, 1.0, null);
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
 
         layer.getUpdateManager().place(toPlace, coord);
 
-        assertEquals(layer.getViewer().getCell(coord).getHealth(), 0.5);
+        assertEquals(layer.getViewer().getCell(coord).getHealth(), 0.5, epsilon);
         assertTrue(!layer.getViewer().getDivisibleSites().contains(coord));
 
         layer.getViewer().getCell(coord).adjustHealth(1.0);
 
-        assertEquals(layer.getViewer().getCell(coord).getHealth(), 1.5);
+        assertEquals(layer.getViewer().getCell(coord).getHealth(), 1.5, epsilon);
         assertTrue(layer.getViewer().getDivisibleSites().contains(coord));
     }
 
+    @Test
     public void testNeighborStates() throws Exception {
         //HexRing geom = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -120,7 +121,7 @@ public class CellIntegrationTest extends EslimeTestCase {
 
         // Set up one cell
         Cell toPlace = new MockCell(1);
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
         // All neighbors should be vacant
@@ -128,7 +129,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         assertEquals(neighbors.length, 6);
 
         // Add an occupied neighbor
-        Coordinate coordAbove = new Coordinate(3, 3, 0);
+        Coordinate coordAbove = new Coordinate2D(3, 3, 0);
         layer.getUpdateManager().place(new MockCell(2), coordAbove);
 
         // Check that the right cell is placed
@@ -139,20 +140,21 @@ public class CellIntegrationTest extends EslimeTestCase {
         assertEquals(5, layer.getLookupManager().getNearestVacancies(coordAbove, -1).length);
 
         // Add a cell at adjacent to southern boundary
-        Coordinate south = new Coordinate(2, 1, 0);
+        Coordinate south = new Coordinate2D(2, 1, 0);
         layer.getUpdateManager().place(new MockCell(1), south);
 
         // Should be short one vacant neighbor (hard BCs for cells)
         assertEquals(5, layer.getLookupManager().getNearestVacancies(south, -1).length);
 
         // Add a cell at origin (should be just like south)
-        Coordinate origin = new Coordinate(0, 0, 0);
+        Coordinate origin = new Coordinate2D(0, 0, 0);
         layer.getUpdateManager().place(new MockCell(1), origin);
 
         // Should be short one vacant neighbor (hard BCs for cells)
         assertEquals(5, layer.getLookupManager().getNearestVacancies(origin, -1).length);
     }
 
+    @Test
     public void testVacancyModel() throws Exception {
         //HexRing geom = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -163,7 +165,7 @@ public class CellIntegrationTest extends EslimeTestCase {
 
         // Set up one cell
         Cell toPlace = new MockCell(1);
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
         // List of vacancies should be canonical neighbors
@@ -202,6 +204,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         assertEquals(12, layer.getLookupManager().getNearestVacancies(coord, 2).length);
     }
 
+    @Test
     public void testNoOverwriteOnPlace() throws Exception {
         //HexRing geom = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -212,7 +215,7 @@ public class CellIntegrationTest extends EslimeTestCase {
 
         // Set up one cell
         Cell toPlace = new MockCell(1);
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
         Cell second = new MockCell(2);
@@ -226,6 +229,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         assertTrue(thrown);
     }
 
+    @Test
     public void testNoOverwriteOnMove() throws Exception {
         Lattice lattice = new TriangularLattice();
         Shape shape = new Rectangle(lattice, 6, 6);
@@ -235,11 +239,11 @@ public class CellIntegrationTest extends EslimeTestCase {
 
         // Set up one cell
         Cell toPlace = new MockCell(1);
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
         Cell second = new MockCell(2);
-        Coordinate sc = new Coordinate(3, 3, 0);
+        Coordinate sc = new Coordinate2D(3, 3, 0);
         layer.getUpdateManager().place(second, sc);
 
         boolean thrown = false;
@@ -259,6 +263,7 @@ public class CellIntegrationTest extends EslimeTestCase {
      * ****************
      */
 
+    @Test
     public void testLatticeFunctionality() throws Exception {
         Lattice lattice = new TriangularLattice();
         Shape shape = new Rectangle(lattice, 6, 6);
@@ -285,7 +290,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         childCell.setDivisible(true);
         toPlace.setDivisible(true);
         toPlace.setChild(childCell);
-        Coordinate coord = new Coordinate(2, 3, 0);
+        Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
         // Verify state index integrity

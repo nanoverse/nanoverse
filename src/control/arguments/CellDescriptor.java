@@ -24,13 +24,14 @@
 
 package control.arguments;
 
-import agent.Behavior;
+import agent.action.*;
 import agent.control.BehaviorDispatcher;
 import cells.BehaviorCell;
 import cells.Cell;
 import control.halt.HaltCondition;
-import factory.cell.Reaction;
+import layers.continuum.Reaction;
 import layers.LayerManager;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ import java.util.stream.Stream;
 /**
  * Created by dbborens on 11/23/14.
  */
-public class CellDescriptor extends Argument<Cell> {
+public class CellDescriptor implements Argument<Cell> {
 
     private LayerManager layerManager;
 
@@ -52,7 +53,23 @@ public class CellDescriptor extends Argument<Cell> {
     private Argument<Double> initialHealth;
 
     private List<Reaction> reactions;
-    private Map<String, BehaviorDescriptor> behaviorDescriptors;
+    private Map<String, ActionDescriptor> behaviorDescriptors;
+
+    @FactoryTarget(displayName = "AgentDescriptor")
+    public CellDescriptor(LayerManager layerManager,
+                          Argument<Integer> cellState,
+                          Argument<Double> threshold,
+                          Argument<Double> initialHealth,
+                          Stream<Reaction> reactions,
+                          Map<String, ActionDescriptor> behaviorDescriptors) {
+
+        this.layerManager = layerManager;
+        this.cellState = cellState;
+        this.threshold = threshold;
+        this.initialHealth = initialHealth;
+        this.reactions = reactions.collect(Collectors.toList());
+        this.behaviorDescriptors = behaviorDescriptors;
+    }
 
     public CellDescriptor(LayerManager layerManager) {
         this.layerManager = layerManager;
@@ -120,8 +137,8 @@ public class CellDescriptor extends Argument<Cell> {
         behaviorDescriptors.keySet()
                 .stream()
                 .forEach(name -> {
-                    BehaviorDescriptor descriptor = behaviorDescriptors.get(name);
-                    Behavior behavior = descriptor.instantiate(cell);
+                    ActionDescriptor descriptor = behaviorDescriptors.get(name);
+                    Action behavior = descriptor.instantiate(cell);
                     dispatcher.map(name, behavior);
                 });
 
@@ -132,7 +149,7 @@ public class CellDescriptor extends Argument<Cell> {
         this.reactions = reactions.collect(Collectors.toList());
     }
 
-    public void setBehaviorDescriptors(Map<String, BehaviorDescriptor> behaviorDescriptors) {
+    public void setBehaviorDescriptors(Map<String, ActionDescriptor> behaviorDescriptors) {
         this.behaviorDescriptors = behaviorDescriptors;
     }
 }

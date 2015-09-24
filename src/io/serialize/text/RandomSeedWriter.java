@@ -29,6 +29,7 @@ import control.halt.HaltCondition;
 import io.serialize.Serializer;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.io.BufferedWriter;
 
@@ -41,7 +42,7 @@ public class RandomSeedWriter extends Serializer {
 
     private static final String FILENAME = "random.txt";
 
-
+    @FactoryTarget
     public RandomSeedWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
     }

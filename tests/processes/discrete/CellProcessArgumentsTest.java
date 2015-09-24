@@ -24,21 +24,19 @@
 
 package processes.discrete;
 
-import control.arguments.Argument;
-import control.arguments.ConstantInteger;
-import geometry.set.CoordinateSet;
-import geometry.set.CustomSet;
+import control.arguments.*;
+import geometry.set.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
 public class CellProcessArgumentsTest extends EslimeTestCase {
 
     private CoordinateSet activeSites;
-    private Argument<Integer> maxTargets;
+    private IntegerArgument maxTargets;
     private CellProcessArguments query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
 
         activeSites = new CustomSet();
         maxTargets = new ConstantInteger(0);
@@ -46,10 +44,12 @@ public class CellProcessArgumentsTest extends EslimeTestCase {
         query = new CellProcessArguments(activeSites, maxTargets);
     }
 
+    @Test
     public void testGetActiveSites() throws Exception {
         assert (query.getActiveSites() == activeSites);
     }
 
+    @Test
     public void testGetMaxTargets() throws Exception {
         assert (query.getMaxTargets() == maxTargets);
     }

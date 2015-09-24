@@ -25,35 +25,30 @@
 package processes.discrete;
 
 import cells.BehaviorCell;
-import control.arguments.Argument;
-import control.arguments.ConstantDouble;
-import control.halt.HaltCondition;
-import control.halt.ThresholdOccupancyReachedEvent;
-import control.identifiers.Coordinate;
+import control.arguments.*;
+import control.halt.*;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Boundary;
-import geometry.boundaries.Periodic;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
-import processes.BaseProcessArguments;
-import processes.StepState;
+import org.junit.*;
+import processes.*;
 import processes.discrete.check.CheckForThresholdOccupancy;
 import structural.MockGeneralParameters;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 public class CheckForThresholdOccupancyTest extends EslimeTestCase {
 
     private MockLayerManager layerManager;
     private CellLayer layer;
     private CheckForThresholdOccupancy query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         Lattice lattice = new RectangularLattice();
         layerManager = new MockLayerManager();
         Shape shape = new Rectangle(lattice, 10, 1);
@@ -62,7 +57,7 @@ public class CheckForThresholdOccupancyTest extends EslimeTestCase {
         layer = new CellLayer(geom);
         layerManager.setCellLayer(layer);
         MockGeneralParameters p = makeMockGeneralParameters();
-        Argument<Double> thresholdArg = new ConstantDouble(0.2);
+        DoubleArgument thresholdArg = new ConstantDouble(0.2);
 
         // Create a 1D lattice of length 10.
         // Create an occupancy test that checks for 30% occupancy.
@@ -72,28 +67,13 @@ public class CheckForThresholdOccupancyTest extends EslimeTestCase {
         query.init();
     }
 
+    @Test
     public void testAboveThreshold() throws Exception {
         for (int i = 1; i < 4; i++) {
             placeNumberedCell(i);
         }
 
         doTest(true);
-    }
-
-    public void testAtThreshold() throws Exception {
-        for (int i = 1; i < 3; i++) {
-            placeNumberedCell(i);
-        }
-
-        doTest(true);
-    }
-
-    public void testBelowThreshold() throws Exception {
-        for (int i = 1; i < 2; i++) {
-            placeNumberedCell(i);
-        }
-
-        doTest(false);
     }
 
     private void doTest(boolean expectThrow) throws Exception {
@@ -110,8 +90,26 @@ public class CheckForThresholdOccupancyTest extends EslimeTestCase {
 
     private void placeNumberedCell(int x) throws HaltCondition {
         BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, null);
-        Coordinate coord = new Coordinate(x, 0, 0);
+        Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
+    }
+
+    @Test
+    public void testAtThreshold() throws Exception {
+        for (int i = 1; i < 3; i++) {
+            placeNumberedCell(i);
+        }
+
+        doTest(true);
+    }
+
+    @Test
+    public void testBelowThreshold() throws Exception {
+        for (int i = 1; i < 2; i++) {
+            placeNumberedCell(i);
+        }
+
+        doTest(false);
     }
 
 }

@@ -27,6 +27,7 @@ package io.visual;
 import control.identifiers.Coordinate;
 import io.visual.color.ColorManager;
 import io.visual.highlight.HighlightManager;
+import structural.annotations.FactoryTarget;
 import structural.utilities.EpsilonUtil;
 
 import java.util.Arrays;
@@ -56,6 +57,21 @@ public class VisualizationProperties {
     // Temporal information
     private int[] frames;
     private double[] times;
+
+    @FactoryTarget
+    public VisualizationProperties(ColorManager colorManager,
+                                   int edge,
+                                   int outline,
+                                   HighlightManager highlightManager) {
+        if (outline > 1) {
+            throw new UnsupportedOperationException("Thick outlines not " +
+                    "yet supported");
+        }
+        this.colorManager = colorManager;
+        this.edge = edge;
+        this.outline = outline;
+        this.highlightManager = highlightManager;
+    }
 
     public VisualizationProperties(ColorManager colorManager, int edge,
                                    int outline) {

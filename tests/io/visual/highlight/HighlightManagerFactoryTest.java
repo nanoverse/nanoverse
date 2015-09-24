@@ -27,20 +27,22 @@ package io.visual.highlight;
 import factory.io.visual.highlight.HighlightManagerFactory;
 import io.visual.glyph.MockGlyph;
 import org.dom4j.Element;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/3/14.
  */
 public class HighlightManagerFactoryTest extends EslimeTestCase {
     private Element root;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         root = readXmlFile("HighlightManagerFactoryTest.xml");
     }
 
+    @Test
     public void testPopulate() throws Exception {
         Element highlights = root.element("highlights");
 
@@ -50,22 +52,23 @@ public class HighlightManagerFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    private HighlightManager buildExpected() {
+        HighlightManager expected = new HighlightManager();
+        expected.setGlyph(0, new MockGlyph());
+        expected.setGlyph(3, new MockGlyph());
+        return expected;
+    }
+
     /**
      * If there is no highlight tag, we should get back an empty highlight
      * manager and no exceptions should be thrown.
      *
      * @throws Exception
      */
+    @Test
     public void testNullCase() throws Exception {
         HighlightManager expected = new HighlightManager();
         HighlightManager actual = HighlightManagerFactory.instantiate(null);
         assertEquals(expected, actual);
-    }
-
-    private HighlightManager buildExpected() {
-        HighlightManager expected = new HighlightManager();
-        expected.setGlyph(0, new MockGlyph());
-        expected.setGlyph(3, new MockGlyph());
-        return expected;
     }
 }

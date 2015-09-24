@@ -24,22 +24,20 @@
 
 package geometry.boundary;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Flags;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.lattice.TriangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import control.identifiers.*;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 public class ArenaTest extends EslimeTestCase {
 
     private Boundary rect;
     private Boundary tri;
 
+    @Before
     public void setUp() {
         Lattice rectLattice = new RectangularLattice();
         Lattice triLattice = new TriangularLattice();
@@ -51,50 +49,57 @@ public class ArenaTest extends EslimeTestCase {
         tri = makeBoundary(triShape, triLattice);
     }
 
+    protected Boundary makeBoundary(Shape shape, Lattice lattice) {
+        return new Arena(shape, lattice);
+    }
+
+    @Test
     public void testInfinite() {
         assertTrue(rect.isInfinite());
         assertTrue(tri.isInfinite());
     }
 
+    @Test
     public void testApplyInBounds() {
         // These are in bounds for both triangular and rectangular
         Coordinate a, b, c;
-        a = new Coordinate(0, 0, 0);
-        b = new Coordinate(1, 1, 0);
-        c = new Coordinate(2, 2, 0);
+        a = new Coordinate2D(0, 0, 0);
+        b = new Coordinate2D(1, 1, 0);
+        c = new Coordinate2D(2, 2, 0);
 
         // Rectangular
         Coordinate actual, expected;
-        expected = new Coordinate(0, 0, 0);
+        expected = new Coordinate2D(0, 0, 0);
         actual = rect.apply(a);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(1, 1, 0);
+        expected = new Coordinate2D(1, 1, 0);
         actual = rect.apply(b);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(2, 2, 0);
+        expected = new Coordinate2D(2, 2, 0);
         actual = rect.apply(c);
         assertEquals(expected, actual);
 
         // Triangular
-        expected = new Coordinate(0, 0, 0);
+        expected = new Coordinate2D(0, 0, 0);
         actual = tri.apply(a);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(1, 1, 0);
+        expected = new Coordinate2D(1, 1, 0);
         actual = tri.apply(b);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(2, 2, 0);
+        expected = new Coordinate2D(2, 2, 0);
         actual = tri.apply(c);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testApplyOutsideX() {
         Coordinate p, q;
-        p = new Coordinate(-1, 1, 0);
-        q = new Coordinate(5, 2, 0);
+        p = new Coordinate2D(-1, 1, 0);
+        q = new Coordinate2D(5, 2, 0);
 
         Coordinate actual, expected;
 
@@ -119,10 +124,11 @@ public class ArenaTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testApplyOutsideY() {
         Coordinate p, q;
-        p = new Coordinate(0, 5, 0);
-        q = new Coordinate(2, -1, 0);
+        p = new Coordinate2D(0, 5, 0);
+        q = new Coordinate2D(2, -1, 0);
 
         Coordinate actual, expected;
 
@@ -147,10 +153,11 @@ public class ArenaTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testApplyOutsideXY() {
         Coordinate p, q;
-        p = new Coordinate(-1, 4, 0);
-        q = new Coordinate(5, -5, 0);
+        p = new Coordinate2D(-1, 4, 0);
+        q = new Coordinate2D(5, -5, 0);
 
         Coordinate actual, expected;
 
@@ -175,6 +182,7 @@ public class ArenaTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testCloneWithArguments() {
         Lattice lattice = new RectangularLattice();
         Shape singleton = new Rectangle(lattice, 1, 1);
@@ -184,9 +192,5 @@ public class ArenaTest extends EslimeTestCase {
         // Boundaries are equal based on their class, not their dependencies
         assertEquals(rect, query);
         assertFalse(rect == query);
-    }
-
-    protected Boundary makeBoundary(Shape shape, Lattice lattice) {
-        return new Arena(shape, lattice);
     }
 }

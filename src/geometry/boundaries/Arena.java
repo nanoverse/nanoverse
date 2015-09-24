@@ -28,6 +28,7 @@ import control.identifiers.Coordinate;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import geometry.shape.Shape;
+import structural.annotations.FactoryTarget;
 
 /**
  * All boundaries are treated as infinite. However, going beyond
@@ -40,6 +41,7 @@ import geometry.shape.Shape;
  */
 public class Arena extends Boundary {
 
+    @FactoryTarget
     public Arena(Shape shape, Lattice lattice) {
         super(shape, lattice);
     }

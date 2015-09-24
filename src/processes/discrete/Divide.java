@@ -29,6 +29,7 @@ import control.identifiers.Coordinate;
 import processes.BaseProcessArguments;
 import processes.StepState;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 import java.util.HashSet;
 
@@ -36,6 +37,7 @@ public class Divide extends BulkDivisionProcess {
 
     private Coordinate[] candidates;
 
+    @FactoryTarget
     public Divide(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
         super(arguments, cpArguments);
     }

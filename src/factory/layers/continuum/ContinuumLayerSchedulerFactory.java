@@ -24,29 +24,21 @@
 
 package factory.layers.continuum;
 
-import cells.BehaviorCell;
-import control.identifiers.Coordinate;
+import geometry.Geometry;
 import layers.continuum.*;
 import layers.continuum.solvers.ContinuumSolver;
-import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.dom4j.Element;
 import structural.utilities.XmlUtil;
-
-import java.util.IdentityHashMap;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * Created by dbborens on 1/8/15.
  */
 public abstract class ContinuumLayerSchedulerFactory {
 
-    public static ContinuumLayerScheduler instantiate(Element e, ContinuumLayerContent content, Function<Coordinate, Integer> indexer, int n, String id) {
+    public static ContinuumLayerScheduler instantiate(Element e, ContinuumLayerContent content, Geometry geom, String id) {
         boolean operators = !XmlUtil.getBoolean(e, "disable-operators");
-        ScheduledOperations so = new ScheduledOperations(indexer, n, operators);
-        AgentToOperatorHelper helper = new AgentToOperatorHelper(indexer, n, operators);
+        ScheduledOperations so = new ScheduledOperations(geom, operators);
+        AgentToOperatorHelper helper = new AgentToOperatorHelper(geom, operators);
         ContinuumAgentManager agentManager = buildAgentManager(helper, so, id, operators);
         ContinuumSolver solver = makeSolver(e, content, so, operators);
         HoldManager holdManager = new HoldManager(agentManager, solver);
@@ -63,22 +55,8 @@ public abstract class ContinuumLayerSchedulerFactory {
     }
 
     private static ContinuumAgentManager buildAgentManager(AgentToOperatorHelper agentHelper, ScheduledOperations so, String id, boolean operators) {
-        Consumer<DenseVector> injector = vector -> so.inject(vector);
-
-        Consumer<CompDiagMatrix> exponentiator;
-        if (operators) {
-            exponentiator = matrix -> so.apply(matrix);
-        } else {
-            exponentiator = matrix -> {
-                throw new IllegalStateException("Attempted to schedule matrix operator, but operators are explicitly disabled");
-            };
-        }
-
-        ReactionLoader agentScheduler = new ReactionLoader(injector, exponentiator, agentHelper, operators);
-
-        IdentityHashMap<BehaviorCell, Supplier<RelationshipTuple>> map = new IdentityHashMap<>();
-        ContinuumAgentIndex index = new ContinuumAgentIndex(map);
-        ContinuumAgentManager ret = new ContinuumAgentManager(agentScheduler, index, id);
+        ReactionLinker agentScheduler = new ReactionLinker(so, agentHelper);
+        ContinuumAgentManager ret = new ContinuumAgentManager(agentScheduler, id);
         return ret;
     }
 

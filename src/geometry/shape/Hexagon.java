@@ -25,10 +25,12 @@
 package geometry.shape;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import geometry.lattice.TriangularLattice;
 import org.dom4j.Element;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,6 +49,7 @@ public class Hexagon extends Shape {
 
     private int radius;
 
+    @FactoryTarget
     public Hexagon(Lattice lattice, int radius) {
         super(lattice);
         this.radius = radius;
@@ -72,7 +75,7 @@ public class Hexagon extends Shape {
     public Coordinate getCenter() {
         // This geometry is defined around a center coordinate of (r, r).
         // It is built up as a ring around this coordinate.
-        Coordinate center = new Coordinate(radius, radius, 0);
+        Coordinate center = new Coordinate2D(radius, radius, 0);
         return center;
     }
 
@@ -104,22 +107,22 @@ public class Hexagon extends Shape {
         int y0 = getCenter().y();
         for (int k = 1; k <= r; k++) {
             // Right side
-            include(coords, new Coordinate(x0 + r, y0 + k - 1, 0));
+            include(coords, new Coordinate2D(x0 + r, y0 + k - 1, 0));
 
             // Lower right side
-            include(coords, new Coordinate(x0 + r - k, y0 - k, 0));
+            include(coords, new Coordinate2D(x0 + r - k, y0 - k, 0));
 
             // Lower left side
-            include(coords, new Coordinate(x0 - k, y0 - r, 0));
+            include(coords, new Coordinate2D(x0 - k, y0 - r, 0));
 
             // Left side
-            include(coords, new Coordinate(x0 - r, y0 - r + k, 0));
+            include(coords, new Coordinate2D(x0 - r, y0 - r + k, 0));
 
             // Upper left side
-            include(coords, new Coordinate(x0 - r + k, y0 + k, 0));
+            include(coords, new Coordinate2D(x0 - r + k, y0 + k, 0));
 
             // Upper right side
-            include(coords, new Coordinate(x0 + k, y0 + r, 0));
+            include(coords, new Coordinate2D(x0 + k, y0 + r, 0));
         }
     }
 
@@ -200,7 +203,7 @@ public class Hexagon extends Shape {
             throw new IllegalStateException("Undefined state in Hexagon::getOverbounds.");
         }
 
-        return new Coordinate(overages, Flags.VECTOR);
+        return new Coordinate2D(overages, Flags.VECTOR);
 
     }
 

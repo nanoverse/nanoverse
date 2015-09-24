@@ -27,10 +27,12 @@ package processes.discrete;
 import control.halt.HaltCondition;
 import control.halt.LatticeFullEvent;
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import geometry.Geometry;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -44,6 +46,7 @@ public class ShoveHelper {
     private LayerManager layerManager;
     private Random random;
 
+    @FactoryTarget
     public ShoveHelper(LayerManager layerManager, Random random) {
         this.layerManager = layerManager;
         this.random = random;
@@ -148,7 +151,7 @@ public class ShoveHelper {
             }
         } while (true);
 
-        Coordinate du = new Coordinate(nextDisplacement, d.flags());
+        Coordinate du = new Coordinate2D(nextDisplacement, d.flags());
         doShove(nextLocation, du, sites);
 
         layerManager.getCellLayer().getUpdateManager().swap(currentLocation,
@@ -185,7 +188,7 @@ public class ShoveHelper {
             rel[2] += (int) Math.signum(d.z());
         }
 
-        return new Coordinate(rel, d.flags());
+        return new Coordinate2D(rel, d.flags());
     }
 
     /**

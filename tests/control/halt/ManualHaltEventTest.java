@@ -22,16 +22,20 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.halt;//import junit.framework.TestCase;
+package control.halt;
 
+import org.junit.Test;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 public class ManualHaltEventTest extends EslimeTestCase {
 
+    @Test
     public void testLifeCycle() throws Exception {
         ManualHaltEvent query = new ManualHaltEvent("test123");
         query.setGillespie(1.0);
         assertEquals("test123", query.toString());
-        assertEquals(1.0, query.getGillespie());
+        assertEquals(1.0, query.getGillespie(), epsilon);
     }
 }

@@ -25,6 +25,8 @@
 package factory.control.identifiers;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 import geometry.Geometry;
 import org.dom4j.Element;
@@ -51,11 +53,11 @@ public abstract class CoordinateFactory {
         // If it has a z element, load 3D coordinate)
         if (e.attribute("z") != null) {
             int z = Integer.valueOf(e.attribute("z").getValue());
-            Coordinate c = new Coordinate(x, y, z, flags);
+            Coordinate c = new Coordinate3D(x, y, z, flags);
             return c;
 
         } else {
-            Coordinate c = new Coordinate(x, y, flags);
+            Coordinate c = new Coordinate2D(x, y, flags);
             return c;
         }
     }

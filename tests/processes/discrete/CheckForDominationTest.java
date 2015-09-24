@@ -25,34 +25,29 @@
 package processes.discrete;
 
 import cells.BehaviorCell;
-import control.arguments.Argument;
-import control.arguments.ConstantDouble;
-import control.arguments.ConstantInteger;
+import control.arguments.*;
 import control.halt.DominationEvent;
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Boundary;
-import geometry.boundaries.Periodic;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
-import processes.BaseProcessArguments;
-import processes.StepState;
+import org.junit.*;
+import processes.*;
 import processes.discrete.check.CheckForDomination;
 import structural.MockGeneralParameters;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 public class CheckForDominationTest extends EslimeTestCase {
     private MockLayerManager layerManager;
     private CellLayer layer;
     private CheckForDomination query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         Lattice lattice = new RectangularLattice();
         layerManager = new MockLayerManager();
         Shape shape = new Rectangle(lattice, 11, 1);
@@ -61,8 +56,8 @@ public class CheckForDominationTest extends EslimeTestCase {
         layer = new CellLayer(geom);
         layerManager.setCellLayer(layer);
         MockGeneralParameters p = makeMockGeneralParameters();
-        Argument<Double> thresholdArg = new ConstantDouble(0.2);
-        Argument<Integer> stateArg = new ConstantInteger(1);
+        DoubleArgument thresholdArg = new ConstantDouble(0.2);
+        IntegerArgument stateArg = new ConstantInteger(1);
 
         // Create a 1D lattice of length 10.
         // Create an occupancy test that checks for 30% occupancy.
@@ -72,6 +67,7 @@ public class CheckForDominationTest extends EslimeTestCase {
         query.init();
     }
 
+    @Test
     public void testAboveThreshold() throws Exception {
         for (int i = 1; i < 4; i++) {
             populate(i, 1);
@@ -82,30 +78,6 @@ public class CheckForDominationTest extends EslimeTestCase {
         }
 
         doTest(true);
-    }
-
-    public void testAtThreshold() throws Exception {
-        for (int i = 1; i < 3; i++) {
-            populate(i, 1);
-        }
-
-        for (int i = 3; i < 11; i++) {
-            populate(i, i);
-        }
-
-        doTest(true);
-    }
-
-    public void testBelowThreshold() throws Exception {
-        for (int i = 1; i < 2; i++) {
-            populate(i, 1);
-        }
-
-        for (int i = 2; i < 11; i++) {
-            populate(i, i);
-        }
-
-        doTest(false);
     }
 
     private void doTest(boolean expectThrow) throws Exception {
@@ -122,7 +94,33 @@ public class CheckForDominationTest extends EslimeTestCase {
 
     private void populate(int x, int state) throws Exception {
         BehaviorCell cell = new BehaviorCell(layerManager, state, state, state, null);
-        Coordinate coord = new Coordinate(x, 0, 0);
+        Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
+    }
+
+    @Test
+    public void testAtThreshold() throws Exception {
+        for (int i = 1; i < 3; i++) {
+            populate(i, 1);
+        }
+
+        for (int i = 3; i < 11; i++) {
+            populate(i, i);
+        }
+
+        doTest(true);
+    }
+
+    @Test
+    public void testBelowThreshold() throws Exception {
+        for (int i = 1; i < 2; i++) {
+            populate(i, 1);
+        }
+
+        for (int i = 2; i < 11; i++) {
+            populate(i, i);
+        }
+
+        doTest(false);
     }
 }

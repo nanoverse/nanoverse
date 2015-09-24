@@ -24,14 +24,14 @@
 
 package io.visual.color;
 
-import control.arguments.Argument;
-import control.arguments.ConstantDouble;
-import factory.io.visual.color.ColorManagerFactory;
-import factory.io.visual.color.SurfaceGrowthColorManagerFactory;
+import control.arguments.*;
+import factory.io.visual.color.*;
 import org.dom4j.Element;
+import org.junit.*;
 import structural.MockGeneralParameters;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/2/14.
  */
@@ -39,13 +39,13 @@ public class ColorManagerFactoryTest extends EslimeTestCase {
     private Element fixtureRoot;
     private MockGeneralParameters p;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         fixtureRoot = readXmlFile("ColorManagerFactoryTest.xml");
         p = makeMockGeneralParameters();
     }
 
+    @Test
     public void testDefaultColorCase() {
         Element element = fixtureRoot.element("default-case");
         ColorManager actual = ColorManagerFactory.instantiate(element, p);
@@ -53,12 +53,13 @@ public class ColorManagerFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testSurfaceGrowthCase() {
         Element element = fixtureRoot.element("surface-growth-case");
 
         ColorManager base = new DefaultColorManager();
-        Argument<Double> saturationScaling = new ConstantDouble(SurfaceGrowthColorManagerFactory.DEFAULT_SATURATION_SCALING);
-        Argument<Double> luminanceScaling = new ConstantDouble(SurfaceGrowthColorManagerFactory.DEFAULT_LUMINANCE_SCALING);
+        DoubleArgument saturationScaling = new ConstantDouble(SurfaceGrowthColorManagerFactory.DEFAULT_SATURATION_SCALING);
+        DoubleArgument luminanceScaling = new ConstantDouble(SurfaceGrowthColorManagerFactory.DEFAULT_LUMINANCE_SCALING);
         SurfaceGrowthColorManager expected = new SurfaceGrowthColorManager(base, luminanceScaling, saturationScaling);
 
         ColorManager actual = ColorManagerFactory.instantiate(element, p);
@@ -66,6 +67,7 @@ public class ColorManagerFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testNullCase() {
         ColorManager actual = ColorManagerFactory.instantiate(null, p);
         ColorManager expected = new DefaultColorManager();

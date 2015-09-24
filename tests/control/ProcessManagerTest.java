@@ -24,18 +24,16 @@
 
 package control;
 
-import control.arguments.Argument;
-import control.arguments.ConstantInteger;
+import control.arguments.*;
 import layers.MockLayerManager;
-import processes.BaseProcessArguments;
-import processes.EcoProcess;
-import processes.MockProcess;
-import processes.StepState;
+import org.junit.*;
+import processes.*;
 import test.EslimeTestCase;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
+import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 1/7/14.
  */
@@ -47,17 +45,16 @@ public class ProcessManagerTest extends EslimeTestCase {
     ProcessManager query;
     MockLayerManager layerManager;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         layerManager = new MockLayerManager();
         initYesAndNo();
         buildQuery();
     }
 
     private void buildQuery() {
-        List<EcoProcess> processes = new ArrayList<>(2);
-        processes.add(yes);
-        processes.add(no);
+        Stream<NanoverseProcess> processes = Stream.of(
+            yes, no);
         query = new ProcessManager(processes, layerManager);
     }
 
@@ -67,9 +64,9 @@ public class ProcessManagerTest extends EslimeTestCase {
     private void initYesAndNo() {
 
         GeneralParameters p = makeMockGeneralParameters();
-        Argument<Integer> period = new ConstantInteger(0);
-        Argument<Integer> yesStart = new ConstantInteger(CURRENT_N);
-        Argument<Integer> noStart = new ConstantInteger(CURRENT_N + 1);
+        IntegerArgument period = new ConstantInteger(0);
+        IntegerArgument yesStart = new ConstantInteger(CURRENT_N);
+        IntegerArgument noStart = new ConstantInteger(CURRENT_N + 1);
 
         BaseProcessArguments yesArgs = new BaseProcessArguments(layerManager, p, 0, yesStart, period);
         BaseProcessArguments noArgs = new BaseProcessArguments(layerManager, p, 0, noStart, period);
@@ -79,14 +76,16 @@ public class ProcessManagerTest extends EslimeTestCase {
         no = new MockProcess(noArgs, "no", 0.0, 1);
     }
 
+    @Test
     public void testGetTriggeredProcesses() throws Exception {
         // Call getTriggeredProcesses.
-        List<EcoProcess> triggeredProcesses = query.getTriggeredProcesses(CURRENT_N);
+        List<NanoverseProcess> triggeredProcesses = query.getTriggeredProcesses(CURRENT_N);
 
         assertEquals(1, triggeredProcesses.size());
         assertEquals(yes, triggeredProcesses.get(0));
     }
 
+    @Test
     public void testTriggered() throws Exception {
         // Case 1a: a 1-time event that has not yet been triggered.
         assertFalse(triggerTest(3, 0));
@@ -109,8 +108,8 @@ public class ProcessManagerTest extends EslimeTestCase {
 
     public boolean triggerTest(int start, int period) throws Exception {
         GeneralParameters p = makeMockGeneralParameters();
-        Argument<Integer> periodArg = new ConstantInteger(period);
-        Argument<Integer> startArg = new ConstantInteger(start);
+        IntegerArgument periodArg = new ConstantInteger(period);
+        IntegerArgument startArg = new ConstantInteger(start);
 
         BaseProcessArguments args = new BaseProcessArguments(layerManager, p, 0, startArg, periodArg);
 
@@ -120,6 +119,7 @@ public class ProcessManagerTest extends EslimeTestCase {
         return query.triggered(CURRENT_N, process);
     }
 
+    @Test
     public void testDoTriggeredProcesses() throws Exception {
         // Execute doTriggeredProcesses.
         query.doTriggeredProcesses(new StepState(CURRENT_TIME, CURRENT_N));
@@ -129,6 +129,7 @@ public class ProcessManagerTest extends EslimeTestCase {
         assertEquals(1, yes.getTimesFired());
     }
 
+    @Test
     public void testStepStateRenewal() throws Exception {
         StepState first = query.doTriggeredProcesses(new StepState(0.0, 0));
         StepState second = query.doTriggeredProcesses(new StepState(0.0, 0));

@@ -24,11 +24,13 @@
 
 package io.deserialize;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Extrema;
+import control.identifiers.*;
+import org.junit.Test;
 import test.EslimeTestCase;
 
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by dbborens on 12/11/13.
@@ -39,6 +41,7 @@ public class ExtremaReaderTest extends EslimeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testReadSingleton() throws Exception {
         String filename = fixturePath + "solute42.metadata.txt";
 
@@ -48,8 +51,8 @@ public class ExtremaReaderTest extends EslimeTestCase {
         Extrema actual = reader.get("extrema");
 
         Extrema expected = new Extrema();
-        expected.consider(0, new Coordinate(0, 0, 0, 0), 2.0);
-        expected.consider(5.0, new Coordinate(1, 0, 0, 0), 1.0);
+        expected.consider(0, new Coordinate3D(0, 0, 0, 0), 2.0);
+        expected.consider(5.0, new Coordinate3D(1, 0, 0, 0), 1.0);
         assertEquals(expected, actual);
     }
 
@@ -58,17 +61,18 @@ public class ExtremaReaderTest extends EslimeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testReadMulti() throws Exception {
         Extrema a, c, actual;
 
         // Set up expected values
         a = new Extrema();
-        a.consider(0.0, new Coordinate(0, 0, 0, 0), 2.0);
-        a.consider(7.0, new Coordinate(1, 0, 0, 0), 1.0);
+        a.consider(0.0, new Coordinate3D(0, 0, 0, 0), 2.0);
+        a.consider(7.0, new Coordinate3D(1, 0, 0, 0), 1.0);
 
         c = new Extrema();
-        c.consider(2.0, new Coordinate(0, 2, 0, 0), 2.0);
-        c.consider(9.0, new Coordinate(1, 0, 0, 0), 1.0);
+        c.consider(2.0, new Coordinate3D(0, 2, 0, 0), 2.0);
+        c.consider(9.0, new Coordinate3D(1, 0, 0, 0), 1.0);
 
         // Read file
         String filename = fixturePath + "multi.metadata.txt";

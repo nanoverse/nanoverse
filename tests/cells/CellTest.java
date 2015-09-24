@@ -24,23 +24,32 @@
 
 package cells;
 
+import org.junit.Test;
 import test.EslimeTestCase;
 
 /**
  * Created by dbborens on 1/2/14.
  */
 public abstract class CellTest extends EslimeTestCase {
+
+    @Test
     public abstract void testGetState() throws Exception;
 
+    @Test
     public abstract void testGetHealth() throws Exception;
 
+    @Test
     public abstract void testIsDivisible() throws Exception;
 
+    @Test
     public abstract void testFeedConsiderApply() throws Exception;
 
+    @Test
     public abstract void testDivide() throws Exception;
 
+    @Test
     public abstract void testClone() throws Exception;
 
+    @Test
     public abstract void testGetProduction() throws Exception;
 }

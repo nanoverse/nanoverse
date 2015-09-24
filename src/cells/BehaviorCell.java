@@ -27,7 +27,7 @@ package cells;
 import agent.control.BehaviorDispatcher;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
-import factory.cell.Reaction;
+import layers.continuum.Reaction;
 import layers.LayerManager;
 import layers.continuum.ContinuumAgentLinker;
 import structural.utilities.EpsilonUtil;

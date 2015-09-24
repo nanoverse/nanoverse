@@ -25,6 +25,7 @@
 package geometry.boundaries;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import control.identifiers.Flags;
 import geometry.lattice.Lattice;
 import geometry.lattice.RectangularLattice;
@@ -84,61 +85,61 @@ public class TetrisBoundaryTest extends TestBase {
 
     @Test
     public void rightOverboundWraps() {
-        Coordinate input = new Coordinate(2, 0, 0);
-        Coordinate expected = new Coordinate(0, 0, Flags.BOUNDARY_APPLIED);
+        Coordinate input = new Coordinate2D(2, 0, 0);
+        Coordinate expected = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
         doTest(input, expected);
     }
 
     @Test
     public void leftOverboundWraps() {
-        Coordinate input = new Coordinate(-1, 0, 0);
-        Coordinate expected = new Coordinate(1, 0, Flags.BOUNDARY_APPLIED);
+        Coordinate input = new Coordinate2D(-1, 0, 0);
+        Coordinate expected = new Coordinate2D(1, 0, Flags.BOUNDARY_APPLIED);
         doTest(input, expected);
     }
 
     @Test
     public void bottomOverboundIsNull() {
-        Coordinate input = new Coordinate(0, -1, 0);
+        Coordinate input = new Coordinate2D(0, -1, 0);
         doNullTest(input);
     }
 
     @Test
     public void topOverboundEndOfWorld() {
-        Coordinate input = new Coordinate(0, 2, 0);
-        Coordinate expected = new Coordinate(0, 2, Flags.BOUNDARY_APPLIED | Flags.END_OF_WORLD);
+        Coordinate input = new Coordinate2D(0, 2, 0);
+        Coordinate expected = new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED | Flags.END_OF_WORLD);
         doTest(input, expected);
     }
 
     @Test
     public void lowerLeftIsNull() {
-        Coordinate input = new Coordinate(-1, -1, 0);
+        Coordinate input = new Coordinate2D(-1, -1, 0);
         doNullTest(input);
     }
 
     @Test
     public void lowerRightIsNull() {
-        Coordinate input = new Coordinate(2, -1, 0);
+        Coordinate input = new Coordinate2D(2, -1, 0);
         doNullTest(input);
     }
 
     @Test
     public void upperLeftWrappedAndEndOfWorld() {
-        Coordinate input = new Coordinate(-1, 2, 0);
-        Coordinate expected = new Coordinate(1, 2, Flags.BOUNDARY_APPLIED | Flags.END_OF_WORLD);
+        Coordinate input = new Coordinate2D(-1, 2, 0);
+        Coordinate expected = new Coordinate2D(1, 2, Flags.BOUNDARY_APPLIED | Flags.END_OF_WORLD);
         doTest(input, expected);
     }
 
     @Test
     public void upperRightWrappedAndEndOfWorld() {
-        Coordinate input = new Coordinate(2, 2, 0);
-        Coordinate expected = new Coordinate(0, 2, Flags.BOUNDARY_APPLIED | Flags.END_OF_WORLD);
+        Coordinate input = new Coordinate2D(2, 2, 0);
+        Coordinate expected = new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED | Flags.END_OF_WORLD);
         doTest(input, expected);
     }
 
     @Test
     public void inBoundsDoesNothing() {
-        Coordinate input = new Coordinate(0, 0, 0);
-        Coordinate expected = new Coordinate(0, 0, 0);
+        Coordinate input = new Coordinate2D(0, 0, 0);
+        Coordinate expected = new Coordinate2D(0, 0, 0);
         doTest(input, expected);
     }
 

@@ -24,23 +24,22 @@
 
 package geometry.boundaries;
 
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.boundaries.helpers.WrapHelper;
 import geometry.boundary.MockWrapHelper;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
-import junit.framework.TestCase;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.*;
 
-public class PeriodicTest extends TestCase {
+import static org.junit.Assert.*;
+
+public class PeriodicTest {
 
     private MockWrapHelper helper;
     private ExposedPeriodic query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         helper = new MockWrapHelper();
         Lattice lattice = new RectangularLattice();
         Shape shape = new Rectangle(lattice, 0, 0);
@@ -48,12 +47,14 @@ public class PeriodicTest extends TestCase {
         query.setHelper(helper);
     }
 
+    @Test
     public void testApply() throws Exception {
-        Coordinate c = new Coordinate(0, 0, 0);
+        Coordinate c = new Coordinate2D(0, 0, 0);
         query.apply(c);
         assertTrue(helper.isAllWrapped());
     }
 
+    @Test
     public void testIsInfinite() throws Exception {
         assertFalse(query.isInfinite());
     }

@@ -29,6 +29,7 @@ import control.halt.HaltCondition;
 import io.serialize.Serializer;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 import structural.utilities.FileConventions;
 
 import java.io.DataOutputStream;
@@ -41,6 +42,7 @@ public class TimeWriter extends Serializer {
 
     private DataOutputStream stream;
 
+    @FactoryTarget
     public TimeWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
         makeFiles();

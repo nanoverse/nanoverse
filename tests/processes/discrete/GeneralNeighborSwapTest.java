@@ -26,22 +26,20 @@ package processes.discrete;
 
 import cells.MockCell;
 import control.arguments.ConstantInteger;
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
+import geometry.boundaries.*;
+import geometry.lattice.*;
 import geometry.set.CompleteSet;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.shape.*;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import processes.BaseProcessArguments;
-import processes.MockStepState;
-import structural.MockGeneralParameters;
-import structural.MockRandom;
+import structural.*;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.fail;
 
 /**
  * Created by dbborens on 4/21/14.
@@ -54,8 +52,8 @@ public class GeneralNeighborSwapTest extends EslimeTestCase {
     private Coordinate ac, bc, cc;
     private MockRandom random;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         Lattice lattice = new RectangularLattice();
         Shape shape = new Rectangle(lattice, 3, 3);
         Boundary boundary = new Arena(shape, lattice);
@@ -84,31 +82,32 @@ public class GeneralNeighborSwapTest extends EslimeTestCase {
         b = new MockCell(2);
         c = new MockCell(3);
 
-        ac = new Coordinate(0, 1, 0);
-        bc = new Coordinate(0, 0, 0);
-        cc = new Coordinate(1, 1, 0);
+        ac = new Coordinate2D(0, 1, 0);
+        bc = new Coordinate2D(0, 0, 0);
+        cc = new Coordinate2D(1, 1, 0);
         cellLayer.getUpdateManager().place(a, ac);
         cellLayer.getUpdateManager().place(b, bc);
         cellLayer.getUpdateManager().place(c, cc);
     }
 
+    @Test
     public void testCellsReflectSwap() throws Exception {
-        query.target(null);
-        MockStepState state = new MockStepState();
-
-        CellLayer cl = layerManager.getCellLayer();
-
-        // Enforce that the desired random event happens
-        random.setNextIntValue(1);
-        // a should move
-        assertTrue(cl.getViewer().getCell(ac).equals(a));
-        query.fire(state);
-        assertFalse(cl.getViewer().getCell(ac).equals(a));
-
-        // specifically, a should be swapped with c
-        assertTrue(cl.getViewer().getCell(bc).equals(b));
-        assertTrue(cl.getViewer().getCell(ac).equals(c));
-        assertTrue(cl.getViewer().getCell(cc).equals(a));
-
+//        query.target(null);
+//        MockStepState state = new MockStepState();
+//
+//        CellLayer cl = layerManager.getCellLayer();
+//
+//        // Enforce that the desired random event happens
+//        random.setNextIntValue(1);
+//        // a should move
+//        assertTrue(cl.getViewer().getCell(ac).equals(a));
+//        query.fire(state);
+//        assertFalse(cl.getViewer().getCell(ac).equals(a));
+//
+//        // specifically, a should be swapped with c
+//        assertTrue(cl.getViewer().getCell(bc).equals(b));
+//        assertTrue(cl.getViewer().getCell(ac).equals(c));
+//        assertTrue(cl.getViewer().getCell(cc).equals(a));
+        fail("Rewrite this test using mocks");
     }
 }

@@ -31,6 +31,7 @@ import geometry.Geometry;
 import io.serialize.Serializer;
 import layers.LayerManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 import structural.utilities.FileConventions;
 import structural.utilities.PrimitiveSerializer;
 
@@ -40,7 +41,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 /**
  * Created by dbborens on 3/28/14.
@@ -49,12 +50,13 @@ public class HighlightWriter extends Serializer {
     //    private Geometry geometry;
     private Map<Integer, DataOutputStream> streamMap;
 
-    private int[] channels;
+    private List<Integer> channelList;
 
-    public HighlightWriter(GeneralParameters p, int[] channels, LayerManager lm) {
+    @FactoryTarget
+    public HighlightWriter(GeneralParameters p, Stream<Integer> channels, LayerManager lm) {
         super(p, lm);
         makeFiles();
-        this.channels = channels;
+        channelList = channels.collect(Collectors.toList());
     }
 
     @Override
@@ -69,7 +71,7 @@ public class HighlightWriter extends Serializer {
     @Override
     public void flush(StepState stepState) {
         Geometry geometry = stepState.getRecordedCellLayer().getGeometry();
-        for (int channel : channels) {
+        for (int channel : channelList) {
             DataOutputStream stream = streamMap.get(channel);
             List<Coordinate> vector = stepState
                     .getHighlights(channel)
@@ -94,12 +96,12 @@ public class HighlightWriter extends Serializer {
 
         HighlightWriter other = (HighlightWriter) obj;
 
-        if (other.channels.length != this.channels.length) {
+        if (other.channelList.size() != this.channelList.size()) {
             return false;
         }
 
-        for (int i = 0; i < channels.length; i++) {
-            if (other.channels[i] != this.channels[i]) {
+        for (int i = 0; i < channelList.size(); i++) {
+            if (other.channelList.get(i) != this.channelList.get(i)) {
                 return false;
             }
         }
@@ -108,9 +110,9 @@ public class HighlightWriter extends Serializer {
     }
 
     private void createDataStreams() {
-        streamMap = new HashMap<>(channels.length);
+        streamMap = new HashMap<>(channelList.size());
 
-        for (Integer channel : channels) {
+        for (Integer channel : channelList) {
             String baseFilename = FileConventions.makeHighlightFilename(channel);
             String absoluteName = p.getInstancePath() + baseFilename;
             DataOutputStream stream = FileConventions.makeDataOutputStream(absoluteName);

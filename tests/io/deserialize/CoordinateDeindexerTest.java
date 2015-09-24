@@ -24,12 +24,14 @@
 
 package io.deserialize;
 
-import control.identifiers.Coordinate;
+import control.identifiers.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
 import java.io.IOException;
 import java.util.HashMap;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 12/10/13.
  */
@@ -37,30 +39,34 @@ public class CoordinateDeindexerTest extends EslimeTestCase {
 
     private ExposedDeindexer query;
 
-    @Override
+    @Before
     public void setUp() {
         query = new ExposedDeindexer(fixturePath);
     }
 
+    @Test
     public void testIndex() {
         // This coordinate has index 1 -- see test fixture
-        Coordinate input = new Coordinate(0, 1, 1);
+        Coordinate input = new Coordinate2D(0, 1, 1);
         assertEquals(1, (int) query.getIndex(input));
     }
 
+    @Test
     public void testDeindex() {
-        Coordinate expected = new Coordinate(0, 1, 1);
+        Coordinate expected = new Coordinate2D(0, 1, 1);
         Coordinate actual = query.getCoordinate(1);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testParseCoordinate() {
         String input = "(3, 5, 9 | 0)";
-        Coordinate expected = new Coordinate(3, 5, 9, 0);
+        Coordinate expected = new Coordinate3D(3, 5, 9, 0);
         Coordinate actual = query.parseCoordinate(input);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testGetNumSites() {
         assertEquals(4, query.getNumSites());
     }

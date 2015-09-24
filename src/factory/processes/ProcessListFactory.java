@@ -27,28 +27,29 @@ package factory.processes;
 import control.GeneralParameters;
 import layers.LayerManager;
 import org.dom4j.Element;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 11/23/14.
  */
 public abstract class ProcessListFactory {
 
-    public static List<EcoProcess> instantiate(Element root, LayerManager layerManager, GeneralParameters p) {
-        ArrayList<EcoProcess> processes = new ArrayList<>();
+    public static Stream<NanoverseProcess> instantiate(Element root, LayerManager layerManager, GeneralParameters p) {
+        ArrayList<NanoverseProcess> processes = new ArrayList<>();
         if (root == null) {
-            return processes;
+            return processes.stream();
         }
         int id = 0;
         for (Object o : root.elements()) {
             Element e = (Element) o;
-            EcoProcess process = ProcessFactory.instantiate(e, layerManager, p, id);
+            NanoverseProcess process = ProcessFactory.instantiate(e, layerManager, p, id);
             processes.add(process);
             id++;
         }
-        return processes;
+        return processes.stream();
     }
 }

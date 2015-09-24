@@ -22,16 +22,19 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package processes.discrete;//import junit.framework.TestCase;
+package processes.discrete;
 
-import control.halt.HaltCondition;
-import control.halt.ManualHaltEvent;
+import control.halt.*;
 import layers.MockLayerManager;
+import org.junit.Test;
 import processes.BaseProcessArguments;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
+
 public class ManualHaltTest extends EslimeTestCase {
 
+    @Test
     public void testLifeCycle() {
         MockLayerManager layerManager = new MockLayerManager();
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, null);

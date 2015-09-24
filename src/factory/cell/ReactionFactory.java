@@ -24,6 +24,7 @@
 
 package factory.cell;
 
+import layers.continuum.Reaction;
 import org.dom4j.Element;
 import structural.utilities.XmlUtil;
 

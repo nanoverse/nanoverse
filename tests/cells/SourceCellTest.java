@@ -24,10 +24,12 @@
 
 package cells;
 
-import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import org.junit.*;
 
 import java.util.HashMap;
 
+import static org.junit.Assert.*;
 /**
  * Created by dbborens on 1/2/14.
  */
@@ -35,7 +37,7 @@ public class SourceCellTest extends CellTest {
 
     private SourceCell a, b;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         HashMap<String, Double> aProduction = new HashMap<>();
         aProduction.put("alpha", 1.0);
@@ -49,18 +51,21 @@ public class SourceCellTest extends CellTest {
     }
 
     @Override
+    @Test
     public void testGetState() throws Exception {
         assertEquals(1, a.getState());
         assertEquals(2, b.getState());
     }
 
     @Override
+    @Test
     public void testGetHealth() throws Exception {
         assertEquals(0.0, a.getHealth(), epsilon);
         assertEquals(0.0, b.getHealth(), epsilon);
     }
 
     @Override
+    @Test
     public void testIsDivisible() throws Exception {
         // SourceCells are never divisible
         assertFalse(a.isDivisible());
@@ -68,6 +73,7 @@ public class SourceCellTest extends CellTest {
     }
 
     @Override
+    @Test
     public void testFeedConsiderApply() throws Exception {
         // Feed, consider and apply should have no effect on SourceCells
         int result = a.consider();
@@ -75,6 +81,7 @@ public class SourceCellTest extends CellTest {
     }
 
     @Override
+    @Test
     public void testDivide() throws Exception {
         boolean thrown = false;
         try {
@@ -87,6 +94,7 @@ public class SourceCellTest extends CellTest {
     }
 
     @Override
+    @Test
     public void testClone() throws Exception {
         // There should be two identical objects in memory, not one
         Cell c = a.replicate();
@@ -96,16 +104,17 @@ public class SourceCellTest extends CellTest {
 
     @Override
     public void testGetProduction() throws Exception {
-        assertEquals(1.0, a.getProduction("alpha"));
-        assertEquals(2.0, a.getProduction("beta"));
-        assertEquals(0.5, b.getProduction("beta"));
+        assertEquals(1.0, a.getProduction("alpha"), epsilon);
+        assertEquals(2.0, a.getProduction("beta"), epsilon);
+        assertEquals(0.5, b.getProduction("beta"), epsilon);
     }
 
+    @Test
     public void testTriggerThrowsException() throws Exception {
         boolean thrown = false;
 
         try {
-            a.trigger("a", new Coordinate(0, 0, 0));
+            a.trigger("a", new Coordinate2D(0, 0, 0));
         } catch (UnsupportedOperationException ex) {
             thrown = true;
         }

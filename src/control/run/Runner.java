@@ -26,6 +26,7 @@ package control.run;
 
 import control.GeneralParameters;
 import control.Integrator;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 11/26/14.
@@ -35,6 +36,7 @@ public class Runner implements Runnable {
     private GeneralParameters p;
     private Integrator integrator;
 
+    @FactoryTarget(displayName = "Project")
     public Runner(GeneralParameters p, Integrator integrator) {
         this.p = p;
         this.integrator = integrator;

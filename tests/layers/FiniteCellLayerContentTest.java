@@ -24,20 +24,22 @@
 
 package layers;
 
-import control.identifiers.Coordinate;
-import layers.cell.CellLayerContent;
-import layers.cell.FiniteCellLayerContent;
+import control.identifiers.Coordinate2D;
+import layers.cell.*;
+import org.junit.Test;
 
+import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 4/10/14.
  */
 public class FiniteCellLayerContentTest extends CellLayerContentTest {
 
+    @Test
     public void testImaginaryBehavior() {
 
         boolean thrown = false;
         try {
-            query.sanityCheck(new Coordinate(-1, 0, 0));
+            query.sanityCheck(new Coordinate2D(-1, 0, 0));
         } catch (Exception ex) {
             thrown = true;
         }

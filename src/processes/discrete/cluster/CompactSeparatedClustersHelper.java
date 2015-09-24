@@ -30,6 +30,7 @@ import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import geometry.Geometry;
 import layers.cell.CellLayer;
+import structural.annotations.FactoryTarget;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,6 +43,7 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
 
     private final GeneralParameters p;
 
+    @FactoryTarget
     public CompactSeparatedClustersHelper(CellLayer layer, GeneralParameters p) {
         super(layer);
         this.p = p;

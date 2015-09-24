@@ -25,6 +25,7 @@
 package io.visual.kymograph;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import io.visual.VisualizationProperties;
 import io.visual.map.PixelTranslator;
 
@@ -79,14 +80,14 @@ public class KymoPixelTranslator extends PixelTranslator {
         int n = properties.getFrames().length;
         int lastFrame = properties.getFrames()[n - 1];
         int dt = edge * (lastFrame + 1);
-        imageDims = new Coordinate(dt, dy, 0);
+        imageDims = new Coordinate2D(dt, dy, 0);
     }
 
     @Override
     protected void calcOrigin() {
         int t = edge / 2;
         int y = edge / 2;
-        origin = new Coordinate(t, y, 0);
+        origin = new Coordinate2D(t, y, 0);
 
     }
 
@@ -98,12 +99,12 @@ public class KymoPixelTranslator extends PixelTranslator {
         int xPixels = x * edge;
         int yPixels = y * edge;
 
-        Coordinate center = new Coordinate(xPixels, yPixels, 0);
+        Coordinate center = new Coordinate2D(xPixels, yPixels, 0);
 
         int px = origin.x() + center.x();
         int py = imageDims.y() - origin.y() - center.y();
 
-        Coordinate ret = new Coordinate(px, py, 0);
+        Coordinate ret = new Coordinate2D(px, py, 0);
         return ret;
     }
 

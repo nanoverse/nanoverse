@@ -32,6 +32,7 @@ import io.visual.highlight.HighlightManager;
 import io.visual.map.CoordinateRenderer;
 import io.visual.map.PixelTranslator;
 import layers.SystemState;
+import structural.annotations.FactoryTarget;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -45,6 +46,7 @@ public class Kymograph extends Visualization {
     protected BufferedImage img;
     protected Graphics2D g;
 
+    @FactoryTarget
     public Kymograph(VisualizationProperties properties) {
         this.properties = properties;
     }

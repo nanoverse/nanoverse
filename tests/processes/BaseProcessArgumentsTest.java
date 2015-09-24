@@ -25,21 +25,22 @@
 package processes;
 
 import control.GeneralParameters;
-import control.arguments.Argument;
-import control.arguments.ConstantInteger;
+import control.arguments.*;
+import org.junit.Test;
 import test.EslimeLatticeTestCase;
 
+import static org.junit.Assert.assertTrue;
 public class BaseProcessArgumentsTest extends EslimeLatticeTestCase {
 
     private GeneralParameters p;
     private int id;
-    private Argument<Integer> start;
-    private Argument<Integer> period;
+    private IntegerArgument start;
+    private IntegerArgument period;
 
     private BaseProcessArguments query;
 
     @Override
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
         p = makeMockGeneralParameters();
         id = 7;
@@ -49,24 +50,29 @@ public class BaseProcessArgumentsTest extends EslimeLatticeTestCase {
         query = new BaseProcessArguments(layerManager, p, id, start, period);
     }
 
+    @Test
     public void testGetPeriod() throws Exception {
         assertTrue(period == query.getPeriod());
     }
 
+    @Test
     public void testGetStart() throws Exception {
         assertTrue(start == query.getStart());
 
     }
 
+    @Test
     public void testGetId() throws Exception {
         assertTrue(id == query.getId());
 
     }
 
+    @Test
     public void testGetGeneralParameters() throws Exception {
         assertTrue(p == query.getGeneralParameters());
     }
 
+    @Test
     public void testGetLayerManager() throws Exception {
         assertTrue(layerManager == query.getLayerManager());
     }

@@ -24,15 +24,16 @@
 
 package layers;
 
-import junit.framework.TestCase;
 import layers.cell.StateMapViewer;
+import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public class StateMapViewerTest extends TestCase {
+import static org.junit.Assert.assertEquals;
 
+public class StateMapViewerTest {
+
+    @Test
     public void testGetStates() {
         // Set up
         StateMapViewer viewer = makeViewer();
@@ -50,15 +51,6 @@ public class StateMapViewerTest extends TestCase {
 
     }
 
-    public void testGetCount() {
-        // Set up
-        StateMapViewer viewer = makeViewer();
-
-        int count = viewer.getCount(2);
-
-        assertEquals(count, 5);
-    }
-
     private StateMapViewer makeViewer() {
         Map<Integer, Integer> stateMap = new HashMap<Integer, Integer>();
         stateMap.put(1, 3);
@@ -67,5 +59,15 @@ public class StateMapViewerTest extends TestCase {
         StateMapViewer viewer = new StateMapViewer(stateMap);
 
         return viewer;
+    }
+
+    @Test
+    public void testGetCount() {
+        // Set up
+        StateMapViewer viewer = makeViewer();
+
+        int count = viewer.getCount(2);
+
+        assertEquals(count, 5);
     }
 }

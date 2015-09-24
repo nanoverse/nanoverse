@@ -24,10 +24,10 @@
 
 package control.arguments;
 
-import agent.Behavior;
+import agent.action.*;
 import cells.BehaviorCell;
 import control.identifiers.Coordinate;
-import factory.cell.Reaction;
+import layers.continuum.Reaction;
 import layers.LayerManager;
 import layers.cell.CellLayer;
 import layers.cell.CellLayerViewer;
@@ -55,12 +55,12 @@ import static org.mockito.Mockito.*;
  */
 public class CellDescriptorTest extends TestBase {
 
-    private Argument<Double> threshold;
-    private Argument<Double> initialHealth;
-    private Argument<Integer> cellState;
+    private DoubleArgument threshold;
+    private DoubleArgument initialHealth;
+    private IntegerArgument cellState;
     private Reaction reaction1, reaction2;
-    private BehaviorDescriptor behaviorDescriptor;
-    private Behavior behavior;
+    private ActionDescriptor behaviorDescriptor;
+    private Action behavior;
 
     private CellDescriptor query;
 
@@ -71,10 +71,10 @@ public class CellDescriptorTest extends TestBase {
 
 
         // TODO Instantiation of behaviors from descriptors should be handled by a helper
-        behaviorDescriptor = mock(BehaviorDescriptor.class);
-        behavior = mock(Behavior.class);
+        behaviorDescriptor = mock(ActionDescriptor.class);
+        behavior = mock(Action.class);
         when(behaviorDescriptor.instantiate(any())).thenReturn(behavior);
-        Map<String, BehaviorDescriptor> behaviorDescriptors = new HashMap<>(1);
+        Map<String, ActionDescriptor> behaviorDescriptors = new HashMap<>(1);
         behaviorDescriptors.put("behavior", behaviorDescriptor);
 
         LayerManager layerManager = mock(LayerManager.class);

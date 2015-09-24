@@ -25,7 +25,7 @@
 package cells;
 
 import control.identifiers.Coordinate;
-import factory.cell.Reaction;
+import layers.continuum.Reaction;
 import layers.continuum.ContinuumAgentLinker;
 import layers.continuum.RelationshipTuple;
 

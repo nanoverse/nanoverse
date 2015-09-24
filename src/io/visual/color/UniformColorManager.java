@@ -26,6 +26,7 @@ package io.visual.color;
 
 import control.identifiers.Coordinate;
 import layers.SystemState;
+import structural.annotations.FactoryTarget;
 
 import java.awt.*;
 
@@ -36,6 +37,7 @@ public class UniformColorManager extends ColorManager {
 
     private final Color color;
 
+    @FactoryTarget(displayName = "UniformColorModel")
     public UniformColorManager(Color color) {
         this.color = color;
     }

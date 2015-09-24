@@ -25,7 +25,7 @@
 package control.identifiers;
 
 
-public class Coordinate implements Comparable<Coordinate> {
+public abstract class Coordinate implements Comparable<Coordinate> {
     protected final int x, y, z;
     protected final int flags;
 
@@ -70,9 +70,9 @@ public class Coordinate implements Comparable<Coordinate> {
     @Override
     public Coordinate clone() {
         if (hasFlag(Flags.PLANAR)) {
-            return new Coordinate(x, y, flags);
+            return new Coordinate2D(x, y, flags);
         } else {
-            return new Coordinate(x, y, z, flags);
+            return new Coordinate3D(x, y, z, flags);
         }
     }
 
@@ -105,34 +105,27 @@ public class Coordinate implements Comparable<Coordinate> {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + flags;
-        result = prime * result + x;
-        result = prime * result + y;
-        result = prime * result + z;
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Coordinate)) return false;
+
+        Coordinate that = (Coordinate) o;
+
+        if (flags != that.flags) return false;
+        if (x != that.x) return false;
+        if (y != that.y) return false;
+        if (z != that.z) return false;
+
+        return true;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Coordinate other = (Coordinate) obj;
-        if (flags != other.flags)
-            return false;
-        if (x != other.x)
-            return false;
-        if (y != other.y)
-            return false;
-        if (z != other.z)
-            return false;
-        return true;
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        result = 31 * result + z;
+        result = 31 * result + flags;
+        return result;
     }
 
     @Override
@@ -208,9 +201,9 @@ public class Coordinate implements Comparable<Coordinate> {
         int rf = flags() | f;
 
         if (hasFlag(Flags.PLANAR)) {
-            ret = new Coordinate(x, y, rf);
+            ret = new Coordinate2D(x, y, rf);
         } else {
-            ret = new Coordinate(x, y, z, rf);
+            ret = new Coordinate3D(x, y, z, rf);
         }
 
         return ret;
@@ -226,9 +219,9 @@ public class Coordinate implements Comparable<Coordinate> {
         Coordinate ret;
 
         if (hasFlag(Flags.PLANAR)) {
-            ret = new Coordinate(x, y, 0);
+            ret = new Coordinate2D(x, y, 0);
         } else {
-            ret = new Coordinate(x, y, z, 0);
+            ret = new Coordinate3D(x, y, z, 0);
         }
 
         return ret;

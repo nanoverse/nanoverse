@@ -24,17 +24,19 @@
 
 package geometry.set;
 
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import geometry.Geometry;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 7/28/14.
  */
 public class DiscSet extends CoordinateSet {
 
-    public DiscSet(Geometry geom, Argument<Integer> radiusArg, Coordinate offset) {
+    @FactoryTarget(displayName = "DiscCoordinateSet")
+    public DiscSet(Geometry geom, IntegerArgument radiusArg, Coordinate offset) {
         Coordinate origin = geom.rel2abs(geom.getCenter(), offset, Geometry.APPLY_BOUNDARIES);
         int radius;
         try {

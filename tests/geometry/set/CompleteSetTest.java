@@ -22,37 +22,36 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package geometry.set;//import junit.framework.TestCase;
+package geometry.set;
 
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
+import geometry.boundaries.*;
 import geometry.lattice.*;
 import geometry.shape.*;
+import org.junit.Test;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 public class CompleteSetTest extends EslimeTestCase {
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
+    @Test
     public void test1D() {
         Lattice lattice = new LinearLattice();
         Shape shape = new Line(lattice, 4);
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
         CustomSet expected = new CustomSet();
-        expected.add(new Coordinate(0, 0, 0));
-        expected.add(new Coordinate(0, 1, 0));
-        expected.add(new Coordinate(0, 2, 0));
-        expected.add(new Coordinate(0, 3, 0));
+        expected.add(new Coordinate2D(0, 0, 0));
+        expected.add(new Coordinate2D(0, 1, 0));
+        expected.add(new Coordinate2D(0, 2, 0));
+        expected.add(new Coordinate2D(0, 3, 0));
         CompleteSet actual = new CompleteSet(geom);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void test2DTri() {
         Lattice lattice = new TriangularLattice();
         Shape shape = new Hexagon(lattice, 1);
@@ -60,44 +59,46 @@ public class CompleteSetTest extends EslimeTestCase {
         Geometry geom = new Geometry(lattice, shape, boundary);
         CompleteSet actual = new CompleteSet(geom);
         CustomSet expected = new CustomSet();
-        expected.add(new Coordinate(0, 0, 0));
-        expected.add(new Coordinate(1, 0, 0));
-        expected.add(new Coordinate(2, 1, 0));
-        expected.add(new Coordinate(2, 2, 0));
-        expected.add(new Coordinate(1, 2, 0));
-        expected.add(new Coordinate(0, 1, 0));
-        expected.add(new Coordinate(1, 1, 0));
+        expected.add(new Coordinate2D(0, 0, 0));
+        expected.add(new Coordinate2D(1, 0, 0));
+        expected.add(new Coordinate2D(2, 1, 0));
+        expected.add(new Coordinate2D(2, 2, 0));
+        expected.add(new Coordinate2D(1, 2, 0));
+        expected.add(new Coordinate2D(0, 1, 0));
+        expected.add(new Coordinate2D(1, 1, 0));
         assertEquals(expected, actual);
     }
 
+    @Test
     public void test2DRec() {
         Lattice lattice = new RectangularLattice();
         Shape shape = new Rectangle(lattice, 2, 2);
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
         CustomSet expected = new CustomSet();
-        expected.add(new Coordinate(0, 0, 0));
-        expected.add(new Coordinate(0, 1, 0));
-        expected.add(new Coordinate(1, 0, 0));
-        expected.add(new Coordinate(1, 1, 0));
+        expected.add(new Coordinate2D(0, 0, 0));
+        expected.add(new Coordinate2D(0, 1, 0));
+        expected.add(new Coordinate2D(1, 0, 0));
+        expected.add(new Coordinate2D(1, 1, 0));
         CompleteSet actual = new CompleteSet(geom);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void test3D() {
         Lattice lattice = new CubicLattice();
         Shape shape = new Cuboid(lattice, 2, 2, 2);
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
         CustomSet expected = new CustomSet();
-        expected.add(new Coordinate(0, 0, 0, 0));
-        expected.add(new Coordinate(0, 0, 1, 0));
-        expected.add(new Coordinate(0, 1, 0, 0));
-        expected.add(new Coordinate(0, 1, 1, 0));
-        expected.add(new Coordinate(1, 0, 0, 0));
-        expected.add(new Coordinate(1, 0, 1, 0));
-        expected.add(new Coordinate(1, 1, 0, 0));
-        expected.add(new Coordinate(1, 1, 1, 0));
+        expected.add(new Coordinate3D(0, 0, 0, 0));
+        expected.add(new Coordinate3D(0, 0, 1, 0));
+        expected.add(new Coordinate3D(0, 1, 0, 0));
+        expected.add(new Coordinate3D(0, 1, 1, 0));
+        expected.add(new Coordinate3D(1, 0, 0, 0));
+        expected.add(new Coordinate3D(1, 0, 1, 0));
+        expected.add(new Coordinate3D(1, 1, 0, 0));
+        expected.add(new Coordinate3D(1, 1, 1, 0));
         CompleteSet actual = new CompleteSet(geom);
         assertEquals(expected, actual);
     }

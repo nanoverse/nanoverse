@@ -25,8 +25,10 @@
 package layers.continuum;
 
 import control.identifiers.Coordinate;
+import geometry.Geometry;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 import java.util.stream.*;
@@ -40,6 +42,11 @@ public class ContinuumLayerContent {
     // Map of coordinate --> vector index
     private Function<Coordinate, Integer> indexer;
     private int n;
+
+    public ContinuumLayerContent(Geometry geom) {
+        n = geom.getCanonicalSites().length;
+        indexer = geom.getIndexer();
+    }
 
     public ContinuumLayerContent(Function<Coordinate, Integer> indexer, int n) {
         this.indexer = indexer;

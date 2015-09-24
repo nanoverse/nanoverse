@@ -24,7 +24,7 @@
 
 package agent.control;
 
-import agent.Behavior;
+import agent.action.Action;
 import cells.BehaviorCell;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
@@ -40,14 +40,14 @@ import java.util.stream.Stream;
  * Created by David B Borenstein on 1/21/14.
  */
 public class BehaviorDispatcher {
-    private HashMap<String, Behavior> behaviors;
+    private HashMap<String, Action> behaviors;
 
     public BehaviorDispatcher() {
         behaviors = new HashMap<>();
     }
 
 
-    public void map(String name, Behavior behavior) {
+    public void map(String name, Action behavior) {
         behaviors.put(name, behavior);
     }
 
@@ -61,10 +61,10 @@ public class BehaviorDispatcher {
      */
     public void trigger(String behaviorName, Coordinate caller) throws HaltCondition {
         if (!behaviors.containsKey(behaviorName)) {
-            throw new IllegalArgumentException("Behavior '" + behaviorName + "' not found.");
+            throw new IllegalArgumentException("Action '" + behaviorName + "' not found.");
         }
 
-        Behavior behavior = behaviors.get(behaviorName);
+        Action behavior = behaviors.get(behaviorName);
         behavior.run(caller);
     }
 
@@ -73,8 +73,8 @@ public class BehaviorDispatcher {
 
         // Clone the behavior catalog item for item.
         for (String behaviorName : behaviors.keySet()) {
-            Behavior b = behaviors.get(behaviorName);
-            Behavior bc = b.clone(child);
+            Action b = behaviors.get(behaviorName);
+            Action bc = b.clone(child);
             clone.map(behaviorName, bc);
         }
 
@@ -84,8 +84,8 @@ public class BehaviorDispatcher {
     /**
      * A BehaviorDispatcher is equal to another object only if:
      * (1) The other Object is a BehaviorDispatcher.
-     * (2) Each Behavior in the other BehaviorDispatcher
-     * has an equivalent Behavior mapped to the same name
+     * (2) Each Action in the other BehaviorDispatcher
+     * has an equivalent Action mapped to the same name
      * as this BehaviorDispatcher.
      *
      * @param obj
@@ -108,8 +108,8 @@ public class BehaviorDispatcher {
                 return false;
             }
 
-            Behavior otherBehavior = other.behaviors.get(behaviorName);
-            Behavior thisBehavior = this.behaviors.get(behaviorName);
+            Action otherBehavior = other.behaviors.get(behaviorName);
+            Action thisBehavior = this.behaviors.get(behaviorName);
 
             if (!thisBehavior.equals(otherBehavior)) {
                 return false;
@@ -119,7 +119,7 @@ public class BehaviorDispatcher {
         return true;
     }
 
-    public Behavior getMappedBehavior(String behaviorName) {
+    public Action getMappedBehavior(String behaviorName) {
         return behaviors.get(behaviorName);
     }
 

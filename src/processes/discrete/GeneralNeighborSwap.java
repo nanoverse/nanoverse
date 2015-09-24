@@ -30,6 +30,7 @@ import geometry.Geometry;
 import processes.BaseProcessArguments;
 import processes.StepState;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
 
 import java.util.Set;
 
@@ -43,6 +44,7 @@ public class GeneralNeighborSwap extends CellProcess {
 
     private Coordinate[] getActiveSitesArr;
 
+    @FactoryTarget
     public GeneralNeighborSwap(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
 
         super(arguments, cpArguments);

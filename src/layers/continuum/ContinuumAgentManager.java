@@ -25,8 +25,8 @@
 package layers.continuum;
 
 import control.identifiers.Coordinate;
+import structural.annotations.FactoryTarget;
 
-import javax.management.relation.Relation;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -35,23 +35,26 @@ import java.util.stream.Stream;
  */
 public class ContinuumAgentManager {
 
-    private int count;
+    private final ContinuumAgentIndex index;
+    private final ReactionLinker loader;
+    private final String id;
 
-    private ContinuumAgentIndex index;
-    private ReactionLoader loader;
-    private String id;
-
-    public ContinuumAgentManager(ReactionLoader loader, ContinuumAgentIndex index, String id) {
-        this.id = id;
-
+    @FactoryTarget
+    public ContinuumAgentManager(ReactionLinker loader, ContinuumAgentIndex index, String id) {
         this.index = index;
+        this.id = id;
+        this.loader = loader;
+    }
+
+    public ContinuumAgentManager(ReactionLinker loader, String id) {
+        index = new ContinuumAgentIndex();
+        this.id = id;
         this.loader = loader;
     }
 
     public void apply() {
         Stream<RelationshipTuple> relationships = index.getRelationships();
         loader.apply(relationships);
-        count++;
     }
 
     public void reset() {

@@ -25,6 +25,7 @@
 package agent.action.stochastic;
 
 import cells.BehaviorCell;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 1/9/15.

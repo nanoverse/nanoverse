@@ -25,6 +25,7 @@
 package test;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
 import geometry.Geometry;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Matrix;
@@ -55,7 +56,7 @@ public abstract class LinearMocks extends TestBase {
         Coordinate[] cc = new Coordinate[3];
         cc = IntStream.range(0, 3)
                 .boxed()
-                .map(x -> new Coordinate(0, x, 0))
+                .map(x -> new Coordinate2D(0, x, 0))
                 .collect(Collectors.toList()).toArray(cc);
 
         return cc;

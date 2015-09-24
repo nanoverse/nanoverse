@@ -61,7 +61,7 @@ public class NonEquilibriumSolverTest extends TestBase {
         so = mock(ScheduledOperations.class);
         when(so.getOperator()).thenReturn(operator);
         when(so.getSource()).thenReturn(source);
-        query = new NonEquilibriumSolver(content, so, false);
+        query = new NonEquilibriumSolver(content, so);
     }
 
     private Vector makeSourceVector() {

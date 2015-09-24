@@ -22,21 +22,18 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package io.serialize.text;//import junit.framework.TestCase;
+package io.serialize.text;
 
 import cells.MockCell;
 import control.halt.ManualHaltEvent;
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.shape.Line;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import layers.MockLayerManager;
-import layers.cell.CellLayer;
-import layers.cell.CellUpdateManager;
+import layers.cell.*;
+import org.junit.*;
 import processes.StepState;
 import structural.MockGeneralParameters;
 import test.*;
@@ -49,8 +46,8 @@ public class SurfaceCensusWriterTest extends EslimeTestCase {
     private MockLayerManager layerManager;
     private CellLayer cellLayer;
 
+    @Before
     public void setUp() throws Exception {
-        super.setUp();
         p = makeMockGeneralParameters();
 
         Lattice lattice = new LinearLattice();
@@ -65,6 +62,7 @@ public class SurfaceCensusWriterTest extends EslimeTestCase {
         writer = new SurfaceCensusWriter(p, layerManager);
     }
 
+    @Test
     public void testLifeCycle() throws Exception {
         writer.init();
 
@@ -98,6 +96,22 @@ public class SurfaceCensusWriterTest extends EslimeTestCase {
         FileAssertions.assertOutputMatchesFixture("surface_census.txt", true);
     }
 
+    private void replace(int y, int state) throws Exception {
+        Coordinate c = new Coordinate2D(0, y, 0);
+        CellUpdateManager u = cellLayer.getUpdateManager();
+        u.banish(c);
+        MockCell cell = new MockCell(state);
+        u.place(cell, c);
+    }
+
+    private void put(int y, int state) throws Exception {
+        Coordinate c = new Coordinate2D(0, y, 0);
+        MockCell cell = new MockCell(state);
+        CellUpdateManager u = cellLayer.getUpdateManager();
+        u.place(cell, c);
+    }
+
+    @Test
     public void testImaginarySites() throws Exception {
         writer.init();
 
@@ -112,20 +126,5 @@ public class SurfaceCensusWriterTest extends EslimeTestCase {
         writer.close();
         FileAssertions.assertOutputMatchesFixture("surface_census_imaginary.txt", "surface_census.txt", true);
 //        assertFilesEqual("surface_census_imaginary.txt", "surface_census.txt");
-    }
-
-    private void replace(int y, int state) throws Exception {
-        Coordinate c = new Coordinate(0, y, 0);
-        CellUpdateManager u = cellLayer.getUpdateManager();
-        u.banish(c);
-        MockCell cell = new MockCell(state);
-        u.place(cell, c);
-    }
-
-    private void put(int y, int state) throws Exception {
-        Coordinate c = new Coordinate(0, y, 0);
-        MockCell cell = new MockCell(state);
-        CellUpdateManager u = cellLayer.getUpdateManager();
-        u.place(cell, c);
     }
 }

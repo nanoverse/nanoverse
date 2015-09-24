@@ -24,6 +24,8 @@
 
 package io.visual.glyph;
 
+import io.visual.highlight.*;
+
 import java.awt.*;
 
 /**

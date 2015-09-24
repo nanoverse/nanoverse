@@ -28,6 +28,7 @@ import geometry.Geometry;
 import geometry.boundaries.Boundary;
 import geometry.lattice.Lattice;
 import geometry.shape.Shape;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 11/24/14.
@@ -37,6 +38,7 @@ public class GeometryDescriptor {
     private Lattice lattice;
     private Shape shape;
 
+    @FactoryTarget
     public GeometryDescriptor(Lattice lattice, Shape shape) {
         this.shape = shape;
         this.lattice = lattice;

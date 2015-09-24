@@ -26,24 +26,20 @@ package processes.discrete;
 
 import cells.MockCell;
 import control.GeneralParameters;
-import control.arguments.CellDescriptor;
-import control.arguments.ConstantInteger;
-import control.arguments.MockCellDescriptor;
-import control.identifiers.Coordinate;
+import control.arguments.*;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.set.CoordinateSet;
-import geometry.set.CustomSet;
-import geometry.shape.Line;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.set.*;
+import geometry.shape.*;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import processes.BaseProcessArguments;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 public class FillTest extends EslimeTestCase {
 
     private Geometry geom;
@@ -52,10 +48,8 @@ public class FillTest extends EslimeTestCase {
     private BaseProcessArguments arguments;
     private CellDescriptor cd;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
+    @Before
+    public void setUp() throws Exception {
         p = makeMockGeneralParameters();
         lm = new MockLayerManager();
 
@@ -72,6 +66,7 @@ public class FillTest extends EslimeTestCase {
         cd = new MockCellDescriptor();
     }
 
+    @Test
     public void testBaseBehavior() throws Exception {
         CellProcessArguments cpArguments = makeCellProcessArguments(geom);
         Fill query = new Fill(arguments, cpArguments, false, cd);
@@ -81,10 +76,11 @@ public class FillTest extends EslimeTestCase {
         assertEquals(10, lm.getCellLayer().getViewer().getOccupiedSites().size());
     }
 
+    @Test
     public void testRespectActiveSites() throws Exception {
         CoordinateSet activeSites = new CustomSet();
         for (int y = 2; y < 5; y++) {
-            activeSites.add(new Coordinate(0, y, 0));
+            activeSites.add(new Coordinate2D(0, y, 0));
         }
 
         CellProcessArguments cpArguments = new CellProcessArguments(activeSites, new ConstantInteger(-1));
@@ -100,19 +96,14 @@ public class FillTest extends EslimeTestCase {
         }
     }
 
+    @Test
     public void testSkipFilledYes() throws Exception {
-        Coordinate c = new Coordinate(0, 2, 0);
+        Coordinate c = new Coordinate2D(0, 2, 0);
         lm.getCellLayer().getUpdateManager().place(new MockCell(2), c);
         doSkipFilledTest(true);
 
         // Original cell should not have been replaced, because it was skipped
         assertEquals(2, lm.getCellLayer().getViewer().getState(c));
-    }
-
-    public void testSkipFilledNo() throws Exception {
-        Coordinate c = new Coordinate(0, 2, 0);
-        lm.getCellLayer().getUpdateManager().place(new MockCell(2), c);
-        doSkipFilledTest(false);
     }
 
     private void doSkipFilledTest(boolean skip) throws Exception {
@@ -128,5 +119,12 @@ public class FillTest extends EslimeTestCase {
         }
 
         assertTrue(thrown == !skip);
+    }
+
+    @Test
+    public void testSkipFilledNo() throws Exception {
+        Coordinate c = new Coordinate2D(0, 2, 0);
+        lm.getCellLayer().getUpdateManager().place(new MockCell(2), c);
+        doSkipFilledTest(false);
     }
 }

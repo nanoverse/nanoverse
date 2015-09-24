@@ -25,12 +25,13 @@
 package processes;
 
 import control.GeneralParameters;
-import control.arguments.Argument;
-import control.arguments.UniformInteger;
+import control.arguments.*;
 import control.halt.HaltCondition;
+import org.junit.Test;
 import processes.gillespie.GillespieState;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Test to make sure that stochastic values work as expected in a process.
  * This is a regression test for a possible failure mode observed in April 2014.
@@ -40,15 +41,7 @@ import test.EslimeTestCase;
 public class StochasticProcessTest extends EslimeTestCase {
 
 
-    protected static double mean(double[] a) {
-        if (a.length == 0) return Double.NaN;
-        double sum = 0.0;
-        for (int i = 0; i < a.length; i++) {
-            sum = sum + a[i];
-        }
-        return sum / a.length;
-    }
-
+    @Test
     public void testOngoing() throws Exception {
         double[] obs = new double[100];
         GeneralParameters p = makeMockGeneralParameters();
@@ -70,6 +63,15 @@ public class StochasticProcessTest extends EslimeTestCase {
         double actual = mean(results);
         double var = (1.0 / 12.0) * Math.pow(1, 2.0);
         assertEquals(expected, actual, var);
+    }
+
+    protected static double mean(double[] a) {
+        if (a.length == 0) return Double.NaN;
+        double sum = 0.0;
+        for (int i = 0; i < a.length; i++) {
+            sum = sum + a[i];
+        }
+        return sum / a.length;
     }
 
     private double minValue(double[] a) {
@@ -96,18 +98,14 @@ public class StochasticProcessTest extends EslimeTestCase {
         return cur;
     }
 
-    private class StochasticProcess extends EcoProcess {
+    private class StochasticProcess extends NanoverseProcess {
 
-        private Argument<Integer> ongoing;
+        private IntegerArgument ongoing;
         private Integer ongoingVal;
 
-        public StochasticProcess(Argument<Integer> ongoing) {
+        public StochasticProcess(IntegerArgument ongoing) {
             super(makeBaseProcessArguments(null, null));
             this.ongoing = ongoing;
-        }
-
-        @Override
-        public void init() {
         }
 
         @Override
@@ -115,13 +113,17 @@ public class StochasticProcessTest extends EslimeTestCase {
             ongoingVal = ongoing.next();
         }
 
-        public double getOngoingVal() {
-            return ongoingVal;
-        }
-
         @Override
         public void fire(StepState state) throws HaltCondition {
 
+        }
+
+        @Override
+        public void init() {
+        }
+
+        public double getOngoingVal() {
+            return ongoingVal;
         }
 
     }

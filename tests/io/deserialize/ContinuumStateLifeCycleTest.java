@@ -84,8 +84,8 @@ public class ContinuumStateLifeCycleTest extends TestBase {
 
     private void verifyExtrema(Extrema actual, double coefficient) {
         Extrema expected = new Extrema();
-        expected.consider(0.0, new Coordinate(0, 0, 0), 1.0);
-        expected.consider(coefficient * 18.0, new Coordinate(9, 0, 0), 2.0);
+        expected.consider(0.0, new Coordinate2D(0, 0, 0), 1.0);
+        expected.consider(coefficient * 18.0, new Coordinate2D(9, 0, 0), 2.0);
         assertEquals(expected, actual);
     }
 
@@ -150,7 +150,7 @@ public class ContinuumStateLifeCycleTest extends TestBase {
 
     private Coordinate[] makeCoordinateArray() {
         return IntStream.range(0, RANGE)
-                .mapToObj(i -> new Coordinate(i, 0, 0))
+                .mapToObj(i -> new Coordinate2D(i, 0, 0))
                 .collect(Collectors.toList())
                 .toArray(new Coordinate[RANGE]);
     }

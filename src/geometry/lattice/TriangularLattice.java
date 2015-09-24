@@ -25,16 +25,24 @@
 package geometry.lattice;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 
 public class TriangularLattice extends Lattice {
 
+    @FactoryTarget
+    public TriangularLattice() {
+        super();
+    }
+
     protected void defineBasis() {
-        Coordinate southeast = new Coordinate(1, 0, 0);
-        Coordinate northeast = new Coordinate(1, 1, 0);
-        Coordinate north = new Coordinate(0, 1, 0);
+        Coordinate southeast = new Coordinate2D(1, 0, 0);
+        Coordinate northeast = new Coordinate2D(1, 1, 0);
+        Coordinate north = new Coordinate2D(0, 1, 0);
 
         basis = new Coordinate[]{southeast, northeast, north};
     }
@@ -63,7 +71,7 @@ public class TriangularLattice extends Lattice {
             yAdj = ((x - 1) / 2);
         }
 
-        Coordinate o = new Coordinate(i.x(), i.y() + yAdj, i.flags());
+        Coordinate o = new Coordinate2D(i.x(), i.y() + yAdj, i.flags());
 
         return o;
     }
@@ -81,7 +89,7 @@ public class TriangularLattice extends Lattice {
         } else {
             yAdj = ((x - 1) / 2);
         }
-        Coordinate o = new Coordinate(i.x(), i.y() - yAdj, i.flags());
+        Coordinate o = new Coordinate2D(i.x(), i.y() - yAdj, i.flags());
 
         return o;
     }
@@ -97,7 +105,7 @@ public class TriangularLattice extends Lattice {
 
         // r=0 case (a point)
         if (r == 0) {
-            return new Coordinate[]{new Coordinate(x0, y0, 0)};
+            return new Coordinate[]{new Coordinate2D(x0, y0, 0)};
         }
 
         // All other cases
@@ -105,27 +113,27 @@ public class TriangularLattice extends Lattice {
 
         for (int k = 1; k <= r; k++) {
             // Right side
-            Coordinate candidate = new Coordinate(x0 + r, y0 + k - 1, 0);
+            Coordinate candidate = new Coordinate2D(x0 + r, y0 + k - 1, 0);
             ring.add(candidate);
 
             // Lower right side
-            candidate = new Coordinate(x0 + r - k, y0 - k, 0);
+            candidate = new Coordinate2D(x0 + r - k, y0 - k, 0);
             ring.add(candidate);
 
             // Lower left side
-            candidate = new Coordinate(x0 - k, y0 - r, 0);
+            candidate = new Coordinate2D(x0 - k, y0 - r, 0);
             ring.add(candidate);
 
             // Left side
-            candidate = new Coordinate(x0 - r, y0 - r + k, 0);
+            candidate = new Coordinate2D(x0 - r, y0 - r + k, 0);
             ring.add(candidate);
 
             // Upper left side
-            candidate = new Coordinate(x0 - r + k, y0 + k, 0);
+            candidate = new Coordinate2D(x0 - r + k, y0 + k, 0);
             ring.add(candidate);
 
             // Upper right side
-            candidate = new Coordinate(x0 + k, y0 + r, 0);
+            candidate = new Coordinate2D(x0 + k, y0 + r, 0);
             ring.add(candidate);
         }
 
@@ -177,7 +185,7 @@ public class TriangularLattice extends Lattice {
         int dw = dy - dv;
 
         // Populate the vector in the new basis -- done!
-        return new Coordinate(du, dv, dw, Flags.VECTOR);
+        return new Coordinate3D(du, dv, dw, Flags.VECTOR);
     }
 
     @Override
@@ -197,7 +205,7 @@ public class TriangularLattice extends Lattice {
         int dv = 0;
         int dw = yq - yp;
 
-        return new Coordinate(du, dv, dw, Flags.VECTOR);
+        return new Coordinate3D(du, dv, dw, Flags.VECTOR);
     }
 
 
@@ -220,7 +228,7 @@ public class TriangularLattice extends Lattice {
         // Apply w component
         y += displacement.z();
 
-        Coordinate target = new Coordinate(x, y, 0);
+        Coordinate target = new Coordinate2D(x, y, 0);
 
         return target;
     }
@@ -232,6 +240,6 @@ public class TriangularLattice extends Lattice {
 
     @Override
     public Coordinate getZeroVector() {
-        return new Coordinate(0, 0, 0);
+        return new Coordinate2D(0, 0, 0);
     }
 }

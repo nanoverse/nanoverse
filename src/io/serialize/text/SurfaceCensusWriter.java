@@ -31,6 +31,7 @@ import io.serialize.Serializer;
 import layers.LayerManager;
 import layers.cell.CellLayer;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.io.BufferedWriter;
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class SurfaceCensusWriter extends Serializer {
 
     private BufferedWriter bw;
 
+    @FactoryTarget
     public SurfaceCensusWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
     }

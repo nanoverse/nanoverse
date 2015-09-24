@@ -25,14 +25,21 @@
 package geometry.lattice;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
+import structural.annotations.FactoryTarget;
 
 public class CubicLattice extends Lattice {
 
+    @FactoryTarget
+    public CubicLattice() {
+        super();
+    }
+
     protected void defineBasis() {
-        Coordinate i = new Coordinate(1, 0, 0, 0);
-        Coordinate j = new Coordinate(0, 1, 0, 0);
-        Coordinate k = new Coordinate(0, 0, 1, 0);
+        Coordinate i = new Coordinate3D(1, 0, 0, 0);
+        Coordinate j = new Coordinate3D(0, 1, 0, 0);
+        Coordinate k = new Coordinate3D(0, 0, 1, 0);
 
         basis = new Coordinate[]{i, j, k};
     }
@@ -65,7 +72,7 @@ public class CubicLattice extends Lattice {
 
         // r=0 case (a point)
         if (r == 0) {
-            return new Coordinate[]{new Coordinate(x0, y0, z0, 0)};
+            return new Coordinate[]{new Coordinate3D(x0, y0, z0, 0)};
         }
 
         /* I'm so bad at series. Let's see...
@@ -159,7 +166,7 @@ public class CubicLattice extends Lattice {
 
         // r=0 case (a point)
         if (r == 0) {
-            shell[offset] = new Coordinate(x0, y0, z, 0);
+            shell[offset] = new Coordinate3D(x0, y0, z, 0);
             return offset + 1;
         }
 
@@ -168,10 +175,10 @@ public class CubicLattice extends Lattice {
 
             int base = 4 * i;
 
-            shell[offset + base + 0] = new Coordinate(x0 + i, y0 + j, z, 0);
-            shell[offset + base + 1] = new Coordinate(x0 + j, y0 - i, z, 0);
-            shell[offset + base + 2] = new Coordinate(x0 - i, y0 - j, z, 0);
-            shell[offset + base + 3] = new Coordinate(x0 - j, y0 + i, z, 0);
+            shell[offset + base + 0] = new Coordinate3D(x0 + i, y0 + j, z, 0);
+            shell[offset + base + 1] = new Coordinate3D(x0 + j, y0 - i, z, 0);
+            shell[offset + base + 2] = new Coordinate3D(x0 - i, y0 - j, z, 0);
+            shell[offset + base + 3] = new Coordinate3D(x0 - j, y0 + i, z, 0);
         }
 
         return offset + 4 * r;
@@ -187,7 +194,7 @@ public class CubicLattice extends Lattice {
         int dy = qCoord.y() - pCoord.y();
         int dz = qCoord.z() - pCoord.z();
 
-        return new Coordinate(dx, dy, dz, Flags.VECTOR);
+        return new Coordinate3D(dx, dy, dz, Flags.VECTOR);
     }
 
     @Override
@@ -209,7 +216,7 @@ public class CubicLattice extends Lattice {
         // Apply z component
         z += displacement.z();
 
-        Coordinate target = new Coordinate(x, y, z, 0);
+        Coordinate target = new Coordinate3D(x, y, z, 0);
 
         return target;
     }
@@ -231,6 +238,6 @@ public class CubicLattice extends Lattice {
 
     @Override
     public Coordinate getZeroVector() {
-        return new Coordinate(0, 0, 0, 0);
+        return new Coordinate3D(0, 0, 0, 0);
     }
 }

@@ -24,6 +24,7 @@
 
 package layers;
 
+import org.junit.Test;
 import test.EslimeTestCase;
 
 /**
@@ -32,13 +33,17 @@ import test.EslimeTestCase;
 public abstract class SystemStateTest extends EslimeTestCase {
 //    public abstract void testGetHealth() throws Exception;
 
+    @Test
     public abstract void testGetState() throws Exception;
 
 //    public abstract void testGetValue() throws Exception;
 
+    @Test
     public abstract void testGetTime() throws Exception;
 
+    @Test
     public abstract void testGetFrame() throws Exception;
 
+    @Test
     public abstract void testIsHighlighted() throws Exception;
 }

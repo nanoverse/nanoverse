@@ -25,11 +25,13 @@
 package factory.processes.discrete.filter;
 
 import control.GeneralParameters;
-import control.arguments.Argument;
+import control.arguments.*;
 import factory.control.arguments.IntegerArgumentFactory;
 import layers.LayerManager;
 import org.dom4j.Element;
 import processes.discrete.filter.*;
+
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 5/5/14.
@@ -78,28 +80,22 @@ public abstract class FilterFactory {
     }
 
     private static Filter composite(Element e, LayerManager layerManager, GeneralParameters p) {
-        int nChildren = e.elements().size();
-        Filter[] children = new Filter[nChildren];
+        Stream<Filter> filters = e.elements()
+            .stream()
+            .map(ce -> singleton((Element) ce, layerManager, p));
 
-        int i = 0;
-        for (Object o : e.elements()) {
-            Filter child = singleton((Element) o, layerManager, p);
-            children[i] = child;
-            i++;
-        }
-
-        CompositeFilter ret = new CompositeFilter(children);
+        CompositeFilter ret = new CompositeFilter(filters);
         return ret;
     }
 
     private static Filter cellStateFilter(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> toChoose = IntegerArgumentFactory.instantiate(e, "state", p.getRandom());
+        IntegerArgument toChoose = IntegerArgumentFactory.instantiate(e, "state", p.getRandom());
         CellStateFilter ret = new CellStateFilter(layerManager.getCellLayer(), toChoose);
         return ret;
     }
 
     private static Filter depthFilter(Element e, LayerManager layerManager, GeneralParameters p) {
-        Argument<Integer> maxDepth = IntegerArgumentFactory.instantiate(e, "max-depth", 1, p.getRandom());
+        IntegerArgument maxDepth = IntegerArgumentFactory.instantiate(e, "max-depth", 1, p.getRandom());
         DepthFilter ret = new DepthFilter(layerManager.getCellLayer(), maxDepth);
         return ret;
     }

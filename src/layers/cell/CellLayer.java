@@ -27,6 +27,7 @@ package layers.cell;
 import geometry.Geometry;
 import geometry.boundaries.HaltBoundary;
 import layers.Layer;
+import structural.annotations.FactoryTarget;
 
 /**
  * @author David Bruce Borenstein
@@ -36,6 +37,7 @@ public class CellLayer extends Layer {
 
     protected CellLayerContent content;
 
+    @FactoryTarget(displayName = "AgentLayer")
     public CellLayer(Geometry geom) {
         geometry = geom;
         reset();

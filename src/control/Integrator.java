@@ -28,6 +28,7 @@ import control.halt.HaltCondition;
 import control.halt.StepMaxReachedEvent;
 import io.serialize.SerializationManager;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 public class Integrator {
 
@@ -36,6 +37,7 @@ public class Integrator {
     private GeneralParameters p;
     private SerializationManager serializationManager;
 
+    @FactoryTarget
     public Integrator(GeneralParameters p, ProcessManager processManager,
                       SerializationManager serializationManager) {
 
@@ -86,7 +88,8 @@ public class Integrator {
         // of the instance.
         serializationManager.dispatchHalt(ex);
 
-        System.out.println(p.getInstancePath());
+        System.out.println("Working directory: " + System.getProperty("user.dir"));
+        System.out.println("Simulation path: " + p.getInstancePath());
 
         // This instructs the parameter handler to re-initialize the random
         // number generator and to update paths to reflect the next

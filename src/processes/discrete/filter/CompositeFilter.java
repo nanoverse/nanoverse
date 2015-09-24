@@ -24,19 +24,23 @@
 
 package processes.discrete.filter;
 
+import com.google.common.collect.Lists;
 import control.identifiers.Coordinate;
+import structural.annotations.FactoryTarget;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.*;
 
 /**
  * Created by dbborens on 5/5/14.
  */
 public class CompositeFilter extends Filter {
-    private Filter[] children;
+    private List<Filter> childList;
 
-    public CompositeFilter(Filter[] children) {
-        this.children = children;
+    @FactoryTarget
+    public CompositeFilter(Stream<Filter> children) {
+        childList = children.collect(Collectors.toList());
     }
 
     @Override
@@ -46,19 +50,14 @@ public class CompositeFilter extends Filter {
 
         CompositeFilter that = (CompositeFilter) o;
 
-        if (!Arrays.equals(children, that.children)) return false;
+        if (!childList.equals(that.childList)) return false;
 
         return true;
     }
 
     @Override
-    public int hashCode() {
-        return children != null ? Arrays.hashCode(children) : 0;
-    }
-
-    @Override
     public List<Coordinate> apply(List<Coordinate> toFilter) {
-        for (Filter child : children) {
+        for (Filter child : childList) {
             toFilter = child.apply(toFilter);
         }
 

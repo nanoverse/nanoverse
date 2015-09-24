@@ -26,30 +26,33 @@ package control;
 
 import control.halt.HaltCondition;
 import layers.LayerManager;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.*;
 
 /**
  * Created by dbborens on 1/6/14.
  */
 public class ProcessManager {
 
-    private List<EcoProcess> processes;
+    private List<NanoverseProcess> processList;
     private LayerManager layerManager;
 
-    public ProcessManager(List<EcoProcess> processes, LayerManager layerManager) {
-        this.processes = processes;
+    @FactoryTarget
+    public ProcessManager(Stream<NanoverseProcess> processes, LayerManager layerManager) {
+        processList = processes.collect(Collectors.toList());
         this.layerManager = layerManager;
     }
 
-    protected List<EcoProcess> getTriggeredProcesses(int n) throws HaltCondition {
+    protected List<NanoverseProcess> getTriggeredProcesses(int n) throws HaltCondition {
 
-        ArrayList<EcoProcess> triggeredProcesses = new ArrayList<>(processes.size());
+        ArrayList<NanoverseProcess> triggeredProcesses = new ArrayList<>(processList.size());
 
-        for (EcoProcess process : processes) {
+        for (NanoverseProcess process : processList) {
             if (triggered(n, process)) {
                 triggeredProcesses.add(process);
             }
@@ -58,7 +61,7 @@ public class ProcessManager {
         return triggeredProcesses;
     }
 
-    protected boolean triggered(int n, EcoProcess process) throws HaltCondition {
+    protected boolean triggered(int n, NanoverseProcess process) throws HaltCondition {
         int period = process.getPeriod().next();
         int start = process.getStart().next();
 
@@ -100,10 +103,10 @@ public class ProcessManager {
         layerManager.setStepState(stepState);
 
         // Get triggered events.
-        List<EcoProcess> triggeredProcesses = getTriggeredProcesses(stepState.getFrame());
+        List<NanoverseProcess> triggeredProcesses = getTriggeredProcesses(stepState.getFrame());
 
         // Fire each triggered cell event.
-        for (EcoProcess process : triggeredProcesses) {
+        for (NanoverseProcess process : triggeredProcesses) {
                 process.iterate();
         }
 
@@ -121,7 +124,7 @@ public class ProcessManager {
      */
     public void init() {
         layerManager.reset();
-        for (EcoProcess process : processes) {
+        for (NanoverseProcess process : processList) {
             process.init();
         }
     }
@@ -138,13 +141,13 @@ public class ProcessManager {
 
         ProcessManager other = (ProcessManager) obj;
 
-        if (other.processes.size() != this.processes.size()) {
+        if (other.processList.size() != this.processList.size()) {
             return false;
         }
 
-        for (int i = 0; i < processes.size(); i++) {
-            EcoProcess mine = processes.get(i);
-            EcoProcess theirs = other.processes.get(i);
+        for (int i = 0; i < processList.size(); i++) {
+            NanoverseProcess mine = processList.get(i);
+            NanoverseProcess theirs = other.processList.get(i);
 
             if (!mine.equals(theirs)) {
                 return false;

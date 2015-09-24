@@ -25,7 +25,7 @@
 package factory.io.serialize;
 
 import control.GeneralParameters;
-import control.arguments.Argument;
+import control.arguments.*;
 import factory.control.arguments.DoubleArgumentFactory;
 import factory.control.arguments.IntegerArgumentFactory;
 import factory.io.visual.VisualizationFactory;
@@ -42,8 +42,8 @@ import layers.LayerManager;
 import org.dom4j.Element;
 import structural.utilities.XmlUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 1/17/14.
@@ -60,9 +60,6 @@ public abstract class SerializationFactory {
             return ret;
         } else if (writerClass.equalsIgnoreCase("halt-time-writer")) {
             ret = new HaltTimeWriter(p, lm);
-            return ret;
-        } else if (writerClass.equalsIgnoreCase("parameter-writer")) {
-            ret = new ParameterWriter(p, lm);
             return ret;
         } else if (writerClass.equalsIgnoreCase("progress-reporter")) {
             ret = new ProgressReporter(p, lm);
@@ -82,7 +79,7 @@ public abstract class SerializationFactory {
             ret = new IndividualHaltWriter(p, lm);
             return ret;
         } else if (writerClass.equalsIgnoreCase("interface-census-writer")) {
-            Argument<Integer> focalStateArg = IntegerArgumentFactory.instantiate(e, "focal-state", p.getRandom());
+            IntegerArgument focalStateArg = IntegerArgumentFactory.instantiate(e, "focal-state", p.getRandom());
             ret = new InterfaceCensusWriter(p, focalStateArg, lm);
             return ret;
         } else if (writerClass.equalsIgnoreCase("interval-writer")) {
@@ -106,7 +103,16 @@ public abstract class SerializationFactory {
         } else if (writerClass.equalsIgnoreCase("highlight-writer")) {
             Element channelsElem = e.element("channels");
             int[] channels = XmlUtil.getIntegerArray(channelsElem, "channel");
-            ret = new HighlightWriter(p, channels, lm);
+
+            // So glad this will all go away with compiler
+            List<Integer> channelList = new ArrayList<>(channels.length);
+
+            for (int channel : channels) {
+                channelList.add(channel);
+            }
+
+            Stream<Integer> channelStream = channelList.stream();
+            ret = new HighlightWriter(p, channelStream, lm);
             return ret;
         } else if (writerClass.equalsIgnoreCase("visualization-serializer")) {
             ret = visualizationSerializer(e, p, lm);
@@ -137,7 +143,7 @@ public abstract class SerializationFactory {
     }
 
     private static CorrelationWriter correlationWriter(Element e, GeneralParameters p, LayerManager lm) {
-        Argument<Double> triggerTimeArg = DoubleArgumentFactory.instantiate(e, "trigger-time", 0.0, p.getRandom());
+        DoubleArgument triggerTimeArg = DoubleArgumentFactory.instantiate(e, "trigger-time", 0.0, p.getRandom());
         String filename = XmlUtil.getString(e, "filename", "correlation.txt");
         return new CorrelationWriter(p, filename, triggerTimeArg, lm);
     }

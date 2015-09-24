@@ -25,10 +25,11 @@
 package processes.discrete;
 
 import cells.MockCell;
-import processes.BaseProcessArguments;
-import processes.MockStepState;
+import org.junit.*;
+import processes.*;
 import test.EslimeLatticeTestCase;
 
+import static org.junit.Assert.*;
 /**
  * Created by dbborens on 3/5/14.
  */
@@ -38,8 +39,8 @@ public class CullTest extends EslimeLatticeTestCase {
 
     private Cull query;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, null);
         CellProcessArguments cpArguments = makeCellProcessArguments(geom);
@@ -52,6 +53,7 @@ public class CullTest extends EslimeLatticeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testLifeCycle() throws Exception {
         MockCell live = new MockCell();
         MockCell die = new MockCell();
@@ -83,6 +85,7 @@ public class CullTest extends EslimeLatticeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testBorderlineCase() throws Exception {
         MockCell borderline = new MockCell();
         borderline.setHealth(THRESHOLD);

@@ -25,7 +25,7 @@
 package agent.action;
 
 import cells.BehaviorCell;
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import layers.LayerManager;
@@ -35,9 +35,9 @@ import layers.LayerManager;
  */
 public class Die extends Action {
 
-    private Argument<Integer> channel;
+    private IntegerArgument channel;
 
-    public Die(BehaviorCell callback, LayerManager layerManager, Argument<Integer> channel) {
+    public Die(BehaviorCell callback, LayerManager layerManager, IntegerArgument channel) {
         super(callback, layerManager);
         this.channel = channel;
     }

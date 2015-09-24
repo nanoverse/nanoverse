@@ -25,9 +25,11 @@
 package layers.continuum;
 
 import control.identifiers.Coordinate;
+import geometry.Geometry;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import structural.annotations.FactoryTarget;
 import structural.utilities.MatrixUtils;
 
 import java.util.function.Function;
@@ -46,8 +48,10 @@ public class ScheduledOperations {
     private Function<Coordinate, Integer> indexer;
     private final boolean operators;
 
-    public ScheduledOperations(Function<Coordinate, Integer> indexer, int n, boolean operators) {
-        this.indexer = indexer;
+    @FactoryTarget
+    public ScheduledOperations(Geometry geom, boolean operators) {
+        int n = geom.getCanonicalSites().length;
+        indexer = geom.getIndexer();
         this.operators = operators;
 
         if (operators) {
@@ -161,4 +165,7 @@ public class ScheduledOperations {
         return operator;
     }
 
+    public boolean isOperators() {
+        return operators;
+    }
 }

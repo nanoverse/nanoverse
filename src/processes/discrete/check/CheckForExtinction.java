@@ -24,7 +24,7 @@
 
 package processes.discrete.check;
 
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.ExtinctionEvent;
 import control.halt.HaltCondition;
 import processes.BaseProcessArguments;
@@ -32,6 +32,8 @@ import processes.StepState;
 import processes.discrete.CellProcess;
 import processes.discrete.CellProcessArguments;
 import processes.gillespie.GillespieState;
+import structural.annotations.FactoryTarget;
+import structural.utilities.EpsilonUtil;
 
 /**
  * Checks for extinction or fixation events.
@@ -41,9 +43,10 @@ import processes.gillespie.GillespieState;
 public class CheckForExtinction extends CellProcess {
 
     private double threshold;
-    private Argument<Double> thresholdArg;
+    private DoubleArgument thresholdArg;
 
-    public CheckForExtinction(BaseProcessArguments arguments, CellProcessArguments cpArguments, Argument<Double> thresholdArg) {
+    @FactoryTarget
+    public CheckForExtinction(BaseProcessArguments arguments, CellProcessArguments cpArguments, DoubleArgument thresholdArg) {
         super(arguments, cpArguments);
         this.thresholdArg = thresholdArg;
     }
@@ -68,7 +71,7 @@ public class CheckForExtinction extends CellProcess {
     @Override
     public void fire(StepState state) throws HaltCondition {
         // Handle true extinction exactly
-        boolean thresholdIsZero = getGeneralParameters().epsilonEquals(threshold, 0.0);
+        boolean thresholdIsZero = EpsilonUtil.epsilonEquals(threshold, 0.0);
         boolean noOccupiedSites = getLayer().getViewer().getOccupiedSites().size() == 0;
         if (thresholdIsZero && noOccupiedSites) {
             throw new ExtinctionEvent();

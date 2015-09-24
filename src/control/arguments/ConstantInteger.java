@@ -24,34 +24,15 @@
 
 package control.arguments;
 
+import structural.annotations.FactoryTarget;
+
 /**
  * Created by David B Borenstein on 4/7/14.
  */
-public class ConstantInteger extends Argument<Integer> {
+public class ConstantInteger extends Constant<Integer> implements IntegerArgument {
 
-    private Integer value;
-
+    @FactoryTarget
     public ConstantInteger(Integer value) {
-        this.value = value;
-    }
-
-    @Override
-    public Integer next() {
-        return value;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof ConstantInteger)) {
-            return false;
-        }
-
-        ConstantInteger other = (ConstantInteger) obj;
-
-        if (other.value != value) {
-            return false;
-        }
-
-        return true;
+        super(value);
     }
 }

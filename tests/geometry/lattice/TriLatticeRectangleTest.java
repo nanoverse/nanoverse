@@ -24,12 +24,12 @@
 
 package geometry.lattice;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Flags;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import control.identifiers.*;
+import geometry.shape.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Tests that the rectangle geometry shape works as expected
  * with the triangular lattice.
@@ -41,7 +41,7 @@ public class TriLatticeRectangleTest extends EslimeTestCase {
     private Shape odd;
     private Shape even;
 
-    @Override
+    @Before
     public void setUp() {
         Lattice oddLattice = new TriangularLattice();
         Lattice evenLattice = new TriangularLattice();
@@ -50,150 +50,155 @@ public class TriLatticeRectangleTest extends EslimeTestCase {
         odd = new Rectangle(oddLattice, 5, 3);
     }
 
+    @Test
     public void testGetCenter() {
         Coordinate actual, expected;
 
         // Even -- we round down
-        expected = new Coordinate(1, 0, 0);
+        expected = new Coordinate2D(1, 0, 0);
         actual = even.getCenter();
         assertEquals(expected, actual);
 
         // Odd
-        expected = new Coordinate(2, 2, 0);
+        expected = new Coordinate2D(2, 2, 0);
         actual = odd.getCenter();
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testGetBoundaries() {
         Coordinate[] actual, expected;
 
         // Even
-        expected = new Coordinate[]{
-                new Coordinate(0, 0, 0),
-                new Coordinate(1, 0, 0),
-                new Coordinate(2, 1, 0),
-                new Coordinate(3, 1, 0),
-                new Coordinate(0, 1, 0),
-                new Coordinate(1, 1, 0),
-                new Coordinate(2, 2, 0),
-                new Coordinate(3, 2, 0),
+        expected = new Coordinate2D[]{
+                new Coordinate2D(0, 0, 0),
+                new Coordinate2D(1, 0, 0),
+                new Coordinate2D(2, 1, 0),
+                new Coordinate2D(3, 1, 0),
+                new Coordinate2D(0, 1, 0),
+                new Coordinate2D(1, 1, 0),
+                new Coordinate2D(2, 2, 0),
+                new Coordinate2D(3, 2, 0),
         };
         actual = even.getBoundaries();
         assertArraysEqual(actual, expected, true);
 
         // Odd
-        expected = new Coordinate[]{
-                new Coordinate(0, 0, 0),
-                new Coordinate(1, 0, 0),
-                new Coordinate(2, 1, 0),
-                new Coordinate(3, 1, 0),
-                new Coordinate(4, 2, 0),
-                new Coordinate(4, 3, 0),
-                new Coordinate(4, 4, 0),
-                new Coordinate(3, 3, 0),
-                new Coordinate(2, 3, 0),
-                new Coordinate(1, 2, 0),
-                new Coordinate(0, 2, 0),
-                new Coordinate(0, 1, 0)
+        expected = new Coordinate2D[]{
+                new Coordinate2D(0, 0, 0),
+                new Coordinate2D(1, 0, 0),
+                new Coordinate2D(2, 1, 0),
+                new Coordinate2D(3, 1, 0),
+                new Coordinate2D(4, 2, 0),
+                new Coordinate2D(4, 3, 0),
+                new Coordinate2D(4, 4, 0),
+                new Coordinate2D(3, 3, 0),
+                new Coordinate2D(2, 3, 0),
+                new Coordinate2D(1, 2, 0),
+                new Coordinate2D(0, 2, 0),
+                new Coordinate2D(0, 1, 0)
         };
 
         actual = odd.getBoundaries();
         assertArraysEqual(expected, actual, true);
     }
 
+    @Test
     public void testCanonicalSites() {
         Coordinate[] actual, expected;
 
-        expected = new Coordinate[]{
-                new Coordinate(0, 0, 0),
-                new Coordinate(1, 0, 0),
-                new Coordinate(2, 1, 0),
-                new Coordinate(3, 1, 0),
-                new Coordinate(0, 1, 0),
-                new Coordinate(1, 1, 0),
-                new Coordinate(2, 2, 0),
-                new Coordinate(3, 2, 0),
+        expected = new Coordinate2D[]{
+                new Coordinate2D(0, 0, 0),
+                new Coordinate2D(1, 0, 0),
+                new Coordinate2D(2, 1, 0),
+                new Coordinate2D(3, 1, 0),
+                new Coordinate2D(0, 1, 0),
+                new Coordinate2D(1, 1, 0),
+                new Coordinate2D(2, 2, 0),
+                new Coordinate2D(3, 2, 0),
         };
         actual = even.getCanonicalSites();
         assertArraysEqual(actual, expected, true);
     }
 
+    @Test
     public void testOverbounds() {
 
         // In bounds coordinates
         Coordinate a, b, c;
-        a = new Coordinate(0, 0, 0);
-        b = new Coordinate(1, 0, 0);
-        c = new Coordinate(1, 1, 0);
+        a = new Coordinate2D(0, 0, 0);
+        b = new Coordinate2D(1, 0, 0);
+        c = new Coordinate2D(1, 1, 0);
 
         // Out of bounds coordinates
         Coordinate p, q, r, s;
-        p = new Coordinate(0, 3, 0);
-        q = new Coordinate(5, 5, 0);
-        r = new Coordinate(-1, 0, 0);
-        s = new Coordinate(-1, -1, 0);
+        p = new Coordinate2D(0, 3, 0);
+        q = new Coordinate2D(5, 5, 0);
+        r = new Coordinate2D(-1, 0, 0);
+        s = new Coordinate2D(-1, -1, 0);
 
         Coordinate expected, actual;
 
         // Even
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         actual = even.getOverbounds(a);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         actual = even.getOverbounds(b);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         actual = even.getOverbounds(c);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(0, 2, Flags.VECTOR);
+        expected = new Coordinate2D(0, 2, Flags.VECTOR);
         actual = even.getOverbounds(p);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(2, 2, Flags.VECTOR);
+        expected = new Coordinate2D(2, 2, Flags.VECTOR);
         actual = even.getOverbounds(q);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(-1, 0, Flags.VECTOR);
+        expected = new Coordinate2D(-1, 0, Flags.VECTOR);
         actual = even.getOverbounds(r);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(-1, 0, Flags.VECTOR);
+        expected = new Coordinate2D(-1, 0, Flags.VECTOR);
         actual = even.getOverbounds(s);
         assertEquals(expected, actual);
 
         // Odd
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         actual = odd.getOverbounds(a);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         actual = odd.getOverbounds(b);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(0, 0, Flags.VECTOR);
+        expected = new Coordinate2D(0, 0, Flags.VECTOR);
         actual = odd.getOverbounds(c);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(0, 1, Flags.VECTOR);
+        expected = new Coordinate2D(0, 1, Flags.VECTOR);
         actual = odd.getOverbounds(p);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(1, 1, Flags.VECTOR);
+        expected = new Coordinate2D(1, 1, Flags.VECTOR);
         actual = odd.getOverbounds(q);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(-1, 0, Flags.VECTOR);
+        expected = new Coordinate2D(-1, 0, Flags.VECTOR);
         actual = odd.getOverbounds(r);
         assertEquals(expected, actual);
 
-        expected = new Coordinate(-1, 0, Flags.VECTOR);
+        expected = new Coordinate2D(-1, 0, Flags.VECTOR);
         actual = odd.getOverbounds(s);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testDimensions() {
         int[] actual, expected;
 
@@ -212,18 +217,18 @@ public class TriLatticeRectangleTest extends EslimeTestCase {
         Coordinate[] actual, expected;
 
 		// Even
-		expected = new Coordinate[] {
-			new Coordinate(-1, 0, 0, Flags.VECTOR),
-			new Coordinate(0, 2, 0, Flags.VECTOR)
+		expected = new Coordinate2D[] {
+			new Coordinate2D(-1, 0, 0, Flags.VECTOR),
+			new Coordinate2D(0, 2, 0, Flags.VECTOR)
 		};
 		
 		actual = even.getLimits();
 		assertArraysEqual(actual, expected, false);
 		
 		// Odd
-		expected = new Coordinate[] {
-				new Coordinate(-1, -2, Flags.VECTOR),
-				new Coordinate(1, 2, Flags.VECTOR)
+		expected = new Coordinate2D[] {
+				new Coordinate2D(-1, -2, Flags.VECTOR),
+				new Coordinate2D(1, 2, Flags.VECTOR)
 			};
 		
 		actual = odd.getLimits();

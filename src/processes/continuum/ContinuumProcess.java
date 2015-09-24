@@ -26,13 +26,13 @@ package processes.continuum;
 
 import control.halt.HaltCondition;
 import processes.BaseProcessArguments;
-import processes.EcoProcess;
+import processes.NanoverseProcess;
 import processes.gillespie.GillespieState;
 
 /**
  * Created by David B Borenstein on 1/7/14.
  */
-public abstract class ContinuumProcess extends EcoProcess {
+public abstract class ContinuumProcess extends NanoverseProcess {
 
     public ContinuumProcess(BaseProcessArguments arguments) {
         super(arguments);

@@ -24,19 +24,21 @@
 
 package structural.utilities;
 
-import junit.framework.TestCase;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import org.junit.*;
+import test.TestBase;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created on 6/17/15.
  *
  * @author Daniel Greenidge
  */
-public class PaddedDiagonalStorageTest extends TestCase {
+public class PaddedDiagonalStorageTest extends TestBase {
     private PaddedDiagonalStorage storage;
     private double[][] expectedStorage;
 
-    @Override
+    @Before
     public void setUp() {
         CompDiagMatrix original = new CompDiagMatrix(4, 4);
 
@@ -76,18 +78,21 @@ public class PaddedDiagonalStorageTest extends TestCase {
         };
     }
 
+    @Test
     public void testGet() throws Exception {
         for (int i = 0; i < expectedStorage.length; i++) {
             for (int j = 0; j < expectedStorage[0].length; j++) {
-                assertEquals(expectedStorage[i][j], storage.get(i, j));
+                assertEquals(expectedStorage[i][j], storage.get(i, j), epsilon);
             }
         }
     }
 
+    @Test
     public void testGetNumColumns() throws Exception {
         assertEquals(storage.getNumColumns(), expectedStorage[0].length);
     }
 
+    @Test
     public void testGetNumRows() throws Exception {
         assertEquals(storage.getNumRows(), expectedStorage.length);
     }

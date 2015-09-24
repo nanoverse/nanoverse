@@ -28,7 +28,7 @@ import agent.action.Action;
 import agent.action.ActionRangeMap;
 import cells.BehaviorCell;
 import control.GeneralParameters;
-import control.arguments.ActionDescriptor;
+import agent.action.ActionDescriptor;
 import control.arguments.ActionRangeMapDescriptor;
 import factory.agent.BehaviorDescriptorFactory;
 import layers.LayerManager;

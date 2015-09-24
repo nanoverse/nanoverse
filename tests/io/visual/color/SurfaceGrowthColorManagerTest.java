@@ -24,33 +24,30 @@
 
 package io.visual.color;
 
-import cells.Cell;
-import cells.MockCell;
+import cells.*;
 import control.arguments.ConstantDouble;
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Absorbing;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.shape.Line;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import geometry.shape.Shape;
 import io.visual.HSLColor;
-import layers.MockLayerManager;
-import layers.MockSystemState;
+import layers.*;
 import layers.cell.CellLayer;
+import org.junit.*;
 import test.EslimeTestCase;
 
 import java.awt.*;
 
+import static org.junit.Assert.assertEquals;
 public class SurfaceGrowthColorManagerTest extends EslimeTestCase {
 
     private MockSystemState systemState;
     private SurfaceGrowthColorManager query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
 
         Lattice lattice = new LinearLattice();
         Shape shape = new Line(lattice, 5);
@@ -71,12 +68,20 @@ public class SurfaceGrowthColorManagerTest extends EslimeTestCase {
         query = new SurfaceGrowthColorManager(base, new ConstantDouble(0.5), new ConstantDouble(1.0));
     }
 
+    private void put(CellLayer layer, int pos, int state) throws Exception {
+        Coordinate coord = new Coordinate2D(0, pos, 0);
+        Cell cell = new MockCell(state);
+        layer.getUpdateManager().place(cell, coord);
+    }
+
+    @Test
     public void testGetBorderColor() throws Exception {
         Color actual = query.getBorderColor();
         Color expected = Color.DARK_GRAY;
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testInteriorPoint() throws Exception {
         Color actual = getColor(2);
         Color expected = scaleColor(Color.BLUE);
@@ -84,22 +89,8 @@ public class SurfaceGrowthColorManagerTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
-    public void testExteriorPoint() throws Exception {
-        Color actual = getColor(1);
-        Color expected = Color.BLUE;
-
-        assertEquals(expected, actual);
-    }
-
-    public void testVacantPoint() throws Exception {
-        Color actual = getColor(0);
-        Color expected = Color.BLACK;
-
-        assertEquals(expected, actual);
-    }
-
     private Color getColor(int pos) {
-        Coordinate c = new Coordinate(0, pos, 0);
+        Coordinate c = new Coordinate2D(0, pos, 0);
         Color ret = query.getColor(c, systemState);
 
         return ret;
@@ -114,9 +105,19 @@ public class SurfaceGrowthColorManagerTest extends EslimeTestCase {
         return ret;
     }
 
-    private void put(CellLayer layer, int pos, int state) throws Exception {
-        Coordinate coord = new Coordinate(0, pos, 0);
-        Cell cell = new MockCell(state);
-        layer.getUpdateManager().place(cell, coord);
+    @Test
+    public void testExteriorPoint() throws Exception {
+        Color actual = getColor(1);
+        Color expected = Color.BLUE;
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testVacantPoint() throws Exception {
+        Color actual = getColor(0);
+        Color expected = Color.BLACK;
+
+        assertEquals(expected, actual);
     }
 }

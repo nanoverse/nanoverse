@@ -26,17 +26,17 @@ package io.deserialize;
 
 import control.identifiers.Coordinate;
 import geometry.MockGeometry;
+import org.junit.Test;
 import test.EslimeTestCase;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.*;
 
 /**
  * Created by David B Borenstein on 3/25/14.
  */
 public class PrimitiveDeserializerTest extends EslimeTestCase {
+
+    @Test
     public void testReadDoubleVector() throws Exception {
         double[] expected = new double[]{5.1, -3.0, 0.0, -0.7, 1e-7};
         DataInputStream input = makeInput("doubleVector.bin");
@@ -44,7 +44,17 @@ public class PrimitiveDeserializerTest extends EslimeTestCase {
         assertArraysEqual(expected, actual, false);
     }
 
+    private DataInputStream makeInput(String filename) throws Exception {
+        String fullName = fixturePath + filename;
+        File file = new File(fullName);
+        FileInputStream fileInputStream = new FileInputStream(file);
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+        DataInputStream input = new DataInputStream(bufferedInputStream);
 
+        return input;
+    }
+
+    @Test
     public void testReadIntegerVector() throws Exception {
         int[] expected = new int[]{5, -3, 0, -7, 2};
         DataInputStream input = makeInput("integerVector.bin");
@@ -52,6 +62,7 @@ public class PrimitiveDeserializerTest extends EslimeTestCase {
         assertArraysEqual(expected, actual, false);
     }
 
+    @Test
     public void testReadBooleanVector() throws Exception {
         DataInputStream input = makeInput("booleanVector.bin");
         boolean[] expected = new boolean[]{true, false, true, true, false};
@@ -59,6 +70,7 @@ public class PrimitiveDeserializerTest extends EslimeTestCase {
         assertArraysEqual(expected, actual);
     }
 
+    @Test
     public void testReadCoordinateVector() throws Exception {
         DataInputStream input = makeInput("coordinateVector.bin");
         MockGeometry geom = buildMockGeometry();
@@ -73,15 +85,5 @@ public class PrimitiveDeserializerTest extends EslimeTestCase {
         }
         Coordinate[] actual = PrimitiveDeserializer.readCoordinateVector(input, deindex);
         assertArraysEqual(expected, actual, false);
-    }
-
-    private DataInputStream makeInput(String filename) throws Exception {
-        String fullName = fixturePath + filename;
-        File file = new File(fullName);
-        FileInputStream fileInputStream = new FileInputStream(file);
-        BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-        DataInputStream input = new DataInputStream(bufferedInputStream);
-
-        return input;
     }
 }

@@ -24,50 +24,25 @@
 
 package io.serialize;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Flags;
+import control.identifiers.*;
 import org.dom4j.Element;
+import org.junit.Test;
 import structural.utilities.CoordinateSerializer;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 public class CoordinateSerializerTest extends EslimeTestCase {
 
+    @Test
     public void testCoordinate() {
-        Coordinate c2 = new Coordinate(1, 2, Flags.PLANAR);
-        Coordinate c3 = new Coordinate(1, 2, 3, 4);
+        Coordinate c2 = new Coordinate2D(1, 2, Flags.PLANAR);
+        Coordinate c3 = new Coordinate3D(1, 2, 3, 4);
 
         Element e2 = CoordinateSerializer.serialize(c2);
         Element e3 = CoordinateSerializer.serialize(c3);
 
         doTest(c2, e2, "coordinate");
         doTest(c3, e3, "coordinate");
-    }
-
-
-    public void testVector() {
-        Coordinate v2 = new Coordinate(1, 2, Flags.VECTOR | Flags.PLANAR);
-        Coordinate v3 = new Coordinate(1, 2, 3, 4 | Flags.VECTOR);
-
-        Element e2 = CoordinateSerializer.serialize(v2);
-        Element e3 = CoordinateSerializer.serialize(v3);
-
-        doTest(v2, e2, "vector");
-        doTest(v3, e3, "vector");
-    }
-
-    /**
-     * Test the ability to specify arbitrary tag names. Note that only
-     * some custom tag names are legal for deserialization.
-     */
-    public void testCustom() {
-        Coordinate v2 = new Coordinate(1, 2, Flags.VECTOR | Flags.PLANAR);
-        Coordinate v3 = new Coordinate(1, 2, 3, 4 | Flags.VECTOR);
-
-        Element e2 = CoordinateSerializer.serialize(v2, "displacement");
-        Element e3 = CoordinateSerializer.serialize(v3, "displacement");
-
-        doTest(v2, e2, "displacement");
-        doTest(v3, e3, "displacement");
     }
 
     private void doTest(Coordinate c, Element e, String name) {
@@ -80,5 +55,33 @@ public class CoordinateSerializerTest extends EslimeTestCase {
         }
 
         assertEquals(name, e.getName());
+    }
+
+    @Test
+    public void testVector() {
+        Coordinate v2 = new Coordinate2D(1, 2, Flags.VECTOR | Flags.PLANAR);
+        Coordinate v3 = new Coordinate3D(1, 2, 3, 4 | Flags.VECTOR);
+
+        Element e2 = CoordinateSerializer.serialize(v2);
+        Element e3 = CoordinateSerializer.serialize(v3);
+
+        doTest(v2, e2, "vector");
+        doTest(v3, e3, "vector");
+    }
+
+    /**
+     * Test the ability to specify arbitrary tag names. Note that only
+     * some custom tag names are legal for deserialization.
+     */
+    @Test
+    public void testCustom() {
+        Coordinate v2 = new Coordinate2D(1, 2, Flags.VECTOR | Flags.PLANAR);
+        Coordinate v3 = new Coordinate3D(1, 2, 3, 4 | Flags.VECTOR);
+
+        Element e2 = CoordinateSerializer.serialize(v2, "displacement");
+        Element e3 = CoordinateSerializer.serialize(v3, "displacement");
+
+        doTest(v2, e2, "displacement");
+        doTest(v3, e3, "displacement");
     }
 }

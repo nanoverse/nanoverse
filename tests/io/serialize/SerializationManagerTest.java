@@ -24,20 +24,20 @@
 
 package io.serialize;
 
+import org.junit.*;
 import processes.MockStepState;
 import test.EslimeTestCase;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import static org.junit.Assert.*;
 public class SerializationManagerTest extends EslimeTestCase {
 
     private MockSerializer serializer;
     private SerializationManager query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         // Create a SM with a mock serializer child. The tests just need to
         // make sure that the child's methods each get called.
         ArrayList<Serializer> writers = new ArrayList<>(1);
@@ -47,6 +47,7 @@ public class SerializationManagerTest extends EslimeTestCase {
         query = new SerializationManager(null, null, writers);
     }
 
+    @Test
     public void testFlushRecorded() {
         MockStepState mss = new MockStepState();
         mss.setRecord(true);
@@ -54,6 +55,7 @@ public class SerializationManagerTest extends EslimeTestCase {
         assertTrue(serializer.isFlush());
     }
 
+    @Test
     public void testFlushNotRecorded() {
         MockStepState mss = new MockStepState();
         mss.setRecord(false);
@@ -62,21 +64,25 @@ public class SerializationManagerTest extends EslimeTestCase {
 
     }
 
+    @Test
     public void testInit() {
         query.init();
         assertTrue(serializer.isInit());
     }
 
+    @Test
     public void testClose() {
         query.close();
         assertTrue(serializer.isClose());
     }
 
+    @Test
     public void testDispatchHalt() {
         query.dispatchHalt(null);
         assertTrue(serializer.isDispatchHalt());
     }
 
+    @Test
     public void testEquals() {
         SerializationManager p = makeExample();
         SerializationManager q = makeExample();

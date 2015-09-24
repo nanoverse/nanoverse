@@ -24,7 +24,7 @@
 
 package cells;
 
-import factory.cell.Reaction;
+import layers.continuum.Reaction;
 import org.junit.Before;
 import org.junit.Test;
 import test.TestBase;

@@ -27,12 +27,10 @@ package io.deserialize;
 import cells.MockCell;
 import control.identifiers.Coordinate;
 import io.serialize.Serializer;
-import io.serialize.binary.ContinuumStateWriter;
-import io.serialize.binary.HighlightWriter;
-import io.serialize.binary.TimeWriter;
-import io.serialize.text.CoordinateIndexer;
-import io.serialize.text.LegacyCellStateWriter;
+import io.serialize.binary.*;
+import io.serialize.text.*;
 import layers.LightweightSystemState;
+import org.junit.*;
 import processes.MockStepState;
 import structural.MockGeneralParameters;
 import test.EslimeLatticeTestCase;
@@ -40,8 +38,9 @@ import test.EslimeLatticeTestCase;
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-//import layers.MockSoluteLayer;
+import static org.junit.Assert.*;
 
+//import layers.MockSoluteLayer;
 /**
  * Test for the SystemStateReader. As an I/O orchestrator whose main function
  * is to open a bunch of files, this is an annoying class to mock. Ultimately,
@@ -60,8 +59,8 @@ public class SystemStateReaderTest extends EslimeLatticeTestCase {
     private String[] soluteIds;
     private int[] channelIds;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
         String path = fixturePath + "SystemStateReader/";
 
@@ -77,6 +76,7 @@ public class SystemStateReaderTest extends EslimeLatticeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testHasNext() throws Exception {
         // There are two frames specified in the time fixture, so we expect
         // that hasNext() will return true twice, and then return false the
@@ -90,6 +90,7 @@ public class SystemStateReaderTest extends EslimeLatticeTestCase {
         assertFalse(query.hasNext());
     }
 
+    @Test
     public void testNext() throws Exception {
         LightweightSystemState state = query.next();
 
@@ -164,18 +165,11 @@ public class SystemStateReaderTest extends EslimeLatticeTestCase {
                 new TimeWriter(p, layerManager),
                 new ContinuumStateWriter(p, layerManager),
                 new LegacyCellStateWriter(p, layerManager),
-                new HighlightWriter(p, new int[]{0}, layerManager)
+                new HighlightWriter(p, Stream.<Integer>empty(), layerManager)
         };
 
         return ret;
     }
-
-//    private MockSoluteLayer initializeSoluteLayer(String id) {
-//        MockSoluteLayer ret = new MockSoluteLayer();
-//        ret.setGeometry(geom);
-//        ret.setId(id);
-//        return ret;
-//    }
 
     private MockCell placeCell(Coordinate coord, double health, int state) throws Exception {
         MockCell cell = new MockCell();
@@ -185,10 +179,4 @@ public class SystemStateReaderTest extends EslimeLatticeTestCase {
 
         return cell;
     }
-
-//    private void pushState(MockSoluteLayer layer, double[] state) {
-//        DenseVector vector = new DenseVector(state);
-//        SolutionViewer viewer = new SolutionViewer(vector, geom);
-//        layer.push(viewer);
-//    }
 }

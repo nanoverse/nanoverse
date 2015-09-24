@@ -25,22 +25,25 @@
 package layers;
 
 import cells.MockCell;
-import control.identifiers.Coordinate;
+import control.identifiers.*;
 import layers.cell.CellLayerIndices;
+import org.junit.*;
 import structural.CanonicalCellMap;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 public class CellLayerIndicesTest extends EslimeTestCase {
 
     private Coordinate c;
     private CellLayerIndices query;
 
-    @Override
-    protected void setUp() throws Exception {
-        c = new Coordinate(0, 0, 0);
+    @Before
+    public void setUp() throws Exception {
+        c = new Coordinate2D(0, 0, 0);
         query = new CellLayerIndices();
     }
 
+    @Test
     public void testNulltoNull() {
         query.refresh(c, null, null);
 
@@ -48,6 +51,7 @@ public class CellLayerIndicesTest extends EslimeTestCase {
         assertFalse(query.isOccupied(c));
     }
 
+    @Test
     public void testNonNullToNull() {
         MockCell cell = new MockCell();
         cell.setDivisible(true);
@@ -59,7 +63,7 @@ public class CellLayerIndicesTest extends EslimeTestCase {
         assertFalse(query.isOccupied(c));
     }
 
-
+    @Test
     public void testNullToNonDivisible() {
         MockCell cell = new MockCell();
 
@@ -75,6 +79,7 @@ public class CellLayerIndicesTest extends EslimeTestCase {
         assertEquals((Integer) 1, query.getStateMap().get(3));
     }
 
+    @Test
     public void testNullToDivisible() {
         MockCell cell = new MockCell();
         cell.setDivisible(true);
@@ -82,6 +87,7 @@ public class CellLayerIndicesTest extends EslimeTestCase {
         assertTrue(query.isDivisible(c));
     }
 
+    @Test
     public void testNonNullTransition() {
         MockCell dCell = new MockCell();
         dCell.setState(5);
@@ -106,6 +112,7 @@ public class CellLayerIndicesTest extends EslimeTestCase {
         assertEquals((Integer) 0, query.getStateMap().get(2));
     }
 
+    @Test
     public void testClone() {
         CanonicalCellMap map = new CanonicalCellMap(1);
         map.put(c, null);

@@ -26,12 +26,15 @@ package geometry.set;
 
 import control.identifiers.Coordinate;
 import geometry.Geometry;
+import org.hamcrest.Factory;
+import structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 7/28/14.
  */
 public class CompleteSet extends CoordinateSet {
 
+    @FactoryTarget(displayName = "CompleteCoordinateSet")
     public CompleteSet(Geometry geom) {
         for (Coordinate c : geom.getCanonicalSites()) {
             add(c);

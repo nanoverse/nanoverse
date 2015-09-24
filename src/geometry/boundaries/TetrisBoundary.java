@@ -30,6 +30,7 @@ import geometry.boundaries.helpers.WrapHelper2D;
 import geometry.lattice.Lattice;
 import geometry.shape.Rectangle;
 import geometry.shape.Shape;
+import structural.annotations.FactoryTarget;
 
 /**
  * Periodic in x, hard on southern y boundary, absorbing, on northern y
@@ -41,6 +42,7 @@ public class TetrisBoundary extends Boundary implements HaltBoundary {
 
     private WrapHelper2D wrapper;
 
+    @FactoryTarget
     public TetrisBoundary(Shape shape, Lattice lattice) {
         super(shape, lattice);
         wrapper = new WrapHelper2D(shape, lattice);

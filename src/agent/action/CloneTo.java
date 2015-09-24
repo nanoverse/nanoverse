@@ -27,7 +27,7 @@ package agent.action;
 import agent.targets.TargetRule;
 import cells.BehaviorCell;
 import cells.Cell;
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import layers.LayerManager;
@@ -52,15 +52,15 @@ public class CloneTo extends Action {
     private boolean noReplace;
 
     // Highlight channels for the targeting and targeted cells
-    private Argument<Integer> selfChannel;
-    private Argument<Integer> targetChannel;
+    private IntegerArgument selfChannel;
+    private IntegerArgument targetChannel;
 
     private Random random;
 
     public CloneTo(BehaviorCell behaviorCell, LayerManager layerManager,
                    TargetRule targetRule, boolean noReplace,
-                   Argument<Integer> selfChannel,
-                   Argument<Integer> targetChannel, Random random) {
+                   IntegerArgument selfChannel,
+                   IntegerArgument targetChannel, Random random) {
 
         super(behaviorCell, layerManager);
         this.targetRule = targetRule;

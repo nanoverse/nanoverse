@@ -24,19 +24,22 @@
 
 package processes.discrete.filter;
 
-import control.identifiers.Coordinate;
-import junit.framework.TestCase;
+import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
-public class CompositeFilterTest extends TestCase {
+import static org.junit.Assert.assertTrue;
 
+public class CompositeFilterTest {
+
+    @Test
     public void testApply() throws Exception {
         Filter child1 = new MockFilter();
         Filter child2 = new MockFilter();
-        Filter[] children = new Filter[]{child1, child2};
+        Stream<Filter> children = Stream.of(child1, child2);
         CompositeFilter query = new CompositeFilter(children);
-        query.apply(new ArrayList<Coordinate>(0));
+        query.apply(new ArrayList<>(0));
         assertTrue(child1.isCalled());
         assertTrue(child2.isCalled());
     }

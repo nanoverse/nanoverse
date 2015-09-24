@@ -25,26 +25,20 @@
 package processes.discrete;
 
 import control.GeneralParameters;
-import control.arguments.Argument;
-import control.arguments.CellDescriptor;
-import control.arguments.ConstantInteger;
-import control.arguments.MockCellDescriptor;
-import control.identifiers.Coordinate;
+import control.arguments.*;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.set.CompleteSet;
-import geometry.set.CoordinateSet;
-import geometry.set.CustomSet;
-import geometry.shape.Line;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.set.*;
+import geometry.shape.*;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import processes.BaseProcessArguments;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 public class ScatterTest extends EslimeTestCase {
     private Geometry geom;
     private MockLayerManager lm;
@@ -52,9 +46,8 @@ public class ScatterTest extends EslimeTestCase {
     private BaseProcessArguments arguments;
     private CellDescriptor cd;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
 
         p = makeMockGeneralParameters();
         lm = new MockLayerManager();
@@ -72,6 +65,7 @@ public class ScatterTest extends EslimeTestCase {
         cd = new MockCellDescriptor();
     }
 
+    @Test
     public void testBaseBehavior() throws Exception {
         CellProcessArguments cpArguments = makeCellProcessArguments(geom);
         Scatter query = new Scatter(arguments, cpArguments, cd);
@@ -81,10 +75,11 @@ public class ScatterTest extends EslimeTestCase {
         assertEquals(10, lm.getCellLayer().getViewer().getOccupiedSites().size());
     }
 
+    @Test
     public void testRespectActiveSites() throws Exception {
         CoordinateSet activeSites = new CustomSet();
         for (int y = 2; y < 5; y++) {
-            activeSites.add(new Coordinate(0, y, 0));
+            activeSites.add(new Coordinate2D(0, y, 0));
         }
 
         CellProcessArguments cpArguments = new CellProcessArguments(activeSites, new ConstantInteger(-1));
@@ -100,9 +95,10 @@ public class ScatterTest extends EslimeTestCase {
         }
     }
 
+    @Test
     public void testRespectMaxTargets() throws Exception {
         CoordinateSet activeSites = new CompleteSet(geom);
-        Argument<Integer> maxTargets = new ConstantInteger(3);
+        IntegerArgument maxTargets = new ConstantInteger(3);
         CellProcessArguments cpArguments = new CellProcessArguments(activeSites, maxTargets);
         Scatter query = new Scatter(arguments, cpArguments, cd);
         query.init();

@@ -62,7 +62,8 @@ public abstract class LayerManagerFactory {
 
     private static CellLayer buildCellLayer(Element layerRoot, GeometryDescriptor geometryDescriptor) {
         Element e = layerRoot.element("cell-layer");
-        return CellLayerFactory.instantiate(e, geometryDescriptor);
+        CellLayer instantiate = CellLayerFactory.instantiate(e, geometryDescriptor);
+        return instantiate;
     }
 
     private static boolean hasCellElement(Element layerRoot) {

@@ -42,6 +42,10 @@ public class ContinuumAgentIndex {
 
     private IdentityHashMap<BehaviorCell, Supplier<RelationshipTuple>> map;
 
+    public ContinuumAgentIndex() {
+        map = new IdentityHashMap<>();
+    }
+
     public ContinuumAgentIndex(IdentityHashMap<BehaviorCell, Supplier<RelationshipTuple>> map) {
         this.map = map;
     }

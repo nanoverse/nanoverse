@@ -24,11 +24,14 @@
 
 package io.serialize.text;
 
+import org.junit.Test;
 import processes.StepState;
 import structural.MockGeneralParameters;
 import test.*;
 
 public class RandomSeedWriterTest extends EslimeLatticeTestCase {
+
+    @Test
     public void testLifeCycle() throws Exception {
         makeFiles();
         FileAssertions.assertOutputMatchesFixture("serializations/random.txt", "random.txt", true);

@@ -25,6 +25,8 @@
 package structural.postprocess;
 
 import control.identifiers.Coordinate;
+import control.identifiers.Coordinate2D;
+import control.identifiers.Coordinate3D;
 import control.identifiers.Flags;
 import geometry.Geometry;
 import no.uib.cipr.matrix.DenseVector;
@@ -78,10 +80,10 @@ public class SolutionViewer {
         int y = center.y() + offset.y();
 
         if (center.hasFlag(Flags.PLANAR)) {
-            result = new Coordinate(x, y, 0);
+            result = new Coordinate2D(x, y, 0);
         } else {
             int z = center.z() + offset.z();
-            result = new Coordinate(x, y, z, 0);
+            result = new Coordinate3D(x, y, z, 0);
         }
 
         return result;

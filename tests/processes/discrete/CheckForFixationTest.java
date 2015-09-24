@@ -25,18 +25,18 @@
 package processes.discrete;
 
 import cells.MockCell;
-import control.halt.FixationEvent;
-import control.halt.HaltCondition;
-import control.identifiers.Coordinate;
+import control.halt.*;
+import control.identifiers.*;
 import geometry.MockGeometry;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
-import processes.BaseProcessArguments;
-import processes.MockStepState;
+import org.junit.Test;
+import processes.*;
 import processes.discrete.check.CheckForFixation;
 import processes.gillespie.GillespieState;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 /**
  * Fixation is defined as only one cell type existing in the system. The
  * CheckForFixation process should throw a HaltCondition if and only if this
@@ -50,11 +50,33 @@ public class CheckForFixationTest extends EslimeTestCase {
     private MockLayerManager layerManager;
     private CheckForFixation query;
 
+    @Test
     public void testTargetSimple() throws Exception {
         makeTwoCanonicalSites();
         query.target(null);
     }
 
+    private void makeTwoCanonicalSites() {
+        Coordinate[] cc = new Coordinate2D[]{
+            new Coordinate2D(0, 0, 1),
+            new Coordinate2D(1, 0, 1)
+        };
+        setup(cc);
+    }
+
+    private void setup(Coordinate[] cc) {
+        geometry = new MockGeometry();
+        geometry.setCanonicalSites(cc);
+
+        layer = new CellLayer(geometry);
+        layerManager = new MockLayerManager();
+        layerManager.setCellLayer(layer);
+        BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, null);
+        CellProcessArguments cpArguments = makeCellProcessArguments(geometry);
+        query = new CheckForFixation(arguments, cpArguments);
+    }
+
+    @Test
     public void testTargetGillespie() throws Exception {
         makeTwoCanonicalSites();
         Integer id = query.getID();
@@ -67,7 +89,18 @@ public class CheckForFixationTest extends EslimeTestCase {
         assertEquals(1, gs.getEventCount(id));
     }
 
-    public void doTest(boolean expectFixation) {
+    // There's only one site -- automatically fixed once filled
+    @Test
+    public void testFixationCaseSingle() throws Exception {
+        makeTwoCanonicalSites();
+        Coordinate coord = new Coordinate2D(0, 0, 1);
+        MockCell cell = new MockCell();
+        cell.setState(1);
+        layer.getUpdateManager().place(cell, coord);
+        doTest(true);
+    }
+
+    private void doTest(boolean expectFixation) {
         boolean fixed = false;
         try {
             MockStepState state = new MockStepState();
@@ -85,39 +118,12 @@ public class CheckForFixationTest extends EslimeTestCase {
         assertEquals(expectFixation, fixed);
     }
 
-//    public void testExtinctionCase() {
-//        makeTwoCanonicalSites();
-//        boolean extinct = false;
-//
-//        try {
-//            StepState state = new StepState();
-//            query.fire(state);
-//        } catch (ExtinctionEvent event) {
-//            extinct = true;
-//
-//            // Nothing else is supposed to be thrown!
-//        } catch (HaltCondition condition) {
-//            fail("Unexpected halt condition " + condition.getClass().getSimpleName());
-//        }
-//
-//        assertTrue(extinct);
-//    }
-
-    // There's only one site -- automatically fixed once filled
-    public void testFixationCaseSingle() throws Exception {
-        makeTwoCanonicalSites();
-        Coordinate coord = new Coordinate(0, 0, 1);
-        MockCell cell = new MockCell();
-        cell.setState(1);
-        layer.getUpdateManager().place(cell, coord);
-        doTest(true);
-    }
-
     // There are two sites, but they're both the same type
+    @Test
     public void testFixationCaseMulti() throws Exception {
         makeTwoCanonicalSites();
         for (int i = 0; i < 2; i++) {
-            Coordinate coord = new Coordinate(i, 0, 0);
+            Coordinate coord = new Coordinate2D(i, 0, 0);
             MockCell cell = new MockCell();
             cell.setState(1);
             layer.getUpdateManager().place(cell, coord);
@@ -127,6 +133,7 @@ public class CheckForFixationTest extends EslimeTestCase {
 
     // The lattice is full, but there are at least two
     // kinds of cells -- should not result in a thrown HaltCondition
+    @Test
     public void testFullNonFixationCase() throws Exception {
         setUpMixedCase();
         doTest(false);
@@ -135,7 +142,7 @@ public class CheckForFixationTest extends EslimeTestCase {
     private void setUpMixedCase() throws Exception {
         makeTwoCanonicalSites();
         for (int i = 0; i < 2; i++) {
-            Coordinate coord = new Coordinate(i, 0, 0);
+            Coordinate coord = new Coordinate2D(i, 0, 0);
             MockCell cell = new MockCell();
             // state 0 is reserved for death / nullity
             cell.setState(i + 1);
@@ -145,9 +152,10 @@ public class CheckForFixationTest extends EslimeTestCase {
 
     // There's only one species, but there's still room
     // to grow -- should still be considered "fixation"
+    @Test
     public void testOpenSpaceCase() throws Exception {
         makeTwoCanonicalSites();
-        Coordinate coord = new Coordinate(0, 0, 0);
+        Coordinate coord = new Coordinate2D(0, 0, 0);
         MockCell cell = new MockCell();
         cell.setState(1);
         layer.getUpdateManager().place(cell, coord);
@@ -158,6 +166,7 @@ public class CheckForFixationTest extends EslimeTestCase {
      * Make sure that, after the extinction of all but one type of site, a
      * fixation event is triggered.
      */
+    @Test
     public void testTwoToOneStateRegression() throws Exception {
         // This test should start with two cells, each of a different type.
         setUpMixedCase();
@@ -166,30 +175,10 @@ public class CheckForFixationTest extends EslimeTestCase {
         doTest(false);
 
         // Remove one of the cells. Now there's only one cell type in the system.
-        layer.getUpdateManager().banish(new Coordinate(0, 0, 0));
+        layer.getUpdateManager().banish(new Coordinate2D(0, 0, 0));
 
         // The state should now reflect fixation.
         doTest(true);
-    }
-
-    private void makeTwoCanonicalSites() {
-        Coordinate[] cc = new Coordinate[]{
-                new Coordinate(0, 0, 1),
-                new Coordinate(1, 0, 1)
-        };
-        setup(cc);
-    }
-
-    private void setup(Coordinate[] cc) {
-        geometry = new MockGeometry();
-        geometry.setCanonicalSites(cc);
-
-        layer = new CellLayer(geometry);
-        layerManager = new MockLayerManager();
-        layerManager.setCellLayer(layer);
-        BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, null);
-        CellProcessArguments cpArguments = makeCellProcessArguments(geometry);
-        query = new CheckForFixation(arguments, cpArguments);
     }
 
 }

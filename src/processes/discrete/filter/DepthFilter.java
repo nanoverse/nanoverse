@@ -24,10 +24,11 @@
 
 package processes.discrete.filter;
 
-import control.arguments.Argument;
+import control.arguments.*;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
 import layers.cell.CellLayer;
+import structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,10 +42,11 @@ import java.util.List;
  */
 public class DepthFilter extends Filter {
 
-    private Argument<Integer> maxDepth;
+    private IntegerArgument maxDepth;
     private CellLayer layer;
 
-    public DepthFilter(CellLayer layer, Argument<Integer> maxDepth) {
+    @FactoryTarget
+    public DepthFilter(CellLayer layer, IntegerArgument maxDepth) {
         this.maxDepth = maxDepth;
         this.layer = layer;
     }

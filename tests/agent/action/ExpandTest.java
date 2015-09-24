@@ -24,34 +24,27 @@
 
 package agent.action;
 
-import agent.Behavior;
 import agent.control.BehaviorDispatcher;
 import agent.targets.MockTargetRule;
-import cells.BehaviorCell;
-import cells.Cell;
-import cells.MockCell;
-import control.identifiers.Coordinate;
+import cells.*;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Boundary;
-import geometry.boundaries.Periodic;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import structural.MockRandom;
 import test.EslimeTestCase;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class ExpandTest extends EslimeTestCase {
-
-    private static final int MOCK_PROGENY_STATE = 7;
 
     private MockLayerManager layerManager;
     private BehaviorCell parent;
@@ -59,9 +52,8 @@ public class ExpandTest extends EslimeTestCase {
     private CellLayer layer;
     private MockTargetRule parentTargetRule;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
 
         Lattice lattice = new RectangularLattice();
         layerManager = new MockLayerManager();
@@ -74,8 +66,33 @@ public class ExpandTest extends EslimeTestCase {
 
         // Place the parent at site 4 and get its target rule
         parentTargetRule = placeNumberedCell(4);
-        parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate(4, 0, 0));
+        parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
 
+    }
+
+    private MockTargetRule placeNumberedCell(int x) throws Exception {
+        Supplier<BehaviorCell> supplier = mock(Supplier.class);
+        when(supplier.get()).thenReturn(new MockCell(x));
+        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, supplier);
+        Coordinate coord = new Coordinate2D(x, 0, 0);
+        layer.getUpdateManager().place(cell, coord);
+        BehaviorDispatcher bd = new BehaviorDispatcher();
+        cell.setDispatcher(bd);
+
+        MockTargetRule targetRule = new MockTargetRule();
+
+        // Cells always divide to the right
+        ArrayList<Coordinate> targets = new ArrayList<>(1);
+        Coordinate target = new Coordinate2D(x + 1, 0, 0);
+        targets.add(target);
+        targetRule.setTargets(targets);
+
+        Expand expand = new Expand(cell, layerManager, null, null, random);
+
+        Action behavior = new CompoundAction(cell, layerManager, new Action[]{expand});
+        bd.map("replicate-self", behavior);
+
+        return targetRule;
     }
 
     /**
@@ -88,11 +105,12 @@ public class ExpandTest extends EslimeTestCase {
      * 0123456789
      * ___445____  Resulting condition
      */
+    @Test
     public void testOneVacancy() throws Exception {
         // Place blocking cell
         placeNumberedCell(5);
 
-        Coordinate target = new Coordinate(3, 0, 0);
+        Coordinate target = new Coordinate2D(3, 0, 0);
         ArrayList<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parentTargetRule.setTargets(targets);
@@ -101,6 +119,12 @@ public class ExpandTest extends EslimeTestCase {
         checkPosition(3, 4);
         checkPosition(4, 4);
         checkPosition(5, 5);
+    }
+
+    private void checkPosition(int x, int state) {
+        Coordinate c = new Coordinate2D(x, 0, 0);
+        Cell cell = layer.getViewer().getCell(c);
+        assertEquals(state, cell.getState());
     }
 
     /**
@@ -119,9 +143,10 @@ public class ExpandTest extends EslimeTestCase {
      * in a helper object (ShoveHelper) which is tested separately,
      * we consider only case 1.
      */
+    @Test
     public void testMultipleVacancies() throws Exception {
 
-        Coordinate target = new Coordinate(3, 0, 0);
+        Coordinate target = new Coordinate2D(3, 0, 0);
         ArrayList<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parent.trigger("replicate-self", null);
@@ -139,13 +164,14 @@ public class ExpandTest extends EslimeTestCase {
      * 0123456789
      * __23445___  Resulting condition
      */
+    @Test
     public void testUnequalBarrierWidths() throws Exception {
         // Place blocking cell
         placeNumberedCell(2);
         placeNumberedCell(3);
         placeNumberedCell(5);
 
-        Coordinate target = new Coordinate(3, 0, 0);
+        Coordinate target = new Coordinate2D(3, 0, 0);
         ArrayList<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
         parent.trigger("replicate-self", null);
@@ -155,37 +181,5 @@ public class ExpandTest extends EslimeTestCase {
         checkPosition(4, 4);
         checkPosition(5, 4);
         checkPosition(6, 5);
-    }
-
-
-    private MockTargetRule placeNumberedCell(int x) throws Exception {
-        Supplier<BehaviorCell> supplier = mock(Supplier.class);
-        when(supplier.get()).thenReturn(new MockCell(x));
-        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, supplier);
-        Coordinate coord = new Coordinate(x, 0, 0);
-        layer.getUpdateManager().place(cell, coord);
-        BehaviorDispatcher bd = new BehaviorDispatcher();
-        cell.setDispatcher(bd);
-
-        MockTargetRule targetRule = new MockTargetRule();
-
-        // Cells always divide to the right
-        ArrayList<Coordinate> targets = new ArrayList<>(1);
-        Coordinate target = new Coordinate(x + 1, 0, 0);
-        targets.add(target);
-        targetRule.setTargets(targets);
-
-        Expand expand = new Expand(cell, layerManager, null, null, random);
-
-        Behavior behavior = new Behavior(cell, layerManager, new Action[]{expand});
-        bd.map("replicate-self", behavior);
-
-        return targetRule;
-    }
-
-    private void checkPosition(int x, int state) {
-        Coordinate c = new Coordinate(x, 0, 0);
-        Cell cell = layer.getViewer().getCell(c);
-        assertEquals(state, cell.getState());
     }
 }

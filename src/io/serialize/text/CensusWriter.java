@@ -31,6 +31,7 @@ import layers.LayerManager;
 import layers.cell.CellLayer;
 import layers.cell.StateMapViewer;
 import processes.StepState;
+import structural.annotations.FactoryTarget;
 
 import java.io.BufferedWriter;
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class CensusWriter extends Serializer {
 
     private BufferedWriter bw;
 
+    @FactoryTarget
     public CensusWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
     }

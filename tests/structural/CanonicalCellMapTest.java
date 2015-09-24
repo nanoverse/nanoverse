@@ -25,10 +25,11 @@
 package structural;
 
 import cells.MockCell;
-import control.identifiers.Coordinate;
-import control.identifiers.Flags;
+import control.identifiers.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 4/11/14.
  */
@@ -37,17 +38,17 @@ public class CanonicalCellMapTest extends EslimeTestCase {
     private Coordinate c, nc, d;
     private MockCell cell;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         query = new CanonicalCellMap();
-        c = new Coordinate(0, 0, 0);
-        nc = new Coordinate(0, 0, Flags.BOUNDARY_APPLIED);
-        d = new Coordinate(0, 0, 0, 0);
+        c = new Coordinate2D(0, 0, 0);
+        nc = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
+        d = new Coordinate3D(0, 0, 0, 0);
 
         cell = new MockCell(1);
     }
 
+    @Test
     public void testPutGet() throws Exception {
         query.put(c, cell);
         assertEquals(cell, query.get(c));
@@ -55,6 +56,7 @@ public class CanonicalCellMapTest extends EslimeTestCase {
         assertEquals(null, query.get(d));
     }
 
+    @Test
     public void testContainsKey() throws Exception {
         query.put(c, cell);
         assertTrue(query.containsKey(c));

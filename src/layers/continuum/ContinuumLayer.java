@@ -28,6 +28,7 @@ import control.identifiers.Coordinate;
 import geometry.Geometry;
 import layers.Layer;
 import no.uib.cipr.matrix.Vector;
+import structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 import java.util.stream.*;
@@ -40,6 +41,7 @@ public class ContinuumLayer extends Layer {
     private ContinuumLayerScheduler scheduler;
     private ContinuumLayerContent content;
 
+    @FactoryTarget
     public ContinuumLayer(ContinuumLayerScheduler scheduler, ContinuumLayerContent content, Geometry geometry) {
         this.scheduler = scheduler;
         this.content = content;

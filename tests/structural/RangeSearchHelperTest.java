@@ -24,10 +24,12 @@
 
 package structural;
 
+import org.junit.*;
 import test.EslimeTestCase;
 
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertEquals;
 /**
  * The RangeSearchHelper performs a binary search between sequential
  * bins. This is used as part of the RangeMap object. The argument
@@ -41,9 +43,8 @@ public class RangeSearchHelperTest extends EslimeTestCase {
 
     private RangeSearchHelper query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         ArrayList<Double> bins = new ArrayList<>();
         // Remember that a dummy bin of 0.0 is required...
         bins.add(0.0);
@@ -53,6 +54,7 @@ public class RangeSearchHelperTest extends EslimeTestCase {
         query = new RangeSearchHelper(bins);
     }
 
+    @Test
     public void testFindKey() throws Exception {
         int actual;
 
@@ -69,6 +71,7 @@ public class RangeSearchHelperTest extends EslimeTestCase {
         assertEquals(2, actual);
     }
 
+    @Test
     public void testLowerBoundInclusivity() throws Exception {
         int actual;
 
@@ -91,6 +94,7 @@ public class RangeSearchHelperTest extends EslimeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testOneBinRegression() throws Exception {
         ArrayList<Double> bins = new ArrayList<>();
         bins.add(0.0);

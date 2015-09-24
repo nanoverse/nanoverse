@@ -24,14 +24,11 @@
 
 package layers.continuum;
 
-import factory.cell.Reaction;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import test.LinearMocks;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class RelationshipTupleTest extends LinearMocks {
 
@@ -51,10 +48,12 @@ public class RelationshipTupleTest extends LinearMocks {
         assertEquals(c, query.getCoordinate());
     }
 
+    @Test
     public void getExp() throws Exception {
         assertEquals(1.0, query.getExp(), epsilon);
     }
 
+    @Test
     public void getInj() throws Exception {
         assertEquals(2.0, query.getInj(), epsilon);
     }
