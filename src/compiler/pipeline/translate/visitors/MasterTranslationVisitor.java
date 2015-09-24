@@ -86,18 +86,18 @@ public class MasterTranslationVisitor {
     public ObjectNode translate(ASTNode toTranslate, SymbolTable symbolTable) {
         if (symbolTable instanceof ListSymbolTable) {
             logDebug("a List", toTranslate);
-            return listVisitor.translate((ASTNode) toTranslate, (ListSymbolTable) symbolTable);
+            return listVisitor.translate(toTranslate, (ListSymbolTable) symbolTable);
         } else if (symbolTable instanceof MapSymbolTable) {
             logDebug("a Map", toTranslate);
-            return mapVisitor.translate((ASTNode) toTranslate, (MapSymbolTable) symbolTable);
+            return mapVisitor.translate(toTranslate, (MapSymbolTable) symbolTable);
         } else if (symbolTable instanceof DictionarySymbolTable) {
             logDebug("a Dictionary", toTranslate);
-            return dictVisitor.translate((ASTNode) toTranslate, (DictionarySymbolTable) symbolTable);
+            return dictVisitor.translate(toTranslate, (DictionarySymbolTable) symbolTable);
         } else if (symbolTable instanceof ConstantPrimitiveSymbolTable) {
             logDebug("a Primitive", toTranslate);
-            return primitiveVisitor.translate((ASTNode) toTranslate, (ConstantPrimitiveSymbolTable) symbolTable);
+            return primitiveVisitor.translate(toTranslate, (ConstantPrimitiveSymbolTable) symbolTable);
         } else {
-            throw new IllegalArgumentException("Unexpected symbol table class");
+            throw new IllegalStateException("Unexpected symbol table class");
         }
     }
 

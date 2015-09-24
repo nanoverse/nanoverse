@@ -24,35 +24,25 @@
 
 package compiler.pipeline.translate.visitors;
 
+import compiler.error.SyntaxError;
 import compiler.pipeline.interpret.nodes.ASTNode;
-import compiler.pipeline.translate.nodes.*;
-import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
-import org.slf4j.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * Takes a primitive AST node and a primitive symbol table,
- * and returns a primitive object node.
- *
- * Created by dbborens on 4/22/15.
+ * Created by dbborens on 9/22/2015.
  */
-public class PrimitiveVisitor {
-    private final Logger logger;
+public class GrandchildResolver {
 
-    public PrimitiveVisitor() {
-        logger = LoggerFactory.getLogger(PrimitiveVisitor.class);
-    }
-
-    public ObjectNode translate(ASTNode toTranslate, ConstantPrimitiveSymbolTable symbolTable) {
-        logger.debug("Translating primitive.");
-
-        ASTNode valueNode = toTranslate
+    public ASTNode getChildValue(ASTNode child) {
+        List<ASTNode> grandchildren = child
             .getChildren()
-            .findFirst()
-            .get();
+            .collect(Collectors.toList());
 
-        String valueStr = valueNode.getIdentifier();
-
-        Object value = symbolTable.getValue(valueStr);
-        return new PrimitiveObjectNode<>(symbolTable, value);
+        if (grandchildren.size() != 1) {
+            throw new SyntaxError("Syntax error: unexpected dictionary value on element " + child.getIdentifier() + ". Detail:\n\n" + child.toString());
+        }
+        return grandchildren.get(0);
     }
 }

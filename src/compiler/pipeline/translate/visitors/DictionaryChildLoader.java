@@ -25,34 +25,31 @@
 package compiler.pipeline.translate.visitors;
 
 import compiler.pipeline.interpret.nodes.ASTNode;
+import compiler.pipeline.translate.helpers.TranslationCallback;
 import compiler.pipeline.translate.nodes.*;
-import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
-import org.slf4j.*;
+import compiler.pipeline.translate.symbol.DictionarySymbolTable;
 
 /**
- * Takes a primitive AST node and a primitive symbol table,
- * and returns a primitive object node.
- *
- * Created by dbborens on 4/22/15.
+ * Created by dbborens on 9/22/2015.
  */
-public class PrimitiveVisitor {
-    private final Logger logger;
+public class DictionaryChildLoader {
 
-    public PrimitiveVisitor() {
-        logger = LoggerFactory.getLogger(PrimitiveVisitor.class);
+    private final DictionaryChildTranslator translator;
+
+    public DictionaryChildLoader(TranslationCallback walker) {
+        translator = new DictionaryChildTranslator(walker);
     }
 
-    public ObjectNode translate(ASTNode toTranslate, ConstantPrimitiveSymbolTable symbolTable) {
-        logger.debug("Translating primitive.");
-
-        ASTNode valueNode = toTranslate
-            .getChildren()
-            .findFirst()
-            .get();
-
-        String valueStr = valueNode.getIdentifier();
-
-        Object value = symbolTable.getValue(valueStr);
-        return new PrimitiveObjectNode<>(symbolTable, value);
+    public DictionaryChildLoader(DictionaryChildTranslator translator) {
+        this.translator = translator;
     }
+
+    public void loadChild(ASTNode child, DictionarySymbolTable symbolTable, DictionaryObjectNode node) {
+        // The child's identifier is a unique name for the element.
+        String elementName = child.getIdentifier();
+
+        ObjectNode childNode = translator.translateChild(child, symbolTable);
+        node.loadMember(elementName, childNode);
+    }
+
 }

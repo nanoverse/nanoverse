@@ -41,13 +41,13 @@ public class NanoBlockVisitor extends AbstractNanoNodeVisitor {
     private final Logger logger;
 
     public NanoBlockVisitor() {
-        helper = new NanoBlockHelper();
         logger = LoggerFactory.getLogger(NanoBlockVisitor.class);
+        helper = new NanoBlockHelper();
     }
 
     public NanoBlockVisitor(NanoBlockHelper helper) {
-        this.helper = helper;
         logger = LoggerFactory.getLogger(NanoBlockVisitor.class);
+        this.helper = helper;
     }
 
     public Stream<ASTNode> getChildrenAsNodes(@NotNull NanosyntaxParser.BlockContext ctx) {

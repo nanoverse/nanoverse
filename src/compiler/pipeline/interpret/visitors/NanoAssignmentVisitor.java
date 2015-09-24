@@ -26,6 +26,7 @@ package compiler.pipeline.interpret.visitors;
 
 import compiler.pipeline.interpret.nanosyntax.NanosyntaxParser;
 import compiler.pipeline.interpret.nodes.*;
+import compiler.pipeline.interpret.visitors.helpers.NanoBlockHelper;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -44,10 +45,10 @@ public class NanoAssignmentVisitor extends AbstractNanoNodeVisitor {
     private final NanoSingletonVisitor singletonVisitor;
     private final NanoBlockVisitor blockVisitor;
 
-    public NanoAssignmentVisitor(NanoBlockVisitor blockVisitor) {
+    public NanoAssignmentVisitor(NanoBlockHelper blockHelper) {
         logger = LoggerFactory.getLogger(NanoAssignmentVisitor.class);
         singletonVisitor = new NanoSingletonVisitor(this);
-        this.blockVisitor = blockVisitor;
+        blockVisitor = new NanoBlockVisitor(blockHelper);
     }
 
     public NanoAssignmentVisitor(NanoSingletonVisitor singletonVisitor,

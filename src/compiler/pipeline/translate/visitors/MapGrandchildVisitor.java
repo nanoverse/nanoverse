@@ -26,41 +26,39 @@ package compiler.pipeline.translate.visitors;
 
 import compiler.pipeline.interpret.nodes.ASTNode;
 import compiler.pipeline.translate.helpers.TranslationCallback;
-import compiler.pipeline.translate.nodes.*;
+import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.*;
-import org.slf4j.*;
 
 /**
- * Takes a container node and a list symbol table, and returns
- * a list object node.
- *
- * Created by dbborens on 4/22/15.
+ * Created by dbborens on 9/22/2015.
  */
-public class ListContainerVisitor {
+public class MapGrandchildVisitor {
 
-    private final ListChildLoader loader;
-    private final Logger logger;
+    private final TranslationCallback walker;
+    private final GrandchildResolver gcResolver;
 
-    public ListContainerVisitor(TranslationCallback walker) {
-        logger = LoggerFactory.getLogger(ListContainerVisitor.class);
-        loader = new ListChildLoader(walker);
+    public MapGrandchildVisitor(TranslationCallback walker) {
+        this.walker = walker;
+        gcResolver = new GrandchildResolver();
     }
 
-    public ListContainerVisitor(ListChildLoader loader) {
-        logger = LoggerFactory.getLogger(ListContainerVisitor.class);
-        this.loader = loader;
+    public MapGrandchildVisitor(TranslationCallback walker,
+                                GrandchildResolver gcResolver) {
+        this.walker = walker;
+        this.gcResolver = gcResolver;
     }
 
-    public ListObjectNode translate(ASTNode toTranslate, ListSymbolTable symbolTable) {
-        logger.debug("Translating {} using LST for class {}", toTranslate.getIdentifier(),
-                symbolTable.getBroadClass().getSimpleName());
+    public ObjectNode walk(ASTNode child, ResolvingSymbolTable childRST) {
+        // The child will have exactly one child of its own: the instance.
+        ASTNode grandchild = gcResolver.getChildValue(child);
 
-        ListObjectNode node = new ListObjectNode(symbolTable);
+        // The identifier of the grandchild can be resolved to an instance.
+        String gcIdentifier = grandchild.getIdentifier();
+        InstantiableSymbolTable childIST = childRST.getSymbolTable(gcIdentifier);
 
-        // Visit each child.
-        toTranslate.getChildren()
-                .forEach(child -> loader.loadChild(child, symbolTable, node));
+        // Call back on this grandchild.
+        ObjectNode ret = walker.walk(grandchild, childIST);
 
-        return node;
+        return ret;
     }
 }
