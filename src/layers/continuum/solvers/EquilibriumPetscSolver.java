@@ -45,8 +45,7 @@ public class EquilibriumPetscSolver extends EquilibriumMatrixSolver {
     }
 
     static {
-        System.out.println(System.getProperty("java.library.path"));
-        System.loadLibrary("solver");
+        System.loadLibrary("petscsolver");
     }
 
     @Override
