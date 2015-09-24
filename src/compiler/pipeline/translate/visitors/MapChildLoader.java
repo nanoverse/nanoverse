@@ -31,36 +31,41 @@ import compiler.pipeline.translate.symbol.*;
 import org.slf4j.*;
 
 /**
- * Takes a container node and a list symbol table, and returns
- * a list object node.
- *
- * Created by dbborens on 4/22/15.
+ * Created by dbborens on 9/22/2015.
  */
-public class ListContainerVisitor {
+public class MapChildLoader {
 
-    private final ListChildLoader loader;
+
     private final Logger logger;
+    private final MapChildTranslator translator;
 
-    public ListContainerVisitor(TranslationCallback walker) {
-        logger = LoggerFactory.getLogger(ListContainerVisitor.class);
-        loader = new ListChildLoader(walker);
+    public MapChildLoader(TranslationCallback walker) {
+        translator = new MapChildTranslator(walker);
+        logger = LoggerFactory.getLogger(MapChildLoader.class);
     }
 
-    public ListContainerVisitor(ListChildLoader loader) {
-        logger = LoggerFactory.getLogger(ListContainerVisitor.class);
-        this.loader = loader;
+    public MapChildLoader(MapChildTranslator translator) {
+        this.translator = translator;
+        logger = LoggerFactory.getLogger(MapChildLoader.class);
     }
 
-    public ListObjectNode translate(ASTNode toTranslate, ListSymbolTable symbolTable) {
-        logger.debug("Translating {} using LST for class {}", toTranslate.getIdentifier(),
-                symbolTable.getBroadClass().getSimpleName());
+    public void loadChild(ASTNode child, MapSymbolTable symbolTable, MapObjectNode node) {
+        // The child's identifier is a field of this object.
+        String identifier = child.getIdentifier();
 
-        ListObjectNode node = new ListObjectNode(symbolTable);
+        // Get a symbol table that can resolve the field's value.
+        ResolvingSymbolTable childRST = symbolTable.getSymbolTable(identifier);
 
-        // Visit each child.
-        toTranslate.getChildren()
-                .forEach(child -> loader.loadChild(child, symbolTable, node));
+        ObjectNode childNode = translator.translate(child, childRST);
+        logDebug(identifier, childNode);
 
-        return node;
+        node.loadMember(identifier, childNode);
     }
+
+    private void logDebug(String identifier, ObjectNode childNode) {
+        logger.debug("Loading new {} to property \"{}\"",
+            childNode.getInstantiatingClass().getSimpleName(),
+            identifier);
+    }
+
 }

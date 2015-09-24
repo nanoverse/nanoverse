@@ -42,8 +42,8 @@ public class NanoBlockHelper extends AbstractNanoNodeVisitor {
     private final Logger logger;
 
     public NanoBlockHelper() {
-        statementVisitor = new NanoStatementVisitor();
         logger = LoggerFactory.getLogger(NanoBlockHelper.class);
+        statementVisitor = new NanoStatementVisitor(this);
     }
 
     public NanoBlockHelper(NanoStatementVisitor statementVisitor) {

@@ -38,51 +38,35 @@ import java.util.stream.Collectors;
  * Created by dbborens on 7/23/2015.
  */
 public class DictionaryContainerVisitor {
-    private final TranslationCallback walker;
+    private final DictionaryChildLoader loader;
     private final Logger logger;
+
+    public DictionaryContainerVisitor(DictionaryChildLoader loader) {
+        logger = LoggerFactory.getLogger(DictionaryContainerVisitor.class);
+        this.loader = loader;
+    }
 
     public DictionaryContainerVisitor(TranslationCallback walker) {
         logger = LoggerFactory.getLogger(DictionaryContainerVisitor.class);
-        this.walker = walker;
+        this.loader = new DictionaryChildLoader(walker);
     }
 
-    public ObjectNode translate(ASTNode toTranslate, DictionarySymbolTable symbolTable) {
-        logger.debug("Translating \"{}\" using DST for class {}", toTranslate.getIdentifier(),
-                symbolTable.getBroadClass().getSimpleName());
+    public ObjectNode translate(ASTNode toTranslate,
+                                DictionarySymbolTable symbolTable) {
+        logger.debug("Translating \"{}\" using DST for class {}",
+            toTranslate.getIdentifier(), symbolTable.getBroadClass()
+                .getSimpleName());
 
         DictionaryObjectNode node = new DictionaryObjectNode(symbolTable);
 
         // Visit each child.
         toTranslate.getChildren()
-                .forEach(child -> {
+                .forEach(child ->
+                    loader.loadChild(child, symbolTable, node));
 
-                    // The child's identifier is a unique name for the element.
-                    String elementName = child.getIdentifier();
-
-                    ObjectNode childNode = translateChild(child, symbolTable);
-                    node.loadMember(elementName, childNode);
-                });
         return node;
     }
 
-    private ObjectNode translateChild(ASTNode child, DictionarySymbolTable symbolTable) {
-        // The child's value is an instantiable value of the subclass of the
-        // list class.
-        ASTNode childValue = getChildValue(child);
-        String childClass = childValue.getIdentifier();
-        InstantiableSymbolTable ist = symbolTable.getSymbolTable(childClass);
-        ObjectNode childNode = walker.walk(childValue, ist);
-        return childNode;
-    }
 
-    private ASTNode getChildValue(ASTNode child) {
-        List<ASTNode> grandchildren = child
-                .getChildren()
-                .collect(Collectors.toList());
 
-        if (grandchildren.size() != 1) {
-            throw new SyntaxError("Unexpected dictionary value on element " + child.getIdentifier() + ". Detail:\n\n" + child.toString());
-        }
-        return grandchildren.get(0);
-    }
 }

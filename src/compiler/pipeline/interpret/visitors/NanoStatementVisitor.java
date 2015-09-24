@@ -27,6 +27,7 @@ package compiler.pipeline.interpret.visitors;
 import compiler.pipeline.interpret.nanosyntax.NanosyntaxParser;
 import compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.*;
 import compiler.pipeline.interpret.nodes.ASTNode;
+import compiler.pipeline.interpret.visitors.helpers.NanoBlockHelper;
 import compiler.pipeline.translate.visitors.PrimitiveVisitor;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -41,17 +42,11 @@ public class NanoStatementVisitor extends AbstractNanoNodeVisitor {
     private final NanoPrimitiveVisitor primitiveVisitor;
     private final NanoStandaloneIdVisitor standaloneVisitor;
 
-    private final Class[] legalChildContexts = new Class[] {
-        AssignmentContext.class,
-        PrimitiveContext.class,
-        IdContext.class
-    };
 
-    public NanoStatementVisitor() {
+    public NanoStatementVisitor(NanoBlockHelper blockHelper) {
         logger = LoggerFactory.getLogger(NanoStatementVisitor.class);
-        NanoBlockVisitor blockVisitor = new NanoBlockVisitor();
 
-        assignmentVisitor = new NanoAssignmentVisitor(blockVisitor);
+        assignmentVisitor = new NanoAssignmentVisitor(blockHelper);
         primitiveVisitor = new NanoPrimitiveVisitor();
         standaloneVisitor = new NanoStandaloneIdVisitor();
     }

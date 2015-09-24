@@ -38,12 +38,17 @@ import org.slf4j.*;
  */
 public class MapContainerVisitor {
 
-    private final TranslationCallback walker;
+    private final MapChildLoader loader;
     private final Logger logger;
 
     public MapContainerVisitor(TranslationCallback walker) {
         logger = LoggerFactory.getLogger(MapContainerVisitor.class);
-        this.walker = walker;
+        loader = new MapChildLoader(walker);
+    }
+
+    public MapContainerVisitor(MapChildLoader loader) {
+        logger = LoggerFactory.getLogger(MapContainerVisitor.class);
+        this.loader = loader;
     }
 
     public ObjectNode translate(ASTNode toTranslate, MapSymbolTable symbolTable) {
@@ -54,42 +59,7 @@ public class MapContainerVisitor {
 
         // Visit each child.
         toTranslate.getChildren()
-
-                .forEach(child -> {
-
-                    // The child's identifier is a field of this object.
-                    String identifier = child.getIdentifier();
-
-                    // Get a symbol table that can resolve the field's value.
-                    ResolvingSymbolTable childRST = symbolTable.getSymbolTable(identifier);
-
-                    ObjectNode childNode;
-
-                    // If the child is a list or dictionary, pass it back to be resolved.
-                    if (childRST instanceof ListSymbolTable ||
-                        childRST instanceof DictionarySymbolTable) {
-
-                        childNode = walker.walk(child, childRST);
-
-                    } else {
-
-                        // The child will have exactly one child of its own: the instance.
-                        ASTNode grandchild = child.getChildren().findFirst().get();
-
-                        // The identifier of the grandchild can be resolved to an instance.
-                        String gcIdentifier = grandchild.getIdentifier();
-                        InstantiableSymbolTable childIST = childRST.getSymbolTable(gcIdentifier);
-
-                        // Call back on this grandchild.
-                        childNode = walker.walk(grandchild, childIST);
-                    }
-
-                    logger.debug("Loading new {} to property \"{}\"",
-                        childNode.getInstantiatingClass().getSimpleName(),
-                        identifier);
-
-                    node.loadMember(identifier, childNode);
-                });
+                .forEach(child -> loader.loadChild(child, symbolTable, node));
 
         return node;
     }

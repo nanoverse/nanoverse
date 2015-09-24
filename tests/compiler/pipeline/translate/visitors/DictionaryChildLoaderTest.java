@@ -26,33 +26,36 @@ package compiler.pipeline.translate.visitors;
 
 import compiler.pipeline.interpret.nodes.ASTNode;
 import compiler.pipeline.translate.nodes.*;
-import compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
-import org.slf4j.*;
+import compiler.pipeline.translate.symbol.DictionarySymbolTable;
+import org.junit.*;
 
-/**
- * Takes a primitive AST node and a primitive symbol table,
- * and returns a primitive object node.
- *
- * Created by dbborens on 4/22/15.
- */
-public class PrimitiveVisitor {
-    private final Logger logger;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-    public PrimitiveVisitor() {
-        logger = LoggerFactory.getLogger(PrimitiveVisitor.class);
+public class DictionaryChildLoaderTest {
+
+    private DictionaryChildTranslator translator;
+    private DictionaryChildLoader query;
+
+    @Before
+    public void before() throws Exception {
+        translator = mock(DictionaryChildTranslator.class);
+        query = new DictionaryChildLoader(translator);
     }
 
-    public ObjectNode translate(ASTNode toTranslate, ConstantPrimitiveSymbolTable symbolTable) {
-        logger.debug("Translating primitive.");
+    @Test
+    public void loadChild() throws Exception {
+        ASTNode child = mock(ASTNode.class);
+        String name = "test";
+        when(child.getIdentifier()).thenReturn(name);
 
-        ASTNode valueNode = toTranslate
-            .getChildren()
-            .findFirst()
-            .get();
+        DictionarySymbolTable st = mock(DictionarySymbolTable.class);
+        ObjectNode oNode = mock(ObjectNode.class);
+        when(translator.translateChild(child, st)).thenReturn(oNode);
 
-        String valueStr = valueNode.getIdentifier();
+        DictionaryObjectNode dNode = mock(DictionaryObjectNode.class);
+        query.loadChild(child, st, dNode);
 
-        Object value = symbolTable.getValue(valueStr);
-        return new PrimitiveObjectNode<>(symbolTable, value);
+        verify(dNode).loadMember(name, oNode);
     }
 }
