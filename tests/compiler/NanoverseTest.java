@@ -24,12 +24,10 @@
 
 package compiler;
 
-import agent.action.CompoundAction;
 import compiler.error.ConsoleError;
 import control.run.Runner;
 import org.junit.*;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class NanoverseTest {
