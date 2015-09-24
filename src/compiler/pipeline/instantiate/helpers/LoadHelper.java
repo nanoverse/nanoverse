@@ -34,7 +34,6 @@ import compiler.pipeline.translate.nodes.MapObjectNode;
 import compiler.pipeline.translate.nodes.ObjectNode;
 import compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 import control.arguments.*;
-import javassist.compiler.ast.StringL;
 
 import java.util.Random;
 import java.util.function.Supplier;
