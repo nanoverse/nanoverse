@@ -26,9 +26,13 @@ dependencies {
     compile 'com.google.guava:guava:14.+',
             'com.googlecode.matrix-toolkits-java:mtj:1.+',
             'com.keypoint:png-encoder:1.+',
-            'dom4j:dom4j:1.+'
-    testCompile 'junit:junit:4.+',
-                'org.apache.directory.studio:org.apache.commons.io:2.+',
+            'org.antlr:antlr4-runtime:4.5+',
+            'dom4j:dom4j:1.+',
+            'log4j:log4j:1.2+',
+            'org.slf4j:slf4j-api:1.7+',
+            'org.slf4j:slf4j-log4j12:1.7+',
+            'junit:junit:4.+'
+    testCompile 'org.apache.directory.studio:org.apache.commons.io:2.+',
                 'org.mockito:mockito-all:1.+'
     if (osName.equals("linux") || osName.equals("mac")) {
         runtime files('./lib/libpetscsolver.dylib') {
