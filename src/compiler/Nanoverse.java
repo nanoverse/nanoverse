@@ -1,4 +1,4 @@
-/*
+package compiler;/*
  * Copyright (c) 2014, 2015 David Bruce Borenstein and the
  * Trustees of Princeton University.
  *
@@ -22,8 +22,6 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package compiler;
-
 import compiler.error.ConsoleError;
 import control.run.Runner;
 
@@ -32,16 +30,10 @@ import control.run.Runner;
  */
 public class Nanoverse {
 
-    private final Compiler compiler;
-
     private final static String usage =
         "\nExpected exactly one argument. Usage:\n" +
         "\tNanoverse <filename>";
-
-    public static void main(String[] args) {
-        Nanoverse instance = new Nanoverse(args);
-        instance.go();
-    }
+    private final compiler.Compiler compiler;
 
     public Nanoverse(String[] args) {
         if (args.length == 0 || args.length > 1) {
@@ -54,6 +46,11 @@ public class Nanoverse {
 
     public Nanoverse(Compiler compiler) {
         this.compiler = compiler;
+    }
+
+    public static void main(String[] args) {
+        Nanoverse instance = new Nanoverse(args);
+        instance.go();
     }
 
     public void go() {
