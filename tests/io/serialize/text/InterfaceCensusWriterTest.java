@@ -27,18 +27,14 @@ package io.serialize.text;
 import cells.MockCell;
 import control.arguments.ConstantInteger;
 import control.halt.HaltCondition;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Absorbing;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import layers.MockLayerManager;
-import layers.cell.CellLayer;
-import layers.cell.CellUpdateManager;
+import layers.cell.*;
+import org.junit.*;
 import processes.StepState;
 import structural.MockGeneralParameters;
 import test.*;
@@ -50,7 +46,7 @@ public class InterfaceCensusWriterTest extends EslimeTestCase {
     private CellLayer cellLayer;
     private MockLayerManager layerManager;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         Lattice lattice = new RectangularLattice();
         Shape shape = new Rectangle(lattice, 3, 3);
@@ -105,6 +101,13 @@ public class InterfaceCensusWriterTest extends EslimeTestCase {
         put(new Coordinate2D(2, 2, 0), 3);
     }
 
+    private void put(Coordinate c, int state) throws HaltCondition {
+        MockCell cell = new MockCell(state);
+        CellUpdateManager u = cellLayer.getUpdateManager();
+        u.place(cell, c);
+    }
+
+    @Test
     public void testLifeCycle() throws Exception {
         MockGeneralParameters p = makeMockGeneralParameters();
         p.setInstancePath(outputPath);
@@ -147,11 +150,5 @@ public class InterfaceCensusWriterTest extends EslimeTestCase {
         CellUpdateManager u = cellLayer.getUpdateManager();
         u.banish(c);
         put(c, state);
-    }
-
-    private void put(Coordinate c, int state) throws HaltCondition {
-        MockCell cell = new MockCell(state);
-        CellUpdateManager u = cellLayer.getUpdateManager();
-        u.place(cell, c);
     }
 }

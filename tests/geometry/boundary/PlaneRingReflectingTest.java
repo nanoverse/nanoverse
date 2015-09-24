@@ -24,18 +24,15 @@
 
 package geometry.boundary;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Flags;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Boundary;
-import geometry.boundaries.PlaneRingReflecting;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.lattice.TriangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.*;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.*;
 
 public class PlaneRingReflectingTest extends EslimeTestCase {
     private Boundary rect;
@@ -47,6 +44,7 @@ public class PlaneRingReflectingTest extends EslimeTestCase {
     private Shape rectShape;
     private Shape triShape;
 
+    @Before
     public void setUp() {
         rectLattice = new RectangularLattice();
         triLattice = new TriangularLattice();
@@ -58,11 +56,13 @@ public class PlaneRingReflectingTest extends EslimeTestCase {
         tri = new PlaneRingReflecting(triShape, triLattice);
     }
 
+    @Test
     public void testInfinite() {
         assertFalse(rect.isInfinite());
         assertFalse(tri.isInfinite());
     }
 
+    @Test
     public void testApplyInBounds() {
         // These are in bounds for both triangular and rectangular
         Coordinate a, b, c;
@@ -98,6 +98,7 @@ public class PlaneRingReflectingTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testApplyOutsideX() {
         Coordinate p, q;
         p = new Coordinate2D(-1, 1, 0);
@@ -124,6 +125,7 @@ public class PlaneRingReflectingTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testApplyOutsideY() {
         Coordinate p, q;
         p = new Coordinate2D(0, 4, 0);
@@ -150,6 +152,7 @@ public class PlaneRingReflectingTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testApplyRectXY() {
         Coordinate p, q;
         p = new Coordinate2D(-1, 4, 0);
@@ -167,6 +170,7 @@ public class PlaneRingReflectingTest extends EslimeTestCase {
 
     }
 
+    @Test
     public void testApplyTriXY() {
         Coordinate p, q;
         p = new Coordinate2D(-1, 3, 0);
@@ -187,6 +191,7 @@ public class PlaneRingReflectingTest extends EslimeTestCase {
      * Integration test verifying that correct neighbors are being
      * reported. Created for bug report 62997644.
      */
+    @Test
     public void testBoundaryNeighbors() {
         Geometry geom = new Geometry(rectLattice, rectShape, rect);
 
@@ -244,6 +249,7 @@ public class PlaneRingReflectingTest extends EslimeTestCase {
 
     }
 
+    @Test
     public void testCloneWithArguments() {
         Lattice lattice = new RectangularLattice();
         Shape singleton = new Rectangle(lattice, 1, 1);

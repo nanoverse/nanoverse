@@ -24,13 +24,12 @@
 
 package geometry.shape;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Flags;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
+import control.identifiers.*;
+import geometry.lattice.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 public class RectangleTest extends EslimeTestCase {
 
     private Shape odd;
@@ -38,7 +37,7 @@ public class RectangleTest extends EslimeTestCase {
 
     private Lattice evenLattice;
 
-    @Override
+    @Before
     public void setUp() {
         Lattice oddLattice = new RectangularLattice();
         evenLattice = new RectangularLattice();
@@ -47,6 +46,7 @@ public class RectangleTest extends EslimeTestCase {
         odd = new Rectangle(oddLattice, 3, 5);
     }
 
+    @Test
     public void testGetCenter() {
         Coordinate actual, expected;
 
@@ -61,6 +61,7 @@ public class RectangleTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testGetBoundaries() {
         Coordinate[] actual, expected;
 
@@ -97,6 +98,7 @@ public class RectangleTest extends EslimeTestCase {
         assertArraysEqual(actual, expected, true);
     }
 
+    @Test
     public void testCanonicalSites() {
         Coordinate[] actual, expected;
 
@@ -114,6 +116,7 @@ public class RectangleTest extends EslimeTestCase {
         assertArraysEqual(actual, expected, true);
     }
 
+    @Test
     public void testOverbounds() {
         Coordinate actual, expected;
 
@@ -190,6 +193,7 @@ public class RectangleTest extends EslimeTestCase {
         assertEquals(actual, expected);
     }
 
+    @Test
     public void testDimensions() {
         int[] actual, expected;
 
@@ -204,6 +208,7 @@ public class RectangleTest extends EslimeTestCase {
         assertArraysEqual(actual, expected, false);
     }
 
+    @Test
     public void testCloneAtScale() {
         Lattice clonedLattice = evenLattice.clone();
         Shape cloned = even.cloneAtScale(clonedLattice, 2.0);
@@ -212,26 +217,4 @@ public class RectangleTest extends EslimeTestCase {
         assertEquals(8, even.getCanonicalSites().length);
         assertEquals(32, cloned.getCanonicalSites().length);
     }
-
-	/*public void testGetLimits() {
-        Coordinate[] actual, expected;
-
-		// Even
-		expected = new Coordinate[] {
-			new Coordinate2D(0, -1, Flags.VECTOR),
-			new Coordinate2D(1, 2, Flags.VECTOR)
-		};
-		
-		actual = even.getLimits();
-		assertArraysEqual(actual, expected, false);
-		
-		// Odd
-		expected = new Coordinate[] {
-				new Coordinate2D(-1, -2, Flags.VECTOR),
-				new Coordinate2D(1, 2, Flags.VECTOR)
-			};
-		
-		actual = odd.getLimits();
-		assertArraysEqual(actual, expected, false);
-	}*/
 }

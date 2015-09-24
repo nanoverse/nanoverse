@@ -24,25 +24,26 @@
 
 package geometry.boundary;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Flags;
+import control.identifiers.*;
 import geometry.boundaries.helpers.PlaneRingHelper;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
+import geometry.lattice.*;
+import org.junit.*;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 public class PlaneRingHelperTest extends EslimeTestCase {
 
     private PlaneRingHelper helper;
 
-    @Override
+    @Before
     public void setUp() {
         Lattice lattice = new RectangularLattice();
         int[] dims = new int[]{4, 4};
         helper = new PlaneRingHelper(lattice, dims);
     }
 
+    @Test
     public void testWrapLeft() {
         Coordinate initial, actual, expected;
 
@@ -57,6 +58,7 @@ public class PlaneRingHelperTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testWrapRight() {
         Coordinate initial, actual, expected;
 
@@ -71,6 +73,7 @@ public class PlaneRingHelperTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testReflectAbove() {
         Coordinate initial, actual, expected;
 
@@ -95,6 +98,7 @@ public class PlaneRingHelperTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testReflectBelow() {
         Coordinate initial, actual, expected;
 

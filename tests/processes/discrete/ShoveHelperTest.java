@@ -24,39 +24,28 @@
 
 package processes.discrete;
 
-import cells.Cell;
-import cells.MockCell;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Coordinate3D;
+import cells.*;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Absorbing;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.boundaries.Periodic;
-import geometry.lattice.CubicLattice;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.shape.Cuboid;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import structural.MockRandom;
 import test.EslimeTestCase;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Arrays;
+import java.util.*;
 
+import static org.junit.Assert.*;
 public class ShoveHelperTest extends EslimeTestCase {
 
     private CellLayer layer;
     private ShoveHelper query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
 
         // Create a 10x1 rectangular, 2D geometry
         Lattice lattice = new RectangularLattice();
@@ -73,6 +62,22 @@ public class ShoveHelperTest extends EslimeTestCase {
         query = new ShoveHelper(lm, random);
     }
 
+    private void placeCells() throws Exception {
+        for (int x = 0; x < 7; x++) {
+            placeNumberedCell(x);
+        }
+
+        for (int x = 8; x <= 9; x++) {
+            placeNumberedCell(x);
+        }
+    }
+
+    private void placeNumberedCell(int x) throws Exception {
+        MockCell cell = new MockCell(x);
+        Coordinate coord = new Coordinate2D(x, 0, 0);
+        layer.getUpdateManager().place(cell, coord);
+    }
+
     /**
      * This test will create a linear geometry that has one vacancy. A line
      * of cells will be pushed toward this vacancy, moving the vacancy to the
@@ -86,6 +91,7 @@ public class ShoveHelperTest extends EslimeTestCase {
      * <p>
      * 0123_45689  Result
      */
+    @Test
     public void test1Dshove() throws Exception {
         Coordinate target = new Coordinate2D(7, 0, 0);
         Coordinate origin = new Coordinate2D(4, 0, 0);
@@ -111,6 +117,7 @@ public class ShoveHelperTest extends EslimeTestCase {
         }
     }
 
+    @Test
     public void test3Dshove() throws Exception {
         // Create a 10x1 rectangular, 2D geometry
         Lattice lattice = new CubicLattice();
@@ -151,6 +158,7 @@ public class ShoveHelperTest extends EslimeTestCase {
         assertFalse(layer.getViewer().isOccupied(origin));
     }
 
+    @Test
     public void testGetTarget() throws Exception {
         Coordinate origin = new Coordinate2D(4, 0, 0);
 
@@ -159,6 +167,7 @@ public class ShoveHelperTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testRemoveImaginary() throws Exception {
         Lattice lattice = new RectangularLattice();
         Shape shape = new Rectangle(lattice, 10, 1);
@@ -182,6 +191,7 @@ public class ShoveHelperTest extends EslimeTestCase {
      * path is the same for random shoving.
      * @throws Exception
      */
+    @Test
     public void test1DShoveRandom() throws Exception {
         Lattice lattice = new RectangularLattice();
         Shape shape = new Rectangle(lattice, 10, 1);
@@ -219,22 +229,6 @@ public class ShoveHelperTest extends EslimeTestCase {
 
         // Having shoved, the origin should now be vacant.
         assertFalse(layer.getViewer().isOccupied(origin));
-    }
-
-    private void placeCells() throws Exception {
-        for (int x = 0; x < 7; x++) {
-            placeNumberedCell(x);
-        }
-
-        for (int x = 8; x <= 9; x++) {
-            placeNumberedCell(x);
-        }
-    }
-
-    private void placeNumberedCell(int x) throws Exception {
-        MockCell cell = new MockCell(x);
-        Coordinate coord = new Coordinate2D(x, 0, 0);
-        layer.getUpdateManager().place(cell, coord);
     }
 
 }

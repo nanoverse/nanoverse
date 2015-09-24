@@ -24,24 +24,22 @@
 
 package io.factory;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import control.identifiers.*;
 import factory.io.visual.VisualizationFactory;
 import factory.io.visual.kymograph.KymographFactory;
 import factory.io.visual.map.MapVisualizationFactory;
-import geometry.Geometry;
-import geometry.MockGeometry;
-import io.visual.Visualization;
-import io.visual.VisualizationProperties;
-import io.visual.color.ColorManager;
-import io.visual.color.DefaultColorManager;
+import geometry.*;
+import io.visual.*;
+import io.visual.color.*;
 import io.visual.highlight.HighlightManager;
 import io.visual.kymograph.Kymograph;
 import io.visual.map.MapVisualization;
 import org.dom4j.Element;
+import org.junit.*;
 import structural.MockGeneralParameters;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/3/14.
  */
@@ -52,8 +50,8 @@ public class VisualizationFactoryTest extends EslimeTestCase {
     private Geometry geom;
     private MockGeneralParameters p;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         fixtureRoot = readXmlFile("factories/VisualizationFactoryTest.xml");
         times = new double[]{0.0};
         frames = new int[]{0};
@@ -61,6 +59,20 @@ public class VisualizationFactoryTest extends EslimeTestCase {
         p = makeMockGeneralParameters();
     }
 
+    private Geometry makeMockGeometry() {
+        Coordinate[] cc = new Coordinate[]{
+            new Coordinate2D(0, 0, 0),
+            new Coordinate2D(0, 1, 0)
+        };
+
+        MockGeometry ret = new MockGeometry();
+        ret.setCanonicalSites(cc);
+        ret.setDimensionality(1);
+        ret.setConnectivity(1);
+        return ret;
+    }
+
+    @Test
     public void testMapCase() {
         Element root = fixtureRoot.element("map-case");
         Visualization actual = VisualizationFactory.instantiate(root, p);
@@ -68,20 +80,6 @@ public class VisualizationFactoryTest extends EslimeTestCase {
         int outline = MapVisualizationFactory.DEFAULT_OUTLINE;
         VisualizationProperties properties = makeProperties(edge, outline);
         Visualization expected = new MapVisualization(properties);
-
-        actual.init(geom, times, frames);
-        expected.init(geom, times, frames);
-
-        assertEquals(expected, actual);
-    }
-
-    public void testKymographCase() {
-        Element root = fixtureRoot.element("kymograph-case");
-        Visualization actual = VisualizationFactory.instantiate(root, p);
-        int edge = KymographFactory.DEFAULT_EDGE;
-        int outline = KymographFactory.DEFAULT_OUTLINE;
-        VisualizationProperties properties = makeProperties(edge, outline);
-        Visualization expected = new Kymograph(properties);
 
         actual.init(geom, times, frames);
         expected.init(geom, times, frames);
@@ -97,16 +95,18 @@ public class VisualizationFactoryTest extends EslimeTestCase {
         return visualizationProperties;
     }
 
-    private Geometry makeMockGeometry() {
-        Coordinate[] cc = new Coordinate[]{
-                new Coordinate2D(0, 0, 0),
-                new Coordinate2D(0, 1, 0)
-        };
+    @Test
+    public void testKymographCase() {
+        Element root = fixtureRoot.element("kymograph-case");
+        Visualization actual = VisualizationFactory.instantiate(root, p);
+        int edge = KymographFactory.DEFAULT_EDGE;
+        int outline = KymographFactory.DEFAULT_OUTLINE;
+        VisualizationProperties properties = makeProperties(edge, outline);
+        Visualization expected = new Kymograph(properties);
 
-        MockGeometry ret = new MockGeometry();
-        ret.setCanonicalSites(cc);
-        ret.setDimensionality(1);
-        ret.setConnectivity(1);
-        return ret;
+        actual.init(geom, times, frames);
+        expected.init(geom, times, frames);
+
+        assertEquals(expected, actual);
     }
 }

@@ -26,25 +26,16 @@ package io.visual.map;
 
 import control.identifiers.Coordinate;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.CubicLattice;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.lattice.TriangularLattice;
-import geometry.shape.Cuboid;
-import geometry.shape.Hexagon;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import io.deserialize.MockCoordinateDeindexer;
 import io.visual.VisualizationProperties;
-import io.visual.color.ColorManager;
-import io.visual.color.DefaultColorManager;
-import io.visual.highlight.Glyph;
-import io.visual.glyph.GlyphTest;
-import io.visual.glyph.MockGlyph;
-import io.visual.highlight.HighlightManager;
+import io.visual.color.*;
+import io.visual.glyph.*;
+import io.visual.highlight.*;
 import layers.LightweightSystemState;
+import org.junit.Test;
 import test.FileAssertions;
 
 import javax.imageio.ImageIO;
@@ -61,11 +52,6 @@ public class MapVisualizationTest extends GlyphTest {
     }
 
     @Override
-    protected String getFileName() {
-        return "mapVisualizationTest.png";
-    }
-
-    @Override
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
         int n = geom.getCanonicalSites().length;
         int[] state = new int[n];
@@ -76,8 +62,14 @@ public class MapVisualizationTest extends GlyphTest {
         systemState.initCellLayer(state);
     }
 
+    @Override
+    protected String getFileName() {
+        return "mapVisualizationTest.png";
+    }
+
     // Regression test for issues with incorrect bounds for hexagonal
     // geometries. (Really a graphical test for HexPixelTranslator.)
+    @Test
     public void testHexagon() throws Exception {
         for (int r = 6; r <= 24; r += 6) {
             Lattice lattice = new TriangularLattice();
@@ -101,6 +93,7 @@ public class MapVisualizationTest extends GlyphTest {
         }
     }
 
+    @Test
     public void testHexagonNoOutline() throws Exception {
         for (int r = 6; r <= 24; r += 6) {
             Lattice lattice = new TriangularLattice();
@@ -123,12 +116,9 @@ public class MapVisualizationTest extends GlyphTest {
     }
 
     // As above, but for rectangular geometry.
+    @Test
     public void testRectangle() throws Exception {
         doRectangleTest(1, "RectangularMap.png");
-    }
-
-    public void testNoOutline() throws Exception {
-        doRectangleTest(0, "RectangularMapNoOutline.png");
     }
 
     private void doRectangleTest(int outline, String filename) throws Exception {
@@ -150,6 +140,11 @@ public class MapVisualizationTest extends GlyphTest {
 
     }
 
+    @Test
+    public void testNoOutline() throws Exception {
+        doRectangleTest(0, "RectangularMapNoOutline.png");
+    }
+
     /**
      * The cube visualization shows only the middle slice. So we populate
      * every slice but the middle slice with a checkerboard of red and blue,
@@ -158,6 +153,7 @@ public class MapVisualizationTest extends GlyphTest {
      *
      * @throws Exception
      */
+    @Test
     public void testCube() throws Exception {
         Lattice lattice = new CubicLattice();
         Shape shape = new Cuboid(lattice, 5, 5, 5);

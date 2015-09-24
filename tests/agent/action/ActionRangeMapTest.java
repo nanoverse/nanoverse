@@ -25,12 +25,16 @@
 package agent.action;
 
 import cells.MockCell;
-import junit.framework.TestCase;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Created by dbborens on 4/27/14.
  */
-public class ActionRangeMapTest extends TestCase {
+public class ActionRangeMapTest {
+
+    @Test
     public void testClone() throws Exception {
         MockCell originalCell = new MockCell(1);
         MockCell cloneCell = new MockCell(2);

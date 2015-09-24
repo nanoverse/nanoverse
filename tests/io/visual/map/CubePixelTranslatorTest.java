@@ -22,27 +22,25 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package io.visual.map;//import junit.framework.TestCase;
+package io.visual.map;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Coordinate3D;
-import geometry.lattice.CubicLattice;
-import geometry.lattice.Lattice;
-import geometry.shape.Cuboid;
-import geometry.shape.Shape;
+import control.identifiers.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import io.visual.VisualizationProperties;
+import org.junit.*;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.*;
 
 public class CubePixelTranslatorTest extends EslimeTestCase {
     private CubePixelTranslator query;
     private Coordinate c0, c1;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         c0 = new Coordinate3D(0, 0, 2, 0);
         c1 = new Coordinate3D(1, 4, 2, 0);
-        super.setUp();
         Lattice lattice = new CubicLattice();
         Shape shape = new Cuboid(lattice, 5, 5, 5);
         Coordinate[] cc = shape.getCanonicalSites();
@@ -52,31 +50,35 @@ public class CubePixelTranslatorTest extends EslimeTestCase {
         query.init(mapState);
     }
 
+    @Test
     public void testOrigin() throws Exception {
         Coordinate expected = new Coordinate2D(5, 45, 0);
         Coordinate actual = query.indexToPixels(c0);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testIndexToPixels() throws Exception {
         Coordinate actual = query.indexToPixels(c1);
         Coordinate expected = new Coordinate2D(15, 5, 0);
         assertEquals(expected, actual);
     }
 
-
+    @Test
     public void testGetImageDims() throws Exception {
         Coordinate actual = query.getImageDims();
         Coordinate expected = new Coordinate2D(50, 50, 0);
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testGetDiagonal() throws Exception {
         double expected = Math.sqrt(2.0) * 10.0;
         double actual = query.getDiagonal();
         assertEquals(expected, actual, epsilon);
     }
 
+    @Test
     public void testNonMiddleThrows() throws Exception {
         Coordinate nonMiddle = new Coordinate3D(0, 0, 0, 0);
 

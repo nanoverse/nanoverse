@@ -24,25 +24,24 @@
 
 package structural.postprocess;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Flags;
+import control.identifiers.*;
 import geometry.MockGeometry;
-import junit.framework.TestCase;
 import no.uib.cipr.matrix.DenseVector;
+import org.junit.*;
 import structural.utilities.EpsilonUtil;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 12/16/13.
  */
-public class SolutionViewerTest extends TestCase {
+public class SolutionViewerTest {
     private MockGeometry geom;
     private SolutionViewer viewer;
     private Coordinate origin;
     private Coordinate other;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         geom = new MockGeometry();
 
         origin = new Coordinate2D(1, 1, Flags.VECTOR);
@@ -68,7 +67,8 @@ public class SolutionViewerTest extends TestCase {
         viewer = new SolutionViewer(solution, geom);
     }
 
-    public void testGet() throws Exception {
+    @Test
+    public void get() throws Exception {
         Coordinate originOffset = new Coordinate2D(0, 0, Flags.VECTOR);
         Coordinate otherOffset = new Coordinate2D(0, 1, Flags.VECTOR);
 
@@ -76,7 +76,8 @@ public class SolutionViewerTest extends TestCase {
         assertEquals(5.0, viewer.getRelative(otherOffset), EpsilonUtil.epsilon());
     }
 
-    public void testGetSolution() throws Exception {
+    @Test
+    public void getSolution() throws Exception {
         DenseVector solution = viewer.getSolution();
 
         assertEquals(2, solution.size());
@@ -84,7 +85,8 @@ public class SolutionViewerTest extends TestCase {
         assertEquals(5.0, solution.get(1), EpsilonUtil.epsilon());
     }
 
-    public void testGetAbsolute() throws Exception {
+    @Test
+    public void getAbsolute() throws Exception {
         assertEquals(1.0, viewer.getAbsolute(origin.canonicalize()), EpsilonUtil.epsilon());
         assertEquals(5.0, viewer.getAbsolute(other.canonicalize()), EpsilonUtil.epsilon());
     }

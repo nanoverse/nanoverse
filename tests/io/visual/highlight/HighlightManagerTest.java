@@ -26,11 +26,13 @@ package io.visual.highlight;
 
 import io.visual.glyph.MockGlyph;
 import layers.MockSystemState;
+import org.junit.*;
 import test.EslimeLatticeTestCase;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/2/14.
  */
@@ -39,14 +41,16 @@ public class HighlightManagerTest extends EslimeLatticeTestCase {
     MockGlyph glyph;
     HighlightManager query;
 
+    @Before
     @Override
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
         glyph = new MockGlyph();
         query = new HighlightManager();
         query.setGlyph(0, glyph);
     }
 
+    @Test
     public void testSetGraphics() throws Exception {
         BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         Graphics2D graphics = (Graphics2D) image.getGraphics();
@@ -55,6 +59,7 @@ public class HighlightManagerTest extends EslimeLatticeTestCase {
     }
 
 
+    @Test
     public void testOverlayGlyphs() throws Exception {
         MockSystemState systemState = new MockSystemState();
         systemState.setHighlighted(true);
@@ -62,6 +67,7 @@ public class HighlightManagerTest extends EslimeLatticeTestCase {
         assertEquals(origin, glyph.getLastOverlaid());
     }
 
+    @Test
     public void testGetHighlightChannels() throws Exception {
         query.setGlyph(2, new MockGlyph());
         int[] expected = new int[]{0, 2};

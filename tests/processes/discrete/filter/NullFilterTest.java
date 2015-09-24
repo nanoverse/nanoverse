@@ -24,21 +24,19 @@
 
 package processes.discrete.filter;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import junit.framework.TestCase;
+import control.identifiers.*;
+import org.junit.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
 
-public class NullFilterTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+
+public class NullFilterTest {
     private ArrayList<Coordinate> original, cloned;
     private NullFilter query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
+    @Before
+    public void setUp() throws Exception {
         original = new ArrayList<>(5);
         for (int i = 0; i < 5; i++) {
             original.add(new Coordinate2D(i, i, 0));
@@ -49,6 +47,7 @@ public class NullFilterTest extends TestCase {
         query = new NullFilter();
     }
 
+    @Test
     public void testApply() throws Exception {
         Collection<Coordinate> actual = query.apply(original);
 

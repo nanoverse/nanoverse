@@ -22,33 +22,32 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package factory.control;//import junit.framework.TestCase;
+package factory.control;
 
-import control.GeneralParameters;
-import control.ProcessManager;
+import control.*;
 import org.dom4j.Element;
-import processes.BaseProcessArguments;
-import processes.NanoverseProcess;
-import processes.MockProcess;
+import org.junit.*;
+import processes.*;
 import test.EslimeLatticeTestCase;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
+
+import static org.junit.Assert.assertEquals;
 
 public class ProcessManagerFactoryTest extends EslimeLatticeTestCase {
 
     private GeneralParameters p;
     private Element root;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
         p = makeMockGeneralParameters();
 
         root = readXmlFile("factories/control/ProcessManagerFactoryTest.xml");
     }
 
+    @Test
     public void testImplicit() throws Exception {
         Element implicitRoot = root.element("implicit-case");
 
@@ -60,6 +59,7 @@ public class ProcessManagerFactoryTest extends EslimeLatticeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testExplicit() throws Exception {
         Element explicitRoot = root.element("explicit-case");
 

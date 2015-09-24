@@ -25,21 +25,23 @@
 package structural;
 
 import org.dom4j.Element;
+import org.junit.*;
 import structural.utilities.XmlUtil;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 /**
  * Created by dbborens on 2/20/14.
  */
 public class XmlUtilTest extends EslimeTestCase {
     Element fixtureRoot;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         fixtureRoot = readXmlFile("XmlUtilTest.xml");
     }
 
+    @Test
     public void testGetBoolean() throws Exception {
         Element testRoot = fixtureRoot.element("get-boolean");
         doBooleanTest(testRoot, "flag-only", true);
@@ -54,10 +56,12 @@ public class XmlUtilTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
-    private void doIntegerTest(Element testRoot, String childName, int expected) {
-        Element child = testRoot.element(childName);
-        int actual = XmlUtil.getInteger(child, "test", -1);
-        assertEquals(expected, actual);
+    @Test
+    public void testGetDouble() throws Exception {
+        Element testRoot = fixtureRoot.element("get-double");
+        doDoubleTest(testRoot, "default", -1.0);
+        doDoubleTest(testRoot, "negative", -0.5);
+        doDoubleTest(testRoot, "scientific", 4e-3);
     }
 
     private void doDoubleTest(Element testRoot, String childName, double expected) {
@@ -66,13 +70,7 @@ public class XmlUtilTest extends EslimeTestCase {
         assertEquals(expected, actual, epsilon);
     }
 
-    public void testGetDouble() throws Exception {
-        Element testRoot = fixtureRoot.element("get-double");
-        doDoubleTest(testRoot, "default", -1.0);
-        doDoubleTest(testRoot, "negative", -0.5);
-        doDoubleTest(testRoot, "scientific", 4e-3);
-    }
-
+    @Test
     public void testGetInteger() throws Exception {
         Element testRoot = fixtureRoot.element("get-integer");
         doIntegerTest(testRoot, "default", -1);
@@ -80,6 +78,13 @@ public class XmlUtilTest extends EslimeTestCase {
         doIntegerTest(testRoot, "positive", 2);
     }
 
+    private void doIntegerTest(Element testRoot, String childName, int expected) {
+        Element child = testRoot.element(childName);
+        int actual = XmlUtil.getInteger(child, "test", -1);
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void testGetStringDefault() throws Exception {
         Element testRoot = fixtureRoot.element("get-string");
         doStringTest(testRoot, "default", "default value", "default value");
@@ -87,6 +92,12 @@ public class XmlUtilTest extends EslimeTestCase {
         doStringTest(testRoot, "non-empty", "default value", "test");
     }
 
+    private void doStringTest(Element testRoot, String elemName, String defaultValue, String expected) {
+        String actual = XmlUtil.getString(testRoot, elemName, defaultValue);
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void testGetStringNoDefault() throws Exception {
         Element testRoot = fixtureRoot.element("get-string");
         doStringTest(testRoot, "empty", "");
@@ -102,6 +113,12 @@ public class XmlUtilTest extends EslimeTestCase {
         assertTrue(thrown);
     }
 
+    private void doStringTest(Element testRoot, String elemName, String expected) {
+        String actual = XmlUtil.getString(testRoot, elemName);
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void testGetEmptyIntArray() throws Exception {
         Element testRoot = fixtureRoot.element("get-int-array");
         int[] actual = XmlUtil.getIntegerArray(testRoot.element("empty"), "item");
@@ -109,20 +126,11 @@ public class XmlUtilTest extends EslimeTestCase {
         assertArraysEqual(expected, actual, false);
     }
 
+    @Test
     public void testGetIntArray() throws Exception {
         Element testRoot = fixtureRoot.element("get-int-array");
         int[] actual = XmlUtil.getIntegerArray(testRoot.element("non-empty"), "item");
         int[] expected = new int[]{3, 4, -1};
         assertArraysEqual(expected, actual, false);
-    }
-
-    private void doStringTest(Element testRoot, String elemName, String defaultValue, String expected) {
-        String actual = XmlUtil.getString(testRoot, elemName, defaultValue);
-        assertEquals(expected, actual);
-    }
-
-    private void doStringTest(Element testRoot, String elemName, String expected) {
-        String actual = XmlUtil.getString(testRoot, elemName);
-        assertEquals(expected, actual);
     }
 }

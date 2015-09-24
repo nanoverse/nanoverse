@@ -24,24 +24,19 @@
 
 package control;
 
-import control.arguments.ConstantDouble;
-import control.arguments.ConstantInteger;
-import control.halt.HaltCondition;
-import control.halt.ManualHaltEvent;
-import control.halt.StepMaxReachedEvent;
-import io.serialize.MockSerializationManager;
-import io.serialize.SerializationManager;
-import processes.BaseProcessArguments;
-import processes.NanoverseProcess;
-import processes.discrete.CellProcessArguments;
-import processes.discrete.ManualHalt;
+import control.arguments.*;
+import control.halt.*;
+import io.serialize.*;
+import org.junit.*;
+import processes.*;
+import processes.discrete.*;
 import processes.temporal.Tick;
 import structural.MockGeneralParameters;
 import test.EslimeLatticeTestCase;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 1/7/14.
  */
@@ -56,8 +51,8 @@ public class IntegratorTest extends EslimeLatticeTestCase {
     // And now, the thing to be tested...
     private Integrator integrator;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
         // Initialize infrastructure objects
         p = new MockGeneralParameters();
@@ -68,6 +63,7 @@ public class IntegratorTest extends EslimeLatticeTestCase {
         cpArguments = new CellProcessArguments(null, new ConstantInteger(-1));
     }
 
+    @Test
     public void testDoNext() throws Exception {
         // Set T to 5 loops.
         p.setT(5);
@@ -80,6 +76,7 @@ public class IntegratorTest extends EslimeLatticeTestCase {
         assertEquals(5, mgr.getTimesIterated());
     }
 
+    @Test
     public void testTimeAppliedAtHaltNoAdvance() throws Exception {
         p.setT(10000);
         List<NanoverseProcess> processes = new ArrayList<>(1);
@@ -95,6 +92,7 @@ public class IntegratorTest extends EslimeLatticeTestCase {
         assertEquals(3.0, halt.getGillespie(), epsilon);
     }
 
+    @Test
     public void testTimeAppliedAtHaltAfterClockAdvance() throws Exception {
         p.setT(10000);
         List<NanoverseProcess> processes = new ArrayList<>(2);
@@ -109,6 +107,7 @@ public class IntegratorTest extends EslimeLatticeTestCase {
         assertEquals(4.0, halt.getGillespie(), epsilon);
     }
 
+    @Test
     public void testTimeAppliedAtMaxStep() throws Exception {
         p.setT(5);
         mgr.setStepStateDt(2.0);

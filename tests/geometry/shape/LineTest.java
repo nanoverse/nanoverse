@@ -24,13 +24,12 @@
 
 package geometry.shape;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Flags;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
+import control.identifiers.*;
+import geometry.lattice.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 public class LineTest extends EslimeTestCase {
 
     private Shape odd;
@@ -38,7 +37,7 @@ public class LineTest extends EslimeTestCase {
 
     private Lattice evenLattice;
 
-    @Override
+    @Before
     public void setUp() {
         Lattice oddLattice = new LinearLattice();
         evenLattice = new LinearLattice();
@@ -47,6 +46,7 @@ public class LineTest extends EslimeTestCase {
         odd = new Line(oddLattice, 5);
     }
 
+    @Test
     public void testGetCenter() {
         Coordinate expected, actual;
 
@@ -61,6 +61,7 @@ public class LineTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testGetBoundaries() {
         Coordinate[] expected, actual;
 
@@ -81,6 +82,7 @@ public class LineTest extends EslimeTestCase {
         assertArraysEqual(expected, actual, true);
     }
 
+    @Test
     public void testCanonicalSites() {
         Coordinate[] expected, actual;
 
@@ -95,6 +97,7 @@ public class LineTest extends EslimeTestCase {
         assertArraysEqual(expected, actual, true);
     }
 
+    @Test
     public void testOverbounds() {
         Coordinate expected, actual;
 
@@ -145,6 +148,7 @@ public class LineTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testDimensions() {
         int[] expected, actual;
 
@@ -159,6 +163,7 @@ public class LineTest extends EslimeTestCase {
         assertArraysEqual(expected, actual, false);
     }
 
+    @Test
     public void testCloneAtScale() {
         Lattice clonedLattice = evenLattice.clone();
         Shape cloned = even.cloneAtScale(clonedLattice, 2.0);

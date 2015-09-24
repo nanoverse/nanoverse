@@ -22,16 +22,16 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package control.arguments;//import junit.framework.TestCase;
+package control.arguments;
 
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.shape.Line;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.*;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.*;
 
 public class GeometryDescriptorTest extends EslimeTestCase {
 
@@ -39,14 +39,14 @@ public class GeometryDescriptorTest extends EslimeTestCase {
     private Shape shape;
     private GeometryDescriptor query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         lattice = new LinearLattice();
         shape = new Line(lattice, 10);
         query = new GeometryDescriptor(lattice, shape);
     }
 
+    @Test
     public void testEquals() throws Exception {
         Lattice otherLattice = new LinearLattice();
         Shape otherShape = new Line(otherLattice, 10);
@@ -55,6 +55,7 @@ public class GeometryDescriptorTest extends EslimeTestCase {
         assertFalse(query == otherDescriptor);
     }
 
+    @Test
     public void testMake() throws Exception {
         Boundary boundary = new Arena(shape, lattice);
 
@@ -64,10 +65,12 @@ public class GeometryDescriptorTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testGetLattice() throws Exception {
         assertTrue(lattice == query.getLattice());
     }
 
+    @Test
     public void testGetShape() throws Exception {
         assertTrue(shape == query.getShape());
     }

@@ -26,16 +26,14 @@ package control;
 
 import control.arguments.*;
 import layers.MockLayerManager;
-import processes.BaseProcessArguments;
-import processes.NanoverseProcess;
-import processes.MockProcess;
-import processes.StepState;
+import org.junit.*;
+import processes.*;
 import test.EslimeTestCase;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 1/7/14.
  */
@@ -47,8 +45,8 @@ public class ProcessManagerTest extends EslimeTestCase {
     ProcessManager query;
     MockLayerManager layerManager;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         layerManager = new MockLayerManager();
         initYesAndNo();
         buildQuery();
@@ -78,6 +76,7 @@ public class ProcessManagerTest extends EslimeTestCase {
         no = new MockProcess(noArgs, "no", 0.0, 1);
     }
 
+    @Test
     public void testGetTriggeredProcesses() throws Exception {
         // Call getTriggeredProcesses.
         List<NanoverseProcess> triggeredProcesses = query.getTriggeredProcesses(CURRENT_N);
@@ -86,6 +85,7 @@ public class ProcessManagerTest extends EslimeTestCase {
         assertEquals(yes, triggeredProcesses.get(0));
     }
 
+    @Test
     public void testTriggered() throws Exception {
         // Case 1a: a 1-time event that has not yet been triggered.
         assertFalse(triggerTest(3, 0));
@@ -119,6 +119,7 @@ public class ProcessManagerTest extends EslimeTestCase {
         return query.triggered(CURRENT_N, process);
     }
 
+    @Test
     public void testDoTriggeredProcesses() throws Exception {
         // Execute doTriggeredProcesses.
         query.doTriggeredProcesses(new StepState(CURRENT_TIME, CURRENT_N));
@@ -128,6 +129,7 @@ public class ProcessManagerTest extends EslimeTestCase {
         assertEquals(1, yes.getTimesFired());
     }
 
+    @Test
     public void testStepStateRenewal() throws Exception {
         StepState first = query.doTriggeredProcesses(new StepState(0.0, 0));
         StepState second = query.doTriggeredProcesses(new StepState(0.0, 0));

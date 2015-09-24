@@ -24,14 +24,16 @@
 
 package processes.discrete.filter;
 
-import control.identifiers.Coordinate;
-import junit.framework.TestCase;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-public class CompositeFilterTest extends TestCase {
+import static org.junit.Assert.assertTrue;
 
+public class CompositeFilterTest {
+
+    @Test
     public void testApply() throws Exception {
         Filter child1 = new MockFilter();
         Filter child2 = new MockFilter();

@@ -24,6 +24,7 @@
 
 package io.serialize.binary;
 
+import org.junit.Test;
 import processes.MockStepState;
 import structural.MockGeneralParameters;
 import structural.utilities.FileConventions;
@@ -34,6 +35,7 @@ import test.*;
  */
 public class TimeWriterTest extends EslimeTestCase {
 
+    @Test
     public void testLifeCycle() throws Exception {
         // Run through a life cycle, creating output in the process
         generateFile();

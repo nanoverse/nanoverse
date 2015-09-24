@@ -26,34 +26,27 @@ package io.visual.kymograph;
 
 import control.identifiers.Coordinate;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.shape.Line;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import io.deserialize.MockCoordinateDeindexer;
 import io.visual.VisualizationProperties;
-import io.visual.color.ColorManager;
-import io.visual.color.DefaultColorManager;
+import io.visual.color.*;
 import io.visual.highlight.HighlightManager;
 import layers.LightweightSystemState;
+import org.junit.Test;
 import test.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class KymographTest extends EslimeTestCase {
 
+    @Test
     public void testWithOutline() throws Exception {
         doTest(1, "KymographOutline.png");
-    }
-
-    public void testNoOutline() throws Exception {
-        doTest(0, "KymographNoOutline.png");
     }
 
     private void doTest(int outline, String filename) throws Exception {
@@ -110,5 +103,10 @@ public class KymographTest extends EslimeTestCase {
         }
         systemState.initCellLayer(state);
 
+    }
+
+    @Test
+    public void testNoOutline() throws Exception {
+        doTest(0, "KymographNoOutline.png");
     }
 }

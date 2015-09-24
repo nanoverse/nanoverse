@@ -26,23 +26,20 @@ package processes.discrete;
 
 import cells.MockCell;
 import control.arguments.ConstantInteger;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
+import geometry.boundaries.*;
+import geometry.lattice.*;
 import geometry.set.CompleteSet;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.shape.*;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import processes.BaseProcessArguments;
-import processes.MockStepState;
-import structural.MockGeneralParameters;
-import structural.MockRandom;
+import structural.*;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.fail;
 
 /**
  * Created by dbborens on 4/21/14.
@@ -55,8 +52,8 @@ public class GeneralNeighborSwapTest extends EslimeTestCase {
     private Coordinate ac, bc, cc;
     private MockRandom random;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         Lattice lattice = new RectangularLattice();
         Shape shape = new Rectangle(lattice, 3, 3);
         Boundary boundary = new Arena(shape, lattice);
@@ -93,6 +90,7 @@ public class GeneralNeighborSwapTest extends EslimeTestCase {
         cellLayer.getUpdateManager().place(c, cc);
     }
 
+    @Test
     public void testCellsReflectSwap() throws Exception {
 //        query.target(null);
 //        MockStepState state = new MockStepState();

@@ -24,24 +24,26 @@
 
 package layers;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Flags;
+import control.identifiers.*;
 import layers.cell.CellIndex;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 public class CellIndexTest extends EslimeTestCase {
 
     private Coordinate p, q;
     private CellIndex index;
 
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         p = new Coordinate2D(0, 0, 0);
         q = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
 
         index = new CellIndex();
     }
 
+    @Test
     public void testAdd() {
         assertTrue(index.add(p));
         assertFalse(index.add(q));
@@ -52,6 +54,7 @@ public class CellIndexTest extends EslimeTestCase {
         assertFalse(index.add(p));
     }
 
+    @Test
     public void testClear() {
         assertTrue(index.add(p));
         assertFalse(index.add(p));
@@ -61,6 +64,7 @@ public class CellIndexTest extends EslimeTestCase {
         assertTrue(index.add(p));
     }
 
+    @Test
     public void testContains() {
         assertFalse(index.contains(p));
         assertFalse(index.contains(q));
@@ -71,6 +75,7 @@ public class CellIndexTest extends EslimeTestCase {
         assertTrue(index.contains(q));
     }
 
+    @Test
     public void testRemove() {
         assertFalse(index.remove(q));
         index.add(p);
@@ -79,6 +84,5 @@ public class CellIndexTest extends EslimeTestCase {
         assertFalse(index.remove(p));
         index.add(q);
         assertTrue(index.remove(p));
-
     }
 }

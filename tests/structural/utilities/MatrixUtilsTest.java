@@ -24,17 +24,20 @@
 
 package structural.utilities;
 
-import junit.framework.TestCase;
 import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import org.junit.Test;
+import test.TestBase;
 
+import static org.junit.Assert.*;
 /**
  * Created on 2016-06-15.
  *
  * @author Daniel Greenidge
  */
-public class MatrixUtilsTest extends TestCase {
+public class MatrixUtilsTest extends TestBase {
 
+    @Test
     public void testMatrixForm() throws Exception {
         Matrix m = new DenseMatrix(2, 2);
         m.set(0, 0, 1);
@@ -47,6 +50,7 @@ public class MatrixUtilsTest extends TestCase {
         assertEquals(expected, MatrixUtils.matrixForm(m));
     }
 
+    @Test
     public void testAsMatrix() throws Exception {
         Vector v = new DenseVector(4);
         v.add(0, 0);
@@ -59,6 +63,7 @@ public class MatrixUtilsTest extends TestCase {
         assertEquals(expected, MatrixUtils.asMatrix(v, 2));
     }
 
+    @Test
     public void testCompDiagIdentity() throws Exception {
         int size = 3;
         CompDiagMatrix expected = new CompDiagMatrix(Matrices.identity(size));
@@ -74,6 +79,7 @@ public class MatrixUtilsTest extends TestCase {
         }
     }
 
+    @Test
     public void testIsIdentity() throws Exception {
         Matrix identity1 = MatrixUtils.compDiagIdentity(3);
         Matrix identity2 = Matrices.identity(3);
@@ -88,6 +94,7 @@ public class MatrixUtilsTest extends TestCase {
         assertFalse(MatrixUtils.isIdentity(identity2));
     }
 
+    @Test
     public void testIsZeroVector() throws Exception {
         Vector v1 = new DenseVector(2);
         v1.set(0, 0);
@@ -100,6 +107,7 @@ public class MatrixUtilsTest extends TestCase {
         assertFalse(MatrixUtils.isZeroVector(v2));
     }
 
+    @Test
     public void testZeroVector() throws Exception {
         Vector v = new DenseVector(2);
         v.set(0, 1);
@@ -109,6 +117,7 @@ public class MatrixUtilsTest extends TestCase {
         assertTrue(MatrixUtils.isZeroVector(zero));
     }
 
+    @Test
     public void testIsColSumOne() throws Exception {
         /* Matrix to test:
             0.9   0.8     0.7
@@ -131,6 +140,7 @@ public class MatrixUtilsTest extends TestCase {
         assertFalse(MatrixUtils.isColSumOne(operator));
     }
 
+    @Test
     public void testIsRowSumOne() throws Exception {
         /* Matrix to test:
              0.9    0.1     0
@@ -153,6 +163,7 @@ public class MatrixUtilsTest extends TestCase {
         assertFalse(MatrixUtils.isRowSumOne(operator));
     }
 
+    @Test
     public void testZeroRow() throws Exception {
         CompDiagMatrix operator = MatrixUtils.compDiagIdentity(3);
         CompDiagMatrix expected = new CompDiagMatrix(3, 3);
@@ -164,7 +175,7 @@ public class MatrixUtilsTest extends TestCase {
 
         for (int i = 0; i < operator.numRows(); i++) {
             for (int j = 0; j < operator.numColumns(); j++) {
-                assertEquals(expected.get(i, j), operator.get(i, j));
+                assertEquals(expected.get(i, j), operator.get(i, j), epsilon);
             }
         }
     }

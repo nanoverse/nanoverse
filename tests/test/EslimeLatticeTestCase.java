@@ -28,6 +28,7 @@ import control.identifiers.Coordinate;
 import geometry.MockGeometry;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.Before;
 
 /**
  * Convenience class providing automatic mock infrastructure
@@ -44,8 +45,8 @@ public abstract class EslimeLatticeTestCase extends EslimeTestCase {
     protected Coordinate origin, x, y, z, yz;
     protected Coordinate[] cc;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         geom = buildMockGeometry();
         layerManager = new MockLayerManager();
         cellLayer = new CellLayer(geom);

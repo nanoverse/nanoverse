@@ -27,29 +27,28 @@ package factory.layers.cell;
 import control.arguments.GeometryDescriptor;
 import factory.control.arguments.GeometryDescriptorFactory;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.shape.Line;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
 import layers.cell.CellLayer;
 import org.dom4j.Element;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.assertEquals;
 public class AgentLayerFactoryTest extends EslimeTestCase {
 
     private Element fixtureRoot;
     private GeometryDescriptor descriptor;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         fixtureRoot = readXmlFile("factories/layers/cell/CellLayerFactoryTest.xml");
         Element geometryRoot = fixtureRoot.element("geometry");
         descriptor = GeometryDescriptorFactory.instantiate(geometryRoot);
     }
 
+    @Test
     public void testInstantiate() throws Exception {
         Element e = fixtureRoot.element("general-case");
         CellLayer actual = CellLayerFactory.instantiate(e, descriptor);

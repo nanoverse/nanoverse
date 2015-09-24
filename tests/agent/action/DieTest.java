@@ -25,10 +25,11 @@
 package agent.action;
 
 import agent.control.BehaviorDispatcher;
-import cells.BehaviorCell;
-import cells.MockCell;
+import cells.*;
+import org.junit.*;
 import test.EslimeLatticeTestCase;
 
+import static org.junit.Assert.*;
 /**
  * Created by dbborens on 2/10/14.
  */
@@ -39,8 +40,9 @@ public class DieTest extends EslimeLatticeTestCase {
     private Action behavior;
     private String eventName;
 
+    @Before
     @Override
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         super.setUp();
         // Set up test objects
         cell = new BehaviorCell(layerManager, 1, 1.0, 1.0, null);
@@ -59,12 +61,14 @@ public class DieTest extends EslimeLatticeTestCase {
         cellLayer.getUpdateManager().place(cell, origin);
     }
 
+    @Test
     public void testRun() throws Exception {
         assertTrue(cellLayer.getViewer().isOccupied(origin));
         cell.trigger("TEST", null);
         assertFalse(cellLayer.getViewer().isOccupied(origin));
     }
 
+    @Test
     public void testEquals() throws Exception {
         // Create two equivalent Die objects.
         // Should be equal.
@@ -76,6 +80,7 @@ public class DieTest extends EslimeLatticeTestCase {
     }
 
 
+    @Test
     public void testClone() throws Exception {
         MockCell cloneCell = new MockCell();
 

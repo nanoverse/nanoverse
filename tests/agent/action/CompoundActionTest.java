@@ -24,16 +24,14 @@
 
 package agent.action;
 
-import cells.BehaviorCell;
-import cells.Cell;
-import cells.MockCell;
+import cells.*;
 import control.halt.HaltCondition;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import layers.LayerManager;
-import layers.MockLayerManager;
+import control.identifiers.*;
+import layers.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 /**
  * Created by dbborens on 3/6/14.
  */
@@ -47,8 +45,8 @@ public class CompoundActionTest extends EslimeTestCase {
 
     Action[] actionSequence;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         layerManager = new MockLayerManager();
         callBack = new MockCell();
         caller = new Coordinate2D(0, 0, 0);
@@ -63,18 +61,21 @@ public class CompoundActionTest extends EslimeTestCase {
         actionSequence = new Action[]{a, b};
     }
 
+    @Test
     public void testGetLayerManager() throws Exception {
         LayerManager expected = layerManager;
         LayerManager actual = query.getLayerManager();
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testGetCallback() throws Exception {
         Cell expected = callBack;
         Cell actual = query.getCallback();
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testGetActionSequence() throws Exception {
         Action[] expected = actionSequence;
         Action[] actual = query.getActionSequence();
@@ -86,6 +87,7 @@ public class CompoundActionTest extends EslimeTestCase {
         }
     }
 
+    @Test
     public void testRunNullCaller() throws Exception {
         query.run(null);
         assertEquals(1, a.getTimesRun());
@@ -94,6 +96,7 @@ public class CompoundActionTest extends EslimeTestCase {
         assertNull(b.getLastCaller());
     }
 
+    @Test
     public void testRunWithCaller() throws Exception {
         query.run(caller);
         assertEquals(1, a.getTimesRun());
@@ -102,6 +105,7 @@ public class CompoundActionTest extends EslimeTestCase {
         assertEquals(caller, b.getLastCaller());
     }
 
+    @Test
     public void testClone() throws Exception {
         BehaviorCell cloneCell = new BehaviorCell();
         CompoundAction clone = query.clone(cloneCell);

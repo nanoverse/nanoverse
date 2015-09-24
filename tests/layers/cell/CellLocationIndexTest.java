@@ -25,22 +25,22 @@
 package layers.cell;
 
 import cells.MockCell;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import junit.framework.TestCase;
+import control.identifiers.*;
+import org.junit.*;
 
+import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 2/5/14.
  */
-public class CellLocationIndexTest extends TestCase {
+public class CellLocationIndexTest {
     private MockCell o1, o2;
     private Coordinate c1, c2;
 
     // The object to be tested
     private CellLocationIndex locationIndex;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         o1 = new MockCell();
         o2 = new MockCell();
 
@@ -50,6 +50,7 @@ public class CellLocationIndexTest extends TestCase {
         locationIndex = new CellLocationIndex();
     }
 
+    @Test
     public void testPlace() throws Exception {
         // Index should be empty
         assertEquals(0, locationIndex.keySet().size());
@@ -62,12 +63,7 @@ public class CellLocationIndexTest extends TestCase {
         assertEquals(c1, locationIndex.get(o1));
     }
 
-//    public void testMove() throws Exception {
-//        locationIndex.add(o1, c1);
-//        locationIndex.move(o1, c2);
-//        assertEquals(c2, locationIndex.get(o1));
-//    }
-
+    @Test
     public void testRemove() throws Exception {
         // Manually add a cell to the map
         locationIndex.put(o1, c1);
@@ -80,6 +76,7 @@ public class CellLocationIndexTest extends TestCase {
         assertEquals(0, locationIndex.keySet().size());
     }
 
+    @Test
     public void testLocate() throws Exception {
         locationIndex.add(o1, c1);
         locationIndex.add(o2, c2);
@@ -87,6 +84,7 @@ public class CellLocationIndexTest extends TestCase {
         assertEquals(c2, locationIndex.locate(o2));
     }
 
+    @Test
     public void testIsIndexed() throws Exception {
         locationIndex.add(o1, c1);
         assertTrue(locationIndex.isIndexed(o1));

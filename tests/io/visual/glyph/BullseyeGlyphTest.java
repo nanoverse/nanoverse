@@ -26,28 +26,24 @@ package io.visual.glyph;
 
 import control.identifiers.Coordinate;
 import geometry.Geometry;
-import geometry.boundaries.Absorbing;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.TriangularLattice;
+import geometry.boundaries.*;
+import geometry.lattice.*;
 import geometry.shape.Rectangle;
 import geometry.shape.Shape;
 import io.deserialize.MockCoordinateDeindexer;
 import io.visual.VisualizationProperties;
-import io.visual.color.ColorManager;
-import io.visual.color.DefaultColorManager;
+import io.visual.color.*;
 import io.visual.highlight.*;
 import io.visual.map.MapVisualization;
-import layers.LightweightSystemState;
-import layers.SystemState;
+import layers.*;
+import org.junit.Before;
 import test.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dbborens on 4/4/14.
@@ -59,8 +55,8 @@ public class BullseyeGlyphTest extends EslimeTestCase {
     private MapVisualization map;
     private SystemState systemState;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         geometry = makeGeometry();
 
         // Create 10x10 triangular lattice.
@@ -123,6 +119,7 @@ public class BullseyeGlyphTest extends EslimeTestCase {
         return geometry;
     }
 
+    @Before
     public void testOverlay() throws Exception {
         // Render the frame.
         BufferedImage result = map.render(systemState);
@@ -131,6 +128,5 @@ public class BullseyeGlyphTest extends EslimeTestCase {
         ImageIO.write(result, "png", file);
 
         FileAssertions.assertOutputMatchesFixture("glyphs/bullseyeGlyph.png", "bullseyeGlyph.png", false);
-//        assertBinaryFilesEqual("glyphs/bullseyeGlyph.png", "bullseyeGlyph.png");
     }
 }

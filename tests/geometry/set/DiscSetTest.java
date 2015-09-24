@@ -22,26 +22,22 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package geometry.set;//import junit.framework.TestCase;
+package geometry.set;
 
 import control.arguments.*;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Coordinate3D;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
+import geometry.boundaries.*;
 import geometry.lattice.*;
 import geometry.shape.*;
+import org.junit.Test;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 public class DiscSetTest extends EslimeTestCase {
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
+    @Test
     public void test1D() {
         Lattice lattice = new LinearLattice();
         Shape shape = new Line(lattice, 9);
@@ -61,6 +57,7 @@ public class DiscSetTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void test2DTri() {
         Lattice lattice = new TriangularLattice();
         Shape shape = new Hexagon(lattice, 2);
@@ -80,6 +77,7 @@ public class DiscSetTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void test2DRec() {
         Lattice lattice = new RectangularLattice();
 
@@ -100,6 +98,7 @@ public class DiscSetTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void test3D() {
         Lattice lattice = new CubicLattice();
         Shape shape = new Cuboid(lattice, 5, 5, 5);

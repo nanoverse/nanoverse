@@ -24,21 +24,15 @@
 
 package geometry.geometry;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Coordinate3D;
-import control.identifiers.Flags;
-import geometry.Geometry;
-import geometry.MockGeometry;
+import control.identifiers.*;
+import geometry.*;
 import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.MockLattice;
-import geometry.lattice.RectangularLattice;
-import geometry.shape.MockShape;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 /**
  * Pseudo-unit test for basic behavior of the Geometry object.
  *
@@ -54,7 +48,7 @@ public class GeometryTest extends EslimeTestCase {
 
     private Coordinate p, q, r;
 
-    @Override
+    @Before
     public void setUp() {
         lattice = new RectangularLattice();
         shape = new Rectangle(lattice, 4, 4);
@@ -66,6 +60,7 @@ public class GeometryTest extends EslimeTestCase {
         r = new Coordinate2D(4, 2, 0);    // Wraps around
     }
 
+    @Test
     public void testCloneAtScale() {
         assertEquals(16, geom.getCanonicalSites().length);
         Geometry scaled = geom.cloneAtScale(2.0);
@@ -77,6 +72,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(64, scaled.getCanonicalSites().length);
     }
 
+    @Test
     public void testNeighborsApply() {
         Coordinate[] actual, expected;
 
@@ -110,6 +106,7 @@ public class GeometryTest extends EslimeTestCase {
         };
     }
 
+    @Test
     public void testNeighborsFlag() {
         Coordinate[] actual, expected;
 
@@ -133,6 +130,7 @@ public class GeometryTest extends EslimeTestCase {
         };
     }
 
+    @Test
     public void testNeighborsExclude() {
         Coordinate[] actual, expected;
 
@@ -153,6 +151,7 @@ public class GeometryTest extends EslimeTestCase {
         };
     }
 
+    @Test
     public void testNeighborsIgnore() {
         Coordinate[] actual, expected;
 
@@ -176,6 +175,7 @@ public class GeometryTest extends EslimeTestCase {
         };
     }
 
+    @Test
     public void testAnnulusApply() {
         Coordinate[] actual, expected;
 
@@ -209,6 +209,7 @@ public class GeometryTest extends EslimeTestCase {
         };
     }
 
+    @Test
     public void testAnnulusFlag() {
         Coordinate[] actual, expected;
 
@@ -232,6 +233,7 @@ public class GeometryTest extends EslimeTestCase {
         };
     }
 
+    @Test
     public void testAnnulusExclude() {
         Coordinate[] actual, expected;
 
@@ -252,6 +254,7 @@ public class GeometryTest extends EslimeTestCase {
         };
     }
 
+    @Test
     public void testAnnulusIgnore() {
         Coordinate[] actual, expected;
 
@@ -275,6 +278,7 @@ public class GeometryTest extends EslimeTestCase {
         };
     }
 
+    @Test
     public void testRel2absApply() {
         Coordinate expected = new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED);
         Coordinate disp = new Coordinate2D(3, 0, Flags.VECTOR);
@@ -282,6 +286,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(actual, expected);
     }
 
+    @Test
     public void testRel2absFlag() {
         Coordinate expected = new Coordinate2D(4, 2, Flags.BOUNDARY_IGNORED);
         Coordinate disp = new Coordinate2D(3, 0, Flags.VECTOR);
@@ -289,12 +294,14 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(actual, expected);
     }
 
+    @Test
     public void testRel2absExclude() {
         Coordinate disp = new Coordinate2D(3, 0, Flags.VECTOR);
         Coordinate actual = geom.rel2abs(p, disp, Geometry.EXCLUDE_BOUNDARIES);
         assertNull(actual);
     }
 
+    @Test
     public void testRel2absIgnore() {
         Coordinate expected = new Coordinate2D(4, 2, 0);
         Coordinate disp = new Coordinate2D(3, 0, Flags.VECTOR);
@@ -302,6 +309,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testL1DistanceApply() {
         int actual, expected;
 
@@ -331,6 +339,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(actual, expected);
     }
 
+    @Test
     public void testL1DistanceIgnore() {
         int actual, expected;
 
@@ -360,6 +369,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(actual, expected);
     }
 
+    @Test
     public void testL1DistanceExclude() {
         boolean threw = false;
         try {
@@ -370,6 +380,7 @@ public class GeometryTest extends EslimeTestCase {
         assertTrue(threw);
     }
 
+    @Test
     public void testL1DistanceFlag() {
         boolean threw = false;
         try {
@@ -380,6 +391,7 @@ public class GeometryTest extends EslimeTestCase {
         assertTrue(threw);
     }
 
+    @Test
     public void testDisplacementApply() {
         Coordinate actual, expected;
 
@@ -409,6 +421,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(actual, expected);
     }
 
+    @Test
     public void testDisplacementFlag() {
         boolean threw = false;
         try {
@@ -419,6 +432,7 @@ public class GeometryTest extends EslimeTestCase {
         assertTrue(threw);
     }
 
+    @Test
     public void testDisplacementExclude() {
         boolean threw = false;
         try {
@@ -429,6 +443,7 @@ public class GeometryTest extends EslimeTestCase {
         assertTrue(threw);
     }
 
+    @Test
     public void testDisplacementIgnore() {
         Coordinate actual, expected;
 
@@ -458,6 +473,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(actual, expected);
     }
 
+    @Test
     public void testCanonicalSites() {
         MockGeometry geom = new MockGeometry();
         Coordinate[] canonicals = new Coordinate[]{
@@ -472,6 +488,7 @@ public class GeometryTest extends EslimeTestCase {
         assertArraysEqual(expected, actual, true);
     }
 
+    @Test
     public void testApplyExclude() {
         Coordinate actual, expected;
 
@@ -488,6 +505,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testApplyApply() {
         Coordinate actual, expected;
 
@@ -504,6 +522,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testApplyIgnore() {
         Coordinate actual, expected;
 
@@ -520,6 +539,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testApplyFlag() {
         Coordinate actual, expected;
 
@@ -536,6 +556,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testConnectivity() {
         MockLattice lattice = new MockLattice();
         MockShape shape = new MockShape();
@@ -544,6 +565,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(5, geom.getConnectivity());
     }
 
+    @Test
     public void testDimensionality() {
         MockLattice lattice = new MockLattice();
         MockShape shape = new MockShape();
@@ -552,6 +574,7 @@ public class GeometryTest extends EslimeTestCase {
         assertEquals(5, geom.getDimensionality());
     }
 
+    @Test
     public void testGetZeroVector() {
         Coordinate expected = new Coordinate2D(0, 0, 0);
         Coordinate actual = lattice.getZeroVector();
@@ -561,6 +584,7 @@ public class GeometryTest extends EslimeTestCase {
     /**
      * Tests getIndexer().apply(...) and rebuildIndex()
      */
+    @Test
     public void testCoordinateIndex() {
         MockGeometry geom = new MockGeometry();
         Coordinate o, p;
@@ -582,6 +606,7 @@ public class GeometryTest extends EslimeTestCase {
         assertFalse(geom.getIndexer().apply(o).equals(geom.getIndexer().apply(p)));
     }
 
+    @Test
     public void testGetComponentClasses() {
         Class[] actual = geom.getComponentClasses();
 
@@ -602,6 +627,10 @@ public class GeometryTest extends EslimeTestCase {
         }
 
         @Override
+        protected void verify(Shape shape, Lattice lattice) {
+        }
+
+        @Override
         public Coordinate apply(Coordinate c) {
             int x = c.x() % 4;
             int y = c.y() % 4;
@@ -616,10 +645,6 @@ public class GeometryTest extends EslimeTestCase {
         @Override
         public boolean isInfinite() {
             return false;
-        }
-
-        @Override
-        protected void verify(Shape shape, Lattice lattice) {
         }
 
         @Override

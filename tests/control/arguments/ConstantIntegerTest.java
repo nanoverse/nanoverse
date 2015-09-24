@@ -24,6 +24,9 @@
 
 package control.arguments;
 
+import org.junit.*;
+
+import static org.junit.Assert.assertEquals;
 /**
  * Created by David B Borenstein on 4/7/14.
  */
@@ -31,9 +34,8 @@ public class ConstantIntegerTest extends ArgumentTest {
     private static final int VALUE = 7;
     protected double[] results;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         ConstantInteger query = new ConstantInteger(VALUE);
 
         results = new double[NUM_ITERATES];
@@ -42,6 +44,7 @@ public class ConstantIntegerTest extends ArgumentTest {
         }
     }
 
+    @Test
     public void testMean() throws Exception {
 
         double expected = VALUE;

@@ -27,10 +27,13 @@ package io.serialize.text;
 import control.GeneralParameters;
 import control.halt.ManualHaltEvent;
 import io.serialize.Serializer;
+import org.junit.Test;
 import processes.StepState;
 import test.*;
 
 public class HaltTimeWriterTest extends EslimeLatticeTestCase {
+
+    @Test
     public void testLifeCycle() throws Exception {
         GeneralParameters p = makeMockGeneralParameters();
         HaltTimeWriter writer = new HaltTimeWriter(p, layerManager);

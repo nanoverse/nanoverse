@@ -25,18 +25,18 @@
 package io.serialize;
 
 import factory.io.serialize.SerializationFactory;
-import io.serialize.binary.HighlightWriter;
-import io.serialize.binary.TimeWriter;
-import io.serialize.binary.VisualizationSerializer;
+import io.serialize.binary.*;
 import io.serialize.interactive.ProgressReporter;
 import io.serialize.text.*;
 import org.dom4j.Element;
 import org.dom4j.tree.BaseElement;
+import org.junit.*;
 import structural.MockGeneralParameters;
 import test.EslimeLatticeTestCase;
 
 import java.util.stream.Stream;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 1/17/14.
  */
@@ -44,12 +44,17 @@ public class SerializationFactoryTest extends EslimeLatticeTestCase {
 
     private MockGeneralParameters p;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
         p = new MockGeneralParameters();
         p.setInstancePath(outputPath);
         p.setPath(outputPath);
+    }
+
+    @Test
+    public void testCellStateWriter() {
+        doTest("cell-state-writer", LegacyCellStateWriter.class);
     }
 
     private void doTest(String elementName, Class expected) {
@@ -59,23 +64,23 @@ public class SerializationFactoryTest extends EslimeLatticeTestCase {
         assertEquals(expected, actual);
     }
 
-    public void testCellStateWriter() {
-        doTest("cell-state-writer", LegacyCellStateWriter.class);
-    }
-
+    @Test
     public void testHaltTimeWriter() {
         doTest("halt-time-writer", HaltTimeWriter.class);
     }
 
+    @Test
     public void testProgressReporter() {
         doTest("progress-reporter", ProgressReporter.class);
     }
 
+    @Test
     public void testCensusWriter() {
         doTest("census-writer", CensusWriter.class);
 
     }
 
+    @Test
     public void testIntervalWriter() {
         doTest("interval-writer", IntervalWriter.class);
     }
@@ -84,14 +89,17 @@ public class SerializationFactoryTest extends EslimeLatticeTestCase {
 //        doTest("continuum-state-writer", ContinuumStateWriter.class);
 //    }
 
+    @Test
     public void testTimeWriter() {
         doTest("time-writer", TimeWriter.class);
     }
 
+    @Test
     public void testCoordinateIndexer() {
         doTest("coordinate-indexer", CoordinateIndexer.class);
     }
 
+    @Test
     public void testHighlightWriter() {
         Element e = new BaseElement("highlight-writer");
         // Create channels
@@ -110,6 +118,7 @@ public class SerializationFactoryTest extends EslimeLatticeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testVisualizationSerializer() {
         Element e = new BaseElement("visualization-serializer");
         Element vp = new BaseElement("visualization");
@@ -122,18 +131,22 @@ public class SerializationFactoryTest extends EslimeLatticeTestCase {
         assertEquals(VisualizationSerializer.class, actual);
     }
 
+    @Test
     public void testIndividualHaltWriter() {
         doTest("individual-halt-writer", IndividualHaltWriter.class);
     }
 
+    @Test
     public void testRunningTimeWriter() {
         doTest("running-time-writer", RunningTimeWriter.class);
     }
 
+    @Test
     public void testRandomSeedWriter() {
         doTest("random-seed-writer", RandomSeedWriter.class);
     }
 
+    @Test
     public void testSurfaceCensusWriter() {
         doTest("surface-census-writer", SurfaceCensusWriter.class);
 

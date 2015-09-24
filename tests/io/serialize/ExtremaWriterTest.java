@@ -24,14 +24,14 @@
 
 package io.serialize;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate3D;
-import control.identifiers.Extrema;
+import control.identifiers.*;
 import io.serialize.text.ExtremaWriter;
+import org.junit.*;
 import test.EslimeTestCase;
 
 import java.io.StringWriter;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 12/11/13.
  */
@@ -40,12 +40,13 @@ public class ExtremaWriterTest extends EslimeTestCase {
     private StringWriter sw;
     private ExtremaWriter helper;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         sw = new StringWriter();
         helper = new ExtremaWriter(sw);
     }
 
+    @Test
     public void testPush() throws Exception {
         Extrema a = new Extrema();
         a.consider(0.0, new Coordinate3D(0, 0, 0, 0), 2.0);

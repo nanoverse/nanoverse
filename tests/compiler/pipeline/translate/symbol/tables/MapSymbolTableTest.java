@@ -24,14 +24,9 @@
 
 package compiler.pipeline.translate.symbol.tables;
 
-import compiler.pipeline.instantiate.loader.Loader;
 import compiler.pipeline.translate.symbol.*;
-import org.junit.*;
-import test.TestBase;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 7/21/2015.
  */

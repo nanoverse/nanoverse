@@ -24,23 +24,19 @@
 
 package layers;
 
-import cells.BehaviorCell;
-import cells.Cell;
-import cells.MockCell;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import cells.*;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Boundary;
-import geometry.boundaries.PlaneRingHard;
-import geometry.lattice.Lattice;
-import geometry.lattice.TriangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
-import layers.cell.CellLayer;
-import layers.cell.StateMapViewer;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
+import layers.cell.*;
+import org.junit.Test;
 import test.EslimeTestCase;
 
 import java.util.HashSet;
+
+import static org.junit.Assert.*;
 
 /**
  * Integration tests for the CellLayer object and
@@ -52,6 +48,7 @@ import java.util.HashSet;
  */
 public class CellIntegrationTest extends EslimeTestCase {
 
+    @Test
     public void testConstructor() {
         //HexRing geom = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -66,6 +63,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         }
     }
 
+    @Test
     public void testInterrogate() throws Exception {
         //HexRing geom = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -88,6 +86,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         assertEquals(toPlace.getState(), layer.getViewer().getCell(coord).getState());
     }
 
+    @Test
     public void testFeed() throws Exception {
         //HexRing geom = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -102,15 +101,16 @@ public class CellIntegrationTest extends EslimeTestCase {
 
         layer.getUpdateManager().place(toPlace, coord);
 
-        assertEquals(layer.getViewer().getCell(coord).getHealth(), 0.5);
+        assertEquals(layer.getViewer().getCell(coord).getHealth(), 0.5, epsilon);
         assertTrue(!layer.getViewer().getDivisibleSites().contains(coord));
 
         layer.getViewer().getCell(coord).adjustHealth(1.0);
 
-        assertEquals(layer.getViewer().getCell(coord).getHealth(), 1.5);
+        assertEquals(layer.getViewer().getCell(coord).getHealth(), 1.5, epsilon);
         assertTrue(layer.getViewer().getDivisibleSites().contains(coord));
     }
 
+    @Test
     public void testNeighborStates() throws Exception {
         //HexRing geom = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -154,6 +154,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         assertEquals(5, layer.getLookupManager().getNearestVacancies(origin, -1).length);
     }
 
+    @Test
     public void testVacancyModel() throws Exception {
         //HexRing geom = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -203,6 +204,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         assertEquals(12, layer.getLookupManager().getNearestVacancies(coord, 2).length);
     }
 
+    @Test
     public void testNoOverwriteOnPlace() throws Exception {
         //HexRing geom = new HexRing(6, 6);
         Lattice lattice = new TriangularLattice();
@@ -227,6 +229,7 @@ public class CellIntegrationTest extends EslimeTestCase {
         assertTrue(thrown);
     }
 
+    @Test
     public void testNoOverwriteOnMove() throws Exception {
         Lattice lattice = new TriangularLattice();
         Shape shape = new Rectangle(lattice, 6, 6);
@@ -260,6 +263,7 @@ public class CellIntegrationTest extends EslimeTestCase {
      * ****************
      */
 
+    @Test
     public void testLatticeFunctionality() throws Exception {
         Lattice lattice = new TriangularLattice();
         Shape shape = new Rectangle(lattice, 6, 6);

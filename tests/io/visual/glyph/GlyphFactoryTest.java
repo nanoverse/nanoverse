@@ -27,22 +27,24 @@ package io.visual.glyph;
 import factory.io.visual.glyph.GlyphFactory;
 import io.visual.highlight.*;
 import org.dom4j.Element;
+import org.junit.*;
 import test.EslimeTestCase;
 
 import java.awt.*;
 
+import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/4/14.
  */
 public class GlyphFactoryTest extends EslimeTestCase {
     private Element root;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         root = readXmlFile("factories/GlyphFactoryTest.xml");
     }
 
+    @Test
     public void testMockCase() throws Exception {
         Element e = root.element("mock-case");
         Glyph actual = GlyphFactory.instantiate(e);
@@ -51,6 +53,7 @@ public class GlyphFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testDotCompleteCase() throws Exception {
         Element e = root.element("dot-case-complete");
         Glyph actual = GlyphFactory.instantiate(e);
@@ -65,6 +68,7 @@ public class GlyphFactoryTest extends EslimeTestCase {
     /**
      * We test one class of glyph for default handling
      */
+    @Test
     public void testDotDefaultCase() throws Exception {
         Element e = root.element("dot-case-default");
         Glyph actual = GlyphFactory.instantiate(e);
@@ -75,6 +79,7 @@ public class GlyphFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testBullseyeGlyphCase() throws Exception {
         Element e = root.element("bullseye-case");
 
@@ -88,6 +93,7 @@ public class GlyphFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testCrosshairsCase() throws Exception {
         Element e = root.element("crosshairs-case");
 

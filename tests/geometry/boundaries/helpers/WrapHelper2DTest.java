@@ -24,26 +24,25 @@
 
 package geometry.boundaries.helpers;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
+import control.identifiers.*;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.*;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 public class WrapHelper2DTest extends EslimeTestCase {
 
     private WrapHelper2D query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         Lattice lattice = new RectangularLattice();
         Shape shape = new Rectangle(lattice, 5, 5);
         query = new WrapHelper2D(shape, lattice);
     }
 
+    @Test
     public void testWrapAll() throws Exception {
         Coordinate toWrap = new Coordinate2D(5, 5, 0);
         Coordinate expected = new Coordinate2D(0, 0, 0);
@@ -51,6 +50,7 @@ public class WrapHelper2DTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testXWrap() throws Exception {
         // Positive out of bounds X coordinate
         Coordinate toWrap = new Coordinate2D(6, 0, 0);
@@ -65,6 +65,7 @@ public class WrapHelper2DTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testYWrap() throws Exception {
         // Positive out of bounds Y coordinate
         Coordinate toWrap = new Coordinate2D(0, 6, 0);
@@ -79,6 +80,7 @@ public class WrapHelper2DTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testZWrap() throws Exception {
         boolean thrown = false;
 
@@ -91,6 +93,7 @@ public class WrapHelper2DTest extends EslimeTestCase {
         assertTrue(thrown);
     }
 
+    @Test
     public void testAllInBounds() throws Exception {
         Coordinate toWrap = new Coordinate2D(3, 3, 0);
         Coordinate expected = new Coordinate2D(3, 3, 0);

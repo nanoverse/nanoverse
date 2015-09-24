@@ -24,21 +24,22 @@
 
 package processes.discrete.filter;
 
-import cells.Cell;
-import cells.MockCell;
+import cells.*;
 import control.arguments.ConstantInteger;
 import control.identifiers.Coordinate;
 import layers.cell.CellUpdateManager;
+import org.junit.*;
 import test.EslimeLatticeTestCase;
 
 import java.util.*;
 
+import static org.junit.Assert.assertTrue;
 public class CellStateFilterTest extends EslimeLatticeTestCase {
     private Cell yes, no;
     private CellStateFilter query;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         super.setUp();
 
         yes = new MockCell(1);
@@ -52,6 +53,7 @@ public class CellStateFilterTest extends EslimeLatticeTestCase {
         query = new CellStateFilter(cellLayer, new ConstantInteger(1));
     }
 
+    @Test
     public void testLifeCycle() throws Exception {
         List<Coordinate> cc = Arrays.asList(geom.getCanonicalSites());
         List<Coordinate> ccCopy = new ArrayList<>(cc);

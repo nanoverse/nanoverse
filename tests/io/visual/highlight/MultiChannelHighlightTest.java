@@ -26,27 +26,23 @@ package io.visual.highlight;
 
 import control.identifiers.Coordinate;
 import geometry.Geometry;
-import geometry.boundaries.Absorbing;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.TriangularLattice;
+import geometry.boundaries.*;
+import geometry.lattice.*;
 import geometry.shape.Rectangle;
 import geometry.shape.Shape;
 import io.deserialize.MockCoordinateDeindexer;
 import io.visual.VisualizationProperties;
-import io.visual.color.ColorManager;
-import io.visual.color.DefaultColorManager;
+import io.visual.color.*;
 import io.visual.map.MapVisualization;
-import layers.LightweightSystemState;
-import layers.SystemState;
+import layers.*;
+import org.junit.*;
 import test.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Test to make sure that multi-channel highlighting works as expected.
@@ -59,8 +55,8 @@ public class MultiChannelHighlightTest extends EslimeTestCase {
     private HighlightManager highlightManager;
     private MapVisualization map;
 
-    @Override
-    protected void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         geometry = makeGeometry();
 
         // Create 10x10 triangular lattice.
@@ -86,19 +82,6 @@ public class MultiChannelHighlightTest extends EslimeTestCase {
 
         // Create system state
         systemState = makeSystemState(geometry);
-
-    }
-
-    protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
-        int n = geom.getCanonicalSites().length;
-        double[] health = new double[n];
-        int[] state = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            health[i] = 0;
-            state[i] = 0;
-        }
-        systemState.initCellLayer(state);
 
     }
 
@@ -133,6 +116,19 @@ public class MultiChannelHighlightTest extends EslimeTestCase {
         return ret;
     }
 
+    protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
+        int n = geom.getCanonicalSites().length;
+        double[] health = new double[n];
+        int[] state = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            health[i] = 0;
+            state[i] = 0;
+        }
+        systemState.initCellLayer(state);
+
+    }
+
     protected Geometry makeGeometry() {
         Lattice lattice = new TriangularLattice();
         Shape shape = new Rectangle(lattice, 10, 10);
@@ -141,6 +137,7 @@ public class MultiChannelHighlightTest extends EslimeTestCase {
         return geometry;
     }
 
+    @Test
     public void testOverlay() throws Exception {
         // Render the frame.
         BufferedImage result = map.render(systemState);

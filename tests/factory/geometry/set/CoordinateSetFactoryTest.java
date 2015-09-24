@@ -27,19 +27,16 @@ package factory.geometry.set;//import junit.framework.TestCase;
 import control.arguments.*;
 import control.identifiers.Coordinate;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.set.CompleteSet;
-import geometry.set.CoordinateSet;
-import geometry.set.CustomSet;
-import geometry.set.DiscSet;
-import geometry.shape.Line;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.set.*;
+import geometry.shape.*;
 import org.dom4j.Element;
+import org.junit.*;
 import structural.MockGeneralParameters;
 import test.EslimeTestCase;
+
+import static org.junit.Assert.assertEquals;
 
 public class CoordinateSetFactoryTest extends EslimeTestCase {
 
@@ -47,14 +44,22 @@ public class CoordinateSetFactoryTest extends EslimeTestCase {
     private Geometry g;
     private MockGeneralParameters p;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         root = readXmlFile("factories/geometry/set/CoordinateSetFactoryTest.xml");
         p = makeMockGeneralParameters();
         g = makeGeometry();
     }
 
+    private Geometry makeGeometry() {
+        Lattice lattice = new LinearLattice();
+        Shape shape = new Line(lattice, 10);
+        Boundary boundary = new Arena(shape, lattice);
+        Geometry ret = new Geometry(lattice, shape, boundary);
+        return ret;
+    }
+
+    @Test
     public void testDefault() throws Exception {
         // Element does not actually exist, so e is null
         Element e = root.element("default-case");
@@ -63,6 +68,7 @@ public class CoordinateSetFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testAll() throws Exception {
         Element e = root.element("all-case");
         CoordinateSet expected = new CompleteSet(g);
@@ -70,6 +76,7 @@ public class CoordinateSetFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testDisc() throws Exception {
         Element e = root.element("disc-case");
         Coordinate offset = g.getZeroVector();
@@ -79,19 +86,12 @@ public class CoordinateSetFactoryTest extends EslimeTestCase {
         assertEquals(expected, actual);
     }
 
+    @Test
     public void testList() throws Exception {
         Element e = root.element("list-case");
         CoordinateSet expected = new CustomSet();
         CoordinateSet actual = CoordinateSetFactory.instantiate(e, g, p);
         assertEquals(expected, actual);
-    }
-
-    private Geometry makeGeometry() {
-        Lattice lattice = new LinearLattice();
-        Shape shape = new Line(lattice, 10);
-        Boundary boundary = new Arena(shape, lattice);
-        Geometry ret = new Geometry(lattice, shape, boundary);
-        return ret;
     }
 
 }

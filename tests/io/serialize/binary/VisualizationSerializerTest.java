@@ -28,11 +28,13 @@ import geometry.MockGeometry;
 import io.visual.MockVisualization;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
+import org.junit.*;
 import structural.MockGeneralParameters;
 import test.EslimeTestCase;
 
 import java.io.File;
 
+import static org.junit.Assert.assertTrue;
 /**
  * As a graphics I/O class, this seemed better suited to an integration
  * test than to a system of unit tests. The fixtures are based on those
@@ -45,9 +47,8 @@ public class VisualizationSerializerTest extends EslimeTestCase {
     private MockVisualization visualization;
     private VisualizationSerializer query;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setUp() throws Exception {
         MockLayerManager lm = new MockLayerManager();
         MockGeometry geom = buildMockGeometry();
         CellLayer layer = new CellLayer(geom);
@@ -64,6 +65,7 @@ public class VisualizationSerializerTest extends EslimeTestCase {
         query.init();
     }
 
+    @Test
     public void testLifeCycle() {
         query.dispatchHalt(null);
         assertTrue(visualization.isInit());

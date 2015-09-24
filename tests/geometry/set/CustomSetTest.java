@@ -22,20 +22,18 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package geometry.set;//import junit.framework.TestCase;
+package geometry.set;
 
 import control.arguments.*;
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Arena;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.LinearLattice;
-import geometry.shape.Line;
-import geometry.shape.Shape;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.Test;
 import test.EslimeTestCase;
 
+import static org.junit.Assert.*;
 /**
  * Since the custom set is agnostic to geometry,
  * this test looks a little different from the other
@@ -45,6 +43,7 @@ import test.EslimeTestCase;
  */
 public class CustomSetTest extends EslimeTestCase {
 
+    @Test
     public void testLifeCycle() throws Exception {
         Coordinate c = new Coordinate2D(0, 0, 0);
         CustomSet set = new CustomSet();
@@ -64,6 +63,7 @@ public class CustomSetTest extends EslimeTestCase {
      *
      * @throws Exception
      */
+    @Test
     public void testEquivalency() throws Exception {
         Lattice lattice = new LinearLattice();
         Shape shape = new Line(lattice, 3);
@@ -78,6 +78,5 @@ public class CustomSetTest extends EslimeTestCase {
         customSet.add(c);
 
         assertEquals(discSet, customSet);
-
     }
 }
