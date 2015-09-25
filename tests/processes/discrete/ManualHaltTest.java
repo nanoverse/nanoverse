@@ -28,11 +28,11 @@ import control.halt.*;
 import layers.MockLayerManager;
 import org.junit.Test;
 import processes.BaseProcessArguments;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 
-public class ManualHaltTest extends EslimeTestCase {
+public class ManualHaltTest extends LegacyTest {
 
     @Test
     public void testLifeCycle() {

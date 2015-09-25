@@ -27,14 +27,11 @@ package cells;
 import agent.control.BehaviorDispatcher;
 import control.halt.HaltCondition;
 import control.identifiers.Coordinate;
-import layers.continuum.Reaction;
 import layers.LayerManager;
-import layers.continuum.ContinuumAgentLinker;
+import layers.continuum.*;
 import structural.utilities.EpsilonUtil;
 
-import java.util.HashSet;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Stream;
 
 /**
@@ -77,13 +74,22 @@ public class BehaviorCell extends Cell {
         considerCount = 0;
 
         Supplier<Coordinate> locator = () -> callbackManager.getMyLocation();
-        Function<String, ContinuumAgentLinker> retrieveLinker =
+        Function<String, ContinuumAgentLinker> layerResolver =
                 id -> layerManager.getContinuumLayer(id).getLinker();
 
-        HashSet<Runnable> removers = new HashSet<>();
-        RemoverIndex removerIndex = new RemoverIndex(removers);
+        reactionManager = new AgentContinuumManager(this, locator, layerResolver);
+    }
 
-        reactionManager = new AgentContinuumManager(this, removerIndex, locator, retrieveLinker);
+    @Override
+    public void setHealth(double health) throws HaltCondition {
+        super.setHealth(health);
+        checkDivisibility();
+    }
+
+    @Override
+    protected void setDivisible(boolean divisible) throws HaltCondition {
+        super.setDivisible(divisible);
+        callbackManager.refreshDivisibility();
     }
 
     @Override
@@ -149,10 +155,8 @@ public class BehaviorCell extends Cell {
         callbackManager.die();
     }
 
-    @Override
-    protected void setDivisible(boolean divisible) throws HaltCondition {
-        super.setDivisible(divisible);
-        callbackManager.refreshDivisibility();
+    public void setDispatcher(BehaviorDispatcher dispatcher) {
+        this.dispatcher = dispatcher;
     }
 
     private void checkDivisibility() throws HaltCondition {
@@ -162,16 +166,6 @@ public class BehaviorCell extends Cell {
         } else {
             setDivisible(false);
         }
-    }
-
-    public void setDispatcher(BehaviorDispatcher dispatcher) {
-        this.dispatcher = dispatcher;
-    }
-
-    @Override
-    public void setHealth(double health) throws HaltCondition {
-        super.setHealth(health);
-        checkDivisibility();
     }
 
     /**

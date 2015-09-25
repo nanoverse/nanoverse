@@ -27,7 +27,7 @@ package io.visual.highlight;
 import io.visual.glyph.MockGlyph;
 import layers.MockSystemState;
 import org.junit.*;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -36,7 +36,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/2/14.
  */
-public class HighlightManagerTest extends EslimeLatticeTestCase {
+public class HighlightManagerTest extends LegacyLatticeTest {
 
     MockGlyph glyph;
     HighlightManager query;

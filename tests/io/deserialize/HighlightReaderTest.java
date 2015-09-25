@@ -27,7 +27,7 @@ package io.deserialize;
 import control.identifiers.Coordinate;
 import layers.LightweightSystemState;
 import org.junit.*;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import java.util.*;
 
@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
 /**
  * Created by dbborens on 3/26/14.
  */
-public class HighlightReaderTest extends EslimeLatticeTestCase {
+public class HighlightReaderTest extends LegacyLatticeTest {
 
     private HighlightReader query;
     private MockCoordinateDeindexer deindexer;

@@ -27,7 +27,7 @@ package io.factory;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.junit.Test;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.io.File;
 import java.util.List;
@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 12/22/13.
  */
-public class XmlTest extends EslimeTestCase {
+public class XmlTest extends LegacyTest {
 
     @Test
     public void testOrder() throws DocumentException {

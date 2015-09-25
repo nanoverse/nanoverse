@@ -29,10 +29,11 @@ import control.identifiers.*;
 import geometry.MockGeometry;
 import layers.cell.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
-public abstract class CellLayerContentTest extends EslimeTestCase {
+
+public abstract class CellLayerContentTest extends LegacyTest {
     protected Coordinate[] c;
     protected MockGeometry geom;
     protected CellLayerContent query;

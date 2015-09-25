@@ -27,14 +27,14 @@ package io.deserialize;
 import control.identifiers.Coordinate;
 import geometry.MockGeometry;
 import org.junit.Test;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.io.*;
 
 /**
  * Created by David B Borenstein on 3/25/14.
  */
-public class PrimitiveDeserializerTest extends EslimeTestCase {
+public class PrimitiveDeserializerTest extends LegacyTest {
 
     @Test
     public void testReadDoubleVector() throws Exception {

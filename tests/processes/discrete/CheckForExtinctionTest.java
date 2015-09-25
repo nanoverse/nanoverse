@@ -35,13 +35,13 @@ import org.junit.Test;
 import processes.*;
 import processes.discrete.check.CheckForExtinction;
 import structural.MockGeneralParameters;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 /**
  * Created by dbborens on 3/5/14.
  */
-public class CheckForExtinctionTest extends EslimeTestCase {
+public class CheckForExtinctionTest extends LegacyTest {
     private MockGeometry geometry;
     private CellLayer layer;
     private MockLayerManager layerManager;

@@ -30,7 +30,7 @@ import geometry.boundaries.*;
 import geometry.lattice.*;
 import geometry.shape.*;
 import org.junit.Test;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.HashSet;
 
@@ -42,7 +42,7 @@ import static org.junit.Assert.*;
  *
  * @author dbborens
  */
-public class HexArenaTest extends EslimeTestCase {
+public class HexArenaTest extends LegacyTest {
 
     // Test indexing and de-indexing behavior in 2D and 3D.
     //

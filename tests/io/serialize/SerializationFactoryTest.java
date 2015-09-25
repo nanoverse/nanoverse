@@ -32,7 +32,7 @@ import org.dom4j.Element;
 import org.dom4j.tree.BaseElement;
 import org.junit.*;
 import structural.MockGeneralParameters;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import java.util.stream.Stream;
 
@@ -40,7 +40,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 1/17/14.
  */
-public class SerializationFactoryTest extends EslimeLatticeTestCase {
+public class SerializationFactoryTest extends LegacyLatticeTest {
 
     private MockGeneralParameters p;
 

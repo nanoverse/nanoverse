@@ -29,10 +29,11 @@ import geometry.boundaries.*;
 import geometry.lattice.*;
 import geometry.shape.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
-public class PlaneRingHardTest extends EslimeTestCase {
+
+public class PlaneRingHardTest extends LegacyTest {
     private Boundary rect;
     private Boundary tri;
 

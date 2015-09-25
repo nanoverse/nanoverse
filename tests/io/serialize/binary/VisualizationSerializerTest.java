@@ -30,7 +30,7 @@ import layers.MockLayerManager;
 import layers.cell.CellLayer;
 import org.junit.*;
 import structural.MockGeneralParameters;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.io.File;
 
@@ -43,7 +43,7 @@ import static org.junit.Assert.assertTrue;
  * <p>
  * Created by dbborens on 4/2/14.
  */
-public class VisualizationSerializerTest extends EslimeTestCase {
+public class VisualizationSerializerTest extends LegacyTest {
     private MockVisualization visualization;
     private VisualizationSerializer query;
 

@@ -38,7 +38,7 @@ import processes.StepState;
 import structural.MockGeneralParameters;
 import test.*;
 
-public class SurfaceCensusWriterTest extends EslimeTestCase {
+public class SurfaceCensusWriterTest extends LegacyTest {
     private MockGeneralParameters p;
     private SurfaceCensusWriter writer;
     private ManualHaltEvent haltEvent;

@@ -30,12 +30,13 @@ import factory.processes.discrete.filter.FilterFactory;
 import org.dom4j.Element;
 import org.junit.*;
 import processes.discrete.filter.*;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
-public class FilterFactoryTest extends EslimeLatticeTestCase {
+
+public class FilterFactoryTest extends LegacyLatticeTest {
     private Element root;
     private GeneralParameters p;
 

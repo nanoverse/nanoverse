@@ -33,7 +33,7 @@ import test.*;
 /**
  * Created by dbborens on 3/28/14.
  */
-public class TimeWriterTest extends EslimeTestCase {
+public class TimeWriterTest extends LegacyTest {
 
     @Test
     public void testLifeCycle() throws Exception {

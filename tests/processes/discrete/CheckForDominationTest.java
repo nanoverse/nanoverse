@@ -38,10 +38,11 @@ import org.junit.*;
 import processes.*;
 import processes.discrete.check.CheckForDomination;
 import structural.MockGeneralParameters;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class CheckForDominationTest extends EslimeTestCase {
+
+public class CheckForDominationTest extends LegacyTest {
     private MockLayerManager layerManager;
     private CellLayer layer;
     private CheckForDomination query;

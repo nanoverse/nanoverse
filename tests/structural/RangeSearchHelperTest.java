@@ -25,7 +25,7 @@
 package structural;
 
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.ArrayList;
 
@@ -39,7 +39,7 @@ import static org.junit.Assert.assertEquals;
  * <p>
  * Created by David B Borenstein on 3/19/14.
  */
-public class RangeSearchHelperTest extends EslimeTestCase {
+public class RangeSearchHelperTest extends LegacyTest {
 
     private RangeSearchHelper query;
 

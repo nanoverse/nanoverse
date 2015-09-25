@@ -27,10 +27,11 @@ package processes;
 import control.GeneralParameters;
 import control.arguments.*;
 import org.junit.Test;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import static org.junit.Assert.assertTrue;
-public class BaseProcessArgumentsTest extends EslimeLatticeTestCase {
+
+public class BaseProcessArgumentsTest extends LegacyLatticeTest {
 
     private GeneralParameters p;
     private int id;

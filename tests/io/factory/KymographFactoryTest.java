@@ -38,13 +38,13 @@ import layers.MockLayerManager;
 import layers.cell.CellLayer;
 import org.dom4j.Element;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/3/14.
  */
-public class KymographFactoryTest extends EslimeTestCase {
+public class KymographFactoryTest extends LegacyTest {
     private Element root;
     private Geometry geom;
     private GeneralParameters p;

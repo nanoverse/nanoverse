@@ -31,7 +31,7 @@ import org.junit.Test;
 import processes.StepState;
 import test.*;
 
-public class IndividualHaltWriterTest extends EslimeLatticeTestCase {
+public class IndividualHaltWriterTest extends LegacyLatticeTest {
     @Test
     public void testLifeCycle() throws Exception {
         GeneralParameters p = makeMockGeneralParameters();

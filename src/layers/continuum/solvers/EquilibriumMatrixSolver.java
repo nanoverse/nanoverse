@@ -24,12 +24,10 @@
 
 package layers.continuum.solvers;
 
-import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.Matrix;
-import no.uib.cipr.matrix.Vector;
-import no.uib.cipr.matrix.sparse.*;
+import no.uib.cipr.matrix.*;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import structural.NotYetImplementedException;
 import structural.utilities.MatrixUtils;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import static structural.utilities.MatrixUtils.*;
 
@@ -40,7 +38,7 @@ import static structural.utilities.MatrixUtils.*;
 public abstract class EquilibriumMatrixSolver {
     public EquilibriumMatrixSolver(boolean operators) {
         if (!operators) {
-            throw new NotImplementedException();
+            throw new NotYetImplementedException();
         }
     }
 

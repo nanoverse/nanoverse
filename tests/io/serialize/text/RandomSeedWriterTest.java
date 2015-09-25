@@ -29,7 +29,7 @@ import processes.StepState;
 import structural.MockGeneralParameters;
 import test.*;
 
-public class RandomSeedWriterTest extends EslimeLatticeTestCase {
+public class RandomSeedWriterTest extends LegacyLatticeTest {
 
     @Test
     public void testLifeCycle() throws Exception {

@@ -30,13 +30,13 @@ import geometry.MockGeometry;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
 import org.junit.*;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 2/5/14.
  */
-public class AdjustHealthTest extends EslimeLatticeTestCase {
+public class AdjustHealthTest extends LegacyLatticeTest {
     private AdjustHealth query, identical, different;
     private BehaviorCell cell;
     private BehaviorDispatcher dispatcher;

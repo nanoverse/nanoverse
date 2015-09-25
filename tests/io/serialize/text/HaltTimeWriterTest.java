@@ -31,7 +31,7 @@ import org.junit.Test;
 import processes.StepState;
 import test.*;
 
-public class HaltTimeWriterTest extends EslimeLatticeTestCase {
+public class HaltTimeWriterTest extends LegacyLatticeTest {
 
     @Test
     public void testLifeCycle() throws Exception {

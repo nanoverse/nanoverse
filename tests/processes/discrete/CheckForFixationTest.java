@@ -34,7 +34,7 @@ import org.junit.Test;
 import processes.*;
 import processes.discrete.check.CheckForFixation;
 import processes.gillespie.GillespieState;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 /**
@@ -44,7 +44,7 @@ import static org.junit.Assert.*;
  * <p>
  * Created by dbborens on 1/13/14.
  */
-public class CheckForFixationTest extends EslimeTestCase {
+public class CheckForFixationTest extends LegacyTest {
     private MockGeometry geometry;
     private CellLayer layer;
     private MockLayerManager layerManager;

@@ -30,10 +30,11 @@ import geometry.*;
 import org.dom4j.Element;
 import org.dom4j.tree.BaseElement;
 import org.junit.Test;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class CoordinateFactoryTest extends EslimeTestCase {
+
+public class CoordinateFactoryTest extends LegacyTest {
 
     @Test
     public void testInstantiateFromElement() {

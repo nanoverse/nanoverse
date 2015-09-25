@@ -48,7 +48,7 @@ import java.util.*;
  * <p>
  * Created by dbborens on 4/3/14.
  */
-public abstract class GlyphTest extends EslimeTestCase {
+public abstract class GlyphTest extends LegacyTest {
 
     protected SystemState systemState;
     protected VisualizationProperties mapState;

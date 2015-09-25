@@ -27,13 +27,13 @@ package agent.action;
 import agent.control.BehaviorDispatcher;
 import cells.*;
 import org.junit.*;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import static org.junit.Assert.*;
 /**
  * Created by dbborens on 2/10/14.
  */
-public class DieTest extends EslimeLatticeTestCase {
+public class DieTest extends LegacyLatticeTest {
     private Action query, identical, different;
     private BehaviorCell cell;
     private BehaviorDispatcher dispatcher;

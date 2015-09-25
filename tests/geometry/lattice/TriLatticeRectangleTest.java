@@ -27,7 +27,7 @@ package geometry.lattice;
 import control.identifiers.*;
 import geometry.shape.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 /**
@@ -36,7 +36,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author dbborens
  */
-public class TriLatticeRectangleTest extends EslimeTestCase {
+public class TriLatticeRectangleTest extends LegacyTest {
 
     private Shape odd;
     private Shape even;

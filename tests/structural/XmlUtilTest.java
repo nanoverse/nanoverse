@@ -27,13 +27,13 @@ package structural;
 import org.dom4j.Element;
 import org.junit.*;
 import structural.utilities.XmlUtil;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 /**
  * Created by dbborens on 2/20/14.
  */
-public class XmlUtilTest extends EslimeTestCase {
+public class XmlUtilTest extends LegacyTest {
     Element fixtureRoot;
 
     @Before

@@ -33,7 +33,7 @@ import layers.LightweightSystemState;
 import org.junit.*;
 import processes.MockStepState;
 import structural.MockGeneralParameters;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import java.util.Iterator;
 import java.util.stream.Stream;
@@ -51,7 +51,7 @@ import static org.junit.Assert.*;
  * <p>
  * Created by dbborens on 3/28/14.
  */
-public class SystemStateReaderTest extends EslimeLatticeTestCase {
+public class SystemStateReaderTest extends LegacyLatticeTest {
     // The only thing SystemStateReader does is to return an anonymous
     // iterator. Therefore, each test is actually about this iterator,
     // and the iterator is the query.

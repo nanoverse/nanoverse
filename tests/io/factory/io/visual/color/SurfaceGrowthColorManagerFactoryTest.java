@@ -30,11 +30,11 @@ import io.visual.color.*;
 import org.dom4j.Element;
 import org.junit.*;
 import structural.MockGeneralParameters;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class SurfaceGrowthColorManagerFactoryTest extends EslimeTestCase {
+public class SurfaceGrowthColorManagerFactoryTest extends LegacyTest {
     private Element root;
     private MockGeneralParameters p;
 

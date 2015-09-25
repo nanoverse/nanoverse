@@ -27,10 +27,11 @@ package geometry.shape;
 import control.identifiers.*;
 import geometry.lattice.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class CuboidTest extends EslimeTestCase {
+
+public class CuboidTest extends LegacyTest {
     Lattice evenLattice;
     private Shape odd;
     private Shape even;

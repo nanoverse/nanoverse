@@ -41,7 +41,7 @@ import test.*;
 /**
  * Created by dbborens on 4/22/14.
  */
-public class CorrelationWriterTest extends EslimeTestCase {
+public class CorrelationWriterTest extends LegacyTest {
 
     private static final int SIDE = 10;
     private Geometry geom;

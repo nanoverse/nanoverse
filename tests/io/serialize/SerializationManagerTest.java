@@ -26,12 +26,13 @@ package io.serialize;
 
 import org.junit.*;
 import processes.MockStepState;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
-public class SerializationManagerTest extends EslimeTestCase {
+
+public class SerializationManagerTest extends LegacyTest {
 
     private MockSerializer serializer;
     private SerializationManager query;

@@ -27,11 +27,11 @@ package factory.geometry.lattice;//import junit.framework.TestCase;
 import geometry.lattice.*;
 import org.dom4j.Element;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class LatticeFactoryTest extends EslimeTestCase {
+public class LatticeFactoryTest extends LegacyTest {
 
     private Element root;
 

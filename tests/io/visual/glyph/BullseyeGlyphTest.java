@@ -48,7 +48,7 @@ import java.util.*;
 /**
  * Created by dbborens on 4/4/14.
  */
-public class BullseyeGlyphTest extends EslimeTestCase {
+public class BullseyeGlyphTest extends LegacyTest {
 
     Geometry geometry;
     private HighlightManager highlightManager;

@@ -31,14 +31,14 @@ import org.dom4j.Element;
 import org.junit.*;
 import processes.*;
 import structural.MockGeneralParameters;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import java.util.*;
 import java.util.stream.Stream;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class IntegratorFactoryTest extends EslimeLatticeTestCase {
+public class IntegratorFactoryTest extends LegacyLatticeTest {
 
     private GeneralParameters p;
     private Element root;

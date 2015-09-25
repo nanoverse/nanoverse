@@ -24,15 +24,13 @@
 
 package layers.continuum;
 
+import cells.BehaviorCell;
 import control.identifiers.Coordinate;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import test.LinearMocks;
 
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class ContinuumAgentLinkerTest extends LinearMocks {
@@ -51,14 +49,25 @@ public class ContinuumAgentLinkerTest extends LinearMocks {
     }
 
     @Test
-    public void getNotifier() throws Exception {
-        assertEquals(notifier, query.getNotifier());
-    }
-
-    @Test
     public void getAsksStateLookup() throws Exception {
         Supplier<Coordinate> supplier = () -> a;
         query.get(supplier);
         verify(stateLookup).apply(a);
+    }
+
+    @Test
+    public void add() throws Exception {
+        BehaviorCell cell = mock(BehaviorCell.class);
+        Supplier<RelationshipTuple> tuple = mock(Supplier.class);
+        query.add(cell, tuple);
+        verify(notifier).add(cell, tuple);
+    }
+
+    @Test
+    public void getRemover() throws Exception {
+        BehaviorCell cell = mock(BehaviorCell.class);
+        Runnable remover = query.getRemover(cell);
+        remover.run();
+        verify(notifier).remove(cell);
     }
 }

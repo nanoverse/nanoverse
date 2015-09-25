@@ -27,13 +27,13 @@ package io.visual.map;
 import control.identifiers.*;
 import io.visual.VisualizationProperties;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/1/14.
  */
-public class TriPixelTranslatorTest extends EslimeTestCase {
+public class TriPixelTranslatorTest extends LegacyTest {
 
     private TriPixelTranslator query;
     private Coordinate c0, c1;

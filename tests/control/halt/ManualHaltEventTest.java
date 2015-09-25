@@ -25,11 +25,11 @@
 package control.halt;
 
 import org.junit.Test;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class ManualHaltEventTest extends EslimeTestCase {
+public class ManualHaltEventTest extends LegacyTest {
 
     @Test
     public void testLifeCycle() throws Exception {

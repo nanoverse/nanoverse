@@ -27,7 +27,7 @@ package io.serialize;
 import control.identifiers.*;
 import io.serialize.text.ExtremaWriter;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.io.StringWriter;
 
@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 12/11/13.
  */
-public class ExtremaWriterTest extends EslimeTestCase {
+public class ExtremaWriterTest extends LegacyTest {
 
     private StringWriter sw;
     private ExtremaWriter helper;

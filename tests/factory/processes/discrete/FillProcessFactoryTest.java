@@ -39,10 +39,11 @@ import org.dom4j.Element;
 import org.junit.*;
 import processes.BaseProcessArguments;
 import processes.discrete.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class FillProcessFactoryTest extends EslimeTestCase {
+
+public class FillProcessFactoryTest extends LegacyTest {
 
     private GeneralParameters p;
     private Element root;

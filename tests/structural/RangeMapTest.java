@@ -25,13 +25,13 @@
 package structural;
 
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 3/5/14.
  */
-public class RangeMapTest extends EslimeTestCase {
+public class RangeMapTest extends LegacyTest {
     private RangeMap<Integer> query;
 
     @Before

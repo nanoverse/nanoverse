@@ -32,10 +32,11 @@ import processes.*;
 import processes.discrete.*;
 import processes.discrete.check.*;
 import processes.temporal.*;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import static org.junit.Assert.assertEquals;
-public class ProcessFactoryTest extends EslimeLatticeTestCase {
+
+public class ProcessFactoryTest extends LegacyLatticeTest {
 
     private GeneralParameters p;
 

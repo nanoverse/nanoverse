@@ -28,13 +28,13 @@ import factory.io.visual.highlight.HighlightManagerFactory;
 import io.visual.glyph.MockGlyph;
 import org.dom4j.Element;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/3/14.
  */
-public class HighlightManagerFactoryTest extends EslimeTestCase {
+public class HighlightManagerFactoryTest extends LegacyTest {
     private Element root;
 
     @Before

@@ -5,12 +5,10 @@
 
 package geometry.set;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Coordinate3D;
+import control.identifiers.*;
 import geometry.Geometry;
+import structural.NotYetImplementedException;
 import structural.annotations.FactoryTarget;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.function.Function;
 import java.util.stream.IntStream;
@@ -36,11 +34,11 @@ public class HorizontalLineSet extends CoordinateSet {
     @FactoryTarget(displayName = "HLineCoordinateSet")
     public HorizontalLineSet(Geometry geom, Coordinate start, int length) {
         if (geom.getDimensionality() != 2) {
-            throw new NotImplementedException();
+            throw new NotYetImplementedException();
         }
 
         if (length < 0) {
-            throw new NotImplementedException();
+            throw new NotYetImplementedException();
         }
 
         Function<Integer, Coordinate> mapping;

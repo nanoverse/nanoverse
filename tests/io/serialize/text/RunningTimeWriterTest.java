@@ -27,7 +27,7 @@ package io.serialize.text;
 import control.GeneralParameters;
 import org.junit.Test;
 import processes.StepState;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import java.io.*;
 
@@ -38,7 +38,7 @@ import static org.junit.Assert.*;
  * for certain is that a minimum time has elapsed, which we can control
  * by sleeping for a certain number of miliseconds.
  */
-public class RunningTimeWriterTest extends EslimeLatticeTestCase {
+public class RunningTimeWriterTest extends LegacyLatticeTest {
 
     @Test
     public void testLifeCycle() throws Exception {

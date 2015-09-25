@@ -29,13 +29,13 @@ import control.halt.HaltCondition;
 import control.identifiers.*;
 import layers.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 /**
  * Created by dbborens on 3/6/14.
  */
-public class CompoundActionTest extends EslimeTestCase {
+public class CompoundActionTest extends LegacyTest {
 
     ExposedCompoundAction query;
     MockLayerManager layerManager;

@@ -26,13 +26,13 @@ package processes.discrete;
 
 import org.junit.Test;
 import processes.*;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import static org.junit.Assert.assertTrue;
 /**
  * Created by dbborens on 4/24/14.
  */
-public class RecordTest extends EslimeLatticeTestCase {
+public class RecordTest extends LegacyLatticeTest {
 
     @Test
     public void testLifeCycle() throws Exception {

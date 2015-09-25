@@ -39,10 +39,11 @@ import org.junit.*;
 import processes.BaseProcessArguments;
 import processes.discrete.*;
 import processes.discrete.filter.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class TriggerProcessFactoryTest extends EslimeTestCase {
+
+public class TriggerProcessFactoryTest extends LegacyTest {
     private GeneralParameters p;
     private Element root;
     private LayerManager layerManager;

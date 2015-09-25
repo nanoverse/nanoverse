@@ -29,13 +29,13 @@ import control.identifiers.Coordinate;
 import geometry.*;
 import geometry.boundaries.HaltArena;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 /**
  * Created by dbborens on 4/25/14.
  */
-public class CellLayerTest extends EslimeTestCase {
+public class CellLayerTest extends LegacyTest {
     private MockGeometry geom;
 
     @Before

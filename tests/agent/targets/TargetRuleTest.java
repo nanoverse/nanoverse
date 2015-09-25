@@ -32,7 +32,7 @@ import layers.MockLayerManager;
 import layers.cell.CellLayer;
 import org.junit.*;
 import processes.discrete.filter.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.*;
 
@@ -40,7 +40,7 @@ import static org.junit.Assert.*;
 /**
  * Created by dbborens on 2/10/14.
  */
-public class TargetRuleTest extends EslimeTestCase {
+public class TargetRuleTest extends LegacyTest {
 
     private MockGeometry geom;
     private MockLayerManager layerManager;

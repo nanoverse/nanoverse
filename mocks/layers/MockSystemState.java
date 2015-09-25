@@ -25,7 +25,7 @@
 package layers;
 
 import control.identifiers.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import structural.NotYetImplementedException;
 
 /**
  * Created by dbborens on 4/2/14.
@@ -45,16 +45,12 @@ public class MockSystemState extends SystemState {
 
     @Override
     public Extrema getContinuumExtrema(String id) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 
     @Override
     public double getContinuumValue(String id, Coordinate c) {
-        throw new NotImplementedException();
-    }
-
-    public void setLayerManager(LayerManager layerManager) {
-        this.layerManager = layerManager;
+        throw new NotYetImplementedException();
     }
 
     @Override
@@ -67,13 +63,17 @@ public class MockSystemState extends SystemState {
         return 0;
     }
 
-    public void setHighlighted(boolean value) {
-        highlighted = value;
-    }
-
     @Override
     public boolean isHighlighted(int channel, Coordinate coord) {
         return highlighted;
+    }
+
+    public void setLayerManager(LayerManager layerManager) {
+        this.layerManager = layerManager;
+    }
+
+    public void setHighlighted(boolean value) {
+        highlighted = value;
     }
 
 }

@@ -28,10 +28,11 @@ import control.identifiers.*;
 import geometry.lattice.*;
 import geometry.shape.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
-public class WrapHelper2DTest extends EslimeTestCase {
+
+public class WrapHelper2DTest extends LegacyTest {
 
     private WrapHelper2D query;
 

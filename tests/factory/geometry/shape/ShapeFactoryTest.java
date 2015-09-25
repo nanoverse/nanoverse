@@ -28,11 +28,11 @@ import geometry.lattice.*;
 import geometry.shape.*;
 import org.dom4j.Element;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class ShapeFactoryTest extends EslimeTestCase {
+public class ShapeFactoryTest extends LegacyTest {
 
     private Element root;
 

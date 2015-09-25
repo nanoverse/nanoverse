@@ -28,10 +28,11 @@ import control.identifiers.*;
 import org.dom4j.Element;
 import org.junit.Test;
 import structural.utilities.CoordinateSerializer;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class CoordinateSerializerTest extends EslimeTestCase {
+
+public class CoordinateSerializerTest extends LegacyTest {
 
     @Test
     public void testCoordinate() {

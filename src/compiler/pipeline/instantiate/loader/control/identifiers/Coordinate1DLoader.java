@@ -27,10 +27,8 @@ package compiler.pipeline.instantiate.loader.control.identifiers;
 import compiler.pipeline.instantiate.factory.control.identifiers.Coordinate1DFactory;
 import compiler.pipeline.translate.nodes.MapObjectNode;
 import control.GeneralParameters;
-import control.identifiers.Coordinate;
 import control.identifiers.Coordinate1D;
 import layers.LayerManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 8/12/15.

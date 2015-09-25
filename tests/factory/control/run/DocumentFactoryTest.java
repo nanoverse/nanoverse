@@ -27,11 +27,11 @@ package factory.control.run;//import junit.framework.TestCase;
 import org.dom4j.Element;
 import org.dom4j.tree.BaseElement;
 import org.junit.Test;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class DocumentFactoryTest extends EslimeTestCase {
+public class DocumentFactoryTest extends LegacyTest {
 
     @Test
     public void testInstantiate() throws Exception {

@@ -27,10 +27,11 @@ package io.visual.kymograph;
 import control.identifiers.*;
 import io.visual.VisualizationProperties;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class KymoPixelTranslatorTest extends EslimeTestCase {
+
+public class KymoPixelTranslatorTest extends LegacyTest {
     private KymoPixelTranslator query;
     private Coordinate c0, c1;
 

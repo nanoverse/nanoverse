@@ -48,7 +48,7 @@ import java.util.stream.*;
 
 import static org.junit.Assert.*;
 
-public abstract class EslimeTestCase {
+public abstract class LegacyTest {
 
     protected final String eslimeRoot = "./";
     protected final String outputPath = eslimeRoot + "/output/";

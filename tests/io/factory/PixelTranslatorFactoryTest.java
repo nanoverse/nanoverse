@@ -27,14 +27,14 @@ package io.factory;
 import geometry.MockGeometry;
 import io.visual.map.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 
 /**
  * Created by dbborens on 4/3/14.
  */
-public class PixelTranslatorFactoryTest extends EslimeTestCase {
+public class PixelTranslatorFactoryTest extends LegacyTest {
     private MockGeometry geom;
 
     @Before

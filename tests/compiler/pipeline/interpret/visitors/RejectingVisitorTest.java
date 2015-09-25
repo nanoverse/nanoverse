@@ -25,7 +25,7 @@
 package compiler.pipeline.interpret.visitors;
 
 import org.junit.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import structural.NotYetImplementedException;
 
 import static compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.*;
 import static org.mockito.Mockito.mock;
@@ -39,61 +39,61 @@ public class RejectingVisitorTest {
         query = new RejectingVisitor();
     }
 
-    @Test(expected = NotImplementedException.class)
+    @Test(expected = NotYetImplementedException.class)
     public void visitRoot() throws Exception {
         RootContext ctx = mock(RootContext.class);
         query.visitRoot(ctx);
     }
 
-    @Test(expected = NotImplementedException.class)
+    @Test(expected = NotYetImplementedException.class)
     public void visitStatement() throws Exception {
         StatementContext ctx = mock(StatementContext.class);
         query.visitStatement(ctx);
     }
 
-    @Test(expected = NotImplementedException.class)
+    @Test(expected = NotYetImplementedException.class)
     public void visitAssignment() throws Exception {
         AssignmentContext ctx = mock(AssignmentContext.class);
         query.visitAssignment(ctx);
     }
 
-    @Test(expected = NotImplementedException.class)
+    @Test(expected = NotYetImplementedException.class)
     public void visitBlock() throws Exception {
         BlockContext ctx = mock(BlockContext.class);
         query.visitBlock(ctx);
     }
 
-    @Test(expected = NotImplementedException.class)
+    @Test(expected = NotYetImplementedException.class)
     public void visitSingleton() throws Exception {
         SingletonContext ctx = mock(SingletonContext.class);
         query.visitSingleton(ctx);
     }
 
-    @Test(expected = NotImplementedException.class)
+    @Test(expected = NotYetImplementedException.class)
     public void visitId() throws Exception {
         IdContext ctx = mock(IdContext.class);
         query.visitId(ctx);
     }
 
-    @Test(expected = NotImplementedException.class)
+    @Test(expected = NotYetImplementedException.class)
     public void visitPrimitive() throws Exception {
         PrimitiveContext ctx = mock(PrimitiveContext.class);
         query.visitPrimitive(ctx);
     }
 
-    @Test(expected = NotImplementedException.class)
+    @Test(expected = NotYetImplementedException.class)
     public void visitStringPrimitive() throws Exception {
         StringPrimitiveContext ctx = mock(StringPrimitiveContext.class);
         query.visitStringPrimitive(ctx);
     }
 
-    @Test(expected = NotImplementedException.class)
+    @Test(expected = NotYetImplementedException.class)
     public void visitFloatPrimitive() throws Exception {
         FloatPrimitiveContext ctx = mock(FloatPrimitiveContext.class);
         query.visitFloatPrimitive(ctx);
     }
 
-    @Test(expected = NotImplementedException.class)
+    @Test(expected = NotYetImplementedException.class)
     public void visitIntPrimitive() throws Exception {
         IntPrimitiveContext ctx = mock(IntPrimitiveContext.class);
         query.visitIntPrimitive(ctx);

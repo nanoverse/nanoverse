@@ -32,11 +32,11 @@ import geometry.boundaries.*;
 import geometry.lattice.*;
 import geometry.shape.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertTrue;
 
-public class HaltCellLayerContentTest extends EslimeTestCase {
+public class HaltCellLayerContentTest extends LegacyTest {
 
     private HaltCellLayerContent query;
 

@@ -32,7 +32,7 @@ import geometry.lattice.*;
 import geometry.shape.*;
 import layers.cell.*;
 import org.junit.Test;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.HashSet;
 
@@ -46,7 +46,7 @@ import static org.junit.Assert.*;
  * @author David Bruce Borenstein
  * @untested
  */
-public class CellIntegrationTest extends EslimeTestCase {
+public class CellIntegrationTest extends LegacyTest {
 
     @Test
     public void testConstructor() {

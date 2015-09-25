@@ -30,7 +30,7 @@ import geometry.boundaries.Boundary;
 import geometry.lattice.*;
 import geometry.shape.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 /**
@@ -39,7 +39,7 @@ import static org.junit.Assert.*;
  * @author David Bruce Borenstein
  * @untested
  */
-public class GeometryTest extends EslimeTestCase {
+public class GeometryTest extends LegacyTest {
 
     private Geometry geom;
     private Lattice lattice;

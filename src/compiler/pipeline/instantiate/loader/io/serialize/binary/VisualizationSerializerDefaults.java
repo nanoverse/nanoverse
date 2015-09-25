@@ -29,9 +29,7 @@ import control.GeneralParameters;
 import geometry.Geometry;
 import io.visual.Visualization;
 import layers.LayerManager;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.util.function.Supplier;
+import structural.NotYetImplementedException;
 
 /**
  * Created by dbborens on 8/21/2015.
@@ -51,7 +49,7 @@ public class VisualizationSerializerDefaults {
             MapVisualizationLoader loader = new MapVisualizationLoader();
             return loader.instantiate(p);
         } else {
-            throw new NotImplementedException();
         }
+        throw new NotYetImplementedException();
     }
 }

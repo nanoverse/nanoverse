@@ -27,7 +27,7 @@ package io.visual.glyph;
 import factory.io.visual.color.ColorFactory;
 import org.dom4j.Element;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.awt.*;
 
@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/4/14.
  */
-public class ColorFactoryTest extends EslimeTestCase {
+public class ColorFactoryTest extends LegacyTest {
 
     Element root;
 
