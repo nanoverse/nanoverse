@@ -24,9 +24,9 @@
 
 package test;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import geometry.Geometry;
+import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.control.identifiers.Coordinate2D;
+import nanoverse.runtime.geometry.Geometry;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;

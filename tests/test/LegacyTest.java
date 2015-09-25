@@ -25,22 +25,22 @@
 package test;
 
 import com.google.common.collect.Sets;
-import control.GeneralParameters;
-import control.arguments.*;
-import control.identifiers.*;
-import geometry.*;
-import geometry.boundaries.*;
-import geometry.lattice.*;
-import geometry.set.*;
-import geometry.shape.*;
-import layers.LayerManager;
+import nanoverse.runtime.control.GeneralParameters;
+import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.identifiers.*;
+import nanoverse.runtime.geometry.*;
+import nanoverse.runtime.geometry.boundaries.*;
+import nanoverse.runtime.geometry.lattice.*;
+import nanoverse.runtime.geometry.set.*;
+import nanoverse.runtime.geometry.shape.*;
+import nanoverse.runtime.layers.LayerManager;
 import no.uib.cipr.matrix.Vector;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.dom4j.tree.BaseElement;
-import processes.BaseProcessArguments;
-import processes.discrete.CellProcessArguments;
-import structural.MockGeneralParameters;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.structural.MockGeneralParameters;
 
 import java.io.*;
 import java.util.*;
@@ -180,7 +180,7 @@ public abstract class LegacyTest {
     }
 
     /**
-     * Generate a basic mock geometry with a defined
+     * Generate a basic mock nanoverse.runtime.geometry with a defined
      * set of canonical coordinates.
      */
     protected MockGeometry buildMockGeometry() {

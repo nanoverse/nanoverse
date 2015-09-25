@@ -22,7 +22,7 @@
   ~ <http://www.gnu.org/licenses/>.
   -->
 
-<!-- This XML file corresponds to io.project.XmlTest. It verifies
+<!-- This XML file corresponds to nanoverse.runtime.io.project.XmlTest. It verifies
      that the XML reader exhibits the behaviors on which the integrator
      depends. In particular we want to make sure  that it returns
      objects in the order they are specified in the file. -->

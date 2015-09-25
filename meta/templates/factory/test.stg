@@ -32,7 +32,7 @@ terminus() ::= <<
 
 mock(param) ::= "$param.lower$ = mock($param.clazz.simpleName$.class);"
 
-package(clazz) ::= "compiler.pipeline.instantiate.factory.$clazz.pkg$"
+package(clazz) ::= "nanoverse.compiler.pipeline.instantiate.nanoverse.runtime.factory.$clazz.pkg$"
 
 doImport(param) ::= "import $param$;"
 

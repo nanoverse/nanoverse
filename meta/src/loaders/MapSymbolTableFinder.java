@@ -24,11 +24,9 @@
 
 package loaders;
 
-import compiler.pipeline.translate.symbol.*;
-import javafx.scene.media.SubtitleTrack;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.lang.reflect.Modifier;
 import java.util.stream.Stream;
@@ -39,7 +37,7 @@ import java.util.stream.Stream;
 public class MapSymbolTableFinder {
 
     public Stream<MapSymbolTable> findTables() {
-        String pkgStr = "compiler.pipeline.translate.symbol";
+        String pkgStr = "nanoverse.compiler.pipeline.translate.symbol";
         Reflections r = new Reflections(pkgStr, new SubTypesScanner(false));
         return r.getAllTypes()
                 .stream()

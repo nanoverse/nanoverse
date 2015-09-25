@@ -24,11 +24,11 @@
 
 package factories;
 
-import agent.action.stochastic.DependentProbabilitySupplierDescriptor;
-import geometry.set.CompleteSet;
-import geometry.set.CustomSet;
-import geometry.set.DiscSet;
-import geometry.set.HorizontalLineSet;
+import nanoverse.runtime.agent.action.stochastic.DependentProbabilitySupplierDescriptor;
+import nanoverse.runtime.geometry.set.CompleteSet;
+import nanoverse.runtime.geometry.set.CustomSet;
+import nanoverse.runtime.geometry.set.DiscSet;
+import nanoverse.runtime.geometry.set.HorizontalLineSet;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 

@@ -41,7 +41,7 @@ asName(param) ::= "$param.name$"
 
 asSignature(param) ::= "$param.clazz.simpleName$ $param.name$"
 
-package(clazz) ::= "compiler.pipeline.instantiate.factory.$clazz.pkg$"
+package(clazz) ::= "nanoverse.compiler.pipeline.instantiate.nanoverse.runtime.factory.$clazz.pkg$"
 
 doImport(param) ::= "import $param$;"
 

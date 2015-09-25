@@ -39,7 +39,7 @@ public class FactoryTestGenerator {
     private final FactoryLoadHelper helper;
 
     public FactoryTestGenerator() {
-        group = new STGroupFile("meta/templates/factory/test.stg", '$', '$');
+        group = new STGroupFile("meta/templates/nanoverse.runtime.factory/test.stg", '$', '$');
         helper = new FactoryLoadHelper();
     }
 

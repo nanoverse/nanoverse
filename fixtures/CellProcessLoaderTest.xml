@@ -24,7 +24,7 @@
 
 <!-- Test fixture for CellProcessLoader. -->
 
-<cell-processes>
+<cell-nanoverse.runtime.processes>
     <mock-process>
         <identifier>alpha</identifier>
     </mock-process>
@@ -36,4 +36,4 @@
     <mock-process>
         <identifier>gamma</identifier>
     </mock-process>
-</cell-processes>
+</cell-nanoverse.runtime.processes>

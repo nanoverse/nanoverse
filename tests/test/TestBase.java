@@ -28,7 +28,7 @@ import com.google.common.collect.Sets;
 import no.uib.cipr.matrix.Matrix;
 import no.uib.cipr.matrix.Vector;
 import org.junit.Before;
-import structural.utilities.EpsilonUtil;
+import nanoverse.runtime.structural.utilities.EpsilonUtil;
 
 import java.util.*;
 import java.util.stream.*;

@@ -31,7 +31,7 @@ public abstract class BuildFactoryTree {
 
     public static void main(String[] args) {
         TargetFinder tf = new TargetFinder();
-        FactoryWriteManager fwm = new FactoryWriteManager("meta/out/factory/");
+        FactoryWriteManager fwm = new FactoryWriteManager("meta/out/nanoverse.runtime.factory/");
 
         tf.getTargets()
                 .forEach(fwm::write);
