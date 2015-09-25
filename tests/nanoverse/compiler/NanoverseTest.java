@@ -24,6 +24,7 @@
 
 package nanoverse.compiler;
 
+import nanoverse.Nanoverse;
 import nanoverse.compiler.error.ConsoleError;
 import nanoverse.runtime.control.run.Runner;
 import org.junit.*;

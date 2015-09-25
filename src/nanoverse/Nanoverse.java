@@ -1,4 +1,4 @@
-/*
+package nanoverse;/*
  * Copyright (c) 2014, 2015 David Bruce Borenstein and the
  * Trustees of Princeton University.
  *
@@ -22,24 +22,40 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package nanoverse.runtime.control.run;
-
-import nanoverse.runtime.factory.control.run.RunnerFactory;
+import nanoverse.compiler.Compiler;
+import nanoverse.compiler.error.ConsoleError;
+import nanoverse.runtime.control.run.Runner;
 
 /**
- * The manual runner specifies a hard-coded parameters file to be loaded.
- * It is used for ad-hoc simulations and testing. Batch executions use
- * a command line argument to specify a parameters file.
- *
- * @author dbborens
- * @test (not needed)
+ * Created by dbborens on 9/17/2015.
  */
-public class ConsoleLauncher {
+public class Nanoverse {
 
-    public static void main(String[] args) {
-        String path = args[0];
-        Runner runner = RunnerFactory.instantiate(path);
-        runner.run();
+    private final static String usage =
+        "\nExpected exactly one argument. Usage:\n" +
+            "\tNanoverse <filename>";
+    private final nanoverse.compiler.Compiler compiler;
+
+    public Nanoverse(String[] args) {
+        if (args.length == 0 || args.length > 1) {
+            throw new ConsoleError(usage);
+        }
+
+        String filename = args[0];
+        compiler = new nanoverse.compiler.Compiler(filename);
     }
 
+    public Nanoverse(Compiler compiler) {
+        this.compiler = compiler;
+    }
+
+    public static void main(String[] args) {
+        Nanoverse instance = new Nanoverse(args);
+        instance.go();
+    }
+
+    public void go() {
+        Runner runner = compiler.compile();
+        runner.run();
+    }
 }

@@ -25,8 +25,6 @@
 package nanoverse.runtime.control;
 
 import nanoverse.runtime.structural.annotations.FactoryTarget;
-import nanoverse.runtime.structural.utilities.XmlUtil;
-import org.dom4j.Element;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -104,66 +102,6 @@ public class GeneralParameters {
         SimpleDateFormat sdf = new SimpleDateFormat("HH'h'mm'm'ss's'");
         Date date = new Date();
         return sdf.format(date);
-    }
-
-    public GeneralParameters(Element root) {
-        load(root);
-        instance = 0;
-        updateInstancePath();
-
-    }
-
-    private void load(Element g) {
-
-        // Load dimensions
-        loadDimensions(g);
-
-        // Load base path and (if applicable) time stamped path
-        loadPaths(g);
-
-        // Initialize random-number generator
-        loadRandom(g);
-    }
-
-    private void loadRandom(Element g) {
-        String rseed = get(g, "random-seed");
-        if (rseed.equals("*")) {
-            randomSeed = System.currentTimeMillis();
-            random = new Random(randomSeed);
-        } else {
-            if (instances != 1) {
-                throw new IllegalArgumentException("You may only specify a random number seed if you are running a single replicate.");
-            }
-            randomSeed = Long.valueOf(rseed);
-            random = new Random(randomSeed);
-
-        }
-    }
-
-    private void loadPaths(Element g) {
-        basePath = get(g, "path");
-        projectName = XmlUtil.getString(g, "project", "");
-        isStamp = XmlUtil.getBoolean(g, "date-stamp");
-        internalPaths();
-    }
-
-    private void loadDimensions(Element g) {
-        maxStep = Integer.valueOf(get(g, "max-step"));
-        instances = Integer.valueOf(get(g, "instances"));
-    }
-
-    // Pull in a single-datum element
-    private String get(Element g, String key) {
-        Element vElem = g.element(key);
-        if (vElem == null) {
-            throw new IllegalArgumentException("General parameter " +
-                key + " not defined.");
-        }
-
-        Object value = vElem.getData();
-
-        return value.toString();
-
     }
 
     // Minimal constructor for mock testing.
