@@ -25,9 +25,9 @@
 package nanoverse.runtime.layers.continuum;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.structural.annotations.FactoryTarget;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
 
@@ -64,7 +64,7 @@ public class ContinuumLayerScheduler {
     public void setBoundaryCondition(Coordinate target, double b) {
         if (!holdManager.isHeld()) {
             System.err.println("Warning: Dirichlet boundary condition is " +
-                    "being enforced without hold on layer");
+                "being enforced without hold on layer");
         }
 
         scheduledOperations.zeroOperatorRow(target);

@@ -23,9 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.geometry;
 
-import nanoverse.runtime.geometry.shape.Shape;
 import nanoverse.runtime.control.arguments.GeometryDescriptor;
 import nanoverse.runtime.geometry.lattice.Lattice;
+import nanoverse.runtime.geometry.shape.Shape;
 
 
 public class GeometryDescriptorFactoryHelper {

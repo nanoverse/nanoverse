@@ -70,30 +70,6 @@ public class LegacyContinuumStateReader implements Iterator<double[]> {
 
     }
 
-    @Override
-    public boolean hasNext() {
-        // If the last attempt to load a record resulted in a null record,
-        // we have reached the end of the file; there is no next record.
-        if (current == null) {
-            return false;
-        }
-
-        return true;
-    }
-
-
-    @Override
-    public double[] next() {
-        // Store the current record for return
-        double[] ret = current;
-
-        // Advance to the next record
-        advance();
-
-        // Return the stored record
-        return ret;
-    }
-
     private double[] read() throws IOException {
         // Check start sequence
         checkStartParitySequence();
@@ -115,11 +91,6 @@ public class LegacyContinuumStateReader implements Iterator<double[]> {
     private double[] readData() throws IOException {
         double[] data = PrimitiveDeserializer.readDoubleVector(input);
         return data;
-    }
-
-    @Override
-    public void remove() {
-        throw new UnsupportedOperationException();
     }
 
     /**
@@ -152,6 +123,34 @@ public class LegacyContinuumStateReader implements Iterator<double[]> {
                 throw new IOException("Continuum state file is corrupt.");
             }
         }
+    }
+
+    @Override
+    public boolean hasNext() {
+        // If the last attempt to load a record resulted in a null record,
+        // we have reached the end of the file; there is no next record.
+        if (current == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public double[] next() {
+        // Store the current record for return
+        double[] ret = current;
+
+        // Advance to the next record
+        advance();
+
+        // Return the stored record
+        return ret;
+    }
+
+    @Override
+    public void remove() {
+        throw new UnsupportedOperationException();
     }
 
     /**

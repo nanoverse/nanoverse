@@ -29,8 +29,7 @@ import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.set.CoordinateSet;
 import nanoverse.runtime.layers.continuum.ContinuumLayerScheduler;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.StepState;
+import nanoverse.runtime.processes.*;
 
 /**
  * Enforces Dirichlet boundary conditions. Make sure you place a hold on the
@@ -47,10 +46,10 @@ public class DirichletBoundaryEnforcer extends ContinuumProcess {
     /**
      * Constructor.
      *
-     * @param arguments the base process arguments
-     * @param value the value at the boundary
-     * @param layerId the ID of the layer we want to enforce the boundary
-     *                condition on
+     * @param arguments   the base process arguments
+     * @param value       the value at the boundary
+     * @param layerId     the ID of the layer we want to enforce the boundary
+     *                    condition on
      * @param activeSites the list of sites that make up the boundary
      */
     public DirichletBoundaryEnforcer(BaseProcessArguments arguments,
@@ -67,11 +66,11 @@ public class DirichletBoundaryEnforcer extends ContinuumProcess {
     public void fire(StepState state) throws HaltCondition {
 
         Coordinate[] canonicalSites = getLayerManager().getCellLayer()
-                .getGeometry().getCanonicalSites();
+            .getGeometry().getCanonicalSites();
         ContinuumLayerScheduler scheduler = getLayerManager()
-                .getContinuumLayer(layerId).getScheduler();
+            .getContinuumLayer(layerId).getScheduler();
 
-        for (Coordinate i: canonicalSites) {
+        for (Coordinate i : canonicalSites) {
             if (activeSites.contains(i)) {
                 scheduler.setBoundaryCondition(i, value.next());
             }

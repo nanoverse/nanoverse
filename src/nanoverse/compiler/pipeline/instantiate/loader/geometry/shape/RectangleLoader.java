@@ -48,6 +48,10 @@ public class RectangleLoader extends ShapeLoader<Rectangle> {
         this.interpolator = interpolator;
     }
 
+    public Shape instantiate(Lattice lattice, GeneralParameters p) {
+        return instantiate(null, lattice, p);
+    }
+
     @Override
     public Shape instantiate(MapObjectNode node, Lattice lattice, GeneralParameters p) {
         factory.setLattice(lattice);
@@ -59,9 +63,5 @@ public class RectangleLoader extends ShapeLoader<Rectangle> {
         factory.setWidth(width);
 
         return factory.build();
-    }
-
-    public Shape instantiate(Lattice lattice, GeneralParameters p) {
-        return instantiate(null, lattice, p);
     }
 }

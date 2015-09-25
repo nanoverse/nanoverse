@@ -25,11 +25,11 @@
 package nanoverse.compiler.pipeline.translate.symbol.geometry.set;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
+import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.set.HorizontalLineSet;
-import org.junit.*;
+import org.junit.Test;
 
 public class HLineCoordSetInstSymbolTableTest extends MapSymbolTableTest {
 

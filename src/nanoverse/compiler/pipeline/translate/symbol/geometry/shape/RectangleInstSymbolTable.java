@@ -45,7 +45,7 @@ public class RectangleInstSymbolTable extends ShapeInstSymbolTable<Rectangle> {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         height(ret);
         width(ret);
-        return(ret);
+        return (ret);
     }
 
     private void width(HashMap<String, MemberSymbol> ret) {

@@ -25,17 +25,15 @@
 package nanoverse.runtime.factory.agent.action;
 
 import nanoverse.runtime.agent.action.*;
-import nanoverse.runtime.agent.targets.*;
+import nanoverse.runtime.agent.targets.TargetDescriptor;
 import nanoverse.runtime.cells.BehaviorCell;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.factory.agent.targets.TargetDesciptorFactory;
-import nanoverse.runtime.factory.control.arguments.DoubleArgumentFactory;
-import nanoverse.runtime.factory.control.arguments.IntegerArgumentFactory;
+import nanoverse.runtime.factory.control.arguments.*;
 import nanoverse.runtime.layers.LayerManager;
-import org.dom4j.Element;
 import nanoverse.runtime.structural.utilities.XmlUtil;
+import org.dom4j.Element;
 
 import java.util.Random;
 import java.util.function.Function;

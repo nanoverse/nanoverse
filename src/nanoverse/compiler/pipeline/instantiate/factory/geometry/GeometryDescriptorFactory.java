@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.geometry;
 
-import nanoverse.runtime.geometry.shape.Shape;
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.arguments.GeometryDescriptor;
 import nanoverse.runtime.geometry.lattice.Lattice;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.geometry.shape.Shape;
 
 public class GeometryDescriptorFactory implements Factory<GeometryDescriptor> {
 

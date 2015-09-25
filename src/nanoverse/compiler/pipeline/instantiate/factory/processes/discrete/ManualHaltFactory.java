@@ -23,10 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
-import nanoverse.runtime.processes.discrete.ManualHalt;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
-import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.*;
 
 public class ManualHaltFactory implements Factory<ManualHalt> {
 

@@ -24,21 +24,21 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.runtime.agent.action.InjectDescriptor;
 import nanoverse.runtime.control.arguments.*;
-import org.junit.*;
+import org.junit.Test;
 
 public class InjectInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedClass() {
-        return InjectDescriptor.class;
+    protected MapSymbolTable getQuery() {
+        return new InjectInstSymbolTable();
     }
 
     @Override
-    protected MapSymbolTable getQuery() {
-        return new InjectInstSymbolTable();
+    protected Class getExpectedClass() {
+        return InjectDescriptor.class;
     }
 
     @Test

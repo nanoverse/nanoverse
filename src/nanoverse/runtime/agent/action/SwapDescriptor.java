@@ -26,7 +26,7 @@ package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.targets.*;
 import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -40,8 +40,8 @@ public class SwapDescriptor extends ActionDescriptor<Swap> {
 
     @FactoryTarget(displayName = "Swap")
     public SwapDescriptor(LayerManager layerManager, TargetDescriptor ruleDescriptor,
-                IntegerArgument selfChannel,
-                IntegerArgument targetChannel) {
+                          IntegerArgument selfChannel,
+                          IntegerArgument targetChannel) {
 
         constructor = cell -> {
             TargetRule rule = ruleDescriptor.instantiate(cell);

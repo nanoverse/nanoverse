@@ -24,14 +24,13 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.action.TriggerActionLoader;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
-import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.agent.targets.TargetRuleClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
+import nanoverse.runtime.agent.action.TriggerDescriptor;
 
 import java.util.HashMap;
 
@@ -58,16 +57,16 @@ public class TriggerActionInstSymbolTable extends ActionInstSymbolTable<TriggerD
     private void targetHighlight(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
-                "to record the nanoverse.runtime.agent being triggered. If left null, no " +
-                "highlight will be recorded.");
+            "to record the nanoverse.runtime.agent being triggered. If left null, no " +
+            "highlight will be recorded.");
         ret.put("targetHighlight", ms);
     }
 
     private void selfHighlight(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
-                "to record the triggering nanoverse.runtime.agent. If left null, no " +
-                "highlight will be recorded.");
+            "to record the triggering nanoverse.runtime.agent. If left null, no " +
+            "highlight will be recorded.");
         ret.put("selfHighlight", ms);
 
     }
@@ -75,15 +74,15 @@ public class TriggerActionInstSymbolTable extends ActionInstSymbolTable<TriggerD
     private void behavior(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new StringClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The name of the behavior to " +
-                "trigger. It is assumed that the target has a behavior of " +
-                "this name.");
+            "trigger. It is assumed that the target has a behavior of " +
+            "this name.");
         ret.put("behavior", ms);
     }
 
     private void target(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new TargetRuleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Rule(s) limiting valid " +
-                "targets for this action.");
+            "targets for this action.");
         ret.put("target", ms);
     }
 

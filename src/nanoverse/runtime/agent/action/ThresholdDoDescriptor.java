@@ -36,7 +36,7 @@ import java.util.function.Function;
  */
 public class ThresholdDoDescriptor extends ActionDescriptor<ThresholdDo> {
 
-    private final Function<BehaviorCell,ThresholdDo> constructor;
+    private final Function<BehaviorCell, ThresholdDo> constructor;
 
     @FactoryTarget(displayName = "ThresholdDo")
     public ThresholdDoDescriptor(LayerManager layerManager,
@@ -48,7 +48,7 @@ public class ThresholdDoDescriptor extends ActionDescriptor<ThresholdDo> {
         constructor = cell -> {
             Action child = childDescriptor.instantiate(cell);
             return new ThresholdDo(cell, layerManager, layerId, minimumArg,
-                    maximumArg, child);
+                maximumArg, child);
         };
     }
 

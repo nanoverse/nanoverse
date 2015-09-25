@@ -24,7 +24,7 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete;
 
-import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.*;
+import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.FillFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;

@@ -23,9 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.highlight;
 
-import java.util.Map;
-import nanoverse.runtime.io.visual.highlight.HighlightManager;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.io.visual.highlight.HighlightManager;
+
+import java.util.Map;
 
 public class HighlightManagerFactory implements Factory<HighlightManager> {
 

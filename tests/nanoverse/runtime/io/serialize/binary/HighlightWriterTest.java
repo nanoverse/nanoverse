@@ -24,10 +24,10 @@
 
 package nanoverse.runtime.io.serialize.binary;
 
-import org.junit.Test;
 import nanoverse.runtime.processes.MockStepState;
 import nanoverse.runtime.structural.MockGeneralParameters;
 import nanoverse.runtime.structural.utilities.FileConventions;
+import org.junit.Test;
 import test.*;
 
 import java.util.List;

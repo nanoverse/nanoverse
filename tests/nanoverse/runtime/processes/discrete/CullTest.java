@@ -25,11 +25,12 @@
 package nanoverse.runtime.processes.discrete;
 
 import nanoverse.runtime.cells.MockCell;
-import org.junit.*;
 import nanoverse.runtime.processes.*;
+import org.junit.*;
 import test.LegacyLatticeTest;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by dbborens on 3/5/14.
  */

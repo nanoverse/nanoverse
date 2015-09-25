@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.geometry.set;
 
-import nanoverse.runtime.geometry.set.CustomSet;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.geometry.set.CustomSet;
 
 public class CustomCoordinateSetFactory implements Factory<CustomSet> {
 

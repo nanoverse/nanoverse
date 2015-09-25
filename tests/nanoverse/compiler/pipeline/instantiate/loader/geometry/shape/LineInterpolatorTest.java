@@ -30,7 +30,7 @@ import org.mockito.ArgumentCaptor;
 
 import java.util.function.Supplier;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class LineInterpolatorTest extends InterpolatorTest {
@@ -46,7 +46,7 @@ public class LineInterpolatorTest extends InterpolatorTest {
     @Test
     public void length() throws Exception {
         when(load.anInteger(eq(node), eq("length"), any(), any()))
-                .thenReturn(5);
+            .thenReturn(5);
         int actual = query.length(node, random);
         assertEquals(5, actual);
     }
@@ -55,7 +55,7 @@ public class LineInterpolatorTest extends InterpolatorTest {
     public void lengthDefault() throws Exception {
         ArgumentCaptor<Supplier> captor = ArgumentCaptor.forClass(Supplier.class);
         when(load.anInteger(eq(node), eq("length"), any(), any()))
-                .thenReturn(0);
+            .thenReturn(0);
 
         query.length(node, random);
         verify(load).anInteger(any(), any(), any(), captor.capture());

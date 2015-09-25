@@ -23,11 +23,11 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.continuum;
 
-import nanoverse.runtime.processes.continuum.InjectionProcess;
-import nanoverse.runtime.control.arguments.DoubleArgument;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.geometry.set.CoordinateSet;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.control.arguments.DoubleArgument;
+import nanoverse.runtime.geometry.set.CoordinateSet;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.continuum.InjectionProcess;
 
 public class InjectionProcessFactory implements Factory<InjectionProcess> {
 

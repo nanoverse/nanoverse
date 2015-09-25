@@ -23,9 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color;
 
-import java.awt.Color;
-import nanoverse.runtime.io.visual.color.UniformColorManager;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.io.visual.color.UniformColorManager;
+
+import java.awt.*;
 
 public class UniformColorModelFactory implements Factory<UniformColorManager> {
 

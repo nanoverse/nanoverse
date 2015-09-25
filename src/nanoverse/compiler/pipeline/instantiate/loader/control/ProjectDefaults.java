@@ -31,8 +31,8 @@ import nanoverse.runtime.control.*;
 import nanoverse.runtime.control.arguments.GeometryDescriptor;
 import nanoverse.runtime.io.serialize.SerializationManager;
 import nanoverse.runtime.layers.LayerManager;
-import org.slf4j.*;
 import nanoverse.runtime.structural.Version;
+import org.slf4j.*;
 
 /**
  * Created by dbborens on 8/13/15.
@@ -57,7 +57,7 @@ public class ProjectDefaults {
     }
 
     public SerializationManager output(GeneralParameters p,
-                                              LayerManager lm) {
+                                       LayerManager lm) {
 
         OutputManagerLoader loader = new OutputManagerLoader();
         return loader.instantiate(p, lm);

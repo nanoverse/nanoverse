@@ -36,8 +36,8 @@ public class AbsorbingBoundaryInstSymbolTable extends MapSymbolTable<Absorbing> 
     @Override
     public String getDescription() {
         return "The absorbing boundary is for CONTINUUM nanoverse.runtime.layers only. It " +
-                "holds the boundary value constantly at zero. For equivalent " +
-                "behavior in AGENT nanoverse.runtime.layers, see the Arena boundary.";
+            "holds the boundary value constantly at zero. For equivalent " +
+            "behavior in AGENT nanoverse.runtime.layers, see the Arena boundary.";
     }
 
     @Override

@@ -27,10 +27,10 @@ package nanoverse.runtime.factory.control;//import junit.framework.TestCase;
 import nanoverse.runtime.control.*;
 import nanoverse.runtime.io.serialize.*;
 import nanoverse.runtime.io.serialize.interactive.ProgressReporter;
-import org.dom4j.Element;
-import org.junit.*;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.structural.MockGeneralParameters;
+import org.dom4j.Element;
+import org.junit.*;
 import test.LegacyLatticeTest;
 
 import java.util.*;

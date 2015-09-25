@@ -26,13 +26,12 @@ package nanoverse.runtime.layers.continuum;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
+import nanoverse.runtime.structural.annotations.FactoryTarget;
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
+import java.util.function.*;
 
 /**
  * Converts injections and exponentiations scheduled
@@ -70,14 +69,6 @@ public class AgentToOperatorHelper {
         return matrix;
     }
 
-    public DenseVector getSource(List<RelationshipTuple> relationships) {
-        DenseVector vector = new DenseVector(n);
-        BiConsumer<Integer, Double> consumer = (i, v) -> vector.add(i, v);
-        Function<RelationshipTuple, Double> injLookup = RelationshipTuple::getInj;
-        apply(relationships, injLookup, consumer);
-        return vector;
-    }
-
     private void apply(List<RelationshipTuple> relationships, Function<RelationshipTuple, Double> lookup, BiConsumer<Integer, Double> consumer) {
         relationships.forEach(relationship -> {
             Coordinate c = relationship.getCoordinate();
@@ -85,5 +76,13 @@ public class AgentToOperatorHelper {
             Integer i = indexer.apply(c);
             consumer.accept(i, v);
         });
+    }
+
+    public DenseVector getSource(List<RelationshipTuple> relationships) {
+        DenseVector vector = new DenseVector(n);
+        BiConsumer<Integer, Double> consumer = (i, v) -> vector.add(i, v);
+        Function<RelationshipTuple, Double> injLookup = RelationshipTuple::getInj;
+        apply(relationships, injLookup, consumer);
+        return vector;
     }
 }

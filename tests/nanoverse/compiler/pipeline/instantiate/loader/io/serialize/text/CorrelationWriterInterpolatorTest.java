@@ -37,6 +37,7 @@ import static org.mockito.Mockito.*;
 public class CorrelationWriterInterpolatorTest extends InterpolatorTest {
 
     private CorrelationWriterInterpolator query;
+
     @Before
     public void before() throws Exception {
         super.before();
@@ -47,7 +48,7 @@ public class CorrelationWriterInterpolatorTest extends InterpolatorTest {
     public void filename() throws Exception {
         String expected = "test";
         when(load.aString(eq(node), eq("filename"), any()))
-                .thenReturn(expected);
+            .thenReturn(expected);
         String actual = query.filename(node);
         assertEquals(expected, actual);
     }

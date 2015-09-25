@@ -25,9 +25,9 @@
 package nanoverse.compiler.pipeline.translate.symbol.geometry.set;
 
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
+import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.geometry.set.*;
-import org.junit.*;
+import org.junit.Test;
 
 public class CoordinateSetClassSymbolTableTest extends ClassSymbolTableTest {
 

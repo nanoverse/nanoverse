@@ -24,8 +24,8 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.translate.symbol.*;
+import nanoverse.runtime.agent.action.ActionDescriptor;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -38,7 +38,7 @@ public class ActionClassSymbolTable extends ClassSymbolTable<ActionDescriptor> {
     @Override
     public String getDescription() {
         return "Actions are local events defined with respect to a " +
-                "particular nanoverse.runtime.agent.";
+            "particular nanoverse.runtime.agent.";
     }
 
     @Override

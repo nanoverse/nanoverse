@@ -23,8 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.highlight;
 
-import java.awt.Color;
 import nanoverse.runtime.io.visual.highlight.DotGlyph;
+
+import java.awt.*;
 
 
 public class DotGlyphFactoryHelper {

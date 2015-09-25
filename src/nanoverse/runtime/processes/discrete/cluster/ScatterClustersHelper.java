@@ -36,21 +36,13 @@ import java.util.stream.IntStream;
  * Created by dbborens on 6/14/2015.
  */
 public abstract class ScatterClustersHelper {
-    public abstract int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m);
-
     protected final CellLayer layer;
 
     public ScatterClustersHelper(CellLayer layer) {
         this.layer = layer;
     }
 
-    protected int getMatchCount(int[] toMatch, int expected) {
-        return (int) IntStream
-                .range(0, toMatch.length)
-                .map(i -> toMatch[i])
-                .filter(neighborState -> neighborState == expected)
-                .count();
-    }
+    public abstract int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m);
 
     /**
      * Examines a coordinate to determine whether its neighborhood has room
@@ -84,6 +76,14 @@ public abstract class ScatterClustersHelper {
         } else {
             return m - numSelfSimilar;
         }
+    }
+
+    protected int getMatchCount(int[] toMatch, int expected) {
+        return (int) IntStream
+            .range(0, toMatch.length)
+            .map(i -> toMatch[i])
+            .filter(neighborState -> neighborState == expected)
+            .count();
     }
 
     protected void placeAndColonize(Coordinate current, BehaviorCell toPlace, int needed) {

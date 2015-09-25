@@ -40,9 +40,9 @@ public class ContinuumHistoWriterInstSymbolTable extends MapSymbolTable<Continuu
     @Override
     public String getDescription() {
         return "ContinuumHistoWriter provides a histogram of solute " +
-                "concentrations at each time point recorded in each instance " +
-                "of the simulation. Data are reported in a tab-delimited " +
-                "text file, with one text file per simulation instance.";
+            "concentrations at each time point recorded in each instance " +
+            "of the simulation. Data are reported in a tab-delimited " +
+            "text file, with one text file per simulation instance.";
     }
 
     @Override
@@ -62,8 +62,8 @@ public class ContinuumHistoWriterInstSymbolTable extends MapSymbolTable<Continuu
     private void occupied(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new BooleanClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "If true, only sites that " +
-                "are occupied on the cell layer will be included in the " +
-                "histogram; if false, all sites are included.");
+            "are occupied on the cell layer will be included in the " +
+            "histogram; if false, all sites are included.");
         ret.put("occupied", ms);
     }
 

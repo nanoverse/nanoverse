@@ -24,13 +24,12 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.action.ExpandToLoader;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
-import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.agent.targets.TargetRuleClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
+import nanoverse.runtime.agent.action.ExpandToDescriptor;
 
 import java.util.HashMap;
 
@@ -41,8 +40,8 @@ public class ExpandToInstSymbolTable extends ActionInstSymbolTable<ExpandToDescr
     @Override
     public String getDescription() {
         return "Places a copy or copies of the current cell at the target " +
-                "site(s). If a target site is occupied, push the occupying " +
-                "cell toward the nearest vacancy first.";
+            "site(s). If a target site is occupied, push the occupying " +
+            "cell toward the nearest vacancy first.";
     }
 
     @Override
@@ -57,23 +56,23 @@ public class ExpandToInstSymbolTable extends ActionInstSymbolTable<ExpandToDescr
     private void targetHighlight(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
-                "to record the nanoverse.runtime.agent being triggered. If left null, no " +
-                "highlight will be recorded.");
+            "to record the nanoverse.runtime.agent being triggered. If left null, no " +
+            "highlight will be recorded.");
         ret.put("targetHighlight", ms);
     }
 
     private void selfHighlight(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
-                "to record the triggering nanoverse.runtime.agent. If left null, no " +
-                "highlight will be recorded.");
+            "to record the triggering nanoverse.runtime.agent. If left null, no " +
+            "highlight will be recorded.");
         ret.put("selfHighlight", ms);
     }
 
     private void target(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new TargetRuleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Rule(s) limiting valid " +
-                "targets for this action.");
+            "targets for this action.");
         ret.put("target", ms);
     }
 

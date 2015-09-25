@@ -24,10 +24,10 @@
 
 package nanoverse.runtime.layers.continuum.solvers;
 
-import no.uib.cipr.matrix.*;
-import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import nanoverse.runtime.structural.NotYetImplementedException;
 import nanoverse.runtime.structural.utilities.MatrixUtils;
+import no.uib.cipr.matrix.*;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 import static nanoverse.runtime.structural.utilities.MatrixUtils.*;
 
@@ -78,12 +78,12 @@ public abstract class EquilibriumMatrixSolver {
         // inflate, it is going to diverge; throw an exception.
         if (isExponentialDivergence(initial, operator)) {
             throw new IllegalStateException("Continuum state divergence: non-zero initial value set to " +
-                    "exponentiate forever.");
+                "exponentiate forever.");
         }
 
         if (isLinearDivergence(source, operator)) {
             throw new IllegalStateException("Continuum state divergence: a non-decaying site has a positive source " +
-                    "term.");
+                "term.");
         }
 
         // If the matrix is not the identity, but every row and column sums to

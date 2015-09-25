@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.geometry.set;
 import nanoverse.compiler.pipeline.instantiate.factory.geometry.set.CustomCoordinateSetFactory;
 import nanoverse.compiler.pipeline.translate.nodes.ObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.geometry.set.*;
+import nanoverse.runtime.geometry.set.CustomSet;
 import nanoverse.runtime.layers.LayerManager;
 
 /**

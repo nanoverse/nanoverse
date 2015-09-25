@@ -60,16 +60,16 @@ public class CrosshairsGlyphInstSymbolTable extends MapSymbolTable<CrosshairsGly
     private void cross(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Size of the cross of the " +
-                "crosshairs, specified as a multiple of the size of the " +
-                "circle component of the crosshairs.");
+            "crosshairs, specified as a multiple of the size of the " +
+            "circle component of the crosshairs.");
         ret.put("cross", ms);
     }
 
     private void circle(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Size of the circle of the " +
-                "crosshairs, specified as a multiple of the size of the " +
-                "lattice site in the visualization.");
+            "crosshairs, specified as a multiple of the size of the " +
+            "lattice site in the visualization.");
         ret.put("circle", ms);
     }
 

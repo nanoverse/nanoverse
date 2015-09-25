@@ -40,9 +40,9 @@ public class CorrelationWriterInstSymbolTable extends MapSymbolTable<Correlation
     @Override
     public String getDescription() {
         return "Calculate the pairwise correlation between individuals at " +
-                "every distance. This calculation is used to measure spatial " +
-                "structure. The results are measured at a specified time " +
-                "point, and aggregated over all simulations.";
+            "every distance. This calculation is used to measure spatial " +
+            "structure. The results are measured at a specified time " +
+            "point, and aggregated over all simulations.";
     }
 
     @Override
@@ -56,9 +56,9 @@ public class CorrelationWriterInstSymbolTable extends MapSymbolTable<Correlation
     private void time(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The time (in number of " +
-                "integration cycles) at which the correlation should be " +
-                "calculated. Specify one CorrelationWriter for each time " +
-                "point at which a measurement is desired.");
+            "integration cycles) at which the correlation should be " +
+            "calculated. Specify one CorrelationWriter for each time " +
+            "point at which a measurement is desired.");
         ret.put("time", ms);
     }
 

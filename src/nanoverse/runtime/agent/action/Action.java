@@ -24,14 +24,12 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.cells.Cell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.cells.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayerViewer;
-import nanoverse.runtime.layers.cell.CellLookupManager;
+import nanoverse.runtime.layers.cell.*;
 import nanoverse.runtime.processes.StepState;
 
 /**
@@ -50,14 +48,6 @@ public abstract class Action {
     public Action(BehaviorCell callback, LayerManager layerManager) {
         this.callback = callback;
         this.layerManager = layerManager;
-    }
-
-    protected LayerManager getLayerManager() {
-        return layerManager;
-    }
-
-    public BehaviorCell getCallback() {
-        return callback;
     }
 
     public abstract void run(Coordinate caller) throws HaltCondition;
@@ -79,6 +69,14 @@ public abstract class Action {
 
         Coordinate location = lookup.getCellLocation(self);
         return location;
+    }
+
+    protected LayerManager getLayerManager() {
+        return layerManager;
+    }
+
+    public BehaviorCell getCallback() {
+        return callback;
     }
 
     protected BehaviorCell resolveCaller(Coordinate caller) {
@@ -144,8 +142,8 @@ public abstract class Action {
 
     protected boolean callbackExists() {
         return getLayerManager()
-                .getCellLayer()
-                .getViewer()
-                .exists(getCallback());
+            .getCellLayer()
+            .getViewer()
+            .exists(getCallback());
     }
 }

@@ -24,8 +24,7 @@
 
 package nanoverse.runtime.factory.agent.action.stochastic;
 
-import nanoverse.runtime.agent.action.stochastic.ConstantProbabilitySupplier;
-import nanoverse.runtime.agent.action.stochastic.ProbabilitySupplier;
+import nanoverse.runtime.agent.action.stochastic.*;
 import nanoverse.runtime.cells.BehaviorCell;
 import nanoverse.runtime.control.arguments.ProbabilitySupplierDescriptor;
 import nanoverse.runtime.layers.LayerManager;

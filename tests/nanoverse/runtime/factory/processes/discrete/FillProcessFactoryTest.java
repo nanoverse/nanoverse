@@ -35,10 +35,10 @@ import nanoverse.runtime.geometry.set.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.*;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.dom4j.Element;
-import org.junit.*;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.*;
+import org.dom4j.Element;
+import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;

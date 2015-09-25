@@ -26,8 +26,7 @@ package nanoverse.runtime.io.deserialize;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
 
-import java.io.DataInputStream;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by David B Borenstein on 3/25/14.
@@ -77,7 +76,7 @@ public abstract class PrimitiveDeserializer {
 
     public static Coordinate[] readCoordinateVector(DataInputStream input,
                                                     CoordinateDeindexer deindex)
-            throws IOException {
+        throws IOException {
 
         // Length is encoded, redundantly, in each vector.
         int length = input.readInt();

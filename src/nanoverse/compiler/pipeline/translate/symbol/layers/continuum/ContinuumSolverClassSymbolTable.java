@@ -38,7 +38,7 @@ public class ContinuumSolverClassSymbolTable extends ClassSymbolTable<ContinuumS
     @Override
     public String getDescription() {
         return "A continuum solver specifies how to transform the continuum " +
-                "state using matrix operations.";
+            "state using matrix operations.";
     }
 
     @Override

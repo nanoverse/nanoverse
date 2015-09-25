@@ -32,17 +32,17 @@ import java.util.HashSet;
 @Deprecated
 public class ConditionViewer {
 
-//    private VectorViewer f;
+    //    private VectorViewer f;
     private int[] states;
     private double gCurrent;
     private int frame;
     private HashSet<Coordinate> highlights;
     private CoordinateDeindexer deindexer;
 
-//    public ConditionViewer(VectorViewer f, int[] states, HashSet<Coordinate> highlights,
+    //    public ConditionViewer(VectorViewer f, int[] states, HashSet<Coordinate> highlights,
 //                           int frame, double gCurrent, CoordinateDeindexer deindexer) {
     public ConditionViewer(int[] states, HashSet<Coordinate> highlights,
-        int frame, double gCurrent, CoordinateDeindexer deindexer) {
+                           int frame, double gCurrent, CoordinateDeindexer deindexer) {
 
 //        this.f = f;
         this.states = states;

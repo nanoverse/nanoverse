@@ -26,11 +26,9 @@ package nanoverse.runtime.processes.discrete;
 
 import nanoverse.runtime.cells.Cell;
 import nanoverse.runtime.control.arguments.CellDescriptor;
-import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.control.halt.LatticeFullEvent;
+import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.StepState;
+import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -45,11 +43,6 @@ public class Scatter extends CellProcess {
     public Scatter(BaseProcessArguments arguments, CellProcessArguments cpArguments, CellDescriptor cellDescriptor) {
         super(arguments, cpArguments);
         this.cellDescriptor = cellDescriptor;
-    }
-
-    @Override
-    public void init() {
-        candidates = null;
     }
 
     public void target(GillespieState gs) throws HaltCondition {
@@ -103,6 +96,16 @@ public class Scatter extends CellProcess {
     }
 
     @Override
+    public void init() {
+        candidates = null;
+    }
+
+    @Override
+    public int hashCode() {
+        return cellDescriptor != null ? cellDescriptor.hashCode() : 0;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -119,10 +122,5 @@ public class Scatter extends CellProcess {
             return false;
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return cellDescriptor != null ? cellDescriptor.hashCode() : 0;
     }
 }

@@ -45,6 +45,12 @@ public class Absorbing extends Boundary {
     }
 
     @Override
+    protected void verify(Shape shape, Lattice lattice) {
+        // Absorbing is compatible with all lattice geometries and
+        // shapes, so no verification is needed.
+    }
+
+    @Override
     public Coordinate apply(Coordinate c) {
         Coordinate ob = shape.getOverbounds(c);
 
@@ -65,12 +71,6 @@ public class Absorbing extends Boundary {
     @Override
     public boolean isInfinite() {
         return false;
-    }
-
-    @Override
-    protected void verify(Shape shape, Lattice lattice) {
-        // Absorbing is compatible with all lattice geometries and
-        // shapes, so no verification is needed.
     }
 
     @Override

@@ -23,9 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
-import nanoverse.runtime.processes.discrete.Record;
-import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.Record;
 
 public class RecordFactory implements Factory<Record> {
 

@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.serialize.binary;
 
-import nanoverse.runtime.io.serialize.binary.TimeWriter;
 import nanoverse.runtime.control.GeneralParameters;
+import nanoverse.runtime.io.serialize.binary.TimeWriter;
 import nanoverse.runtime.layers.LayerManager;
 
 

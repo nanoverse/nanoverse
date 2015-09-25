@@ -78,7 +78,7 @@ public abstract class XmlUtil {
         if (valueElement == null) {
             String parentName = e.getQualifiedName();
             throw new IllegalArgumentException("Expected argument " + name +
-                    " in element " + parentName);
+                " in element " + parentName);
         }
 
         return doGetDouble(valueElement);
@@ -129,7 +129,7 @@ public abstract class XmlUtil {
         Element stringElem = e.element(elemName);
         if (stringElem == null) {
             throw new IllegalArgumentException("Expected string element '" +
-                    elemName + "' for parent element " + e.getName());
+                elemName + "' for parent element " + e.getName());
         }
 
         return stringElem.getTextTrim();

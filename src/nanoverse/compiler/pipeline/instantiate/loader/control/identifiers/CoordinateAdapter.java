@@ -41,6 +41,6 @@ public class CoordinateAdapter {
         }
 
         throw new UnsupportedOperationException("This version of Nanoverse " +
-                "supports only 1D, 2D, and 3D geometries.");
+            "supports only 1D, 2D, and 3D geometries.");
     }
 }

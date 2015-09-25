@@ -49,6 +49,7 @@ public abstract class SystemState {
     public abstract LayerManager getLayerManager();
 
     public abstract Extrema getContinuumExtrema(String id);
+
     public abstract double getContinuumValue(String id, Coordinate c);
 
     /**

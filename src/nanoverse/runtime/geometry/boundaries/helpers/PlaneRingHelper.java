@@ -24,9 +24,7 @@
 
 package nanoverse.runtime.geometry.boundaries.helpers;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.lattice.Lattice;
 
 /**

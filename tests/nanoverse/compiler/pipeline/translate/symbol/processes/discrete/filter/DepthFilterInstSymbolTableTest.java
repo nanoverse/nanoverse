@@ -27,8 +27,8 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete.filter;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.control.arguments.IntegerArgument;
-import org.junit.*;
 import nanoverse.runtime.processes.discrete.filter.DepthFilter;
+import org.junit.Test;
 
 public class DepthFilterInstSymbolTableTest extends MapSymbolTableTest {
 

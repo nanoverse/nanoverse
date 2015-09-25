@@ -27,16 +27,17 @@ package nanoverse.runtime.control;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.io.serialize.*;
-import org.junit.*;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.*;
 import nanoverse.runtime.processes.temporal.Tick;
 import nanoverse.runtime.structural.MockGeneralParameters;
+import org.junit.*;
 import test.LegacyLatticeTest;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by David B Borenstein on 1/7/14.
  */

@@ -25,13 +25,13 @@
 package nanoverse.runtime.factory.processes;
 
 import nanoverse.runtime.control.GeneralParameters;
-import org.dom4j.Element;
-import org.dom4j.tree.BaseElement;
-import org.junit.*;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.*;
 import nanoverse.runtime.processes.discrete.check.*;
 import nanoverse.runtime.processes.temporal.*;
+import org.dom4j.Element;
+import org.dom4j.tree.BaseElement;
+import org.junit.*;
 import test.LegacyLatticeTest;
 
 import static org.junit.Assert.assertEquals;

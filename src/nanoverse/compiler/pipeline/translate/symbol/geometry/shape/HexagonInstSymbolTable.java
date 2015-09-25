@@ -38,15 +38,15 @@ public class HexagonInstSymbolTable extends ShapeInstSymbolTable<Hexagon> {
     @Override
     public String getDescription() {
         return "A hexagon is a 2D boundary with three sets of parallel " +
-                "sides, all equidistant from a center point. Requires a " +
-                "Triangular lattice.";
+            "sides, all equidistant from a center point. Requires a " +
+            "Triangular lattice.";
     }
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         radius(ret);
-        return(ret);
+        return (ret);
     }
 
     private void radius(HashMap<String, MemberSymbol> ret) {

@@ -24,9 +24,9 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.action.NullActionLoader;
+import nanoverse.runtime.agent.action.NullActionDescriptor;
 
 /**
  * Created by dbborens on 7/22/2015.

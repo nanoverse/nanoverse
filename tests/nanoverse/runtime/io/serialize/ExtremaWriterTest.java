@@ -32,6 +32,7 @@ import test.LegacyTest;
 import java.io.StringWriter;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Created by dbborens on 12/11/13.
  */

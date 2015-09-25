@@ -42,9 +42,9 @@ public class ContinuumColorModelInstSymbolTable extends MapSymbolTable<Normalize
     @Override
     public String getDescription() {
         return "The continuum color model adjusts the hue, luminance and " +
-                "saturation of each site based on the state of a specified " +
-                "continuum. Values are normalized to the observed minimum " +
-                "and maximum of the continuum.";
+            "saturation of each site based on the state of a specified " +
+            "continuum. Values are normalized to the observed minimum " +
+            "and maximum of the continuum.";
     }
 
     @Override
@@ -72,7 +72,7 @@ public class ContinuumColorModelInstSymbolTable extends MapSymbolTable<Normalize
     public void base(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new ColorModelClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The color model upon which " +
-                "this color model should be overlaid, if any.");
+            "this color model should be overlaid, if any.");
         ret.put("base", ms);
     }
 
@@ -115,8 +115,8 @@ public class ContinuumColorModelInstSymbolTable extends MapSymbolTable<Normalize
     public void useLuminanceAverage(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new BooleanClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "If true, color models are " +
-                "composited by averaging over their luminance; if false, the " +
-                "product of the luminance is used.");
+            "composited by averaging over their luminance; if false, the " +
+            "product of the luminance is used.");
         ret.put("useLuminanceAverage", ms);
     }
 

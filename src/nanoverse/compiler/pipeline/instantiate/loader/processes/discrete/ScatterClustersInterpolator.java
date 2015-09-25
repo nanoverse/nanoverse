@@ -48,9 +48,9 @@ public class ScatterClustersInterpolator extends DiscreteProcessInterpolator {
     }
 
     public ScatterClustersInterpolator(LoadHelper load,
-                                    BaseProcessArgumentsLoader bpaLoader,
-                                    DiscreteProcessArgumentsLoader dpaLoader,
-                                    ScatterClustersDefaults defaults) {
+                                       BaseProcessArgumentsLoader bpaLoader,
+                                       DiscreteProcessArgumentsLoader dpaLoader,
+                                       ScatterClustersDefaults defaults) {
         super(load, bpaLoader, dpaLoader);
         this.defaults = defaults;
     }

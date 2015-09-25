@@ -23,9 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color;
 
-import nanoverse.runtime.io.visual.color.SurfaceGrowthColorManager;
-import nanoverse.runtime.io.visual.color.ColorManager;
 import nanoverse.runtime.control.arguments.DoubleArgument;
+import nanoverse.runtime.io.visual.color.*;
 
 
 public class SurfaceColorModelFactoryHelper {

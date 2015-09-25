@@ -59,6 +59,19 @@ public class RunningTimeWriter extends Serializer {
         prevTime = System.currentTimeMillis();
     }
 
+    public void dispatchHalt(HaltCondition ex) {
+        conclude();
+        closed = true;
+    }
+
+    private void conclude() {
+        hClose(bw);
+    }
+
+    public void close() {
+        // Doesn't do anything.
+    }
+
     @Override
     public void flush(StepState stepState) {
         double curTime = System.currentTimeMillis();
@@ -73,18 +86,5 @@ public class RunningTimeWriter extends Serializer {
         hAppend(bw, sb);
 
         prevTime = curTime;
-    }
-
-    public void dispatchHalt(HaltCondition ex) {
-        conclude();
-        closed = true;
-    }
-
-    private void conclude() {
-        hClose(bw);
-    }
-
-    public void close() {
-        // Doesn't do anything.
     }
 }

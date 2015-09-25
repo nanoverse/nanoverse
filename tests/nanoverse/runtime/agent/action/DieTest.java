@@ -30,6 +30,7 @@ import org.junit.*;
 import test.LegacyLatticeTest;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by dbborens on 2/10/14.
  */

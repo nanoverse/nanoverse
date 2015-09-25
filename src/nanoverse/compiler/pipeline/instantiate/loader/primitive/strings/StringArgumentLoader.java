@@ -38,14 +38,14 @@ public class StringArgumentLoader extends Loader<StringArgument> {
         return new ConstantString(value);
     }
 
-    public String instantiateToFirst(ObjectNode node) {
-        String value = getValue(node);
-        return value;
-    }
-
     private String getValue(ObjectNode node) {
         PrimitiveObjectNode<String> pNode = (PrimitiveObjectNode) node;
         String value = pNode.getValue();
+        return value;
+    }
+
+    public String instantiateToFirst(ObjectNode node) {
+        String value = getValue(node);
         return value;
     }
 }

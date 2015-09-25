@@ -37,7 +37,7 @@ public class BoundaryClassSymbolTable extends ClassSymbolTable<Boundary> {
     @Override
     public String getDescription() {
         return "The Boundary object specifies what occurs around the " +
-                "perimeter of the simulation arena. Each layer can have a different boundary.";
+            "perimeter of the simulation arena. Each layer can have a different boundary.";
     }
 
     @Override

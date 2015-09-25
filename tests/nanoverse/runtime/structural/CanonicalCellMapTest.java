@@ -30,6 +30,7 @@ import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by David B Borenstein on 4/11/14.
  */

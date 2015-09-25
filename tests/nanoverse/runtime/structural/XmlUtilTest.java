@@ -24,12 +24,13 @@
 
 package nanoverse.runtime.structural;
 
+import nanoverse.runtime.structural.utilities.XmlUtil;
 import org.dom4j.Element;
 import org.junit.*;
-import nanoverse.runtime.structural.utilities.XmlUtil;
 import test.LegacyTest;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by dbborens on 2/20/14.
  */

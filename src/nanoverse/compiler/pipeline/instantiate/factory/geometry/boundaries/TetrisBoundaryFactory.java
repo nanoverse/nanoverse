@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.geometry.boundaries;
 
-import nanoverse.runtime.geometry.shape.Shape;
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.geometry.boundaries.TetrisBoundary;
 import nanoverse.runtime.geometry.lattice.Lattice;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.geometry.shape.Shape;
 
 public class TetrisBoundaryFactory implements Factory<TetrisBoundary> {
 

@@ -29,7 +29,7 @@ import nanoverse.runtime.structural.utilities.ParityIO;
 import java.io.*;
 import java.util.*;
 import java.util.Spliterators.AbstractSpliterator;
-import java.util.function.*;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**

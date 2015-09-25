@@ -31,7 +31,7 @@ import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.continuum.ContinuumLayerScheduler;
 import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.continuum.*;
+import nanoverse.runtime.processes.continuum.ScheduleHold;
 
 /**
  * Created by dbborens on 8/3/2015.
@@ -46,7 +46,7 @@ public class ScheduleHoldLoader extends ProcessLoader<ScheduleHold> {
     }
 
     public ScheduleHoldLoader(ScheduleHoldFactory factory,
-                           ScheduleHoldInterpolator interpolator) {
+                              ScheduleHoldInterpolator interpolator) {
         this.factory = factory;
         this.interpolator = interpolator;
     }

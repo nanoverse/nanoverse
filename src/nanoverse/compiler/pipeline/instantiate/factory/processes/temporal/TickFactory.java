@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.temporal;
 
-import nanoverse.runtime.control.arguments.DoubleArgument;
-import nanoverse.runtime.processes.temporal.Tick;
-import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.control.arguments.DoubleArgument;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.temporal.Tick;
 
 public class TickFactory implements Factory<Tick> {
 

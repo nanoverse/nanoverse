@@ -56,14 +56,14 @@ public class MockStepState extends StepState {
         return highlightMap.get(channel).stream();
     }
 
+    public boolean isRecorded() {
+        return record;
+    }
+
     @Override
     public void record(LayerManager layerManager) {
         super.record(layerManager);
         record = true;
-    }
-
-    public boolean isRecorded() {
-        return record;
     }
 
     public void setHighlights(Integer channel, Stream<Coordinate> highlights) {

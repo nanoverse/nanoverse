@@ -24,12 +24,10 @@
 
 package nanoverse.runtime.geometry.shape;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.lattice.Lattice;
-import org.dom4j.Element;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
+import org.dom4j.Element;
 
 import java.util.ArrayList;
 
@@ -64,6 +62,19 @@ public class Rectangle extends Shape {
     }
 
     @Override
+    protected Coordinate[] calcSites() {
+        ArrayList<Coordinate> coords = new ArrayList<Coordinate>(width * height);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                include(coords, new Coordinate2D(x, y, 0));
+            }
+        }
+
+        return coords.toArray(new Coordinate[0]);
+    }
+
+    @Override
     public Coordinate getCenter() {
         // 0-indexed coordinates
         int x = (width - 1) / 2;
@@ -93,19 +104,6 @@ public class Rectangle extends Shape {
         for (int y = 1; y < height - 1; y++) {
             include(coords, new Coordinate2D(width - 1, y, 0));
             include(coords, new Coordinate2D(0, y, 0));
-        }
-
-        return coords.toArray(new Coordinate[0]);
-    }
-
-    @Override
-    protected Coordinate[] calcSites() {
-        ArrayList<Coordinate> coords = new ArrayList<Coordinate>(width * height);
-
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                include(coords, new Coordinate2D(x, y, 0));
-            }
         }
 
         return coords.toArray(new Coordinate[0]);

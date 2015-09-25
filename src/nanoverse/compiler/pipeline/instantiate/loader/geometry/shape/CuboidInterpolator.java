@@ -47,16 +47,16 @@ public class CuboidInterpolator {
 
     public int height(MapObjectNode node, Random random) {
         return load.anInteger(node, "height", random,
-                () -> DEFAULT_SIDE);
+            () -> DEFAULT_SIDE);
     }
 
     public int width(MapObjectNode node, Random random) {
         return load.anInteger(node, "width", random,
-                () -> DEFAULT_SIDE);
+            () -> DEFAULT_SIDE);
     }
 
     public int depth(MapObjectNode node, Random random) {
         return load.anInteger(node, "depth", random,
-                () -> DEFAULT_SIDE);
+            () -> DEFAULT_SIDE);
     }
 }

@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.interpret.visitors;
 
 import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser;
-import nanoverse.compiler.pipeline.interpret.nodes.*;
+import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import nanoverse.compiler.pipeline.interpret.visitors.helpers.NanoBlockHelper;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.misc.NotNull;

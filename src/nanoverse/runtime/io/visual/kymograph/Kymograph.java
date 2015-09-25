@@ -26,11 +26,9 @@ package nanoverse.runtime.io.visual.kymograph;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.io.visual.Visualization;
-import nanoverse.runtime.io.visual.VisualizationProperties;
+import nanoverse.runtime.io.visual.*;
 import nanoverse.runtime.io.visual.highlight.HighlightManager;
-import nanoverse.runtime.io.visual.map.CoordinateRenderer;
-import nanoverse.runtime.io.visual.map.PixelTranslator;
+import nanoverse.runtime.io.visual.map.*;
 import nanoverse.runtime.layers.SystemState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -49,6 +47,26 @@ public class Kymograph extends Visualization {
     @FactoryTarget
     public Kymograph(VisualizationProperties properties) {
         this.properties = properties;
+    }
+
+    @Override
+    public void init(Geometry geometry, double[] times, int[] frames) {
+        Coordinate[] coordinates = geometry.getCanonicalSites();
+        properties.setCoordinates(coordinates);
+        properties.setFrames(frames);
+        properties.setTimes(times);
+        translator = new KymoPixelTranslator();
+        translator.init(properties);
+
+        Coordinate pDims = translator.getImageDims();
+        HighlightManager highlightManager = properties.getHighlightManager();
+        highlightManager.init(translator);
+        img = new BufferedImage(pDims.x(), pDims.y(), BufferedImage.TYPE_INT_RGB);
+
+        g = (Graphics2D) img.getGraphics();
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        properties.getHighlightManager().setGraphics(g);
     }
 
     @Override
@@ -82,26 +100,6 @@ public class Kymograph extends Visualization {
     @Override
     public int[] getHighlightChannels() {
         return properties.getHighlightManager().getHighlightChannels();
-    }
-
-    @Override
-    public void init(Geometry geometry, double[] times, int[] frames) {
-        Coordinate[] coordinates = geometry.getCanonicalSites();
-        properties.setCoordinates(coordinates);
-        properties.setFrames(frames);
-        properties.setTimes(times);
-        translator = new KymoPixelTranslator();
-        translator.init(properties);
-
-        Coordinate pDims = translator.getImageDims();
-        HighlightManager highlightManager = properties.getHighlightManager();
-        highlightManager.init(translator);
-        img = new BufferedImage(pDims.x(), pDims.y(), BufferedImage.TYPE_INT_RGB);
-
-        g = (Graphics2D) img.getGraphics();
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        properties.getHighlightManager().setGraphics(g);
     }
 
     @Override

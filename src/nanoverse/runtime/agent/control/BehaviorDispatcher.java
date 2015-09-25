@@ -46,11 +46,6 @@ public class BehaviorDispatcher {
         behaviors = new HashMap<>();
     }
 
-
-    public void map(String name, Action behavior) {
-        behaviors.put(name, behavior);
-    }
-
     /**
      * Trigger a behavior associated with the cell.
      *
@@ -79,6 +74,10 @@ public class BehaviorDispatcher {
         }
 
         return clone;
+    }
+
+    public void map(String name, Action behavior) {
+        behaviors.put(name, behavior);
     }
 
     /**

@@ -31,7 +31,7 @@ import nanoverse.runtime.layers.LayerManager;
 import org.dom4j.Element;
 
 import java.util.List;
-import java.util.stream.*;
+import java.util.stream.Stream;
 
 /**
  * Created by David B Borenstein on 1/23/14.
@@ -46,7 +46,7 @@ public abstract class BehaviorDescriptorFactory {
     private static Stream<ActionDescriptor> getActionSequence(Element e, LayerManager layerManager, GeneralParameters p) {
         List<Object> elements = e.elements();
         return elements.stream()
-                .map(o -> (Element) o)
-                .map(actionElem -> ActionDescriptorFactory.instantiate(actionElem, layerManager, p));
+            .map(o -> (Element) o)
+            .map(actionElem -> ActionDescriptorFactory.instantiate(actionElem, layerManager, p));
     }
 }

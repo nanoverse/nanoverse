@@ -25,11 +25,9 @@
 package nanoverse.runtime.layers;
 
 import nanoverse.runtime.layers.cell.CellLayer;
-import nanoverse.runtime.layers.continuum.ContinuumAgentLinker;
-import nanoverse.runtime.layers.continuum.ContinuumLayer;
-import org.junit.Before;
-import org.junit.Test;
+import nanoverse.runtime.layers.continuum.*;
 import nanoverse.runtime.processes.StepState;
+import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;

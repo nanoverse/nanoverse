@@ -30,7 +30,7 @@ import nanoverse.runtime.layers.Layer;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
-import java.util.stream.*;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 12/11/14.

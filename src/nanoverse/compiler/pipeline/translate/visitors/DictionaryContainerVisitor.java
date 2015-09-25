@@ -24,10 +24,10 @@
 
 package nanoverse.compiler.pipeline.translate.visitors;
 
-import nanoverse.compiler.pipeline.interpret.nodes.*;
+import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import nanoverse.compiler.pipeline.translate.helpers.TranslationCallback;
 import nanoverse.compiler.pipeline.translate.nodes.*;
-import nanoverse.compiler.pipeline.translate.symbol.*;
+import nanoverse.compiler.pipeline.translate.symbol.DictionarySymbolTable;
 import org.slf4j.*;
 
 /**
@@ -57,12 +57,11 @@ public class DictionaryContainerVisitor {
 
         // Visit each child.
         toTranslate.getChildren()
-                .forEach(child ->
-                    loader.loadChild(child, symbolTable, node));
+            .forEach(child ->
+                loader.loadChild(child, symbolTable, node));
 
         return node;
     }
-
 
 
 }

@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.layers.continuum;
 
 import nanoverse.compiler.pipeline.instantiate.loader.geometry.boundary.AbsorbingBoundaryLoader;
 import nanoverse.runtime.control.arguments.GeometryDescriptor;
-import nanoverse.runtime.geometry.boundaries.*;
+import nanoverse.runtime.geometry.boundaries.Boundary;
 
 /**
  * Created by dbborens on 8/20/2015.

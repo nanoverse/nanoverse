@@ -32,7 +32,7 @@ public class Nanoverse {
 
     private final static String usage =
         "\nExpected exactly one argument. Usage:\n" +
-        "\tNanoverse <filename>";
+            "\tNanoverse <filename>";
     private final nanoverse.compiler.Compiler compiler;
 
     public Nanoverse(String[] args) {

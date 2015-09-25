@@ -31,6 +31,6 @@ public class MissingArgumentError extends UserError {
 
     public MissingArgumentError(String field, Class clazz) {
         super("Missing field \"" + field + "\" for class " +
-                clazz.getSimpleName());
+            clazz.getSimpleName());
     }
 }

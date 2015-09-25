@@ -24,13 +24,10 @@
 
 package nanoverse.runtime.processes.discrete.check;
 
-import nanoverse.runtime.control.arguments.*;
-import nanoverse.runtime.control.halt.ExtinctionEvent;
-import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.StepState;
-import nanoverse.runtime.processes.discrete.CellProcess;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.control.arguments.DoubleArgument;
+import nanoverse.runtime.control.halt.*;
+import nanoverse.runtime.processes.*;
+import nanoverse.runtime.processes.discrete.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 import nanoverse.runtime.structural.utilities.EpsilonUtil;
@@ -49,15 +46,6 @@ public class CheckForExtinction extends CellProcess {
     public CheckForExtinction(BaseProcessArguments arguments, CellProcessArguments cpArguments, DoubleArgument thresholdArg) {
         super(arguments, cpArguments);
         this.thresholdArg = thresholdArg;
-    }
-
-    @Override
-    public void init() {
-        try {
-            threshold = thresholdArg.next();
-        } catch (HaltCondition ex) {
-            throw new IllegalStateException(ex);
-        }
     }
 
     @Override
@@ -84,6 +72,15 @@ public class CheckForExtinction extends CellProcess {
 
         if (occupancy < threshold) {
             throw new ExtinctionEvent();
+        }
+    }
+
+    @Override
+    public void init() {
+        try {
+            threshold = thresholdArg.next();
+        } catch (HaltCondition ex) {
+            throw new IllegalStateException(ex);
         }
     }
 }

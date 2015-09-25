@@ -23,9 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.layers.continuum;
 
+import nanoverse.runtime.layers.continuum.*;
 import nanoverse.runtime.layers.continuum.solvers.ContinuumSolver;
-import nanoverse.runtime.layers.continuum.ContinuumAgentManager;
-import nanoverse.runtime.layers.continuum.HoldManager;
 
 
 public class HoldManagerFactoryHelper {

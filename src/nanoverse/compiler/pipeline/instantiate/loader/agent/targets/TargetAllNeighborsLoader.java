@@ -24,8 +24,8 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.targets;
 
-import nanoverse.runtime.agent.targets.*;
 import nanoverse.compiler.pipeline.instantiate.factory.agent.targets.TargetAllNeighborsFactory;
+import nanoverse.runtime.agent.targets.TargetAllNeighborsDescriptor;
 
 /**
  * Created by dbborens on 8/4/2015.

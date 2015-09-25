@@ -48,14 +48,14 @@ public class DiscreteProcessArgumentsInterpolator {
     }
 
     public DiscreteProcessArgumentsInterpolator(LoadHelper load,
-                            DiscreteProcessArgumentsDefaults defaults) {
+                                                DiscreteProcessArgumentsDefaults defaults) {
         this.load = load;
         this.defaults = defaults;
     }
 
     public CoordinateSet activeSites(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         CoordinateSetLoader loader = (CoordinateSetLoader) load.getLoader(node, "activeSites", false);
-        if(loader == null) {
+        if (loader == null) {
             return defaults.activeSites(lm, p);
         }
 

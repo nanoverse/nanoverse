@@ -26,19 +26,15 @@ package nanoverse.runtime.control.arguments;
 
 import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
-import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.cells.Cell;
+import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.layers.continuum.Reaction;
 import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.layers.continuum.Reaction;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 /**
  * Created by dbborens on 11/23/14.
@@ -135,12 +131,12 @@ public class CellDescriptor implements Argument<Cell> {
         BehaviorDispatcher dispatcher = new BehaviorDispatcher();
 
         behaviorDescriptors.keySet()
-                .stream()
-                .forEach(name -> {
-                    ActionDescriptor descriptor = behaviorDescriptors.get(name);
-                    Action behavior = descriptor.instantiate(cell);
-                    dispatcher.map(name, behavior);
-                });
+            .stream()
+            .forEach(name -> {
+                ActionDescriptor descriptor = behaviorDescriptors.get(name);
+                Action behavior = descriptor.instantiate(cell);
+                dispatcher.map(name, behavior);
+            });
 
         cell.setDispatcher(dispatcher);
     }

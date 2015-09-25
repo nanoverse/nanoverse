@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.translate.symbol.geometry.boundary;
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.geometry.boundaries.*;
-import org.junit.*;
+import org.junit.Test;
 
 public class BoundaryClassSymbolTableTest extends ClassSymbolTableTest {
 

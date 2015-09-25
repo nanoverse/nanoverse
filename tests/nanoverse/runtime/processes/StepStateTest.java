@@ -26,7 +26,7 @@ package nanoverse.runtime.processes;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.*;
+import nanoverse.runtime.layers.cell.CellLayer;
 import nanoverse.runtime.layers.continuum.ContinuumLayer;
 import org.junit.*;
 import test.TestBase;
@@ -68,11 +68,11 @@ public class StepStateTest extends TestBase {
         when(lm.getContinuumLayerIds()).thenReturn(Stream.of("test"));
         when(lm.getContinuumLayer("test")).thenReturn(continuumLayer);
         continuumValues = DoubleStream.of(3.7, 2)
-                .boxed()
-                .collect(Collectors.toList());
+            .boxed()
+            .collect(Collectors.toList());
 
         when(continuumLayer.getStateStream())
-                .thenReturn(continuumValues.stream());
+            .thenReturn(continuumValues.stream());
     }
 
     @Test

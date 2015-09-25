@@ -41,11 +41,11 @@ public class LayerClassSymbolTable extends ClassSymbolTable<Layer> {
     @Override
     public String getDescription() {
         return "Simulation nanoverse.runtime.layers. Layers are topological, rather than " +
-                "geometric, concepts: nanoverse.runtime.layers share coordinate systems and " +
-                "consist of identical lattices, with a special relationship " +
-                "between a given site (x, y) on each of the nanoverse.runtime.layers in a " +
-                "simulation. Use separate nanoverse.runtime.layers to couple multiple nanoverse.runtime.agent-" +
-                "based or numerical nanoverse.runtime.processes.";
+            "geometric, concepts: nanoverse.runtime.layers share coordinate systems and " +
+            "consist of identical lattices, with a special relationship " +
+            "between a given site (x, y) on each of the nanoverse.runtime.layers in a " +
+            "simulation. Use separate nanoverse.runtime.layers to couple multiple nanoverse.runtime.agent-" +
+            "based or numerical nanoverse.runtime.processes.";
     }
 
     @Override

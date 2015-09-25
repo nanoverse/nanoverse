@@ -47,6 +47,7 @@ public class Compiler {
     private final ProjectLoader instantiator;
 
     private final Logger logger = LoggerFactory.getLogger(Compiler.class);
+
     /**
      * Standard Nanoverse nanoverse.compiler.
      *

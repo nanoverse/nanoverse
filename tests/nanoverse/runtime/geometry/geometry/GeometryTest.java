@@ -33,6 +33,7 @@ import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.*;
+
 /**
  * Pseudo-unit test for basic behavior of the Geometry object.
  *
@@ -79,30 +80,30 @@ public class GeometryTest extends LegacyTest {
         // Within bounds
         actual = geom.getNeighbors(p, Geometry.APPLY_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(1, 3, 0),
-                new Coordinate2D(0, 2, 0),
-                new Coordinate2D(1, 1, 0)
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(1, 3, 0),
+            new Coordinate2D(0, 2, 0),
+            new Coordinate2D(1, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // One neighbor of bounds
         actual = geom.getNeighbors(q, Geometry.APPLY_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),
-                new Coordinate2D(3, 3, 0),
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),
+            new Coordinate2D(3, 3, 0),
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getNeighbors(q, Geometry.APPLY_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(1, 2, Flags.BOUNDARY_APPLIED),
-                new Coordinate2D(0, 3, Flags.BOUNDARY_APPLIED),
-                new Coordinate2D(3, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(1, 2, Flags.BOUNDARY_APPLIED),
+            new Coordinate2D(0, 3, Flags.BOUNDARY_APPLIED),
+            new Coordinate2D(3, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -113,20 +114,20 @@ public class GeometryTest extends LegacyTest {
         // One neighbor of bounds
         actual = geom.getNeighbors(q, Geometry.FLAG_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(4, 2, Flags.BOUNDARY_IGNORED),
-                new Coordinate2D(3, 3, 0),
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(4, 2, Flags.BOUNDARY_IGNORED),
+            new Coordinate2D(3, 3, 0),
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getNeighbors(q, Geometry.FLAG_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(5, 2, Flags.BOUNDARY_IGNORED),
-                new Coordinate2D(4, 3, Flags.BOUNDARY_IGNORED),
-                new Coordinate2D(3, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(5, 2, Flags.BOUNDARY_IGNORED),
+            new Coordinate2D(4, 3, Flags.BOUNDARY_IGNORED),
+            new Coordinate2D(3, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -137,17 +138,17 @@ public class GeometryTest extends LegacyTest {
         // One neighbor of bounds
         actual = geom.getNeighbors(q, Geometry.EXCLUDE_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(3, 3, 0),
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(3, 3, 0),
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getNeighbors(q, Geometry.EXCLUDE_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(3, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(3, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -158,20 +159,20 @@ public class GeometryTest extends LegacyTest {
         // One neighbor of bounds
         actual = geom.getNeighbors(q, Geometry.IGNORE_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(4, 2, 0),
-                new Coordinate2D(3, 3, 0),
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(4, 2, 0),
+            new Coordinate2D(3, 3, 0),
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getNeighbors(q, Geometry.IGNORE_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(5, 2, 0),
-                new Coordinate2D(4, 3, 0),
-                new Coordinate2D(3, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(5, 2, 0),
+            new Coordinate2D(4, 3, 0),
+            new Coordinate2D(3, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -182,30 +183,30 @@ public class GeometryTest extends LegacyTest {
         // Within bounds
         actual = geom.getAnnulus(p, 1, Geometry.APPLY_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(1, 3, 0),
-                new Coordinate2D(0, 2, 0),
-                new Coordinate2D(1, 1, 0)
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(1, 3, 0),
+            new Coordinate2D(0, 2, 0),
+            new Coordinate2D(1, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // One neighbor of bounds
         actual = geom.getAnnulus(q, 1, Geometry.APPLY_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),
-                new Coordinate2D(3, 3, 0),
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),
+            new Coordinate2D(3, 3, 0),
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getAnnulus(q, 1, Geometry.APPLY_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(1, 2, Flags.BOUNDARY_APPLIED),
-                new Coordinate2D(0, 3, Flags.BOUNDARY_APPLIED),
-                new Coordinate2D(3, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(1, 2, Flags.BOUNDARY_APPLIED),
+            new Coordinate2D(0, 3, Flags.BOUNDARY_APPLIED),
+            new Coordinate2D(3, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -216,20 +217,20 @@ public class GeometryTest extends LegacyTest {
         // One neighbor of bounds
         actual = geom.getAnnulus(q, 1, Geometry.FLAG_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(4, 2, Flags.BOUNDARY_IGNORED),
-                new Coordinate2D(3, 3, 0),
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(4, 2, Flags.BOUNDARY_IGNORED),
+            new Coordinate2D(3, 3, 0),
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getAnnulus(q, 1, Geometry.FLAG_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(5, 2, Flags.BOUNDARY_IGNORED),
-                new Coordinate2D(4, 3, Flags.BOUNDARY_IGNORED),
-                new Coordinate2D(3, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(5, 2, Flags.BOUNDARY_IGNORED),
+            new Coordinate2D(4, 3, Flags.BOUNDARY_IGNORED),
+            new Coordinate2D(3, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -240,17 +241,17 @@ public class GeometryTest extends LegacyTest {
         // One neighbor of bounds
         actual = geom.getAnnulus(q, 1, Geometry.EXCLUDE_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(3, 3, 0),
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(3, 3, 0),
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getAnnulus(q, 1, Geometry.EXCLUDE_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(3, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(3, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -261,20 +262,20 @@ public class GeometryTest extends LegacyTest {
         // One neighbor of bounds
         actual = geom.getAnnulus(q, 1, Geometry.IGNORE_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(4, 2, 0),
-                new Coordinate2D(3, 3, 0),
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(4, 2, 0),
+            new Coordinate2D(3, 3, 0),
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
         assertArraysEqual(actual, expected, true);
 
         // Origin out of bounds
         actual = geom.getAnnulus(q, 1, Geometry.IGNORE_BOUNDARIES);
         expected = new Coordinate2D[]{
-                new Coordinate2D(5, 2, 0),
-                new Coordinate2D(4, 3, 0),
-                new Coordinate2D(3, 2, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(5, 2, 0),
+            new Coordinate2D(4, 3, 0),
+            new Coordinate2D(3, 2, 0),
+            new Coordinate2D(3, 1, 0)
         };
     }
 
@@ -477,8 +478,8 @@ public class GeometryTest extends LegacyTest {
     public void testCanonicalSites() {
         MockGeometry geom = new MockGeometry();
         Coordinate[] canonicals = new Coordinate[]{
-                new Coordinate3D(1, 2, 3, 4),
-                new Coordinate3D(0, 0, 0, 0)
+            new Coordinate3D(1, 2, 3, 4),
+            new Coordinate3D(0, 0, 0, 0)
         };
         geom.setCanonicalSites(canonicals);
 
@@ -611,9 +612,9 @@ public class GeometryTest extends LegacyTest {
         Class[] actual = geom.getComponentClasses();
 
         Class[] expected = new Class[]{
-                RectangularLattice.class,
-                Rectangle.class,
-                MockBoundary.class
+            RectangularLattice.class,
+            Rectangle.class,
+            MockBoundary.class
         };
 
         assertTrue(arraysEqual(expected, actual));

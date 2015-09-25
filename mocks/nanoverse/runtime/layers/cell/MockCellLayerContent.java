@@ -28,8 +28,7 @@ import nanoverse.runtime.cells.Cell;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class MockCellLayerContent extends CellLayerContent {
 
@@ -39,22 +38,6 @@ public class MockCellLayerContent extends CellLayerContent {
 
     public MockCellLayerContent(Geometry geom, CellLayerIndices indices) {
         super(geom, indices);
-    }
-
-    @Override
-    public void sanityCheck(Coordinate coord) {
-
-    }
-
-    @Override
-    public Set<Coordinate> getImaginarySites() {
-        return imaginarySites;
-    }
-
-	/* stateVector */
-
-    private void setImaginarySites(Set<Coordinate> imaginarySites) {
-        this.imaginarySites = imaginarySites;
     }
 
     public Cell get(Coordinate coord) {
@@ -67,7 +50,7 @@ public class MockCellLayerContent extends CellLayerContent {
         return stateVector;
     }
 
-	/* healthVector */
+	/* stateVector */
 
     public void setStateVector(int[] stateVector) {
         this.stateVector = stateVector;
@@ -78,8 +61,20 @@ public class MockCellLayerContent extends CellLayerContent {
         return healthVector;
     }
 
-    public void setHealthVector(double[] healthVector) {
-        this.healthVector = healthVector;
+    @Override
+    public void sanityCheck(Coordinate coord) {
+
+    }
+
+	/* healthVector */
+
+    @Override
+    public Set<Coordinate> getImaginarySites() {
+        return imaginarySites;
+    }
+
+    private void setImaginarySites(Set<Coordinate> imaginarySites) {
+        this.imaginarySites = imaginarySites;
     }
 
     @Override
@@ -89,5 +84,9 @@ public class MockCellLayerContent extends CellLayerContent {
         clone.stateVector = stateVector.clone();
         clone.healthVector = healthVector.clone();
         return clone;
+    }
+
+    public void setHealthVector(double[] healthVector) {
+        this.healthVector = healthVector;
     }
 }

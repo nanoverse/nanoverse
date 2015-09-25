@@ -26,11 +26,11 @@ package nanoverse.compiler.pipeline.instantiate.loader.geometry.shape;
 
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
 import org.junit.*;
-import org.mockito.*;
+import org.mockito.ArgumentCaptor;
 
 import java.util.function.Supplier;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class CuboidInterpolatorTest extends InterpolatorTest {
@@ -46,7 +46,7 @@ public class CuboidInterpolatorTest extends InterpolatorTest {
     @Test
     public void height() throws Exception {
         when(load.anInteger(eq(node), eq("height"), any(), any()))
-                .thenReturn(5);
+            .thenReturn(5);
         int actual = query.height(node, random);
         assertEquals(5, actual);
     }
@@ -55,7 +55,7 @@ public class CuboidInterpolatorTest extends InterpolatorTest {
     public void heightDefault() throws Exception {
         ArgumentCaptor<Supplier> captor = ArgumentCaptor.forClass(Supplier.class);
         when(load.anInteger(eq(node), eq("height"), any(), any()))
-                .thenReturn(0);
+            .thenReturn(0);
 
         query.height(node, random);
         verify(load).anInteger(any(), any(), any(), captor.capture());
@@ -66,7 +66,7 @@ public class CuboidInterpolatorTest extends InterpolatorTest {
     @Test
     public void width() throws Exception {
         when(load.anInteger(eq(node), eq("width"), any(), any()))
-                .thenReturn(5);
+            .thenReturn(5);
         int actual = query.width(node, random);
         assertEquals(5, actual);
     }
@@ -75,7 +75,7 @@ public class CuboidInterpolatorTest extends InterpolatorTest {
     public void widthDefault() throws Exception {
         ArgumentCaptor<Supplier> captor = ArgumentCaptor.forClass(Supplier.class);
         when(load.anInteger(eq(node), eq("width"), any(), any()))
-                .thenReturn(0);
+            .thenReturn(0);
 
         query.width(node, random);
         verify(load).anInteger(any(), any(), any(), captor.capture());
@@ -86,7 +86,7 @@ public class CuboidInterpolatorTest extends InterpolatorTest {
     @Test
     public void depth() throws Exception {
         when(load.anInteger(eq(node), eq("depth"), any(), any()))
-                .thenReturn(5);
+            .thenReturn(5);
         int actual = query.depth(node, random);
         assertEquals(5, actual);
     }
@@ -95,7 +95,7 @@ public class CuboidInterpolatorTest extends InterpolatorTest {
     public void depthDefault() throws Exception {
         ArgumentCaptor<Supplier> captor = ArgumentCaptor.forClass(Supplier.class);
         when(load.anInteger(eq(node), eq("depth"), any(), any()))
-                .thenReturn(0);
+            .thenReturn(0);
 
         query.depth(node, random);
         verify(load).anInteger(any(), any(), any(), captor.capture());

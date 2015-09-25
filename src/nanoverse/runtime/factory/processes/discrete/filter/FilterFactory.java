@@ -25,11 +25,11 @@
 package nanoverse.runtime.factory.processes.discrete.filter;
 
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.factory.control.arguments.IntegerArgumentFactory;
 import nanoverse.runtime.layers.LayerManager;
-import org.dom4j.Element;
 import nanoverse.runtime.processes.discrete.filter.*;
+import org.dom4j.Element;
 
 import java.util.stream.Stream;
 

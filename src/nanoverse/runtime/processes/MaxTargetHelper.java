@@ -24,9 +24,7 @@
 
 package nanoverse.runtime.processes;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Selects a subset of candidates, when needed, to allow
@@ -35,6 +33,12 @@ import java.util.Random;
  * Created by dbborens on 3/7/14.
  */
 public abstract class MaxTargetHelper {
+
+    public static Object[] respectMaxTargets(Collection<? extends Object> candidates, int maxTargets, Random random) {
+        // This method is a target for optimization.
+        Object[] candidateArr = candidates.toArray(new Object[0]);
+        return respectMaxTargets(candidateArr, maxTargets, random);
+    }
 
     public static Object[] respectMaxTargets(Object[] candidates, int maxTargets, Random random) {
         // If maxTargets is < 0, it means that there is no maxTargets; return all.
@@ -69,11 +73,5 @@ public abstract class MaxTargetHelper {
         Object temp = arr[j];
         arr[j] = arr[i];
         arr[i] = temp;
-    }
-
-    public static Object[] respectMaxTargets(Collection<? extends Object> candidates, int maxTargets, Random random) {
-        // This method is a target for optimization.
-        Object[] candidateArr = candidates.toArray(new Object[0]);
-        return respectMaxTargets(candidateArr, maxTargets, random);
     }
 }

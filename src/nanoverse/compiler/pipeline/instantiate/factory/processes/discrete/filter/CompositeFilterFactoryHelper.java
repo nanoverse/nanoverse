@@ -23,8 +23,7 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filter;
 
-import nanoverse.runtime.processes.discrete.filter.CompositeFilter;
-import nanoverse.runtime.processes.discrete.filter.Filter;
+import nanoverse.runtime.processes.discrete.filter.*;
 
 import java.util.stream.Stream;
 

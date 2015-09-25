@@ -24,11 +24,11 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete;
 
-import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.*;
+import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.ScatterFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.CellDescriptor;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.*;
@@ -46,7 +46,7 @@ public class ScatterLoader extends ProcessLoader<Scatter> {
     }
 
     public ScatterLoader(ScatterFactory factory,
-                                 ScatterInterpolator interpolator) {
+                         ScatterInterpolator interpolator) {
         this.factory = factory;
         this.interpolator = interpolator;
     }

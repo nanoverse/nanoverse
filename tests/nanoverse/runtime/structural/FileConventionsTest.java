@@ -24,10 +24,11 @@
 
 package nanoverse.runtime.structural;
 
-import org.junit.Test;
 import nanoverse.runtime.structural.utilities.FileConventions;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Created by dbborens on 3/26/14.
  */

@@ -26,14 +26,14 @@ package nanoverse.compiler.pipeline.instantiate.loader.agent.targets;
 
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter.FilterLoader;
-import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.processes.discrete.filter.Filter;
+import org.junit.*;
 
 import java.util.function.Supplier;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class TargetInterpolatorTest extends InterpolatorTest {

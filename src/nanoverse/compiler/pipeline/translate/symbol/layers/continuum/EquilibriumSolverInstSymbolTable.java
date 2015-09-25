@@ -36,8 +36,8 @@ public class EquilibriumSolverInstSymbolTable extends MapSymbolTable<Equilibrium
     @Override
     public String getDescription() {
         return "An equilibrium solver uses a matrix solver to find the state " +
-                "of the system at equilibrium (i.e., after an infinite " +
-                "amount of time).";
+            "of the system at equilibrium (i.e., after an infinite " +
+            "amount of time).";
     }
 
     @Override

@@ -28,7 +28,7 @@ import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.io.visual.highlight.CrosshairsGlyph;
-import org.junit.*;
+import org.junit.Test;
 
 public class CrosshairsGlyphInstSymbolTableTest extends MapSymbolTableTest {
 

@@ -25,10 +25,10 @@
 package nanoverse.compiler.pipeline.translate.symbol.processes.temporal;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.processes.*;
-import nanoverse.runtime.control.arguments.*;
-import org.junit.*;
+import nanoverse.compiler.pipeline.translate.symbol.processes.ProcessInstSymbolTableTest;
+import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.processes.temporal.Tick;
+import org.junit.Test;
 
 public class TickInstSymbolTableTest extends ProcessInstSymbolTableTest {
 

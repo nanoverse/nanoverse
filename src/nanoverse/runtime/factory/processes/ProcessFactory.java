@@ -26,9 +26,7 @@ package nanoverse.runtime.factory.processes;
 
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.*;
-import nanoverse.runtime.factory.control.arguments.CellDescriptorFactory;
-import nanoverse.runtime.factory.control.arguments.DoubleArgumentFactory;
-import nanoverse.runtime.factory.control.arguments.IntegerArgumentFactory;
+import nanoverse.runtime.factory.control.arguments.*;
 import nanoverse.runtime.factory.geometry.set.CoordinateSetFactory;
 import nanoverse.runtime.factory.processes.discrete.*;
 import nanoverse.runtime.factory.processes.discrete.filter.FilterFactory;
@@ -36,20 +34,15 @@ import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.set.CoordinateSet;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.continuum.ContinuumLayer;
-import no.uib.cipr.matrix.sparse.CompDiagMatrix;
-import org.dom4j.Element;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.NanoverseProcess;
+import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.continuum.*;
 import nanoverse.runtime.processes.discrete.*;
-import nanoverse.runtime.processes.discrete.check.CheckForDomination;
-import nanoverse.runtime.processes.discrete.check.CheckForExtinction;
-import nanoverse.runtime.processes.discrete.check.CheckForFixation;
-import nanoverse.runtime.processes.discrete.check.CheckForThresholdOccupancy;
+import nanoverse.runtime.processes.discrete.check.*;
 import nanoverse.runtime.processes.discrete.filter.Filter;
-import nanoverse.runtime.processes.temporal.ExponentialInverse;
-import nanoverse.runtime.processes.temporal.Tick;
+import nanoverse.runtime.processes.temporal.*;
 import nanoverse.runtime.structural.utilities.XmlUtil;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import org.dom4j.Element;
 
 import java.util.function.Consumer;
 
@@ -148,16 +141,10 @@ public abstract class ProcessFactory {
 
         } else {
             String msg = "Unrecognized process '" +
-                    processClass + ".'";
+                processClass + ".'";
 
             throw new IllegalArgumentException(msg);
         }
-    }
-
-    private static ContinuumLayer resolveLayer(Element e, LayerManager layerManager) {
-        String layerId = XmlUtil.getString(e, "layer");
-        ContinuumLayer layer = layerManager.getContinuumLayer(layerId);
-        return layer;
     }
 
     private static OperatorProcess diffusionProcess(Element e, LayerManager layerManager, BaseProcessArguments arguments) {
@@ -165,12 +152,18 @@ public abstract class ProcessFactory {
         ContinuumLayer layer = resolveLayer(e, layerManager);
         Geometry geometry = layer.getGeometry();
         DiffusionConstantHelper helper = new DiffusionConstantHelper(constant,
-                geometry.getConnectivity(),
-                geometry.getDimensionality());
+            geometry.getConnectivity(),
+            geometry.getDimensionality());
         DiffusionOperator operator = new DiffusionOperator(helper, geometry);
         Consumer<CompDiagMatrix> target = matrix -> layer.getScheduler().apply(matrix);
         OperatorProcess process = new OperatorProcess(arguments, operator, target);
         return process;
+    }
+
+    private static ContinuumLayer resolveLayer(Element e, LayerManager layerManager) {
+        String layerId = XmlUtil.getString(e, "layer");
+        ContinuumLayer layer = layerManager.getContinuumLayer(layerId);
+        return layer;
     }
 
     private static InjectionProcess injectionProcess(Element e, GeneralParameters p, BaseProcessArguments arguments) {
@@ -181,6 +174,7 @@ public abstract class ProcessFactory {
         InjectionProcess process = new InjectionProcess(arguments, valueArg, layerId, activeSites);
         return process;
     }
+
     protected static BaseProcessArguments makeProcessArguments(Element e,
                                                                LayerManager layerManager,
                                                                GeneralParameters p,
@@ -199,12 +193,6 @@ public abstract class ProcessFactory {
         return new CellProcessArguments(activeSites, maxTargets);
     }
 
-    protected static Filter loadFilters(Element root, LayerManager layerManager, GeneralParameters p) {
-        Element e = root.element("filters");
-        Filter filter = FilterFactory.instantiate(e, layerManager, p);
-        return filter;
-    }
-
     private static IntegerArgument getMaxTargets(Element e, GeneralParameters p) {
         return IntegerArgumentFactory.instantiate(e, "max-targets", -1, p.getRandom());
     }
@@ -213,6 +201,12 @@ public abstract class ProcessFactory {
         Element sitesElem = e.element("active-sites");
         CoordinateSet ret = CoordinateSetFactory.instantiate(sitesElem, geom, p);
         return ret;
+    }
+
+    protected static Filter loadFilters(Element root, LayerManager layerManager, GeneralParameters p) {
+        Element e = root.element("filters");
+        Filter filter = FilterFactory.instantiate(e, layerManager, p);
+        return filter;
     }
 
     protected static CellDescriptor makeCellDescriptor(Element e, String key, LayerManager layerManager, GeneralParameters p) {

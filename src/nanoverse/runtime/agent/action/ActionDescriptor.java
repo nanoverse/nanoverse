@@ -36,10 +36,10 @@ import java.util.function.Function;
  */
 public abstract class ActionDescriptor<T extends Action> {
 
-    protected abstract Function<BehaviorCell, T> resolveConstructor();
-
     public T instantiate(BehaviorCell cell) {
         Function<BehaviorCell, T> constructor = resolveConstructor();
         return constructor.apply(cell);
     }
+
+    protected abstract Function<BehaviorCell, T> resolveConstructor();
 }

@@ -50,6 +50,7 @@ public class VisualizationSerializerInterpolator {
         this.load = load;
         this.defaults = defaults;
     }
+
     public String prefix(MapObjectNode node) {
         return load.aString(node, "prefix", defaults::prefix);
     }

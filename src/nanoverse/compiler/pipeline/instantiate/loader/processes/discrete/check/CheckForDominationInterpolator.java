@@ -45,9 +45,9 @@ public class CheckForDominationInterpolator extends DiscreteProcessInterpolator 
     }
 
     public CheckForDominationInterpolator(LoadHelper load,
-                                        BaseProcessArgumentsLoader bpaLoader,
-                                        DiscreteProcessArgumentsLoader dpaLoader,
-                                        CheckForDominationDefaults defaults) {
+                                          BaseProcessArgumentsLoader bpaLoader,
+                                          DiscreteProcessArgumentsLoader dpaLoader,
+                                          CheckForDominationDefaults defaults) {
         super(load, bpaLoader, dpaLoader);
         this.defaults = defaults;
     }

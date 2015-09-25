@@ -34,12 +34,13 @@ import nanoverse.runtime.io.visual.color.*;
 import nanoverse.runtime.io.visual.highlight.HighlightManager;
 import nanoverse.runtime.io.visual.kymograph.Kymograph;
 import nanoverse.runtime.io.visual.map.MapVisualization;
+import nanoverse.runtime.structural.MockGeneralParameters;
 import org.dom4j.Element;
 import org.junit.*;
-import nanoverse.runtime.structural.MockGeneralParameters;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Created by dbborens on 4/3/14.
  */

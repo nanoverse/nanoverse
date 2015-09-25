@@ -44,6 +44,20 @@ public class MockGeneralParameters extends GeneralParameters {
         super();
     }
 
+    @Override
+    public int T() {
+        return T;
+    }
+
+    @Override
+    public int getNumInstances() {
+        return numInstances;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
     public String getInstancePath() {
         return instancePath;
     }
@@ -52,17 +66,21 @@ public class MockGeneralParameters extends GeneralParameters {
         this.instancePath = instancePath;
     }
 
-    public String getPath() {
-        return path;
+    @Override
+    public int getInstance() {
+        return instance;
+    }
+
+    public void setInstance(int instance) {
+        this.instance = instance;
     }
 
     public void setPath(String path) {
         this.path = path;
     }
 
-    @Override
-    public int T() {
-        return T;
+    public void setNumInstances(int numInstances) {
+        this.numInstances = numInstances;
     }
 
     public void setT(int t) {
@@ -76,24 +94,6 @@ public class MockGeneralParameters extends GeneralParameters {
 
     public void setIsFrameValue(boolean isFrameValue) {
         this.isFrameValue = isFrameValue;
-    }
-
-    @Override
-    public int getNumInstances() {
-        return numInstances;
-    }
-
-    public void setNumInstances(int numInstances) {
-        this.numInstances = numInstances;
-    }
-
-    @Override
-    public int getInstance() {
-        return instance;
-    }
-
-    public void setInstance(int instance) {
-        this.instance = instance;
     }
 
     public void setFrameValue(boolean isFrameValue) {

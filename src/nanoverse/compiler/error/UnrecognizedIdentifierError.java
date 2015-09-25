@@ -39,6 +39,6 @@ public class UnrecognizedIdentifierError extends UserError {
 
     public UnrecognizedIdentifierError(String identifier, Class clazz) {
         super("Unrecognized identifier " + clazz.getSimpleName() + "::" +
-                identifier);
+            identifier);
     }
 }

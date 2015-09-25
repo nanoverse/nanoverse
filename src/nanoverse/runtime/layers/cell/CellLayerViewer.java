@@ -27,8 +27,7 @@ package nanoverse.runtime.layers.cell;
 import nanoverse.runtime.cells.Cell;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author David Bruce Borenstein
@@ -69,10 +68,6 @@ public class CellLayerViewer {
         return res;
     }
 
-    public Cell getCell(Coordinate coord) {
-        return content.get(coord);
-    }
-
     public int[] getStateVector() {
         return content.getStateVector();
     }
@@ -88,10 +83,6 @@ public class CellLayerViewer {
 
     public StateMapViewer getStateMapViewer() {
         return new StateMapViewer(content.getStateMap());
-    }
-
-    public boolean isOccupied(Coordinate c) {
-        return content.getOccupiedSites().contains(c);
     }
 
     public boolean isDivisible(Coordinate c) {
@@ -118,5 +109,13 @@ public class CellLayerViewer {
         }
 
         return getCell(coord).getState();
+    }
+
+    public Cell getCell(Coordinate coord) {
+        return content.get(coord);
+    }
+
+    public boolean isOccupied(Coordinate c) {
+        return content.getOccupiedSites().contains(c);
     }
 }

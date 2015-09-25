@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.translate.symbol.geometry.boundary;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.geometry.boundary.HaltArenaBoundaryLoader;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.runtime.geometry.boundaries.*;
+import nanoverse.runtime.geometry.boundaries.HaltArena;
 
 /**
  * Created by dbborens on 7/29/2015.
@@ -36,7 +36,7 @@ public class HaltBoundaryInstSymbolTable extends MapSymbolTable<HaltArena> {
     @Override
     public String getDescription() {
         return "The Halt boundary is for AGENT nanoverse.runtime.layers only. If an nanoverse.runtime.agent " +
-                "reaches the boundary, the simulation halts.";
+            "reaches the boundary, the simulation halts.";
     }
 
     @Override

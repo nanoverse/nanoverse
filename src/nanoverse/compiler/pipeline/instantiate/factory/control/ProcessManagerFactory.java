@@ -23,12 +23,12 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.control;
 
-import java.util.stream.Stream;
-
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.ProcessManager;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.processes.NanoverseProcess;
+
+import java.util.stream.Stream;
 
 public class ProcessManagerFactory implements Factory<ProcessManager> {
 

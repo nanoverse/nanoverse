@@ -24,10 +24,7 @@
 
 package nanoverse.runtime.geometry.lattice;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
-import nanoverse.runtime.control.identifiers.Coordinate3D;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
@@ -153,6 +150,50 @@ public class TriangularLattice extends Lattice {
     }
 
     @Override
+    public Coordinate getOrthoDisplacement(Coordinate p, Coordinate q) {
+        // The 'u' and 'w' components are linearly independent. (Not
+        // exactly 'orthogonal,' but oh well.)
+
+        // Extract p coordinate
+        int xp = p.x();
+        int yp = p.y();
+
+        // Extract q coordinate
+        int xq = q.x();
+        int yq = q.y();
+
+        int du = xq - xp;
+        int dv = 0;
+        int dw = yq - yp;
+
+        return new Coordinate3D(du, dv, dw, Flags.VECTOR);
+    }
+
+    @Override
+    public Coordinate rel2abs(Coordinate coord, Coordinate displacement) {
+        if (displacement.hasFlag(Flags.PLANAR)) {
+            throw new IllegalArgumentException("Expected three-component coordinate.");
+        }
+
+        int x = coord.x();
+        int y = coord.y();
+
+        // Apply u component
+        x += displacement.x();
+
+        // Apply v component
+        x += displacement.y();
+        y += displacement.y();
+
+        // Apply w component
+        y += displacement.z();
+
+        Coordinate target = new Coordinate2D(x, y, 0);
+
+        return target;
+    }
+
+    @Override
     public Coordinate getDisplacement(Coordinate p, Coordinate q) {
         // Extract p coordinate
         int xp = p.x();
@@ -186,51 +227,6 @@ public class TriangularLattice extends Lattice {
 
         // Populate the vector in the new basis -- done!
         return new Coordinate3D(du, dv, dw, Flags.VECTOR);
-    }
-
-    @Override
-    public Coordinate getOrthoDisplacement(Coordinate p, Coordinate q) {
-        // The 'u' and 'w' components are linearly independent. (Not
-        // exactly 'orthogonal,' but oh well.)
-
-        // Extract p coordinate
-        int xp = p.x();
-        int yp = p.y();
-
-        // Extract q coordinate
-        int xq = q.x();
-        int yq = q.y();
-
-        int du = xq - xp;
-        int dv = 0;
-        int dw = yq - yp;
-
-        return new Coordinate3D(du, dv, dw, Flags.VECTOR);
-    }
-
-
-    @Override
-    public Coordinate rel2abs(Coordinate coord, Coordinate displacement) {
-        if (displacement.hasFlag(Flags.PLANAR)) {
-            throw new IllegalArgumentException("Expected three-component coordinate.");
-        }
-
-        int x = coord.x();
-        int y = coord.y();
-
-        // Apply u component
-        x += displacement.x();
-
-        // Apply v component
-        x += displacement.y();
-        y += displacement.y();
-
-        // Apply w component
-        y += displacement.z();
-
-        Coordinate target = new Coordinate2D(x, y, 0);
-
-        return target;
     }
 
     @Override

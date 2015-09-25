@@ -24,10 +24,10 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.targets;
 
-import nanoverse.runtime.agent.targets.TargetDescriptor;
-import nanoverse.compiler.pipeline.instantiate.factory.agent.targets.*;
+import nanoverse.compiler.pipeline.instantiate.factory.agent.targets.TargetFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
+import nanoverse.runtime.agent.targets.TargetDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.discrete.filter.Filter;

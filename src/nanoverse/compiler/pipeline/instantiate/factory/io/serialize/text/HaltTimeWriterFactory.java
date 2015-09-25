@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.serialize.text;
 
-import nanoverse.runtime.io.serialize.text.HaltTimeWriter;
-import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.layers.LayerManager;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.control.GeneralParameters;
+import nanoverse.runtime.io.serialize.text.HaltTimeWriter;
+import nanoverse.runtime.layers.LayerManager;
 
 public class HaltTimeWriterFactory implements Factory<HaltTimeWriter> {
 

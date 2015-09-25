@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.translate.symbol.geometry.shape;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
+import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.geometry.shape.Hexagon;
 import org.junit.Test;

@@ -28,7 +28,7 @@ import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.io.visual.highlight.*;
-import org.junit.*;
+import org.junit.Test;
 
 public class HighlightInstSymbolTableTest extends MapSymbolTableTest {
 

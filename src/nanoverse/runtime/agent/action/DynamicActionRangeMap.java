@@ -28,8 +28,7 @@ import nanoverse.runtime.agent.action.stochastic.ProbabilitySupplier;
 import nanoverse.runtime.cells.BehaviorCell;
 import nanoverse.runtime.layers.LayerManager;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by dbborens on 4/27/14.
@@ -51,10 +50,6 @@ public class DynamicActionRangeMap {
     public DynamicActionRangeMap(LayerManager layerManager) {
         functionMap = new HashMap<>();
         this.layerManager = layerManager;
-    }
-
-    public void add(Action action, ProbabilitySupplier supplier) {
-        functionMap.put(action, supplier);
     }
 
     public void refresh() {
@@ -83,5 +78,9 @@ public class DynamicActionRangeMap {
         });
 
         return cloned;
+    }
+
+    public void add(Action action, ProbabilitySupplier supplier) {
+        functionMap.put(action, supplier);
     }
 }

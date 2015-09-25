@@ -45,14 +45,14 @@ public abstract class ProcessInstSymbolTable<T extends NanoverseProcess> extends
     private void start(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable st = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(st, "Time at which to begin " +
-                "executing this process (specified in integration cycles).");
+            "executing this process (specified in integration cycles).");
         ret.put("start", ms);
     }
 
     private void period(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable st = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(st, "Waiting period between " +
-                "occurrences of this process. period=0 means do only once.");
+            "occurrences of this process. period=0 means do only once.");
         ret.put("period", ms);
     }
 

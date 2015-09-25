@@ -24,12 +24,11 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.action.ExpandRandomLoader;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
-import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
+import nanoverse.runtime.agent.action.ExpandRandomDescriptor;
 
 import java.util.HashMap;
 
@@ -40,8 +39,8 @@ public class ExpandRandomInstSymbolTable extends ActionInstSymbolTable<ExpandRan
     @Override
     public String getDescription() {
         return "Place a copy of the nanoverse.runtime.agent in a random adjacent location, " +
-                "pushing agents toward the nearest vacancy, if needed, to " +
-                "make room.";
+            "pushing agents toward the nearest vacancy, if needed, to " +
+            "make room.";
     }
 
     @Override
@@ -55,16 +54,16 @@ public class ExpandRandomInstSymbolTable extends ActionInstSymbolTable<ExpandRan
     private void targetHighlight(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
-                "to record the target location. If left null, no " +
-                "highlight will be recorded.");
+            "to record the target location. If left null, no " +
+            "highlight will be recorded.");
         ret.put("targetHighlight", ms);
     }
 
     private void selfHighlight(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Highlight channel on which " +
-                "to record the expanding nanoverse.runtime.agent. If left null, no " +
-                "highlight will be recorded.");
+            "to record the expanding nanoverse.runtime.agent. If left null, no " +
+            "highlight will be recorded.");
         ret.put("selfHighlight", ms);
     }
 

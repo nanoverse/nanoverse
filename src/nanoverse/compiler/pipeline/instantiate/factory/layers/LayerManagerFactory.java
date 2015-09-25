@@ -23,10 +23,11 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.layers;
 
-import nanoverse.runtime.layers.cell.CellLayer;
-import java.util.HashMap;
-import nanoverse.runtime.layers.LayerManager;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.layers.cell.CellLayer;
+
+import java.util.HashMap;
 
 public class LayerManagerFactory implements Factory<LayerManager> {
 

@@ -36,11 +36,11 @@ public class PeriodicBoundaryInstSymbolTable extends MapSymbolTable<Periodic> {
     @Override
     public String getDescription() {
         return "A periodic boundary wraps each edge around to a parallel " +
-                "edge on the other side. It requires that the simulation " +
-                "space have a shape with exactly twice the edges of its " +
-                "dimension (ie, Line, Rectangle, Cuboid). Periodic " +
-                "boundaries are compatible with both continuum and nanoverse.runtime.agent " +
-                "nanoverse.runtime.layers.";
+            "edge on the other side. It requires that the simulation " +
+            "space have a shape with exactly twice the edges of its " +
+            "dimension (ie, Line, Rectangle, Cuboid). Periodic " +
+            "boundaries are compatible with both continuum and nanoverse.runtime.agent " +
+            "nanoverse.runtime.layers.";
     }
 
     @Override

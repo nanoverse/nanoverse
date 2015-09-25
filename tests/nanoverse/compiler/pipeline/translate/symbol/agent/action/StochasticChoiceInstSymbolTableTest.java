@@ -24,21 +24,21 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
-import nanoverse.runtime.agent.action.stochastic.WeightedOption;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import org.junit.*;
+import nanoverse.runtime.agent.action.StochasticChoiceDescriptor;
+import nanoverse.runtime.agent.action.stochastic.WeightedOption;
+import org.junit.Test;
 
 public class StochasticChoiceInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedClass() {
-        return StochasticChoiceDescriptor.class;
+    protected MapSymbolTable getQuery() {
+        return new StochasticChoiceInstSymbolTable();
     }
 
     @Override
-    protected MapSymbolTable getQuery() {
-        return new StochasticChoiceInstSymbolTable();
+    protected Class getExpectedClass() {
+        return StochasticChoiceDescriptor.class;
     }
 
     @Test

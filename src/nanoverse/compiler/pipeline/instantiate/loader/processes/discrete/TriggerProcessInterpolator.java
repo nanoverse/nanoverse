@@ -46,9 +46,9 @@ public class TriggerProcessInterpolator extends DiscreteProcessInterpolator {
     }
 
     public TriggerProcessInterpolator(LoadHelper load,
-                               BaseProcessArgumentsLoader bpaLoader,
-                               DiscreteProcessArgumentsLoader dpaLoader,
-                               TriggerProcessDefaults defaults) {
+                                      BaseProcessArgumentsLoader bpaLoader,
+                                      DiscreteProcessArgumentsLoader dpaLoader,
+                                      TriggerProcessDefaults defaults) {
         super(load, bpaLoader, dpaLoader);
         this.defaults = defaults;
     }

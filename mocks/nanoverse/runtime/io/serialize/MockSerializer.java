@@ -63,6 +63,11 @@ public class MockSerializer extends Serializer {
     }
 
     @Override
+    public void init() {
+        isInit = true;
+    }
+
+    @Override
     public void dispatchHalt(HaltCondition ex) {
         isDispatchHalt = true;
     }
@@ -71,12 +76,6 @@ public class MockSerializer extends Serializer {
     public void close() {
         isClose = true;
     }
-
-    @Override
-    public void init() {
-        isInit = true;
-    }
-
 
     @Override
     public void flush(StepState stepState) {

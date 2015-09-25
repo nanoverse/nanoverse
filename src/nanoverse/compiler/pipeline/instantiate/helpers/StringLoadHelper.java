@@ -44,7 +44,7 @@ public class StringLoadHelper {
     }
 
     public String load(MapObjectNode node, String id,
-                        Supplier<String> defaultSupplier) {
+                       Supplier<String> defaultSupplier) {
 
         boolean required = (defaultSupplier == null);
 
@@ -58,7 +58,7 @@ public class StringLoadHelper {
 
         ObjectNode cNode = node.getMember(id);
         StringArgumentLoader loader = (StringArgumentLoader)
-                retriever.getLoader(node, id, required);
+            retriever.getLoader(node, id, required);
 
         return loader.instantiateToFirst(cNode);
     }

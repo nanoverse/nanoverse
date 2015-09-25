@@ -27,11 +27,12 @@ package nanoverse.runtime.processes;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.HaltCondition;
-import org.junit.Test;
 import nanoverse.runtime.processes.gillespie.GillespieState;
+import org.junit.Test;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Test to make sure that stochastic values work as expected in a process.
  * This is a regression test for a possible failure mode observed in April 2014.

@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.translate.symbol.geometry;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
+import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.control.arguments.GeometryDescriptor;
 import nanoverse.runtime.geometry.lattice.Lattice;
 import nanoverse.runtime.geometry.shape.Shape;

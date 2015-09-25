@@ -33,6 +33,7 @@ import java.util.function.Supplier;
 public class DepthFilterInterpolatorTest extends InterpolatorTest {
 
     private DepthFilterInterpolator query;
+
     @Before
     public void before() throws Exception {
         super.before();

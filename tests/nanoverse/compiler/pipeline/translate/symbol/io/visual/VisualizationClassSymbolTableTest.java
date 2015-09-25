@@ -24,12 +24,12 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.io.visual;
 
-import nanoverse.compiler.pipeline.translate.symbol.*;
+import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.io.visual.*;
 import nanoverse.runtime.io.visual.kymograph.Kymograph;
 import nanoverse.runtime.io.visual.map.MapVisualization;
-import org.junit.*;
+import org.junit.Test;
 
 public class VisualizationClassSymbolTableTest extends ClassSymbolTableTest {
 

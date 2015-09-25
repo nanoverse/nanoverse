@@ -30,7 +30,7 @@ import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.discrete.*;
+import nanoverse.runtime.processes.discrete.Record;
 
 /**
  * Created by dbborens on 8/3/2015.

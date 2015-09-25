@@ -26,8 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.CullLoader;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
-import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import nanoverse.runtime.processes.discrete.Cull;
 
@@ -40,7 +39,7 @@ public class CullInstSymbolTable extends DiscreteProcessInstSymbolTable<Cull> {
     @Override
     public String getDescription() {
         return "LEGACY: Kill all agents whose health is below a specified " +
-                "threshold.";
+            "threshold.";
     }
 
     @Override

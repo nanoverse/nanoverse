@@ -23,9 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.check;
 
-import nanoverse.runtime.processes.discrete.check.CheckForFixation;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
 import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.processes.discrete.check.CheckForFixation;
 
 
 public class CheckForFixationFactoryHelper {

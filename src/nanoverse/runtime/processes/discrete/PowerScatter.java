@@ -25,7 +25,7 @@
 package nanoverse.runtime.processes.discrete;
 
 import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.CellDescriptor;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.*;
@@ -39,10 +39,10 @@ import java.util.stream.*;
 
 public class PowerScatter extends CellProcess {
 
-    private List<Coordinate> candidates;
     private final CellDescriptor cellDescriptor;
     private final ScatterClustersHelper clustersHelper;
     private final RangeMap<Integer> neighborChooser;
+    private List<Coordinate> candidates;
 
     @FactoryTarget
     public PowerScatter(BaseProcessArguments arguments,
@@ -66,37 +66,17 @@ public class PowerScatter extends CellProcess {
         return ret;
     }
 
-    @Override
-    public void init() {
-        candidates = null;
-    }
-
     public void target(GillespieState gs) throws HaltCondition {
         // Construct initial set of candidates
 
         candidates = getActiveSites().stream()
-                        .filter(c -> !getLayer()
-                                .getViewer()
-                                .isOccupied(c))
-                        .collect(Collectors.toList());
+            .filter(c -> !getLayer()
+                .getViewer()
+                .isOccupied(c))
+            .collect(Collectors.toList());
 
         if (gs != null) {
             gs.add(this.getID(), candidates.size(), candidates.size() * 1.0D);
-        }
-    }
-
-    private int getFloor() {
-        int n;
-
-        try {
-            n = getMaxTargets().next();
-            if (n < 0) {
-                throw new IllegalArgumentException("Scatter cluster process requires >= 0 max targets.");
-            }
-
-            return n;
-        } catch (HaltCondition ex) {
-            throw new RuntimeException("Unexpected halt condition", ex);
         }
     }
 
@@ -129,14 +109,38 @@ public class PowerScatter extends CellProcess {
 
     }
 
+    @Override
+    public void init() {
+        candidates = null;
+    }
+
+    private int getFloor() {
+        int n;
+
+        try {
+            n = getMaxTargets().next();
+            if (n < 0) {
+                throw new IllegalArgumentException("Scatter cluster process requires >= 0 max targets.");
+            }
+
+            return n;
+        } catch (HaltCondition ex) {
+            throw new RuntimeException("Unexpected halt condition", ex);
+        }
+    }
+
     private int chooseMinNeighbors() {
         double x = getGeneralParameters()
-                .getRandom()
-                .nextDouble() * neighborChooser.getTotalWeight();
+            .getRandom()
+            .nextDouble() * neighborChooser.getTotalWeight();
 
         return neighborChooser.selectTarget(x);
     }
 
+    @Override
+    public int hashCode() {
+        return cellDescriptor != null ? cellDescriptor.hashCode() : 0;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -155,10 +159,5 @@ public class PowerScatter extends CellProcess {
             return false;
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return cellDescriptor != null ? cellDescriptor.hashCode() : 0;
     }
 }

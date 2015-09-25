@@ -24,11 +24,9 @@
 
 package nanoverse.runtime.layers.continuum.solvers;
 
-import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.Matrix;
-import no.uib.cipr.matrix.Vector;
-import no.uib.cipr.matrix.sparse.*;
 import nanoverse.runtime.structural.utilities.MatrixUtils;
+import no.uib.cipr.matrix.*;
+import no.uib.cipr.matrix.sparse.*;
 
 /**
  * Solves the difference relation for steady state using a conjugate gradient (Krylov) solver)

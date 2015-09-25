@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.instantiate.loader.control;
 
 import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
-import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 
 import java.util.Random;
 
@@ -51,7 +51,7 @@ public class ParametersInterpolator {
 
     public long randomSeed(MapObjectNode node) {
         String seedStr = load.aString(node, "seed", defaults::randomSeed)
-                .trim();
+            .trim();
 
 
         // "*" -- use system time.
@@ -65,12 +65,12 @@ public class ParametersInterpolator {
 
     public int maxStep(MapObjectNode node, Random random) {
         return load.anInteger(node, "maxStep", random,
-                defaults::maxStep);
+            defaults::maxStep);
     }
 
     public int instances(MapObjectNode node, Random random) {
         return load.anInteger(node, "instances", random,
-                defaults::instances);
+            defaults::instances);
     }
 
     public String path(MapObjectNode node) {
@@ -78,7 +78,7 @@ public class ParametersInterpolator {
     }
 
     public String project(MapObjectNode node) {
-       return load.aString(node, "project", defaults::project);
+        return load.aString(node, "project", defaults::project);
     }
 
     public boolean date(MapObjectNode node, Random random) {

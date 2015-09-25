@@ -42,9 +42,9 @@ public class CullInterpolator extends DiscreteProcessInterpolator {
     }
 
     public CullInterpolator(LoadHelper load,
-                                          BaseProcessArgumentsLoader bpaLoader,
-                                          DiscreteProcessArgumentsLoader dpaLoader,
-                                          CullDefaults defaults) {
+                            BaseProcessArgumentsLoader bpaLoader,
+                            DiscreteProcessArgumentsLoader dpaLoader,
+                            CullDefaults defaults) {
         super(load, bpaLoader, dpaLoader);
         this.defaults = defaults;
     }

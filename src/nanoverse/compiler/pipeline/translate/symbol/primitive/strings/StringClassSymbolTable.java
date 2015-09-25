@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.primitive.strings;
 
 import nanoverse.compiler.pipeline.interpret.visitors.NanoPrimitiveStringVisitor;
 import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.StringArgument;
 
 import java.util.HashMap;
 import java.util.function.Supplier;

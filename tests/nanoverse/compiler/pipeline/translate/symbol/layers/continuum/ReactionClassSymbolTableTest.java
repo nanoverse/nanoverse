@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.translate.symbol.layers.continuum;
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.layers.continuum.Reaction;
-import org.junit.*;
+import org.junit.Test;
 
 public class ReactionClassSymbolTableTest extends ClassSymbolTableTest {
 

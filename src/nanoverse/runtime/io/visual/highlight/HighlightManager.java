@@ -30,8 +30,7 @@ import nanoverse.runtime.layers.SystemState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by dbborens on 4/2/14.

@@ -26,9 +26,9 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.runtime.control.arguments.CellDescriptor;
-import org.junit.*;
-import nanoverse.runtime.processes.discrete.*;
+import nanoverse.runtime.processes.discrete.PowerScatter;
 import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import org.junit.Test;
 
 public class PowerScatterInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {
 

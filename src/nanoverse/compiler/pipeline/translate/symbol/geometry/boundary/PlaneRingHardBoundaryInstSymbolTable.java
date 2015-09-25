@@ -36,10 +36,10 @@ public class PlaneRingHardBoundaryInstSymbolTable extends MapSymbolTable<PlaneRi
     @Override
     public String getDescription() {
         return "The PlaneRingHard boundary is a 2D boundary for AGENT nanoverse.runtime.layers " +
-                "only. It has hard boundary conditions at top and bottom, " +
-                "and periodic boundary conditions left and right. For " +
-                "equivalent behavior in CONTINUUM nanoverse.runtime.layers, see the " +
-                "PlaneRingReflecting boundary.";
+            "only. It has hard boundary conditions at top and bottom, " +
+            "and periodic boundary conditions left and right. For " +
+            "equivalent behavior in CONTINUUM nanoverse.runtime.layers, see the " +
+            "PlaneRingReflecting boundary.";
     }
 
     @Override

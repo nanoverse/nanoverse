@@ -24,10 +24,7 @@
 
 package nanoverse.runtime.structural.postprocess;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
-import nanoverse.runtime.control.identifiers.Coordinate3D;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 import no.uib.cipr.matrix.DenseVector;
 
@@ -62,15 +59,6 @@ public class SolutionViewer {
         }
     }
 
-    public double getAbsolute(Coordinate coordinate) {
-        if (coordinate.hasFlag(Flags.VECTOR)) {
-            throw new IllegalStateException("getAbsolute expects an absolute coordinate, not an offset.");
-        }
-
-        Integer index = geometry.getIndexer().apply(coordinate);
-        return solution.get(index);
-    }
-
     private Coordinate applyOffset(Coordinate offset) {
         Coordinate center = geometry.getCenter();
 
@@ -87,6 +75,15 @@ public class SolutionViewer {
         }
 
         return result;
+    }
+
+    public double getAbsolute(Coordinate coordinate) {
+        if (coordinate.hasFlag(Flags.VECTOR)) {
+            throw new IllegalStateException("getAbsolute expects an absolute coordinate, not an offset.");
+        }
+
+        Integer index = geometry.getIndexer().apply(coordinate);
+        return solution.get(index);
     }
 
     public DenseVector getSolution() {

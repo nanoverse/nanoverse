@@ -34,10 +34,7 @@ import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 import nanoverse.runtime.structural.utilities.FileConventions;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class CoordinateIndexer extends Serializer {
 
@@ -48,6 +45,18 @@ public class CoordinateIndexer extends Serializer {
     @FactoryTarget
     public CoordinateIndexer(GeneralParameters p, LayerManager lm) {
         super(p, lm);
+    }
+
+    @Override
+    public void init() {
+        super.init();
+        geometry = lm.getCellLayer().getGeometry();
+    }
+
+    @Override
+    public void dispatchHalt(HaltCondition ex) {
+        // Writes coordinate map of model to disk
+        makeCoordinateMap();
     }
 
     protected void makeCoordinateMap() {
@@ -74,26 +83,13 @@ public class CoordinateIndexer extends Serializer {
         }
     }
 
-
     @Override
-    public void init() {
-        super.init();
-        geometry = lm.getCellLayer().getGeometry();
+    public void close() {
+        // Doesn't do anything
     }
 
     @Override
     public void flush(StepState stepState) {
 
-    }
-
-    @Override
-    public void dispatchHalt(HaltCondition ex) {
-        // Writes coordinate map of model to disk
-        makeCoordinateMap();
-    }
-
-    @Override
-    public void close() {
-        // Doesn't do anything
     }
 }

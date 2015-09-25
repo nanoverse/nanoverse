@@ -23,9 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.highlight;
 
-import java.awt.Color;
-import nanoverse.runtime.io.visual.highlight.BullseyeGlyph;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.io.visual.highlight.BullseyeGlyph;
+
+import java.awt.*;
 
 public class BullseyeGlyphFactory implements Factory<BullseyeGlyph> {
 

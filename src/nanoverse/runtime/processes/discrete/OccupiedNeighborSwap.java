@@ -27,15 +27,11 @@ package nanoverse.runtime.processes.discrete;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.MaxTargetHelper;
-import nanoverse.runtime.processes.StepState;
+import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Neighbor swap -- switches a randomly chosen cell with one of
@@ -53,46 +49,6 @@ public class OccupiedNeighborSwap extends CellProcess {
 
         super(arguments, cpArguments);
         geom = getLayer().getGeometry();
-    }
-
-    @Override
-    public void init() {
-        candidates = null;
-    }
-
-    @Override
-    public void fire(StepState state) throws HaltCondition {
-
-        if (candidates == null) {
-            throw new IllegalStateException("Attempted to call fire() before calling target().");
-        }
-
-        if (candidates.size() == 0) {
-            return;
-        }
-
-        //System.out.println("In NeighborSwap::iterate().");
-
-        Object[] targets = selectTargets();
-
-        if (targets.length == 0) {
-            return;
-        }
-
-        for (Object tObj : targets) {
-            SwapTuple target = (SwapTuple) tObj;
-            System.out.println("Swapping" + target.p + " with " + target.q);
-            getLayer().getUpdateManager().swap(target.p, target.q);
-        }
-        this.candidates = null;
-    }
-
-    private Object[] selectTargets() throws HaltCondition {
-
-        Object[] selectedCoords = MaxTargetHelper.respectMaxTargets(candidates, getMaxTargets().next(), getGeneralParameters().getRandom());
-
-
-        return selectedCoords;
     }
 
     @Override
@@ -127,6 +83,46 @@ public class OccupiedNeighborSwap extends CellProcess {
         if (gs != null) {
             gs.add(getID(), candidates.size() / 2, coords.size() * 1.0D);
         }
+    }
+
+    @Override
+    public void fire(StepState state) throws HaltCondition {
+
+        if (candidates == null) {
+            throw new IllegalStateException("Attempted to call fire() before calling target().");
+        }
+
+        if (candidates.size() == 0) {
+            return;
+        }
+
+        //System.out.println("In NeighborSwap::iterate().");
+
+        Object[] targets = selectTargets();
+
+        if (targets.length == 0) {
+            return;
+        }
+
+        for (Object tObj : targets) {
+            SwapTuple target = (SwapTuple) tObj;
+            System.out.println("Swapping" + target.p + " with " + target.q);
+            getLayer().getUpdateManager().swap(target.p, target.q);
+        }
+        this.candidates = null;
+    }
+
+    @Override
+    public void init() {
+        candidates = null;
+    }
+
+    private Object[] selectTargets() throws HaltCondition {
+
+        Object[] selectedCoords = MaxTargetHelper.respectMaxTargets(candidates, getMaxTargets().next(), getGeneralParameters().getRandom());
+
+
+        return selectedCoords;
     }
 
     /**

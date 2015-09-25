@@ -23,11 +23,11 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes;
 
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.IntegerArgument;
-import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.processes.BaseProcessArguments;
 
 public class BaseProcessArgumentsFactory implements Factory<BaseProcessArguments> {
 

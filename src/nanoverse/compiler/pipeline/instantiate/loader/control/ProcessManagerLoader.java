@@ -26,9 +26,8 @@ package nanoverse.compiler.pipeline.instantiate.loader.control;
 
 import nanoverse.compiler.pipeline.instantiate.factory.control.ProcessManagerFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
-import nanoverse.compiler.pipeline.translate.nodes.*;
-import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.ProcessManager;
+import nanoverse.compiler.pipeline.translate.nodes.ListObjectNode;
+import nanoverse.runtime.control.*;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.NanoverseProcess;
 
@@ -54,6 +53,10 @@ public class ProcessManagerLoader extends Loader<ProcessManager> {
         this.interpolator = interpolator;
     }
 
+    public ProcessManager instantiate(LayerManager lm, GeneralParameters p) {
+        return instantiate(null, lm, p);
+    }
+
     public ProcessManager instantiate(ListObjectNode node, LayerManager lm, GeneralParameters p) {
         factory.setLayerManager(lm);
 
@@ -61,9 +64,5 @@ public class ProcessManagerLoader extends Loader<ProcessManager> {
         factory.setProcesses(processes);
 
         return factory.build();
-    }
-
-    public ProcessManager instantiate(LayerManager lm, GeneralParameters p) {
-        return instantiate(null, lm, p);
     }
 }

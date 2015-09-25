@@ -24,7 +24,7 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.io.visual.highlight;
 
-import nanoverse.compiler.pipeline.instantiate.factory.io.visual.highlight.*;
+import nanoverse.compiler.pipeline.instantiate.factory.io.visual.highlight.DotGlyphFactory;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.highlight.*;
@@ -45,7 +45,7 @@ public class DotGlyphLoader extends GlyphLoader<DotGlyph> {
     }
 
     public DotGlyphLoader(DotGlyphFactory factory,
-                                 DotGlyphInterpolator interpolator) {
+                          DotGlyphInterpolator interpolator) {
         this.factory = factory;
         this.interpolator = interpolator;
     }

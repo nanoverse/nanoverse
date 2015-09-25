@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.translate.symbol.io.visual.color;
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.io.visual.color.*;
-import org.junit.*;
+import org.junit.Test;
 
 public class ColorModelClassSymbolTableTest extends ClassSymbolTableTest {
 

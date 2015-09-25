@@ -29,9 +29,9 @@ import nanoverse.compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
-import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.continuum.*;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 import java.util.function.Consumer;
 

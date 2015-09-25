@@ -34,8 +34,9 @@ import static org.mockito.Mockito.*;
 
 public class TickInterpolatorTest extends InterpolatorTest {
 
-    private  TickDefaults defaults;
+    private TickDefaults defaults;
     private TickInterpolator query;
+
     @Before
     public void before() throws Exception {
         super.before();

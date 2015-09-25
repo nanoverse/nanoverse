@@ -24,16 +24,16 @@
 
 package nanoverse.compiler.pipeline.translate.visitors;
 
-import nanoverse.compiler.pipeline.interpret.nodes.*;
+import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import nanoverse.compiler.pipeline.translate.helpers.TranslationCallback;
 import nanoverse.compiler.pipeline.translate.nodes.*;
-import nanoverse.compiler.pipeline.translate.symbol.*;
+import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import org.slf4j.*;
 
 /**
  * Takes a container node and a map symbol table, and returns
  * a map object node.
- *
+ * <p>
  * Created by dbborens on 4/22/15.
  */
 public class MapContainerVisitor {
@@ -53,13 +53,13 @@ public class MapContainerVisitor {
 
     public ObjectNode translate(ASTNode toTranslate, MapSymbolTable symbolTable) {
         logger.debug("Translating {} using MST for class {}", toTranslate.getIdentifier(),
-                symbolTable.getInstanceClass().getSimpleName());
+            symbolTable.getInstanceClass().getSimpleName());
 
         MapObjectNode node = new MapObjectNode(symbolTable);
 
         // Visit each child.
         toTranslate.getChildren()
-                .forEach(child -> loader.loadChild(child, symbolTable, node));
+            .forEach(child -> loader.loadChild(child, symbolTable, node));
 
         return node;
     }

@@ -45,9 +45,9 @@ public class CheckForThresholdOccupancyInterpolator extends DiscreteProcessInter
     }
 
     public CheckForThresholdOccupancyInterpolator(LoadHelper load,
-                                          BaseProcessArgumentsLoader bpaLoader,
-                                          DiscreteProcessArgumentsLoader dpaLoader,
-                                          CheckForThresholdOccupancyDefaults defaults) {
+                                                  BaseProcessArgumentsLoader bpaLoader,
+                                                  DiscreteProcessArgumentsLoader dpaLoader,
+                                                  CheckForThresholdOccupancyDefaults defaults) {
         super(load, bpaLoader, dpaLoader);
         this.defaults = defaults;
     }

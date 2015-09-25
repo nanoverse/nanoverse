@@ -32,17 +32,18 @@ import java.util.function.Supplier;
 /**
  * Represents an unstructured mapping of keys to values. Used for user-
  * defined members and variables.
- *
+ * <p>
  * Created by dbborens on 7/23/2015.
  */
 public class DictionarySymbolTable<T> implements InstantiableSymbolTable, ResolvingSymbolTable {
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
+    private final TypeToken<T> type = new TypeToken<T>(getClass()) {
+    };
 
     private final ClassSymbolTable classSymbolTable;
     private final Supplier<Loader<T>> loaderSupplier;
 
-    public DictionarySymbolTable (ClassSymbolTable classSymbolTable,
-                                  Supplier<Loader<T>> loaderSupplier) {
+    public DictionarySymbolTable(ClassSymbolTable classSymbolTable,
+                                 Supplier<Loader<T>> loaderSupplier) {
 
         this.classSymbolTable = classSymbolTable;
         this.loaderSupplier = loaderSupplier;
@@ -71,6 +72,6 @@ public class DictionarySymbolTable<T> implements InstantiableSymbolTable, Resolv
     @Override
     public String getDescription() {
         return "A dictionary is an unstructured mapping of keys to values, " +
-                "used to define object members (variables, actions, etc).";
+            "used to define object members (variables, actions, etc).";
     }
 }

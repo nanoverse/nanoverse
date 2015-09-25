@@ -42,6 +42,6 @@ public class CompactSeparatedClustersHelperInstSymbolTable extends MapSymbolTabl
     @Override
     public String getDescription() {
         return "Clusters of agents that never intersect and that minimize " +
-                "each cluster's surface-to-volume ratio.";
+            "each cluster's surface-to-volume ratio.";
     }
 }

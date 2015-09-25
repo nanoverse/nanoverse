@@ -25,8 +25,7 @@
 package nanoverse.runtime.processes.temporal;
 
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.NanoverseProcess;
+import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 
 /**

@@ -32,5 +32,6 @@ import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 public interface InstantiableSymbolTable extends SymbolTable {
 
     public Class getInstanceClass();
+
     public Loader getLoader();
 }

@@ -31,7 +31,7 @@ import org.junit.*;
 import java.util.List;
 import java.util.stream.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class GrandchildResolverTest {
@@ -58,6 +58,12 @@ public class GrandchildResolverTest {
         assertSame(expected, actual);
     }
 
+    private List<ASTNode> childList(int numChildren) {
+        return IntStream.range(0, numChildren)
+            .mapToObj(i -> mock(ASTNode.class))
+            .collect(Collectors.toList());
+    }
+
     @Test(expected = SyntaxError.class)
     public void tooManyChildrenThrows() throws Exception {
         List<ASTNode> childList = childList(2);
@@ -68,11 +74,5 @@ public class GrandchildResolverTest {
     public void tooFewChildrenFail() throws Exception {
         List<ASTNode> childList = childList(0);
         doTest(childList);
-    }
-
-    private List<ASTNode> childList(int numChildren) {
-        return IntStream.range(0, numChildren)
-            .mapToObj(i -> mock(ASTNode.class))
-            .collect(Collectors.toList());
     }
 }

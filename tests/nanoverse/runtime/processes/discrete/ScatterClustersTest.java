@@ -28,9 +28,8 @@ import nanoverse.runtime.cells.BehaviorCell;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.LatticeFullEvent;
 import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.processes.discrete.cluster.*;
 import org.junit.*;
-import nanoverse.runtime.processes.discrete.cluster.ContactClustersHelper;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
 import test.CellProcessTestBase;
 
 import static org.mockito.Mockito.*;
@@ -41,6 +40,7 @@ public class ScatterClustersTest extends CellProcessTestBase {
     private CellDescriptor cellDescriptor;
     private ScatterClusters query;
     private ScatterClustersHelper helper;
+
     @Before
     public void before() throws Exception {
         setup();
@@ -63,17 +63,17 @@ public class ScatterClustersTest extends CellProcessTestBase {
     }
 
     private void doTest(int neighbor) throws Exception {
-        int[] neighborStates = new int[] {neighbor};
+        int[] neighborStates = new int[]{neighbor};
         makeActiveSites(a);
         when(lookup.getNeighborStates(a, false))
-                .thenReturn(neighborStates);
+            .thenReturn(neighborStates);
         query.target(null);
         query.fire(null);
     }
 
     @Test
     public void sufficientVacancies() throws Exception {
-        Coordinate[] vacancy = new Coordinate[] {b};
+        Coordinate[] vacancy = new Coordinate[]{b};
         when(lookup.getNearestVacancies(a, 1)).thenReturn(vacancy);
         doTest(0);
         verify(update).place(any(), eq(a));
@@ -82,7 +82,7 @@ public class ScatterClustersTest extends CellProcessTestBase {
 
     @Test
     public void alreadyHasEnoughNeighbors() throws Exception {
-        Coordinate[] vacancy = new Coordinate[] {b};
+        Coordinate[] vacancy = new Coordinate[]{b};
         when(lookup.getNearestVacancies(a, 1)).thenReturn(vacancy);
         doTest(1);
         verify(update).place(any(), any());

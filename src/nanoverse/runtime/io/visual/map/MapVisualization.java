@@ -26,8 +26,7 @@ package nanoverse.runtime.io.visual.map;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.io.visual.Visualization;
-import nanoverse.runtime.io.visual.VisualizationProperties;
+import nanoverse.runtime.io.visual.*;
 import nanoverse.runtime.io.visual.highlight.HighlightManager;
 import nanoverse.runtime.layers.SystemState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -45,6 +44,18 @@ public class MapVisualization extends Visualization {
     @FactoryTarget
     public MapVisualization(VisualizationProperties properties) {
         this.properties = properties;
+    }
+
+    @Override
+    public void init(Geometry geometry, double[] times, int[] frames) {
+        Coordinate[] coordinates = geometry.getCanonicalSites();
+        properties.setCoordinates(coordinates);
+        properties.setFrames(frames);
+        properties.setTimes(times);
+        translator = PixelTranslatorFactory.instantiate(geometry);
+        translator.init(properties);
+        HighlightManager highlightManager = properties.getHighlightManager();
+        highlightManager.init(translator);
     }
 
     @Override
@@ -79,18 +90,6 @@ public class MapVisualization extends Visualization {
     @Override
     public int[] getHighlightChannels() {
         return properties.getHighlightManager().getHighlightChannels();
-    }
-
-    @Override
-    public void init(Geometry geometry, double[] times, int[] frames) {
-        Coordinate[] coordinates = geometry.getCanonicalSites();
-        properties.setCoordinates(coordinates);
-        properties.setFrames(frames);
-        properties.setTimes(times);
-        translator = PixelTranslatorFactory.instantiate(geometry);
-        translator.init(properties);
-        HighlightManager highlightManager = properties.getHighlightManager();
-        highlightManager.init(translator);
     }
 
     @Override

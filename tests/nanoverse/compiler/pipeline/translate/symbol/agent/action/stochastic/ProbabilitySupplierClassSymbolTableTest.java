@@ -24,11 +24,11 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action.stochastic;
 
-import nanoverse.runtime.agent.action.stochastic.*;
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
+import nanoverse.runtime.agent.action.stochastic.*;
 import nanoverse.runtime.control.arguments.ProbabilitySupplierDescriptor;
-import org.junit.*;
+import org.junit.Test;
 
 public class ProbabilitySupplierClassSymbolTableTest extends ClassSymbolTableTest {
 

@@ -61,10 +61,6 @@ public class DictionaryObjectNode implements ObjectNode {
         return local.size();
     }
 
-    public DictionarySymbolTable getSymbolTable() {
-        return symbolTable;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -81,5 +77,9 @@ public class DictionaryObjectNode implements ObjectNode {
     @Override
     public Class getInstantiatingClass() {
         return symbolTable.getBroadClass();
+    }
+
+    public DictionarySymbolTable getSymbolTable() {
+        return symbolTable;
     }
 }

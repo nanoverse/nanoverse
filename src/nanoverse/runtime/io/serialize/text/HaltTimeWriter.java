@@ -25,8 +25,7 @@
 package nanoverse.runtime.io.serialize.text;
 
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.halt.FixationEvent;
-import nanoverse.runtime.control.halt.HaltCondition;
+import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.StepState;

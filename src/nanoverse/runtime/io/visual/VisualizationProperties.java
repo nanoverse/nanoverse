@@ -65,7 +65,7 @@ public class VisualizationProperties {
                                    HighlightManager highlightManager) {
         if (outline > 1) {
             throw new UnsupportedOperationException("Thick outlines not " +
-                    "yet supported");
+                "yet supported");
         }
         this.colorManager = colorManager;
         this.edge = edge;
@@ -77,7 +77,7 @@ public class VisualizationProperties {
                                    int outline) {
         if (outline > 1) {
             throw new UnsupportedOperationException("Thick outlines not " +
-                    "yet supported");
+                "yet supported");
         }
         this.colorManager = colorManager;
         this.edge = edge;

@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.control;
 
 import nanoverse.compiler.pipeline.instantiate.factory.control.ParametersFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
-import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 
 import java.util.Random;
@@ -49,6 +49,15 @@ public class ParametersLoader extends Loader<GeneralParameters> {
 
         this.factory = factory;
         this.interpolator = interpolator;
+    }
+
+    /**
+     * Instantiate using default values.
+     *
+     * @return
+     */
+    public GeneralParameters instantiate() {
+        return instantiate(null);
     }
 
     public GeneralParameters instantiate(MapObjectNode node) {
@@ -74,14 +83,5 @@ public class ParametersLoader extends Loader<GeneralParameters> {
         factory.setIsStamp(isStamp);
 
         return factory.build();
-    }
-
-    /**
-     * Instantiate using default values.
-     *
-     * @return
-     */
-    public GeneralParameters instantiate() {
-        return instantiate(null);
     }
 }

@@ -24,9 +24,9 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent;
 
-import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.translate.nodes.DictionaryObjectNode;
+import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
 
@@ -49,8 +49,8 @@ public class BehaviorMapLoader extends Loader<Map<String, ActionDescriptor>> {
     }
 
     public Map<String, ActionDescriptor> instantiate(DictionaryObjectNode node,
-                                                       LayerManager lm,
-                                                       GeneralParameters p) {
+                                                     LayerManager lm,
+                                                     GeneralParameters p) {
 
         Map<String, ActionDescriptor> ret = node
             .getMemberIdentifiers()

@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.kymograph;
 
-import nanoverse.runtime.io.visual.kymograph.Kymograph;
 import nanoverse.runtime.io.visual.VisualizationProperties;
+import nanoverse.runtime.io.visual.kymograph.Kymograph;
 
 
 public class KymographFactoryHelper {

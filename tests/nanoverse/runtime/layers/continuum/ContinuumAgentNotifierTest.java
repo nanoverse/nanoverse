@@ -25,15 +25,11 @@
 package nanoverse.runtime.layers.continuum;
 
 import nanoverse.runtime.cells.BehaviorCell;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.function.*;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class ContinuumAgentNotifierTest {
 
@@ -46,7 +42,7 @@ public class ContinuumAgentNotifierTest {
     @Before
     public void init() throws Exception {
         adder = (BiConsumer<BehaviorCell, Supplier<RelationshipTuple>>)
-                mock(BiConsumer.class);
+            mock(BiConsumer.class);
         remover = (Consumer<BehaviorCell>) mock(Consumer.class);
         cell = mock(BehaviorCell.class);
         supplier = (Supplier<RelationshipTuple>) mock(Supplier.class);

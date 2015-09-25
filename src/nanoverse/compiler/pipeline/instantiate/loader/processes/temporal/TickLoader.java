@@ -46,7 +46,7 @@ public class TickLoader extends ProcessLoader<Tick> {
     }
 
     public TickLoader(TickFactory factory,
-                                TickInterpolator interpolator) {
+                      TickInterpolator interpolator) {
         this.factory = factory;
         this.interpolator = interpolator;
     }

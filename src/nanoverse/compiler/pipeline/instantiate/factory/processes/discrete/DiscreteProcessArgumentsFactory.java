@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.geometry.set.CoordinateSet;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.processes.discrete.CellProcessArguments;
 
 public class DiscreteProcessArgumentsFactory implements Factory<CellProcessArguments> {
 

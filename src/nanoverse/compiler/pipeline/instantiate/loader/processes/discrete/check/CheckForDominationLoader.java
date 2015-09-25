@@ -47,7 +47,7 @@ public class CheckForDominationLoader extends ProcessLoader<CheckForDomination> 
     }
 
     public CheckForDominationLoader(CheckForDominationFactory factory,
-                                 CheckForDominationInterpolator interpolator) {
+                                    CheckForDominationInterpolator interpolator) {
         this.factory = factory;
         this.interpolator = interpolator;
     }

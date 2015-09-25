@@ -24,13 +24,12 @@
 
 package nanoverse.runtime.control;
 
-import org.dom4j.Element;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 import nanoverse.runtime.structural.utilities.XmlUtil;
+import org.dom4j.Element;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 /**
  * The parameter object returns general parameters for the simulation.
@@ -77,17 +76,6 @@ public class GeneralParameters {
         updateInstancePath();
     }
 
-    public GeneralParameters(Element root) {
-        load(root);
-        instance = 0;
-        updateInstancePath();
-
-    }
-
-    // Minimal constructor for mock testing.
-    public GeneralParameters() {
-    }
-
     private void updateInstancePath() {
         if (instances == 1) {
             instancePath = path;
@@ -97,29 +85,31 @@ public class GeneralParameters {
 
     }
 
-    /**
-     * Signals to the parameters object that it should
-     * generate a new random number seed and advance the
-     * instance counter.
-     */
-    public void advance() {
-        instance++;
-        updateInstancePath();
-        randomSeed = System.currentTimeMillis();
-        random = new Random(randomSeed);
-    }
-
-    // Pull in a single-datum element
-    private String get(Element g, String key) {
-        Element vElem = g.element(key);
-        if (vElem == null) {
-            throw new IllegalArgumentException("General parameter " +
-                    key + " not defined.");
+    private void internalPaths() {
+        if (isStamp) {
+            path = basePath + '/' + date() + '/' + projectName + '/' + time() + '/';
+        } else {
+            path = basePath + projectName;
         }
 
-        Object value = vElem.getData();
+    }
 
-        return value.toString();
+    private String date() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        return sdf.format(date);
+    }
+
+    public String time() {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH'h'mm'm'ss's'");
+        Date date = new Date();
+        return sdf.format(date);
+    }
+
+    public GeneralParameters(Element root) {
+        load(root);
+        instance = 0;
+        updateInstancePath();
 
     }
 
@@ -150,14 +140,6 @@ public class GeneralParameters {
         }
     }
 
-    private void internalPaths() {
-        if (isStamp) {
-            path = basePath + '/' + date() + '/' + projectName + '/' + time() + '/';
-        } else {
-            path = basePath + projectName;
-        }
-
-    }
     private void loadPaths(Element g) {
         basePath = get(g, "path");
         projectName = XmlUtil.getString(g, "project", "");
@@ -170,16 +152,34 @@ public class GeneralParameters {
         instances = Integer.valueOf(get(g, "instances"));
     }
 
-    private String date() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-        return sdf.format(date);
+    // Pull in a single-datum element
+    private String get(Element g, String key) {
+        Element vElem = g.element(key);
+        if (vElem == null) {
+            throw new IllegalArgumentException("General parameter " +
+                key + " not defined.");
+        }
+
+        Object value = vElem.getData();
+
+        return value.toString();
+
     }
 
-    public String time() {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH'h'mm'm'ss's'");
-        Date date = new Date();
-        return sdf.format(date);
+    // Minimal constructor for mock testing.
+    public GeneralParameters() {
+    }
+
+    /**
+     * Signals to the parameters object that it should
+     * generate a new random number seed and advance the
+     * instance counter.
+     */
+    public void advance() {
+        instance++;
+        updateInstancePath();
+        randomSeed = System.currentTimeMillis();
+        random = new Random(randomSeed);
     }
 
     /**

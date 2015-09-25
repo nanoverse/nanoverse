@@ -66,14 +66,14 @@ public class CuboidTest extends LegacyTest {
 
         // Even -- all points are on boundary
         expected = new Coordinate[]{
-                new Coordinate3D(0, 0, 0, 0),
-                new Coordinate3D(0, 0, 1, 0),
-                new Coordinate3D(0, 1, 0, 0),
-                new Coordinate3D(0, 1, 1, 0),
-                new Coordinate3D(1, 0, 0, 0),
-                new Coordinate3D(1, 0, 1, 0),
-                new Coordinate3D(1, 1, 0, 0),
-                new Coordinate3D(1, 1, 1, 0)
+            new Coordinate3D(0, 0, 0, 0),
+            new Coordinate3D(0, 0, 1, 0),
+            new Coordinate3D(0, 1, 0, 0),
+            new Coordinate3D(0, 1, 1, 0),
+            new Coordinate3D(1, 0, 0, 0),
+            new Coordinate3D(1, 0, 1, 0),
+            new Coordinate3D(1, 1, 0, 0),
+            new Coordinate3D(1, 1, 1, 0)
         };
 
         actual = even.getBoundaries();
@@ -81,33 +81,33 @@ public class CuboidTest extends LegacyTest {
 
         // Odd -- every point but (1, 1, 1)
         expected = new Coordinate[]{
-                new Coordinate3D(0, 0, 0, 0),
-                new Coordinate3D(0, 0, 1, 0),
-                new Coordinate3D(0, 0, 2, 0),
-                new Coordinate3D(0, 1, 0, 0),
-                new Coordinate3D(0, 1, 1, 0),
-                new Coordinate3D(0, 1, 2, 0),
-                new Coordinate3D(0, 2, 0, 0),
-                new Coordinate3D(0, 2, 1, 0),
-                new Coordinate3D(0, 2, 2, 0),
-                new Coordinate3D(1, 0, 0, 0),
-                new Coordinate3D(1, 0, 1, 0),
-                new Coordinate3D(1, 0, 2, 0),
-                new Coordinate3D(1, 1, 0, 0),
-                // Not (1, 1, 1)
-                new Coordinate3D(1, 1, 2, 0),
-                new Coordinate3D(1, 2, 0, 0),
-                new Coordinate3D(1, 2, 1, 0),
-                new Coordinate3D(1, 2, 2, 0),
-                new Coordinate3D(2, 0, 0, 0),
-                new Coordinate3D(2, 0, 1, 0),
-                new Coordinate3D(2, 0, 2, 0),
-                new Coordinate3D(2, 1, 0, 0),
-                new Coordinate3D(2, 1, 1, 0),
-                new Coordinate3D(2, 1, 2, 0),
-                new Coordinate3D(2, 2, 0, 0),
-                new Coordinate3D(2, 2, 1, 0),
-                new Coordinate3D(2, 2, 2, 0)
+            new Coordinate3D(0, 0, 0, 0),
+            new Coordinate3D(0, 0, 1, 0),
+            new Coordinate3D(0, 0, 2, 0),
+            new Coordinate3D(0, 1, 0, 0),
+            new Coordinate3D(0, 1, 1, 0),
+            new Coordinate3D(0, 1, 2, 0),
+            new Coordinate3D(0, 2, 0, 0),
+            new Coordinate3D(0, 2, 1, 0),
+            new Coordinate3D(0, 2, 2, 0),
+            new Coordinate3D(1, 0, 0, 0),
+            new Coordinate3D(1, 0, 1, 0),
+            new Coordinate3D(1, 0, 2, 0),
+            new Coordinate3D(1, 1, 0, 0),
+            // Not (1, 1, 1)
+            new Coordinate3D(1, 1, 2, 0),
+            new Coordinate3D(1, 2, 0, 0),
+            new Coordinate3D(1, 2, 1, 0),
+            new Coordinate3D(1, 2, 2, 0),
+            new Coordinate3D(2, 0, 0, 0),
+            new Coordinate3D(2, 0, 1, 0),
+            new Coordinate3D(2, 0, 2, 0),
+            new Coordinate3D(2, 1, 0, 0),
+            new Coordinate3D(2, 1, 1, 0),
+            new Coordinate3D(2, 1, 2, 0),
+            new Coordinate3D(2, 2, 0, 0),
+            new Coordinate3D(2, 2, 1, 0),
+            new Coordinate3D(2, 2, 2, 0)
         };
         actual = odd.getBoundaries();
         assertArraysEqual(actual, expected, true);
@@ -118,14 +118,14 @@ public class CuboidTest extends LegacyTest {
         Coordinate[] actual, expected;
 
         expected = new Coordinate[]{
-                new Coordinate3D(0, 0, 0, 0),
-                new Coordinate3D(0, 0, 1, 0),
-                new Coordinate3D(0, 1, 0, 0),
-                new Coordinate3D(0, 1, 1, 0),
-                new Coordinate3D(1, 0, 0, 0),
-                new Coordinate3D(1, 0, 1, 0),
-                new Coordinate3D(1, 1, 0, 0),
-                new Coordinate3D(1, 1, 1, 0)
+            new Coordinate3D(0, 0, 0, 0),
+            new Coordinate3D(0, 0, 1, 0),
+            new Coordinate3D(0, 1, 0, 0),
+            new Coordinate3D(0, 1, 1, 0),
+            new Coordinate3D(1, 0, 0, 0),
+            new Coordinate3D(1, 0, 1, 0),
+            new Coordinate3D(1, 1, 0, 0),
+            new Coordinate3D(1, 1, 1, 0)
         };
         actual = even.getCanonicalSites();
         assertArraysEqual(actual, expected, true);

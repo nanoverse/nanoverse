@@ -24,10 +24,10 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.control.arguments.*;
-import org.junit.*;
+import org.junit.Test;
 
 public class ThresholdDoInstSymbolTableTest extends ActionInstSymbolTableTest {
 

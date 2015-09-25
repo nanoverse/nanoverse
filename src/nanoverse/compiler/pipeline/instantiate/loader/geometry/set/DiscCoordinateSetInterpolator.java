@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.geometry.set;
 
 import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
 import nanoverse.compiler.pipeline.instantiate.loader.control.identifiers.CoordinateLoader;
-import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.identifiers.Coordinate;

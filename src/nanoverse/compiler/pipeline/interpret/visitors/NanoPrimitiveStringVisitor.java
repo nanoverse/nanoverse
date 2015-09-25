@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.interpret.visitors;
 
 import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser;
-import nanoverse.compiler.pipeline.interpret.nodes.*;
+import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -38,8 +38,8 @@ import java.util.stream.Stream;
  */
 public class NanoPrimitiveStringVisitor extends AbstractNanoNodeVisitor {
 
-    private final Logger logger = LoggerFactory.getLogger(NanoPrimitiveIntegerVisitor.class);
     public static final String IDENTIFIER = "ConstantString";
+    private final Logger logger = LoggerFactory.getLogger(NanoPrimitiveIntegerVisitor.class);
 
     @Override
     public ASTNode visitStringPrimitive(@NotNull NanosyntaxParser.StringPrimitiveContext ctx) {

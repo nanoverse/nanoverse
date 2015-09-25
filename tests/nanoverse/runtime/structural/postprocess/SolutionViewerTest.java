@@ -26,11 +26,12 @@ package nanoverse.runtime.structural.postprocess;
 
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
+import nanoverse.runtime.structural.utilities.EpsilonUtil;
 import no.uib.cipr.matrix.DenseVector;
 import org.junit.*;
-import nanoverse.runtime.structural.utilities.EpsilonUtil;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Created by dbborens on 12/16/13.
  */
@@ -48,8 +49,8 @@ public class SolutionViewerTest {
         other = new Coordinate2D(1, 2, Flags.VECTOR);
 
         Coordinate[] cc = new Coordinate[]{
-                origin.canonicalize(),
-                other.canonicalize()
+            origin.canonicalize(),
+            other.canonicalize()
         };
 
         geom.setCanonicalSites(cc);

@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.serialize.text;
 
-import nanoverse.runtime.io.serialize.text.LegacyCellStateWriter;
 import nanoverse.runtime.control.GeneralParameters;
+import nanoverse.runtime.io.serialize.text.LegacyCellStateWriter;
 import nanoverse.runtime.layers.LayerManager;
 
 

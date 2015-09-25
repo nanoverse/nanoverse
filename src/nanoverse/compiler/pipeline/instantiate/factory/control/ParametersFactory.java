@@ -23,9 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.control;
 
-import nanoverse.runtime.control.GeneralParameters;
-import java.util.Random;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.control.GeneralParameters;
+
+import java.util.Random;
 
 public class ParametersFactory implements Factory<GeneralParameters> {
 

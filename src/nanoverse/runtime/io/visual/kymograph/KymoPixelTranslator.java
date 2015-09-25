@@ -24,8 +24,7 @@
 
 package nanoverse.runtime.io.visual.kymograph;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.map.PixelTranslator;
 
@@ -72,7 +71,7 @@ public class KymoPixelTranslator extends PixelTranslator {
 
         if ((xMin != 0) || (xMax != 0)) {
             throw new IllegalArgumentException("Received a non-zero x " +
-                    "coordinate in kymograph. Kymograph requires a 1D system.");
+                "coordinate in kymograph. Kymograph requires a 1D system.");
         }
 
         int dy = edge * (yMax - yMin + 1);

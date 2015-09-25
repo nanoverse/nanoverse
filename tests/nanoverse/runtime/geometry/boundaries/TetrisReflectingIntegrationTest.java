@@ -25,14 +25,11 @@
 package nanoverse.runtime.geometry.boundaries;
 
 import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.geometry.lattice.Lattice;
-import nanoverse.runtime.geometry.lattice.RectangularLattice;
-import nanoverse.runtime.geometry.shape.Rectangle;
-import nanoverse.runtime.geometry.shape.Shape;
+import nanoverse.runtime.geometry.lattice.*;
+import nanoverse.runtime.geometry.shape.*;
+import nanoverse.runtime.processes.continuum.*;
 import no.uib.cipr.matrix.DenseMatrix;
 import org.junit.Test;
-import nanoverse.runtime.processes.continuum.DiffusionConstantHelper;
-import nanoverse.runtime.processes.continuum.DiffusionOperator;
 import test.TestBase;
 
 /**
@@ -50,19 +47,19 @@ public class TetrisReflectingIntegrationTest extends TestBase {
     @Test
     public void itMakesTheCorrectMatrix() throws Exception {
         DiffusionConstantHelper helper = new DiffusionConstantHelper(0.1,
-                2, 2);
+            2, 2);
         DiffusionOperator operator = new DiffusionOperator(helper, geometry);
 
         double[][] expectedValues =
-           {{-0.3,  0.1,   0.1,   0.1,   0,     0,     0,     0,     0  },
-            {0.1,   -0.3,  0.1,   0,     0.1,   0,     0,     0,     0  },
-            {0.1,   0.1,   -0.3,  0,     0,     0.1,   0,     0,     0  },
-            {0.1,   0,     0,     -0.4,  0.1,   0.1,   0.1,   0,     0  },
-            {0,     0.1,   0,     0.1,   -0.4,  0.1,   0,     0.1,   0  },
-            {0,     0,     0.1,   0.1,   0.1,   -0.4,  0,     0,     0.1},
-            {0,     0,     0,     0.1,   0,     0,     -0.4,  0.1,   0.1},
-            {0,     0,     0,     0,     0.1,   0,     0.1,   -0.4,  0.1},
-            {0,     0,     0,     0,     0,     0.1,   0.1,   0.1,  -0.4}};
+            {{-0.3, 0.1, 0.1, 0.1, 0, 0, 0, 0, 0},
+                {0.1, -0.3, 0.1, 0, 0.1, 0, 0, 0, 0},
+                {0.1, 0.1, -0.3, 0, 0, 0.1, 0, 0, 0},
+                {0.1, 0, 0, -0.4, 0.1, 0.1, 0.1, 0, 0},
+                {0, 0.1, 0, 0.1, -0.4, 0.1, 0, 0.1, 0},
+                {0, 0, 0.1, 0.1, 0.1, -0.4, 0, 0, 0.1},
+                {0, 0, 0, 0.1, 0, 0, -0.4, 0.1, 0.1},
+                {0, 0, 0, 0, 0.1, 0, 0.1, -0.4, 0.1},
+                {0, 0, 0, 0, 0, 0.1, 0.1, 0.1, -0.4}};
         DenseMatrix expected = new DenseMatrix(expectedValues);
 
         assertMatricesEqual(expected, operator, 1e-3);

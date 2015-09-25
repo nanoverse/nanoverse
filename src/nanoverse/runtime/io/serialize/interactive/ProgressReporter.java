@@ -60,13 +60,6 @@ public class ProgressReporter extends Serializer {
     }
 
     @Override
-    public void flush(StepState stepState) {
-        long cycleTime = System.currentTimeMillis() - cycleStart;
-        System.out.println("   Frame " + stepState.getFrame() + " (" + cycleTime + "ms).");
-        cycleStart = System.currentTimeMillis();
-    }
-
-    @Override
     public void dispatchHalt(HaltCondition ex) {
         System.out.println("Simulation ended. Cause: " + ex.getClass().getSimpleName());
         long instanceTime = (System.currentTimeMillis() - instanceStart) / 1000;
@@ -83,6 +76,13 @@ public class ProgressReporter extends Serializer {
         System.out.println("=================================================");
         System.out.println("Total running time: " + totalTime + " seconds.");
         System.out.println("=================================================");
+    }
+
+    @Override
+    public void flush(StepState stepState) {
+        long cycleTime = System.currentTimeMillis() - cycleStart;
+        System.out.println("   Frame " + stepState.getFrame() + " (" + cycleTime + "ms).");
+        cycleStart = System.currentTimeMillis();
     }
 
     @Override

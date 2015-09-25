@@ -30,6 +30,7 @@ import test.LegacyTest;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * The RangeSearchHelper performs a binary search between sequential
  * bins. This is used as part of the RangeMap object. The argument

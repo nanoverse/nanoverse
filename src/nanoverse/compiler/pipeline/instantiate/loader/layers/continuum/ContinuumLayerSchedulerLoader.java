@@ -52,9 +52,9 @@ public class ContinuumLayerSchedulerLoader extends Loader<ContinuumLayerSchedule
     }
 
     public ContinuumLayerScheduler instantiate(MapObjectNode node,
-                            ContinuumLayerContent content,
-                            Geometry geometry,
-                            GeneralParameters p) {
+                                               ContinuumLayerContent content,
+                                               Geometry geometry,
+                                               GeneralParameters p) {
 
         Boolean operators = interpolator.operators(node, p.getRandom());
         ScheduledOperations so = new ScheduledOperations(geometry, operators);

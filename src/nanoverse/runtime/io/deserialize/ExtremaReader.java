@@ -24,16 +24,11 @@
 
 package nanoverse.runtime.io.deserialize;
 
-import nanoverse.runtime.control.identifiers.Extrema;
-import nanoverse.runtime.control.identifiers.TemporalCoordinate;
+import nanoverse.runtime.control.identifiers.*;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 
 /**
  * Reads an extrema file, which is a format used
@@ -53,10 +48,6 @@ public class ExtremaReader {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public Extrema get(String key) {
-        return data.get(key);
     }
 
     private void extractMetadata(File metadataFile) throws IOException {
@@ -121,5 +112,9 @@ public class ExtremaReader {
         }
 
         return c;
+    }
+
+    public Extrema get(String key) {
+        return data.get(key);
     }
 }

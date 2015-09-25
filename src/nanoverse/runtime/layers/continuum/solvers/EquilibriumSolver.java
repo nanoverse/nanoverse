@@ -24,11 +24,10 @@
 
 package nanoverse.runtime.layers.continuum.solvers;
 
-import nanoverse.runtime.layers.continuum.ContinuumLayerContent;
-import nanoverse.runtime.layers.continuum.ScheduledOperations;
+import nanoverse.runtime.layers.continuum.*;
+import nanoverse.runtime.structural.annotations.FactoryTarget;
 import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 /**
  * Created by dbborens on 12/12/14.

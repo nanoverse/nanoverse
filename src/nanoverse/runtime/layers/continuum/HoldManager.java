@@ -25,7 +25,7 @@
 package nanoverse.runtime.layers.continuum;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.continuum.solvers.*;
+import nanoverse.runtime.layers.continuum.solvers.ContinuumSolver;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
@@ -63,18 +63,6 @@ public class HoldManager {
         solve();
     }
 
-    private void solveIfNotHeld() {
-        if (held)
-            return;
-
-        solve();
-    }
-
-    public void resolve(Runnable runnable) {
-        runnable.run();
-        solveIfNotHeld();
-    }
-
     public void solve() {
         if (held) {
             throw new IllegalStateException("Attempting to solve while hold is in place.");
@@ -82,6 +70,18 @@ public class HoldManager {
 
         manager.apply();
         solver.solve();
+    }
+
+    public void resolve(Runnable runnable) {
+        runnable.run();
+        solveIfNotHeld();
+    }
+
+    private void solveIfNotHeld() {
+        if (held)
+            return;
+
+        solve();
     }
 
     public void reset() {

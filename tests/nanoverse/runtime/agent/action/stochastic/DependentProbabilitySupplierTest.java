@@ -25,15 +25,13 @@
 package nanoverse.runtime.agent.action.stochastic;
 
 import nanoverse.runtime.cells.BehaviorCell;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import test.TestBase;
 
 import java.util.function.Function;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class DependentProbabilitySupplierTest extends TestBase {
 

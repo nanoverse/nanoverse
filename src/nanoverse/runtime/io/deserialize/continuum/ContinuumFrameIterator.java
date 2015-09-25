@@ -68,8 +68,8 @@ public class ContinuumFrameIterator implements Iterator<ContinuumFrame> {
             int reportedNumSites = stream.readInt();
             if (reportedNumSites != numSites) {
                 throw new IllegalStateException("Consistency error: " +
-                        "unexpected coordinate number of sites in continuum " +
-                        "state file");
+                    "unexpected coordinate number of sites in continuum " +
+                    "state file");
             }
             for (int i = 0; i < numSites; i++) {
                 values.add(stream.readDouble());

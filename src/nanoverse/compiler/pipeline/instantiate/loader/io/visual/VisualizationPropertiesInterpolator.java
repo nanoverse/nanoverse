@@ -48,7 +48,7 @@ public class VisualizationPropertiesInterpolator {
     }
 
     public VisualizationPropertiesInterpolator(LoadHelper load,
-        VisualizationPropertiesDefaults defaults) {
+                                               VisualizationPropertiesDefaults defaults) {
 
         this.load = load;
         this.defaults = defaults;

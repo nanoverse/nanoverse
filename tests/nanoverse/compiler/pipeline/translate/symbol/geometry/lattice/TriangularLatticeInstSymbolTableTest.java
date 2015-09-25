@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.translate.symbol.geometry.lattice;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
+import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.geometry.lattice.TriangularLattice;
 
 public class TriangularLatticeInstSymbolTableTest extends MapSymbolTableTest {

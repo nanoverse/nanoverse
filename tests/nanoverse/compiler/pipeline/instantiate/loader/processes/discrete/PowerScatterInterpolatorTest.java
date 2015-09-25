@@ -29,10 +29,10 @@ import nanoverse.compiler.pipeline.instantiate.loader.agent.AgentDescriptorLoade
 import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.cluster.ScatterClustersHelperLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.arguments.CellDescriptor;
-import org.junit.*;
 import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import org.junit.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class PowerScatterInterpolatorTest extends InterpolatorTest {

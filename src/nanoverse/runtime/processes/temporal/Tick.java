@@ -24,10 +24,9 @@
 
 package nanoverse.runtime.processes.temporal;
 
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.StepState;
+import nanoverse.runtime.processes.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 /**
@@ -47,12 +46,12 @@ public class Tick extends TimeProcess {
     }
 
     @Override
-    public void init() {
+    public void fire(StepState state) throws HaltCondition {
+        state.advanceClock(dt.next());
     }
 
     @Override
-    public void fire(StepState state) throws HaltCondition {
-        state.advanceClock(dt.next());
+    public void init() {
     }
 
 }

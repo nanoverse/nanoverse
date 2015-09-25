@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.translate.visitors;
 
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
-import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.compiler.pipeline.translate.nodes.ListObjectNode;
 import nanoverse.compiler.pipeline.translate.symbol.ListSymbolTable;
 import org.junit.*;
 import org.mockito.*;
@@ -33,7 +33,7 @@ import org.mockito.*;
 import java.util.List;
 import java.util.stream.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class ListContainerVisitorTest {

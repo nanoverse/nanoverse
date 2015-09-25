@@ -28,7 +28,7 @@ import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import org.junit.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class InterfaceCensusWriterInterpolatorTest extends InterpolatorTest {

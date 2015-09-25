@@ -26,7 +26,7 @@ package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.targets.*;
 import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -50,7 +50,7 @@ public class CloneToDescriptor extends ActionDescriptor<CloneTo> {
         constructor = cell -> {
             TargetRule targetRule = targetDescriptor.instantiate(cell);
             return new CloneTo(cell, layerManager, targetRule, noReplace,
-                    selfChannel, targetChannel, random);
+                selfChannel, targetChannel, random);
         };
     }
 

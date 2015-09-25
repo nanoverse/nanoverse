@@ -23,11 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action;
 
-import nanoverse.runtime.agent.action.ActionDescriptor;
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.agent.action.ThresholdDoDescriptor;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 
 public class ThresholdDoFactory implements Factory<ThresholdDoDescriptor> {
 

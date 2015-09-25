@@ -23,11 +23,12 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.serialize;
 
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.GeneralParameters;
-import java.util.List;
 import nanoverse.runtime.io.serialize.SerializationManager;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+
+import java.util.List;
 
 public class OutputManagerFactory implements Factory<SerializationManager> {
 

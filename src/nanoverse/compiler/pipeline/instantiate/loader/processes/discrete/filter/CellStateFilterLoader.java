@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter;
 
 import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filter.CellStateFilterFactory;
-import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;

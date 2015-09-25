@@ -33,6 +33,7 @@ import org.junit.*;
 import test.LegacyLatticeTest;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by David B Borenstein on 2/5/14.
  */

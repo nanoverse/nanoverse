@@ -33,6 +33,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Created by dbborens on 4/2/14.
  */

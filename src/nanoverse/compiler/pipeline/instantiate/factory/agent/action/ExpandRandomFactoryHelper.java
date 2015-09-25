@@ -23,10 +23,11 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action;
 
-import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.agent.action.ExpandRandomDescriptor;
-import java.util.Random;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
+
+import java.util.Random;
 
 
 public class ExpandRandomFactoryHelper {

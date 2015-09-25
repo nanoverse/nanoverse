@@ -45,6 +45,13 @@ public class GeometryDescriptor {
     }
 
     @Override
+    public int hashCode() {
+        int result = lattice.hashCode();
+        result = 31 * result + shape.hashCode();
+        return result;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -55,13 +62,6 @@ public class GeometryDescriptor {
         if (!shape.equals(that.shape)) return false;
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = lattice.hashCode();
-        result = 31 * result + shape.hashCode();
-        return result;
     }
 
     public Geometry make(Boundary boundary) {

@@ -38,9 +38,9 @@ public class GlyphClassSymbolTable extends ClassSymbolTable<Glyph> {
     @Override
     public String getDescription() {
         return "Glyphs represent visual overlays that are drawn over " +
-                "particular locations on a spatial visualization to " +
-                "highlight locations of interest. Locations are selected " +
-                "using highlight channels.";
+            "particular locations on a spatial visualization to " +
+            "highlight locations of interest. Locations are selected " +
+            "using highlight channels.";
     }
 
     @Override

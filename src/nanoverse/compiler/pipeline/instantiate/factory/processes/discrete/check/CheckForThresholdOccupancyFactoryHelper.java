@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.check;
 
-import nanoverse.runtime.processes.discrete.check.CheckForThresholdOccupancy;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.processes.discrete.check.CheckForThresholdOccupancy;
 
 
 public class CheckForThresholdOccupancyFactoryHelper {

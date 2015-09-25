@@ -25,17 +25,14 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.targets.TargetRule;
-import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.cells.Cell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.cells.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayerViewer;
-import nanoverse.runtime.layers.cell.CellUpdateManager;
+import nanoverse.runtime.layers.cell.*;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Places a copy or copies of the current cell at the target site(s).
@@ -91,8 +88,8 @@ public class CloneTo extends Action {
                 u.place(child, target);
             } else if (noReplace) {
                 throw new IllegalStateException("In CloneTo: Attempted to " +
-                        "place child at occupied position (leading to " +
-                        "replacement), but <no-replacment /> flag is set.");
+                    "place child at occupied position (leading to " +
+                    "replacement), but <no-replacment /> flag is set.");
             } else {
                 u.banish(target);
                 u.place(child, target);
@@ -123,17 +120,17 @@ public class CloneTo extends Action {
     }
 
     @Override
+    public Action clone(BehaviorCell child) {
+        TargetRule clonedTargeter = targetRule.clone(child);
+        return new CloneTo(child, getLayerManager(), clonedTargeter, noReplace,
+            selfChannel, targetChannel, random);
+    }
+
+    @Override
     public int hashCode() {
         int result = targetRule != null ? targetRule.hashCode() : 0;
         result = 31 * result + (selfChannel != null ? selfChannel.hashCode() : 0);
         result = 31 * result + (targetChannel != null ? targetChannel.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public Action clone(BehaviorCell child) {
-        TargetRule clonedTargeter = targetRule.clone(child);
-        return new CloneTo(child, getLayerManager(), clonedTargeter, noReplace,
-                selfChannel, targetChannel, random);
     }
 }

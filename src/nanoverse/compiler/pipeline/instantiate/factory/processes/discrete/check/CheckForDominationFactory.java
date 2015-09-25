@@ -23,12 +23,11 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.check;
 
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
-import nanoverse.runtime.control.arguments.IntegerArgument;
-import nanoverse.runtime.control.arguments.DoubleArgument;
-import nanoverse.runtime.processes.discrete.check.CheckForDomination;
-import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.processes.discrete.check.CheckForDomination;
 
 public class CheckForDominationFactory implements Factory<CheckForDomination> {
 

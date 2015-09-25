@@ -49,6 +49,8 @@ public abstract class Glyph {
         internalInit();
     }
 
+    protected abstract void internalInit();
+
     /**
      * Set the Graphics object to which the glyphs should be written.
      */
@@ -66,8 +68,6 @@ public abstract class Glyph {
 
     @Override
     public abstract boolean equals(Object obj);
-
-    protected abstract void internalInit();
 
     protected int calcProportionalSize(double size) {
         // The length of a diagonal of the cell polygon.

@@ -24,7 +24,7 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.io.visual.highlight;
 
-import nanoverse.compiler.pipeline.instantiate.factory.io.visual.highlight.*;
+import nanoverse.compiler.pipeline.instantiate.factory.io.visual.highlight.CrosshairsGlyphFactory;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.highlight.*;
@@ -45,7 +45,7 @@ public class CrosshairsGlyphLoader extends GlyphLoader<CrosshairsGlyph> {
     }
 
     public CrosshairsGlyphLoader(CrosshairsGlyphFactory factory,
-                               CrosshairsGlyphInterpolator interpolator) {
+                                 CrosshairsGlyphInterpolator interpolator) {
         this.factory = factory;
         this.interpolator = interpolator;
     }

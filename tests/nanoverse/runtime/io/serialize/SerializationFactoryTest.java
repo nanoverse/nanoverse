@@ -28,15 +28,16 @@ import nanoverse.runtime.factory.io.serialize.SerializationFactory;
 import nanoverse.runtime.io.serialize.binary.*;
 import nanoverse.runtime.io.serialize.interactive.ProgressReporter;
 import nanoverse.runtime.io.serialize.text.*;
+import nanoverse.runtime.structural.MockGeneralParameters;
 import org.dom4j.Element;
 import org.dom4j.tree.BaseElement;
 import org.junit.*;
-import nanoverse.runtime.structural.MockGeneralParameters;
 import test.LegacyLatticeTest;
 
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Created by dbborens on 1/17/14.
  */

@@ -25,10 +25,10 @@
 package nanoverse.compiler.pipeline.translate.symbol.control.arguments;
 
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
 import nanoverse.compiler.pipeline.translate.symbol.geometry.GeometryDescriptorClassSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.control.arguments.GeometryDescriptor;
-import org.junit.*;
+import org.junit.Test;
 
 public class GeometryDescriptorClassSymbolTableTest extends ClassSymbolTableTest {
 

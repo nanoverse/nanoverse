@@ -25,8 +25,8 @@ package nanoverse.compiler.pipeline.instantiate.factory.io.serialize.text;
 
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.IntegerArgument;
-import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.io.serialize.text.InterfaceCensusWriter;
+import nanoverse.runtime.layers.LayerManager;
 
 
 public class InterfaceCensusWriterFactoryHelper {

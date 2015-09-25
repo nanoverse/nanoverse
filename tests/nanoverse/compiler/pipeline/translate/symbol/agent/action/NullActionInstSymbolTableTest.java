@@ -24,8 +24,8 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.runtime.agent.action.NullActionDescriptor;
 
 public class NullActionInstSymbolTableTest extends ActionInstSymbolTableTest {
 

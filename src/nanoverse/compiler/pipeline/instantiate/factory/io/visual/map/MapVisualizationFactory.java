@@ -23,9 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.map;
 
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.map.MapVisualization;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 
 public class MapVisualizationFactory implements Factory<MapVisualization> {
 

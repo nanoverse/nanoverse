@@ -42,6 +42,6 @@ public class StrictSeparationClusterHelperInstSymbolTable extends MapSymbolTable
     @Override
     public String getDescription() {
         return "Clusters of agents that never intersect, but which may take " +
-                "any shape.";
+            "any shape.";
     }
 }

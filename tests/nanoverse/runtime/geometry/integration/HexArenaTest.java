@@ -35,6 +35,7 @@ import test.LegacyTest;
 import java.util.HashSet;
 
 import static org.junit.Assert.*;
+
 /**
  * Regression/integration tests from earliest version of nanoverse.runtime.geometry
  * model. These tests use an arena nanoverse.runtime.geometry. Originally ported

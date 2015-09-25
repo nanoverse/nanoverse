@@ -31,13 +31,14 @@ import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.Test;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.check.CheckForExtinction;
 import nanoverse.runtime.structural.MockGeneralParameters;
+import org.junit.Test;
 import test.LegacyTest;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by dbborens on 3/5/14.
  */

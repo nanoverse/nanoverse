@@ -31,5 +31,5 @@ import nanoverse.runtime.processes.continuum.ContinuumProcess;
  * Created by dbborens on 7/21/2015.
  */
 public abstract class ContinuumProcessInstSymbolTable<T extends ContinuumProcess>
-        extends ProcessInstSymbolTable<T> {
+    extends ProcessInstSymbolTable<T> {
 }

@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.layers.continuum;
 
-import nanoverse.runtime.layers.continuum.ScheduledOperations;
 import nanoverse.runtime.geometry.Geometry;
+import nanoverse.runtime.layers.continuum.ScheduledOperations;
 
 
 public class ScheduledOperationsFactoryHelper {

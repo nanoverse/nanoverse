@@ -37,7 +37,7 @@ public class OutputClassSymbolTable extends ClassSymbolTable<Serializer> {
     @Override
     public String getDescription() {
         return "Output services for Nanoverse, including console output, " +
-                "statistical reports and visualizations.";
+            "statistical reports and visualizations.";
     }
 
     @Override

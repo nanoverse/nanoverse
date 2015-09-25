@@ -36,8 +36,8 @@ public class HaltTimeWriterInstSymbolTable extends MapSymbolTable<HaltTimeWriter
     @Override
     public String getDescription() {
         return "HaltTimeWriter creates a single, tab-delimited text file, " +
-                "with each row containing the (simulation) time and cause of " +
-                "simulation halt for each instance run.";
+            "with each row containing the (simulation) time and cause of " +
+            "simulation halt for each instance run.";
     }
 
     @Override

@@ -60,15 +60,15 @@ public class RandomSeedWriter extends Serializer {
         hClose(bw);
     }
 
-    @Override
-    public void flush(StepState stepState) {
-    }
-
     public void dispatchHalt(HaltCondition ex) {
         closed = true;
     }
 
     public void close() {
         // Doesn't do anything.
+    }
+
+    @Override
+    public void flush(StepState stepState) {
     }
 }

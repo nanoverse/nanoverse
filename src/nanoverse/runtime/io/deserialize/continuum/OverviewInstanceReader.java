@@ -33,7 +33,7 @@ import java.util.stream.Stream;
  */
 public abstract class OverviewInstanceReader {
 
-    public static Stream<String> getIdStream(File file)  {
+    public static Stream<String> getIdStream(File file) {
         Stream<String> ret;
 
         try {

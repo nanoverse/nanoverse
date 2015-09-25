@@ -26,8 +26,7 @@ package nanoverse.runtime.factory.geometry.set;
 
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.geometry.set.CompleteSet;
-import nanoverse.runtime.geometry.set.CoordinateSet;
+import nanoverse.runtime.geometry.set.*;
 import org.dom4j.Element;
 
 import java.util.List;

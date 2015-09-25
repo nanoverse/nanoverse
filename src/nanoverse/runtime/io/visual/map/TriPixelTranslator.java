@@ -24,8 +24,7 @@
 
 package nanoverse.runtime.io.visual.map;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 
 import java.awt.*;
@@ -38,11 +37,6 @@ public class TriPixelTranslator extends PixelTranslator {
     private int yOffset;
     private int dy;
     private int dx;
-
-    @Override
-    public boolean isRetained(Coordinate c) {
-        return true;
-    }
 
     @Override
     public void init(VisualizationProperties properties) {
@@ -58,34 +52,6 @@ public class TriPixelTranslator extends PixelTranslator {
         }
 
         super.init(properties);
-    }
-
-    @Override
-    public double getDiagonal() {
-        return 2.0 * edge;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return (obj instanceof TriPixelTranslator);
-    }
-
-    protected Coordinate indexToPixels(Coordinate c) {
-        int x = c.x();
-        int y = c.y();
-
-        Coordinate center = indexToOffset(x, y);
-
-        int px = origin.x() + center.x();
-        int py = imageDims.y() - origin.y() - center.y();
-
-        Coordinate ret = new Coordinate2D(px, py, 0);
-        return ret;
-    }
-
-    @Override
-    public Coordinate resolve(Coordinate c, int frame, double time) {
-        return indexToPixels(c);
     }
 
     @Override
@@ -138,11 +104,14 @@ public class TriPixelTranslator extends PixelTranslator {
         origin = new Coordinate2D(x, y, 0);
     }
 
-    private Coordinate2D indexToOffset(int x, int y) {
-        int ox = dx * x;
-        int oy = -(dy * x / 2) + (dy * y);
-        Coordinate2D ret = new Coordinate2D(ox, oy, 0);
-        return (ret);
+    @Override
+    public Coordinate resolve(Coordinate c, int frame, double time) {
+        return indexToPixels(c);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof TriPixelTranslator);
     }
 
     public Polygon makePolygon(Coordinate coord, int frame, double time) {
@@ -156,6 +125,36 @@ public class TriPixelTranslator extends PixelTranslator {
         p.addPoint(centerPx.x() + (edge / 2), centerPx.y() + (dy / 2));
 
         return p;
+    }
+
+    @Override
+    public double getDiagonal() {
+        return 2.0 * edge;
+    }
+
+    @Override
+    public boolean isRetained(Coordinate c) {
+        return true;
+    }
+
+    protected Coordinate indexToPixels(Coordinate c) {
+        int x = c.x();
+        int y = c.y();
+
+        Coordinate center = indexToOffset(x, y);
+
+        int px = origin.x() + center.x();
+        int py = imageDims.y() - origin.y() - center.y();
+
+        Coordinate ret = new Coordinate2D(px, py, 0);
+        return ret;
+    }
+
+    private Coordinate2D indexToOffset(int x, int y) {
+        int ox = dx * x;
+        int oy = -(dy * x / 2) + (dy * y);
+        Coordinate2D ret = new Coordinate2D(ox, oy, 0);
+        return (ret);
     }
 
 }

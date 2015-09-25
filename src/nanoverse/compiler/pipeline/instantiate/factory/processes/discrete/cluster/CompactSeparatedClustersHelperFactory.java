@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.cluster;
 
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.cell.CellLayer;
 import nanoverse.runtime.processes.discrete.cluster.CompactSeparatedClustersHelper;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 
 public class CompactSeparatedClustersHelperFactory implements Factory<CompactSeparatedClustersHelper> {
 

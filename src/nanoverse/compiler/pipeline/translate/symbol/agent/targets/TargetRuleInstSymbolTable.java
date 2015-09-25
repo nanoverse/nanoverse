@@ -36,7 +36,8 @@ import java.util.HashMap;
  * Created by dbborens on 7/23/2015.
  */
 public abstract class TargetRuleInstSymbolTable<T extends TargetDescriptor> extends MapSymbolTable<T> {
-    private final TypeToken<T> targetRuleClass = new TypeToken<T>(getClass()) {};
+    private final TypeToken<T> targetRuleClass = new TypeToken<T>(getClass()) {
+    };
 
     public Class getTargetRuleClass() {
         return targetRuleClass.getRawType();
@@ -59,7 +60,7 @@ public abstract class TargetRuleInstSymbolTable<T extends TargetDescriptor> exte
     private void maximum(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Maximum number of targets " +
-                "to select. If maximum is set to -1, no maximum will be used.");
+            "to select. If maximum is set to -1, no maximum will be used.");
         ret.put("maximum", ms);
 
     }

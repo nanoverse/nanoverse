@@ -26,12 +26,10 @@ package nanoverse.runtime.factory.agent.targets;
 
 import nanoverse.runtime.agent.targets.*;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.agent.targets.TargetDescriptor;
 import nanoverse.runtime.factory.processes.discrete.filter.FilterFactory;
 import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.processes.discrete.filter.*;
 import org.dom4j.Element;
-import nanoverse.runtime.processes.discrete.filter.Filter;
-import nanoverse.runtime.processes.discrete.filter.NullFilter;
 
 /**
  * Created by dbborens on 2/10/14.

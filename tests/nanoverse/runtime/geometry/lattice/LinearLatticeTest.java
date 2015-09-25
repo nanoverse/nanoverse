@@ -90,8 +90,8 @@ public class LinearLatticeTest extends LegacyTest {
         // r=1
         actual = lattice.getAnnulus(origin, 1);
         expected = new Coordinate[]{
-                new Coordinate1D(1, 0),
-                new Coordinate1D(-1, 0)
+            new Coordinate1D(1, 0),
+            new Coordinate1D(-1, 0)
         };
 
         assertArraysEqual(actual, expected, true);
@@ -99,8 +99,8 @@ public class LinearLatticeTest extends LegacyTest {
         // r=2
         actual = lattice.getAnnulus(origin, 2);
         expected = new Coordinate[]{
-                new Coordinate1D(2, 0),
-                new Coordinate1D(-2, 0),
+            new Coordinate1D(2, 0),
+            new Coordinate1D(-2, 0),
         };
 
         assertArraysEqual(actual, expected, true);
@@ -115,8 +115,8 @@ public class LinearLatticeTest extends LegacyTest {
         // Should be same as r=1 annulus
         actual = lattice.getNeighbors(origin);
         expected = new Coordinate[]{
-                new Coordinate1D(1, 0),
-                new Coordinate1D(-1, 0)
+            new Coordinate1D(1, 0),
+            new Coordinate1D(-1, 0)
         };
 
         assertArraysEqual(expected, actual, true);

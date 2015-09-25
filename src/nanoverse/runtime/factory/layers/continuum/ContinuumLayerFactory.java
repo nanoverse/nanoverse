@@ -28,9 +28,7 @@ import nanoverse.runtime.control.arguments.GeometryDescriptor;
 import nanoverse.runtime.factory.geometry.boundaries.BoundaryFactory;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.boundaries.Boundary;
-import nanoverse.runtime.layers.continuum.ContinuumLayer;
-import nanoverse.runtime.layers.continuum.ContinuumLayerContent;
-import nanoverse.runtime.layers.continuum.ContinuumLayerScheduler;
+import nanoverse.runtime.layers.continuum.*;
 import org.dom4j.Element;
 
 /**

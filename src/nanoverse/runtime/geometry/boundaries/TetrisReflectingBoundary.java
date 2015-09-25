@@ -25,17 +25,15 @@
 package nanoverse.runtime.geometry.boundaries;
 
 import nanoverse.runtime.control.identifiers.*;
-import nanoverse.runtime.geometry.lattice.Lattice;
-import nanoverse.runtime.geometry.lattice.RectangularLattice;
-import nanoverse.runtime.geometry.shape.Rectangle;
-import nanoverse.runtime.geometry.shape.Shape;
+import nanoverse.runtime.geometry.lattice.*;
+import nanoverse.runtime.geometry.shape.*;
 
 /**
  * Boundary condition that is periodic in X, reflecting on
  * the lower Y boundary, and absorbing on the upper Y boundary.
  * (Dirichlet conditions can be set on the upper Y boundary
  * using the DirichletEnforcerProcess.
- *
+ * <p>
  * This is a special case, so it only works for rectangular
  * arenas with a rectangular coordinate system.
  *
@@ -58,17 +56,17 @@ public class TetrisReflectingBoundary extends Boundary {
     protected void verify(Shape shape, Lattice lattice) {
         if (!(shape instanceof Rectangle)) {
             throw new IllegalArgumentException("TetrisReflectingBoundary is" +
-                    " only defined on rectangular arenas.");
+                " only defined on rectangular arenas.");
         }
 
         if (!(lattice instanceof RectangularLattice)) {
             throw new IllegalArgumentException("TetrisReflectingBoundary is" +
-                    " only defined on rectangular lattices");
+                " only defined on rectangular lattices");
         }
 
         if (lattice.getDimensionality() != 2) {
             throw new IllegalArgumentException("TetrisReflectingBoundary is" +
-                    " only defined in two dimensions");
+                " only defined in two dimensions");
         }
     }
 

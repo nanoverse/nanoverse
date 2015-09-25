@@ -25,12 +25,9 @@
 package nanoverse.runtime.layers.continuum;
 
 
-import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.Matrix;
-import no.uib.cipr.matrix.Vector;
+import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import test.LinearMocks;
 
 import java.util.function.Consumer;

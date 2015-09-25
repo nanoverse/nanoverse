@@ -31,10 +31,7 @@ import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class IntervalWriter extends Serializer {
 
@@ -67,14 +64,6 @@ public class IntervalWriter extends Serializer {
     }
 
     @Override
-    public void flush(StepState stepState) {
-        Long interval = System.currentTimeMillis() - prevTime;
-        interval(stepState.getFrame(), stepState.getTime(), interval);
-
-        prevTime = System.currentTimeMillis();
-    }
-
-    @Override
     public void dispatchHalt(HaltCondition ex) {
         // TODO Auto-generated method stub
 
@@ -87,6 +76,14 @@ public class IntervalWriter extends Serializer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void flush(StepState stepState) {
+        Long interval = System.currentTimeMillis() - prevTime;
+        interval(stepState.getFrame(), stepState.getTime(), interval);
+
+        prevTime = System.currentTimeMillis();
     }
 
     /**

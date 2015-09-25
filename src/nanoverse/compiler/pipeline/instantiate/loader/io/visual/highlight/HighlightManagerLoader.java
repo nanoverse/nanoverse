@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.io.visual.highlight;
 
 import nanoverse.compiler.pipeline.instantiate.factory.io.visual.highlight.*;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
-import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.compiler.pipeline.translate.nodes.ListObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.highlight.*;
 
@@ -51,6 +51,10 @@ public class HighlightManagerLoader extends Loader<HighlightManager> {
         this.cLoader = cLoader;
     }
 
+    public HighlightManager instantiate(GeneralParameters p) {
+        return instantiate(null, p);
+    }
+
     public HighlightManager instantiate(ListObjectNode cNode,
                                         GeneralParameters p) {
 
@@ -58,10 +62,6 @@ public class HighlightManagerLoader extends Loader<HighlightManager> {
         factory.setGlyphMap(glyphMap);
 
         return factory.build();
-    }
-
-    public HighlightManager instantiate(GeneralParameters p) {
-        return instantiate(null, p);
     }
 
     private Map<Integer, Glyph> resolveGlyphMap(ListObjectNode cNode, GeneralParameters p) {

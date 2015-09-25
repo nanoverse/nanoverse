@@ -30,9 +30,7 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.structural.CanonicalCellMap;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author David Bruce Borenstein
@@ -77,29 +75,15 @@ public abstract class CellLayerContent {
         return indices.getDivisibleSites();
     }
 
+    public boolean has(Coordinate coord) {
+        return (get(coord) != null);
+    }
+
     public Cell get(Coordinate coord) {
 
         // Get pointer to cell and return it
         Cell res = map.get(coord);
 
-        return res;
-    }
-
-    public boolean has(Coordinate coord) {
-        return (get(coord) != null);
-    }
-
-    /**
-     * Returns a vector containing the canonical coordinate of each
-     * site on the lattice.
-     *
-     * @return
-     */
-    public Coordinate[] getCanonicalSites() {
-        // Construct a copy of internal state
-        Coordinate[] res = geom.getCanonicalSites();
-
-        // Return it
         return res;
     }
 
@@ -130,6 +114,20 @@ public abstract class CellLayerContent {
         }
 
         return sArr;
+    }
+
+    /**
+     * Returns a vector containing the canonical coordinate of each
+     * site on the lattice.
+     *
+     * @return
+     */
+    public Coordinate[] getCanonicalSites() {
+        // Construct a copy of internal state
+        Coordinate[] res = geom.getCanonicalSites();
+
+        // Return it
+        return res;
     }
 
     /**
@@ -179,6 +177,15 @@ public abstract class CellLayerContent {
     }
 
     @Override
+    public int hashCode() {
+        int result = map != null ? map.hashCode() : 0;
+        result = 31 * result + (canonicalSites != null ? canonicalSites.hashCode() : 0);
+        result = 31 * result + (geom != null ? geom.hashCode() : 0);
+        result = 31 * result + (indices != null ? indices.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -195,15 +202,6 @@ public abstract class CellLayerContent {
             return false;
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = map != null ? map.hashCode() : 0;
-        result = 31 * result + (canonicalSites != null ? canonicalSites.hashCode() : 0);
-        result = 31 * result + (geom != null ? geom.hashCode() : 0);
-        result = 31 * result + (indices != null ? indices.hashCode() : 0);
-        return result;
     }
 
     @Override

@@ -33,7 +33,8 @@ public class ConstantProbabilitySupplierInterpolatorTest extends InterpolatorTes
 
     private ConstantProbabilitySupplierInterpolator query;
 
-    @Before @Override
+    @Before
+    @Override
     public void before() throws Exception {
         super.before();
         query = new ConstantProbabilitySupplierInterpolator(load);

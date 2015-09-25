@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.serialize.interactive;
 
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.serialize.interactive.ProgressReporter;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 
 public class ProgressReporterFactory implements Factory<ProgressReporter> {
 

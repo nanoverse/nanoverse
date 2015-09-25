@@ -24,9 +24,10 @@
 package nanoverse.compiler.pipeline.instantiate.factory.agent.targets;
 
 import nanoverse.runtime.agent.targets.TargetCallerDescriptor;
-import nanoverse.runtime.processes.discrete.filter.Filter;
-import java.util.Random;
 import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.processes.discrete.filter.Filter;
+
+import java.util.Random;
 
 
 public class TargetCallerFactoryHelper implements TargetFactoryHelper<TargetCallerDescriptor> {

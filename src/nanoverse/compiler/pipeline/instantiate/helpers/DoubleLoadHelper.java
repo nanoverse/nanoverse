@@ -46,7 +46,7 @@ public class DoubleLoadHelper {
     }
 
     public Double load(MapObjectNode node, String id, Random random,
-                        Supplier<Double> defaultSupplier) {
+                       Supplier<Double> defaultSupplier) {
 
         boolean required = (defaultSupplier == null);
 
@@ -60,7 +60,7 @@ public class DoubleLoadHelper {
 
         ObjectNode cNode = node.getMember(id);
         DoubleArgumentLoader loader = (DoubleArgumentLoader)
-                retriever.getLoader(node, id, required);
+            retriever.getLoader(node, id, required);
 
         return loader.instantiateToFirst(cNode, random);
     }
@@ -82,7 +82,7 @@ public class DoubleLoadHelper {
 
         ObjectNode cNode = node.getMember(id);
         DoubleArgumentLoader loader = (DoubleArgumentLoader)
-                retriever.getLoader(node, id, required);
+            retriever.getLoader(node, id, required);
 
         return loader.instantiate(cNode, random);
     }

@@ -43,15 +43,15 @@ public class EquilibriumSolverLoader extends ContinuumSolverLoader<EquilibriumSo
         this.factory = factory;
     }
 
+    public ContinuumSolver instantiate(ContinuumLayerContent content, ScheduledOperations so) {
+        return instantiate(null, content, so);
+    }
+
     @Override
     public ContinuumSolver instantiate(MapObjectNode node, ContinuumLayerContent content, ScheduledOperations so) {
         factory.setContent(content);
         factory.setSo(so);
         return factory.build();
-    }
-
-    public ContinuumSolver instantiate(ContinuumLayerContent content, ScheduledOperations so) {
-        return instantiate(null, content, so);
     }
 
 }

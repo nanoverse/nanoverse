@@ -63,13 +63,19 @@ public class LayerManagerLoader extends Loader<LayerManager> {
                                     GeneralParameters p) {
 
         childNode.getMemberStream()
-                .map(o -> (MapObjectNode) o)
-                .map(node -> loadLayer(node, geom, p))
-                .forEach(this::assignLayer);
+            .map(o -> (MapObjectNode) o)
+            .map(node -> loadLayer(node, geom, p))
+            .forEach(this::assignLayer);
 
         factory.setContinuumLayers(continuumLayers);
 
         return factory.build();
+    }
+
+    private Layer loadLayer(MapObjectNode child, GeometryDescriptor geom, GeneralParameters p) {
+        LayerLoader loader = (LayerLoader) child.getSymbolTable().getLoader();
+        Layer layer = loader.instantiate(child, geom, p);
+        return layer;
     }
 
     public LayerManager instantiate(GeometryDescriptor geom, GeneralParameters p) {
@@ -101,16 +107,10 @@ public class LayerManagerLoader extends Loader<LayerManager> {
 
     private void assignCellLayer(CellLayer layer) {
         if (numCellLayers > 0) {
-            throw new UnsupportedOperationException("Multiple cell nanoverse.runtime.layers not implemented.") ;
+            throw new UnsupportedOperationException("Multiple cell nanoverse.runtime.layers not implemented.");
         }
 
         factory.setCellLayer(layer);
         numCellLayers++;
-    }
-
-    private Layer loadLayer(MapObjectNode child, GeometryDescriptor geom, GeneralParameters p) {
-        LayerLoader loader = (LayerLoader) child.getSymbolTable().getLoader();
-        Layer layer = loader.instantiate(child, geom, p);
-        return layer;
     }
 }

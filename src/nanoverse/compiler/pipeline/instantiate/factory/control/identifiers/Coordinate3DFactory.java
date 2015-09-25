@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.control.identifiers;
 
-import nanoverse.runtime.control.identifiers.Coordinate3D;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.control.identifiers.Coordinate3D;
 
 public class Coordinate3DFactory implements Factory<Coordinate3D> {
 

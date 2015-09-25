@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.io.serialize;
 
-import org.junit.*;
 import nanoverse.runtime.processes.MockStepState;
+import org.junit.*;
 import test.LegacyTest;
 
 import java.util.*;

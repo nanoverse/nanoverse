@@ -28,10 +28,9 @@ import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.CellDescriptor;
 import nanoverse.runtime.factory.processes.ProcessFactory;
 import nanoverse.runtime.layers.LayerManager;
-import org.dom4j.Element;
 import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
-import nanoverse.runtime.processes.discrete.Scatter;
+import nanoverse.runtime.processes.discrete.*;
+import org.dom4j.Element;
 
 /**
  * Created by dbborens on 11/23/14.

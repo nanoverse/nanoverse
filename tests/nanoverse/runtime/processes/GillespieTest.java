@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.processes;
 
-import org.junit.Test;
 import nanoverse.runtime.processes.gillespie.*;
+import org.junit.Test;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;

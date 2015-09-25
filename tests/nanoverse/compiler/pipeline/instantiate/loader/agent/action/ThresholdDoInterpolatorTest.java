@@ -24,15 +24,15 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action;
 
-import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
+import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import org.junit.*;
 
 import java.util.function.Supplier;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class ThresholdDoInterpolatorTest extends InterpolatorTest {

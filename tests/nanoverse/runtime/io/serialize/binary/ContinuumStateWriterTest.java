@@ -25,8 +25,8 @@
 package nanoverse.runtime.io.serialize.binary;
 
 import nanoverse.runtime.io.serialize.binary.csw.*;
-import org.junit.*;
 import nanoverse.runtime.processes.StepState;
+import org.junit.*;
 
 import static org.mockito.Mockito.*;
 
@@ -36,6 +36,7 @@ public class ContinuumStateWriterTest {
     private CSWFileHelper fileHelper;
     private StepState stepState;
     private ContinuumStateWriter query;
+
     @Before
     public void before() throws Exception {
         extremaHelper = mock(CSWExtremaHelper.class);

@@ -41,10 +41,10 @@ public class HighlightWriterInstSymbolTable extends MapSymbolTable<HighlightWrit
     @Override
     public String getDescription() {
         return "Highlights can be used to flag particular coordinates for " +
-                "special accents in visualizations. HighlightWriter produces " +
-                "files containing yes-or-no values for each location at each " +
-                "recorded time in a simulation. The writer produces one file " +
-                "per specified channel per instance.";
+            "special accents in visualizations. HighlightWriter produces " +
+            "files containing yes-or-no values for each location at each " +
+            "recorded time in a simulation. The writer produces one file " +
+            "per specified channel per instance.";
     }
 
     @Override
@@ -58,7 +58,7 @@ public class HighlightWriterInstSymbolTable extends MapSymbolTable<HighlightWrit
         ClassSymbolTable cst = new IntegerClassSymbolTable();
         ListSymbolTable<IntegerArgument> lst = new ListSymbolTable<>(cst, IntegerStreamLoader::new);
         MemberSymbol ms = new MemberSymbol(lst, "List of channels whose " +
-                "state is to be monitored and recorded.");
+            "state is to be monitored and recorded.");
         ret.put("channels", ms);
     }
 

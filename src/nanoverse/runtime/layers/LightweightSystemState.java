@@ -24,8 +24,7 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.cells.Cell;
+import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -102,7 +101,7 @@ public class LightweightSystemState extends SystemState {
         return highlightedSites.contains(coord);
     }
 
-//    public void initCellLayer(int[] stateVector, double[] healthVector) {
+    //    public void initCellLayer(int[] stateVector, double[] healthVector) {
     public void initCellLayer(int[] stateVector) {
         if (stateVector.length != geometry.getCanonicalSites().length) {
             throw new IllegalStateException("Actual number of data points not equal to expected number");
@@ -134,7 +133,7 @@ public class LightweightSystemState extends SystemState {
 
     }
 
-//    private void loadCell(CellLayer cellLayer, Coordinate coord, double health, int state) {
+    //    private void loadCell(CellLayer cellLayer, Coordinate coord, double health, int state) {
     private void loadCell(CellLayer cellLayer, Coordinate coord, int state) {
         try {
             // Build a dummy cell with the correct state and health.

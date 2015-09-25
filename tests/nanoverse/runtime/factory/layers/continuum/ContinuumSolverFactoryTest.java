@@ -24,17 +24,14 @@
 
 package nanoverse.runtime.factory.layers.continuum;
 
-import nanoverse.runtime.layers.continuum.ContinuumLayerContent;
-import nanoverse.runtime.layers.continuum.ScheduledOperations;
-import nanoverse.runtime.layers.continuum.solvers.ContinuumSolver;
-import nanoverse.runtime.layers.continuum.solvers.EquilibriumSolver;
-import nanoverse.runtime.layers.continuum.solvers.NonEquilibriumSolver;
+import nanoverse.runtime.layers.continuum.*;
+import nanoverse.runtime.layers.continuum.solvers.*;
 import org.dom4j.Element;
 import org.dom4j.tree.BaseElement;
 import org.junit.*;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 public class ContinuumSolverFactoryTest {
 
@@ -54,16 +51,17 @@ public class ContinuumSolverFactoryTest {
         assertEquals(EquilibriumSolver.class, result.getClass());
     }
 
+    @Test
+    public void equilibriumCase() throws Exception {
+        doTest("equilibrium", EquilibriumSolver.class, true);
+    }
+
     private void doTest(String text, Class expected, boolean operators) {
         Element e = new BaseElement("solver");
         e.setText(text);
         ContinuumSolver result = ContinuumSolverFactory.instantiate(e, content, so, operators);
         assertEquals(expected, result.getClass());
 
-    }
-    @Test
-    public void equilibriumCase() throws Exception {
-        doTest("equilibrium", EquilibriumSolver.class, true);
     }
 
     @Test

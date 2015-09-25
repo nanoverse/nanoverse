@@ -47,7 +47,7 @@ public class ScatterClustersLoader extends ProcessLoader<ScatterClusters> {
     }
 
     public ScatterClustersLoader(ScatterClustersFactory factory,
-                              ScatterClustersInterpolator interpolator) {
+                                 ScatterClustersInterpolator interpolator) {
         this.factory = factory;
         this.interpolator = interpolator;
     }

@@ -24,9 +24,9 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.targets;
 
-import nanoverse.runtime.agent.targets.*;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.targets.TargetCallerLoader;
+import nanoverse.runtime.agent.targets.TargetCallerDescriptor;
 
 /**
  * Created by dbborens on 7/23/2015.
@@ -35,8 +35,8 @@ public class TargetCallerInstSymbolTable extends TargetRuleInstSymbolTable<Targe
     @Override
     public String getDescription() {
         return "Targets the entity that caused the action to be triggered. " +
-                "(Note that, if the action was triggered by a global " +
-                "process, the caller is null.)";
+            "(Note that, if the action was triggered by a global " +
+            "process, the caller is null.)";
     }
 
     @Override

@@ -42,6 +42,11 @@ public class MockShape extends Shape {
     }
 
     @Override
+    protected Coordinate[] calcSites() {
+        return null;
+    }
+
+    @Override
     public Coordinate[] getCanonicalSites() {
         return null;
     }
@@ -58,11 +63,6 @@ public class MockShape extends Shape {
 
     @Override
     public Coordinate getOverbounds(Coordinate coord) {
-        return null;
-    }
-
-    @Override
-    protected Coordinate[] calcSites() {
         return null;
     }
 

@@ -26,12 +26,10 @@ package nanoverse.runtime.control;
 
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.NanoverseProcess;
-import nanoverse.runtime.processes.StepState;
+import nanoverse.runtime.processes.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.*;
 
 /**
@@ -46,6 +44,28 @@ public class ProcessManager {
     public ProcessManager(Stream<NanoverseProcess> processes, LayerManager layerManager) {
         processList = processes.collect(Collectors.toList());
         this.layerManager = layerManager;
+    }
+
+    public StepState doTriggeredProcesses(StepState stepState) throws HaltCondition {
+
+        // Pass the step state object to the layer manager. This way, both actions
+        // and nanoverse.runtime.processes can access it.
+        layerManager.setStepState(stepState);
+
+        // Get triggered events.
+        List<NanoverseProcess> triggeredProcesses = getTriggeredProcesses(stepState.getFrame());
+
+        // Fire each triggered cell event.
+        for (NanoverseProcess process : triggeredProcesses) {
+            process.iterate();
+        }
+
+        // There's no reason for the layer manager to touch the StepState
+        // object until the next cycle. If it does, the program should blow up,
+        // so we have it throw a null pointer exception.
+        layerManager.setStepState(null);
+
+        return stepState;
     }
 
     protected List<NanoverseProcess> getTriggeredProcesses(int n) throws HaltCondition {
@@ -94,28 +114,6 @@ public class ProcessManager {
         } else {
             throw new IllegalStateException("Unconsidered trigger state reached.");
         }
-    }
-
-    public StepState doTriggeredProcesses(StepState stepState) throws HaltCondition {
-
-        // Pass the step state object to the layer manager. This way, both actions
-        // and nanoverse.runtime.processes can access it.
-        layerManager.setStepState(stepState);
-
-        // Get triggered events.
-        List<NanoverseProcess> triggeredProcesses = getTriggeredProcesses(stepState.getFrame());
-
-        // Fire each triggered cell event.
-        for (NanoverseProcess process : triggeredProcesses) {
-                process.iterate();
-        }
-
-        // There's no reason for the layer manager to touch the StepState
-        // object until the next cycle. If it does, the program should blow up,
-        // so we have it throw a null pointer exception.
-        layerManager.setStepState(null);
-
-        return stepState;
     }
 
     /**

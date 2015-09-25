@@ -25,8 +25,8 @@
 package nanoverse.compiler.pipeline.translate.symbol.control.arguments;
 
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
 import nanoverse.compiler.pipeline.translate.symbol.agent.AgentDescriptorClassSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.control.arguments.CellDescriptor;
 
 public class AgentDescriptorClassSymbolTableTest extends ClassSymbolTableTest {

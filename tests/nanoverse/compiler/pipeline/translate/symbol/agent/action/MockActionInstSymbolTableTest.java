@@ -24,7 +24,7 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
+import nanoverse.runtime.agent.action.MockActionDescriptor;
 
 public class MockActionInstSymbolTableTest extends ActionInstSymbolTableTest {
 

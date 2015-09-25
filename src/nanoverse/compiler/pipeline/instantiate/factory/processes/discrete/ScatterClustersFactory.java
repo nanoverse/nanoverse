@@ -23,13 +23,11 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
-import nanoverse.runtime.control.arguments.IntegerArgument;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
-import nanoverse.runtime.processes.discrete.ScatterClusters;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.control.arguments.CellDescriptor;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.*;
+import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
 
 public class ScatterClustersFactory implements Factory<ScatterClusters> {
 

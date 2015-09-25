@@ -23,10 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.layers.continuum.solvers;
 
-import nanoverse.runtime.layers.continuum.ContinuumLayerContent;
-import nanoverse.runtime.layers.continuum.ScheduledOperations;
-import nanoverse.runtime.layers.continuum.solvers.NonEquilibriumSolver;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.layers.continuum.*;
+import nanoverse.runtime.layers.continuum.solvers.NonEquilibriumSolver;
 
 public class NonEquilibriumSolverFactory implements Factory<NonEquilibriumSolver> {
 

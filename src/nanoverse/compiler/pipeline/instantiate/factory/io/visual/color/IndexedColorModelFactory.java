@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color;
 
-import nanoverse.runtime.io.visual.color.DefaultColorManager;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.io.visual.color.DefaultColorManager;
 
 public class IndexedColorModelFactory implements Factory<DefaultColorManager> {
 

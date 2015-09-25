@@ -25,12 +25,9 @@
 package nanoverse.runtime.processes.discrete.check;
 
 import nanoverse.runtime.control.arguments.*;
-import nanoverse.runtime.control.halt.DominationEvent;
-import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.StepState;
-import nanoverse.runtime.processes.discrete.CellProcess;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.control.halt.*;
+import nanoverse.runtime.processes.*;
+import nanoverse.runtime.processes.discrete.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -57,19 +54,6 @@ public class CheckForDomination extends CellProcess {
     }
 
     @Override
-    public void init() {
-        try {
-            targetFraction = targetFractionArg.next();
-            targetState = targetStateArg.next();
-            if (targetState == 0) {
-                throw new IllegalArgumentException("Dead state (0) set as domination target. Use CheckForExtinction instead.");
-            }
-        } catch (HaltCondition ex) {
-            throw new IllegalStateException(ex);
-        }
-    }
-
-    @Override
     public void target(GillespieState gs) throws HaltCondition {
         // There's only one event that can happen in this process.
         if (gs != null) {
@@ -83,6 +67,19 @@ public class CheckForDomination extends CellProcess {
             checkAllStates(stepState);
         } else {
             doCheck(targetState, stepState);
+        }
+    }
+
+    @Override
+    public void init() {
+        try {
+            targetFraction = targetFractionArg.next();
+            targetState = targetStateArg.next();
+            if (targetState == 0) {
+                throw new IllegalArgumentException("Dead state (0) set as domination target. Use CheckForExtinction instead.");
+            }
+        } catch (HaltCondition ex) {
+            throw new IllegalStateException(ex);
         }
     }
 

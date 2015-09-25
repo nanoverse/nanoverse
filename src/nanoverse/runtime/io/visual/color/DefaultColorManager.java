@@ -40,11 +40,6 @@ public class DefaultColorManager extends ColorManager {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return (obj instanceof DefaultColorManager);
-    }
-
-    @Override
     public Color getColor(Coordinate c, SystemState systemState) {
         int state = systemState.getLayerManager().getCellLayer().getViewer().getState(c);
 
@@ -65,5 +60,10 @@ public class DefaultColorManager extends ColorManager {
     @Override
     public Color getBorderColor() {
         return Color.DARK_GRAY;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof DefaultColorManager);
     }
 }

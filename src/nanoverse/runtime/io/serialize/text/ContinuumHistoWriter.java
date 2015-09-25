@@ -35,8 +35,7 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
 import java.io.BufferedWriter;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 /**
  * Writes out the number of each "state" as a function of time.
@@ -79,51 +78,6 @@ public class ContinuumHistoWriter extends Serializer {
         String filename = p.getInstancePath() + '/' + FILENAME;
         mkDir(p.getInstancePath(), true);
         bw = makeBufferedWriter(filename);
-    }
-
-    @Override
-    public void flush(StepState stepState) {
-        Stream<Double> stateStream = stepState.getRecordedContinuumValues(layerId);
-
-        Function<Integer, Boolean> isOccupied = i -> {
-            Coordinate c = lm.getDeindexer().apply(i);
-            return stepState
-                    .getRecordedCellLayer()
-                    .getViewer()
-                    .isOccupied(c);
-        };
-
-        doFlush(stateStream, stepState.getFrame(), isOccupied);
-    }
-
-    private void doFlush(Stream<Double> valueStream, int t, Function<Integer, Boolean> isOccupied) {
-        frames.add(t);
-
-        // Create a bucket for this frame.
-        HashMap<Long, Integer> observations = new HashMap<>();
-        histo.put(t, observations);
-
-        // TODO This is crap; I did it because I needed to identify coordinates
-        List<Double> valueList = valueStream.collect(Collectors.toList());
-        int i = 0;
-        for (double value : valueList) {
-            if (!occupiedOnly || isOccupied.apply(i)) {
-                record(value, observations);
-            }
-            i++;
-        }
-
-    }
-
-
-    private void record(Double value, HashMap<Long, Integer> observations) {
-        long bin = Math.round(value);
-        if (!observations.containsKey(bin)) {
-            observations.put(bin, 0);
-        }
-        int count = observations.get(bin);
-        observations.put(bin, count + 1);
-        observedValues.add(bin);
     }
 
     public void dispatchHalt(HaltCondition ex) {
@@ -181,5 +135,49 @@ public class ContinuumHistoWriter extends Serializer {
 
     public void close() {
         // Doesn't do anything.
+    }
+
+    @Override
+    public void flush(StepState stepState) {
+        Stream<Double> stateStream = stepState.getRecordedContinuumValues(layerId);
+
+        Function<Integer, Boolean> isOccupied = i -> {
+            Coordinate c = lm.getDeindexer().apply(i);
+            return stepState
+                .getRecordedCellLayer()
+                .getViewer()
+                .isOccupied(c);
+        };
+
+        doFlush(stateStream, stepState.getFrame(), isOccupied);
+    }
+
+    private void doFlush(Stream<Double> valueStream, int t, Function<Integer, Boolean> isOccupied) {
+        frames.add(t);
+
+        // Create a bucket for this frame.
+        HashMap<Long, Integer> observations = new HashMap<>();
+        histo.put(t, observations);
+
+        // TODO This is crap; I did it because I needed to identify coordinates
+        List<Double> valueList = valueStream.collect(Collectors.toList());
+        int i = 0;
+        for (double value : valueList) {
+            if (!occupiedOnly || isOccupied.apply(i)) {
+                record(value, observations);
+            }
+            i++;
+        }
+
+    }
+
+    private void record(Double value, HashMap<Long, Integer> observations) {
+        long bin = Math.round(value);
+        if (!observations.containsKey(bin)) {
+            observations.put(bin, 0);
+        }
+        int count = observations.get(bin);
+        observations.put(bin, count + 1);
+        observedValues.add(bin);
     }
 }

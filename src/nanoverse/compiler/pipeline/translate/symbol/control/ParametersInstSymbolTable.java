@@ -42,7 +42,7 @@ public class ParametersInstSymbolTable extends MapSymbolTable<GeneralParameters>
     @Override
     public String getDescription() {
         return "System-level parameters, such as output directory and number " +
-                "of simulations to run.";
+            "of simulations to run.";
     }
 
     @Override
@@ -78,7 +78,7 @@ public class ParametersInstSymbolTable extends MapSymbolTable<GeneralParameters>
     private void seed(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new StringClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Random number seed (long " +
-                "integer) or \"*\" to use current system time (in ms).");
+            "integer) or \"*\" to use current system time (in ms).");
         ret.put("seed", ms);
     }
 

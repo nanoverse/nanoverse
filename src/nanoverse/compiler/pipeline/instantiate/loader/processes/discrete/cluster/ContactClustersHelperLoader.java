@@ -43,9 +43,13 @@ public class ContactClustersHelperLoader extends ScatterClustersHelperLoader<Con
     }
 
     public ContactClustersHelperLoader
-            (ContactClustersHelperFactory factory) {
+        (ContactClustersHelperFactory factory) {
 
         this.factory = factory;
+    }
+
+    public ContactClustersHelper instantiate(LayerManager lm, GeneralParameters p) {
+        return instantiate(null, lm, p);
     }
 
     @Override
@@ -53,9 +57,5 @@ public class ContactClustersHelperLoader extends ScatterClustersHelperLoader<Con
         CellLayer layer = lm.getCellLayer();
         factory.setLayer(layer);
         return factory.build();
-    }
-
-    public ContactClustersHelper instantiate(LayerManager lm, GeneralParameters p) {
-        return instantiate(null, lm, p);
     }
 }

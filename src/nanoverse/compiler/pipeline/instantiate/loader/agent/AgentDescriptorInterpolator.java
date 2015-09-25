@@ -24,10 +24,10 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
 import nanoverse.compiler.pipeline.instantiate.loader.layers.continuum.ReactionStreamLoader;
 import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.layers.LayerManager;
@@ -78,6 +78,7 @@ public class AgentDescriptorInterpolator {
     public DoubleArgument initialHealth(MapObjectNode node, Random random) {
         return load.aDoubleArgument(node, "initialHealth", random, defaults::initialHealth);
     }
+
     public DoubleArgument threshold(MapObjectNode node, Random random) {
         return load.aDoubleArgument(node, "threshold", random, defaults::threshold);
     }

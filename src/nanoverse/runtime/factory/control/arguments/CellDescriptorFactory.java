@@ -28,14 +28,12 @@ import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.factory.agent.BehaviorDescriptorFactory;
-import nanoverse.runtime.layers.continuum.Reaction;
 import nanoverse.runtime.factory.cell.ReactionFactory;
 import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.layers.continuum.Reaction;
 import org.dom4j.Element;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -73,13 +71,13 @@ public abstract class CellDescriptorFactory {
         List<Object> elements = behaviorElem.elements();
         HashMap<String, ActionDescriptor> behaviorDescriptors = new HashMap<>(elements.size());
         elements.stream()
-                .map(o -> (Element) o)
-                .forEach(element -> {
-                    String name = element.getName();
+            .map(o -> (Element) o)
+            .forEach(element -> {
+                String name = element.getName();
 
-                    ActionDescriptor behaviorDescriptor = BehaviorDescriptorFactory.instantiate(element, layerManager, p);
-                    behaviorDescriptors.put(name, behaviorDescriptor);
-                });
+                ActionDescriptor behaviorDescriptor = BehaviorDescriptorFactory.instantiate(element, layerManager, p);
+                behaviorDescriptors.put(name, behaviorDescriptor);
+            });
 
         cellDescriptor.setBehaviorDescriptors(behaviorDescriptors);
     }
@@ -94,8 +92,8 @@ public abstract class CellDescriptorFactory {
         List<Object> elements = reactions.elements();
 
         Stream<Reaction> reactionStream = elements.stream()
-                .map(x -> (Element) x)
-                .map(ReactionFactory::instantiate);
+            .map(x -> (Element) x)
+            .map(ReactionFactory::instantiate);
 
         cellDescriptor.setReactions(reactionStream);
     }

@@ -24,7 +24,7 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete;
 
-import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.*;
+import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.CullFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
@@ -45,7 +45,7 @@ public class CullLoader extends ProcessLoader<Cull> {
     }
 
     public CullLoader(CullFactory factory,
-                                    CullInterpolator interpolator) {
+                      CullInterpolator interpolator) {
         this.factory = factory;
         this.interpolator = interpolator;
     }

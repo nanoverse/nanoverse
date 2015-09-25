@@ -40,10 +40,6 @@ public class Record extends NanoverseProcess {
     }
 
     @Override
-    public void init() {
-    }
-
-    @Override
     public void target(GillespieState gs) throws HaltCondition {
         // There's only one event that can happen in this process.
         if (gs != null) {
@@ -55,5 +51,9 @@ public class Record extends NanoverseProcess {
     @Override
     public void fire(StepState state) throws HaltCondition {
         state.record(getLayerManager());
+    }
+
+    @Override
+    public void init() {
     }
 }

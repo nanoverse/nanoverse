@@ -65,7 +65,7 @@ public class CloneToTest extends LegacyLatticeTest {
 
         supplier = mock(Supplier.class);
         when(supplier.get()).thenReturn(new MockCell(MOCK_PROGENY_STATE),
-                new MockCell(MOCK_PROGENY_STATE));
+            new MockCell(MOCK_PROGENY_STATE));
 
         // Place a single cell at origin.
         original = new BehaviorCell(layerManager, 1, 1.0, 1.0, supplier);
@@ -77,7 +77,7 @@ public class CloneToTest extends LegacyLatticeTest {
         random = new Random(RANDOM_SEED);
         // Create query.
         query = new CloneTo(original, layerManager, targetRule, false, null,
-                null, random);
+            null, random);
 
     }
 
@@ -159,7 +159,7 @@ public class CloneToTest extends LegacyLatticeTest {
         mtr.setTargets(targets);
 
         CloneTo cloneTo = new CloneTo(cell, layerManager, mtr,
-                shoving, null, null, random);
+            shoving, null, null, random);
 
         Action behavior = new CompoundAction(cell, layerManager, new Action[]{cloneTo});
         bd.map("replicate-self", behavior);

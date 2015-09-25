@@ -26,8 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.ScatterLoader;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
-import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.agent.AgentDescriptorClassSymbolTable;
 import nanoverse.runtime.processes.discrete.Scatter;
 
@@ -44,7 +43,7 @@ public class ScatterInstSymbolTable extends DiscreteProcessInstSymbolTable<Scatt
 
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
-        HashMap<String, MemberSymbol> ret =  super.resolveMembers();
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
         agentDescriptor(ret);
         return ret;
     }

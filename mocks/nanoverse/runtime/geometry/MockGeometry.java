@@ -24,13 +24,9 @@
 
 package nanoverse.runtime.geometry;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
-import nanoverse.runtime.control.identifiers.Coordinate3D;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.identifiers.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class MockGeometry extends Geometry {
 
@@ -54,9 +50,9 @@ public class MockGeometry extends Geometry {
         super(null, null, null);
 
         componentClasses = new Class[]{
-                Object.class,
-                Object.class,
-                Object.class
+            Object.class,
+            Object.class,
+            Object.class
         };
     }
 

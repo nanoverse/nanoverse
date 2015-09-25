@@ -31,8 +31,8 @@ import nanoverse.runtime.io.deserialize.continuum.*;
 import nanoverse.runtime.io.serialize.binary.ContinuumStateWriter;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.processes.StepState;
+import org.junit.Test;
 import test.TestBase;
 
 import java.util.stream.*;
@@ -93,7 +93,7 @@ public class ContinuumStateLifeCycleTest extends TestBase {
 
     private void doOutputStage() throws Exception {
         GeneralParameters p = mock(GeneralParameters.class);
-        when (p.getInstancePath()).thenReturn("./output/");
+        when(p.getInstancePath()).thenReturn("./output/");
         LayerManager lm = makeLayerManager();
         ContinuumStateWriter writer = new ContinuumStateWriter(p, lm);
         writer.init();
@@ -115,10 +115,10 @@ public class ContinuumStateLifeCycleTest extends TestBase {
         when(stepState.getTime()).thenReturn(frame * coefficient);
         when(stepState.getFrame()).thenReturn(frame);
         when(stepState.getRecordedContinuumValues("test1"))
-                .thenAnswer(invocation -> makeValue(coefficient));
+            .thenAnswer(invocation -> makeValue(coefficient));
 
         when(stepState.getRecordedContinuumValues("test2"))
-                .thenAnswer(invocation -> makeValue(coefficient * -1.0));
+            .thenAnswer(invocation -> makeValue(coefficient * -1.0));
 
         return stepState;
     }
@@ -126,9 +126,9 @@ public class ContinuumStateLifeCycleTest extends TestBase {
 
     private Stream<Double> makeValue(double coefficient) {
         return IntStream
-                .range(0, RANGE)
-                .mapToDouble(i -> i * coefficient)
-                .boxed();
+            .range(0, RANGE)
+            .mapToDouble(i -> i * coefficient)
+            .boxed();
     }
 
     public LayerManager makeLayerManager() {
@@ -141,15 +141,15 @@ public class ContinuumStateLifeCycleTest extends TestBase {
         when(lm.getCellLayer()).thenReturn(cellLayer);
         when(lm.getDeindexer()).thenReturn(i -> cc[i]);
         when(lm.getContinuumLayerIds())
-                .thenAnswer(invocation -> Stream.of("test1", "test2"));
+            .thenAnswer(invocation -> Stream.of("test1", "test2"));
         return lm;
     }
 
     private Coordinate[] makeCoordinateArray() {
         return IntStream.range(0, RANGE)
-                .mapToObj(i -> new Coordinate2D(i, 0, 0))
-                .collect(Collectors.toList())
-                .toArray(new Coordinate[RANGE]);
+            .mapToObj(i -> new Coordinate2D(i, 0, 0))
+            .collect(Collectors.toList())
+            .toArray(new Coordinate[RANGE]);
     }
 
 

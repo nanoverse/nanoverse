@@ -26,8 +26,8 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.runtime.control.arguments.*;
-import org.junit.*;
 import nanoverse.runtime.processes.discrete.Fill;
+import org.junit.Test;
 
 public class FillInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {
 

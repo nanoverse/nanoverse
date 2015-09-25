@@ -23,8 +23,7 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.layers.continuum.solvers;
 
-import nanoverse.runtime.layers.continuum.ContinuumLayerContent;
-import nanoverse.runtime.layers.continuum.ScheduledOperations;
+import nanoverse.runtime.layers.continuum.*;
 import nanoverse.runtime.layers.continuum.solvers.EquilibriumSolver;
 
 

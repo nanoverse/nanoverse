@@ -24,8 +24,7 @@
 
 package nanoverse.runtime.geometry.lattice;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.identifiers.*;
 
 public abstract class Lattice {
 
@@ -109,18 +108,6 @@ public abstract class Lattice {
     public abstract Coordinate[] getAnnulus(Coordinate coord, int r);
 
     /**
-     * Get the displacement vector between the specified coordinates. The
-     * displacement vector is given in units of the lattice's basis vector.
-     * The displacement assumes infinite boundary conditions.
-     * <p>
-     * In the event that the basis of the lattice is linearly dependent, as in
-     * the case of the triangular lattice, the displacement vector returned
-     * by this method should minimize the L1 distance. Linear independence of
-     * components can be enforced using getOrthoDisplacement().
-     */
-    public abstract Coordinate getDisplacement(Coordinate pCoord, Coordinate qCoord);
-
-    /**
      * Get a displacement vector for the specified coordinates. If basis vectors
      * are non-orthogonal, getOrthoIDisplacement() returns a displacement
      * vector such that all non-zero components are orthogonal. For many
@@ -154,6 +141,18 @@ public abstract class Lattice {
 
         return (res);
     }
+
+    /**
+     * Get the displacement vector between the specified coordinates. The
+     * displacement vector is given in units of the lattice's basis vector.
+     * The displacement assumes infinite boundary conditions.
+     * <p>
+     * In the event that the basis of the lattice is linearly dependent, as in
+     * the case of the triangular lattice, the displacement vector returned
+     * by this method should minimize the L1 distance. Linear independence of
+     * components can be enforced using getOrthoDisplacement().
+     */
+    public abstract Coordinate getDisplacement(Coordinate pCoord, Coordinate qCoord);
 
     /**
      * Lattice objects are equal if and only if they are of the same

@@ -67,13 +67,8 @@ public abstract class Coordinate implements Comparable<Coordinate> {
         } else z = Integer.MIN_VALUE;
     }
 
-    @Override
-    public Coordinate clone() {
-        if (hasFlag(Flags.PLANAR)) {
-            return new Coordinate2D(x, y, flags);
-        } else {
-            return new Coordinate3D(x, y, z, flags);
-        }
+    public boolean hasFlag(int flag) {
+        return ((flags & flag) != 0);
     }
 
     public int norm() {
@@ -100,8 +95,13 @@ public abstract class Coordinate implements Comparable<Coordinate> {
         return z;
     }
 
-    public int flags() {
-        return flags;
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        result = 31 * result + z;
+        result = 31 * result + flags;
+        return result;
     }
 
     @Override
@@ -120,12 +120,12 @@ public abstract class Coordinate implements Comparable<Coordinate> {
     }
 
     @Override
-    public int hashCode() {
-        int result = x;
-        result = 31 * result + y;
-        result = 31 * result + z;
-        result = 31 * result + flags;
-        return result;
+    public Coordinate clone() {
+        if (hasFlag(Flags.PLANAR)) {
+            return new Coordinate2D(x, y, flags);
+        } else {
+            return new Coordinate3D(x, y, z, flags);
+        }
     }
 
     @Override
@@ -166,10 +166,6 @@ public abstract class Coordinate implements Comparable<Coordinate> {
         return s;
     }
 
-    public boolean hasFlag(int flag) {
-        return ((flags & flag) != 0);
-    }
-
     /**
      * This (arbitrary) comparator is used to make ordered
      * arrays, eg for tests.
@@ -207,6 +203,10 @@ public abstract class Coordinate implements Comparable<Coordinate> {
         }
 
         return ret;
+    }
+
+    public int flags() {
+        return flags;
     }
 
     /**

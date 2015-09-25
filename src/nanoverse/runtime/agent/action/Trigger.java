@@ -26,7 +26,7 @@ package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;

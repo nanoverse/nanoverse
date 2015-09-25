@@ -24,7 +24,7 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.layers.continuum.solvers;
 
-import nanoverse.compiler.pipeline.instantiate.factory.layers.continuum.solvers.*;
+import nanoverse.compiler.pipeline.instantiate.factory.layers.continuum.solvers.NonEquilibriumSolverFactory;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.layers.continuum.*;
 import nanoverse.runtime.layers.continuum.solvers.*;
@@ -44,14 +44,14 @@ public class NonEquilibriumSolverLoader extends ContinuumSolverLoader<NonEquilib
         this.factory = factory;
     }
 
+    public ContinuumSolver instantiate(ContinuumLayerContent content, ScheduledOperations so) {
+        return instantiate(null, content, so);
+    }
+
     @Override
     public ContinuumSolver instantiate(MapObjectNode node, ContinuumLayerContent content, ScheduledOperations so) {
         factory.setContent(content);
         factory.setSo(so);
         return factory.build();
-    }
-
-    public ContinuumSolver instantiate(ContinuumLayerContent content, ScheduledOperations so) {
-        return instantiate(null, content, so);
     }
 }

@@ -68,7 +68,7 @@ public class LoadHelper {
     }
 
     public Integer anInteger(MapObjectNode node, String id, Random random,
-                           Supplier<Integer> defaultSupplier) {
+                             Supplier<Integer> defaultSupplier) {
 
         return integerLoadHelper.load(node, id, random, defaultSupplier);
     }
@@ -78,7 +78,7 @@ public class LoadHelper {
     }
 
     public IntegerArgument anIntegerArgument(MapObjectNode node, String id, Random random,
-                             Supplier<IntegerArgument> defaultSupplier) {
+                                             Supplier<IntegerArgument> defaultSupplier) {
 
         return integerLoadHelper.loadArgument(node, id, random, defaultSupplier);
     }
@@ -88,7 +88,7 @@ public class LoadHelper {
     }
 
     public Double aDouble(MapObjectNode node, String id, Random random,
-                       Supplier<Double> defaultSupplier) {
+                          Supplier<Double> defaultSupplier) {
 
         return doubleLoadHelper.load(node, id, random, defaultSupplier);
     }

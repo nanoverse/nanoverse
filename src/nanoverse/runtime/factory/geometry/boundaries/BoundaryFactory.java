@@ -59,7 +59,7 @@ public abstract class BoundaryFactory {
             return new TetrisReflectingBoundary(shape, lattice);
         } else {
             String msg = "Unrecognized boundary class '" +
-                    className + "'.";
+                className + "'.";
             throw new IllegalArgumentException(msg);
         }
     }

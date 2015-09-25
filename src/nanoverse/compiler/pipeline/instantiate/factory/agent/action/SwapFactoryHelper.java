@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action;
 
-import nanoverse.runtime.control.arguments.IntegerArgument;
-import nanoverse.runtime.agent.targets.TargetDescriptor;
-import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.agent.action.SwapDescriptor;
+import nanoverse.runtime.agent.targets.TargetDescriptor;
+import nanoverse.runtime.control.arguments.IntegerArgument;
+import nanoverse.runtime.layers.LayerManager;
 
 
 public class SwapFactoryHelper {

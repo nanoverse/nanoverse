@@ -24,8 +24,8 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.targets;
 
+import nanoverse.compiler.pipeline.instantiate.factory.agent.targets.TargetOccupiedNeighborsFactory;
 import nanoverse.runtime.agent.targets.TargetOccupiedNeighborsDescriptor;
-import nanoverse.compiler.pipeline.instantiate.factory.agent.targets.*;
 
 /**
  * Created by dbborens on 8/4/2015.
@@ -37,7 +37,7 @@ public class TargetOccupiedNeighborsLoader extends TargetLoader<TargetOccupiedNe
     }
 
     public TargetOccupiedNeighborsLoader(TargetOccupiedNeighborsFactory factory,
-                              TargetInterpolator interpolator) {
+                                         TargetInterpolator interpolator) {
 
         super(factory, interpolator);
     }

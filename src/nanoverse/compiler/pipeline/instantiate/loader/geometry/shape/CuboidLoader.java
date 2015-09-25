@@ -49,6 +49,10 @@ public class CuboidLoader extends ShapeLoader<Cuboid> {
         this.interpolator = interpolator;
     }
 
+    public Shape instantiate(Lattice lattice, GeneralParameters p) {
+        return instantiate(null, lattice, p);
+    }
+
     @Override
     public Shape instantiate(MapObjectNode node, Lattice lattice, GeneralParameters p) {
         factory.setLattice(lattice);
@@ -63,9 +67,5 @@ public class CuboidLoader extends ShapeLoader<Cuboid> {
         factory.setDepth(depth);
 
         return factory.build();
-    }
-
-    public Shape instantiate(Lattice lattice, GeneralParameters p) {
-        return instantiate(null, lattice, p);
     }
 }

@@ -25,8 +25,7 @@
 package nanoverse.compiler.pipeline.instantiate.loader.processes.continuum;
 
 import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
-import nanoverse.compiler.pipeline.instantiate.loader.processes.BaseProcessArgumentsLoader;
-import nanoverse.compiler.pipeline.instantiate.loader.processes.ProcessInterpolator;
+import nanoverse.compiler.pipeline.instantiate.loader.processes.*;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.continuum.*;

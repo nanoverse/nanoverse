@@ -31,9 +31,7 @@ import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.CellLayerViewer;
 import nanoverse.runtime.processes.discrete.filter.Filter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Targets specify which nanoverse.runtime.cells should receive the consequences
@@ -44,11 +42,6 @@ public class TargetVacantNeighbors extends TargetRule {
 
     public TargetVacantNeighbors(BehaviorCell callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
         super(callback, layerManager, filter, maximum, random);
-    }
-
-    @Override
-    public TargetRule clone(BehaviorCell child) {
-        return new TargetVacantNeighbors(child, layerManager, filter, maximum, random);
     }
 
     @Override
@@ -76,5 +69,10 @@ public class TargetVacantNeighbors extends TargetRule {
 
         // Return the array
         return vacNeighbors;
+    }
+
+    @Override
+    public TargetRule clone(BehaviorCell child) {
+        return new TargetVacantNeighbors(child, layerManager, filter, maximum, random);
     }
 }

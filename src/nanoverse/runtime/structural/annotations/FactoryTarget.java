@@ -31,7 +31,7 @@ import java.lang.annotation.*;
 /**
  * FactoryTarget indicates that a particular constructor should be used to
  * build a nanoverse.runtime.factory for the nanoverse.compiler's Instantiator hierarchy.
- *
+ * <p>
  * Created by dbborens on 7/30/2015.
  *
  * @see Factory
@@ -41,6 +41,7 @@ import java.lang.annotation.*;
 public @interface FactoryTarget {
     /**
      * If displayName is empty, the nanoverse.runtime.factory will use the class name.
+     *
      * @return
      */
     String displayName() default "";

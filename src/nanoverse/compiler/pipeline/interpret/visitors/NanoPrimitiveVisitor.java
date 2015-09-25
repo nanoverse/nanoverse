@@ -44,9 +44,9 @@ public class NanoPrimitiveVisitor extends AbstractNanoNodeVisitor {
 
     public NanoPrimitiveVisitor() {
         this(new NanoPrimitiveDoubleVisitor(),
-             new NanoPrimitiveIntegerVisitor(),
-             new NanoPrimitiveStringVisitor(),
-             new NanoPrimitiveBooleanVisitor());
+            new NanoPrimitiveIntegerVisitor(),
+            new NanoPrimitiveStringVisitor(),
+            new NanoPrimitiveBooleanVisitor());
     }
 
     public NanoPrimitiveVisitor(NanoPrimitiveDoubleVisitor doubleVisitor,
@@ -78,7 +78,7 @@ public class NanoPrimitiveVisitor extends AbstractNanoNodeVisitor {
             return child.accept(booleanVisitor);
         } else {
             throw new IllegalStateException("Unexpected narrow primitive " +
-                    "class " + child.getClass().getSimpleName());
+                "class " + child.getClass().getSimpleName());
         }
     }
 

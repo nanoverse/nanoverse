@@ -38,10 +38,6 @@ public class MockFilter extends Filter {
         called = false;
     }
 
-    public boolean isCalled() {
-        return called;
-    }
-
     @Override
     public List<Coordinate> apply(List<Coordinate> toFilter) {
         called = true;
@@ -53,5 +49,9 @@ public class MockFilter extends Filter {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         return true;
+    }
+
+    public boolean isCalled() {
+        return called;
     }
 }

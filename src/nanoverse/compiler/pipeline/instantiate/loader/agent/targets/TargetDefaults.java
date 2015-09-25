@@ -24,7 +24,7 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.targets;
 
-import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter.*;
+import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter.NullFilterLoader;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.discrete.filter.Filter;

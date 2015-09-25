@@ -27,8 +27,8 @@ package nanoverse.runtime.layers;
 import nanoverse.runtime.cells.MockCell;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.layers.cell.CellLayerIndices;
-import org.junit.*;
 import nanoverse.runtime.structural.CanonicalCellMap;
+import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.*;

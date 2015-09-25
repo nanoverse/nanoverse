@@ -54,22 +54,22 @@ public class BullseyeGlyphInstSymbolTable extends MapSymbolTable<BullseyeGlyph> 
     public void size(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Size of the bullseye, " +
-                "specified as a multiple of the coordinate site in the " +
-                "visualization.");
+            "specified as a multiple of the coordinate site in the " +
+            "visualization.");
         ret.put("size", ms);
     }
 
     public void primaryColor(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new StringClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Primary color of the " +
-                "bullseye, represented as a hexidecimal RGB code (RRGGBB).");
+            "bullseye, represented as a hexidecimal RGB code (RRGGBB).");
         ret.put("primaryColor", ms);
     }
 
     public void secondaryColor(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new StringClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Secondary color of the " +
-                "bullseye, represented as a hexidecimal RGB code (RRGGBB).");
+            "bullseye, represented as a hexidecimal RGB code (RRGGBB).");
         ret.put("secondaryColor", ms);
     }
 

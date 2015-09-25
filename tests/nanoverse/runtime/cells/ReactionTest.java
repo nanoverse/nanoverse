@@ -25,8 +25,7 @@
 package nanoverse.runtime.cells;
 
 import nanoverse.runtime.layers.continuum.Reaction;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import test.TestBase;
 
 import static org.junit.Assert.assertEquals;

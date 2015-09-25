@@ -46,9 +46,9 @@ public class PowerScatterInterpolator extends DiscreteProcessInterpolator {
     }
 
     public PowerScatterInterpolator(LoadHelper load,
-                                  BaseProcessArgumentsLoader bpaLoader,
-                                  DiscreteProcessArgumentsLoader dpaLoader,
-                                  PowerScatterDefaults defaults) {
+                                    BaseProcessArgumentsLoader bpaLoader,
+                                    DiscreteProcessArgumentsLoader dpaLoader,
+                                    PowerScatterDefaults defaults) {
         super(load, bpaLoader, dpaLoader);
         this.defaults = defaults;
     }

@@ -42,16 +42,16 @@ public class ReactionClassSymbolTable extends ClassSymbolTable<Reaction> {
         return ret;
     }
 
+    private void reaction(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = ReactionInstSymbolTable::new;
+        ret.put("Reaction", supplier);
+    }
+
     @Override
     public String getDescription() {
         return "Agents can interact with the local value of a continuum. " +
             "Reactions specify the terms of those interactions, allowing " +
             "both constant increase or decrease (injection) and proportional " +
             "scaling (exponentiation).";
-    }
-
-    private void reaction(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = ReactionInstSymbolTable::new;
-        ret.put("Reaction", supplier);
     }
 }

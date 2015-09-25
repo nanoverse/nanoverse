@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.geometry.boundary;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
-import nanoverse.runtime.geometry.boundaries.*;
+import nanoverse.runtime.geometry.boundaries.HaltArena;
 
 public class HaltBoundaryInstSymbolTableTest extends MapSymbolTableTest {
 

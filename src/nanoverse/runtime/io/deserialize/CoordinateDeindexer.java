@@ -24,18 +24,12 @@
 
 package nanoverse.runtime.io.deserialize;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
-import nanoverse.runtime.control.identifiers.Coordinate3D;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.structural.utilities.FileConventions;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 
 /**
  * Created by dbborens on 12/10/13.
@@ -62,23 +56,15 @@ public class CoordinateDeindexer {
             deindex();
         } catch (FileNotFoundException e) {
             String msg = "Coordinate index file not found in output directory "
-                    + path + ". Note that any serializers that depend on " +
-                    "coordinate indices (such as visualizations) need to be " +
-                    "specified after a <coordinate-indexer> tag in the " +
-                    "<serializers> section.";
+                + path + ". Note that any serializers that depend on " +
+                "coordinate indices (such as visualizations) need to be " +
+                "specified after a <coordinate-indexer> tag in the " +
+                "<serializers> section.";
 
             throw new IllegalArgumentException(msg);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public Coordinate getCoordinate(Integer index) {
-        return indexToCoord.get(index);
-    }
-
-    public Integer getIndex(Coordinate coord) {
-        return coordToIndex.get(coord);
     }
 
     protected void deindex() throws IOException {
@@ -132,6 +118,14 @@ public class CoordinateDeindexer {
         }
 
         return c;
+    }
+
+    public Coordinate getCoordinate(Integer index) {
+        return indexToCoord.get(index);
+    }
+
+    public Integer getIndex(Coordinate coord) {
+        return coordToIndex.get(coord);
     }
 
     public int getNumSites() {

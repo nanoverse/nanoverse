@@ -26,7 +26,7 @@ package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.targets.*;
 import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -38,19 +38,19 @@ import java.util.function.Function;
  */
 public class ExpandToDescriptor extends ActionDescriptor<ExpandTo> {
 
-    private final Function<BehaviorCell,ExpandTo> constructor;
+    private final Function<BehaviorCell, ExpandTo> constructor;
 
     @FactoryTarget(displayName = "ExpandTo")
     public ExpandToDescriptor(LayerManager layerManager,
                               TargetDescriptor ruleDescriptor,
                               IntegerArgument selfChannel,
                               IntegerArgument targetChannel, Random
-                                          random) {
+                                      random) {
 
         constructor = cell -> {
             TargetRule targetRule = ruleDescriptor.instantiate(cell);
             return new ExpandTo(cell, layerManager, targetRule,
-                    selfChannel, targetChannel, random);
+                selfChannel, targetChannel, random);
         };
     }
 

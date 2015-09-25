@@ -30,6 +30,7 @@ import org.junit.Test;
 import test.TestBase;
 
 import static org.junit.Assert.*;
+
 /**
  * Created on 2016-06-15.
  *
@@ -74,7 +75,7 @@ public class MatrixUtilsTest extends TestBase {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 assertTrue(EpsilonUtil.epsilonEquals(expected.get(i, j),
-                        actual.get(i, j)));
+                    actual.get(i, j)));
             }
         }
     }

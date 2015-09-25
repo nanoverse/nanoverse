@@ -24,22 +24,22 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
-import nanoverse.runtime.agent.targets.TargetDescriptor;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.agent.action.SwapDescriptor;
+import nanoverse.runtime.agent.targets.TargetDescriptor;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import org.junit.Test;
 
 public class SwapInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedClass() {
-        return SwapDescriptor.class;
+    protected MapSymbolTable getQuery() {
+        return new SwapInstSymbolTable();
     }
 
     @Override
-    protected MapSymbolTable getQuery() {
-        return new SwapInstSymbolTable();
+    protected Class getExpectedClass() {
+        return SwapDescriptor.class;
     }
 
     @Test

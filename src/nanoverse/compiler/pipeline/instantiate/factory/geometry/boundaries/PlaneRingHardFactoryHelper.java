@@ -23,9 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.geometry.boundaries;
 
-import nanoverse.runtime.geometry.shape.Shape;
 import nanoverse.runtime.geometry.boundaries.PlaneRingHard;
 import nanoverse.runtime.geometry.lattice.Lattice;
+import nanoverse.runtime.geometry.shape.Shape;
 
 
 public class PlaneRingHardFactoryHelper {

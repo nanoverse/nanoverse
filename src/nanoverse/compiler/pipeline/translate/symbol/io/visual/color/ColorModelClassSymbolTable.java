@@ -38,7 +38,7 @@ public class ColorModelClassSymbolTable extends ClassSymbolTable<ColorManager> {
     @Override
     public String getDescription() {
         return "Color models specify the mapping between simulation state " +
-                "and color in a visualization.";
+            "and color in a visualization.";
     }
 
     @Override

@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.primitive.booleans;
 
 import nanoverse.compiler.pipeline.interpret.visitors.NanoPrimitiveBooleanVisitor;
 import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.BooleanArgument;
 
 import java.util.HashMap;
 import java.util.function.Supplier;

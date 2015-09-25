@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.instantiate.factory.geometry;
 import nanoverse.compiler.pipeline.instantiate.loader.geometry.shape.*;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.geometry.lattice.*;
-import nanoverse.runtime.geometry.shape.*;
+import nanoverse.runtime.geometry.shape.Shape;
 
 /**
  * Created by dbborens on 8/19/2015.
@@ -48,7 +48,7 @@ public class GeometryDescriptorDefaults {
         } else if (lattice instanceof LinearLattice) {
             LineLoader loader = new LineLoader();
             return loader.instantiate(lattice, p);
-        } else if (lattice instanceof  CubicLattice) {
+        } else if (lattice instanceof CubicLattice) {
             CuboidLoader loader = new CuboidLoader();
             return loader.instantiate(lattice, p);
         } else {

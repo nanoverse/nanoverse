@@ -30,13 +30,13 @@ import no.uib.cipr.matrix.sparse.CompDiagMatrix;
  * A wrapper for the internal storage of
  * no.uib.cipr.matrix.sparse.CompDiagMatrix that simulates a padded storage
  * array.
- *
+ * <p>
  * CompDiagMatrix's internal storage uses a jagged array, which makes summing
  * the columns quickly in MatrixUtils.isColSumOne() difficult. This class makes
  * the internal storage behave like a typical, padded diagonal matrix format.
  * See http://web.eecs.utk.edu/~dongarra/etemplates/node376.html for a
  * description of the format we are mimicking.
- *
+ * <p>
  * Created on 2015-06-17.
  *
  * @author Daniel Greenidge
@@ -71,7 +71,7 @@ public class PaddedDiagonalStorage {
     /**
      * Gets an element in the padded internal storage array.
      *
-     * @param row the 0-based row index
+     * @param row    the 0-based row index
      * @param column the 0-based column index
      * @return the element indexed by (row, column)
      */
@@ -91,8 +91,8 @@ public class PaddedDiagonalStorage {
      *
      * @param external the index for the padded storage.
      * @return internal the index for the jagged storage. If internal.row and
-     *   internal.column are set to -1, the element does not exist in the
-     *   jagged storage (so should be padded, i.e. set to 0).
+     * internal.column are set to -1, the element does not exist in the
+     * jagged storage (so should be padded, i.e. set to 0).
      */
     private Index mapIndex(Index external) {
         // Our row index should be the same internally and externally. But we

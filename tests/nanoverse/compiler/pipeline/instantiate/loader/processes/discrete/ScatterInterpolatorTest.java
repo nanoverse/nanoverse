@@ -30,7 +30,7 @@ import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.arguments.CellDescriptor;
 import org.junit.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class ScatterInterpolatorTest extends InterpolatorTest {

@@ -55,9 +55,9 @@ public abstract class LayerManagerFactory {
         List<Object> clElems = root.elements("continuum-layer");
 
         clElems.stream()
-                .map(o -> (Element) o)
-                .map(e -> ContinuumLayerFactory.instantiate(e, geometryDescriptor))
-                .forEach(ret::addContinuumLayer);
+            .map(o -> (Element) o)
+            .map(e -> ContinuumLayerFactory.instantiate(e, geometryDescriptor))
+            .forEach(ret::addContinuumLayer);
     }
 
     private static CellLayer buildCellLayer(Element layerRoot, GeometryDescriptor geometryDescriptor) {

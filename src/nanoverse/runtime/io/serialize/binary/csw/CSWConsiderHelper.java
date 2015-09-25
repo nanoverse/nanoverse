@@ -44,7 +44,7 @@ public class CSWConsiderHelper {
 
     public void consider(String id, int frame, Stream<Double> values) {
         int index = 0;
-        for(Double value : values.collect(Collectors.toList())) {
+        for (Double value : values.collect(Collectors.toList())) {
             Extrema extrema = extremaMap.get(id);
             Coordinate c = deindexer.apply(index);
             extrema.consider(value, c, frame);

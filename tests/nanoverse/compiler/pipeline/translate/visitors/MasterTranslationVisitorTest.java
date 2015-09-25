@@ -30,7 +30,7 @@ import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import org.junit.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class MasterTranslationVisitorTest {
@@ -59,11 +59,6 @@ public class MasterTranslationVisitorTest {
         expected = mock(ObjectNode.class);
     }
 
-    private void doTest(SymbolTable st) throws Exception {
-        ObjectNode actual = query.translate(toTranslate, st);
-        assertSame(expected, actual);
-    }
-
     @Test
     public void listCase() throws Exception {
         ListSymbolTable st = mock(ListSymbolTable.class);
@@ -71,6 +66,11 @@ public class MasterTranslationVisitorTest {
         when(listVisitor.translate(toTranslate, st))
             .thenReturn((ListObjectNode) expected);
         doTest(st);
+    }
+
+    private void doTest(SymbolTable st) throws Exception {
+        ObjectNode actual = query.translate(toTranslate, st);
+        assertSame(expected, actual);
     }
 
     @Test

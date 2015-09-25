@@ -23,10 +23,11 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.continuum;
 
-import java.util.function.Consumer;
-import no.uib.cipr.matrix.sparse.CompDiagMatrix;
-import nanoverse.runtime.processes.continuum.DiffusionProcess;
 import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.continuum.DiffusionProcess;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+
+import java.util.function.Consumer;
 
 
 public class DiffusionProcessFactoryHelper {

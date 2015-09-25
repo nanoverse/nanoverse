@@ -24,10 +24,10 @@
 
 package nanoverse.runtime.layers;
 
+import junit.framework.TestCase;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
-import junit.framework.TestCase;
 import nanoverse.runtime.layers.cell.*;
 import org.junit.Test;
 

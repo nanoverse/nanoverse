@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.instantiate.loader.primitive.doubles;
 
 import nanoverse.compiler.pipeline.translate.nodes.*;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.ConstantDouble;
 
 import java.util.Random;
 

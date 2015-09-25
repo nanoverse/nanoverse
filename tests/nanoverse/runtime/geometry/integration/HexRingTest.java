@@ -35,6 +35,7 @@ import test.LegacyTest;
 import java.util.HashSet;
 
 import static org.junit.Assert.*;
+
 /**
  * Regression/integration tests from earliest version of nanoverse.runtime.geometry
  * model. These tests use reflecting and hard ring geometries.
@@ -195,12 +196,12 @@ public class HexRingTest extends LegacyTest {
         coord = hr.apply(initial, Geometry.APPLY_BOUNDARIES);
 
         Coordinate[] side_exp = new Coordinate[]{
-                new Coordinate2D(5, 6, 0),
-                new Coordinate2D(0, 3, Flags.BOUNDARY_APPLIED),
-                new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),
-                new Coordinate2D(5, 4, 0),
-                new Coordinate2D(4, 4, 0),
-                new Coordinate2D(4, 5, 0)
+            new Coordinate2D(5, 6, 0),
+            new Coordinate2D(0, 3, Flags.BOUNDARY_APPLIED),
+            new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),
+            new Coordinate2D(5, 4, 0),
+            new Coordinate2D(4, 4, 0),
+            new Coordinate2D(4, 5, 0)
         };
 
         neighbors = hr.getNeighbors(coord, Geometry.APPLY_BOUNDARIES);
@@ -263,12 +264,12 @@ public class HexRingTest extends LegacyTest {
         coord = new Coordinate2D(5, 5, 0);
 
         Coordinate[] side_exp = new Coordinate[]{
-                new Coordinate2D(5, 6, 0),
-                new Coordinate2D(0, 3, Flags.BOUNDARY_APPLIED),
-                new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),
-                new Coordinate2D(5, 4, 0),
-                new Coordinate2D(4, 4, 0),
-                new Coordinate2D(4, 5, 0),
+            new Coordinate2D(5, 6, 0),
+            new Coordinate2D(0, 3, Flags.BOUNDARY_APPLIED),
+            new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),
+            new Coordinate2D(5, 4, 0),
+            new Coordinate2D(4, 4, 0),
+            new Coordinate2D(4, 5, 0),
         };
         neighbors = hr.getNeighbors(coord, Geometry.APPLY_BOUNDARIES);
         assertArraysEqual(side_exp, neighbors, true);
@@ -277,15 +278,15 @@ public class HexRingTest extends LegacyTest {
         coord = new Coordinate2D(2, 1, 0);
 
         Coordinate[] bottom_exp = new Coordinate[]{
-                new Coordinate2D(1, 0, 0),
-                new Coordinate2D(1, 1, 0),
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(3, 2, 0),
-                new Coordinate2D(3, 1, 0),
+            new Coordinate2D(1, 0, 0),
+            new Coordinate2D(1, 1, 0),
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(3, 2, 0),
+            new Coordinate2D(3, 1, 0),
 
-                // The cell is counted as a "neighbor" because southerly-moving
-                // solute is reflected back.
-                new Coordinate2D(2, 1, Flags.BOUNDARY_APPLIED)
+            // The cell is counted as a "neighbor" because southerly-moving
+            // solute is reflected back.
+            new Coordinate2D(2, 1, Flags.BOUNDARY_APPLIED)
         };
 
         neighbors = hr.getNeighbors(coord, Geometry.APPLY_BOUNDARIES);

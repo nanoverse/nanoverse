@@ -25,11 +25,11 @@
 package nanoverse.runtime.factory.io.visual.color;
 
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.factory.control.arguments.DoubleArgumentFactory;
 import nanoverse.runtime.io.visual.color.*;
-import org.dom4j.Element;
 import nanoverse.runtime.structural.utilities.XmlUtil;
+import org.dom4j.Element;
 
 import java.awt.*;
 

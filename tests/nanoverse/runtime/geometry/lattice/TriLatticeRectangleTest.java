@@ -30,6 +30,7 @@ import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Tests that the rectangle nanoverse.runtime.geometry shape works as expected
  * with the triangular lattice.
@@ -71,32 +72,32 @@ public class TriLatticeRectangleTest extends LegacyTest {
 
         // Even
         expected = new Coordinate2D[]{
-                new Coordinate2D(0, 0, 0),
-                new Coordinate2D(1, 0, 0),
-                new Coordinate2D(2, 1, 0),
-                new Coordinate2D(3, 1, 0),
-                new Coordinate2D(0, 1, 0),
-                new Coordinate2D(1, 1, 0),
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(3, 2, 0),
+            new Coordinate2D(0, 0, 0),
+            new Coordinate2D(1, 0, 0),
+            new Coordinate2D(2, 1, 0),
+            new Coordinate2D(3, 1, 0),
+            new Coordinate2D(0, 1, 0),
+            new Coordinate2D(1, 1, 0),
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(3, 2, 0),
         };
         actual = even.getBoundaries();
         assertArraysEqual(actual, expected, true);
 
         // Odd
         expected = new Coordinate2D[]{
-                new Coordinate2D(0, 0, 0),
-                new Coordinate2D(1, 0, 0),
-                new Coordinate2D(2, 1, 0),
-                new Coordinate2D(3, 1, 0),
-                new Coordinate2D(4, 2, 0),
-                new Coordinate2D(4, 3, 0),
-                new Coordinate2D(4, 4, 0),
-                new Coordinate2D(3, 3, 0),
-                new Coordinate2D(2, 3, 0),
-                new Coordinate2D(1, 2, 0),
-                new Coordinate2D(0, 2, 0),
-                new Coordinate2D(0, 1, 0)
+            new Coordinate2D(0, 0, 0),
+            new Coordinate2D(1, 0, 0),
+            new Coordinate2D(2, 1, 0),
+            new Coordinate2D(3, 1, 0),
+            new Coordinate2D(4, 2, 0),
+            new Coordinate2D(4, 3, 0),
+            new Coordinate2D(4, 4, 0),
+            new Coordinate2D(3, 3, 0),
+            new Coordinate2D(2, 3, 0),
+            new Coordinate2D(1, 2, 0),
+            new Coordinate2D(0, 2, 0),
+            new Coordinate2D(0, 1, 0)
         };
 
         actual = odd.getBoundaries();
@@ -108,14 +109,14 @@ public class TriLatticeRectangleTest extends LegacyTest {
         Coordinate[] actual, expected;
 
         expected = new Coordinate2D[]{
-                new Coordinate2D(0, 0, 0),
-                new Coordinate2D(1, 0, 0),
-                new Coordinate2D(2, 1, 0),
-                new Coordinate2D(3, 1, 0),
-                new Coordinate2D(0, 1, 0),
-                new Coordinate2D(1, 1, 0),
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(3, 2, 0),
+            new Coordinate2D(0, 0, 0),
+            new Coordinate2D(1, 0, 0),
+            new Coordinate2D(2, 1, 0),
+            new Coordinate2D(3, 1, 0),
+            new Coordinate2D(0, 1, 0),
+            new Coordinate2D(1, 1, 0),
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(3, 2, 0),
         };
         actual = even.getCanonicalSites();
         assertArraysEqual(actual, expected, true);

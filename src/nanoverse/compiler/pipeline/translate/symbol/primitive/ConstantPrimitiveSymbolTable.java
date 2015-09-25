@@ -32,7 +32,8 @@ import nanoverse.compiler.pipeline.translate.symbol.InstantiableSymbolTable;
  */
 public abstract class ConstantPrimitiveSymbolTable<T, U> implements InstantiableSymbolTable {
 
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
+    private final TypeToken<T> type = new TypeToken<T>(getClass()) {
+    };
 
     public abstract U getValue(String valueStr);
 

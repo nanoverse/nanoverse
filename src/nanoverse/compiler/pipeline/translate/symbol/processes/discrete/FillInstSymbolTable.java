@@ -26,8 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.FillLoader;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
-import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.agent.AgentDescriptorClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.booleans.BooleanClassSymbolTable;
 import nanoverse.runtime.processes.discrete.Fill;
@@ -54,8 +53,8 @@ public class FillInstSymbolTable extends DiscreteProcessInstSymbolTable<Fill> {
     private void skipFilledSites(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new BooleanClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "If true, occupied sites are " +
-                "ignored during fill operation. If false, filling over an " +
-                "occupied site will result in an error.");
+            "ignored during fill operation. If false, filling over an " +
+            "occupied site will result in an error.");
         ret.put("skipFilled", ms);
     }
 

@@ -49,21 +49,20 @@ public class MockGlyph extends Glyph {
     }
 
     @Override
+    public void overlay(Coordinate c, int frame, double time) {
+        this.lastOverlaid = c;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof MockGlyph);
+    }
+
+    @Override
     protected void internalInit() {
     }
 
     public Coordinate getLastOverlaid() {
         return lastOverlaid;
-    }
-
-    @Override
-    public void overlay(Coordinate c, int frame, double time) {
-        this.lastOverlaid = c;
-    }
-
-
-    @Override
-    public boolean equals(Object obj) {
-        return (obj instanceof MockGlyph);
     }
 }

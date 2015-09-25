@@ -30,6 +30,7 @@ import org.junit.*;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by dbborens on 1/2/14.
  */

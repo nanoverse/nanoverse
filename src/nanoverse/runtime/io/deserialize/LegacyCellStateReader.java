@@ -29,10 +29,7 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.LightweightSystemState;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashSet;
 
 @Deprecated
@@ -66,13 +63,6 @@ public class LegacyCellStateReader {
         initFile(path);
     }
 
-    public LegacyCellStateReader(String path, CoordinateDeindexer deindexer) {
-        this.deindexer = deindexer;
-        this.path = path;
-
-        initFile(path);
-    }
-
     private void initFile(String path) {
         File dataFile = new File(path + '/' + DATA_FILENAME);
 
@@ -95,6 +85,35 @@ public class LegacyCellStateReader {
             throw new RuntimeException(e);
         }
     }
+
+    public LegacyCellStateReader(String path, CoordinateDeindexer deindexer) {
+        this.deindexer = deindexer;
+        this.path = path;
+
+        initFile(path);
+    }
+
+    public void close() {
+        try {
+            br.close();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void populate(LightweightSystemState state) {
+        ConditionViewer viewer = next();
+//        double[] healthVector = viewer.getHealthVector();
+        int[] stateVector = viewer.getStateVector();
+        state.initCellLayer(stateVector);
+    }
+
+//    private Extrema getHealthExtremes() {
+//        File metadataFile = new File(path + '/' + METADATA_FILENAME);
+//        ExtremaReader reader = new ExtremaReader(metadataFile);
+//        Extrema ret = reader.get("health");
+//        return ret;
+//    }
 
     public ConditionViewer next() {
         try {
@@ -149,13 +168,6 @@ public class LegacyCellStateReader {
 //        return new ConditionViewer(f, states, highlights, frame, gillespie, deindexer);
     }
 
-//    private Extrema getHealthExtremes() {
-//        File metadataFile = new File(path + '/' + METADATA_FILENAME);
-//        ExtremaReader reader = new ExtremaReader(metadataFile);
-//        Extrema ret = reader.get("health");
-//        return ret;
-//    }
-
     private void readHighlights(HashSet<Coordinate> highlights) throws IOException {
 
         prevLine = br.readLine();
@@ -173,15 +185,6 @@ public class LegacyCellStateReader {
             prevLine = br.readLine();
         }
     }
-
-    public void close() {
-        try {
-            br.close();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
 
     private void readVector() throws IOException {
 //    private VectorViewer readVector() throws IOException {
@@ -230,12 +233,5 @@ public class LegacyCellStateReader {
         }
 
         return states;
-    }
-
-    public void populate(LightweightSystemState state) {
-        ConditionViewer viewer = next();
-//        double[] healthVector = viewer.getHealthVector();
-        int[] stateVector = viewer.getStateVector();
-        state.initCellLayer(stateVector);
     }
 }

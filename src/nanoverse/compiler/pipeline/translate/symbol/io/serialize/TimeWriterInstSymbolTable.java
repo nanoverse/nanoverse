@@ -36,8 +36,8 @@ public class TimeWriterInstSymbolTable extends MapSymbolTable<TimeWriter> {
     @Override
     public String getDescription() {
         return "Creates a binary file capturing the number of simulation " +
-                "state updates and the corresponding simulation time. Used " +
-                "in creating visualizations.";
+            "state updates and the corresponding simulation time. Used " +
+            "in creating visualizations.";
     }
 
     @Override

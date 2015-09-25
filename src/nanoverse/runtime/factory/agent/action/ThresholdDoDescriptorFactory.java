@@ -26,13 +26,13 @@ package nanoverse.runtime.factory.agent.action;
 
 import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.factory.agent.BehaviorDescriptorFactory;
 import nanoverse.runtime.factory.control.arguments.DoubleArgumentFactory;
 import nanoverse.runtime.layers.LayerManager;
-import org.dom4j.*;
+import org.dom4j.Element;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * Constructs an action chooser, which is used in construting a StochasticChoice
@@ -46,7 +46,7 @@ import java.util.*;
 public abstract class ThresholdDoDescriptorFactory {
 
     public static ActionDescriptor<ThresholdDo> instantiate(Element base, LayerManager layerManager,
-                                                       GeneralParameters p) {
+                                                            GeneralParameters p) {
 
         ActionDescriptor child = getAction(base, layerManager, p);
         DoubleArgument minimumArg = DoubleArgumentFactory.instantiate(base, "minimum", Double.NEGATIVE_INFINITY, p.getRandom());

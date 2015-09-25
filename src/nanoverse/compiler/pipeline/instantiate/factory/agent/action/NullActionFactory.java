@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action;
 
-import nanoverse.runtime.agent.action.NullActionDescriptor;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.agent.action.NullActionDescriptor;
 
 public class NullActionFactory implements Factory<NullActionDescriptor> {
 

@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.geometry.set;
 
-import nanoverse.runtime.geometry.set.HorizontalLineSet;
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.geometry.set.HorizontalLineSet;
 
 public class HLineCoordinateSetFactory implements Factory<HorizontalLineSet> {
 

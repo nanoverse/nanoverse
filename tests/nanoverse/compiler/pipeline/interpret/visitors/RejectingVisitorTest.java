@@ -24,8 +24,8 @@
 
 package nanoverse.compiler.pipeline.interpret.visitors;
 
-import org.junit.*;
 import nanoverse.runtime.structural.NotYetImplementedException;
+import org.junit.*;
 
 import static nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.*;
 import static org.mockito.Mockito.mock;

@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.interpret.visitors;
 
 import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.BoolPrimitiveContext;
-import nanoverse.compiler.pipeline.interpret.nodes.*;
+import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -38,8 +38,8 @@ import java.util.stream.Stream;
  */
 public class NanoPrimitiveBooleanVisitor extends AbstractNanoNodeVisitor {
 
-    private final Logger logger = LoggerFactory.getLogger(NanoPrimitiveBooleanVisitor.class);
     public static final String IDENTIFIER = "ConstantBoolean";
+    private final Logger logger = LoggerFactory.getLogger(NanoPrimitiveBooleanVisitor.class);
 
     @Override
     public ASTNode visitBoolPrimitive(@NotNull BoolPrimitiveContext ctx) {

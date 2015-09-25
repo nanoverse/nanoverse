@@ -36,8 +36,8 @@ public class RandomSeedWriterInstSymbolTable extends MapSymbolTable<RandomSeedWr
     @Override
     public String getDescription() {
         return "Produces a one-line text file for each instance, with the " +
-                "file containing the long integer used to seed the random " +
-                "number generator for the simulation instance.";
+            "file containing the long integer used to seed the random " +
+            "number generator for the simulation instance.";
     }
 
     @Override

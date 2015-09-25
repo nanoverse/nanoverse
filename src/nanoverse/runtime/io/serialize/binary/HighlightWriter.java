@@ -32,14 +32,10 @@ import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
-import nanoverse.runtime.structural.utilities.FileConventions;
-import nanoverse.runtime.structural.utilities.PrimitiveSerializer;
+import nanoverse.runtime.structural.utilities.*;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 import java.util.stream.*;
 
 /**
@@ -59,6 +55,13 @@ public class HighlightWriter extends Serializer {
     }
 
     @Override
+    public void init() {
+        super.init();
+
+        createDataStreams();
+    }
+
+    @Override
     public void dispatchHalt(HaltCondition ex) {
         closeDataStreams();
     }
@@ -73,18 +76,32 @@ public class HighlightWriter extends Serializer {
         for (int channel : channelList) {
             DataOutputStream stream = streamMap.get(channel);
             List<Coordinate> vector = stepState
-                    .getHighlights(channel)
-                    .collect(Collectors.toList());
+                .getHighlights(channel)
+                .collect(Collectors.toList());
 
             PrimitiveSerializer.writeCoercedCoordinateVector(stream, vector, geometry);
         }
     }
 
-    @Override
-    public void init() {
-        super.init();
+    private void closeDataStreams() {
+        try {
+            for (DataOutputStream stream : streamMap.values()) {
+                stream.close();
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
-        createDataStreams();
+    private void createDataStreams() {
+        streamMap = new HashMap<>(channelList.size());
+
+        for (Integer channel : channelList) {
+            String baseFilename = FileConventions.makeHighlightFilename(channel);
+            String absoluteName = p.getInstancePath() + baseFilename;
+            DataOutputStream stream = FileConventions.makeDataOutputStream(absoluteName);
+            streamMap.put(channel, stream);
+        }
     }
 
     @Override
@@ -106,26 +123,5 @@ public class HighlightWriter extends Serializer {
         }
 
         return true;
-    }
-
-    private void createDataStreams() {
-        streamMap = new HashMap<>(channelList.size());
-
-        for (Integer channel : channelList) {
-            String baseFilename = FileConventions.makeHighlightFilename(channel);
-            String absoluteName = p.getInstancePath() + baseFilename;
-            DataOutputStream stream = FileConventions.makeDataOutputStream(absoluteName);
-            streamMap.put(channel, stream);
-        }
-    }
-
-    private void closeDataStreams() {
-        try {
-            for (DataOutputStream stream : streamMap.values()) {
-                stream.close();
-            }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
     }
 }

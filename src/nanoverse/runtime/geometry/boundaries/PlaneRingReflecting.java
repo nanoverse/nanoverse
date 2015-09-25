@@ -27,8 +27,7 @@ package nanoverse.runtime.geometry.boundaries;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.boundaries.helpers.PlaneRingHelper;
 import nanoverse.runtime.geometry.lattice.Lattice;
-import nanoverse.runtime.geometry.shape.Rectangle;
-import nanoverse.runtime.geometry.shape.Shape;
+import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 public class PlaneRingReflecting extends Boundary {

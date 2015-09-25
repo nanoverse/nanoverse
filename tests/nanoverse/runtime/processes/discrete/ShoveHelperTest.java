@@ -32,8 +32,8 @@ import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.structural.MockRandom;
+import org.junit.*;
 import test.LegacyTest;
 
 import java.util.*;
@@ -190,6 +190,7 @@ public class ShoveHelperTest extends LegacyTest {
     /**
      * ensure that the displacement vector between each cell in the shoving
      * path is the same for random shoving.
+     *
      * @throws Exception
      */
     @Test
@@ -217,14 +218,14 @@ public class ShoveHelperTest extends LegacyTest {
         // make sure displacement vector between each site is the same
         Coordinate[] affectedArray = affectedSites.toArray(new Coordinate2D[0]);
         Arrays.sort(affectedArray);
-        Coordinate[] displacements = new Coordinate2D[affectedArray.length -1];
-        for (int i=0; i < affectedArray.length - 1; i++) {
+        Coordinate[] displacements = new Coordinate2D[affectedArray.length - 1];
+        for (int i = 0; i < affectedArray.length - 1; i++) {
             displacements[i] = lm.getCellLayer().getGeometry().
-                    getDisplacement(affectedArray[i],
-                            affectedArray[i+1], Geometry.APPLY_BOUNDARIES);
+                getDisplacement(affectedArray[i],
+                    affectedArray[i + 1], Geometry.APPLY_BOUNDARIES);
         }
         Coordinate displacement = displacements[0];
-        for (int j=0; j < displacements.length; j++) {
+        for (int j = 0; j < displacements.length; j++) {
             assertEquals(displacement, displacements[j]);
         }
 

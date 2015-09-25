@@ -32,7 +32,7 @@ import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
 import org.junit.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class CoordinateLoaderTest {

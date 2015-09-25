@@ -26,9 +26,9 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete.check;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.processes.discrete.DiscreteProcessInstSymbolTableTest;
-import nanoverse.runtime.control.arguments.*;
-import org.junit.*;
+import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.processes.discrete.check.CheckForThresholdOccupancy;
+import org.junit.Test;
 
 public class CheckForThresholdOccupancyInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {
 

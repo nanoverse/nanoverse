@@ -23,15 +23,13 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.control.arguments;
 
-import nanoverse.runtime.agent.action.*;
-import nanoverse.runtime.control.arguments.IntegerArgument;
-import nanoverse.runtime.control.arguments.DoubleArgument;
+import nanoverse.runtime.agent.action.ActionDescriptor;
+import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.layers.continuum.Reaction;
+
 import java.util.Map;
 import java.util.stream.Stream;
-
-import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.control.arguments.CellDescriptor;
-import nanoverse.runtime.layers.continuum.Reaction;
 
 
 public class AgentDescriptorFactoryHelper {

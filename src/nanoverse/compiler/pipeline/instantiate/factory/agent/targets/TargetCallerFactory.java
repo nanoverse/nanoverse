@@ -30,6 +30,7 @@ public class TargetCallerFactory extends TargetFactory<TargetCallerDescriptor> {
     public TargetCallerFactory() {
         super(new TargetCallerFactoryHelper());
     }
+
     public TargetCallerFactory(TargetFactoryHelper helper) {
         super(helper);
     }

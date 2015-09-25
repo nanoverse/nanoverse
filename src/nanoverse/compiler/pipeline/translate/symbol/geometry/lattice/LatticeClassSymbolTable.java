@@ -38,8 +38,8 @@ public class LatticeClassSymbolTable extends ClassSymbolTable<Lattice> {
     @Override
     public String getDescription() {
         return "The lattice represents the topology of an nanoverse.runtime.agent's " +
-                "neighborhood. As of this writing, all lattice topologies in " +
-                "Nanoverse are regular.";
+            "neighborhood. As of this writing, all lattice topologies in " +
+            "Nanoverse are regular.";
     }
 
     @Override

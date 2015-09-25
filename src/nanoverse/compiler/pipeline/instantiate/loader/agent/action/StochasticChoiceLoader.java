@@ -24,9 +24,9 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.instantiate.factory.agent.action.StochasticChoiceFactory;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
+import nanoverse.runtime.agent.action.StochasticChoiceDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.DynamicActionRangeMapDescriptor;
 import nanoverse.runtime.layers.LayerManager;

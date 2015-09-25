@@ -27,9 +27,7 @@ package nanoverse.runtime.layers.continuum;
 import nanoverse.runtime.cells.BehaviorCell;
 
 import java.util.IdentityHashMap;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Stream;
 
 /**
@@ -54,6 +52,18 @@ public class ContinuumAgentIndex {
         map.clear();
     }
 
+    public Stream<RelationshipTuple> getRelationships() {
+        return map.values()
+            .stream()
+            .map(Supplier::get);
+    }
+
+    public ContinuumAgentNotifier getNotifier() {
+        BiConsumer<BehaviorCell, Supplier<RelationshipTuple>> adder = (cell, supplier) -> add(cell, supplier);
+        Consumer<BehaviorCell> remover = cell -> remove(cell);
+        return new ContinuumAgentNotifier(adder, remover);
+    }
+
     private void add(BehaviorCell cell, Supplier<RelationshipTuple> supplier) {
         if (map.containsKey(cell)) {
             throw new IllegalStateException("Attempted to add existing cell to relationship index");
@@ -66,18 +76,6 @@ public class ContinuumAgentIndex {
             throw new IllegalStateException("Attempted to remove non-existent key from relationship index");
         }
         map.remove(cell);
-    }
-
-    public Stream<RelationshipTuple> getRelationships() {
-        return map.values()
-                .stream()
-                .map(Supplier::get);
-    }
-
-    public ContinuumAgentNotifier getNotifier() {
-        BiConsumer<BehaviorCell, Supplier<RelationshipTuple>> adder = (cell, supplier) -> add(cell, supplier);
-        Consumer<BehaviorCell> remover = cell -> remove(cell);
-        return new ContinuumAgentNotifier(adder, remover);
     }
 
 }

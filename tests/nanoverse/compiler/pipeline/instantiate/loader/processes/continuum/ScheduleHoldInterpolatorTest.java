@@ -25,13 +25,12 @@
 package nanoverse.compiler.pipeline.instantiate.loader.processes.continuum;
 
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
-import nanoverse.runtime.layers.continuum.ContinuumLayer;
-import nanoverse.runtime.layers.continuum.ContinuumLayerScheduler;
+import nanoverse.runtime.layers.continuum.*;
 import org.junit.*;
 
 import java.util.function.Supplier;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class ScheduleHoldInterpolatorTest extends InterpolatorTest {

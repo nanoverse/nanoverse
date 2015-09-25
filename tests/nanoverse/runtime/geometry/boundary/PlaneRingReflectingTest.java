@@ -206,10 +206,10 @@ public class PlaneRingReflectingTest extends LegacyTest {
         // Test bottom position
         query = bottom;
         expected = new Coordinate2D[]{
-                new Coordinate2D(1, 0, 0),
-                new Coordinate2D(3, 0, 0),
-                new Coordinate2D(2, 0, Flags.BOUNDARY_APPLIED),  // Reflect up
-                new Coordinate2D(2, 1, 0)
+            new Coordinate2D(1, 0, 0),
+            new Coordinate2D(3, 0, 0),
+            new Coordinate2D(2, 0, Flags.BOUNDARY_APPLIED),  // Reflect up
+            new Coordinate2D(2, 1, 0)
         };
         actual = geom.getNeighbors(query, Geometry.APPLY_BOUNDARIES);
         assertArraysEqual(expected, actual, true);
@@ -217,10 +217,10 @@ public class PlaneRingReflectingTest extends LegacyTest {
         // Test top position
         query = top;
         expected = new Coordinate2D[]{
-                new Coordinate2D(1, 3, 0),
-                new Coordinate2D(3, 3, 0),
-                new Coordinate2D(2, 3, Flags.BOUNDARY_APPLIED),  // Reflect down
-                new Coordinate2D(2, 2, 0)
+            new Coordinate2D(1, 3, 0),
+            new Coordinate2D(3, 3, 0),
+            new Coordinate2D(2, 3, Flags.BOUNDARY_APPLIED),  // Reflect down
+            new Coordinate2D(2, 2, 0)
         };
         actual = geom.getNeighbors(query, Geometry.APPLY_BOUNDARIES);
         assertArraysEqual(expected, actual, true);
@@ -228,10 +228,10 @@ public class PlaneRingReflectingTest extends LegacyTest {
         // Test leftmost position
         query = leftmost;
         expected = new Coordinate2D[]{
-                new Coordinate2D(5, 2, Flags.BOUNDARY_APPLIED),  // Wrap to right
-                new Coordinate2D(1, 2, 0),
-                new Coordinate2D(0, 1, 0),
-                new Coordinate2D(0, 3, 0)
+            new Coordinate2D(5, 2, Flags.BOUNDARY_APPLIED),  // Wrap to right
+            new Coordinate2D(1, 2, 0),
+            new Coordinate2D(0, 1, 0),
+            new Coordinate2D(0, 3, 0)
         };
         actual = geom.getNeighbors(query, Geometry.APPLY_BOUNDARIES);
         assertArraysEqual(expected, actual, true);
@@ -239,10 +239,10 @@ public class PlaneRingReflectingTest extends LegacyTest {
         // Test rightmost position
         query = rightmost;
         expected = new Coordinate2D[]{
-                new Coordinate2D(4, 2, 0),
-                new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),  // Wrap to left
-                new Coordinate2D(5, 3, 0),
-                new Coordinate2D(5, 1, 0)
+            new Coordinate2D(4, 2, 0),
+            new Coordinate2D(0, 2, Flags.BOUNDARY_APPLIED),  // Wrap to left
+            new Coordinate2D(5, 3, 0),
+            new Coordinate2D(5, 1, 0)
         };
         actual = geom.getNeighbors(query, Geometry.APPLY_BOUNDARIES);
         assertArraysEqual(expected, actual, true);

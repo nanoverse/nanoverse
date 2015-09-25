@@ -26,11 +26,10 @@ package nanoverse.runtime.layers.continuum;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
-import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.Vector;
-import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 import nanoverse.runtime.structural.utilities.MatrixUtils;
+import no.uib.cipr.matrix.*;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 import java.util.function.Function;
 
@@ -43,10 +42,10 @@ public class ScheduledOperations {
 
     private final CompDiagMatrix identity;
     private final DenseVector zeroVector;
+    private final boolean operators;
     private CompDiagMatrix operator;
     private Vector source;
     private Function<Coordinate, Integer> indexer;
-    private final boolean operators;
 
     @FactoryTarget
     public ScheduledOperations(Geometry geom, boolean operators) {
@@ -63,6 +62,21 @@ public class ScheduledOperations {
         zeroVector = new DenseVector(n);
 
         reset();
+    }
+
+    /**
+     * Initialize source and operator vectors. The default values would
+     * leave the current state of the field unaltered if applied.
+     */
+    public void reset() {
+
+        // Reset operator to identity
+        if (operators) {
+            operator = new CompDiagMatrix(identity);
+        }
+
+        // Replace source vector with zero vector
+        source = zeroVector.copy();
     }
 
     /**
@@ -88,7 +102,7 @@ public class ScheduledOperations {
      * coordinate's location in the source vector with b)
      *
      * @param coordinate the coordinate of the location to set
-     * @param b the value to set
+     * @param b          the value to set
      */
     public void setSource(Coordinate coordinate, double b) {
         int index = indexer.apply(coordinate);
@@ -120,26 +134,11 @@ public class ScheduledOperations {
     public void zeroOperatorRow(Coordinate coordinate) {
         if (!operators) {
             throw new IllegalStateException("Operators are disabled but an " +
-                    "Dirichlet boundary condition is being enforced");
+                "Dirichlet boundary condition is being enforced");
         }
 
         int index = indexer.apply(coordinate);
         MatrixUtils.zeroRow(operator, index);
-    }
-
-    /**
-     * Initialize source and operator vectors. The default values would
-     * leave the current state of the field unaltered if applied.
-     */
-    public void reset() {
-
-        // Reset operator to identity
-        if (operators) {
-            operator = new CompDiagMatrix(identity);
-        }
-
-        // Replace source vector with zero vector
-        source = zeroVector.copy();
     }
 
     /**

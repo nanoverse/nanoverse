@@ -41,6 +41,6 @@ public class ContactClustersHelperInstSymbolTable extends MapSymbolTable<Contact
     @Override
     public String getDescription() {
         return "Clusters that are allowed to intersect and that may take any " +
-                "shape.";
+            "shape.";
     }
 }

@@ -26,7 +26,7 @@ package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
@@ -60,7 +60,7 @@ public class Swap extends Action {
 
         if (targets.size() != 1) {
             throw new IllegalStateException("Swap action requires exactly one " +
-                    "target per event.");
+                "target per event.");
         }
 
         Coordinate target = targets.get(0);

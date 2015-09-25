@@ -73,26 +73,17 @@ public class MockBehaviorDispatcher extends BehaviorDispatcher {
     }
 
     @Override
-    public void map(String name, Action behavior) {
-        mappedNames.add(name);
-        mappedBehaviors.add(behavior);
-        lastMappedName = name;
-        lastMappedBehavior = behavior;
-    }
-
-    @Override
     public void trigger(String behaviorName, Coordinate caller) {
         lastTriggeredName = behaviorName;
         lastTriggeredCaller = caller;
     }
 
-    public void setOverrideEquals(boolean overrideEquals) {
-        this.overrideEquals = overrideEquals;
-
-    }
-
-    public void setReportEquals(boolean reportEquals) {
-        this.reportEquals = reportEquals;
+    @Override
+    public void map(String name, Action behavior) {
+        mappedNames.add(name);
+        mappedBehaviors.add(behavior);
+        lastMappedName = name;
+        lastMappedBehavior = behavior;
     }
 
     @Override
@@ -102,5 +93,14 @@ public class MockBehaviorDispatcher extends BehaviorDispatcher {
         } else {
             return super.equals(obj);
         }
+    }
+
+    public void setOverrideEquals(boolean overrideEquals) {
+        this.overrideEquals = overrideEquals;
+
+    }
+
+    public void setReportEquals(boolean reportEquals) {
+        this.reportEquals = reportEquals;
     }
 }

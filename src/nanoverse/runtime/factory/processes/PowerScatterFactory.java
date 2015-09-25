@@ -25,13 +25,13 @@
 package nanoverse.runtime.factory.processes;
 
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.CellDescriptor;
 import nanoverse.runtime.factory.processes.discrete.ScatterClustersHelperFactory;
 import nanoverse.runtime.layers.LayerManager;
-import org.dom4j.Element;
-import nanoverse.runtime.processes.*;
+import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.*;
 import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import org.dom4j.Element;
 
 /**
  * Created by dbborens on 11/23/14.

@@ -27,13 +27,13 @@ package nanoverse.compiler.pipeline.instantiate.loader.control;
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import nanoverse.compiler.pipeline.translate.nodes.*;
-import nanoverse.compiler.pipeline.translate.symbol.*;
-import org.junit.*;
+import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.runtime.processes.NanoverseProcess;
+import org.junit.*;
 
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class ProcessManagerInterpolatorTest extends InterpolatorTest {

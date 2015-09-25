@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
-import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.agent.action.stochastic.DependentProbabilitySupplierDescriptor;
+import nanoverse.runtime.layers.LayerManager;
 
 
 public class DependentProbabilitySupplierFactoryHelper {

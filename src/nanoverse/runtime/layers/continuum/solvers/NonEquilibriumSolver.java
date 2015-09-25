@@ -25,9 +25,9 @@
 package nanoverse.runtime.layers.continuum.solvers;
 
 import nanoverse.runtime.layers.continuum.*;
-import no.uib.cipr.matrix.Vector;
 import nanoverse.runtime.structural.NotYetImplementedException;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
+import no.uib.cipr.matrix.Vector;
 
 /**
  * Created by dbborens on 6/3/2015.

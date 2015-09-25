@@ -31,8 +31,8 @@ import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.color.ColorManager;
 import nanoverse.runtime.io.visual.highlight.HighlightManager;
 import nanoverse.runtime.io.visual.kymograph.Kymograph;
-import org.dom4j.Element;
 import nanoverse.runtime.structural.utilities.XmlUtil;
+import org.dom4j.Element;
 
 /**
  * Created by dbborens on 4/3/14.

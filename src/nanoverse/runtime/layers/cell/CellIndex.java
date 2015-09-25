@@ -47,26 +47,19 @@ public class CellIndex implements Set<Coordinate> {
         }
     }
 
-    @Override
-    public boolean add(Coordinate e) {
-        Coordinate c = e.canonicalize();
-        return contents.add(c);
+    public CellIndexViewer set() {
+        CellIndexViewer copy = new CellIndexViewer(this);
+        return copy;
     }
 
     @Override
-    public boolean addAll(Collection<? extends Coordinate> toAdd) {
-        ArrayList<Coordinate> canonical = new ArrayList<>(toAdd.size());
-
-        for (Coordinate c : toAdd) {
-            canonical.add(c.canonicalize());
-        }
-
-        return contents.addAll(canonical);
+    public int size() {
+        return contents.size();
     }
 
     @Override
-    public void clear() {
-        contents.clear();
+    public boolean isEmpty() {
+        return contents.isEmpty();
     }
 
     @Override
@@ -80,6 +73,40 @@ public class CellIndex implements Set<Coordinate> {
         Coordinate cc = c.canonicalize();
 
         return contents.contains(cc);
+    }
+
+    @Override
+    public Iterator<Coordinate> iterator() {
+        return contents.iterator();
+    }
+
+    @Override
+    public Object[] toArray() {
+        return contents.toArray();
+    }
+
+    @Override
+    public <T> T[] toArray(T[] a) {
+        return contents.toArray(a);
+    }
+
+    @Override
+    public boolean add(Coordinate e) {
+        Coordinate c = e.canonicalize();
+        return contents.add(c);
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        if (!(o instanceof Coordinate)) {
+            return false;
+        }
+
+        Coordinate c = (Coordinate) o;
+
+        Coordinate cc = c.canonicalize();
+
+        return contents.remove(cc);
     }
 
     @Override
@@ -98,46 +125,14 @@ public class CellIndex implements Set<Coordinate> {
     }
 
     @Override
-    public boolean isEmpty() {
-        return contents.isEmpty();
-    }
+    public boolean addAll(Collection<? extends Coordinate> toAdd) {
+        ArrayList<Coordinate> canonical = new ArrayList<>(toAdd.size());
 
-    @Override
-    public Iterator<Coordinate> iterator() {
-        return contents.iterator();
-    }
-
-    public CellIndexViewer set() {
-        CellIndexViewer copy = new CellIndexViewer(this);
-        return copy;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        if (!(o instanceof Coordinate)) {
-            return false;
+        for (Coordinate c : toAdd) {
+            canonical.add(c.canonicalize());
         }
 
-        Coordinate c = (Coordinate) o;
-
-        Coordinate cc = c.canonicalize();
-
-        return contents.remove(cc);
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> elems) {
-        ArrayList<Coordinate> ce = new ArrayList<Coordinate>(elems.size());
-        for (Object e : elems) {
-            if (!(e instanceof Coordinate)) {
-                return false;
-            }
-            Coordinate c = (Coordinate) e;
-            Coordinate cc = c.canonicalize();
-            ce.add(cc);
-        }
-
-        return contents.removeAll(ce);
+        return contents.addAll(canonical);
     }
 
     @Override
@@ -156,18 +151,28 @@ public class CellIndex implements Set<Coordinate> {
     }
 
     @Override
-    public int size() {
-        return contents.size();
+    public boolean removeAll(Collection<?> elems) {
+        ArrayList<Coordinate> ce = new ArrayList<Coordinate>(elems.size());
+        for (Object e : elems) {
+            if (!(e instanceof Coordinate)) {
+                return false;
+            }
+            Coordinate c = (Coordinate) e;
+            Coordinate cc = c.canonicalize();
+            ce.add(cc);
+        }
+
+        return contents.removeAll(ce);
     }
 
     @Override
-    public Object[] toArray() {
-        return contents.toArray();
+    public void clear() {
+        contents.clear();
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
-        return contents.toArray(a);
+    public int hashCode() {
+        return contents != null ? contents.hashCode() : 0;
     }
 
     @Override
@@ -181,10 +186,5 @@ public class CellIndex implements Set<Coordinate> {
             return false;
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return contents != null ? contents.hashCode() : 0;
     }
 }

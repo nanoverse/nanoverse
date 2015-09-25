@@ -42,8 +42,8 @@ public class KymographInstSymbolTable extends MapSymbolTable<Kymograph> {
     @Override
     public String getDescription() {
         return "A kymograph is a visualization for 1D (Line) arenas whose y-" +
-                "axis corresponds to coordinate and whose x-axis corresponds " +
-                "to time. One file is created per simulation instance.";
+            "axis corresponds to coordinate and whose x-axis corresponds " +
+            "to time. One file is created per simulation instance.";
     }
 
     @Override
@@ -60,30 +60,30 @@ public class KymographInstSymbolTable extends MapSymbolTable<Kymograph> {
         ClassSymbolTable cst = new HighlightClassSymbolTable();
         ResolvingSymbolTable rst = new ListSymbolTable<>(cst, HighlightManagerLoader::new);
         MemberSymbol ms = new MemberSymbol(rst, "Specifies which highlight " +
-                "channels to visualize, if any, and how they should be " +
-                "visualized.");
+            "channels to visualize, if any, and how they should be " +
+            "visualized.");
         ret.put("highlights", ms);
     }
 
     public void color(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new ColorModelClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Specifies how simulation " +
-                "state should be encoded into color, if at all.");
+            "state should be encoded into color, if at all.");
         ret.put("color", ms);
     }
 
     public void outline(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Specifies the thickness of " +
-                "the outline around each lattice site.");
+            "the outline around each lattice site.");
         ret.put("outline", ms);
     }
 
     public void edge(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Specifies the size of each " +
-                "lattice site edge (and, by extension, the size of the image " +
-                "as a whole).");
+            "lattice site edge (and, by extension, the size of the image " +
+            "as a whole).");
         ret.put("edge", ms);
 
     }

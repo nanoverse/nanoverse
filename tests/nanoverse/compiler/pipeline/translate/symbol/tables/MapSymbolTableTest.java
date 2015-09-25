@@ -27,6 +27,7 @@ package nanoverse.compiler.pipeline.translate.symbol.tables;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Created by dbborens on 7/21/2015.
  */

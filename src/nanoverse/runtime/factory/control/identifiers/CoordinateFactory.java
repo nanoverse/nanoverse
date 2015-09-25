@@ -24,10 +24,7 @@
 
 package nanoverse.runtime.factory.control.identifiers;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
-import nanoverse.runtime.control.identifiers.Coordinate3D;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 import org.dom4j.Element;
 
@@ -36,6 +33,23 @@ import org.dom4j.Element;
  * @test CoordinateFactoryTest
  */
 public abstract class CoordinateFactory {
+
+    public static Coordinate offset(Object o, Geometry geom) {
+        Coordinate displacement;
+        displacement = instantiate(o);
+        Coordinate origin = geom.getCenter();
+        return geom.rel2abs(origin, displacement, Geometry.APPLY_BOUNDARIES);
+    }
+
+    public static Coordinate instantiate(Object o) {
+        if (o instanceof Element) {
+            Element e = (Element) o;
+            return instantiate(e);
+        } else {
+            throw new IllegalArgumentException("Cannot build a coordinate from class "
+                + o.getClass().getSimpleName());
+        }
+    }
 
     public static Coordinate instantiate(Element e) {
         // Coordinate or vector?
@@ -83,26 +97,9 @@ public abstract class CoordinateFactory {
 
         } else {
             throw new IllegalArgumentException("Unrecognized coordinate tag '" +
-                    e.getName() + "'.");
+                e.getName() + "'.");
         }
 
         return flags;
-    }
-
-    public static Coordinate instantiate(Object o) {
-        if (o instanceof Element) {
-            Element e = (Element) o;
-            return instantiate(e);
-        } else {
-            throw new IllegalArgumentException("Cannot build a coordinate from class "
-                    + o.getClass().getSimpleName());
-        }
-    }
-
-    public static Coordinate offset(Object o, Geometry geom) {
-        Coordinate displacement;
-        displacement = instantiate(o);
-        Coordinate origin = geom.getCenter();
-        return geom.rel2abs(origin, displacement, Geometry.APPLY_BOUNDARIES);
     }
 }

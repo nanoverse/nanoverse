@@ -25,8 +25,7 @@
 package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.check;
 
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
-import nanoverse.runtime.control.arguments.DoubleArgument;
-import nanoverse.runtime.control.arguments.IntegerArgument;
+import nanoverse.runtime.control.arguments.*;
 import org.junit.*;
 
 import java.util.function.Supplier;

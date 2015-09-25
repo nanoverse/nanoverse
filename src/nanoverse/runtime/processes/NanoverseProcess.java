@@ -24,7 +24,7 @@
 package nanoverse.runtime.processes;
 
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.gillespie.GillespieState;
@@ -42,14 +42,11 @@ public abstract class NanoverseProcess {
         return arguments.getId();
     }
 
-
-    /**
-     * Identifies possible update targets in the event of an iteration. Should
-     * accept a null GillespieState for non-Gillespie events.
-     *
-     * @throws HaltCondition
-     */
-    public abstract void target(GillespieState gs) throws HaltCondition;
+    public void iterate() throws HaltCondition {
+        target();
+        StepState stepState = arguments.getLayerManager().getStepState();
+        fire(stepState);
+    }
 
     /**
      * Convenience interface for target(...) -- calls it with a null GillespieState
@@ -62,18 +59,20 @@ public abstract class NanoverseProcess {
     }
 
     /**
+     * Identifies possible update targets in the event of an iteration. Should
+     * accept a null GillespieState for non-Gillespie events.
+     *
+     * @throws HaltCondition
+     */
+    public abstract void target(GillespieState gs) throws HaltCondition;
+
+    /**
      * Chooses one of its available targets and executes the update.
      *
      * @param state
      * @throws HaltCondition
      */
     public abstract void fire(StepState state) throws HaltCondition;
-
-    public void iterate() throws HaltCondition {
-        target();
-        StepState stepState = arguments.getLayerManager().getStepState();
-        fire(stepState);
-    }
 
     public IntegerArgument getPeriod() {
         return arguments.getPeriod();

@@ -23,9 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action;
 
-import nanoverse.runtime.control.arguments.IntegerArgument;
-import nanoverse.runtime.agent.targets.TargetDescriptor;
 import nanoverse.runtime.agent.action.TriggerDescriptor;
+import nanoverse.runtime.agent.targets.TargetDescriptor;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
 
 

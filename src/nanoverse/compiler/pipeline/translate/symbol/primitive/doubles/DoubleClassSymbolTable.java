@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.primitive.doubles;
 
 import nanoverse.compiler.pipeline.interpret.visitors.NanoPrimitiveDoubleVisitor;
 import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.DoubleArgument;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -40,7 +40,7 @@ public class DoubleClassSymbolTable extends ClassSymbolTable<DoubleArgument> {
     @Override
     public String getDescription() {
         return "Functions that return floating point (FP) values. All " +
-                "floating point values in Nanoverse are double-precision.";
+            "floating point values in Nanoverse are double-precision.";
     }
 
     @Override

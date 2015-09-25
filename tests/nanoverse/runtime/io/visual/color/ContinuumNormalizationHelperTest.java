@@ -29,7 +29,7 @@ import nanoverse.runtime.layers.SystemState;
 import org.junit.*;
 import test.TestBase;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class ContinuumNormalizationHelperTest extends TestBase {
@@ -49,6 +49,11 @@ public class ContinuumNormalizationHelperTest extends TestBase {
         query = new ContinuumNormalizationHelper(continuumId);
     }
 
+    @Test
+    public void normalizeMin() throws Exception {
+        doNormalizationTest(-1.0, -1.0, 3.0, 0.0);
+    }
+
     private void doNormalizationTest(double rawValue, double min, double max, double expected) throws Exception {
         when(systemState.getContinuumValue(continuumId, c)).thenReturn(rawValue);
         when(extrema.min()).thenReturn(min);
@@ -56,11 +61,6 @@ public class ContinuumNormalizationHelperTest extends TestBase {
 
         double actual = query.normalize(c, systemState);
         assertEquals(expected, actual, epsilon);
-    }
-
-    @Test
-    public void normalizeMin() throws Exception {
-        doNormalizationTest(-1.0, -1.0, 3.0, 0.0);
     }
 
     @Test

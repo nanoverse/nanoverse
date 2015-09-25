@@ -43,7 +43,7 @@ public class AgentDescriptorInstSymbolTable extends MapSymbolTable<CellDescripto
     @Override
     public String getDescription() {
         return "AgentDescriptor describes the properties of a class of agents," +
-                " such as behaviors and internal state.";
+            " such as behaviors and internal state.";
     }
 
     @Override
@@ -68,29 +68,29 @@ public class AgentDescriptorInstSymbolTable extends MapSymbolTable<CellDescripto
         ClassSymbolTable cst = new ReactionClassSymbolTable();
         ResolvingSymbolTable rst = new ListSymbolTable<>(cst, ReactionStreamLoader::new);
         MemberSymbol ms = new MemberSymbol(rst, "List of interactions, if " +
-                "any, between the agents being described and continuum " +
-                "nanoverse.runtime.layers.");
+            "any, between the agents being described and continuum " +
+            "nanoverse.runtime.layers.");
         ret.put("reactions", ms);
     }
 
     private void initialHealth(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable cst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(cst, "LEGACY: Defines the initial " +
-                "health value of the nanoverse.runtime.agent.");
+            "health value of the nanoverse.runtime.agent.");
         ret.put("initialHealth", ms);
     }
 
     private void threshold(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable cst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(cst, "LEGACY: the minimum health " +
-                "at which an nanoverse.runtime.agent becomes eligible for cell division.");
+            "at which an nanoverse.runtime.agent becomes eligible for cell division.");
         ret.put("threshold", ms);
     }
 
     private void cellState(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable cst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(cst, "A numerical ID for the " +
-                "category of nanoverse.runtime.agent being described. Soon to be replaced...");
+            "category of nanoverse.runtime.agent being described. Soon to be replaced...");
         ret.put("class", ms);
     }
 

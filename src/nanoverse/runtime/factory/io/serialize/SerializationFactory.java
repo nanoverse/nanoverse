@@ -26,21 +26,16 @@ package nanoverse.runtime.factory.io.serialize;
 
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.*;
-import nanoverse.runtime.factory.control.arguments.DoubleArgumentFactory;
-import nanoverse.runtime.factory.control.arguments.IntegerArgumentFactory;
+import nanoverse.runtime.factory.control.arguments.*;
 import nanoverse.runtime.factory.io.visual.VisualizationFactory;
-import nanoverse.runtime.io.serialize.SerializationManager;
-import nanoverse.runtime.io.serialize.Serializer;
-import nanoverse.runtime.io.serialize.binary.ContinuumStateWriter;
-import nanoverse.runtime.io.serialize.binary.HighlightWriter;
-import nanoverse.runtime.io.serialize.binary.TimeWriter;
-import nanoverse.runtime.io.serialize.binary.VisualizationSerializer;
+import nanoverse.runtime.io.serialize.*;
+import nanoverse.runtime.io.serialize.binary.*;
 import nanoverse.runtime.io.serialize.interactive.ProgressReporter;
 import nanoverse.runtime.io.serialize.text.*;
 import nanoverse.runtime.io.visual.Visualization;
 import nanoverse.runtime.layers.LayerManager;
-import org.dom4j.Element;
 import nanoverse.runtime.structural.utilities.XmlUtil;
+import org.dom4j.Element;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -49,6 +44,24 @@ import java.util.stream.Stream;
  * Created by dbborens on 1/17/14.
  */
 public abstract class SerializationFactory {
+    public static SerializationManager makeManager(Element we, LayerManager layerManager, GeneralParameters p) {
+        List<Serializer> writers = new ArrayList<>();
+
+        // No writers? No problem -- return an empty manager.
+        if (we == null) {
+            return new SerializationManager(p, layerManager, writers);
+        }
+
+        for (Object o : we.elements()) {
+            Element e = (Element) o;
+            Serializer w = SerializationFactory.instantiate(e, p, layerManager);
+            writers.add(w);
+        }
+
+        SerializationManager manager = new SerializationManager(p, layerManager, writers);
+        return manager;
+    }
+
     public static Serializer instantiate(Element e, GeneralParameters p, LayerManager lm) {
 
         String writerClass = e.getName();
@@ -122,24 +135,6 @@ public abstract class SerializationFactory {
         } else {
             throw new IllegalArgumentException("Unrecognized serialization '" + writerClass + "'");
         }
-    }
-
-    public static SerializationManager makeManager(Element we, LayerManager layerManager, GeneralParameters p) {
-        List<Serializer> writers = new ArrayList<>();
-
-        // No writers? No problem -- return an empty manager.
-        if (we == null) {
-            return new SerializationManager(p, layerManager, writers);
-        }
-
-        for (Object o : we.elements()) {
-            Element e = (Element) o;
-            Serializer w = SerializationFactory.instantiate(e, p, layerManager);
-            writers.add(w);
-        }
-
-        SerializationManager manager = new SerializationManager(p, layerManager, writers);
-        return manager;
     }
 
     private static CorrelationWriter correlationWriter(Element e, GeneralParameters p, LayerManager lm) {

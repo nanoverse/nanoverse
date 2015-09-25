@@ -25,11 +25,11 @@
 package nanoverse.runtime.layers.continuum.solvers;
 
 import nanoverse.runtime.layers.continuum.*;
+import nanoverse.runtime.structural.utilities.MatrixUtils;
 import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.junit.*;
 import org.mockito.ArgumentCaptor;
-import nanoverse.runtime.structural.utilities.MatrixUtils;
 import test.TestBase;
 
 import java.util.stream.IntStream;
@@ -69,8 +69,8 @@ public class NonEquilibriumSolverTest extends TestBase {
     private Vector makeStateVector() {
         DenseVector vector = new DenseVector(RANGE);
         IntStream.range(0, RANGE)
-                .boxed()
-                .forEach(i -> vector.set(i, i * 1.0));
+            .boxed()
+            .forEach(i -> vector.set(i, i * 1.0));
         return vector;
     }
 

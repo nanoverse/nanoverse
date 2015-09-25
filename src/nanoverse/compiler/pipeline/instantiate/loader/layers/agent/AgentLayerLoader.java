@@ -51,6 +51,10 @@ public class AgentLayerLoader extends LayerLoader<CellLayer> {
         this.interpolator = interpolator;
     }
 
+    public CellLayer instantiate(GeometryDescriptor geom, GeneralParameters p) {
+        return instantiate(null, geom, p);
+    }
+
     @Override
     public CellLayer instantiate(MapObjectNode child, GeometryDescriptor geom, GeneralParameters p) {
         Boundary boundary = interpolator.boundary(child, geom);
@@ -58,9 +62,5 @@ public class AgentLayerLoader extends LayerLoader<CellLayer> {
 
         factory.setGeom(geometry);
         return factory.build();
-    }
-
-    public CellLayer instantiate(GeometryDescriptor geom, GeneralParameters p) {
-        return instantiate(null, geom, p);
     }
 }

@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.translate.symbol.io.visual.highlight;
 
 import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.runtime.io.visual.highlight.*;
+import nanoverse.runtime.io.visual.highlight.Highlight;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -38,8 +38,8 @@ public class HighlightClassSymbolTable extends ClassSymbolTable<Highlight> {
     @Override
     public String getDescription() {
         return "A highlight describes how selected locations (specified " +
-                "using a highlight channel) should be accentuated in a " +
-                "visualization.";
+            "using a highlight channel) should be accentuated in a " +
+            "visualization.";
     }
 
     @Override

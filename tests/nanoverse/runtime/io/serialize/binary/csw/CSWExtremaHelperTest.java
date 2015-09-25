@@ -24,12 +24,12 @@
 
 package nanoverse.runtime.io.serialize.binary.csw;
 
-import nanoverse.runtime.control.identifiers.*;
+import nanoverse.runtime.control.identifiers.Extrema;
 import nanoverse.runtime.io.serialize.binary.BinaryExtremaWriter;
-import org.junit.*;
 import nanoverse.runtime.processes.StepState;
+import org.junit.*;
 
-import java.io.*;
+import java.io.DataOutputStream;
 import java.util.HashMap;
 import java.util.function.Function;
 import java.util.stream.Stream;

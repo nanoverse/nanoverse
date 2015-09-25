@@ -28,8 +28,7 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.structural.CanonicalCellMap;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by David B Borenstein on 4/10/14.
@@ -37,6 +36,20 @@ import java.util.Set;
 public class FiniteCellLayerContent extends CellLayerContent {
     public FiniteCellLayerContent(Geometry geom, CellLayerIndices indices) {
         super(geom, indices);
+    }
+
+    @Override
+    public void sanityCheck(Coordinate coord) {
+
+        // Otherwise, it had better be in the coordinate system.
+        if (!hasCanonicalForm(coord)) {
+            StringBuilder ss = new StringBuilder();
+            ss.append("Consistency failure: coordinate ");
+            ss.append(coord.stringForm());
+            ss.append(" does not exist in this nanoverse.runtime.geometry.\n");
+            String str = ss.toString();
+            throw new IllegalStateException(str);
+        }
     }
 
     @Override
@@ -61,19 +74,5 @@ public class FiniteCellLayerContent extends CellLayerContent {
         clone.map = clonedMap;
         clone.canonicalSites = clonedSites;
         return clone;
-    }
-
-    @Override
-    public void sanityCheck(Coordinate coord) {
-
-        // Otherwise, it had better be in the coordinate system.
-        if (!hasCanonicalForm(coord)) {
-            StringBuilder ss = new StringBuilder();
-            ss.append("Consistency failure: coordinate ");
-            ss.append(coord.stringForm());
-            ss.append(" does not exist in this nanoverse.runtime.geometry.\n");
-            String str = ss.toString();
-            throw new IllegalStateException(str);
-        }
     }
 }

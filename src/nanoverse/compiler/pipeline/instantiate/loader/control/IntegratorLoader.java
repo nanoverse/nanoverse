@@ -26,9 +26,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.control;
 
 import nanoverse.compiler.pipeline.instantiate.factory.control.IntegratorFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
-import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.Integrator;
-import nanoverse.runtime.control.ProcessManager;
+import nanoverse.runtime.control.*;
 import nanoverse.runtime.io.serialize.SerializationManager;
 
 /**
@@ -47,7 +45,7 @@ public class IntegratorLoader extends Loader<Integrator> {
     }
 
     public Integrator instantiate(GeneralParameters p, ProcessManager processManager,
-                      SerializationManager serializationManager) {
+                                  SerializationManager serializationManager) {
 
         factory.setP(p);
         factory.setProcessManager(processManager);

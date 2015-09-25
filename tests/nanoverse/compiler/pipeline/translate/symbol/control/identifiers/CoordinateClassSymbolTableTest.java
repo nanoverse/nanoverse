@@ -25,9 +25,9 @@
 package nanoverse.compiler.pipeline.translate.symbol.control.identifiers;
 
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
+import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import org.junit.*;
+import org.junit.Test;
 
 public class CoordinateClassSymbolTableTest extends ClassSymbolTableTest {
 

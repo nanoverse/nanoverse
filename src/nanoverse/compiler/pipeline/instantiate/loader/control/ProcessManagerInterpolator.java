@@ -47,6 +47,7 @@ public class ProcessManagerInterpolator {
     public ProcessManagerInterpolator(ProcessManagerDefaults defaults) {
         this.defaults = defaults;
     }
+
     public Stream<NanoverseProcess> processes(ListObjectNode node, LayerManager lm, GeneralParameters p) {
         if (node == null) {
             return defaults.processes();

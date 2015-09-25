@@ -24,11 +24,10 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.geometry.set.CoordinateSet;
 import nanoverse.runtime.layers.cell.CellLayer;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.NanoverseProcess;
+import nanoverse.runtime.processes.*;
 
 public abstract class CellProcess extends NanoverseProcess {
     // These are easily accessed from the layer manager, but there

@@ -32,7 +32,7 @@ import org.slf4j.*;
 /**
  * Takes a primitive AST node and a primitive symbol table,
  * and returns a primitive object node.
- *
+ * <p>
  * Created by dbborens on 4/22/15.
  */
 public class PrimitiveVisitor {

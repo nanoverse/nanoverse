@@ -27,10 +27,8 @@ package nanoverse.runtime.structural.utilities;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 /**
  * Contains utility methods for serializing vectors of primitive data types.
@@ -38,6 +36,16 @@ import java.util.List;
  * Created by David B Borenstein on 3/25/14.
  */
 public abstract class PrimitiveSerializer {
+
+    public static void writeDoubleVector(DataOutputStream dataOutputStream, double[] vector) {
+        List<Double> list = new ArrayList<Double>(vector.length);
+
+        for (double datum : vector) {
+            list.add(datum);
+        }
+
+        writeDoubleVector(dataOutputStream, list);
+    }
 
     /**
      * Append a vector of double values to a data output stream.
@@ -58,37 +66,6 @@ public abstract class PrimitiveSerializer {
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
-    }
-
-    public static void writeDoubleVector(DataOutputStream dataOutputStream, double[] vector) {
-        List<Double> list = new ArrayList<Double>(vector.length);
-
-        for (double datum : vector) {
-            list.add(datum);
-        }
-
-        writeDoubleVector(dataOutputStream, list);
-    }
-
-    /**
-     * Append a vector of integer values to a data output stream.
-     *
-     * @param dataOutputStream
-     * @param vector
-     */
-    public static void writeIntegerVector(DataOutputStream dataOutputStream, List<Integer> vector) {
-        try {
-            // Encode length (as a reality check)
-            int length = vector.size();
-            dataOutputStream.writeInt(length);
-            for (int i = 0; i < vector.size(); i++) {
-                Integer datum = vector.get(i);
-                dataOutputStream.writeInt(datum);
-            }
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
     }
 
     /**
@@ -128,5 +105,26 @@ public abstract class PrimitiveSerializer {
         }
 
         writeIntegerVector(dataOutputStream, intVector);
+    }
+
+    /**
+     * Append a vector of integer values to a data output stream.
+     *
+     * @param dataOutputStream
+     * @param vector
+     */
+    public static void writeIntegerVector(DataOutputStream dataOutputStream, List<Integer> vector) {
+        try {
+            // Encode length (as a reality check)
+            int length = vector.size();
+            dataOutputStream.writeInt(length);
+            for (int i = 0; i < vector.size(); i++) {
+                Integer datum = vector.get(i);
+                dataOutputStream.writeInt(datum);
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
     }
 }

@@ -34,10 +34,7 @@ import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.io.BufferedWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Writes out the number of each "state" as a function of time.
@@ -80,48 +77,6 @@ public class SurfaceCensusWriter extends Serializer {
         String filename = p.getInstancePath() + '/' + FILENAME;
         mkDir(p.getInstancePath(), true);
         bw = makeBufferedWriter(filename);
-    }
-
-    private void increment(HashMap<Integer, Integer> observations, int state) {
-        if (!observations.containsKey(state)) {
-            observations.put(state, 0);
-        }
-
-        int value = observations.get(state);
-        observations.put(state, value + 1);
-        observedStates.add(state);
-    }
-
-    private boolean isAtFront(Coordinate c, CellLayer layer) {
-        int[] neighborStates = layer.getLookupManager().getNeighborStates(c, false);
-
-        // If any neighbor is 0 (vacant), the point is at the front
-        for (int neighborState : neighborStates) {
-            if (neighborState == 0) {
-                return true;
-            }
-        }
-        // If none of the neighbors are vacant, the point is interior
-        return false;
-    }
-
-    @Override
-    public void flush(StepState stepState) {
-        CellLayer layer = stepState.getRecordedCellLayer();
-        frames.add(stepState.getFrame());
-
-        // Create a bucket for this frame.
-        HashMap<Integer, Integer> observations = new HashMap<>();
-        histo.put(stepState.getFrame(), observations);
-
-        // Iterate over all occupied sites.
-        for (Coordinate c : layer.getViewer().getOccupiedSites()) {
-            // Is it at the front? If so, count it.
-            if (isAtFront(c, layer)) {
-                int state = layer.getViewer().getState(c);
-                increment(observations, state);
-            }
-        }
     }
 
     public void dispatchHalt(HaltCondition ex) {
@@ -173,5 +128,47 @@ public class SurfaceCensusWriter extends Serializer {
 
     public void close() {
         // Doesn't do anything.
+    }
+
+    @Override
+    public void flush(StepState stepState) {
+        CellLayer layer = stepState.getRecordedCellLayer();
+        frames.add(stepState.getFrame());
+
+        // Create a bucket for this frame.
+        HashMap<Integer, Integer> observations = new HashMap<>();
+        histo.put(stepState.getFrame(), observations);
+
+        // Iterate over all occupied sites.
+        for (Coordinate c : layer.getViewer().getOccupiedSites()) {
+            // Is it at the front? If so, count it.
+            if (isAtFront(c, layer)) {
+                int state = layer.getViewer().getState(c);
+                increment(observations, state);
+            }
+        }
+    }
+
+    private void increment(HashMap<Integer, Integer> observations, int state) {
+        if (!observations.containsKey(state)) {
+            observations.put(state, 0);
+        }
+
+        int value = observations.get(state);
+        observations.put(state, value + 1);
+        observedStates.add(state);
+    }
+
+    private boolean isAtFront(Coordinate c, CellLayer layer) {
+        int[] neighborStates = layer.getLookupManager().getNeighborStates(c, false);
+
+        // If any neighbor is 0 (vacant), the point is at the front
+        for (int neighborState : neighborStates) {
+            if (neighborState == 0) {
+                return true;
+            }
+        }
+        // If none of the neighbors are vacant, the point is interior
+        return false;
     }
 }

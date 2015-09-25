@@ -24,9 +24,9 @@
 
 package nanoverse.runtime.io.serialize.text;
 
-import org.junit.Test;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.MockGeneralParameters;
+import org.junit.Test;
 import test.*;
 
 public class RandomSeedWriterTest extends LegacyLatticeTest {

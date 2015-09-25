@@ -34,8 +34,8 @@ import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.structural.MockRandom;
+import org.junit.*;
 import test.LegacyTest;
 
 import java.util.ArrayList;
@@ -43,6 +43,7 @@ import java.util.function.Supplier;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+
 /**
  * Created by annie on 3/3/15.
  */
@@ -110,7 +111,7 @@ public class ExpandRandomTest extends LegacyTest {
      * 0123456789
      * ____44____  Case 2
      * <p>
-     *
+     * <p>
      * Since the difference between case 1 and case 2 is handled
      * in a helper object (ShoveHelper) which is testes separately,
      * we consider only case 1.

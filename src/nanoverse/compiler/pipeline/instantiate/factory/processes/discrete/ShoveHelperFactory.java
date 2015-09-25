@@ -23,10 +23,11 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
-import nanoverse.runtime.processes.discrete.ShoveHelper;
-import java.util.Random;
-import nanoverse.runtime.layers.LayerManager;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.processes.discrete.ShoveHelper;
+
+import java.util.Random;
 
 public class ShoveHelperFactory implements Factory<ShoveHelper> {
 

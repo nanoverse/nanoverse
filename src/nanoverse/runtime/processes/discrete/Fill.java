@@ -28,8 +28,7 @@ import nanoverse.runtime.cells.Cell;
 import nanoverse.runtime.control.arguments.CellDescriptor;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.StepState;
+import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -79,9 +78,9 @@ public class Fill extends CellProcess {
 
             if (filled && !skipFilled) {
                 String msg = "Attempted to fill coordinate " + c.toString() +
-                        " but it was already filled. This is illegal unless" +
-                        " the <skip-filled-sites> flag is set to true. Did you" +
-                        " mean to set it? (id=" + getID() + ")";
+                    " but it was already filled. This is illegal unless" +
+                    " the <skip-filled-sites> flag is set to true. Did you" +
+                    " mean to set it? (id=" + getID() + ")";
 
                 throw new IllegalStateException(msg);
             } else if (!filled) {

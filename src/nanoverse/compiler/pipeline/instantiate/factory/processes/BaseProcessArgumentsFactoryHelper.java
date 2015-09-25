@@ -25,8 +25,8 @@ package nanoverse.compiler.pipeline.instantiate.factory.processes;
 
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.IntegerArgument;
-import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.processes.BaseProcessArguments;
 
 
 public class BaseProcessArgumentsFactoryHelper {

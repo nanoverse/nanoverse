@@ -29,11 +29,10 @@ import nanoverse.runtime.cells.BehaviorCell;
 import nanoverse.runtime.control.arguments.ProbabilitySupplierDescriptor;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
-import org.dom4j.Element;
 import nanoverse.runtime.structural.utilities.XmlUtil;
+import org.dom4j.Element;
 
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 /**
  * Created by dbborens on 1/9/15.
@@ -46,7 +45,7 @@ public abstract class DependentProbabilitySupplierFactory {
         double offset = XmlUtil.getDouble(option, "offset", 0.0);
         Function<BehaviorCell, Double> valueLookup = c -> getFieldValueAt(c, layerManager, fieldName);
         Function<BehaviorCell, DependentProbabilitySupplier> fn = cell -> new DependentProbabilitySupplier(valueLookup,
-                cell, coefficient, offset);
+            cell, coefficient, offset);
 
         return new ProbabilitySupplierDescriptor(fn);
     }
@@ -54,9 +53,9 @@ public abstract class DependentProbabilitySupplierFactory {
     private static double getFieldValueAt(BehaviorCell cell, LayerManager layerManager, String fieldName) {
 
         Supplier<Coordinate> supplier = () -> layerManager
-                .getCellLayer()
-                .getLookupManager()
-                .getCellLocation(cell);
+            .getCellLayer()
+            .getLookupManager()
+            .getCellLocation(cell);
 
         double value = layerManager.getContinuumLayer(fieldName).getLinker().get(supplier);
         return value;

@@ -28,16 +28,13 @@ import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.agent.action.stochastic.ProbabilitySupplier;
 import nanoverse.runtime.cells.BehaviorCell;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.DynamicActionRangeMapDescriptor;
-import nanoverse.runtime.control.arguments.ProbabilitySupplierDescriptor;
+import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.factory.agent.BehaviorDescriptorFactory;
 import nanoverse.runtime.factory.agent.action.stochastic.ProbabilitySupplierDescriptorFactory;
 import nanoverse.runtime.layers.LayerManager;
 import org.dom4j.Element;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 /**
@@ -67,13 +64,13 @@ public abstract class DynamicActionRangeMapDescriptorFactory {
         Function<BehaviorCell, DynamicActionRangeMap> fn = cell -> {
             DynamicActionRangeMap chooser = new DynamicActionRangeMap(layerManager);
             prototypes.keySet()
-                    .stream()
-                    .forEach(actionDescriptor -> {
-                        Action action = actionDescriptor.instantiate(cell);
-                        ProbabilitySupplierDescriptor supplierDescriptor = prototypes.get(actionDescriptor);
-                        ProbabilitySupplier supplier = supplierDescriptor.instantiate(cell);
-                        chooser.add(action, supplier);
-                    });
+                .stream()
+                .forEach(actionDescriptor -> {
+                    Action action = actionDescriptor.instantiate(cell);
+                    ProbabilitySupplierDescriptor supplierDescriptor = prototypes.get(actionDescriptor);
+                    ProbabilitySupplier supplier = supplierDescriptor.instantiate(cell);
+                    chooser.add(action, supplier);
+                });
             return chooser;
         };
 

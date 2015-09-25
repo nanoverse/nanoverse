@@ -26,11 +26,9 @@ package nanoverse.runtime.layers.cell;
 
 import nanoverse.runtime.cells.Cell;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.structural.CanonicalCellMap;
-import nanoverse.runtime.structural.NonNullIntegerMap;
+import nanoverse.runtime.structural.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Direct representation of cell layer indices. Only the cell layer and
@@ -213,6 +211,15 @@ public class CellLayerIndices {
     }
 
     @Override
+    public int hashCode() {
+        int result = occupiedSites != null ? occupiedSites.hashCode() : 0;
+        result = 31 * result + (divisibleSites != null ? divisibleSites.hashCode() : 0);
+        result = 31 * result + (stateMap != null ? stateMap.hashCode() : 0);
+        result = 31 * result + (cellLocationIndex != null ? cellLocationIndex.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -258,14 +265,5 @@ public class CellLayerIndices {
         }
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = occupiedSites != null ? occupiedSites.hashCode() : 0;
-        result = 31 * result + (divisibleSites != null ? divisibleSites.hashCode() : 0);
-        result = 31 * result + (stateMap != null ? stateMap.hashCode() : 0);
-        result = 31 * result + (cellLocationIndex != null ? cellLocationIndex.hashCode() : 0);
-        return result;
     }
 }

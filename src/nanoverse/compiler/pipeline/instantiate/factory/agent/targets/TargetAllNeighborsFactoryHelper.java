@@ -23,11 +23,11 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.targets;
 
-import nanoverse.runtime.agent.targets.*;
-import nanoverse.runtime.processes.discrete.filter.Filter;
-import java.util.Random;
-
+import nanoverse.runtime.agent.targets.TargetAllNeighborsDescriptor;
 import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.processes.discrete.filter.Filter;
+
+import java.util.Random;
 
 
 public class TargetAllNeighborsFactoryHelper implements TargetFactoryHelper<TargetAllNeighborsDescriptor> {

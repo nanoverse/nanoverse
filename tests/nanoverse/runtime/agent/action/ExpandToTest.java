@@ -34,8 +34,8 @@ import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.structural.MockRandom;
+import org.junit.*;
 import test.LegacyTest;
 
 import java.util.*;
@@ -43,6 +43,7 @@ import java.util.function.Supplier;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+
 /**
  * Functional test for the ExpandTo action, which utilizes a path-of-least-
  * resistance preferential division algorithm.

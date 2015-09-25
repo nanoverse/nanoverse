@@ -43,15 +43,13 @@ import java.util.stream.*;
  */
 public class StepState {
 
-    private CellLayer recordedCellLayer;
-    private boolean recorded;
-    private double dt;
-
     private final HashMap<Integer, Set<Coordinate>> highlights;
     private final double startTime;
     private final int frame;
-
     private final HashMap<String, List<Double>> continuumValues;
+    private CellLayer recordedCellLayer;
+    private boolean recorded;
+    private double dt;
 
     public StepState(double startTime, int frame, HashMap<Integer, Set<Coordinate>> highlights, HashMap<String, List<Double>> continuumValues) {
         this.highlights = highlights;
@@ -84,6 +82,10 @@ public class StepState {
         System.out.println(frame + "\t" + startTime + "\t" + dt + "\t" + getTime());
     }
 
+    public double getTime() {
+        return startTime + dt;
+    }
+
     public double getDt() {
         return dt;
     }
@@ -104,17 +106,13 @@ public class StepState {
         recordedCellLayer = layerManager.getCellLayer().clone();
         layerManager.getContinuumLayerIds().forEach(id -> {
             List<Double> values = layerManager
-                    .getContinuumLayer(id)
-                    .getStateStream()
-                    .collect(Collectors.toList());
+                .getContinuumLayer(id)
+                .getStateStream()
+                .collect(Collectors.toList());
 
             continuumValues.put(id, values);
         });
         recorded = true;
-    }
-
-    public double getTime() {
-        return startTime + dt;
     }
 
     public int getFrame() {

@@ -45,7 +45,7 @@ public abstract class LatticeFactory {
             return new CubicLattice();
         } else {
             String msg = "Unrecognized lattice class '" +
-                    className + "'.";
+                className + "'.";
             throw new IllegalArgumentException(msg);
         }
     }

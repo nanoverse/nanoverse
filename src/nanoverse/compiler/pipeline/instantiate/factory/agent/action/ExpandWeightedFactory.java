@@ -23,11 +23,12 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action;
 
-import nanoverse.runtime.control.arguments.IntegerArgument;
-import nanoverse.runtime.agent.action.ExpandWeightedDescriptor;
-import java.util.Random;
-import nanoverse.runtime.layers.LayerManager;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.agent.action.ExpandWeightedDescriptor;
+import nanoverse.runtime.control.arguments.IntegerArgument;
+import nanoverse.runtime.layers.LayerManager;
+
+import java.util.Random;
 
 public class ExpandWeightedFactory implements Factory<ExpandWeightedDescriptor> {
 

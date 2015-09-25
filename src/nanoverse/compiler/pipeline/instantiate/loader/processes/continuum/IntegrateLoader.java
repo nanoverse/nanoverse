@@ -46,7 +46,7 @@ public class IntegrateLoader extends ProcessLoader<Integrate> {
     }
 
     public IntegrateLoader(IntegrateFactory factory,
-                                  IntegrateInterpolator interpolator) {
+                           IntegrateInterpolator interpolator) {
         this.factory = factory;
         this.interpolator = interpolator;
     }

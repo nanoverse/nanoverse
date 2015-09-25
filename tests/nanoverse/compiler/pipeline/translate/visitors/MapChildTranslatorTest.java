@@ -30,7 +30,7 @@ import nanoverse.compiler.pipeline.translate.nodes.ObjectNode;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 import org.junit.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class MapChildTranslatorTest {
@@ -41,6 +41,7 @@ public class MapChildTranslatorTest {
 
     private ASTNode child;
     private ObjectNode expected;
+
     @Before
     public void before() throws Exception {
         walker = mock(TranslationCallback.class);

@@ -26,18 +26,14 @@ package nanoverse.runtime.io.serialize.text;
 
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Extrema;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Writes the state of the system to a file. To avoid lots of opening and
@@ -120,6 +116,40 @@ public class LegacyCellStateWriter extends Serializer {
         ef = new Extrema();
     }
 
+    public void dispatchHalt(HaltCondition ex) {
+        conclude();
+        closed = true;
+    }
+
+    private void conclude() {
+        // Close the state data file.
+        try {
+
+            stateWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Write the metadata file.
+        try {
+            File metadata = new File(p.getInstancePath() + '/' + METADATA_FILENAME);
+            FileWriter mfw = new FileWriter(metadata);
+            BufferedWriter mbw = new BufferedWriter(mfw);
+
+            mbw.write("health>");
+            mbw.write(ef.toString());
+            mbw.write('\n');
+
+            mbw.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void close() {
+        // Doesn't do anything.
+    }
 
     /**
      * Appends a state to the file.
@@ -131,7 +161,7 @@ public class LegacyCellStateWriter extends Serializer {
         double[] f = layer.getViewer().getHealthVector();
 
         writeDoubleArray(f, layer, ef, stepState.getTime(),
-                stepState.getFrame(), "health");
+            stepState.getFrame(), "health");
 
         writeIntegerArray(s, stepState.getTime(), stepState.getFrame(), "state");
 
@@ -230,41 +260,6 @@ public class LegacyCellStateWriter extends Serializer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void conclude() {
-        // Close the state data file.
-        try {
-
-            stateWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        // Write the metadata file.
-        try {
-            File metadata = new File(p.getInstancePath() + '/' + METADATA_FILENAME);
-            FileWriter mfw = new FileWriter(metadata);
-            BufferedWriter mbw = new BufferedWriter(mfw);
-
-            mbw.write("health>");
-            mbw.write(ef.toString());
-            mbw.write('\n');
-
-            mbw.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void close() {
-        // Doesn't do anything.
-    }
-
-    public void dispatchHalt(HaltCondition ex) {
-        conclude();
-        closed = true;
     }
 
 }

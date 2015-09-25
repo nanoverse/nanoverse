@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.layers.continuum;
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
 import org.junit.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class ContinuumLayerSchedulerInterpolatorTest extends InterpolatorTest {
@@ -46,7 +46,7 @@ public class ContinuumLayerSchedulerInterpolatorTest extends InterpolatorTest {
     public void operators() throws Exception {
         Boolean expected = true;
         when(load.aBoolean(eq(node), eq("operators"), eq(random), any()))
-                .thenReturn(expected);
+            .thenReturn(expected);
         Boolean actual = query.operators(node, random);
         assertEquals(expected, actual);
     }
@@ -56,7 +56,7 @@ public class ContinuumLayerSchedulerInterpolatorTest extends InterpolatorTest {
         Boolean expected = true;
         when(defaults.operators()).thenReturn(expected);
         verifyBooleanDefault("operators", expected,
-                () -> query.operators(node, random));
+            () -> query.operators(node, random));
     }
 
 }

@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.geometry.boundaries;
 
-import nanoverse.runtime.geometry.shape.Shape;
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.geometry.boundaries.Periodic;
 import nanoverse.runtime.geometry.lattice.Lattice;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.geometry.shape.Shape;
 
 public class PeriodicFactory implements Factory<Periodic> {
 

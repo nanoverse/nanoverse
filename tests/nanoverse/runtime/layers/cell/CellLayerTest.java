@@ -32,6 +32,7 @@ import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by dbborens on 4/25/14.
  */
@@ -54,9 +55,9 @@ public class CellLayerTest extends LegacyTest {
     @Test
     public void testHaltBoundaryCase() {
         Class[] componentClasses = new Class[]{
-                Object.class,
-                Object.class,
-                HaltArena.class
+            Object.class,
+            Object.class,
+            HaltArena.class
         };
 
         geom.setComponentClasses(componentClasses);

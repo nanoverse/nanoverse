@@ -23,10 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.layers.continuum;
 
-import nanoverse.runtime.layers.continuum.ReactionLinker;
-import nanoverse.runtime.layers.continuum.ContinuumAgentIndex;
-import nanoverse.runtime.layers.continuum.ContinuumAgentManager;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.layers.continuum.*;
 
 public class ContinuumAgentManagerFactory implements Factory<ContinuumAgentManager> {
 

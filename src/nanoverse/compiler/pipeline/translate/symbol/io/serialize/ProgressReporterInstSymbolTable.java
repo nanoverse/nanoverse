@@ -36,9 +36,9 @@ public class ProgressReporterInstSymbolTable extends MapSymbolTable<ProgressRepo
     @Override
     public String getDescription() {
         return "LEGACY: ProgressReporter provides verbose output concerning " +
-                "Nanoverse's state and the progress of the simulation. This " +
-                "information should be gradually replaced by slf4j logging " +
-                "with several levels of verboseness.";
+            "Nanoverse's state and the progress of the simulation. This " +
+            "information should be gradually replaced by slf4j logging " +
+            "with several levels of verboseness.";
     }
 
     @Override

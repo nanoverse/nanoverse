@@ -24,10 +24,10 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.instantiate.factory.agent.action.CompoundActionFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
 
@@ -60,7 +60,7 @@ public class CompoundActionLoader extends Loader<CompoundActionDescriptor> {
             .map(childNode -> childLoader.action(childNode, lm, p));
 
         factory.setChildren(children);
-        
+
         return factory.build();
     }
 }

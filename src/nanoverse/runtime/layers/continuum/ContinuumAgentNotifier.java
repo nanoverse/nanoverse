@@ -26,9 +26,7 @@ package nanoverse.runtime.layers.continuum;
 
 import nanoverse.runtime.cells.BehaviorCell;
 
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 /**
  * Notifies a ContinuumAgentIndex that a related cell has been added or

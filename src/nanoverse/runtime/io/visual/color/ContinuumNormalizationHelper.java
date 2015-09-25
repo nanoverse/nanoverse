@@ -43,6 +43,7 @@ public class ContinuumNormalizationHelper {
     /**
      * Normalize a continuum value at a particular coordinate to a range
      * between 0 and 1.
+     *
      * @param c
      * @param systemState
      * @return
@@ -62,6 +63,11 @@ public class ContinuumNormalizationHelper {
     }
 
     @Override
+    public int hashCode() {
+        return continuumId.hashCode();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -70,10 +76,5 @@ public class ContinuumNormalizationHelper {
 
         return continuumId.equals(that.continuumId);
 
-    }
-
-    @Override
-    public int hashCode() {
-        return continuumId.hashCode();
     }
 }

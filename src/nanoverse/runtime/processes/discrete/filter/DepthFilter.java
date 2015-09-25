@@ -24,15 +24,13 @@
 
 package nanoverse.runtime.processes.discrete.filter;
 
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.CellLayer;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * Removes all individuals at greater than a certain depth from the surface

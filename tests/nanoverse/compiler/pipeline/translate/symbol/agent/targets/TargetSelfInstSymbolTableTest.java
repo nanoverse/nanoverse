@@ -24,11 +24,11 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.targets;
 
-import nanoverse.runtime.agent.targets.*;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import nanoverse.runtime.agent.targets.TargetSelfDescriptor;
 
-public class TargetSelfInstSymbolTableTest  extends MapSymbolTableTest {
+public class TargetSelfInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
     protected MapSymbolTable getQuery() {

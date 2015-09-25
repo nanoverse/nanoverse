@@ -24,10 +24,10 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent;
 
-import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.action.ActionLoader;
 import nanoverse.compiler.pipeline.translate.nodes.*;
 import nanoverse.compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
 
@@ -38,9 +38,9 @@ public class BehaviorMapChildLoader {
 
 
     public ActionDescriptor load(String id,
-                                   DictionaryObjectNode node,
-                                   LayerManager lm,
-                                   GeneralParameters p) {
+                                 DictionaryObjectNode node,
+                                 LayerManager lm,
+                                 GeneralParameters p) {
 
         MapObjectNode cNode = (MapObjectNode) node.getMember(id);
         InstantiableSymbolTable ist = cNode.getSymbolTable();

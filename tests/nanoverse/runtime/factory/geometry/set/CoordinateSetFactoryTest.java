@@ -31,9 +31,9 @@ import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.set.*;
 import nanoverse.runtime.geometry.shape.*;
+import nanoverse.runtime.structural.MockGeneralParameters;
 import org.dom4j.Element;
 import org.junit.*;
-import nanoverse.runtime.structural.MockGeneralParameters;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;

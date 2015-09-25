@@ -64,55 +64,6 @@ public class HSLColor {
     }
 
     /**
-     * Create a HSLColor object using individual HSL values and a default
-     * alpha value of 1.0.
-     *
-     * @param h is the Hue value in degrees between 0 - 360
-     * @param s is the Saturation percentage between 0 - 100
-     * @param l is the Lumanance percentage between 0 - 100
-     */
-    public HSLColor(float h, float s, float l) {
-        this(h, s, l, 1.0f);
-    }
-
-    /**
-     * Create a HSLColor object using individual HSL values.
-     *
-     * @param h     the Hue value in degrees between 0 - 360
-     * @param s     the Saturation percentage between 0 - 100
-     * @param l     the Lumanance percentage between 0 - 100
-     * @param alpha the alpha value between 0 - 1
-     */
-    public HSLColor(float h, float s, float l, float alpha) {
-        hsl = new float[]{h, s, l};
-        this.alpha = alpha;
-        rgb = toRGB(hsl, alpha);
-    }
-
-    /**
-     * Create a HSLColor object using an an array containing the
-     * individual HSL values and with a default alpha value of 1.
-     *
-     * @param hsl array containing HSL values
-     */
-    public HSLColor(float[] hsl) {
-        this(hsl, 1.0f);
-    }
-
-    /**
-     * Create a HSLColor object using an an array containing the
-     * individual HSL values.
-     *
-     * @param hsl   array containing HSL values
-     * @param alpha the alpha value between 0 - 1
-     */
-    public HSLColor(float[] hsl, float alpha) {
-        this.hsl = hsl;
-        this.alpha = alpha;
-        rgb = toRGB(hsl, alpha);
-    }
-
-    /**
      * Convert a RGB Color to it corresponding HSL values.
      *
      * @return an array containing the 3 HSL values.
@@ -162,16 +113,29 @@ public class HSLColor {
     }
 
     /**
-     * Convert HSL values to a RGB Color with a default alpha value of 1.
-     * H (Hue) is specified as degrees in the range 0 - 360.
-     * S (Saturation) is specified as a percentage in the range 1 - 100.
-     * L (Lumanance) is specified as a percentage in the range 1 - 100.
+     * Create a HSLColor object using individual HSL values and a default
+     * alpha value of 1.0.
      *
-     * @param hsl an array containing the 3 HSL values
-     * @returns the RGB Color object
+     * @param h is the Hue value in degrees between 0 - 360
+     * @param s is the Saturation percentage between 0 - 100
+     * @param l is the Lumanance percentage between 0 - 100
      */
-    public static Color toRGB(float[] hsl) {
-        return toRGB(hsl, 1.0f);
+    public HSLColor(float h, float s, float l) {
+        this(h, s, l, 1.0f);
+    }
+
+    /**
+     * Create a HSLColor object using individual HSL values.
+     *
+     * @param h     the Hue value in degrees between 0 - 360
+     * @param s     the Saturation percentage between 0 - 100
+     * @param l     the Lumanance percentage between 0 - 100
+     * @param alpha the alpha value between 0 - 1
+     */
+    public HSLColor(float h, float s, float l, float alpha) {
+        hsl = new float[]{h, s, l};
+        this.alpha = alpha;
+        rgb = toRGB(hsl, alpha);
     }
 
     /**
@@ -186,18 +150,6 @@ public class HSLColor {
      */
     public static Color toRGB(float[] hsl, float alpha) {
         return toRGB(hsl[0], hsl[1], hsl[2], alpha);
-    }
-
-    /**
-     * Convert HSL values to a RGB Color with a default alpha value of 1.
-     *
-     * @param h Hue is specified as degrees in the range 0 - 360.
-     * @param s Saturation is specified as a percentage in the range 1 - 100.
-     * @param l Lumanance is specified as a percentage in the range 1 - 100.
-     * @returns the RGB Color object
-     */
-    public static Color toRGB(float h, float s, float l) {
-        return toRGB(h, s, l, 1.0f);
     }
 
     /**
@@ -270,6 +222,42 @@ public class HSLColor {
         }
 
         return p;
+    }
+
+    /**
+     * Create a HSLColor object using an an array containing the
+     * individual HSL values and with a default alpha value of 1.
+     *
+     * @param hsl array containing HSL values
+     */
+    public HSLColor(float[] hsl) {
+        this(hsl, 1.0f);
+    }
+
+    /**
+     * Create a HSLColor object using an an array containing the
+     * individual HSL values.
+     *
+     * @param hsl   array containing HSL values
+     * @param alpha the alpha value between 0 - 1
+     */
+    public HSLColor(float[] hsl, float alpha) {
+        this.hsl = hsl;
+        this.alpha = alpha;
+        rgb = toRGB(hsl, alpha);
+    }
+
+    /**
+     * Convert HSL values to a RGB Color with a default alpha value of 1.
+     * H (Hue) is specified as degrees in the range 0 - 360.
+     * S (Saturation) is specified as a percentage in the range 1 - 100.
+     * L (Lumanance) is specified as a percentage in the range 1 - 100.
+     *
+     * @param hsl an array containing the 3 HSL values
+     * @returns the RGB Color object
+     */
+    public static Color toRGB(float[] hsl) {
+        return toRGB(hsl, 1.0f);
     }
 
     /**
@@ -357,6 +345,18 @@ public class HSLColor {
     }
 
     /**
+     * Convert HSL values to a RGB Color with a default alpha value of 1.
+     *
+     * @param h Hue is specified as degrees in the range 0 - 360.
+     * @param s Saturation is specified as a percentage in the range 1 - 100.
+     * @param l Lumanance is specified as a percentage in the range 1 - 100.
+     * @returns the RGB Color object
+     */
+    public static Color toRGB(float h, float s, float l) {
+        return toRGB(h, s, l, 1.0f);
+    }
+
+    /**
      * Get the Hue value.
      *
      * @return the Hue value.
@@ -403,10 +403,10 @@ public class HSLColor {
 
     public String toString() {
         String toString =
-                "HSLColor[h=" + hsl[0] +
-                        ",s=" + hsl[1] +
-                        ",l=" + hsl[2] +
-                        ",alpha=" + alpha + "]";
+            "HSLColor[h=" + hsl[0] +
+                ",s=" + hsl[1] +
+                ",l=" + hsl[2] +
+                ",alpha=" + alpha + "]";
 
         return toString;
     }

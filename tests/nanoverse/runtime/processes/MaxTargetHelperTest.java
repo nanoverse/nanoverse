@@ -30,6 +30,7 @@ import test.LegacyTest;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Created by dbborens on 3/7/14.
  */

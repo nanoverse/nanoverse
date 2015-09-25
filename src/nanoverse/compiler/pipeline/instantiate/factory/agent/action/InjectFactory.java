@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action;
 
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.agent.action.InjectDescriptor;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.agent.action.InjectDescriptor;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 
 public class InjectFactory implements Factory<InjectDescriptor> {
 

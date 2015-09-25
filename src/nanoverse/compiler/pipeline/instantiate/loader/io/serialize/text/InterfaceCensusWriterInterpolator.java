@@ -42,7 +42,7 @@ public class InterfaceCensusWriterInterpolator {
     }
 
     public InterfaceCensusWriterInterpolator(LoadHelper load) {
-            this.load = load;
+        this.load = load;
     }
 
     public IntegerArgument focalState(MapObjectNode node, Random random) {

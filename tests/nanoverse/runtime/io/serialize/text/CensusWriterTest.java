@@ -28,9 +28,9 @@ import nanoverse.runtime.cells.MockCell;
 import nanoverse.runtime.control.halt.ManualHaltEvent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.CellUpdateManager;
-import org.junit.*;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.MockGeneralParameters;
+import org.junit.*;
 import test.*;
 
 /**

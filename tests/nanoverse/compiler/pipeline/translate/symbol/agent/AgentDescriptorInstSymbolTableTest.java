@@ -24,12 +24,12 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent;
 
-import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
+import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.layers.continuum.Reaction;
-import org.junit.*;
+import org.junit.Test;
 
 public class AgentDescriptorInstSymbolTableTest extends MapSymbolTableTest {
 

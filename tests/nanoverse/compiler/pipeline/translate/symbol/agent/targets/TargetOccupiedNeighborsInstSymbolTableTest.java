@@ -24,11 +24,11 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.targets;
 
-import nanoverse.runtime.agent.targets.*;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import nanoverse.runtime.agent.targets.TargetOccupiedNeighborsDescriptor;
 
-public class TargetOccupiedNeighborsInstSymbolTableTest  extends MapSymbolTableTest {
+public class TargetOccupiedNeighborsInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
     protected MapSymbolTable getQuery() {

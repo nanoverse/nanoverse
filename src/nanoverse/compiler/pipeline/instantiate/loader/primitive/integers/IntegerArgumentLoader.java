@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.instantiate.loader.primitive.integers;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
-import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.compiler.pipeline.translate.nodes.ObjectNode;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 
 import java.util.Random;

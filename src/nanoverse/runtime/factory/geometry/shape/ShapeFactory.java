@@ -48,7 +48,7 @@ public abstract class ShapeFactory {
             return new Cuboid(lattice, root);
         } else {
             String msg = "Unrecognized shape class '" +
-                    className + "'.";
+                className + "'.";
             throw new IllegalArgumentException(msg);
         }
 

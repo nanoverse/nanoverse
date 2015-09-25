@@ -28,16 +28,12 @@ import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
-import nanoverse.runtime.layers.cell.StateMapViewer;
+import nanoverse.runtime.layers.cell.*;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.io.BufferedWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Writes out the number of each "state" as a function of time.
@@ -80,29 +76,6 @@ public class CensusWriter extends Serializer {
         String filename = p.getInstancePath() + '/' + FILENAME;
         mkDir(p.getInstancePath(), true);
         bw = makeBufferedWriter(filename);
-    }
-
-    @Override
-    public void flush(StepState stepState) {
-        CellLayer layer = stepState.getRecordedCellLayer();
-        doFlush(layer, stepState.getFrame());
-    }
-
-    private void doFlush(CellLayer layer, int t) {
-        frames.add(t);
-
-        // Create a bucket for this frame.
-        HashMap<Integer, Integer> observations = new HashMap<>();
-        histo.put(t, observations);
-
-        // Iterate over all observed states for this frame.
-        StateMapViewer smv = layer.getViewer().getStateMapViewer();
-        for (Integer state : smv.getStates()) {
-            Integer count = smv.getCount(state);
-            observations.put(state, count);
-            observedStates.add(state);
-        }
-
     }
 
     public void dispatchHalt(HaltCondition ex) {
@@ -156,5 +129,28 @@ public class CensusWriter extends Serializer {
 
     public void close() {
         // Doesn't do anything.
+    }
+
+    @Override
+    public void flush(StepState stepState) {
+        CellLayer layer = stepState.getRecordedCellLayer();
+        doFlush(layer, stepState.getFrame());
+    }
+
+    private void doFlush(CellLayer layer, int t) {
+        frames.add(t);
+
+        // Create a bucket for this frame.
+        HashMap<Integer, Integer> observations = new HashMap<>();
+        histo.put(t, observations);
+
+        // Iterate over all observed states for this frame.
+        StateMapViewer smv = layer.getViewer().getStateMapViewer();
+        for (Integer state : smv.getStates()) {
+            Integer count = smv.getCount(state);
+            observations.put(state, count);
+            observedStates.add(state);
+        }
+
     }
 }

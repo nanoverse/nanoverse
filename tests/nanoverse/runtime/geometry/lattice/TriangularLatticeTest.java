@@ -137,11 +137,11 @@ public class TriangularLatticeTest extends LegacyTest {
         // r=1
         actual = lattice.getAnnulus(origin, 1);
         expected = new Coordinate2D[]{new Coordinate2D(0, 1, 0),
-                new Coordinate2D(1, 1, 0),
-                new Coordinate2D(1, 0, 0),
-                new Coordinate2D(0, -1, 0),
-                new Coordinate2D(-1, -1, 0),
-                new Coordinate2D(-1, 0, 0)
+            new Coordinate2D(1, 1, 0),
+            new Coordinate2D(1, 0, 0),
+            new Coordinate2D(0, -1, 0),
+            new Coordinate2D(-1, -1, 0),
+            new Coordinate2D(-1, 0, 0)
         };
 
         assertArraysEqual(actual, expected, true);
@@ -149,17 +149,17 @@ public class TriangularLatticeTest extends LegacyTest {
         // r=2
         actual = lattice.getAnnulus(origin, 2);
         expected = new Coordinate2D[]{new Coordinate2D(0, 2, 0),
-                new Coordinate2D(1, 2, 0),
-                new Coordinate2D(2, 2, 0),
-                new Coordinate2D(2, 1, 0),
-                new Coordinate2D(2, 0, 0),
-                new Coordinate2D(1, -1, 0),
-                new Coordinate2D(0, -2, 0),
-                new Coordinate2D(-1, -2, 0),
-                new Coordinate2D(-2, -2, 0),
-                new Coordinate2D(-2, -1, 0),
-                new Coordinate2D(-2, 0, 0),
-                new Coordinate2D(-1, 1, 0)
+            new Coordinate2D(1, 2, 0),
+            new Coordinate2D(2, 2, 0),
+            new Coordinate2D(2, 1, 0),
+            new Coordinate2D(2, 0, 0),
+            new Coordinate2D(1, -1, 0),
+            new Coordinate2D(0, -2, 0),
+            new Coordinate2D(-1, -2, 0),
+            new Coordinate2D(-2, -2, 0),
+            new Coordinate2D(-2, -1, 0),
+            new Coordinate2D(-2, 0, 0),
+            new Coordinate2D(-1, 1, 0)
         };
 
         assertArraysEqual(actual, expected, true);
@@ -173,11 +173,11 @@ public class TriangularLatticeTest extends LegacyTest {
         // Should be same as r=1 annulus
         actual = lattice.getNeighbors(origin);
         expected = new Coordinate2D[]{new Coordinate2D(0, 1, 0),
-                new Coordinate2D(1, 1, 0),
-                new Coordinate2D(1, 0, 0),
-                new Coordinate2D(0, -1, 0),
-                new Coordinate2D(-1, -1, 0),
-                new Coordinate2D(-1, 0, 0)
+            new Coordinate2D(1, 1, 0),
+            new Coordinate2D(1, 0, 0),
+            new Coordinate2D(0, -1, 0),
+            new Coordinate2D(-1, -1, 0),
+            new Coordinate2D(-1, 0, 0)
         };
 
         assertArraysEqual(expected, actual, true);

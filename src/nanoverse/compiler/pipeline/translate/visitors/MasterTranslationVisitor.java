@@ -24,7 +24,7 @@
 
 package nanoverse.compiler.pipeline.translate.visitors;
 
-import nanoverse.compiler.pipeline.interpret.nodes.*;
+import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import nanoverse.compiler.pipeline.translate.helpers.TranslationCallback;
 import nanoverse.compiler.pipeline.translate.nodes.ObjectNode;
 import nanoverse.compiler.pipeline.translate.symbol.*;
@@ -37,18 +37,18 @@ import org.slf4j.*;
  * prototype for the Java objects into which the simulation will be
  * compiled. These translations are not necessarily complete; default
  * values will be inferred, if possible, in the next stage of the pipeline.
- *
+ * <p>
  * Process, starting with the root symbol table and node:
- *
- *    (0) Before starting, each symbol in the symbol table corresponding to
- *        a node in the abstract syntax tree will have been resolved to the
- *        narrowest possible symbol table.
- *
- *    (1) For each child node, retrieve its symbol table, and then recursively
- *        translate it into an ObjectNode.
- *
- *    (2) Load each returned ObjectNode as members of the local ObjectNode.
- *
+ * <p>
+ * (0) Before starting, each symbol in the symbol table corresponding to
+ * a node in the abstract syntax tree will have been resolved to the
+ * narrowest possible symbol table.
+ * <p>
+ * (1) For each child node, retrieve its symbol table, and then recursively
+ * translate it into an ObjectNode.
+ * <p>
+ * (2) Load each returned ObjectNode as members of the local ObjectNode.
+ * <p>
  * Created by dbborens on 2/22/15.
  */
 public class MasterTranslationVisitor {
@@ -65,20 +65,6 @@ public class MasterTranslationVisitor {
         mapVisitor = new MapContainerVisitor(walker);
         dictVisitor = new DictionaryContainerVisitor(walker);
         primitiveVisitor = new PrimitiveVisitor();
-        logger = LoggerFactory.getLogger(MasterTranslationVisitor.class);
-        logger.info("Loading semantic information.");
-    }
-
-    public MasterTranslationVisitor(MapContainerVisitor mapVisitor,
-                                    ListContainerVisitor listVisitor,
-                                    DictionaryContainerVisitor dictVisitor,
-                                    PrimitiveVisitor primitiveVisitor) {
-
-
-        this.mapVisitor = mapVisitor;
-        this.listVisitor = listVisitor;
-        this.dictVisitor = dictVisitor;
-        this.primitiveVisitor = primitiveVisitor;
         logger = LoggerFactory.getLogger(MasterTranslationVisitor.class);
         logger.info("Loading semantic information.");
     }
@@ -104,5 +90,19 @@ public class MasterTranslationVisitor {
     private void logDebug(String typeStr, ASTNode toTranslate) {
         logger.debug("Walking container node \"{}\" as {}.", toTranslate.getIdentifier(), typeStr);
 
+    }
+
+    public MasterTranslationVisitor(MapContainerVisitor mapVisitor,
+                                    ListContainerVisitor listVisitor,
+                                    DictionaryContainerVisitor dictVisitor,
+                                    PrimitiveVisitor primitiveVisitor) {
+
+
+        this.mapVisitor = mapVisitor;
+        this.listVisitor = listVisitor;
+        this.dictVisitor = dictVisitor;
+        this.primitiveVisitor = primitiveVisitor;
+        logger = LoggerFactory.getLogger(MasterTranslationVisitor.class);
+        logger.info("Loading semantic information.");
     }
 }

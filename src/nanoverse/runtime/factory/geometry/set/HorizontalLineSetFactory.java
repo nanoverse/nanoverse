@@ -14,8 +14,8 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.factory.control.identifiers.CoordinateFactory;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.set.HorizontalLineSet;
-import org.dom4j.Element;
 import nanoverse.runtime.structural.utilities.XmlUtil;
+import org.dom4j.Element;
 
 /**
  * Created by dbborens on 7/28/14.

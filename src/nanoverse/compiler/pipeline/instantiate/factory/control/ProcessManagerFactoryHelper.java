@@ -23,11 +23,11 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.control;
 
-import java.util.stream.Stream;
-
 import nanoverse.runtime.control.ProcessManager;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.NanoverseProcess;
+
+import java.util.stream.Stream;
 
 
 public class ProcessManagerFactoryHelper {

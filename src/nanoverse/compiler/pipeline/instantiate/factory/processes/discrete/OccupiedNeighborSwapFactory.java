@@ -23,10 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.discrete.OccupiedNeighborSwap;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.*;
 
 public class OccupiedNeighborSwapFactory implements Factory<OccupiedNeighborSwap> {
 

@@ -30,7 +30,7 @@ import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.geometry.boundaries.Boundary;
 import nanoverse.runtime.layers.continuum.ContinuumLayer;
 import nanoverse.runtime.layers.continuum.solvers.ContinuumSolver;
-import org.junit.*;
+import org.junit.Test;
 
 public class ContinuumLayerInstSymbolTableTest extends MapSymbolTableTest {
 

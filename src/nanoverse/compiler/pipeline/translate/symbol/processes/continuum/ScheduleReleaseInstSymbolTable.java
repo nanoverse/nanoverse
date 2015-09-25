@@ -26,8 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.continuum;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.continuum.ScheduleReleaseLoader;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
-import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import nanoverse.runtime.processes.continuum.ScheduleRelease;
 
@@ -40,7 +39,7 @@ public class ScheduleReleaseInstSymbolTable extends ContinuumProcessInstSymbolTa
     @Override
     public String getDescription() {
         return "Resolve all changes to the specified continuum layer since " +
-                "the last \"Hold\" event occurred.";
+            "the last \"Hold\" event occurred.";
     }
 
     @Override

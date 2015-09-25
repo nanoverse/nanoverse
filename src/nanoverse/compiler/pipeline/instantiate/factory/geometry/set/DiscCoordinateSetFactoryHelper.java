@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.geometry.set;
 
-import nanoverse.runtime.geometry.set.DiscSet;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
+import nanoverse.runtime.geometry.set.DiscSet;
 
 
 public class DiscCoordinateSetFactoryHelper {

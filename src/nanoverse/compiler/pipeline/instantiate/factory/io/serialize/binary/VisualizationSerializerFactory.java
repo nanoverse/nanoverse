@@ -23,11 +23,11 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.serialize.binary;
 
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.serialize.binary.VisualizationSerializer;
 import nanoverse.runtime.io.visual.Visualization;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 
 public class VisualizationSerializerFactory implements Factory<VisualizationSerializer> {
 

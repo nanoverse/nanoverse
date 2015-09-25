@@ -31,15 +31,12 @@ import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.io.deserialize.SystemStateReader;
 import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.io.visual.Visualization;
-import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.SystemState;
+import nanoverse.runtime.layers.*;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by dbborens on 4/2/14.
@@ -83,7 +80,7 @@ public class VisualizationSerializer extends Serializer {
 
         // Create a SystemStateReader.
         SystemStateReader reader = new SystemStateReader(soluteIds,
-                highlightChannels, p.getInstancePath(), geometry);
+            highlightChannels, p.getInstancePath(), geometry);
         // Initialize the visualization to this simulation.
         visualization.init(geometry, reader.getTimes(), reader.getFrames());
 

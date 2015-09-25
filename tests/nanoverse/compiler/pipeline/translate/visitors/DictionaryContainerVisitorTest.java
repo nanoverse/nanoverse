@@ -33,7 +33,7 @@ import org.mockito.*;
 import java.util.List;
 import java.util.stream.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class DictionaryContainerVisitorTest {
@@ -41,11 +41,18 @@ public class DictionaryContainerVisitorTest {
     private DictionaryChildLoader loader;
     private DictionaryContainerVisitor query;
     private List<ASTNode> children;
+
     @Before
     public void before() throws Exception {
         loader = mock(DictionaryChildLoader.class);
         query = new DictionaryContainerVisitor(loader);
         children = makeChildren();
+    }
+
+    private List<ASTNode> makeChildren() throws Exception {
+        return IntStream.range(0, 4)
+            .mapToObj(i -> mock(ASTNode.class))
+            .collect(Collectors.toList());
     }
 
     @Test
@@ -75,11 +82,5 @@ public class DictionaryContainerVisitorTest {
             DictionaryObjectNode dNode = captor.getValue();
             assertSame(dst, dNode.getSymbolTable());
         }
-    }
-
-    private List<ASTNode> makeChildren() throws Exception {
-        return IntStream.range(0, 4)
-            .mapToObj(i -> mock(ASTNode.class))
-            .collect(Collectors.toList());
     }
 }

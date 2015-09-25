@@ -8,7 +8,7 @@ package nanoverse.compiler.pipeline.translate.symbol;
 /**
  * A member symbol reports back the expected class for
  * a particular symbol in an instance.
- *
+ * <p>
  * Created by dbborens on 3/3/15.
  */
 public class MemberSymbol {

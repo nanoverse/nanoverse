@@ -55,8 +55,8 @@ public class NanoBlockHelper extends AbstractNanoNodeVisitor {
         logger.debug("Visiting block: {}", ctx.getText());
 
         return IntStream.range(start, end)
-                .mapToObj(ctx::getChild)
-                .map(this::verifyAndAccept);
+            .mapToObj(ctx::getChild)
+            .map(this::verifyAndAccept);
     }
 
     private ASTNode verifyAndAccept(ParseTree child) {

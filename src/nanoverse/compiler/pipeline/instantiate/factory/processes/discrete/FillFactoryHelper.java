@@ -23,10 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
-import nanoverse.runtime.processes.discrete.Fill;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
-import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.*;
 
 
 public class FillFactoryHelper {

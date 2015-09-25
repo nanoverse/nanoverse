@@ -40,7 +40,7 @@ public class ColorLoader extends Loader<Color> {
             return hexInstantiate(colorStr);
         }
 
-        switch(colorStr.trim().toLowerCase()) {
+        switch (colorStr.trim().toLowerCase()) {
             case "white":
                 return Color.WHITE;
             case "light_gray":

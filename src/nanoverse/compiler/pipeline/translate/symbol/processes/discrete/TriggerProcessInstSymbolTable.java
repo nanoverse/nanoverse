@@ -26,8 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.TriggerProcessLoader;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
-import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.booleans.BooleanClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.processes.discrete.filter.FilterClassSymbolTable;
@@ -64,24 +63,24 @@ public class TriggerProcessInstSymbolTable extends DiscreteProcessInstSymbolTabl
     private void requireNeighbors(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new BooleanClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "LEGACY: Require that all " +
-                "potential targets have non-vacant neighbors. Use a filter " +
-                "instead.");
+            "potential targets have non-vacant neighbors. Use a filter " +
+            "instead.");
         ret.put("requireNeighbors", ms);
     }
 
     private void skipVacantSites(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new BooleanClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "LEGACY: Require that all " +
-                "potential targets be occupied. Use a filter instead.");
+            "potential targets be occupied. Use a filter instead.");
         ret.put("skipVacantSites", ms);
     }
 
     private void behavior(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new StringClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Name of behavior to " +
-                "trigger. It is assumed that all potential targets have a " +
-                "behavior with this name. If they do not, you will get an " +
-                "error!");
+            "trigger. It is assumed that all potential targets have a " +
+            "behavior with this name. If they do not, you will get an " +
+            "error!");
         ret.put("behavior", ms);
     }
 

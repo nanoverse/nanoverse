@@ -30,6 +30,7 @@ public class TargetAllNeighborsFactory extends TargetFactory<TargetAllNeighborsD
     public TargetAllNeighborsFactory() {
         super(new TargetAllNeighborsFactoryHelper());
     }
+
     public TargetAllNeighborsFactory(TargetFactoryHelper helper) {
         super(helper);
     }

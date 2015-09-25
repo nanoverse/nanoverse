@@ -24,10 +24,8 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.control.halt.ManualHaltEvent;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.StepState;
+import nanoverse.runtime.control.halt.*;
+import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -44,15 +42,15 @@ public class ManualHalt extends CellProcess {
     }
 
     @Override
-    public void init() {
-    }
-
-    @Override
     public void target(GillespieState gs) throws HaltCondition {
     }
 
     @Override
     public void fire(StepState state) throws HaltCondition {
         throw new ManualHaltEvent(message);
+    }
+
+    @Override
+    public void init() {
     }
 }

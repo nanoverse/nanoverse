@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.geometry.shape;
 
-import nanoverse.runtime.geometry.shape.Hexagon;
 import nanoverse.runtime.geometry.lattice.Lattice;
+import nanoverse.runtime.geometry.shape.Hexagon;
 
 
 public class HexagonFactoryHelper {

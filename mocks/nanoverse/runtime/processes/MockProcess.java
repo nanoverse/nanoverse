@@ -60,10 +60,6 @@ public class MockProcess extends NanoverseProcess {
         super(new BaseProcessArguments(null, null, 0, new ConstantInteger(0), new ConstantInteger(1)));
     }
 
-    @Override
-    public void init() {
-    }
-
     public Double getWeight() {
         return weight;
     }
@@ -93,6 +89,10 @@ public class MockProcess extends NanoverseProcess {
         System.out.println("   Fired null event " + getID() + ".");
     }
 
+    @Override
+    public void init() {
+    }
+
     public int getTimesFired() {
         return timesFired;
     }
@@ -113,6 +113,14 @@ public class MockProcess extends NanoverseProcess {
     }
 
     @Override
+    public int hashCode() {
+        int result = count != null ? count.hashCode() : 0;
+        result = 31 * result + (weight != null ? weight.hashCode() : 0);
+        result = 31 * result + (identifier != null ? identifier.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -127,13 +135,5 @@ public class MockProcess extends NanoverseProcess {
             return false;
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = count != null ? count.hashCode() : 0;
-        result = 31 * result + (weight != null ? weight.hashCode() : 0);
-        result = 31 * result + (identifier != null ? identifier.hashCode() : 0);
-        return result;
     }
 }

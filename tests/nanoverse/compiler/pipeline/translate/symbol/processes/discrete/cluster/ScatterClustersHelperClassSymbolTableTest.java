@@ -26,11 +26,8 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete.cluster;
 
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
-import org.junit.*;
-import nanoverse.runtime.processes.discrete.cluster.CompactSeparatedClustersHelper;
-import nanoverse.runtime.processes.discrete.cluster.ContactClustersHelper;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
-import nanoverse.runtime.processes.discrete.cluster.StrictSeparationClusterHelper;
+import nanoverse.runtime.processes.discrete.cluster.*;
+import org.junit.Test;
 
 public class ScatterClustersHelperClassSymbolTableTest extends ClassSymbolTableTest {
 

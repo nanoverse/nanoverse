@@ -24,16 +24,15 @@
 
 package nanoverse.runtime.io.serialize;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.io.serialize.text.CoordinateIndexer;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.structural.MockGeneralParameters;
 import nanoverse.runtime.structural.utilities.FileConventions;
-import test.*;
+import org.junit.*;
+import test.FileAssertions;
 
 /**
  * Created by dbborens on 12/10/13.
@@ -50,10 +49,10 @@ public class CoordinateIndexerTest extends FileAssertions {
         geom = new MockGeometry();
 
         Coordinate[] canonicals = new Coordinate[]{
-                new Coordinate2D(0, 0, 0),
-                new Coordinate2D(0, 1, 0),
-                new Coordinate2D(1, 0, 0),
-                new Coordinate2D(1, 1, 0)
+            new Coordinate2D(0, 0, 0),
+            new Coordinate2D(0, 1, 0),
+            new Coordinate2D(1, 0, 0),
+            new Coordinate2D(1, 1, 0)
         };
 
         geom.setCanonicalSites(canonicals);

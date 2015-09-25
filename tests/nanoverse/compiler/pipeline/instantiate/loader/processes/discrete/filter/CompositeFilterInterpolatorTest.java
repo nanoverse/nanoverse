@@ -25,14 +25,14 @@
 package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter;
 
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
-import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.compiler.pipeline.translate.nodes.ListObjectNode;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.processes.discrete.filter.Filter;
+import org.junit.*;
 
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class CompositeFilterInterpolatorTest extends InterpolatorTest {

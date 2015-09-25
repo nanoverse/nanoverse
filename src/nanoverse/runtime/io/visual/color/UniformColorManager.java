@@ -41,6 +41,7 @@ public class UniformColorManager extends ColorManager {
     public UniformColorManager(Color color) {
         this.color = color;
     }
+
     @Override
     public Color getColor(Coordinate c, SystemState systemState) {
         return color;

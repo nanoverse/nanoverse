@@ -53,8 +53,8 @@ public class DotGlyphInstSymbolTable extends MapSymbolTable<DotGlyph> {
     private void size(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The size of the glyph, as a " +
-                "fraction of the size of the lattice site in the " +
-                "visualization.");
+            "fraction of the size of the lattice site in the " +
+            "visualization.");
         ret.put("size", ms);
     }
 

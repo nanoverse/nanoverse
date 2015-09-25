@@ -47,7 +47,7 @@ public class IntegerLoadHelper {
     }
 
     public Integer load(MapObjectNode node, String id, Random random,
-                             Supplier<Integer> defaultSupplier) {
+                        Supplier<Integer> defaultSupplier) {
 
         boolean required = (defaultSupplier == null);
 
@@ -61,7 +61,7 @@ public class IntegerLoadHelper {
 
         ObjectNode cNode = node.getMember(id);
         IntegerArgumentLoader loader = (IntegerArgumentLoader)
-                retriever.getLoader(node, id, required);
+            retriever.getLoader(node, id, required);
 
         return loader.instantiateToFirst(cNode, random);
     }
@@ -81,7 +81,7 @@ public class IntegerLoadHelper {
 
         ObjectNode cNode = node.getMember(id);
         IntegerArgumentLoader loader = (IntegerArgumentLoader)
-                retriever.getLoader(node, id, required);
+            retriever.getLoader(node, id, required);
 
         return loader.instantiate(cNode, random);
     }

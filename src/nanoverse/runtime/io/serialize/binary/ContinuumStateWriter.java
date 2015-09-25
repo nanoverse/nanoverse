@@ -58,30 +58,14 @@ public class ContinuumStateWriter extends Serializer {
         Function<Integer, Coordinate> deindexer = lm.getDeindexer();
 
         extremaHelper = new CSWExtremaHelper(p, deindexer,
-                lm.getContinuumLayerIds());
+            lm.getContinuumLayerIds());
 
         fileHelper = new CSWFileHelper(p,
-                lm.getContinuumLayerIds());
+            lm.getContinuumLayerIds());
 
         CSWOverviewWriter.writeOverview(p.getInstancePath(),
-                lm.getContinuumLayerIds());
+            lm.getContinuumLayerIds());
     }
-
-    public void init(CSWExtremaHelper extremaHelper,
-                     CSWFileHelper fileHelper) {
-
-        super.init();
-
-        this.extremaHelper = extremaHelper;
-        this.fileHelper = fileHelper;
-    }
-
-    @Override
-    public void flush(StepState stepState) {
-        extremaHelper.push(stepState);
-        fileHelper.push(stepState);
-    }
-
 
     @Override
     public void dispatchHalt(HaltCondition ex) {
@@ -92,6 +76,21 @@ public class ContinuumStateWriter extends Serializer {
     @Override
     public void close() {
         // Doesn't do anything
+    }
+
+    @Override
+    public void flush(StepState stepState) {
+        extremaHelper.push(stepState);
+        fileHelper.push(stepState);
+    }
+
+    public void init(CSWExtremaHelper extremaHelper,
+                     CSWFileHelper fileHelper) {
+
+        super.init();
+
+        this.extremaHelper = extremaHelper;
+        this.fileHelper = fileHelper;
     }
 
 }

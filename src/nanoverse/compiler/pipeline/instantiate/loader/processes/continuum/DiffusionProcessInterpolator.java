@@ -25,15 +25,13 @@
 package nanoverse.compiler.pipeline.instantiate.loader.processes.continuum;
 
 import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
-import nanoverse.compiler.pipeline.instantiate.loader.processes.BaseProcessArgumentsLoader;
-import nanoverse.compiler.pipeline.instantiate.loader.processes.ProcessInterpolator;
+import nanoverse.compiler.pipeline.instantiate.loader.processes.*;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.continuum.ContinuumLayer;
+import nanoverse.runtime.processes.continuum.*;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
-import nanoverse.runtime.processes.continuum.DiffusionConstantHelper;
-import nanoverse.runtime.processes.continuum.DiffusionOperator;
 
 import java.util.Random;
 import java.util.function.Consumer;
@@ -63,8 +61,8 @@ public class DiffusionProcessInterpolator extends ProcessInterpolator {
         int connectivity = g.getConnectivity();
         int dimensionality = g.getDimensionality();
         DiffusionConstantHelper helper = new DiffusionConstantHelper(constant,
-                connectivity,
-                dimensionality);
+            connectivity,
+            dimensionality);
 
         return new DiffusionOperator(helper, g);
     }
@@ -72,8 +70,8 @@ public class DiffusionProcessInterpolator extends ProcessInterpolator {
     public Consumer<CompDiagMatrix> target(String layer, LayerManager lm) {
         ContinuumLayer cl = lm.getContinuumLayer(layer);
         Consumer<CompDiagMatrix> target = matrix -> cl
-                .getScheduler()
-                .apply(matrix);
+            .getScheduler()
+            .apply(matrix);
 
         return target;
     }

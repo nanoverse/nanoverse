@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
@@ -53,9 +53,9 @@ public class Inject extends Action {
         Coordinate destination = getOwnLocation();
         double delta = deltaArg.next();
         getLayerManager()
-                .getContinuumLayer(layerId)
-                .getScheduler()
-                .inject(destination, delta);
+            .getContinuumLayer(layerId)
+            .getScheduler()
+            .inject(destination, delta);
     }
 
     @Override
@@ -72,14 +72,14 @@ public class Inject extends Action {
     }
 
     @Override
+    public Action clone(BehaviorCell child) {
+        return new Inject(child, getLayerManager(), layerId, deltaArg);
+    }
+
+    @Override
     public int hashCode() {
         int result = deltaArg.hashCode();
         result = 31 * result + layerId.hashCode();
         return result;
-    }
-
-    @Override
-    public Action clone(BehaviorCell child) {
-        return new Inject(child, getLayerManager(), layerId, deltaArg);
     }
 }

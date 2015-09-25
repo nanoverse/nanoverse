@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action;
 
-import nanoverse.runtime.agent.action.MockActionDescriptor;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.agent.action.MockActionDescriptor;
 
 public class MockActionFactory implements Factory<MockActionDescriptor> {
 

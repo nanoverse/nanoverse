@@ -37,10 +37,10 @@ public class GeometryDescriptorClassSymbolTable extends ClassSymbolTable<Geometr
     @Override
     public String getDescription() {
         return "The top-level geometric properties of the simulation. " +
-                "Properties specified here will carry over to all nanoverse.runtime.layers of " +
-                "the simulation.";
+            "Properties specified here will carry over to all nanoverse.runtime.layers of " +
+            "the simulation.";
     }
-    
+
     @Override
     protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();

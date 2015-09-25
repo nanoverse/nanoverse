@@ -25,9 +25,9 @@
 package nanoverse.compiler.pipeline.translate.symbol.processes.discrete;
 
 import nanoverse.compiler.pipeline.translate.symbol.processes.ProcessInstSymbolTableTest;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.geometry.set.CoordinateSet;
-import org.junit.*;
+import org.junit.Test;
 
 public abstract class DiscreteProcessInstSymbolTableTest extends ProcessInstSymbolTableTest {
 

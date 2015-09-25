@@ -43,8 +43,8 @@ public class TickInterpolator extends ProcessInterpolator {
     }
 
     public TickInterpolator(LoadHelper load,
-                                      BaseProcessArgumentsLoader bpaLoader,
-                                      TickDefaults defaults) {
+                            BaseProcessArgumentsLoader bpaLoader,
+                            TickDefaults defaults) {
         super(load, bpaLoader);
         this.defaults = defaults;
     }

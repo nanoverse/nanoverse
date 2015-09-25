@@ -46,6 +46,11 @@ public class ThresholdDoTest {
         when(c.canonicalize()).thenReturn(c);
     }
 
+    @Test
+    public void belowMinimumDoesNothing() throws Exception {
+        doTest(0D, 1D, -1D, true, false);
+    }
+
     private void doTest(double minimum, double maximum, double value, boolean exists, boolean expected) throws Exception {
         Action child = mock(Action.class);
         ThresholdDo query = makeQuery(minimum, maximum, value, exists, child);
@@ -97,11 +102,6 @@ public class ThresholdDoTest {
         CellLookupManager clm = mock(CellLookupManager.class);
         when(clm.getCellLocation(any())).thenReturn(c);
         when(cellLayer.getLookupManager()).thenReturn(clm);
-    }
-
-    @Test
-    public void belowMinimumDoesNothing() throws Exception {
-        doTest(0D, 1D, -1D, true, false);
     }
 
     @Test

@@ -24,12 +24,10 @@
 
 package nanoverse.runtime.geometry.boundaries;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.boundaries.helpers.WrapHelper2D;
 import nanoverse.runtime.geometry.lattice.Lattice;
-import nanoverse.runtime.geometry.shape.Rectangle;
-import nanoverse.runtime.geometry.shape.Shape;
+import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 /**

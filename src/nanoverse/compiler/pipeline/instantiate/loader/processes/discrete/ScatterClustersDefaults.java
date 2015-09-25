@@ -27,9 +27,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.AgentDescriptorLoader;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.cluster.StrictSeparationClusterHelperLoader;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.CellDescriptor;
-import nanoverse.runtime.control.arguments.ConstantInteger;
-import nanoverse.runtime.control.arguments.IntegerArgument;
+import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
 

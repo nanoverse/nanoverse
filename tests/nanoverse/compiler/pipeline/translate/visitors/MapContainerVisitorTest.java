@@ -33,7 +33,7 @@ import org.mockito.*;
 import java.util.List;
 import java.util.stream.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class MapContainerVisitorTest {

@@ -36,10 +36,10 @@ public class PlaneRingReflectingInstSymbolTable extends MapSymbolTable<PlaneRing
     @Override
     public String getDescription() {
         return "The PlaneRingReflecting boundary is a 2D boundary for " +
-                "CONTINUUM nanoverse.runtime.layers only. It has reflecting boundary " +
-                "conditions top and bottom, and periodic boundaries left and " +
-                "right. For equivalent boundary conditions in AGENT nanoverse.runtime.layers, " +
-                "see the PlaneRingHard boundary.";
+            "CONTINUUM nanoverse.runtime.layers only. It has reflecting boundary " +
+            "conditions top and bottom, and periodic boundaries left and " +
+            "right. For equivalent boundary conditions in AGENT nanoverse.runtime.layers, " +
+            "see the PlaneRingHard boundary.";
     }
 
     @Override

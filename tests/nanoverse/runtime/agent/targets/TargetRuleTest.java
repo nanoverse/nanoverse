@@ -30,13 +30,14 @@ import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.processes.discrete.filter.*;
+import org.junit.*;
 import test.LegacyTest;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by dbborens on 2/10/14.
  */
@@ -183,11 +184,11 @@ public class TargetRuleTest extends LegacyTest {
     public void testClone() {
         MockCell parent = new MockCell();
         TargetRule[] rules = new TargetRule[]{
-                new TargetAllNeighbors(parent, layerManager, filter, -1, random),
-                new TargetCaller(parent, layerManager, filter, -1, random),
-                new TargetOccupiedNeighbors(parent, layerManager, filter, -1, random),
-                new TargetSelf(parent, layerManager, filter, -1, random),
-                new TargetVacantNeighbors(parent, layerManager, filter, -1, random)
+            new TargetAllNeighbors(parent, layerManager, filter, -1, random),
+            new TargetCaller(parent, layerManager, filter, -1, random),
+            new TargetOccupiedNeighbors(parent, layerManager, filter, -1, random),
+            new TargetSelf(parent, layerManager, filter, -1, random),
+            new TargetVacantNeighbors(parent, layerManager, filter, -1, random)
         };
 
         for (TargetRule rule : rules) {

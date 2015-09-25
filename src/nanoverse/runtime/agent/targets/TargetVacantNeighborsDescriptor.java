@@ -36,7 +36,7 @@ import java.util.function.Function;
  * Created by dbborens on 8/4/2015.
  */
 public class TargetVacantNeighborsDescriptor extends TargetDescriptor<TargetVacantNeighbors> {
-    private final Function<BehaviorCell,TargetVacantNeighbors> constructor;
+    private final Function<BehaviorCell, TargetVacantNeighbors> constructor;
 
     @FactoryTarget(displayName = "TargetVacantNeighbors")
     public TargetVacantNeighborsDescriptor(LayerManager layerManager, Filter filter, int maximum, Random random) {

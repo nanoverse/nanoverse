@@ -24,8 +24,7 @@
 
 package nanoverse.runtime.structural;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by David B Borenstein on 4/11/14.
@@ -45,19 +44,6 @@ public class NonNullIntegerMap extends HashMap<Integer, Integer> {
 
     public NonNullIntegerMap(Map<? extends Integer, ? extends Integer> m) {
         super(m);
-    }
-
-    @Override
-    public Integer get(Object key) {
-        if (!(key instanceof Integer)) {
-            throw new IllegalStateException("Received unexpected key class.");
-        }
-
-        if (!containsKey(key)) {
-            return 0;
-        }
-
-        return super.get(key);
     }
 
     @Override
@@ -82,5 +68,18 @@ public class NonNullIntegerMap extends HashMap<Integer, Integer> {
         }
 
         return true;
+    }
+
+    @Override
+    public Integer get(Object key) {
+        if (!(key instanceof Integer)) {
+            throw new IllegalStateException("Received unexpected key class.");
+        }
+
+        if (!containsKey(key)) {
+            return 0;
+        }
+
+        return super.get(key);
     }
 }

@@ -23,11 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
-import nanoverse.runtime.processes.discrete.PowerScatter;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
-import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.*;
+import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
 
 
 public class PowerScatterFactoryHelper {

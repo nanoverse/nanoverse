@@ -43,7 +43,7 @@ public class HoldManagerLoader {
     }
 
     public HoldManagerLoader(HoldManagerInterpolator interpolator,
-                                         HoldManagerFactory factory) {
+                             HoldManagerFactory factory) {
 
         this.interpolator = interpolator;
         this.factory = factory;

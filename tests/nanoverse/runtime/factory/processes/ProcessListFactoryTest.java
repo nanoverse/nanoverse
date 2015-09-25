@@ -25,9 +25,9 @@
 package nanoverse.runtime.factory.processes;
 
 import nanoverse.runtime.control.GeneralParameters;
+import nanoverse.runtime.processes.*;
 import org.dom4j.Element;
 import org.junit.*;
-import nanoverse.runtime.processes.*;
 import test.LegacyLatticeTest;
 
 import java.util.List;

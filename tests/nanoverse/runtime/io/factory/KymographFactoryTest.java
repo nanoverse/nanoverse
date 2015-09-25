@@ -41,6 +41,7 @@ import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Created by dbborens on 4/3/14.
  */

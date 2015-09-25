@@ -24,12 +24,11 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.action.DieLoader;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
-import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
+import nanoverse.runtime.agent.action.DieDescriptor;
 
 import java.util.HashMap;
 
@@ -46,7 +45,7 @@ public class DieInstSymbolTable extends ActionInstSymbolTable<DieDescriptor> {
     protected HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         highlight(ret);
-        return(ret);
+        return (ret);
     }
 
     private void highlight(HashMap<String, MemberSymbol> ret) {

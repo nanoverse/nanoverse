@@ -37,7 +37,7 @@ public class DependentProbabilitySupplierInterpolatorTest
     @Before
     public void before() throws Exception {
         super.before();
-        query  = new DependentProbabilitySupplierInterpolator(load);
+        query = new DependentProbabilitySupplierInterpolator(load);
     }
 
     @Test

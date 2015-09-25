@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.geometry.lattice;
 
-import nanoverse.runtime.geometry.lattice.CubicLattice;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.geometry.lattice.CubicLattice;
 
 public class CubicLatticeFactory implements Factory<CubicLattice> {
 

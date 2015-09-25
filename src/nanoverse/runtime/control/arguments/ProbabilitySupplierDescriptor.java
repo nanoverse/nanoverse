@@ -36,13 +36,14 @@ public class ProbabilitySupplierDescriptor<T extends ProbabilitySupplier> {
 
     private Function<BehaviorCell, T> constructor;
 
-    protected ProbabilitySupplierDescriptor() {}
-
-    protected void setConstructor(Function<BehaviorCell, T> constructor) {
-        this.constructor = constructor;
+    protected ProbabilitySupplierDescriptor() {
     }
 
     public ProbabilitySupplierDescriptor(Function<BehaviorCell, T> constructor) {
+        this.constructor = constructor;
+    }
+
+    protected void setConstructor(Function<BehaviorCell, T> constructor) {
         this.constructor = constructor;
     }
 

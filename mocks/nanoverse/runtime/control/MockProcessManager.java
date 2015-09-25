@@ -25,8 +25,7 @@
 package nanoverse.runtime.control;
 
 import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.processes.NanoverseProcess;
-import nanoverse.runtime.processes.StepState;
+import nanoverse.runtime.processes.*;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -53,11 +52,6 @@ public class MockProcessManager extends ProcessManager {
     }
 
     @Override
-    protected List<NanoverseProcess> getTriggeredProcesses(int n) {
-        return triggeredProcesses;
-    }
-
-    @Override
     public StepState doTriggeredProcesses(StepState stepState) throws HaltCondition {
         timesIterated++;
         for (NanoverseProcess p : triggeredProcesses) {
@@ -67,15 +61,20 @@ public class MockProcessManager extends ProcessManager {
         return stepState;
     }
 
+    @Override
+    protected List<NanoverseProcess> getTriggeredProcesses(int n) {
+        return triggeredProcesses;
+    }
+
+    @Override
+    public void init() {
+    }
+
     public void setStepStateDt(double stepStateDt) {
         this.stepStateDt = stepStateDt;
     }
 
     public int getTimesIterated() {
         return timesIterated;
-    }
-
-    @Override
-    public void init() {
     }
 }

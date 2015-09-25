@@ -49,11 +49,6 @@ public class SourceCell extends Cell {
     }
 
     @Override
-    public void trigger(String behaviorName, Coordinate caller) throws HaltCondition {
-        throw new UnsupportedOperationException("Behaviors are not supported in the SourceCell class.");
-    }
-
-    @Override
     public int consider() {
         considerCount++;
         return considerCount;
@@ -70,6 +65,11 @@ public class SourceCell extends Cell {
     }
 
     @Override
+    public double getProduction(String solute) {
+        return production.get(solute);
+    }
+
+    @Override
     public Cell clone(int state) throws HaltCondition {
         HashMap<String, Double> prodCopy = (HashMap<String, Double>) production.clone();
         SourceCell cc = new SourceCell(getState(), prodCopy);
@@ -77,13 +77,18 @@ public class SourceCell extends Cell {
     }
 
     @Override
-    public double getProduction(String solute) {
-        return production.get(solute);
+    public void adjustHealth(double delta) {
+        throw new UnsupportedOperationException("Source nanoverse.runtime.cells cannot eat");
     }
 
     @Override
-    public void adjustHealth(double delta) {
-        throw new UnsupportedOperationException("Source nanoverse.runtime.cells cannot eat");
+    public void trigger(String behaviorName, Coordinate caller) throws HaltCondition {
+        throw new UnsupportedOperationException("Behaviors are not supported in the SourceCell class.");
+    }
+
+    @Override
+    public void die() {
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -126,10 +131,5 @@ public class SourceCell extends Cell {
         }
 
         return false;
-    }
-
-    @Override
-    public void die() {
-        throw new UnsupportedOperationException();
     }
 }

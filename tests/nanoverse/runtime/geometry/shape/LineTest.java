@@ -68,16 +68,16 @@ public class LineTest extends LegacyTest {
 
         // Even
         expected = new Coordinate[]{
-                new Coordinate2D(0, 0, 0),
-                new Coordinate2D(0, 3, 0),
+            new Coordinate2D(0, 0, 0),
+            new Coordinate2D(0, 3, 0),
         };
         actual = even.getBoundaries();
         assertArraysEqual(expected, actual, true);
 
         // Odd
         expected = new Coordinate[]{
-                new Coordinate2D(0, 0, 0),
-                new Coordinate2D(0, 4, 0),
+            new Coordinate2D(0, 0, 0),
+            new Coordinate2D(0, 4, 0),
         };
         actual = odd.getBoundaries();
         assertArraysEqual(expected, actual, true);
@@ -88,10 +88,10 @@ public class LineTest extends LegacyTest {
         Coordinate[] expected, actual;
 
         expected = new Coordinate[]{
-                new Coordinate2D(0, 0, 0),
-                new Coordinate2D(0, 1, 0),
-                new Coordinate2D(0, 2, 0),
-                new Coordinate2D(0, 3, 0),
+            new Coordinate2D(0, 0, 0),
+            new Coordinate2D(0, 1, 0),
+            new Coordinate2D(0, 2, 0),
+            new Coordinate2D(0, 3, 0),
         };
 
         actual = even.getCanonicalSites();

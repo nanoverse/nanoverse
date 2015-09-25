@@ -23,10 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.layers.continuum;
 
-import nanoverse.runtime.layers.continuum.ContinuumLayer;
-import nanoverse.runtime.layers.continuum.ContinuumLayerScheduler;
-import nanoverse.runtime.layers.continuum.ContinuumLayerContent;
 import nanoverse.runtime.geometry.Geometry;
+import nanoverse.runtime.layers.continuum.*;
 
 
 public class ContinuumLayerFactoryHelper {

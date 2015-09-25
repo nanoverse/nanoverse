@@ -29,6 +29,7 @@ import nanoverse.runtime.layers.cell.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by David B Borenstein on 4/10/14.
  */

@@ -23,9 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.agent.action.stochastic.WeightedOption;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.arguments.ProbabilitySupplierDescriptor;
 
 public class WeightedOptionFactory implements Factory<WeightedOption> {

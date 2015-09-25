@@ -36,9 +36,9 @@ public class TetrisBoundaryInstSymbolTable extends MapSymbolTable<TetrisBoundary
     @Override
     public String getDescription() {
         return "The Tetris boundary is a 2D boundary for AGENT nanoverse.runtime.layers only. " +
-                "It has a hard boundary on the bottom edge, a halting " +
-                "boundary on the top edge, and periodic boundaries on the " +
-                "left and right edges.";
+            "It has a hard boundary on the bottom edge, a halting " +
+            "boundary on the top edge, and periodic boundaries on the " +
+            "left and right edges.";
     }
 
     @Override

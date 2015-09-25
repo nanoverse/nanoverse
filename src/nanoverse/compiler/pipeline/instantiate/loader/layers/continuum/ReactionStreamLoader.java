@@ -45,6 +45,7 @@ public class ReactionStreamLoader extends Loader<Stream<Reaction>> {
     public ReactionStreamLoader(ReactionStreamChildLoader childLoader) {
         this.childLoader = childLoader;
     }
+
     public Stream<Reaction> instantiate(ListObjectNode cNode, Random random) {
         return cNode.getMemberStream()
             .map(o -> (MapObjectNode) o)

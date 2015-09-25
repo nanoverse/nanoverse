@@ -29,10 +29,7 @@ import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.StepState;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by dbborens on 12/11/13.
@@ -69,19 +66,6 @@ public abstract class Serializer {
         System.out.println(p.getInstancePath());
     }
 
-    /**
-     * Conclude analysis, finish writing to files, and close for entire project.
-     */
-    public abstract void close();
-
-    /**
-     * Record the state of the simulation.
-     *
-     * @param stepState
-     */
-    public abstract void flush(StepState stepState);
-
-
     protected void mkDir(String pathStr, boolean recursive) {
         File path = new File(pathStr);
         if (!path.exists()) {
@@ -96,6 +80,18 @@ public abstract class Serializer {
             }
         }
     }
+
+    /**
+     * Conclude analysis, finish writing to files, and close for entire project.
+     */
+    public abstract void close();
+
+    /**
+     * Record the state of the simulation.
+     *
+     * @param stepState
+     */
+    public abstract void flush(StepState stepState);
 
     protected BufferedWriter makeBufferedWriter(String filename) {
         BufferedWriter bw;

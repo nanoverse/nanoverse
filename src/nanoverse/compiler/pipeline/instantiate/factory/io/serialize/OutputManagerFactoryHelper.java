@@ -24,9 +24,10 @@
 package nanoverse.compiler.pipeline.instantiate.factory.io.serialize;
 
 import nanoverse.runtime.control.GeneralParameters;
-import java.util.List;
 import nanoverse.runtime.io.serialize.SerializationManager;
 import nanoverse.runtime.layers.LayerManager;
+
+import java.util.List;
 
 
 public class OutputManagerFactoryHelper {

@@ -32,7 +32,7 @@ import org.junit.*;
 
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class HighlightWriterInterpolatorTest extends InterpolatorTest {

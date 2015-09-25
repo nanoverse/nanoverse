@@ -39,9 +39,9 @@ public class SurfaceColorModelInstSymbolTable extends MapSymbolTable<SurfaceGrow
     @Override
     public String getDescription() {
         return "The surface growth color model is an overlay on another " +
-                "color model. It adjusts the luminance and saturation of a " +
-                "given site by a set scaling factor if (and only if) the " +
-                "nanoverse.runtime.agent on that site has at least one adjacent vacancy.";
+            "color model. It adjusts the luminance and saturation of a " +
+            "given site by a set scaling factor if (and only if) the " +
+            "nanoverse.runtime.agent on that site has at least one adjacent vacancy.";
     }
 
     @Override
@@ -56,23 +56,23 @@ public class SurfaceColorModelInstSymbolTable extends MapSymbolTable<SurfaceGrow
     private void base(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new ColorModelClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The color model upon which " +
-                "this color model should be overlaid.");
+            "this color model should be overlaid.");
         ret.put("base", ms);
     }
 
     private void saturationScale(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The factor by which the " +
-                "saturation of the base model should be scaled if a site has " +
-                "an adjacent vacancy.");
+            "saturation of the base model should be scaled if a site has " +
+            "an adjacent vacancy.");
         ret.put("saturation", ms);
     }
 
     private void luminanceScale(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new DoubleClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The factor by which the " +
-                "luminance of the base model should be scaled if a site has " +
-                "an adjacent vacancy.");
+            "luminance of the base model should be scaled if a site has " +
+            "an adjacent vacancy.");
         ret.put("luminance", ms);
     }
 

@@ -33,6 +33,7 @@ import test.LegacyTest;
 import java.awt.*;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Created by dbborens on 4/4/14.
  */
@@ -74,7 +75,7 @@ public class GlyphFactoryTest extends LegacyTest {
         Glyph actual = GlyphFactory.instantiate(e);
 
         Glyph expected = new DotGlyph(Color.WHITE,
-                0.1);
+            0.1);
 
         assertEquals(expected, actual);
     }
@@ -88,7 +89,7 @@ public class GlyphFactoryTest extends LegacyTest {
         Color primary = Color.decode("0x001122");
         Color secondary = Color.decode("0x334455");
         Glyph expected = new BullseyeGlyph(primary,
-                secondary, 0.3);
+            secondary, 0.3);
 
         assertEquals(expected, actual);
     }

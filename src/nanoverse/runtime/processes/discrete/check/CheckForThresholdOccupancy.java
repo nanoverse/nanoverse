@@ -24,13 +24,10 @@
 
 package nanoverse.runtime.processes.discrete.check;
 
-import nanoverse.runtime.control.arguments.*;
-import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.control.halt.ThresholdOccupancyReachedEvent;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.StepState;
-import nanoverse.runtime.processes.discrete.CellProcess;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.control.arguments.DoubleArgument;
+import nanoverse.runtime.control.halt.*;
+import nanoverse.runtime.processes.*;
+import nanoverse.runtime.processes.discrete.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -49,23 +46,6 @@ public class CheckForThresholdOccupancy extends CellProcess {
     }
 
     @Override
-    public void init() {
-        double toVal;
-
-        try {
-            toVal = thresholdOccupancy.next();
-        } catch (HaltCondition ex) {
-            throw new IllegalStateException(ex);
-        }
-
-        if (toVal > 1.0 || toVal < 0) {
-            throw new IllegalArgumentException("Illegal occupancy fraction " + toVal);
-        }
-
-        thresholdCount = (int) Math.floor(getLayer().getGeometry().getCanonicalSites().length * toVal);
-    }
-
-    @Override
     public void target(GillespieState gs) throws HaltCondition {
         // There's only one event that can happen in this process.
         if (gs != null) {
@@ -80,5 +60,22 @@ public class CheckForThresholdOccupancy extends CellProcess {
         if (numOccupied >= thresholdCount) {
             throw new ThresholdOccupancyReachedEvent();
         }
+    }
+
+    @Override
+    public void init() {
+        double toVal;
+
+        try {
+            toVal = thresholdOccupancy.next();
+        } catch (HaltCondition ex) {
+            throw new IllegalStateException(ex);
+        }
+
+        if (toVal > 1.0 || toVal < 0) {
+            throw new IllegalArgumentException("Illegal occupancy fraction " + toVal);
+        }
+
+        thresholdCount = (int) Math.floor(getLayer().getGeometry().getCanonicalSites().length * toVal);
     }
 }

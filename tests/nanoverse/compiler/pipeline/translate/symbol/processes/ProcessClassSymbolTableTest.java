@@ -25,13 +25,13 @@
 package nanoverse.compiler.pipeline.translate.symbol.processes;
 
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
-import org.junit.*;
+import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.continuum.*;
 import nanoverse.runtime.processes.discrete.*;
 import nanoverse.runtime.processes.discrete.check.*;
-import nanoverse.runtime.processes.temporal.*;
+import nanoverse.runtime.processes.temporal.Tick;
+import org.junit.Test;
 
 public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
 

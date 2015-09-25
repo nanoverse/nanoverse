@@ -34,8 +34,8 @@ import nanoverse.runtime.geometry.set.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.processes.BaseProcessArguments;
+import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;

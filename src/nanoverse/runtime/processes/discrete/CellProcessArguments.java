@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.geometry.set.CoordinateSet;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 

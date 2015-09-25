@@ -24,10 +24,10 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
+import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.agent.action.*;
-import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
-import org.junit.*;
+import org.junit.Test;
 
 public class ActionClassSymbolTableTest extends ClassSymbolTableTest {
 

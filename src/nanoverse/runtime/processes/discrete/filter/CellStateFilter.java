@@ -25,16 +25,13 @@
 package nanoverse.runtime.processes.discrete.filter;
 
 import nanoverse.runtime.cells.Cell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.cell.CellLayer;
-import nanoverse.runtime.layers.cell.CellLayerViewer;
+import nanoverse.runtime.layers.cell.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by dbborens on 5/5/14.
@@ -56,19 +53,6 @@ public class CellStateFilter extends Filter {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CellStateFilter that = (CellStateFilter) o;
-
-        if (toChoose != null ? !toChoose.equals(that.toChoose) : that.toChoose != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
     public int hashCode() {
         int result = layer != null ? layer.hashCode() : 0;
         result = 31 * result + (toChoose != null ? toChoose.hashCode() : 0);
@@ -79,6 +63,19 @@ public class CellStateFilter extends Filter {
     public List<Coordinate> apply(List<Coordinate> toFilter) {
         ArrayList<Coordinate> toRetain = getRetained(toFilter);
         return toRetain;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CellStateFilter that = (CellStateFilter) o;
+
+        if (toChoose != null ? !toChoose.equals(that.toChoose) : that.toChoose != null)
+            return false;
+
+        return true;
     }
 
     private ArrayList<Coordinate> getRetained(Collection<Coordinate> toFilter) {

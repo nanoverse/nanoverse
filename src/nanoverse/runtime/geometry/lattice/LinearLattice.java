@@ -24,9 +24,7 @@
 
 package nanoverse.runtime.geometry.lattice;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate1D;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 public class LinearLattice extends Lattice {
@@ -34,6 +32,13 @@ public class LinearLattice extends Lattice {
     @FactoryTarget
     public LinearLattice() {
         super();
+    }
+
+    protected void defineBasis() {
+
+        Coordinate north = new Coordinate1D(1, 0);
+
+        basis = new Coordinate[]{north};
     }
 
     @Override
@@ -50,7 +55,7 @@ public class LinearLattice extends Lattice {
     public Coordinate adjust(Coordinate toAdjust) {
         if (!toAdjust.hasFlag(Flags.PLANAR)) {
             throw new IllegalArgumentException("Linear lattice (unfortunately) " +
-                    "expects planar coordinates. I'm working on it.");
+                "expects planar coordinates. I'm working on it.");
         }
 
         // A rectangular lattice requires no offset adjustment to be consistent
@@ -58,11 +63,9 @@ public class LinearLattice extends Lattice {
         return toAdjust;
     }
 
-    protected void defineBasis() {
-
-        Coordinate north = new Coordinate1D(1, 0);
-
-        basis = new Coordinate[]{north};
+    @Override
+    public Coordinate invAdjust(Coordinate toAdjust) {
+        return toAdjust;
     }
 
     @Override
@@ -88,20 +91,8 @@ public class LinearLattice extends Lattice {
     }
 
     @Override
-    public Coordinate getDisplacement(Coordinate pCoord, Coordinate qCoord) {
-        if (!pCoord.hasFlag(Flags.PLANAR) || !qCoord.hasFlag(Flags.PLANAR)) {
-            throw new IllegalArgumentException("Expect planar coordinates in " +
-                    "linear lattice. (I know, it doesn't make sense. I have not" +
-                    "yet implemented 1D coordinates.)");
-        }
-
-        if (pCoord.x() != 0 || pCoord.z() != 0) {
-            throw new IllegalStateException("Expect strictly 0 x coordinate for" +
-                    " linear lattice.");
-        }
-        int dy = qCoord.y() - pCoord.y();
-
-        return new Coordinate1D(dy, Flags.VECTOR);
+    public Coordinate getOrthoDisplacement(Coordinate pCoord, Coordinate qCoord) {
+        return getDisplacement(pCoord, qCoord);
     }
 
     @Override
@@ -110,7 +101,7 @@ public class LinearLattice extends Lattice {
 
         if (coord.x() != 0 || coord.z() != 0) {
             throw new IllegalStateException("Expect strictly 0 x and z " +
-                    "coordinates for linear lattice.");
+                "coordinates for linear lattice.");
         }
         int y = coord.y();
 
@@ -127,13 +118,20 @@ public class LinearLattice extends Lattice {
     }
 
     @Override
-    public Coordinate getOrthoDisplacement(Coordinate pCoord, Coordinate qCoord) {
-        return getDisplacement(pCoord, qCoord);
-    }
+    public Coordinate getDisplacement(Coordinate pCoord, Coordinate qCoord) {
+        if (!pCoord.hasFlag(Flags.PLANAR) || !qCoord.hasFlag(Flags.PLANAR)) {
+            throw new IllegalArgumentException("Expect planar coordinates in " +
+                "linear lattice. (I know, it doesn't make sense. I have not" +
+                "yet implemented 1D coordinates.)");
+        }
 
-    @Override
-    public Coordinate invAdjust(Coordinate toAdjust) {
-        return toAdjust;
+        if (pCoord.x() != 0 || pCoord.z() != 0) {
+            throw new IllegalStateException("Expect strictly 0 x coordinate for" +
+                " linear lattice.");
+        }
+        int dy = qCoord.y() - pCoord.y();
+
+        return new Coordinate1D(dy, Flags.VECTOR);
     }
 
     @Override

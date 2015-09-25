@@ -24,12 +24,10 @@
 
 package nanoverse.runtime.geometry.shape;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate1D;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.lattice.Lattice;
-import org.dom4j.Element;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
+import org.dom4j.Element;
 
 public class Line extends Shape {
 
@@ -58,8 +56,19 @@ public class Line extends Shape {
     protected void verify(Lattice lattice) {
         if (lattice.getDimensionality() != 1) {
             throw new IllegalArgumentException("Line shape requires a linear" +
-                    " lattice connectivity.");
+                " lattice connectivity.");
         }
+    }
+
+    @Override
+    protected Coordinate[] calcSites() {
+        Coordinate[] sites = new Coordinate[length];
+
+        for (int y = 0; y < length; y++) {
+            sites[y] = new Coordinate1D(y, 0);
+        }
+
+        return sites;
     }
 
     @Override
@@ -78,20 +87,9 @@ public class Line extends Shape {
     public Coordinate[] getBoundaries() {
 
         return new Coordinate[]{
-                new Coordinate1D(0, 0),
-                new Coordinate1D(length - 1, 0)
+            new Coordinate1D(0, 0),
+            new Coordinate1D(length - 1, 0)
         };
-    }
-
-    @Override
-    protected Coordinate[] calcSites() {
-        Coordinate[] sites = new Coordinate[length];
-
-        for (int y = 0; y < length; y++) {
-            sites[y] = new Coordinate1D(y, 0);
-        }
-
-        return sites;
     }
 
     @Override

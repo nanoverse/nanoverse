@@ -28,7 +28,7 @@ import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.processes.continuum.*;
 import nanoverse.compiler.pipeline.translate.symbol.processes.discrete.*;
 import nanoverse.compiler.pipeline.translate.symbol.processes.discrete.check.*;
-import nanoverse.compiler.pipeline.translate.symbol.processes.temporal.*;
+import nanoverse.compiler.pipeline.translate.symbol.processes.temporal.TickInstSymbolTable;
 import nanoverse.runtime.processes.NanoverseProcess;
 
 import java.util.HashMap;
@@ -42,9 +42,9 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
     @Override
     public String getDescription() {
         return "Processes are top-down events that can affect any part of " +
-                "any layer, without respect to local neighborhood rules. " +
-                "Whenever possible, use Actions instead; these are local and " +
-                "are easier for Nanoverse to optimize.";
+            "any layer, without respect to local neighborhood rules. " +
+            "Whenever possible, use Actions instead; these are local and " +
+            "are easier for Nanoverse to optimize.";
     }
 
     @Override

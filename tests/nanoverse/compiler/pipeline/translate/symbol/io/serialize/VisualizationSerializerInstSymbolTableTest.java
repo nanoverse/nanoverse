@@ -29,7 +29,7 @@ import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.control.arguments.StringArgument;
 import nanoverse.runtime.io.serialize.binary.VisualizationSerializer;
 import nanoverse.runtime.io.visual.Visualization;
-import org.junit.*;
+import org.junit.Test;
 
 public class VisualizationSerializerInstSymbolTableTest extends MapSymbolTableTest {
 

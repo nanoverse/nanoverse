@@ -25,13 +25,14 @@
 package nanoverse.runtime.io.serialize.text;
 
 import nanoverse.runtime.control.GeneralParameters;
-import org.junit.Test;
 import nanoverse.runtime.processes.StepState;
+import org.junit.Test;
 import test.LegacyLatticeTest;
 
 import java.io.*;
 
 import static org.junit.Assert.*;
+
 /**
  * Since the running time writer actuall tracks wall clock time, it is
  * impossible to make a deterministic test. The only thing we can say

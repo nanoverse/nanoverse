@@ -36,10 +36,10 @@ public class ArenaBoundaryInstSymbolTable extends MapSymbolTable<Arena> {
     @Override
     public String getDescription() {
         return "The Arena boundary is for AGENT nanoverse.runtime.layers only. It allows " +
-                "agents to drift over the boundary while resolving an event, " +
-                "but any nanoverse.runtime.agent that ends an event over the boundary is " +
-                "removed from the system. For the equivalent behavior in a " +
-                "CONTINUUM layer, see the Absorbing boundary.";
+            "agents to drift over the boundary while resolving an event, " +
+            "but any nanoverse.runtime.agent that ends an event over the boundary is " +
+            "removed from the system. For the equivalent behavior in a " +
+            "CONTINUUM layer, see the Absorbing boundary.";
     }
 
     @Override

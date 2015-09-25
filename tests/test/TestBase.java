@@ -25,16 +25,15 @@
 package test;
 
 import com.google.common.collect.Sets;
-import no.uib.cipr.matrix.Matrix;
+import nanoverse.runtime.structural.utilities.EpsilonUtil;
+import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.Vector;
 import org.junit.Before;
-import nanoverse.runtime.structural.utilities.EpsilonUtil;
 
 import java.util.*;
 import java.util.stream.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  * Created by dbborens on 1/9/15.
@@ -77,12 +76,6 @@ public abstract class TestBase {
         }
     }
 
-    @Before
-    public void calcEpsilon() {
-        epsilon = EpsilonUtil.epsilon();
-        floatEpsilon = EpsilonUtil.floatEpsilon();
-    }
-
     protected static <T> void assertSetsEqual(Set<T> expected, Set<T> actual) {
         Set<T> difference = Sets.symmetricDifference(expected, actual);
         String differenceString = difference.stream().map(Object::toString).collect(Collectors.joining(", "));
@@ -94,5 +87,11 @@ public abstract class TestBase {
         List<T> expList = expected.collect(Collectors.toList());
         List<T> actList = actual.collect(Collectors.toList());
         assertEquals(expList, actList);
+    }
+
+    @Before
+    public void calcEpsilon() {
+        epsilon = EpsilonUtil.epsilon();
+        floatEpsilon = EpsilonUtil.floatEpsilon();
     }
 }

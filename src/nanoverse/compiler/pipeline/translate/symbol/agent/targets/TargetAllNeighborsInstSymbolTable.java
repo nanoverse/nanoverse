@@ -24,9 +24,9 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.targets;
 
-import nanoverse.runtime.agent.targets.*;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.targets.TargetAllNeighborsLoader;
+import nanoverse.runtime.agent.targets.TargetAllNeighborsDescriptor;
 
 /**
  * Created by dbborens on 7/23/2015.

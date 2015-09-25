@@ -25,12 +25,10 @@
 package nanoverse.runtime.layers.cell;
 
 import nanoverse.runtime.cells.Cell;
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * @author David Bruce Borenstein

@@ -26,14 +26,14 @@ package nanoverse.compiler.pipeline.translate.visitors;
 
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import nanoverse.compiler.pipeline.translate.helpers.TranslationCallback;
-import nanoverse.compiler.pipeline.translate.nodes.*;
-import nanoverse.compiler.pipeline.translate.symbol.*;
+import nanoverse.compiler.pipeline.translate.nodes.ListObjectNode;
+import nanoverse.compiler.pipeline.translate.symbol.ListSymbolTable;
 import org.slf4j.*;
 
 /**
  * Takes a container node and a list symbol table, and returns
  * a list object node.
- *
+ * <p>
  * Created by dbborens on 4/22/15.
  */
 public class ListContainerVisitor {
@@ -53,13 +53,13 @@ public class ListContainerVisitor {
 
     public ListObjectNode translate(ASTNode toTranslate, ListSymbolTable symbolTable) {
         logger.debug("Translating {} using LST for class {}", toTranslate.getIdentifier(),
-                symbolTable.getBroadClass().getSimpleName());
+            symbolTable.getBroadClass().getSimpleName());
 
         ListObjectNode node = new ListObjectNode(symbolTable);
 
         // Visit each child.
         toTranslate.getChildren()
-                .forEach(child -> loader.loadChild(child, symbolTable, node));
+            .forEach(child -> loader.loadChild(child, symbolTable, node));
 
         return node;
     }

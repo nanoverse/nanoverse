@@ -138,7 +138,7 @@ public class CellUpdateManager {
 
         if (content.has(coord)) {
             throw new IllegalStateException("Attempting to place a cell into " +
-                    "an occupied site at " + coord.toString() + ".");
+                "an occupied site at " + coord.toString() + ".");
         }
 
         // Place cell in cell lattice
@@ -169,8 +169,8 @@ public class CellUpdateManager {
 
         if (content.has(qCoord)) {
             throw new IllegalStateException("Attempted to move cell to an " +
-                    "occupied site. Origin: " + pCoord + "; destination: "
-                    + qCoord);
+                "occupied site. Origin: " + pCoord + "; destination: "
+                + qCoord);
         }
         content.sanityCheck(pCoord);
         content.sanityCheck(qCoord);

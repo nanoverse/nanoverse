@@ -84,38 +84,6 @@ public class Extrema {
         return assigned;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(min);
-        sb.append('@');
-        appendArgMin(sb);
-        sb.append(':');
-        sb.append(max);
-        sb.append('@');
-        appendArgMax(sb);
-        return sb.toString();
-    }
-
-    private void appendArgMax(StringBuilder sb) {
-        if (argMax == null) {
-            sb.append("NaN,NaN,NaN");
-            return;
-        }
-
-        sb.append(argMax.toString());
-    }
-
-
-    private void appendArgMin(StringBuilder sb) {
-        if (argMin == null) {
-            sb.append("NaN,NaN,NaN");
-            return;
-        }
-
-        sb.append(argMin.toString());
-    }
-
     public double min() {
         return min;
     }
@@ -157,5 +125,36 @@ public class Extrema {
         }
 
         return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(min);
+        sb.append('@');
+        appendArgMin(sb);
+        sb.append(':');
+        sb.append(max);
+        sb.append('@');
+        appendArgMax(sb);
+        return sb.toString();
+    }
+
+    private void appendArgMax(StringBuilder sb) {
+        if (argMax == null) {
+            sb.append("NaN,NaN,NaN");
+            return;
+        }
+
+        sb.append(argMax.toString());
+    }
+
+    private void appendArgMin(StringBuilder sb) {
+        if (argMin == null) {
+            sb.append("NaN,NaN,NaN");
+            return;
+        }
+
+        sb.append(argMin.toString());
     }
 }

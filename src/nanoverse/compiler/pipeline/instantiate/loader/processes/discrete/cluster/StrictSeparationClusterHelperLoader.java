@@ -43,9 +43,13 @@ public class StrictSeparationClusterHelperLoader extends ScatterClustersHelperLo
     }
 
     public StrictSeparationClusterHelperLoader
-            (StrictSeparationClusterHelperFactory factory) {
+        (StrictSeparationClusterHelperFactory factory) {
 
         this.factory = factory;
+    }
+
+    public StrictSeparationClusterHelper instantiate(LayerManager lm, GeneralParameters p) {
+        return instantiate(null, lm, p);
     }
 
     @Override
@@ -53,9 +57,5 @@ public class StrictSeparationClusterHelperLoader extends ScatterClustersHelperLo
         CellLayer layer = lm.getCellLayer();
         factory.setLayer(layer);
         return factory.build();
-    }
-
-    public StrictSeparationClusterHelper instantiate(LayerManager lm, GeneralParameters p) {
-        return instantiate(null, lm, p);
     }
 }

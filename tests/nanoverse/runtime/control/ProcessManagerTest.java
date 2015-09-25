@@ -26,14 +26,15 @@ package nanoverse.runtime.control;
 
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.layers.MockLayerManager;
-import org.junit.*;
 import nanoverse.runtime.processes.*;
+import org.junit.*;
 import test.LegacyTest;
 
 import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by David B Borenstein on 1/7/14.
  */

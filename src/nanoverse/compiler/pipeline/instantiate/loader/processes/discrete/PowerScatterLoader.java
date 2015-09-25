@@ -24,7 +24,7 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete;
 
-import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.*;
+import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.PowerScatterFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
@@ -47,7 +47,7 @@ public class PowerScatterLoader extends ProcessLoader<PowerScatter> {
     }
 
     public PowerScatterLoader(PowerScatterFactory factory,
-                      PowerScatterInterpolator interpolator) {
+                              PowerScatterInterpolator interpolator) {
         this.factory = factory;
         this.interpolator = interpolator;
     }

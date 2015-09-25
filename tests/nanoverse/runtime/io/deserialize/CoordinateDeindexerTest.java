@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Created by dbborens on 12/10/13.
  */

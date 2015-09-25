@@ -31,7 +31,8 @@ import com.google.common.reflect.TypeToken;
  */
 public abstract class Loader<T> {
 
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
+    private final TypeToken<T> type = new TypeToken<T>(getClass()) {
+    };
 
     public Class getInstanceClass() {
         return type.getRawType();

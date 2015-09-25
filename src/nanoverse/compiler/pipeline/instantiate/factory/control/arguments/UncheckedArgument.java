@@ -44,7 +44,7 @@ public class UncheckedArgument<T> implements Argument<T> {
             return inner.next();
         } catch (HaltCondition haltCondition) {
             throw new IllegalStateException("Unexpected halt event for " +
-                    inner.getClass().getSimpleName());
+                inner.getClass().getSimpleName());
         }
     }
 }

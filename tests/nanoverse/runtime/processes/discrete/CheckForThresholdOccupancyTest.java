@@ -34,10 +34,10 @@ import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.check.CheckForThresholdOccupancy;
 import nanoverse.runtime.structural.MockGeneralParameters;
+import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;

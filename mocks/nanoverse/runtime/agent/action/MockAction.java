@@ -45,20 +45,17 @@ public class MockAction extends Action {
         callerCounts = new HashMap<>();
     }
 
-    public void setIdentifier(int identifier) {
-        this.identifier = identifier;
-    }
-
     public Coordinate getLastCaller() {
         return lastCaller;
     }
 
+    public int getTimesRun() {
+        return timesRun;
+    }
+
     @Override
-    public Action clone(BehaviorCell child) {
-        MockAction clone = new MockAction();
-        clone.setCallback(child);
-        clone.setIdentifier(identifier);
-        return clone;
+    public int hashCode() {
+        return callback != null ? callback.hashCode() : 0;
     }
 
     @Override
@@ -70,17 +67,8 @@ public class MockAction extends Action {
         }
     }
 
-    private void increment(Coordinate caller) {
-        if (!callerCounts.containsKey(caller)) {
-            callerCounts.put(caller, 0);
-        }
-
-        int count = callerCounts.get(caller);
-        callerCounts.put(caller, count + 1);
-    }
-
-    public int getTimesRun() {
-        return timesRun;
+    public BehaviorCell getCallback() {
+        return callback;
     }
 
     @Override
@@ -98,15 +86,27 @@ public class MockAction extends Action {
     }
 
     @Override
-    public int hashCode() {
-        return callback != null ? callback.hashCode() : 0;
+    public Action clone(BehaviorCell child) {
+        MockAction clone = new MockAction();
+        clone.setCallback(child);
+        clone.setIdentifier(identifier);
+        return clone;
     }
 
-    public BehaviorCell getCallback() {
-        return callback;
+    public void setIdentifier(int identifier) {
+        this.identifier = identifier;
     }
 
     public void setCallback(BehaviorCell callback) {
         this.callback = callback;
+    }
+
+    private void increment(Coordinate caller) {
+        if (!callerCounts.containsKey(caller)) {
+            callerCounts.put(caller, 0);
+        }
+
+        int count = callerCounts.get(caller);
+        callerCounts.put(caller, count + 1);
     }
 }

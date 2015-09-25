@@ -24,8 +24,7 @@
 
 package nanoverse.runtime.layers.continuum;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import test.LinearMocks;
 
 import java.util.stream.Stream;

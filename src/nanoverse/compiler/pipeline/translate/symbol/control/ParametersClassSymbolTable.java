@@ -37,7 +37,7 @@ public class ParametersClassSymbolTable extends ClassSymbolTable<GeneralParamete
     @Override
     public String getDescription() {
         return "System-level parameters, such as output directory and number " +
-                "of simulations to run.";
+            "of simulations to run.";
     }
 
     @Override

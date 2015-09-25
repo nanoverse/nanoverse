@@ -51,7 +51,7 @@ public class PixelTranslatorFactory {
 
         } else {
             throw new IllegalArgumentException("Unrecognized nanoverse.runtime.geometry " +
-                    "(dimensionality = " + d + "; connectivity = " + c + ")");
+                "(dimensionality = " + d + "; connectivity = " + c + ")");
         }
     }
 }

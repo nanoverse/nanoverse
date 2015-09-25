@@ -24,11 +24,12 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import org.junit.Test;
 import nanoverse.runtime.processes.*;
+import org.junit.Test;
 import test.LegacyLatticeTest;
 
 import static org.junit.Assert.assertTrue;
+
 /**
  * Created by dbborens on 4/24/14.
  */

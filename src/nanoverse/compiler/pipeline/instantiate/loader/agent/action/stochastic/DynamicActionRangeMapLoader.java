@@ -24,10 +24,10 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
-import nanoverse.runtime.agent.action.stochastic.WeightedOption;
 import nanoverse.compiler.pipeline.instantiate.factory.agent.action.stochastic.DynamicActionRangeMapFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.runtime.agent.action.stochastic.WeightedOption;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.DynamicActionRangeMapDescriptor;
 import nanoverse.runtime.layers.LayerManager;
@@ -53,6 +53,7 @@ public class DynamicActionRangeMapLoader extends Loader<DynamicActionRangeMapDes
         this.factory = factory;
         this.interpolator = interpolator;
     }
+
     public DynamicActionRangeMapDescriptor instantiate(ListObjectNode node,
                                                        LayerManager lm,
                                                        GeneralParameters p) {

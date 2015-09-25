@@ -24,8 +24,7 @@
 
 package nanoverse.runtime.io.visual.map;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 
 import java.awt.*;
@@ -77,6 +76,11 @@ public class RectPixelTranslator extends PixelTranslator {
         origin = new Coordinate2D(x, y, 0);
     }
 
+    @Override
+    public Coordinate resolve(Coordinate c, int frame, double time) {
+        return indexToPixels(c);
+    }
+
     protected Coordinate indexToPixels(Coordinate c) {
         int x = c.x();
         int y = c.y();
@@ -96,11 +100,6 @@ public class RectPixelTranslator extends PixelTranslator {
     @Override
     public boolean equals(Object obj) {
         return (obj instanceof RectPixelTranslator);
-    }
-
-    @Override
-    public Coordinate resolve(Coordinate c, int frame, double time) {
-        return indexToPixels(c);
     }
 
     @Override

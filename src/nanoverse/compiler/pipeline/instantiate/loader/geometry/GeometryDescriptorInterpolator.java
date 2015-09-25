@@ -28,7 +28,7 @@ import nanoverse.compiler.pipeline.instantiate.factory.geometry.GeometryDescript
 import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
 import nanoverse.compiler.pipeline.instantiate.loader.geometry.lattice.LatticeLoader;
 import nanoverse.compiler.pipeline.instantiate.loader.geometry.shape.ShapeLoader;
-import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.geometry.lattice.Lattice;
 import nanoverse.runtime.geometry.shape.Shape;
@@ -53,7 +53,7 @@ public class GeometryDescriptorInterpolator {
 
     public Lattice lattice(MapObjectNode node) {
         LatticeLoader loader = (LatticeLoader)
-                load.getLoader(node, "lattice", false);
+            load.getLoader(node, "lattice", false);
 
         if (loader == null) {
             return defaults.lattice();
@@ -65,7 +65,7 @@ public class GeometryDescriptorInterpolator {
 
     public Shape shape(MapObjectNode node, Lattice lattice, GeneralParameters p) {
         ShapeLoader loader = (ShapeLoader)
-                load.getLoader(node, "shape", false);
+            load.getLoader(node, "shape", false);
 
         if (loader == null) {
             return defaults.shape(lattice, p);

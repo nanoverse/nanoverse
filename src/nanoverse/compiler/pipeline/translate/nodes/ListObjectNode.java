@@ -56,16 +56,12 @@ public class ListObjectNode implements ObjectNode {
         return local.get(index);
     }
 
-    public void loadMember(ObjectNode value) {
-        local.loadMember(value);
-    }
-
     public int size() {
         return local.size();
     }
 
-    public ListSymbolTable getSymbolTable() {
-        return symbolTable;
+    public void loadMember(ObjectNode value) {
+        local.loadMember(value);
     }
 
     @Override
@@ -84,5 +80,9 @@ public class ListObjectNode implements ObjectNode {
     @Override
     public Class getInstantiatingClass() {
         return symbolTable.getBroadClass();
+    }
+
+    public ListSymbolTable getSymbolTable() {
+        return symbolTable;
     }
 }

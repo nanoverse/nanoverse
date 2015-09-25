@@ -34,9 +34,9 @@ import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.*;
-import org.junit.*;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.MockGeneralParameters;
+import org.junit.*;
 import test.*;
 
 /**

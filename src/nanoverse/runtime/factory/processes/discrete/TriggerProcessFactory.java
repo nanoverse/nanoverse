@@ -27,12 +27,11 @@ package nanoverse.runtime.factory.processes.discrete;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.factory.processes.ProcessFactory;
 import nanoverse.runtime.layers.LayerManager;
-import org.dom4j.Element;
 import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
-import nanoverse.runtime.processes.discrete.TriggerProcess;
+import nanoverse.runtime.processes.discrete.*;
 import nanoverse.runtime.processes.discrete.filter.Filter;
 import nanoverse.runtime.structural.utilities.XmlUtil;
+import org.dom4j.Element;
 
 /**
  * Created by dbborens on 11/23/14.

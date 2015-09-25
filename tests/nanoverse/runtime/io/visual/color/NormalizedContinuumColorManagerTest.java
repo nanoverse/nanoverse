@@ -33,7 +33,7 @@ import test.TestBase;
 
 import java.awt.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class NormalizedContinuumColorManagerTest extends TestBase {
@@ -48,6 +48,7 @@ public class NormalizedContinuumColorManagerTest extends TestBase {
     private Coordinate c;
     private SystemState systemState;
     private NormalizedContinuumColorManager query;
+
     @Before
     public void before() throws Exception {
 
@@ -55,27 +56,28 @@ public class NormalizedContinuumColorManagerTest extends TestBase {
         systemState = mock(SystemState.class);
         normalizer = mock(ContinuumNormalizationHelper.class);
         query = new NormalizedContinuumColorManager(minHueArg,
-                maxHueArg,
-                minSaturationArg,
-                maxSaturationArg,
-                minLuminanceArg,
-                maxLuminanceArg,
-                normalizer, false,
-                new UniformColorManager(Color.WHITE));
+            maxHueArg,
+            minSaturationArg,
+            maxSaturationArg,
+            minLuminanceArg,
+            maxLuminanceArg,
+            normalizer, false,
+            new UniformColorManager(Color.WHITE));
+    }
+
+    @Test
+    public void rangeMinimumColor() throws Exception {
+        // Zero lightness, so black
+        doColorTest(0.0, 0F, 0F, 0F);
     }
 
     private void doColorTest(double normalized, float h, float s, float l) {
         when(normalizer.normalize(c, systemState)).thenReturn(normalized);
         Color color = query.getColor(c, systemState);
         float[] hslColor = HSLColor.fromRGB(color);
-        assertEquals(h, hslColor[0], floatEpsilon*1000F);
-        assertEquals(s, hslColor[1], floatEpsilon*1000F);
-        assertEquals(l, hslColor[2], floatEpsilon*1000F);
-    }
-    @Test
-    public void rangeMinimumColor() throws Exception {
-        // Zero lightness, so black
-        doColorTest(0.0, 0F, 0F, 0F);
+        assertEquals(h, hslColor[0], floatEpsilon * 1000F);
+        assertEquals(s, hslColor[1], floatEpsilon * 1000F);
+        assertEquals(l, hslColor[2], floatEpsilon * 1000F);
     }
 
     @Test

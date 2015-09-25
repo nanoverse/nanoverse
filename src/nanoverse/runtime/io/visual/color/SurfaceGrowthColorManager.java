@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.io.visual.color;
 
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.io.visual.HSLColor;
@@ -128,6 +128,11 @@ public class SurfaceGrowthColorManager extends ColorManager {
     }
 
     @Override
+    public Color getBorderColor() {
+        return Color.DARK_GRAY;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof SurfaceGrowthColorManager)) return false;
@@ -147,10 +152,5 @@ public class SurfaceGrowthColorManager extends ColorManager {
         result = 31 * result + luminanceScale.hashCode();
         result = 31 * result + saturationScale.hashCode();
         return result;
-    }
-
-    @Override
-    public Color getBorderColor() {
-        return Color.DARK_GRAY;
     }
 }

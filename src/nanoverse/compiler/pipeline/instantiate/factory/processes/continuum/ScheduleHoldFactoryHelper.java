@@ -24,8 +24,8 @@
 package nanoverse.compiler.pipeline.instantiate.factory.processes.continuum;
 
 import nanoverse.runtime.layers.continuum.ContinuumLayerScheduler;
-import nanoverse.runtime.processes.continuum.ScheduleHold;
 import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.continuum.ScheduleHold;
 
 
 public class ScheduleHoldFactoryHelper {

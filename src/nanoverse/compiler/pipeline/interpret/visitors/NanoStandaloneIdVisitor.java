@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.interpret.visitors;
 
 import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser;
-import nanoverse.compiler.pipeline.interpret.nodes.*;
+import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -39,7 +39,7 @@ import java.util.stream.Stream;
  * with identifier contexts; they are also used to
  * represent the key in an assignment context, in which
  * case they are turned into strings.
- *
+ * <p>
  * Created by dbborens on 4/22/15.
  */
 public class NanoStandaloneIdVisitor extends AbstractNanoNodeVisitor {

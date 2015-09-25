@@ -37,7 +37,7 @@ public class ScatterClustersHelperClassSymbolTable extends ClassSymbolTable<Scat
     @Override
     public String getDescription() {
         return "Defines the manner in which cell clusters should " +
-                "be separated when using semi-structured scatter rules.";
+            "be separated when using semi-structured scatter rules.";
     }
 
     @Override

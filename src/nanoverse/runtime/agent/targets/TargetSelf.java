@@ -29,9 +29,7 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.discrete.filter.Filter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Targets specify which nanoverse.runtime.cells should receive the consequences

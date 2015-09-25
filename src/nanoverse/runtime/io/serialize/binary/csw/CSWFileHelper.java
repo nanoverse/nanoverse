@@ -29,8 +29,8 @@ import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.utilities.FileConventions;
 
 import java.io.*;
-import java.util.*;
-import java.util.stream.*;
+import java.util.HashMap;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 5/22/2015.
@@ -48,12 +48,6 @@ public class CSWFileHelper {
         layerProcessor = new CSWLayerProcessor(streamMap);
     }
 
-    public CSWFileHelper(GeneralParameters p, HashMap<String, DataOutputStream> streamMap, CSWLayerProcessor layerProcessor) {
-        this.p = p;
-        this.streamMap = streamMap;
-        this.layerProcessor = layerProcessor;
-    }
-
     private DataOutputStream makeOutputStream(String id) {
         String filename = FileConventions.makeContinuumStateFilename(id);
         String filepath = p.getInstancePath() + '/' + filename;
@@ -66,6 +60,12 @@ public class CSWFileHelper {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public CSWFileHelper(GeneralParameters p, HashMap<String, DataOutputStream> streamMap, CSWLayerProcessor layerProcessor) {
+        this.p = p;
+        this.streamMap = streamMap;
+        this.layerProcessor = layerProcessor;
     }
 
     public void push(StepState stepState) {

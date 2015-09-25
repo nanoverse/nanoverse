@@ -24,8 +24,7 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.processes;
 
-import nanoverse.runtime.control.arguments.ConstantInteger;
-import nanoverse.runtime.control.arguments.IntegerArgument;
+import nanoverse.runtime.control.arguments.*;
 
 /**
  * Created by dbborens on 8/26/2015.

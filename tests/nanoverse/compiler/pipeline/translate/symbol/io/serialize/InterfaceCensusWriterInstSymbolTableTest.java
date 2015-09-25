@@ -28,7 +28,7 @@ import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.io.serialize.text.InterfaceCensusWriter;
-import org.junit.*;
+import org.junit.Test;
 
 public class InterfaceCensusWriterInstSymbolTableTest extends MapSymbolTableTest {
 

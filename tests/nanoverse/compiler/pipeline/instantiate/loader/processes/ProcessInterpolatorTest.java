@@ -25,10 +25,10 @@
 package nanoverse.compiler.pipeline.instantiate.loader.processes;
 
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
-import org.junit.*;
 import nanoverse.runtime.processes.BaseProcessArguments;
+import org.junit.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class ProcessInterpolatorTest extends InterpolatorTest {

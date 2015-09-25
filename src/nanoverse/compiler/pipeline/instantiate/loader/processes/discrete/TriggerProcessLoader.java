@@ -24,7 +24,7 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete;
 
-import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.*;
+import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.TriggerProcessFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
@@ -46,7 +46,7 @@ public class TriggerProcessLoader extends ProcessLoader<TriggerProcess> {
     }
 
     public TriggerProcessLoader(TriggerProcessFactory factory,
-                         TriggerProcessInterpolator interpolator) {
+                                TriggerProcessInterpolator interpolator) {
         this.factory = factory;
         this.interpolator = interpolator;
     }

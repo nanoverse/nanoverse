@@ -34,13 +34,14 @@ import java.util.stream.Stream;
 /**
  * Represents a structured mapping of keys to values. Used to define the
  * properties of an object.
- *
+ * <p>
  * Created by dbborens on 3/3/15.
  */
 public abstract class MapSymbolTable<T> implements InstantiableSymbolTable {
     protected final HashMap<String, MemberSymbol> requiredMembers;
     protected final Logger logger;
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
+    private final TypeToken<T> type = new TypeToken<T>(getClass()) {
+    };
 
     public MapSymbolTable() {
         requiredMembers = resolveMembers();
@@ -54,16 +55,17 @@ public abstract class MapSymbolTable<T> implements InstantiableSymbolTable {
     public Stream<String> getMemberNames() {
         return requiredMembers.keySet().stream();
     }
+
     public ResolvingSymbolTable getSymbolTable(String identifier) {
         logger.debug("Resolving {}::{}",
-                getInstanceClass().getSimpleName(), identifier);
+            getInstanceClass().getSimpleName(), identifier);
 
         if (requiredMembers.containsKey(identifier)) {
             return requiredMembers.get(identifier).getSymbolTable();
         }
 
         throw new UnrecognizedIdentifierError(identifier,
-                getInstanceClass());
+            getInstanceClass());
     }
 
     @Override

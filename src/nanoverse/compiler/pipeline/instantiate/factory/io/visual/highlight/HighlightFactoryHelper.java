@@ -23,8 +23,7 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.highlight;
 
-import nanoverse.runtime.io.visual.highlight.Glyph;
-import nanoverse.runtime.io.visual.highlight.Highlight;
+import nanoverse.runtime.io.visual.highlight.*;
 
 
 public class HighlightFactoryHelper {

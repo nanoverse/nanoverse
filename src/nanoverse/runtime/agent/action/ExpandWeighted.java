@@ -24,18 +24,15 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.cells.Cell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.cells.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.CellUpdateManager;
 import nanoverse.runtime.processes.discrete.ShoveHelper;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Places a copy or copies of the current cell toward any vacant location
@@ -59,7 +56,7 @@ public class ExpandWeighted extends Action {
     private Random random;
 
     public ExpandWeighted(BehaviorCell callback, LayerManager layerManager,
-                        IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
+                          IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
 
         super(callback, layerManager);
         this.selfChannel = selfChannel;
@@ -95,8 +92,7 @@ public class ExpandWeighted extends Action {
         Coordinate target;
         if (parentLocation.compareTo(affectedArray[0]) == -1) {
             target = affectedArray[affectedArray.length - 1];
-        }
-        else {
+        } else {
             target = affectedArray[0];
         }
         highlight(target, parentLocation);
@@ -119,6 +115,6 @@ public class ExpandWeighted extends Action {
     @Override
     public Action clone(BehaviorCell child) {
         return new ExpandWeighted(child, getLayerManager(), selfChannel, targetChannel,
-                random);
+            random);
     }
 }

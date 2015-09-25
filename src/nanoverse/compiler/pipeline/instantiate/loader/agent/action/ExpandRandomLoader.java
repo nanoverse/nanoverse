@@ -24,9 +24,9 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.instantiate.factory.agent.action.ExpandRandomFactory;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
+import nanoverse.runtime.agent.action.ExpandRandomDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
@@ -45,7 +45,7 @@ public class ExpandRandomLoader extends ActionLoader<ExpandRandomDescriptor> {
     }
 
     public ExpandRandomLoader(ExpandRandomFactory factory,
-                        ExpandRandomInterpolator interpolator) {
+                              ExpandRandomInterpolator interpolator) {
 
         this.factory = factory;
         this.interpolator = interpolator;

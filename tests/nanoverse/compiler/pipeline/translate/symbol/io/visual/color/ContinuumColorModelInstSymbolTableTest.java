@@ -28,7 +28,7 @@ import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.io.visual.color.*;
-import org.junit.*;
+import org.junit.Test;
 
 public class ContinuumColorModelInstSymbolTableTest extends MapSymbolTableTest {
 

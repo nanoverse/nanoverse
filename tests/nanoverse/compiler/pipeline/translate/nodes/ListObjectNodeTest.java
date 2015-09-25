@@ -38,6 +38,7 @@ public class ListObjectNodeTest {
     private LocalContextList local;
 
     private ListObjectNode query;
+
     @Before
     public void before() throws Exception {
         symbolTable = mock(ListSymbolTable.class);
@@ -67,6 +68,7 @@ public class ListObjectNodeTest {
         when(local.size()).thenReturn(25);
         query.getMember(25);
     }
+
     @Test
     public void loadMember() throws Exception {
         ObjectNode node = mock(ObjectNode.class);

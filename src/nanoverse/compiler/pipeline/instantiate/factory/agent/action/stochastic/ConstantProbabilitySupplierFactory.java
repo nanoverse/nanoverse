@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
-import nanoverse.runtime.agent.action.stochastic.*;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.agent.action.stochastic.ConstantProbabilitySupplierDescriptor;
 
 public class ConstantProbabilitySupplierFactory implements Factory<ConstantProbabilitySupplierDescriptor> {
 

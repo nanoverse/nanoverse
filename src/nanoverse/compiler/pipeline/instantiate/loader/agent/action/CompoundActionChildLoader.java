@@ -24,9 +24,9 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action;
 
-import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
 

@@ -24,8 +24,7 @@
 
 package nanoverse.runtime.geometry.boundaries;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.lattice.Lattice;
 import nanoverse.runtime.geometry.shape.Shape;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -47,6 +46,12 @@ public class Arena extends Boundary {
     }
 
     @Override
+    protected void verify(Shape shape, Lattice lattice) {
+        // Arena is compatible with all lattice geometries and
+        // shapes, so no verification is needed.
+    }
+
+    @Override
     public Coordinate apply(Coordinate c) {
         Coordinate ob = shape.getOverbounds(c);
 
@@ -65,12 +70,6 @@ public class Arena extends Boundary {
     @Override
     public boolean isInfinite() {
         return true;
-    }
-
-    @Override
-    protected void verify(Shape shape, Lattice lattice) {
-        // Arena is compatible with all lattice geometries and
-        // shapes, so no verification is needed.
     }
 
     @Override

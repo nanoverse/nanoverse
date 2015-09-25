@@ -33,7 +33,7 @@ import java.util.stream.Stream;
  * MapObjectNode represents a Java object whose members
  * have definite names. This is generally everything except
  * a Collection.
- *
+ * <p>
  * Created by dbborens on 2/22/15.
  */
 public class MapObjectNode implements ObjectNode {
@@ -70,10 +70,6 @@ public class MapObjectNode implements ObjectNode {
         return symbolTable.getSymbolTable(identifier);
     }
 
-    public MapSymbolTable getSymbolTable() {
-        return symbolTable;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,6 +86,10 @@ public class MapObjectNode implements ObjectNode {
     @Override
     public Class getInstantiatingClass() {
         return symbolTable.getInstanceClass();
+    }
+
+    public MapSymbolTable getSymbolTable() {
+        return symbolTable;
     }
 
 }

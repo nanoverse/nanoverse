@@ -27,8 +27,7 @@ package nanoverse.runtime.processes.discrete;
 import nanoverse.runtime.cells.Cell;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.StepState;
+import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -51,11 +50,6 @@ public class Cull extends CellProcess {
 
         super(arguments, cpArguments);
         this.threshold = threshold;
-    }
-
-    @Override
-    public void init() {
-        targetsArr = null;
     }
 
     public void target(GillespieState gs) throws HaltCondition {
@@ -81,6 +75,11 @@ public class Cull extends CellProcess {
 
     public void fire(StepState state) throws HaltCondition {
         execute(state, targetsArr);
+        targetsArr = null;
+    }
+
+    @Override
+    public void init() {
         targetsArr = null;
     }
 

@@ -24,12 +24,13 @@
 package nanoverse.compiler.pipeline.instantiate.factory.agent.targets;
 
 import nanoverse.runtime.agent.targets.TargetOccupiedNeighborsDescriptor;
-import nanoverse.runtime.processes.discrete.filter.Filter;
-import java.util.Random;
 import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.processes.discrete.filter.Filter;
+
+import java.util.Random;
 
 
-public class TargetOccupiedNeighborsFactoryHelper implements  TargetFactoryHelper<TargetOccupiedNeighborsDescriptor> {
+public class TargetOccupiedNeighborsFactoryHelper implements TargetFactoryHelper<TargetOccupiedNeighborsDescriptor> {
 
     public TargetOccupiedNeighborsDescriptor build(LayerManager layerManager, Filter filter, int maximum, Random random) {
         return new TargetOccupiedNeighborsDescriptor(layerManager, filter, maximum, random);

@@ -29,7 +29,7 @@ import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class NanoSingletonVisitorTest {
@@ -72,6 +72,17 @@ public class NanoSingletonVisitorTest {
         verifyReturn();
     }
 
+    private void configureContext(Class clazz) {
+        child = (ParseTree) mock(clazz);
+        ctx = mock(SingletonContext.class);
+        when(ctx.getChild(0)).thenReturn(child);
+    }
+
+    private void verifyReturn() {
+        ASTNode actual = query.visitSingleton(ctx);
+        assertSame(expected, actual);
+    }
+
     @Test
     public void primitiveCase() throws Exception {
         configureContext(PrimitiveContext.class);
@@ -84,17 +95,6 @@ public class NanoSingletonVisitorTest {
         configureContext(IdContext.class);
         when(child.accept(idVisitor)).thenReturn(expected);
         verifyReturn();
-    }
-
-    private void configureContext(Class clazz) {
-        child = (ParseTree) mock(clazz);
-        ctx = mock(SingletonContext.class);
-        when(ctx.getChild(0)).thenReturn(child);
-    }
-
-    private void verifyReturn() {
-        ASTNode actual = query.visitSingleton(ctx);
-        assertSame(expected, actual);
     }
 
 }

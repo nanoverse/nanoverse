@@ -79,7 +79,7 @@ public class SystemStateReader implements Iterable<LightweightSystemState> {
         cellStateReader = new LegacyCellStateReader(fileRoot, deindexer);
 
         continuumStateReader = new ContinuumStateReader(fileRoot,
-                geometry.getCanonicalSites().length);
+            geometry.getCanonicalSites().length);
 
         extremaMap = continuumStateReader.getExtremaMap();
         this.geometry = geometry;
@@ -114,6 +114,10 @@ public class SystemStateReader implements Iterable<LightweightSystemState> {
 
     private class SystemStateIterator implements Iterator<LightweightSystemState> {
 
+        public boolean hasNext() {
+            return (cursor < frames.length);
+        }
+
         @Override
         public LightweightSystemState next() {
 
@@ -138,10 +142,6 @@ public class SystemStateReader implements Iterable<LightweightSystemState> {
 
             // Return display object
             return state;
-        }
-
-        public boolean hasNext() {
-            return (cursor < frames.length);
         }
 
         @Override

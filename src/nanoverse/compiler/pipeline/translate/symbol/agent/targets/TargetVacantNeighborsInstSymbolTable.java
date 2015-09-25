@@ -24,9 +24,9 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.targets;
 
-import nanoverse.runtime.agent.targets.*;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.targets.TargetVacantNeighborsLoader;
+import nanoverse.runtime.agent.targets.TargetVacantNeighborsDescriptor;
 
 /**
  * Created by dbborens on 7/23/2015.
@@ -35,7 +35,7 @@ public class TargetVacantNeighborsInstSymbolTable extends TargetRuleInstSymbolTa
     @Override
     public String getDescription() {
         return "Target only those neighboring locations that do not contain " +
-                "a neighboring nanoverse.runtime.agent.";
+            "a neighboring nanoverse.runtime.agent.";
     }
 
     @Override

@@ -24,13 +24,10 @@
 
 package nanoverse.runtime.processes.discrete.check;
 
-import nanoverse.runtime.control.halt.FixationEvent;
-import nanoverse.runtime.control.halt.HaltCondition;
+import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.layers.cell.StateMapViewer;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.StepState;
-import nanoverse.runtime.processes.discrete.CellProcess;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.processes.*;
+import nanoverse.runtime.processes.discrete.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -44,10 +41,6 @@ public class CheckForFixation extends CellProcess {
     @FactoryTarget
     public CheckForFixation(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
         super(arguments, cpArguments);
-    }
-
-    @Override
-    public void init() {
     }
 
     @Override
@@ -68,5 +61,9 @@ public class CheckForFixation extends CellProcess {
                 throw new FixationEvent(s);
             }
         }
+    }
+
+    @Override
+    public void init() {
     }
 }

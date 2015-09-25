@@ -21,12 +21,12 @@ import java.util.stream.IntStream;
  * Bresenham in 2 dimensions, I need to handle each octant; if I want to use it
  * in 3 dimensions (or on a triangular lattice), I need to do two Bresenhams,
  * with one dimension in common.
- *
+ * <p>
  * One of the uglier parts of this cloodge is manually adding in the
  * x-correction to the y-coordinate on triangular lattices, despite there being
  * code to handle that on the Lattice class itself. The entire Geometry
  * hierarchy is up for a big refactor, so I'm not going to worry about that.
- *
+ * <p>
  * Created by dbborens on 7/28/14.
  */
 public class HorizontalLineSet extends CoordinateSet {
@@ -55,8 +55,8 @@ public class HorizontalLineSet extends CoordinateSet {
 
     private void apply(int length, Function<Integer, Coordinate> mapping) {
         IntStream.range(0, length)
-                .mapToObj(mapping::apply)
-                .forEach(this::add);
+            .mapToObj(mapping::apply)
+            .forEach(this::add);
     }
 
     private Coordinate dxRect(Geometry geom, Coordinate start, int dx) {

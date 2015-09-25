@@ -31,15 +31,16 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.*;
-import org.junit.*;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.processes.discrete.filter.*;
+import org.junit.*;
 import test.LegacyTest;
 
 import java.util.*;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by dbborens on 2/11/14.
  */

@@ -25,8 +25,7 @@
 package nanoverse.runtime.layers.continuum;
 
 import nanoverse.runtime.cells.BehaviorCell;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.IdentityHashMap;
 import java.util.function.Supplier;

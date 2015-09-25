@@ -32,7 +32,7 @@ import nanoverse.runtime.geometry.boundaries.Boundary;
 import nanoverse.runtime.layers.continuum.*;
 import org.junit.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class ContinuumLayerInterpolatorTest extends InterpolatorTest {

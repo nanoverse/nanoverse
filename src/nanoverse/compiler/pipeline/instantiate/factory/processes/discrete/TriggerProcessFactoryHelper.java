@@ -23,10 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
-import nanoverse.runtime.processes.discrete.TriggerProcess;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
-import nanoverse.runtime.processes.discrete.filter.Filter;
 import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.*;
+import nanoverse.runtime.processes.discrete.filter.Filter;
 
 
 public class TriggerProcessFactoryHelper {

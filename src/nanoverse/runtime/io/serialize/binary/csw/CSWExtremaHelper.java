@@ -52,23 +52,6 @@ public class CSWExtremaHelper {
         idStream.forEach(id -> extremaMap.put(id, new Extrema()));
     }
 
-    public CSWExtremaHelper(CSWConsiderHelper considerHelper,
-                            HashMap<String, Extrema> extremaMap,
-                            Function<String, DataOutputStream> fileFunction,
-                            BinaryExtremaWriter writer) {
-        this.fileFunction = fileFunction;
-        this.considerHelper = considerHelper;
-        this.extremaMap = extremaMap;
-        this.writer = writer;
-    }
-
-    public void push(StepState stepState) {
-        extremaMap.keySet().forEach(id ->{
-            Stream<Double> values = stepState.getRecordedContinuumValues(id);
-            considerHelper.consider(id, stepState.getFrame(), values);
-        });
-    }
-
     private DataOutputStream makeOutputStream(String id, GeneralParameters p) {
         try {
             String filename = FileConventions.makeContinuumMetadataFilename(id);
@@ -81,6 +64,23 @@ public class CSWExtremaHelper {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public CSWExtremaHelper(CSWConsiderHelper considerHelper,
+                            HashMap<String, Extrema> extremaMap,
+                            Function<String, DataOutputStream> fileFunction,
+                            BinaryExtremaWriter writer) {
+        this.fileFunction = fileFunction;
+        this.considerHelper = considerHelper;
+        this.extremaMap = extremaMap;
+        this.writer = writer;
+    }
+
+    public void push(StepState stepState) {
+        extremaMap.keySet().forEach(id -> {
+            Stream<Double> values = stepState.getRecordedContinuumValues(id);
+            considerHelper.consider(id, stepState.getFrame(), values);
+        });
     }
 
     public void serialize() {

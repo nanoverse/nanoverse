@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.geometry.set;
 
-import nanoverse.runtime.geometry.set.CompleteSet;
 import nanoverse.runtime.geometry.Geometry;
+import nanoverse.runtime.geometry.set.CompleteSet;
 
 
 public class CompleteCoordinateSetFactoryHelper {

@@ -25,11 +25,11 @@
 package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter;
 
 import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filter.DepthFilterFactory;
-import nanoverse.compiler.pipeline.translate.nodes.*;
+import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.discrete.filter.*;
+import nanoverse.runtime.processes.discrete.filter.DepthFilter;
 
 /**
  * Created by dbborens on 8/24/2015.
@@ -44,7 +44,7 @@ public class DepthFilterLoader extends FilterLoader<DepthFilter> {
     }
 
     public DepthFilterLoader(DepthFilterFactory factory,
-                                 DepthFilterInterpolator interpolator) {
+                             DepthFilterInterpolator interpolator) {
 
         this.factory = factory;
         this.interpolator = interpolator;

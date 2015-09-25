@@ -61,13 +61,6 @@ public class VisualizationPropertiesLoader
         return factory.build();
     }
 
-    public VisualizationProperties instantiate(GeneralParameters p,
-                                               Stream<Consumer<VisualizationPropertiesFactory>> overrides) {
-        configureFactory(null, p);
-        overrides.forEach(override -> override.accept(factory));
-        return factory.build();
-    }
-
     private void configureFactory(MapObjectNode node, GeneralParameters p) {
         Integer edge = interpolator.edge(node, p.getRandom());
         factory.setEdge(edge);
@@ -80,5 +73,12 @@ public class VisualizationPropertiesLoader
 
         HighlightManager highlight = interpolator.highlights(node, p);
         factory.setHighlightManager(highlight);
+    }
+
+    public VisualizationProperties instantiate(GeneralParameters p,
+                                               Stream<Consumer<VisualizationPropertiesFactory>> overrides) {
+        configureFactory(null, p);
+        overrides.forEach(override -> override.accept(factory));
+        return factory.build();
     }
 }

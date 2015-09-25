@@ -24,9 +24,9 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action.stochastic;
 
-import nanoverse.runtime.agent.action.stochastic.ConstantProbabilitySupplierDescriptor;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import nanoverse.runtime.agent.action.stochastic.ConstantProbabilitySupplierDescriptor;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import org.junit.Test;
 

@@ -26,7 +26,7 @@ package nanoverse.runtime.io.serialize.text;
 
 import nanoverse.runtime.cells.Cell;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.io.serialize.Serializer;
@@ -73,66 +73,6 @@ public class InterfaceCensusWriter extends Serializer {
         mkDir(p.getInstancePath(), true);
         bw = makeBufferedWriter(p.getInstancePath() + filename);
     }
-
-    private ArrayList<Coordinate> getFocalSites(StepState stepState) {
-        CellLayer layer = stepState.getRecordedCellLayer();
-        ArrayList<Coordinate> focalSites = new ArrayList<>();
-
-        // Find all nanoverse.runtime.cells of focal type.
-        HashSet<Coordinate> sites = layer.getViewer().getOccupiedSites();
-
-        for (Coordinate site : sites) {
-            Cell focalCell = layer.getViewer().getCell(site);
-            if (focalCell.getState() == focalState) {
-                focalSites.add(site);
-            }
-        }
-
-        return focalSites;
-    }
-
-    private void processNeighbors(Coordinate site, StepState stepState,
-                                  Map<Integer, Double> histo) {
-
-        CellLayer layer = stepState.getRecordedCellLayer();
-
-        int[] neighborStates = layer.getLookupManager().getNeighborStates(site, false);
-
-        for (int neighborState : neighborStates) {
-            increment(histo, neighborState);
-            note(neighborState);
-        }
-    }
-
-    private void note(int neighborState) {
-        observedInterfaceStates.add(neighborState);
-    }
-
-    private void increment(Map<Integer, Double> histo, int neighborState) {
-        if (!histo.containsKey(neighborState)) {
-            histo.put(neighborState, 0.0);
-        }
-
-        double current = histo.get(neighborState);
-        histo.put(neighborState, current + 1.0);
-    }
-
-    @Override
-    public void flush(StepState stepState) {
-        Map<Integer, Double> histo = new HashMap<>();
-        ArrayList<Coordinate> focalSites = getFocalSites(stepState);
-        processFocalSites(stepState, histo, focalSites);
-
-        int frame = stepState.getFrame();
-        frameToHistogramMap.put(frame, histo);
-    }
-
-    private void processFocalSites(StepState stepState, Map<Integer, Double> histo, ArrayList<Coordinate> focalSites) {
-        for (Coordinate site : focalSites) {
-            processNeighbors(site, stepState, histo);
-        }
-    }
-
 
     public void dispatchHalt(HaltCondition ex) {
         conclude();
@@ -209,5 +149,64 @@ public class InterfaceCensusWriter extends Serializer {
 
     public void close() {
         // Doesn't do anything.
+    }
+
+    @Override
+    public void flush(StepState stepState) {
+        Map<Integer, Double> histo = new HashMap<>();
+        ArrayList<Coordinate> focalSites = getFocalSites(stepState);
+        processFocalSites(stepState, histo, focalSites);
+
+        int frame = stepState.getFrame();
+        frameToHistogramMap.put(frame, histo);
+    }
+
+    private ArrayList<Coordinate> getFocalSites(StepState stepState) {
+        CellLayer layer = stepState.getRecordedCellLayer();
+        ArrayList<Coordinate> focalSites = new ArrayList<>();
+
+        // Find all nanoverse.runtime.cells of focal type.
+        HashSet<Coordinate> sites = layer.getViewer().getOccupiedSites();
+
+        for (Coordinate site : sites) {
+            Cell focalCell = layer.getViewer().getCell(site);
+            if (focalCell.getState() == focalState) {
+                focalSites.add(site);
+            }
+        }
+
+        return focalSites;
+    }
+
+    private void processFocalSites(StepState stepState, Map<Integer, Double> histo, ArrayList<Coordinate> focalSites) {
+        for (Coordinate site : focalSites) {
+            processNeighbors(site, stepState, histo);
+        }
+    }
+
+    private void processNeighbors(Coordinate site, StepState stepState,
+                                  Map<Integer, Double> histo) {
+
+        CellLayer layer = stepState.getRecordedCellLayer();
+
+        int[] neighborStates = layer.getLookupManager().getNeighborStates(site, false);
+
+        for (int neighborState : neighborStates) {
+            increment(histo, neighborState);
+            note(neighborState);
+        }
+    }
+
+    private void note(int neighborState) {
+        observedInterfaceStates.add(neighborState);
+    }
+
+    private void increment(Map<Integer, Double> histo, int neighborState) {
+        if (!histo.containsKey(neighborState)) {
+            histo.put(neighborState, 0.0);
+        }
+
+        double current = histo.get(neighborState);
+        histo.put(neighborState, current + 1.0);
     }
 }

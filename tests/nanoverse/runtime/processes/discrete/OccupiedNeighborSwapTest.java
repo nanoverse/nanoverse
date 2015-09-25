@@ -34,13 +34,14 @@ import nanoverse.runtime.geometry.set.CompleteSet;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.MockGeneralParameters;
+import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by dbborens on 4/21/14.
  */

@@ -34,8 +34,8 @@ import java.util.Random;
  */
 public class ContinuumHistoWriterInterpolator {
 
-    private final LoadHelper load;
     public static final boolean DEFAULT_OCCUPIED_ONLY = false;
+    private final LoadHelper load;
 
     public ContinuumHistoWriterInterpolator() {
         load = new LoadHelper();
@@ -51,6 +51,6 @@ public class ContinuumHistoWriterInterpolator {
 
     public boolean occupiedOnly(MapObjectNode node, Random random) {
         return load.aBoolean(node, "occupiedOnly", random,
-                () -> DEFAULT_OCCUPIED_ONLY);
+            () -> DEFAULT_OCCUPIED_ONLY);
     }
 }

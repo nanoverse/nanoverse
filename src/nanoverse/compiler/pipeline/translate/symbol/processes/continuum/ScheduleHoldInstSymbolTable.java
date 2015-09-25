@@ -26,8 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.continuum;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.continuum.ScheduleHoldLoader;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
-import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import nanoverse.runtime.processes.continuum.ScheduleHold;
 
@@ -40,8 +39,8 @@ public class ScheduleHoldInstSymbolTable extends ContinuumProcessInstSymbolTable
     @Override
     public String getDescription() {
         return "Begin queueing changes to the specified continuum layer, but " +
-                "do not execute them until a corresponding \"Release\" event " +
-                "takes place.";
+            "do not execute them until a corresponding \"Release\" event " +
+            "takes place.";
     }
 
     @Override

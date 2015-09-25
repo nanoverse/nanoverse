@@ -25,9 +25,9 @@
 package nanoverse.runtime.io.serialize;
 
 import nanoverse.runtime.control.identifiers.*;
+import nanoverse.runtime.structural.utilities.CoordinateSerializer;
 import org.dom4j.Element;
 import org.junit.Test;
-import nanoverse.runtime.structural.utilities.CoordinateSerializer;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;

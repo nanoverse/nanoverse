@@ -24,9 +24,7 @@
 
 package nanoverse.runtime.geometry.lattice;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 public class RectangularLattice extends Lattice {
@@ -34,6 +32,14 @@ public class RectangularLattice extends Lattice {
     @FactoryTarget
     public RectangularLattice() {
         super();
+    }
+
+    protected void defineBasis() {
+
+        Coordinate east = new Coordinate2D(1, 0, 0);
+        Coordinate north = new Coordinate2D(0, 1, 0);
+
+        basis = new Coordinate[]{east, north};
     }
 
     @Override
@@ -57,12 +63,9 @@ public class RectangularLattice extends Lattice {
         return toAdjust;
     }
 
-    protected void defineBasis() {
-
-        Coordinate east = new Coordinate2D(1, 0, 0);
-        Coordinate north = new Coordinate2D(0, 1, 0);
-
-        basis = new Coordinate[]{east, north};
+    @Override
+    public Coordinate invAdjust(Coordinate toAdjust) {
+        return toAdjust;
     }
 
     @Override
@@ -93,27 +96,9 @@ public class RectangularLattice extends Lattice {
         return ret;
     }
 
-    /* Get (naive) size of an annulus of the specified L1 radius from a
-     * point, i.e., size assuming no out-of-bounds points.
-     */
-    private int getAnnulusSize(int radius) {
-        if (radius == 0) {
-            return (1);
-        }
-
-        return (4 * radius);
-    }
-
     @Override
-    public Coordinate getDisplacement(Coordinate pCoord, Coordinate qCoord) {
-        if (!pCoord.hasFlag(Flags.PLANAR) || !qCoord.hasFlag(Flags.PLANAR)) {
-            throw new IllegalArgumentException("Expect planar coordinates in rectangular lattice.");
-        }
-
-        int dx = qCoord.x() - pCoord.x();
-        int dy = qCoord.y() - pCoord.y();
-
-        return new Coordinate2D(dx, dy, Flags.VECTOR);
+    public Coordinate getOrthoDisplacement(Coordinate pCoord, Coordinate qCoord) {
+        return getDisplacement(pCoord, qCoord);
     }
 
     @Override
@@ -138,13 +123,15 @@ public class RectangularLattice extends Lattice {
     }
 
     @Override
-    public Coordinate getOrthoDisplacement(Coordinate pCoord, Coordinate qCoord) {
-        return getDisplacement(pCoord, qCoord);
-    }
+    public Coordinate getDisplacement(Coordinate pCoord, Coordinate qCoord) {
+        if (!pCoord.hasFlag(Flags.PLANAR) || !qCoord.hasFlag(Flags.PLANAR)) {
+            throw new IllegalArgumentException("Expect planar coordinates in rectangular lattice.");
+        }
 
-    @Override
-    public Coordinate invAdjust(Coordinate toAdjust) {
-        return toAdjust;
+        int dx = qCoord.x() - pCoord.x();
+        int dy = qCoord.y() - pCoord.y();
+
+        return new Coordinate2D(dx, dy, Flags.VECTOR);
     }
 
     @Override
@@ -155,5 +142,16 @@ public class RectangularLattice extends Lattice {
     @Override
     public Coordinate getZeroVector() {
         return new Coordinate2D(0, 0, 0);
+    }
+
+    /* Get (naive) size of an annulus of the specified L1 radius from a
+     * point, i.e., size assuming no out-of-bounds points.
+     */
+    private int getAnnulusSize(int radius) {
+        if (radius == 0) {
+            return (1);
+        }
+
+        return (4 * radius);
     }
 }

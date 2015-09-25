@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.io.visual.highlight;
 import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.io.visual.highlight.*;
+import nanoverse.runtime.io.visual.highlight.Glyph;
 
 import java.util.Random;
 

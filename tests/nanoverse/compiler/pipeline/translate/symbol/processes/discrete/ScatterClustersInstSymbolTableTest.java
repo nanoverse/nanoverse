@@ -26,11 +26,11 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.runtime.control.arguments.*;
-import org.junit.*;
-import nanoverse.runtime.processes.discrete.*;
+import nanoverse.runtime.processes.discrete.ScatterClusters;
 import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import org.junit.Test;
 
-public class ScatterClustersInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest{
+public class ScatterClustersInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {
 
     @Override
     protected MapSymbolTable getQuery() {

@@ -26,8 +26,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete;
 
 import nanoverse.compiler.pipeline.instantiate.loader.geometry.set.CompleteCoordinateSetLoader;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.ConstantInteger;
-import nanoverse.runtime.control.arguments.IntegerArgument;
+import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.geometry.set.CoordinateSet;
 import nanoverse.runtime.layers.LayerManager;
 

@@ -24,22 +24,22 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
-import nanoverse.runtime.agent.targets.TargetDescriptor;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.runtime.agent.action.CloneToDescriptor;
+import nanoverse.runtime.agent.targets.TargetDescriptor;
 import nanoverse.runtime.control.arguments.*;
 import org.junit.Test;
 
 public class CloneToInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedClass() {
-        return CloneToDescriptor.class;
+    protected MapSymbolTable getQuery() {
+        return new CloneToInstSymbolTable();
     }
 
     @Override
-    protected MapSymbolTable getQuery() {
-        return new CloneToInstSymbolTable();
+    protected Class getExpectedClass() {
+        return CloneToDescriptor.class;
     }
 
     @Test

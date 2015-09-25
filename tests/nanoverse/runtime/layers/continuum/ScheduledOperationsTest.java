@@ -24,13 +24,10 @@
 
 package nanoverse.runtime.layers.continuum;
 
-import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.Matrix;
-import no.uib.cipr.matrix.Vector;
-import no.uib.cipr.matrix.sparse.CompDiagMatrix;
-import org.junit.Before;
-import org.junit.Test;
 import nanoverse.runtime.structural.utilities.MatrixUtils;
+import no.uib.cipr.matrix.*;
+import no.uib.cipr.matrix.sparse.CompDiagMatrix;
+import org.junit.*;
 import test.LinearMocks;
 
 public class ScheduledOperationsTest extends LinearMocks {
@@ -67,8 +64,8 @@ public class ScheduledOperationsTest extends LinearMocks {
     public void setSourceOverwritesValue() throws Exception {
         query.setSource(a, 1.0);
 
-       Vector expected = vector(1.0, 0.0, 0.0);
-       Vector actual = query.getSource();
+        Vector expected = vector(1.0, 0.0, 0.0);
+        Vector actual = query.getSource();
 
         assertVectorsEqual(expected, actual, epsilon);
     }

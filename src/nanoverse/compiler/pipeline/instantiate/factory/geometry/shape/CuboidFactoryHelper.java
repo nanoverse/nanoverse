@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.geometry.shape;
 
-import nanoverse.runtime.geometry.shape.Cuboid;
 import nanoverse.runtime.geometry.lattice.Lattice;
+import nanoverse.runtime.geometry.shape.Cuboid;
 
 
 public class CuboidFactoryHelper {

@@ -37,7 +37,7 @@ public class ShapeClassSymbolTable extends ClassSymbolTable<Shape> {
     @Override
     public String getDescription() {
         return "Shape objects represent the shape of the boundary that " +
-                "defines the spatial environment of the simulation.";
+            "defines the spatial environment of the simulation.";
     }
 
     @Override

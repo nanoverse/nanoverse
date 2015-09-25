@@ -39,6 +39,7 @@ import nanoverse.runtime.layers.LayerManager;
 public class VisualizationSerializerLoader extends OutputLoader<VisualizationSerializer> {
     private final VisualizationSerializerFactory factory;
     private final VisualizationSerializerInterpolator interpolator;
+
     public VisualizationSerializerLoader() {
         factory = new VisualizationSerializerFactory();
         interpolator = new VisualizationSerializerInterpolator();

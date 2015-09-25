@@ -27,8 +27,7 @@ package nanoverse.runtime.geometry.boundaries;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.boundaries.helpers.PlaneRingHelper;
 import nanoverse.runtime.geometry.lattice.Lattice;
-import nanoverse.runtime.geometry.shape.Rectangle;
-import nanoverse.runtime.geometry.shape.Shape;
+import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 /**
@@ -45,6 +44,14 @@ public class PlaneRingHard extends Boundary {
     public PlaneRingHard(Shape shape, Lattice lattice) {
         super(shape, lattice);
         helper = new PlaneRingHelper(lattice, shape.getDimensions());
+    }
+
+    @Override
+    protected void verify(Shape shape, Lattice lattice) {
+        // PlaneRing is compatible only with Rectangle shapes.
+        if (!(shape instanceof Rectangle)) {
+            throw new IllegalArgumentException("PlaneRingHard boundary requires a Rectangle shape.");
+        }
     }
 
     @Override
@@ -66,18 +73,9 @@ public class PlaneRingHard extends Boundary {
         }
     }
 
-
     @Override
     public boolean isInfinite() {
         return false;
-    }
-
-    @Override
-    protected void verify(Shape shape, Lattice lattice) {
-        // PlaneRing is compatible only with Rectangle shapes.
-        if (!(shape instanceof Rectangle)) {
-            throw new IllegalArgumentException("PlaneRingHard boundary requires a Rectangle shape.");
-        }
     }
 
     @Override

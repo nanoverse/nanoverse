@@ -52,7 +52,7 @@ public class NanoBlockVisitor extends AbstractNanoNodeVisitor {
 
     public Stream<ASTNode> getChildrenAsNodes(@NotNull NanosyntaxParser.BlockContext ctx) {
         logger.debug("Visiting block with {} children", ctx.getChildCount());
-        Stream<ASTNode> children = helper.doVisit(ctx, 1, ctx.getChildCount()-1);
+        Stream<ASTNode> children = helper.doVisit(ctx, 1, ctx.getChildCount() - 1);
         return children;
     }
 }

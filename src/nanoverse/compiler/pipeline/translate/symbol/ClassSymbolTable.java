@@ -32,40 +32,40 @@ import java.util.HashMap;
 import java.util.function.Supplier;
 
 /**
-* Created by dbborens on 3/3/15.
-*/
+ * Created by dbborens on 3/3/15.
+ */
 public abstract class ClassSymbolTable<T> implements ResolvingSymbolTable {
 
-   private HashMap<String, Supplier<InstantiableSymbolTable>> members;
-   private Logger logger;
+    private final TypeToken<T> type = new TypeToken<T>(getClass()) {
+    };
+    private HashMap<String, Supplier<InstantiableSymbolTable>> members;
+    private Logger logger;
 
-   private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
+    public ClassSymbolTable() {
+        members = resolveSubclasses();
+        logger = LoggerFactory.getLogger(ClassSymbolTable.class);
+    }
 
-   public ClassSymbolTable() {
-       members = resolveSubclasses();
-       logger = LoggerFactory.getLogger(ClassSymbolTable.class);
-   }
+    protected abstract HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses();
 
-   protected abstract HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses();
+    @Override
+    public InstantiableSymbolTable getSymbolTable(String identifier) {
+        logger.debug("Resolving \"{}\" against class {}", identifier,
+            getBroadClass().getSimpleName());
 
-   @Override
-   public InstantiableSymbolTable getSymbolTable(String identifier) {
-       logger.debug("Resolving \"{}\" against class {}", identifier,
-               getBroadClass().getSimpleName());
+        if (!members.containsKey(identifier)) {
+            logger.error("Unable to resolve \"{}\" against class {}",
+                identifier, getBroadClass().getSimpleName());
 
-       if (!members.containsKey(identifier)) {
-           logger.error("Unable to resolve \"{}\" against class {}",
-                   identifier, getBroadClass().getSimpleName());
+            throw new UnrecognizedIdentifierError(identifier,
+                getBroadClass());
+        }
 
-           throw new UnrecognizedIdentifierError(identifier,
-                   getBroadClass());
-       }
+        return members.get(identifier).get();
+    }
 
-       return members.get(identifier).get();
-   }
-
-   @Override
-   public Class getBroadClass() {
-       return type.getRawType();
-   }
+    @Override
+    public Class getBroadClass() {
+        return type.getRawType();
+    }
 }

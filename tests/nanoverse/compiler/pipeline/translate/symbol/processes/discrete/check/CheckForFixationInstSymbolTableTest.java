@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.translate.symbol.processes.discrete.check;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.processes.discrete.*;
+import nanoverse.compiler.pipeline.translate.symbol.processes.discrete.DiscreteProcessInstSymbolTableTest;
 import nanoverse.runtime.processes.discrete.check.CheckForFixation;
 
 public class CheckForFixationInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {

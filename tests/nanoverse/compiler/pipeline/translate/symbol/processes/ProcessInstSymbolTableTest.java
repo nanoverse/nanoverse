@@ -24,9 +24,9 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.processes;
 
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
-import nanoverse.runtime.control.arguments.*;
-import org.junit.*;
+import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import nanoverse.runtime.control.arguments.IntegerArgument;
+import org.junit.Test;
 
 public abstract class ProcessInstSymbolTableTest extends MapSymbolTableTest {
 

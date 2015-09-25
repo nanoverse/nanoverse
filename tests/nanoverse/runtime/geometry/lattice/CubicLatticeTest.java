@@ -105,12 +105,12 @@ public class CubicLatticeTest extends LegacyTest {
         // r=1
         actual = lattice.getAnnulus(origin, 1);
         expected = new Coordinate[]{
-                new Coordinate3D(1, 0, 0, 0),
-                new Coordinate3D(-1, 0, 0, 0),
-                new Coordinate3D(0, 1, 0, 0),
-                new Coordinate3D(0, -1, 0, 0),
-                new Coordinate3D(0, 0, 1, 0),
-                new Coordinate3D(0, 0, -1, 0)
+            new Coordinate3D(1, 0, 0, 0),
+            new Coordinate3D(-1, 0, 0, 0),
+            new Coordinate3D(0, 1, 0, 0),
+            new Coordinate3D(0, -1, 0, 0),
+            new Coordinate3D(0, 0, 1, 0),
+            new Coordinate3D(0, 0, -1, 0)
         };
 
         assertArraysEqual(actual, expected, true);
@@ -118,23 +118,23 @@ public class CubicLatticeTest extends LegacyTest {
         // r=2
         actual = lattice.getAnnulus(origin, 2);
         expected = new Coordinate[]{new Coordinate3D(1, 1, 0, 0),
-                new Coordinate3D(1, -1, 0, 0),
-                new Coordinate3D(1, 0, 1, 0),
-                new Coordinate3D(1, 0, -1, 0),
-                new Coordinate3D(-1, 1, 0, 0),
-                new Coordinate3D(-1, -1, 0, 0),
-                new Coordinate3D(-1, 0, 1, 0),
-                new Coordinate3D(-1, 0, -1, 0),
-                new Coordinate3D(0, 1, 1, 0),
-                new Coordinate3D(0, 1, -1, 0),
-                new Coordinate3D(0, -1, 1, 0),
-                new Coordinate3D(0, -1, -1, 0),
-                new Coordinate3D(2, 0, 0, 0),
-                new Coordinate3D(-2, 0, 0, 0),
-                new Coordinate3D(0, 2, 0, 0),
-                new Coordinate3D(0, -2, 0, 0),
-                new Coordinate3D(0, 0, 2, 0),
-                new Coordinate3D(0, 0, -2, 0)
+            new Coordinate3D(1, -1, 0, 0),
+            new Coordinate3D(1, 0, 1, 0),
+            new Coordinate3D(1, 0, -1, 0),
+            new Coordinate3D(-1, 1, 0, 0),
+            new Coordinate3D(-1, -1, 0, 0),
+            new Coordinate3D(-1, 0, 1, 0),
+            new Coordinate3D(-1, 0, -1, 0),
+            new Coordinate3D(0, 1, 1, 0),
+            new Coordinate3D(0, 1, -1, 0),
+            new Coordinate3D(0, -1, 1, 0),
+            new Coordinate3D(0, -1, -1, 0),
+            new Coordinate3D(2, 0, 0, 0),
+            new Coordinate3D(-2, 0, 0, 0),
+            new Coordinate3D(0, 2, 0, 0),
+            new Coordinate3D(0, -2, 0, 0),
+            new Coordinate3D(0, 0, 2, 0),
+            new Coordinate3D(0, 0, -2, 0)
         };
 
         assertArraysEqual(actual, expected, true);
@@ -148,11 +148,11 @@ public class CubicLatticeTest extends LegacyTest {
         // Should be same as r=1 annulus
         actual = lattice.getNeighbors(origin);
         expected = new Coordinate[]{new Coordinate3D(1, 0, 0, 0),
-                new Coordinate3D(-1, 0, 0, 0),
-                new Coordinate3D(0, 1, 0, 0),
-                new Coordinate3D(0, -1, 0, 0),
-                new Coordinate3D(0, 0, 1, 0),
-                new Coordinate3D(0, 0, -1, 0)
+            new Coordinate3D(-1, 0, 0, 0),
+            new Coordinate3D(0, 1, 0, 0),
+            new Coordinate3D(0, -1, 0, 0),
+            new Coordinate3D(0, 0, 1, 0),
+            new Coordinate3D(0, 0, -1, 0)
         };
 
         assertArraysEqual(expected, actual, true);

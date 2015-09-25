@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.translate.symbol.primitive.doubles;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.primitive.doubles.ConstantDoubleLoader;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.ConstantDouble;
 
 /**
  * Created by dbborens on 3/5/15.

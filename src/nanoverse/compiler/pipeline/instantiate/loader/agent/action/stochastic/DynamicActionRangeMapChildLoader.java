@@ -24,9 +24,9 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
-import nanoverse.runtime.agent.action.stochastic.WeightedOption;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+import nanoverse.runtime.agent.action.stochastic.WeightedOption;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
 

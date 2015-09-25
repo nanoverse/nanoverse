@@ -26,8 +26,7 @@ package nanoverse.runtime.layers.continuum;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
-import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.Vector;
+import no.uib.cipr.matrix.*;
 
 import java.util.function.Function;
 import java.util.stream.*;
@@ -68,8 +67,8 @@ public class ContinuumLayerContent {
 
     public Stream<Double> getStateStream() {
         return IntStream.range(0, state.size())
-                .mapToDouble(i -> state.get(i))
-                .boxed();
+            .mapToDouble(i -> state.get(i))
+            .boxed();
     }
 
     public void reset() {

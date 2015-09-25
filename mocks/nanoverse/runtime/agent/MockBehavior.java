@@ -73,6 +73,15 @@ public class MockBehavior extends CompoundAction {
         return obj instanceof MockBehavior;
     }
 
+    protected Action[] getActionSequence() {
+        return new Action[0];
+    }
+
+    @Override
+    public MockBehavior clone(BehaviorCell child) {
+        return new MockBehavior(child);
+    }
+
     private void increment(Coordinate caller) {
         if (!callerCounts.containsKey(caller)) {
             callerCounts.put(caller, 0);
@@ -91,15 +100,6 @@ public class MockBehavior extends CompoundAction {
             return 0;
 
         return callerCounts.get(caller);
-    }
-
-    protected Action[] getActionSequence() {
-        return new Action[0];
-    }
-
-    @Override
-    public MockBehavior clone(BehaviorCell child) {
-        return new MockBehavior(child);
     }
 
 }

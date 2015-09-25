@@ -24,11 +24,10 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.targets;
 
+import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.agent.targets.*;
-import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
-import nanoverse.runtime.agent.targets.TargetDescriptor;
-import org.junit.*;
+import org.junit.Test;
 
 public class TargetRuleClassSymbolTableTest extends ClassSymbolTableTest {
 

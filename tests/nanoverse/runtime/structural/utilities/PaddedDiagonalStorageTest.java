@@ -29,6 +29,7 @@ import org.junit.*;
 import test.TestBase;
 
 import static org.junit.Assert.assertEquals;
+
 /**
  * Created on 6/17/15.
  *
@@ -72,9 +73,9 @@ public class PaddedDiagonalStorageTest extends TestBase {
         storage = new PaddedDiagonalStorage(original);
 
         expectedStorage = new double[][]{
-                {5, 6, 0, 0},
-                {1, 2, 3, 4},
-                {0, 0, 7, 8},
+            {5, 6, 0, 0},
+            {1, 2, 3, 4},
+            {0, 0, 7, 8},
         };
     }
 

@@ -24,19 +24,14 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.control.halt.LatticeFullEvent;
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
-import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.control.halt.*;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by dbborens on 5/14/14.
@@ -67,8 +62,8 @@ public class ShoveHelper {
         HashSet<Coordinate> affectedSites = new HashSet<>();
 
         Coordinate displacement = layerManager.getCellLayer().getGeometry().
-                getDisplacement(origin,
-                        target, Geometry.APPLY_BOUNDARIES);
+            getDisplacement(origin,
+                target, Geometry.APPLY_BOUNDARIES);
 
         doShove(origin, displacement, affectedSites);
         return affectedSites;
@@ -155,7 +150,7 @@ public class ShoveHelper {
         doShove(nextLocation, du, sites);
 
         layerManager.getCellLayer().getUpdateManager().swap(currentLocation,
-                nextLocation);
+            nextLocation);
 
         sites.add(nextLocation);
     }
@@ -165,7 +160,7 @@ public class ShoveHelper {
         int o = random.nextInt(nv);
         Coordinate disp = calcDisp(d, dNext, rel, o);
         nextLoc = layerManager.getCellLayer().getGeometry().rel2abs(curLoc,
-                disp, Geometry.APPLY_BOUNDARIES);
+            disp, Geometry.APPLY_BOUNDARIES);
         return nextLoc;
     }
 
@@ -194,6 +189,7 @@ public class ShoveHelper {
     /**
      * shoves starting at the origin in a randomly chosen cardinal direction until
      * a vacancy is reached or failure.
+     *
      * @param origin
      * @return affectedSites
      * @throws HaltCondition
@@ -203,16 +199,17 @@ public class ShoveHelper {
 
         Coordinate target = chooseRandomNeighbor(origin);
         Coordinate displacement = layerManager.getCellLayer().getGeometry().
-                getDisplacement(origin,
-                        target, Geometry.APPLY_BOUNDARIES);
+            getDisplacement(origin,
+                target, Geometry.APPLY_BOUNDARIES);
         doShoveCardinal(origin, displacement, affectedSites);
         return affectedSites;
     }
 
     /**
-     *  choose a random direction to shove among the cardinal directions by selecting
-     *  one of the neighbors at random. the displacement vector for that choice will
-     *  be used for all subsequent shoving in the path in shoveCardinal()
+     * choose a random direction to shove among the cardinal directions by selecting
+     * one of the neighbors at random. the displacement vector for that choice will
+     * be used for all subsequent shoving in the path in shoveCardinal()
+     *
      * @param parentLocation
      * @return target neighbor
      */
@@ -268,7 +265,7 @@ public class ShoveHelper {
         doShoveCardinal(nextLocation, d, sites);
 
         layerManager.getCellLayer().getUpdateManager().swap(currentLocation,
-                nextLocation);
+            nextLocation);
 
         sites.add(nextLocation);
         return;
@@ -277,6 +274,7 @@ public class ShoveHelper {
     /**
      * shoves starting at the origin in a cardinal direction chosen by weight to nearest
      * vacancy along that direction. shoves until a vacancy is reached or failure.
+     *
      * @param origin
      * @return affectedSites
      * @throws HaltCondition
@@ -286,18 +284,18 @@ public class ShoveHelper {
         Coordinate target;
         Coordinate displacement;
         HashSet<Coordinate> affectedSites;
-        int [] dist = new int[neighbors.length];
-        double [] weight = new double[neighbors.length];
+        int[] dist = new int[neighbors.length];
+        double[] weight = new double[neighbors.length];
         double total = 0.0;
-        for (int i=0; i<neighbors.length; i++) {
+        for (int i = 0; i < neighbors.length; i++) {
             target = neighbors[i];
             displacement = layerManager.getCellLayer().getGeometry().
-                    getDisplacement(origin,
-                            target, Geometry.APPLY_BOUNDARIES);
+                getDisplacement(origin,
+                    target, Geometry.APPLY_BOUNDARIES);
             affectedSites = new HashSet<>();
             calculateDistToVacancy(origin, displacement, affectedSites);
             dist[i] = affectedSites.size();
-            weight[i] = 1.0/dist[i];
+            weight[i] = 1.0 / dist[i];
             total = total + weight[i];
         }
 
@@ -305,11 +303,11 @@ public class ShoveHelper {
 
         Coordinate chosenTarget = neighbors[0];
         boolean found = false;
-        if (r<weight[0]) {
+        if (r < weight[0]) {
             found = true;
         }
         double sum = weight[0];
-        for (int j=1; j<neighbors.length; j++) {
+        for (int j = 1; j < neighbors.length; j++) {
             if (found == false) {
                 if (r < sum + weight[j]) {
                     chosenTarget = neighbors[j];
@@ -321,8 +319,8 @@ public class ShoveHelper {
         }
 
         displacement = layerManager.getCellLayer().getGeometry().
-                getDisplacement(origin,
-                        chosenTarget, Geometry.APPLY_BOUNDARIES);
+            getDisplacement(origin,
+                chosenTarget, Geometry.APPLY_BOUNDARIES);
         affectedSites = new HashSet<>();
         doShoveCardinal(origin, displacement, affectedSites);
         return affectedSites;

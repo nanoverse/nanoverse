@@ -10,8 +10,8 @@ import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
-import org.junit.*;
 import nanoverse.runtime.structural.NotYetImplementedException;
+import org.junit.*;
 import test.TestBase;
 
 import java.util.*;
@@ -32,9 +32,9 @@ public class HorizontalLineSetTest extends TestBase {
     public void rectangularCase() throws Exception {
         Lattice lattice = new RectangularLattice();
         Coordinate[] expected = new Coordinate[]{
-                new Coordinate2D(0, 0, 0),
-                new Coordinate2D(1, 0, 0),
-                new Coordinate2D(2, 0, 0)
+            new Coordinate2D(0, 0, 0),
+            new Coordinate2D(1, 0, 0),
+            new Coordinate2D(2, 0, 0)
         };
         doTest(lattice, expected);
     }
@@ -60,9 +60,9 @@ public class HorizontalLineSetTest extends TestBase {
     public void triangularCaseEven() throws Exception {
         Lattice lattice = new TriangularLattice();
         Coordinate[] expected = new Coordinate[]{
-                new Coordinate2D(0, 0, 0),
-                new Coordinate2D(1, 0, 0),
-                new Coordinate2D(2, 1, 0)
+            new Coordinate2D(0, 0, 0),
+            new Coordinate2D(1, 0, 0),
+            new Coordinate2D(2, 1, 0)
         };
         doTest(lattice, expected);
     }
@@ -72,9 +72,9 @@ public class HorizontalLineSetTest extends TestBase {
         start = new Coordinate2D(1, 0, 0);
         Lattice lattice = new TriangularLattice();
         Coordinate[] expected = new Coordinate[]{
-                new Coordinate2D(1, 0, 0),
-                new Coordinate2D(2, 1, 0),
-                new Coordinate2D(3, 1, 0)
+            new Coordinate2D(1, 0, 0),
+            new Coordinate2D(2, 1, 0),
+            new Coordinate2D(3, 1, 0)
         };
         doTest(lattice, expected);
     }

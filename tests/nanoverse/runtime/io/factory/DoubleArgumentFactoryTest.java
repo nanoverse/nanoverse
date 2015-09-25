@@ -33,6 +33,7 @@ import test.LegacyTest;
 import java.util.Random;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by David B Borenstein on 4/7/14.
  */

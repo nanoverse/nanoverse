@@ -64,7 +64,7 @@ public class StrictSeparationClusterHelper extends ScatterClustersHelper {
 
     private boolean neighborsHaveSelfNeighbors(Coordinate candidate, BehaviorCell toPlace) {
         Coordinate[] neighbors = layer.getGeometry().getAnnulus(candidate, 1, Geometry.APPLY_BOUNDARIES);
-        for(Coordinate neighbor: neighbors) {
+        for (Coordinate neighbor : neighbors) {
             if (hasSelfNeighbors(neighbor, toPlace)) {
                 return true;
             }

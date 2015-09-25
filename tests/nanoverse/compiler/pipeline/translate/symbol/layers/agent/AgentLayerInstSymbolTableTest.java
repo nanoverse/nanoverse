@@ -29,7 +29,7 @@ import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.control.arguments.StringArgument;
 import nanoverse.runtime.geometry.boundaries.Boundary;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
+import org.junit.Test;
 
 public class AgentLayerInstSymbolTableTest extends MapSymbolTableTest {
 

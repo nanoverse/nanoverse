@@ -28,7 +28,7 @@ import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.layers.continuum.Reaction;
-import org.junit.*;
+import org.junit.Test;
 
 public class ReactionInstSymbolTableTest extends MapSymbolTableTest {
 

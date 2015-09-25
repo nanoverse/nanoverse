@@ -44,7 +44,7 @@ public class NanoSingletonVisitor extends AbstractNanoNodeVisitor {
 
     public NanoSingletonVisitor(NanoAssignmentVisitor assignmentVisitor) {
         this(new NanoStandaloneIdVisitor(),
-             new NanoPrimitiveVisitor(), assignmentVisitor);
+            new NanoPrimitiveVisitor(), assignmentVisitor);
     }
 
     public NanoSingletonVisitor(NanoStandaloneIdVisitor idVisitor,
@@ -61,7 +61,7 @@ public class NanoSingletonVisitor extends AbstractNanoNodeVisitor {
     public ASTNode visitSingleton(@NotNull NanosyntaxParser.SingletonContext ctx) {
 //        logger.debug("Visiting singleton: {}", ctx.getText());
         ParseTree child = ctx.getChild(0);
-        if (child instanceof  PrimitiveContext) {
+        if (child instanceof PrimitiveContext) {
             logger.debug("Recognized singleton {} as a primitive. Recurring on child {}.", ctx.getText(), child.getText());
             return child.accept(primitiveVisitor);
         } else if (child instanceof IdContext) {
@@ -72,7 +72,7 @@ public class NanoSingletonVisitor extends AbstractNanoNodeVisitor {
             return child.accept(assignmentVisitor);
         } else {
             throw new IllegalStateException("Unexpected singleton child element " +
-                    child.getClass().getSimpleName());
+                child.getClass().getSimpleName());
         }
     }
 }

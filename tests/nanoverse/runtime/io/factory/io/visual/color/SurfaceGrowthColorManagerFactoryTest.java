@@ -27,9 +27,9 @@ package nanoverse.runtime.io.factory.io.visual.color;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.factory.io.visual.color.SurfaceGrowthColorManagerFactory;
 import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.structural.MockGeneralParameters;
 import org.dom4j.Element;
 import org.junit.*;
-import nanoverse.runtime.structural.MockGeneralParameters;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;

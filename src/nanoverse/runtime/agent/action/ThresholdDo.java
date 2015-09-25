@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
@@ -34,7 +34,7 @@ import nanoverse.runtime.layers.LayerManager;
  * Performs the specified child action iff the specified continuum layer has a
  * local value above the minimum and below the maximum. If a minimum or maximum
  * is omitted, it is set to negative or positive infinity respectively.
- *
+ * <p>
  * Created by dbborens on 6/4/2015.
  */
 public class ThresholdDo extends Action {
@@ -48,7 +48,7 @@ public class ThresholdDo extends Action {
         super(callback, layerManager);
         if (layerManager.getContinuumLayer(layerId) == null) {
             throw new IllegalArgumentException("Unrecognized continuum layer '"
-                    + layerId + "' in ThresholdDo");
+                + layerId + "' in ThresholdDo");
         }
 
         this.minimumArg = minimumArg;
@@ -66,8 +66,8 @@ public class ThresholdDo extends Action {
         double minimum = minimumArg.next();
         double maximum = maximumArg.next();
         double value = getLayerManager()
-                .getContinuumLayer(layerId)
-                .getValueAt(c);
+            .getContinuumLayer(layerId)
+            .getValueAt(c);
 
         if (value <= minimum) {
             return;
@@ -94,17 +94,17 @@ public class ThresholdDo extends Action {
     }
 
     @Override
+    public Action clone(BehaviorCell clonedCell) {
+        Action clonedAction = child.clone(clonedCell);
+        return new ThresholdDo(clonedCell, getLayerManager(), layerId, minimumArg, maximumArg, clonedAction);
+    }
+
+    @Override
     public int hashCode() {
         int result = minimumArg.hashCode();
         result = 31 * result + maximumArg.hashCode();
         result = 31 * result + layerId.hashCode();
         result = 31 * result + child.hashCode();
         return result;
-    }
-
-    @Override
-    public Action clone(BehaviorCell clonedCell) {
-        Action clonedAction = child.clone(clonedCell);
-        return new ThresholdDo(clonedCell, getLayerManager(), layerId, minimumArg, maximumArg, clonedAction);
     }
 }

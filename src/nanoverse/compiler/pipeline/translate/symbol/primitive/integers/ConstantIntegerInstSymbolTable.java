@@ -27,13 +27,13 @@ package nanoverse.compiler.pipeline.translate.symbol.primitive.integers;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.primitive.integers.ConstantIntegerLoader;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.ConstantInteger;
 
 /**
  * Created by dbborens on 3/5/15.
  */
 public class ConstantIntegerInstSymbolTable
-        extends ConstantPrimitiveSymbolTable<ConstantInteger, Integer> {
+    extends ConstantPrimitiveSymbolTable<ConstantInteger, Integer> {
 
     @Override
     public String getDescription() {

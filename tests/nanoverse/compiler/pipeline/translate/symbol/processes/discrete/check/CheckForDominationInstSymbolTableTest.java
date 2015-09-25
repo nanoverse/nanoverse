@@ -27,8 +27,8 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete.check;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.processes.discrete.DiscreteProcessInstSymbolTableTest;
 import nanoverse.runtime.control.arguments.*;
-import org.junit.Test;
 import nanoverse.runtime.processes.discrete.check.CheckForDomination;
+import org.junit.Test;
 
 public class CheckForDominationInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {
 

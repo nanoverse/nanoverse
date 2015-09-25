@@ -27,13 +27,13 @@ package nanoverse.compiler.pipeline.interpret.visitors;
 import nanoverse.compiler.pipeline.interpret.nanosyntax.*;
 import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.BoolPrimitiveContext;
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
-import org.antlr.v4.runtime.misc.NotNull;
 import nanoverse.runtime.structural.NotYetImplementedException;
+import org.antlr.v4.runtime.misc.NotNull;
 
 /**
  * Rejects any visit that is not explicitly overridden. This prevents my custom
  * visitor from quietly using default behavior.
- *
+ * <p>
  * Created by dbborens on 4/22/15.
  */
 public class RejectingVisitor extends NanosyntaxBaseVisitor<ASTNode> {

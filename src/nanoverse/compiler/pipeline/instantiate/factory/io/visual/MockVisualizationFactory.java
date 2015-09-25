@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual;
 
-import nanoverse.runtime.io.visual.MockVisualization;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.io.visual.MockVisualization;
 
 public class MockVisualizationFactory implements Factory<MockVisualization> {
 

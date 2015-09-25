@@ -27,8 +27,7 @@ package nanoverse.runtime.structural;
 import nanoverse.runtime.cells.Cell;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by David B Borenstein on 4/11/14.

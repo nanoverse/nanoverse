@@ -27,9 +27,9 @@ package nanoverse.runtime.io.factory;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.ConstantInteger;
 import nanoverse.runtime.factory.processes.discrete.filter.FilterFactory;
+import nanoverse.runtime.processes.discrete.filter.*;
 import org.dom4j.Element;
 import org.junit.*;
-import nanoverse.runtime.processes.discrete.filter.*;
 import test.LegacyLatticeTest;
 
 import java.util.stream.Stream;
@@ -76,8 +76,8 @@ public class FilterFactoryTest extends LegacyLatticeTest {
         Element e = root.element("composite-case");
 
         Stream<Filter> children = Stream.of(
-                new NullFilter(),
-                new NullFilter()
+            new NullFilter(),
+            new NullFilter()
         );
 
         Filter expected = new CompositeFilter(children);
@@ -92,8 +92,8 @@ public class FilterFactoryTest extends LegacyLatticeTest {
         Stream<Filter> subChildren = Stream.of(new NullFilter());
 
         Stream<Filter> children = Stream.of(
-                new CompositeFilter(subChildren),
-                new NullFilter()
+            new CompositeFilter(subChildren),
+            new NullFilter()
         );
 
         Filter expected = new CompositeFilter(children);

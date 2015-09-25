@@ -36,7 +36,7 @@ public class NonEquilibriumSolverInstSymbolTable extends MapSymbolTable<NonEquil
     @Override
     public String getDescription() {
         return "A non-equilibrium solver integrates the state of the " +
-                "continuum forward by a specified amount of time.";
+            "continuum forward by a specified amount of time.";
     }
 
     @Override

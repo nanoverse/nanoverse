@@ -24,9 +24,9 @@
 
 package nanoverse.runtime.io.visual.color;
 
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.control.identifiers.*;
+import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.io.visual.HSLColor;
 import nanoverse.runtime.layers.SystemState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -36,7 +36,7 @@ import java.awt.*;
 /**
  * Given some range of values, scales color intensity
  * according to some continuous field.
- *
+ * <p>
  * Created by dbborens on 5/31/2015.
  */
 public class NormalizedContinuumColorManager extends ColorManager {
@@ -138,6 +138,7 @@ public class NormalizedContinuumColorManager extends ColorManager {
 
     /**
      * Blend luminance, either by averaging or compositing.
+     *
      * @param baseColor
      * @param overlayColor
      * @return

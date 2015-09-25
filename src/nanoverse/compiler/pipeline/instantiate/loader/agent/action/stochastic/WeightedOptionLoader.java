@@ -24,11 +24,11 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
-import nanoverse.runtime.agent.action.ActionDescriptor;
-import nanoverse.runtime.agent.action.stochastic.*;
 import nanoverse.compiler.pipeline.instantiate.factory.agent.action.stochastic.WeightedOptionFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
+import nanoverse.runtime.agent.action.ActionDescriptor;
+import nanoverse.runtime.agent.action.stochastic.WeightedOption;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.ProbabilitySupplierDescriptor;
 import nanoverse.runtime.layers.LayerManager;

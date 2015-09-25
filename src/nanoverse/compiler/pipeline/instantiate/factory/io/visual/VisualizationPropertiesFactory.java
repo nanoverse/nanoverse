@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual;
 
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.color.ColorManager;
 import nanoverse.runtime.io.visual.highlight.HighlightManager;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 
 public class VisualizationPropertiesFactory implements Factory<VisualizationProperties> {
 

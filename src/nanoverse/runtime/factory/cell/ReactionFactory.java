@@ -25,8 +25,8 @@
 package nanoverse.runtime.factory.cell;
 
 import nanoverse.runtime.layers.continuum.Reaction;
-import org.dom4j.Element;
 import nanoverse.runtime.structural.utilities.XmlUtil;
+import org.dom4j.Element;
 
 /**
  * Created by dbborens on 1/8/15.

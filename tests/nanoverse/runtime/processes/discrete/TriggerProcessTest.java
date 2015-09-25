@@ -29,14 +29,15 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.filter.NullFilter;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.MockGeneralParameters;
+import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.*;
+
 /**
  * This is a test for the TriggerProcess object, which is a discrete process
  * that triggers behaviors in nanoverse.runtime.cells. It should not be confused with the Trigger

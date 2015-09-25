@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.io.visual;
 import nanoverse.compiler.pipeline.instantiate.factory.io.visual.map.MapVisualizationFactory;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.io.visual.*;
+import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.map.MapVisualization;
 
 /**
@@ -43,10 +43,14 @@ public class MapVisualizationLoader extends VisualizationLoader<MapVisualization
     }
 
     public MapVisualizationLoader(MapVisualizationFactory factory,
-                           MapVisualizationInterpolator interpolator) {
+                                  MapVisualizationInterpolator interpolator) {
 
         this.factory = factory;
         this.interpolator = interpolator;
+    }
+
+    public MapVisualization instantiate(GeneralParameters p) {
+        return instantiate(null, p);
     }
 
     @Override
@@ -55,9 +59,5 @@ public class MapVisualizationLoader extends VisualizationLoader<MapVisualization
         factory.setProperties(properties);
 
         return factory.build();
-    }
-
-    public MapVisualization instantiate(GeneralParameters p) {
-        return instantiate(null, p);
     }
 }

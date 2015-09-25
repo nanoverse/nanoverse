@@ -25,10 +25,8 @@
 package nanoverse.runtime.factory.io.visual.highlight;
 
 import nanoverse.runtime.factory.io.visual.glyph.GlyphFactory;
-import nanoverse.runtime.io.visual.highlight.Glyph;
-import nanoverse.runtime.io.visual.highlight.HighlightManager;
-import org.dom4j.Attribute;
-import org.dom4j.Element;
+import nanoverse.runtime.io.visual.highlight.*;
+import org.dom4j.*;
 
 /**
  * Created by dbborens on 4/3/14.

@@ -25,9 +25,8 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.targets.TargetRule;
-import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.cells.Cell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.cells.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
@@ -35,8 +34,7 @@ import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.CellUpdateManager;
 import nanoverse.runtime.processes.discrete.ShoveHelper;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Places a copy or copies of the current cell at the target site(s).
@@ -178,7 +176,7 @@ public class ExpandTo extends Action {
     public Action clone(BehaviorCell child) {
         TargetRule clonedTargetRule = targetRule.clone(child);
         return new ExpandTo(child, getLayerManager(), clonedTargetRule, selfChannel,
-                targetChannel, random);
+            targetChannel, random);
     }
 
     private class DisplacementOption {

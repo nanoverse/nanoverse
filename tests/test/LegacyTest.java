@@ -34,13 +34,13 @@ import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.set.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.structural.MockGeneralParameters;
 import no.uib.cipr.matrix.Vector;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 import org.dom4j.tree.BaseElement;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
-import nanoverse.runtime.structural.MockGeneralParameters;
 
 import java.io.*;
 import java.util.*;

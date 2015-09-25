@@ -26,8 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.continuum;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.continuum.DiffusionProcessLoader;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
-import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import nanoverse.runtime.processes.continuum.DiffusionProcess;
@@ -41,7 +40,7 @@ public class DiffusionProcessInstSymbolTable extends ContinuumProcessInstSymbolT
     @Override
     public String getDescription() {
         return "Schedule a homogeneous diffusion process across the entirety " +
-                "of a specified continuum layer.";
+            "of a specified continuum layer.";
     }
 
     @Override

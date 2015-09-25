@@ -29,10 +29,10 @@ import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.factory.control.arguments.IntegerArgumentFactory;
 import nanoverse.runtime.factory.processes.ProcessFactory;
 import nanoverse.runtime.layers.LayerManager;
-import org.dom4j.Element;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.*;
 import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import org.dom4j.Element;
 
 /**
  * Created by dbborens on 11/23/14.

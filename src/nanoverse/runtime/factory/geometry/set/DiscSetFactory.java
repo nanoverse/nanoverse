@@ -25,7 +25,7 @@
 package nanoverse.runtime.factory.geometry.set;
 
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.factory.control.arguments.IntegerArgumentFactory;
 import nanoverse.runtime.factory.control.identifiers.CoordinateFactory;

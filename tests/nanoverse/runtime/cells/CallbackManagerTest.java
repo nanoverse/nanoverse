@@ -31,6 +31,7 @@ import nanoverse.runtime.layers.cell.*;
 import org.junit.*;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by dbborens on 2/21/14.
  */

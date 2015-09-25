@@ -36,10 +36,10 @@ public class ContinuumStateWriterInstSymbolTable extends MapSymbolTable<Continuu
     @Override
     public String getDescription() {
         return "Produces binary files containing frame-by-frame continuum " +
-                "value data for each continuum layer. The " +
-                "ContinuumStateWriter produces two files per continuum layer " +
-                "per simulation instance: one representing the overall state " +
-                "of the layer, and one capturing extremum metadata.";
+            "value data for each continuum layer. The " +
+            "ContinuumStateWriter produces two files per continuum layer " +
+            "per simulation instance: one representing the overall state " +
+            "of the layer, and one capturing extremum metadata.";
     }
 
     @Override

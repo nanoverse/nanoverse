@@ -43,9 +43,13 @@ public class CompactSeparatedClustersHelperLoader extends ScatterClustersHelperL
     }
 
     public CompactSeparatedClustersHelperLoader
-            (CompactSeparatedClustersHelperFactory factory) {
+        (CompactSeparatedClustersHelperFactory factory) {
 
         this.factory = factory;
+    }
+
+    public CompactSeparatedClustersHelper instantiate(LayerManager lm, GeneralParameters p) {
+        return instantiate(null, lm, p);
     }
 
     @Override
@@ -53,9 +57,5 @@ public class CompactSeparatedClustersHelperLoader extends ScatterClustersHelperL
         CellLayer layer = lm.getCellLayer();
         factory.setLayer(layer);
         return factory.build();
-    }
-
-    public CompactSeparatedClustersHelper instantiate(LayerManager lm, GeneralParameters p) {
-        return instantiate(null, lm, p);
     }
 }

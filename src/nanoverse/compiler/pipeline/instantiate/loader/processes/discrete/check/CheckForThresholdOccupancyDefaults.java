@@ -24,8 +24,7 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.check;
 
-import nanoverse.runtime.control.arguments.ConstantDouble;
-import nanoverse.runtime.control.arguments.DoubleArgument;
+import nanoverse.runtime.control.arguments.*;
 
 /**
  * Created by dbborens on 8/27/2015.

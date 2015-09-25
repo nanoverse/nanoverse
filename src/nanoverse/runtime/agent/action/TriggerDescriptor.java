@@ -26,7 +26,7 @@ package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.targets.*;
 import nanoverse.runtime.cells.BehaviorCell;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -49,7 +49,7 @@ public class TriggerDescriptor extends ActionDescriptor<Trigger> {
         constructor = cell -> {
             TargetRule targetRule = ruleDescriptor.instantiate(cell);
             return new Trigger(cell, layerManager, behaviorName,
-                    targetRule, selfChannel, targetChannel);
+                targetRule, selfChannel, targetChannel);
         };
     }
 

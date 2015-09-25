@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.instantiate.loader.processes.continuum;
 
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
-import org.junit.*;
+import org.junit.Test;
 
 public class ScheduleReleaseInterpolatorTest extends InterpolatorTest {
 

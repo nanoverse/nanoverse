@@ -68,6 +68,16 @@ public class Hexagon extends Shape {
     }
 
     @Override
+    protected Coordinate[] calcSites() {
+        ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+        for (int r = 0; r <= radius; r++) {
+            ring(coords, r);
+        }
+
+        return coords.toArray(new Coordinate[0]);
+    }
+
+    @Override
     public Coordinate getCenter() {
         // This nanoverse.runtime.geometry is defined around a center coordinate of (r, r).
         // It is built up as a ring around this coordinate.
@@ -81,35 +91,6 @@ public class Hexagon extends Shape {
         ring(coords, radius);
 
         return coords.toArray(new Coordinate[0]);
-    }
-
-    private void ring(ArrayList<Coordinate> coords, int r) {
-        if (r == 0) {
-            include(coords, getCenter());
-            return;
-        }
-
-        int x0 = getCenter().x();
-        int y0 = getCenter().y();
-        for (int k = 1; k <= r; k++) {
-            // Right side
-            include(coords, new Coordinate2D(x0 + r, y0 + k - 1, 0));
-
-            // Lower right side
-            include(coords, new Coordinate2D(x0 + r - k, y0 - k, 0));
-
-            // Lower left side
-            include(coords, new Coordinate2D(x0 - k, y0 - r, 0));
-
-            // Left side
-            include(coords, new Coordinate2D(x0 - r, y0 - r + k, 0));
-
-            // Upper left side
-            include(coords, new Coordinate2D(x0 - r + k, y0 + k, 0));
-
-            // Upper right side
-            include(coords, new Coordinate2D(x0 + k, y0 + r, 0));
-        }
     }
 
     @Override
@@ -184,16 +165,6 @@ public class Hexagon extends Shape {
 
         return new Coordinate2D(overages, Flags.VECTOR);
 
-    }
-
-    @Override
-    protected Coordinate[] calcSites() {
-        ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
-        for (int r = 0; r <= radius; r++) {
-            ring(coords, r);
-        }
-
-        return coords.toArray(new Coordinate[0]);
     }
 
     @Override
@@ -280,6 +251,35 @@ public class Hexagon extends Shape {
         }
 
         return du;
+    }
+
+    private void ring(ArrayList<Coordinate> coords, int r) {
+        if (r == 0) {
+            include(coords, getCenter());
+            return;
+        }
+
+        int x0 = getCenter().x();
+        int y0 = getCenter().y();
+        for (int k = 1; k <= r; k++) {
+            // Right side
+            include(coords, new Coordinate2D(x0 + r, y0 + k - 1, 0));
+
+            // Lower right side
+            include(coords, new Coordinate2D(x0 + r - k, y0 - k, 0));
+
+            // Lower left side
+            include(coords, new Coordinate2D(x0 - k, y0 - r, 0));
+
+            // Left side
+            include(coords, new Coordinate2D(x0 - r, y0 - r + k, 0));
+
+            // Upper left side
+            include(coords, new Coordinate2D(x0 - r + k, y0 + k, 0));
+
+            // Upper right side
+            include(coords, new Coordinate2D(x0 + k, y0 + r, 0));
+        }
     }
 
 }

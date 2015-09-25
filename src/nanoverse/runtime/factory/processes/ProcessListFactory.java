@@ -26,8 +26,8 @@ package nanoverse.runtime.factory.processes;
 
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
-import org.dom4j.Element;
 import nanoverse.runtime.processes.NanoverseProcess;
+import org.dom4j.Element;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;

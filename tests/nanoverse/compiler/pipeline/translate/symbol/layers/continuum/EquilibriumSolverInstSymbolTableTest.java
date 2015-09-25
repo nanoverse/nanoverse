@@ -24,8 +24,8 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.layers.continuum;
 
-import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
+import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.layers.continuum.solvers.EquilibriumSolver;
 
 public class EquilibriumSolverInstSymbolTableTest extends MapSymbolTableTest {

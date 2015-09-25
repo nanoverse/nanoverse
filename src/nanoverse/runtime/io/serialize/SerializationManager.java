@@ -55,11 +55,9 @@ public class SerializationManager extends Serializer {
         }
     }
 
-    public void flush(StepState stepState) {
-        if (stepState.isRecorded()) {
-            for (Serializer tw : writers) {
-                tw.flush(stepState);
-            }
+    public void dispatchHalt(HaltCondition ex) {
+        for (Serializer tw : writers) {
+            tw.dispatchHalt(ex);
         }
     }
 
@@ -72,10 +70,17 @@ public class SerializationManager extends Serializer {
         }
     }
 
-    public void dispatchHalt(HaltCondition ex) {
-        for (Serializer tw : writers) {
-            tw.dispatchHalt(ex);
+    public void flush(StepState stepState) {
+        if (stepState.isRecorded()) {
+            for (Serializer tw : writers) {
+                tw.flush(stepState);
+            }
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return writers != null ? writers.hashCode() : 0;
     }
 
     @Override
@@ -96,10 +101,5 @@ public class SerializationManager extends Serializer {
         }
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return writers != null ? writers.hashCode() : 0;
     }
 }

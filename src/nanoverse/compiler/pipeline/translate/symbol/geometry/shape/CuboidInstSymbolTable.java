@@ -46,7 +46,7 @@ public class CuboidInstSymbolTable extends ShapeInstSymbolTable<Cuboid> {
         height(ret);
         width(ret);
         depth(ret);
-        return(ret);
+        return (ret);
     }
 
     private void depth(HashMap<String, MemberSymbol> ret) {

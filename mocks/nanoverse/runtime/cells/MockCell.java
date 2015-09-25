@@ -59,6 +59,34 @@ public class MockCell extends BehaviorCell {
     }
 
     @Override
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    @Override
+    public double getHealth() {
+        return health;
+    }
+
+    public void setHealth(double health) {
+        this.health = health;
+    }
+
+    @Override
+    public boolean isDivisible() {
+        return divisible;
+    }
+
+    @Override
+    public void setDivisible(boolean divisible) {
+        this.divisible = divisible;
+    }
+
+    @Override
     public int consider() {
         considerCount++;
         return considerCount;
@@ -80,56 +108,13 @@ public class MockCell extends BehaviorCell {
     }
 
     @Override
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    @Override
-    public double getHealth() {
-        return health;
-    }
-
-    public void setHealth(double health) {
-        this.health = health;
-    }
-
-    public void setProduction(double production) {
-        this.production = production;
-    }
-
-    public void setChild(MockCell child) {
-        this.child = child;
-    }
-
-    @Override
-    public boolean isDivisible() {
-        return divisible;
-    }
-
-    @Override
-    public void setDivisible(boolean divisible) {
-        this.divisible = divisible;
-    }
-
-    @Override
     public double getProduction(String solute) {
         return production;
     }
 
-    public Coordinate getLastTriggeredCaller() {
-        return lastTriggeredCaller;
-    }
+    @Override
+    public void adjustHealth(double delta) {
 
-    public String getLastTriggeredBehaviorName() {
-        return lastTriggeredBehaviorName;
-    }
-
-    public int getTriggerCount() {
-        return triggerCount;
     }
 
     @Override
@@ -142,15 +127,6 @@ public class MockCell extends BehaviorCell {
     @Override
     public void die() {
         died = true;
-    }
-
-    public boolean died() {
-        return died;
-    }
-
-    @Override
-    public void adjustHealth(double delta) {
-
     }
 
     @Override
@@ -170,5 +146,29 @@ public class MockCell extends BehaviorCell {
         }
 
         return true;
+    }
+
+    public void setProduction(double production) {
+        this.production = production;
+    }
+
+    public void setChild(MockCell child) {
+        this.child = child;
+    }
+
+    public Coordinate getLastTriggeredCaller() {
+        return lastTriggeredCaller;
+    }
+
+    public String getLastTriggeredBehaviorName() {
+        return lastTriggeredBehaviorName;
+    }
+
+    public int getTriggerCount() {
+        return triggerCount;
+    }
+
+    public boolean died() {
+        return died;
     }
 }

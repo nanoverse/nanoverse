@@ -29,7 +29,7 @@ import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class NanoPrimitiveVisitorTest {
@@ -66,6 +66,17 @@ public class NanoPrimitiveVisitorTest {
         verifyReturn();
     }
 
+    private void configureContext(Class clazz) {
+        child = (ParseTree) mock(clazz);
+        ctx = mock(PrimitiveContext.class);
+        when(ctx.getChild(0)).thenReturn(child);
+    }
+
+    private void verifyReturn() {
+        ASTNode actual = query.visitPrimitive(ctx);
+        assertSame(expected, actual);
+    }
+
     @Test
     public void stringCase() throws Exception {
         configureContext(StringPrimitiveContext.class);
@@ -85,17 +96,6 @@ public class NanoPrimitiveVisitorTest {
         configureContext(BoolPrimitiveContext.class);
         when(child.accept(booleanVisitor)).thenReturn(expected);
         verifyReturn();
-    }
-
-    private void configureContext(Class clazz) {
-        child = (ParseTree) mock(clazz);
-        ctx = mock(PrimitiveContext.class);
-        when(ctx.getChild(0)).thenReturn(child);
-    }
-
-    private void verifyReturn() {
-        ASTNode actual = query.visitPrimitive(ctx);
-        assertSame(expected, actual);
     }
 
     @Test(expected = IllegalStateException.class)

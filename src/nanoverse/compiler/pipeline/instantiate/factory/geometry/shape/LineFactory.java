@@ -23,9 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.geometry.shape;
 
-import nanoverse.runtime.geometry.shape.Line;
-import nanoverse.runtime.geometry.lattice.Lattice;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.geometry.lattice.Lattice;
+import nanoverse.runtime.geometry.shape.Line;
 
 public class LineFactory implements Factory<Line> {
 

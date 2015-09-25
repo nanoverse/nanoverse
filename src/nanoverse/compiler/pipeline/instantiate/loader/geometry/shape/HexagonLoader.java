@@ -48,6 +48,10 @@ public class HexagonLoader extends ShapeLoader<Hexagon> {
         this.interpolator = interpolator;
     }
 
+    public Shape instantiate(Lattice lattice, GeneralParameters p) {
+        return instantiate(null, lattice, p);
+    }
+
     @Override
     public Shape instantiate(MapObjectNode node, Lattice lattice, GeneralParameters p) {
         factory.setLattice(lattice);
@@ -56,9 +60,5 @@ public class HexagonLoader extends ShapeLoader<Hexagon> {
         factory.setRadius(radius);
 
         return factory.build();
-    }
-
-    public Shape instantiate(Lattice lattice, GeneralParameters p) {
-        return instantiate(null, lattice, p);
     }
 }

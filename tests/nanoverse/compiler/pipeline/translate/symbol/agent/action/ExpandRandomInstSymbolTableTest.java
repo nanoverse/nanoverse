@@ -24,21 +24,21 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.runtime.agent.action.ExpandRandomDescriptor;
 import nanoverse.runtime.control.arguments.IntegerArgument;
-import org.junit.*;
+import org.junit.Test;
 
 public class ExpandRandomInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedClass() {
-        return ExpandRandomDescriptor.class;
+    protected MapSymbolTable getQuery() {
+        return new ExpandRandomInstSymbolTable();
     }
 
     @Override
-    protected MapSymbolTable getQuery() {
-        return new ExpandRandomInstSymbolTable();
+    protected Class getExpectedClass() {
+        return ExpandRandomDescriptor.class;
     }
 
     @Test

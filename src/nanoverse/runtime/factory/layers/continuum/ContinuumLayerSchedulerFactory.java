@@ -27,8 +27,8 @@ package nanoverse.runtime.factory.layers.continuum;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.continuum.*;
 import nanoverse.runtime.layers.continuum.solvers.ContinuumSolver;
-import org.dom4j.Element;
 import nanoverse.runtime.structural.utilities.XmlUtil;
+import org.dom4j.Element;
 
 /**
  * Created by dbborens on 1/8/15.

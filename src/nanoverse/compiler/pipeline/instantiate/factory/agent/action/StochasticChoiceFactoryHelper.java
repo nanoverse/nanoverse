@@ -25,8 +25,9 @@ package nanoverse.compiler.pipeline.instantiate.factory.agent.action;
 
 import nanoverse.runtime.agent.action.StochasticChoiceDescriptor;
 import nanoverse.runtime.control.arguments.DynamicActionRangeMapDescriptor;
-import java.util.Random;
 import nanoverse.runtime.layers.LayerManager;
+
+import java.util.Random;
 
 
 public class StochasticChoiceFactoryHelper {

@@ -24,21 +24,21 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.runtime.agent.action.ExpandWeightedDescriptor;
 import nanoverse.runtime.control.arguments.IntegerArgument;
-import org.junit.*;
+import org.junit.Test;
 
 public class ExpandWeightedInstSymbolTableTest extends ActionInstSymbolTableTest {
 
     @Override
-    protected Class getExpectedClass() {
-        return ExpandWeightedDescriptor.class;
+    protected MapSymbolTable getQuery() {
+        return new ExpandWeightedInstSymbolTable();
     }
 
     @Override
-    protected MapSymbolTable getQuery() {
-        return new ExpandWeightedInstSymbolTable();
+    protected Class getExpectedClass() {
+        return ExpandWeightedDescriptor.class;
     }
 
     @Test

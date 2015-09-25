@@ -32,6 +32,7 @@ import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.*;
+
 /**
  * Created by dbborens on 3/6/14.
  */

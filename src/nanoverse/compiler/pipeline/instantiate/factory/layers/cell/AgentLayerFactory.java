@@ -23,9 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.layers.cell;
 
-import nanoverse.runtime.layers.cell.CellLayer;
-import nanoverse.runtime.geometry.Geometry;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.geometry.Geometry;
+import nanoverse.runtime.layers.cell.CellLayer;
 
 public class AgentLayerFactory implements Factory<CellLayer> {
 

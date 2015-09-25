@@ -26,13 +26,10 @@ package nanoverse.runtime.factory.processes.discrete;
 
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
-import org.dom4j.Element;
 import nanoverse.runtime.processes.NoContactClustersHelper;
-import nanoverse.runtime.processes.discrete.cluster.CompactSeparatedClustersHelper;
-import nanoverse.runtime.processes.discrete.cluster.ContactClustersHelper;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
-import nanoverse.runtime.processes.discrete.cluster.StrictSeparationClusterHelper;
+import nanoverse.runtime.processes.discrete.cluster.*;
 import nanoverse.runtime.structural.utilities.XmlUtil;
+import org.dom4j.Element;
 
 /**
  * Created by dbborens on 6/14/2015.

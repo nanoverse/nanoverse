@@ -26,8 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.continuum;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.continuum.InjectionProcessLoader;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
-import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.geometry.set.CoordinateSetClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
@@ -43,7 +42,7 @@ public class InjectionProcessInstSymbolTable extends ContinuumProcessInstSymbolT
     @Override
     public String getDescription() {
         return "Schedule a fixed-value source (injection) at a site or sites " +
-                "of a specified continuum layer.";
+            "of a specified continuum layer.";
     }
 
     @Override

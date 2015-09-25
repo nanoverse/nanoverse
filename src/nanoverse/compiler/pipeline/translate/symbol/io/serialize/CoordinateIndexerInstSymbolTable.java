@@ -36,10 +36,10 @@ public class CoordinateIndexerInstSymbolTable extends MapSymbolTable<CoordinateI
     @Override
     public String getDescription() {
         return "Produces a text-based file that specified a correspondence " +
-                "between every coordinate in the nanoverse.runtime.geometry and a unique " +
-                "integer index. The indexing algorithm used is common to all " +
-                "reports and is used internally within Nanoverse " +
-                "simulations. One file per instance.";
+            "between every coordinate in the nanoverse.runtime.geometry and a unique " +
+            "integer index. The indexing algorithm used is common to all " +
+            "reports and is used internally within Nanoverse " +
+            "simulations. One file per instance.";
     }
 
     @Override

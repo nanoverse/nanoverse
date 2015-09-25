@@ -36,10 +36,10 @@ public class CellStateWriterInstSymbolTable extends MapSymbolTable<LegacyCellSta
     @Override
     public String getDescription() {
         return "Records the state of all agents in the system in a plain-" +
-                "text vector format. The relationship between coordinate and " +
-                "vector index is recorded by the CoordinateIndexer output " +
-                "mode. This output is used in the generation of map " +
-                "visualizations.";
+            "text vector format. The relationship between coordinate and " +
+            "vector index is recorded by the CoordinateIndexer output " +
+            "mode. This output is used in the generation of map " +
+            "visualizations.";
     }
 
     @Override

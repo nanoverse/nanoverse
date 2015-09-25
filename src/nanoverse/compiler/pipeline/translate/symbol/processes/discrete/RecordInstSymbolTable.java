@@ -39,7 +39,7 @@ public class RecordInstSymbolTable extends ProcessInstSymbolTable<Record> {
     @Override
     public String getDescription() {
         return "Captures the state of the simulation. If not specified, " +
-                "occurs by default at the end of each simulation cycle.";
+            "occurs by default at the end of each simulation cycle.";
     }
 
     @Override

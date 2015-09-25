@@ -40,8 +40,8 @@ public class ContinuumLayerInstSymbolTable extends LayerInstSymbolTable<Continuu
     @Override
     public String getDescription() {
         return "A continuum layer associates each lattice site with a " +
-                "continuous numerical value. This value can be changed " +
-                "directly, or transformed using a matrix operation.";
+            "continuous numerical value. This value can be changed " +
+            "directly, or transformed using a matrix operation.";
     }
 
     @Override
@@ -61,9 +61,9 @@ public class ContinuumLayerInstSymbolTable extends LayerInstSymbolTable<Continuu
     public void disableOperators(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new BooleanClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "If true, no matrix " +
-                "operations may be scheduled for the simulation. If matrix " +
-                "operations are not needed, disabling them can speed up " +
-                "simulation updates dramatically.");
+            "operations may be scheduled for the simulation. If matrix " +
+            "operations are not needed, disabling them can speed up " +
+            "simulation updates dramatically.");
         ret.put("disableOperators", ms);
     }
 

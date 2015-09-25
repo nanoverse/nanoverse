@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.continuum;
 
-import nanoverse.runtime.processes.continuum.ScheduleRelease;
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.layers.continuum.ContinuumLayerScheduler;
 import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.processes.continuum.ScheduleRelease;
 
 public class ScheduleReleaseFactory implements Factory<ScheduleRelease> {
 

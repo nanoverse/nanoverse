@@ -25,9 +25,9 @@
 package nanoverse.compiler.pipeline.translate.symbol.geometry.lattice;
 
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
+import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.geometry.lattice.*;
-import org.junit.*;
+import org.junit.Test;
 
 public class LatticeClassSymbolTableTest extends ClassSymbolTableTest {
 

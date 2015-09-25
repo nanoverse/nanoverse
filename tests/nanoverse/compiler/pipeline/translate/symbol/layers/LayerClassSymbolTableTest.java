@@ -24,12 +24,12 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.layers;
 
-import nanoverse.compiler.pipeline.translate.symbol.*;
+import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.layers.Layer;
 import nanoverse.runtime.layers.cell.CellLayer;
 import nanoverse.runtime.layers.continuum.ContinuumLayer;
-import org.junit.*;
+import org.junit.Test;
 
 public class LayerClassSymbolTableTest extends ClassSymbolTableTest {
 

@@ -28,8 +28,7 @@ import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.HaltCondition;
 import org.dom4j.Element;
 
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by David B Borenstein on 4/7/14.
@@ -52,8 +51,8 @@ public abstract class DoubleArgumentFactory {
         Element valueElement = e.element(name);
         if (valueElement == null) {
             throw new IllegalArgumentException("No value specified for " +
-                    "expected field '" + name + "' in element " +
-                    e.getQualifiedName());
+                "expected field '" + name + "' in element " +
+                e.getQualifiedName());
         }
 
         // No children --> return text

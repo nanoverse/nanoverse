@@ -24,10 +24,10 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.instantiate.factory.control.arguments.AgentDescriptorFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
+import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.layers.LayerManager;
@@ -55,6 +55,10 @@ public class AgentDescriptorLoader extends Loader<CellDescriptor> {
         this.interpolator = interpolator;
     }
 
+    public CellDescriptor instantiate(LayerManager lm, GeneralParameters p) {
+        return instantiate(null, lm, p);
+    }
+
     public CellDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         factory.setLayerManager(lm);
 
@@ -74,10 +78,5 @@ public class AgentDescriptorLoader extends Loader<CellDescriptor> {
         factory.setReactions(reactions);
 
         return factory.build();
-    }
-
-
-    public CellDescriptor instantiate(LayerManager lm, GeneralParameters p) {
-        return instantiate(null, lm, p);
     }
 }

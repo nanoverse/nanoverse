@@ -50,9 +50,9 @@ public class NanoStatementVisitor extends AbstractNanoNodeVisitor {
         standaloneVisitor = new NanoStandaloneIdVisitor();
     }
 
-    public NanoStatementVisitor( NanoStandaloneIdVisitor standaloneVisitor,
-                                 NanoPrimitiveVisitor primitiveVisitor,
-                                 NanoAssignmentVisitor assignmentVisitor) {
+    public NanoStatementVisitor(NanoStandaloneIdVisitor standaloneVisitor,
+                                NanoPrimitiveVisitor primitiveVisitor,
+                                NanoAssignmentVisitor assignmentVisitor) {
         logger = LoggerFactory.getLogger(NanoStatementVisitor.class);
 
         this.assignmentVisitor = assignmentVisitor;

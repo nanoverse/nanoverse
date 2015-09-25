@@ -51,14 +51,14 @@ public class CoordinateInstSymbolTable extends MapSymbolTable<Coordinate> {
         return ret;
     }
 
+    private void x(HashMap<String, MemberSymbol> ret) {
+        loadSymbol(ret, "x", "2D and 3D");
+    }
+
     private void loadSymbol(HashMap<String, MemberSymbol> ret, String letter, String applicable) {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The " + letter + " coordinate, for " + applicable + " geometries.");
         ret.put(letter, ms);
-    }
-
-    private void x(HashMap<String, MemberSymbol> ret) {
-        loadSymbol(ret, "x", "2D and 3D");
     }
 
     private void y(HashMap<String, MemberSymbol> ret) {

@@ -33,10 +33,10 @@ import java.util.function.Function;
  */
 public abstract class TargetDescriptor<T extends TargetRule> {
 
-    protected abstract Function<BehaviorCell, T> getConstructor();
-
     public T instantiate(BehaviorCell cell) {
         return getConstructor().apply(cell);
     }
+
+    protected abstract Function<BehaviorCell, T> getConstructor();
 
 }

@@ -25,8 +25,8 @@
 package nanoverse.runtime.layers.continuum.solvers;
 
 import nanoverse.runtime.layers.continuum.*;
-import no.uib.cipr.matrix.Vector;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
+import no.uib.cipr.matrix.Vector;
 
 
 /**
@@ -42,11 +42,11 @@ public abstract class ContinuumSolver {
         this.so = so;
     }
 
-    protected abstract Vector doSolve();
-
     public void solve() {
         Vector solution = doSolve();
         content.setState(solution);
         so.reset();
     }
+
+    protected abstract Vector doSolve();
 }

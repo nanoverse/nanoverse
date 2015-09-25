@@ -24,23 +24,18 @@
 
 package test;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
+import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
-import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.Matrix;
-import no.uib.cipr.matrix.Vector;
+import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.junit.Before;
 
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.stream.*;
 
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by dbborens on 1/9/15.
@@ -51,29 +46,6 @@ public abstract class LinearMocks extends TestBase {
     protected Coordinate[] cc;
     protected Coordinate a, b, c;
     protected Function<Coordinate, Integer> indexer;
-
-    protected static Coordinate[] makeCanonicalCoordinates() {
-        Coordinate[] cc = new Coordinate[3];
-        cc = IntStream.range(0, 3)
-                .boxed()
-                .map(x -> new Coordinate2D(0, x, 0))
-                .collect(Collectors.toList()).toArray(cc);
-
-        return cc;
-    }
-
-    protected static DenseVector vector(double x0, double x1, double x2) {
-        double[] arr = new double[]{x0, x1, x2};
-        return new DenseVector(arr);
-    }
-
-    protected static CompDiagMatrix matrix(double x00, double x11, double x22) {
-        CompDiagMatrix matrix = new CompDiagMatrix(3, 3);
-        matrix.add(0, 0, x00);
-        matrix.add(1, 1, x11);
-        matrix.add(2, 2, x22);
-        return matrix;
-    }
 
     @Before
     public void makeGeometry() {
@@ -91,6 +63,16 @@ public abstract class LinearMocks extends TestBase {
         makeNeighbors();
     }
 
+    protected static Coordinate[] makeCanonicalCoordinates() {
+        Coordinate[] cc = new Coordinate[3];
+        cc = IntStream.range(0, 3)
+            .boxed()
+            .map(x -> new Coordinate2D(0, x, 0))
+            .collect(Collectors.toList()).toArray(cc);
+
+        return cc;
+    }
+
     /**
      * Absorbing boundary conditions
      */
@@ -105,8 +87,21 @@ public abstract class LinearMocks extends TestBase {
         assertMatricesEqual(expected, actual, epsilon);
     }
 
+    protected static CompDiagMatrix matrix(double x00, double x11, double x22) {
+        CompDiagMatrix matrix = new CompDiagMatrix(3, 3);
+        matrix.add(0, 0, x00);
+        matrix.add(1, 1, x11);
+        matrix.add(2, 2, x22);
+        return matrix;
+    }
+
     protected void checkVector(Vector actual, double x0, double x1, double x2) {
         DenseVector expected = vector(x0, x1, x2);
         assertVectorsEqual(expected, actual, epsilon);
+    }
+
+    protected static DenseVector vector(double x0, double x1, double x2) {
+        double[] arr = new double[]{x0, x1, x2};
+        return new DenseVector(arr);
     }
 }

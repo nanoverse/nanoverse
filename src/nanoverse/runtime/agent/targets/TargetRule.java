@@ -29,9 +29,7 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.discrete.filter.Filter;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Targets specify which nanoverse.runtime.cells should receive the consequences
@@ -99,6 +97,8 @@ public abstract class TargetRule {
         return reduced;
     }
 
+    protected abstract List<Coordinate> getCandidates(BehaviorCell caller);
+
     @Override
     /**
      * Targeting rules are equal if and only if they are of the
@@ -131,6 +131,4 @@ public abstract class TargetRule {
     public BehaviorCell getCallback() {
         return callback;
     }
-
-    protected abstract List<Coordinate> getCandidates(BehaviorCell caller);
 }

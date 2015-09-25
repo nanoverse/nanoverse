@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.translate.symbol.primitive.booleans;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.primitive.booleans.ConstantBooleanLoader;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.ConstantBoolean;
 import org.slf4j.*;
 
 /**

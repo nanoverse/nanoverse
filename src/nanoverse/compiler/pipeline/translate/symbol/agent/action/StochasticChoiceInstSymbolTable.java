@@ -24,12 +24,12 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.action.StochasticChoiceLoader;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic.DynamicActionRangeMapLoader;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.agent.action.stochastic.WeightedOptionClassSymbolTable;
+import nanoverse.runtime.agent.action.StochasticChoiceDescriptor;
 
 import java.util.HashMap;
 
@@ -40,7 +40,7 @@ public class StochasticChoiceInstSymbolTable extends ActionInstSymbolTable<Stoch
     @Override
     public String getDescription() {
         return "Choose one of several options at random. Options may be " +
-                "unequally weighted.";
+            "unequally weighted.";
     }
 
     @Override
@@ -54,7 +54,7 @@ public class StochasticChoiceInstSymbolTable extends ActionInstSymbolTable<Stoch
         ClassSymbolTable cst = new WeightedOptionClassSymbolTable();
         ListSymbolTable lst = new ListSymbolTable(cst, DynamicActionRangeMapLoader::new);
         MemberSymbol ms = new MemberSymbol(lst, "List of options from which " +
-                "to select.");
+            "to select.");
         ret.put("options", ms);
     }
 

@@ -25,8 +25,7 @@
 package nanoverse.compiler.pipeline.translate.symbol.control.run;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
-import nanoverse.compiler.pipeline.instantiate.loader.control.ProcessManagerLoader;
-import nanoverse.compiler.pipeline.instantiate.loader.control.ProjectLoader;
+import nanoverse.compiler.pipeline.instantiate.loader.control.*;
 import nanoverse.compiler.pipeline.instantiate.loader.io.serialize.OutputManagerLoader;
 import nanoverse.compiler.pipeline.instantiate.loader.layers.LayerManagerLoader;
 import nanoverse.compiler.pipeline.translate.symbol.*;
@@ -51,9 +50,9 @@ public class ProjectSymbolTable extends MapSymbolTable<Runner> {
     @Override
     public String getDescription() {
         return "The Project object represents a simulation or set of " +
-                "simulations, along with any desired reporting, as well" +
-                " as meta-instructions (such as running the simulation " +
-                "more than once).";
+            "simulations, along with any desired reporting, as well" +
+            " as meta-instructions (such as running the simulation " +
+            "more than once).";
     }
 
     @Override
@@ -72,9 +71,9 @@ public class ProjectSymbolTable extends MapSymbolTable<Runner> {
     private void version(HashMap<String, MemberSymbol> ret) {
         ClassSymbolTable cst = new StringClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(cst, "The version of Nanoverse for " +
-                "which this project was developed. The simulation will not " +
-                "run unless the project version matches the Nanoverse " +
-                "runtime version.");
+            "which this project was developed. The simulation will not " +
+            "run unless the project version matches the Nanoverse " +
+            "runtime version.");
         ret.put("version", ms);
     }
 
@@ -89,7 +88,7 @@ public class ProjectSymbolTable extends MapSymbolTable<Runner> {
     private void geometry(HashMap<String, MemberSymbol> ret) {
         GeometryDescriptorClassSymbolTable st = new GeometryDescriptorClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(st, "A description of the system's" +
-                " top-level nanoverse.runtime.geometry.");
+            " top-level nanoverse.runtime.geometry.");
         ret.put("geometry", ms);
     }
 
@@ -103,7 +102,7 @@ public class ProjectSymbolTable extends MapSymbolTable<Runner> {
         ClassSymbolTable cst = new OutputClassSymbolTable();
         ListSymbolTable<SerializationManager> lst = new ListSymbolTable<>(cst, OutputManagerLoader::new);
         MemberSymbol ms = new MemberSymbol(lst, "A list of the simulation's" +
-                "expected visualizations and reports.");
+            "expected visualizations and reports.");
         ret.put("output", ms);
     }
 
@@ -111,7 +110,7 @@ public class ProjectSymbolTable extends MapSymbolTable<Runner> {
         ClassSymbolTable cst = new LayerClassSymbolTable();
         ListSymbolTable<LayerManager> lst = new ListSymbolTable<>(cst, LayerManagerLoader::new);
         MemberSymbol ms = new MemberSymbol(lst, "A list of the simulation's" +
-                "topological nanoverse.runtime.layers.");
+            "topological nanoverse.runtime.layers.");
         ret.put("layers", ms);
     }
 

@@ -33,13 +33,14 @@ import nanoverse.runtime.geometry.lattice.Lattice;
 import nanoverse.runtime.geometry.shape.Shape;
 import org.junit.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class GeometryDescriptorInterpolatorTest extends InterpolatorTest {
 
     private GeometryDescriptorInterpolator query;
     private GeometryDescriptorDefaults defaults;
+
     @Before
     public void before() throws Exception {
         super.before();
@@ -54,7 +55,7 @@ public class GeometryDescriptorInterpolatorTest extends InterpolatorTest {
 
         LatticeLoader loader = mock(LatticeLoader.class);
         when(load.getLoader(eq(node), eq("lattice"), anyBoolean()))
-                .thenReturn(loader);
+            .thenReturn(loader);
 
         Lattice expected = mock(Lattice.class);
         when(loader.instantiate()).thenReturn(expected);
@@ -78,7 +79,7 @@ public class GeometryDescriptorInterpolatorTest extends InterpolatorTest {
 
         ShapeLoader loader = mock(ShapeLoader.class);
         when(load.getLoader(eq(node), eq("shape"), anyBoolean()))
-                .thenReturn(loader);
+            .thenReturn(loader);
 
         Shape expected = mock(Shape.class);
         Lattice lattice = mock(Lattice.class);

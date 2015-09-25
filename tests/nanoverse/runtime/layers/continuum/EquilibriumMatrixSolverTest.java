@@ -24,21 +24,17 @@
 
 package nanoverse.runtime.layers.continuum;
 
-import nanoverse.runtime.layers.continuum.solvers.EquilibriumBandSolver;
-import nanoverse.runtime.layers.continuum.solvers.EquilibriumKrylovSolver;
-import nanoverse.runtime.layers.continuum.solvers.EquilibriumMatrixSolver;
-import nanoverse.runtime.layers.continuum.solvers.EquilibriumPetscSolver;
-import no.uib.cipr.matrix.DenseVector;
+import nanoverse.runtime.layers.continuum.solvers.*;
+import nanoverse.runtime.structural.utilities.MatrixUtils;
+import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.Vector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import nanoverse.runtime.structural.utilities.MatrixUtils;
 import test.TestBase;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 @RunWith(value = Parameterized.class)
 public class EquilibriumMatrixSolverTest extends TestBase {
@@ -56,9 +52,9 @@ public class EquilibriumMatrixSolverTest extends TestBase {
     public static Collection solvers() {
         // Array containing all the solvers the test will run with
         EquilibriumMatrixSolver[] solvers = new EquilibriumMatrixSolver[]{
-                new EquilibriumKrylovSolver(true),
-                new EquilibriumBandSolver(true),
-                new EquilibriumPetscSolver(true)};
+            new EquilibriumKrylovSolver(true),
+            new EquilibriumBandSolver(true),
+            new EquilibriumPetscSolver(true)};
         return Arrays.asList(solvers);
     }
 
@@ -73,6 +69,11 @@ public class EquilibriumMatrixSolverTest extends TestBase {
         DenseVector source = new DenseVector(3);
         initial = new DenseVector(3);               // Zero out initial value
         doTest(source, operator, new DenseVector(3));
+    }
+
+    private void doTest(DenseVector source, CompDiagMatrix operator, DenseVector expected) {
+        Vector actual = query.solve(source, operator, initial.copy());
+        assertVectorsEqual(expected, actual, 1e-14);
     }
 
     /**
@@ -98,6 +99,32 @@ public class EquilibriumMatrixSolverTest extends TestBase {
         DenseVector source = new DenseVector(3);
         initial = new DenseVector(3);               // Zero out initial value
         doTest(source, operator, new DenseVector(3));
+    }
+
+    private CompDiagMatrix diffusion() {
+
+        CompDiagMatrix operator = new CompDiagMatrix(3, 3);
+
+        /* Operator:
+         *
+         * 0.8 0.1 0.0
+         * 0.1 0.8 0.1
+         * 0.0 0.1 0.8
+         */
+
+        operator.set(0, 0, 0.8);
+        operator.set(0, 1, 0.1);
+        operator.set(0, 2, 0.0);
+
+        operator.set(1, 0, 0.1);
+        operator.set(1, 1, 0.8);
+        operator.set(1, 2, 0.1);
+
+        operator.set(2, 0, 0.0);
+        operator.set(2, 1, 0.1);
+        operator.set(2, 2, 0.8);
+
+        return operator;
     }
 
     /**
@@ -140,65 +167,6 @@ public class EquilibriumMatrixSolverTest extends TestBase {
     }
 
     /**
-     * If there is no source and the matrix is non-identical and has a steady
-     * state solution, that steady state solution must be zero.
-     */
-    @Test
-    public void decayGoesToZero() {
-        DenseVector source = new DenseVector(3);
-        CompDiagMatrix operator = diffusion();
-        DenseVector expected = new DenseVector(3);
-        doTest(source, operator, expected);
-    }
-
-    /**
-     * A source at the middle coordinate and diffusion with absorbing
-     * boundaries; should be solved as normal and have a non-trivial
-     * solution.
-     *
-     * @throws Exception
-     */
-    @Test
-    public void generalCaseSolvesMatrix() throws Exception {
-        DenseVector source = new DenseVector(3);
-        source.set(1, 1);
-        CompDiagMatrix operator = diffusion();
-        DenseVector expected = new DenseVector(new double[]{5.0, 10.0, 5.0});
-        doTest(source, operator, expected);
-    }
-
-    private void doTest(DenseVector source, CompDiagMatrix operator, DenseVector expected) {
-        Vector actual = query.solve(source, operator, initial.copy());
-        assertVectorsEqual(expected, actual, 1e-14);
-    }
-
-    private CompDiagMatrix diffusion() {
-
-        CompDiagMatrix operator = new CompDiagMatrix(3, 3);
-
-        /* Operator:
-         *
-         * 0.8 0.1 0.0
-         * 0.1 0.8 0.1
-         * 0.0 0.1 0.8
-         */
-
-        operator.set(0, 0, 0.8);
-        operator.set(0, 1, 0.1);
-        operator.set(0, 2, 0.0);
-
-        operator.set(1, 0, 0.1);
-        operator.set(1, 1, 0.8);
-        operator.set(1, 2, 0.1);
-
-        operator.set(2, 0, 0.0);
-        operator.set(2, 1, 0.1);
-        operator.set(2, 2, 0.8);
-
-        return operator;
-    }
-
-    /**
      * Advection with periodic boundary conditions. No steady
      * state.
      *
@@ -227,5 +195,33 @@ public class EquilibriumMatrixSolverTest extends TestBase {
         operator.set(2, 2, 0.9);
 
         return operator;
+    }
+
+    /**
+     * If there is no source and the matrix is non-identical and has a steady
+     * state solution, that steady state solution must be zero.
+     */
+    @Test
+    public void decayGoesToZero() {
+        DenseVector source = new DenseVector(3);
+        CompDiagMatrix operator = diffusion();
+        DenseVector expected = new DenseVector(3);
+        doTest(source, operator, expected);
+    }
+
+    /**
+     * A source at the middle coordinate and diffusion with absorbing
+     * boundaries; should be solved as normal and have a non-trivial
+     * solution.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void generalCaseSolvesMatrix() throws Exception {
+        DenseVector source = new DenseVector(3);
+        source.set(1, 1);
+        CompDiagMatrix operator = diffusion();
+        DenseVector expected = new DenseVector(new double[]{5.0, 10.0, 5.0});
+        doTest(source, operator, expected);
     }
 }

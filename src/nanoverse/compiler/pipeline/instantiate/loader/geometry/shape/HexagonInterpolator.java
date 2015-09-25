@@ -46,6 +46,6 @@ public class HexagonInterpolator {
 
     public int radius(MapObjectNode node, Random random) {
         return load.anInteger(node, "radius", random,
-                () -> DEFAULT_RADIUS);
+            () -> DEFAULT_RADIUS);
     }
 }

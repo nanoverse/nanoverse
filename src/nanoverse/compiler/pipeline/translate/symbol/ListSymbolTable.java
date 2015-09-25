@@ -13,23 +13,23 @@ import java.util.function.Supplier;
 /**
  * Created by dbborens on 3/4/15.
  */
-public class ListSymbolTable<T> implements InstantiableSymbolTable,  ResolvingSymbolTable {
+public class ListSymbolTable<T> implements InstantiableSymbolTable, ResolvingSymbolTable {
+
+    private final TypeToken<T> type = new TypeToken<T>(getClass()) {
+    };
+    private final ClassSymbolTable classSymbolTable;
+    private final Supplier<Loader> loaderSupplier;
+
+    public ListSymbolTable(ClassSymbolTable classSymbolTable,
+                           Supplier<Loader> loaderSupplier) {
+
+        this.classSymbolTable = classSymbolTable;
+        this.loaderSupplier = loaderSupplier;
+    }
 
     @Override
     public String getDescription() {
         return "An ordered set of one or more objects with the same parent class.";
-    }
-
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
-
-    private final ClassSymbolTable classSymbolTable;
-    private final Supplier<Loader> loaderSupplier;
-
-    public ListSymbolTable (ClassSymbolTable classSymbolTable,
-                            Supplier<Loader> loaderSupplier) {
-
-        this.classSymbolTable = classSymbolTable;
-        this.loaderSupplier = loaderSupplier;
     }
 
     @Override

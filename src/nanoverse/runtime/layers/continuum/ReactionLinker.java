@@ -29,8 +29,7 @@ import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 /**
  * Created by dbborens on 12/31/14.
@@ -66,6 +65,15 @@ public class ReactionLinker {
         this.operators = operators;
     }
 
+    public void apply(Stream<RelationshipTuple> relationships) {
+        List<RelationshipTuple> list = relationships.collect(Collectors.toList());
+        inject(list);
+
+        if (operators) {
+            exponentiate(list);
+        }
+    }
+
     private void inject(List<RelationshipTuple> relationships) {
         DenseVector delta = atoHelper.getSource(relationships);
         injector.accept(delta);
@@ -74,14 +82,5 @@ public class ReactionLinker {
     private void exponentiate(List<RelationshipTuple> relationshipTuples) {
         CompDiagMatrix exponents = atoHelper.getOperator(relationshipTuples);
         exponentiator.accept(exponents);
-    }
-
-    public void apply(Stream<RelationshipTuple> relationships) {
-        List<RelationshipTuple> list = relationships.collect(Collectors.toList());
-        inject(list);
-
-        if (operators) {
-            exponentiate(list);
-        }
     }
 }

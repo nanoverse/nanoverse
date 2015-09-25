@@ -40,9 +40,9 @@ public class ManualHaltInterpolator extends DiscreteProcessInterpolator {
     }
 
     public ManualHaltInterpolator(LoadHelper load,
-                            BaseProcessArgumentsLoader bpaLoader,
-                            DiscreteProcessArgumentsLoader dpaLoader,
-                            ManualHaltDefaults defaults) {
+                                  BaseProcessArgumentsLoader bpaLoader,
+                                  DiscreteProcessArgumentsLoader dpaLoader,
+                                  ManualHaltDefaults defaults) {
         super(load, bpaLoader, dpaLoader);
         this.defaults = defaults;
     }

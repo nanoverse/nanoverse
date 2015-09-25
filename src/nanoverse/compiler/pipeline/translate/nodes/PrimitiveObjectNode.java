@@ -21,11 +21,6 @@ public class PrimitiveObjectNode<T> implements ObjectNode {
         this.value = value;
     }
 
-    @Override
-    public InstantiableSymbolTable getSymbolTable() {
-        return symbolTable;
-    }
-
     public T getValue() {
         return value;
     }
@@ -33,5 +28,10 @@ public class PrimitiveObjectNode<T> implements ObjectNode {
     @Override
     public Class getInstantiatingClass() {
         return symbolTable.getInstanceClass();
+    }
+
+    @Override
+    public InstantiableSymbolTable getSymbolTable() {
+        return symbolTable;
     }
 }

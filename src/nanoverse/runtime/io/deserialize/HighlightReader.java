@@ -28,12 +28,8 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LightweightSystemState;
 import nanoverse.runtime.structural.utilities.FileConventions;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
 /**
  * Loads highlights from all channels and makes them available

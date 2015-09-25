@@ -24,11 +24,11 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action.stochastic;
 
-import nanoverse.runtime.agent.action.stochastic.ConstantProbabilitySupplierDescriptor;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic.ConstantProbabilitySupplierLoader;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
+import nanoverse.runtime.agent.action.stochastic.ConstantProbabilitySupplierDescriptor;
 
 import java.util.HashMap;
 

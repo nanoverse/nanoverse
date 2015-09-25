@@ -27,8 +27,7 @@ package nanoverse.runtime.factory.io.visual;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.factory.io.visual.kymograph.KymographFactory;
 import nanoverse.runtime.factory.io.visual.map.MapVisualizationFactory;
-import nanoverse.runtime.io.visual.MockVisualization;
-import nanoverse.runtime.io.visual.Visualization;
+import nanoverse.runtime.io.visual.*;
 import org.dom4j.Element;
 
 /**
@@ -47,7 +46,7 @@ public abstract class VisualizationFactory {
             return new MockVisualization();
         } else {
             throw new IllegalArgumentException("Unrecognized visualization " +
-                    "class '" + className + "'");
+                "class '" + className + "'");
         }
     }
 

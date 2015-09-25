@@ -39,8 +39,8 @@ public class HighlightInstSymbolTable extends MapSymbolTable<Highlight> {
     @Override
     public String getDescription() {
         return "A highlight describes how selected locations (specified " +
-                "using a highlight channel) should be accentuated in a " +
-                "visualization.";
+            "using a highlight channel) should be accentuated in a " +
+            "visualization.";
     }
 
     @Override

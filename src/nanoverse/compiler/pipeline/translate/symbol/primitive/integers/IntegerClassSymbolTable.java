@@ -24,9 +24,9 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.primitive.integers;
 
-import nanoverse.compiler.pipeline.interpret.visitors.*;
+import nanoverse.compiler.pipeline.interpret.visitors.NanoPrimitiveIntegerVisitor;
 import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 
 import java.util.HashMap;
 import java.util.function.Supplier;

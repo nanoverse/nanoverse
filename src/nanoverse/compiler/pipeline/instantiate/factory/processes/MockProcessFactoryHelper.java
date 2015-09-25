@@ -23,8 +23,7 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes;
 
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.MockProcess;
+import nanoverse.runtime.processes.*;
 
 
 public class MockProcessFactoryHelper {

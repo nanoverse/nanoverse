@@ -42,8 +42,8 @@ public class MapVisualizationInstSymbolTable extends MapSymbolTable<MapVisualiza
     @Override
     public String getDescription() {
         return "A map is a 2D visualization consisting of one image per time " +
-                "point, and with visualization coordinates corresponding " +
-                "directly to their simulation coordinate counterparts.";
+            "point, and with visualization coordinates corresponding " +
+            "directly to their simulation coordinate counterparts.";
     }
 
     @Override
@@ -60,30 +60,30 @@ public class MapVisualizationInstSymbolTable extends MapSymbolTable<MapVisualiza
         ClassSymbolTable cst = new HighlightClassSymbolTable();
         ResolvingSymbolTable rst = new ListSymbolTable<>(cst, IntegerStreamLoader::new);
         MemberSymbol ms = new MemberSymbol(rst, "Specifies which highlight " +
-                "channels to visualize, if any, and how they should be " +
-                "visualized.");
+            "channels to visualize, if any, and how they should be " +
+            "visualized.");
         ret.put("highlights", ms);
     }
 
     public void color(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new ColorModelClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Specifies how simulation " +
-                "state should be encoded into color, if at all.");
+            "state should be encoded into color, if at all.");
         ret.put("color", ms);
     }
 
     public void outline(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Specifies the thickness of " +
-                "the outline around each lattice site.");
+            "the outline around each lattice site.");
         ret.put("outline", ms);
     }
 
     public void edge(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Specifies the size of each " +
-                "lattice site edge (and, by extension, the size of the image " +
-                "as a whole).");
+            "lattice site edge (and, by extension, the size of the image " +
+            "as a whole).");
         ret.put("edge", ms);
 
     }

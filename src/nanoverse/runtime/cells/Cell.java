@@ -85,16 +85,6 @@ public abstract class Cell {
     public abstract Cell divide() throws HaltCondition;
 
     /**
-     * Creates an exact replica of the cell, differing only by the
-     * state value. Copies all internal state variables. Does not
-     * trigger any division-related events or changes.
-     *
-     * @param state
-     * @return
-     */
-    public abstract Cell clone(int state) throws HaltCondition;
-
-    /**
      * Returns the current production of the specified solute.
      *
      * @param solute the ID of the solute layer associated with
@@ -106,6 +96,16 @@ public abstract class Cell {
     public Cell replicate() throws HaltCondition {
         return clone(state);
     }
+
+    /**
+     * Creates an exact replica of the cell, differing only by the
+     * state value. Copies all internal state variables. Does not
+     * trigger any division-related events or changes.
+     *
+     * @param state
+     * @return
+     */
+    public abstract Cell clone(int state) throws HaltCondition;
 
     /**
      * Informs the cell that it has been given a direct benefit.

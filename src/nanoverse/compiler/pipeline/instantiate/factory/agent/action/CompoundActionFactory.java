@@ -23,10 +23,11 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action;
 
-import java.util.stream.Stream;
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.agent.action.CompoundActionDescriptor;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+
+import java.util.stream.Stream;
 
 public class CompoundActionFactory implements Factory<CompoundActionDescriptor> {
 

@@ -25,9 +25,9 @@
 package nanoverse.compiler.pipeline.instantiate.loader.io.visual;
 
 import nanoverse.compiler.pipeline.instantiate.loader.io.visual.color.IndexedColorModelLoader;
-import nanoverse.compiler.pipeline.instantiate.loader.io.visual.highlight.*;
+import nanoverse.compiler.pipeline.instantiate.loader.io.visual.highlight.HighlightManagerLoader;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.io.visual.color.ColorManager;
 import nanoverse.runtime.io.visual.highlight.HighlightManager;
 
 /**

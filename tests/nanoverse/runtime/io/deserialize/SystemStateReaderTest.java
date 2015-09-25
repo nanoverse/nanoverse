@@ -30,9 +30,9 @@ import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.io.serialize.binary.*;
 import nanoverse.runtime.io.serialize.text.*;
 import nanoverse.runtime.layers.LightweightSystemState;
-import org.junit.*;
 import nanoverse.runtime.processes.MockStepState;
 import nanoverse.runtime.structural.MockGeneralParameters;
+import org.junit.*;
 import test.LegacyLatticeTest;
 
 import java.util.Iterator;
@@ -41,6 +41,7 @@ import java.util.stream.Stream;
 import static org.junit.Assert.*;
 
 //import nanoverse.runtime.layers.MockSoluteLayer;
+
 /**
  * Test for the SystemStateReader. As an I/O orchestrator whose main function
  * is to open a bunch of files, this is an annoying class to mock. Ultimately,
@@ -161,11 +162,11 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
         MockGeneralParameters p = makeMockGeneralParameters();
         p.setIsFrameValue(true);
         Serializer[] ret = new Serializer[]{
-                new CoordinateIndexer(p, layerManager),
-                new TimeWriter(p, layerManager),
-                new ContinuumStateWriter(p, layerManager),
-                new LegacyCellStateWriter(p, layerManager),
-                new HighlightWriter(p, Stream.<Integer>empty(), layerManager)
+            new CoordinateIndexer(p, layerManager),
+            new TimeWriter(p, layerManager),
+            new ContinuumStateWriter(p, layerManager),
+            new LegacyCellStateWriter(p, layerManager),
+            new HighlightWriter(p, Stream.<Integer>empty(), layerManager)
         };
 
         return ret;

@@ -31,8 +31,8 @@ import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.*;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.processes.StepState;
+import org.junit.*;
 import test.TestBase;
 
 import java.util.stream.Stream;
@@ -122,14 +122,14 @@ public class ActionTest extends TestBase {
         }
 
         @Override
-        public BehaviorCell getCallback() {
-            return super.getCallback();
-        }
-
-        @Override
         public void run(Coordinate caller) {
             isRun = true;
             lastCaller = caller;
+        }
+
+        @Override
+        public BehaviorCell getCallback() {
+            return super.getCallback();
         }
 
         @Override

@@ -28,13 +28,14 @@ import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.io.visual.MockVisualization;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.CellLayer;
-import org.junit.*;
 import nanoverse.runtime.structural.MockGeneralParameters;
+import org.junit.*;
 import test.LegacyTest;
 
 import java.io.File;
 
 import static org.junit.Assert.assertTrue;
+
 /**
  * As a graphics I/O class, this seemed better suited to an integration
  * test than to a system of unit tests. The fixtures are based on those

@@ -27,8 +27,8 @@ package nanoverse.runtime.io.serialize.binary.csw;
 import nanoverse.runtime.structural.utilities.ParityIO;
 
 import java.io.*;
-import java.util.*;
-import java.util.stream.*;
+import java.util.HashMap;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 5/26/2015.

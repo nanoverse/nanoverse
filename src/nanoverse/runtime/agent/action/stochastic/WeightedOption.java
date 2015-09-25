@@ -31,7 +31,7 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
 /**
  * A lightweight tuple consisting of an action descriptor and a probability
  * weighting.
- *
+ * <p>
  * Created by dbborens on 7/23/2015.
  */
 public class WeightedOption {

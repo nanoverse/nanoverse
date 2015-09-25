@@ -76,63 +76,6 @@ public class RangeMap<T> {
         floors.add(0.0);
     }
 
-    public void add(T token, double weight) {
-        keys.add(token);
-        appendBin(weight);
-//        weights.put(token, weight);
-
-    }
-
-    private void appendBin(double weight) {
-        int n = floors.size();
-        double lastBin = floors.get(n - 1);
-        floors.add(lastBin + weight);
-    }
-
-    /**
-     * Returns a particular process based on an input between 0
-     * and the total weight, with nanoverse.runtime.processes sorted numerically
-     * by ID number.
-     * <p>
-     * So if w_i is the weight of process i, then you'll get back
-     * <p>
-     * 0 <= x < w_1         --> return process 1's id
-     * w_1 <= x < w_1 + w_2 --> return process 2's id
-     * ...
-     * w_n-1 <= x < sum(w)  --> return process n's id
-     *
-     * @return
-     */
-    public T selectTarget(double x) {
-
-        if (x < 0 || x > getTotalWeight()) {
-            throw new IllegalStateException("Attempted to search range map beyond bounds");
-        }
-
-        RangeSearchHelper helper = new RangeSearchHelper(floors);
-
-        Integer target = helper.findKey(x);
-
-        T ret = keys.get(target);
-
-        return ret;
-    }
-
-    public double getTotalWeight() {
-
-        if (floors.size() == 1) {
-            return 0.0;
-        }
-
-        double totalWeight = 0;
-        for (int i = 0; i < floors.size() - 1; i++) {
-            double weight = floors.get(i + 1) - floors.get(i);
-            totalWeight += weight;
-        }
-
-        return totalWeight;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof RangeMap)) {
@@ -153,6 +96,21 @@ public class RangeMap<T> {
         return true;
     }
 
+    public double getTotalWeight() {
+
+        if (floors.size() == 1) {
+            return 0.0;
+        }
+
+        double totalWeight = 0;
+        for (int i = 0; i < floors.size() - 1; i++) {
+            double weight = floors.get(i + 1) - floors.get(i);
+            totalWeight += weight;
+        }
+
+        return totalWeight;
+    }
+
     /**
      * Returns true if each weight range in each map returns equal objects for
      * the same value of x.
@@ -165,7 +123,7 @@ public class RangeMap<T> {
      * @return
      */
     private boolean contentsEqual(RangeMap p, RangeMap q) {
-        // If they have a different number of elements, we already know that 
+        // If they have a different number of elements, we already know that
         // they are unequal.
         if (p.floors.size() != q.floors.size()) {
             return false;
@@ -198,6 +156,35 @@ public class RangeMap<T> {
         return true;
     }
 
+    /**
+     * Returns a particular process based on an input between 0
+     * and the total weight, with nanoverse.runtime.processes sorted numerically
+     * by ID number.
+     * <p>
+     * So if w_i is the weight of process i, then you'll get back
+     * <p>
+     * 0 <= x < w_1         --> return process 1's id
+     * w_1 <= x < w_1 + w_2 --> return process 2's id
+     * ...
+     * w_n-1 <= x < sum(w)  --> return process n's id
+     *
+     * @return
+     */
+    public T selectTarget(double x) {
+
+        if (x < 0 || x > getTotalWeight()) {
+            throw new IllegalStateException("Attempted to search range map beyond bounds");
+        }
+
+        RangeSearchHelper helper = new RangeSearchHelper(floors);
+
+        Integer target = helper.findKey(x);
+
+        T ret = keys.get(target);
+
+        return ret;
+    }
+
     @Override
     public RangeMap<T> clone() {
         int n = keys.size();
@@ -211,6 +198,19 @@ public class RangeMap<T> {
         }
 
         return cloned;
+    }
+
+    public void add(T token, double weight) {
+        keys.add(token);
+        appendBin(weight);
+//        weights.put(token, weight);
+
+    }
+
+    private void appendBin(double weight) {
+        int n = floors.size();
+        double lastBin = floors.get(n - 1);
+        floors.add(lastBin + weight);
     }
 
     /**

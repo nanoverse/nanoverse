@@ -50,7 +50,7 @@ public class ContinuumLayerSchedulerInterpolator {
 
     public boolean operators(MapObjectNode node, Random random) {
         return load.aBoolean(node, "operators", random,
-                () -> defaults.operators());
+            () -> defaults.operators());
     }
 
 }

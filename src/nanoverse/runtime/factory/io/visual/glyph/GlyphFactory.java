@@ -25,10 +25,10 @@
 package nanoverse.runtime.factory.io.visual.glyph;
 
 import nanoverse.runtime.factory.io.visual.color.ColorFactory;
-import nanoverse.runtime.io.visual.glyph.*;
+import nanoverse.runtime.io.visual.glyph.MockGlyph;
 import nanoverse.runtime.io.visual.highlight.*;
-import org.dom4j.Element;
 import nanoverse.runtime.structural.utilities.XmlUtil;
+import org.dom4j.Element;
 
 import java.awt.*;
 
@@ -49,7 +49,7 @@ public abstract class GlyphFactory {
             return crosshairsGlyph(glyphRoot);
         } else {
             throw new IllegalArgumentException("Unrecognized glyph class '" +
-                    className + "'");
+                className + "'");
         }
     }
 

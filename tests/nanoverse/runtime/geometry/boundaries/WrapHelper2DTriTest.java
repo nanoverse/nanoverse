@@ -32,6 +32,7 @@ import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.*;
+
 /**
  * Integration test for the interaction between
  * the 2D wrap helper and a triangular lattice

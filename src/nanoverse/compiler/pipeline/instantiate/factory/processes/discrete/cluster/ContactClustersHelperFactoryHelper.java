@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.cluster;
 
-import nanoverse.runtime.processes.discrete.cluster.ContactClustersHelper;
 import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.processes.discrete.cluster.ContactClustersHelper;
 
 
 public class ContactClustersHelperFactoryHelper {

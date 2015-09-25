@@ -28,8 +28,7 @@ import nanoverse.runtime.cells.BehaviorCell;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 /**
  * This is part of a cloodge to make it so that StochasticChoice can read the state
@@ -55,9 +54,9 @@ public class DependentProbabilitySupplier extends ProbabilitySupplier {
     private static double getFieldValueAt(BehaviorCell cell, LayerManager layerManager, String fieldName) {
 
         Supplier<Coordinate> supplier = () -> layerManager
-                .getCellLayer()
-                .getLookupManager()
-                .getCellLocation(cell);
+            .getCellLayer()
+            .getLookupManager()
+            .getCellLocation(cell);
 
         double value = layerManager.getContinuumLayer(fieldName).getLinker().get(supplier);
         return value;

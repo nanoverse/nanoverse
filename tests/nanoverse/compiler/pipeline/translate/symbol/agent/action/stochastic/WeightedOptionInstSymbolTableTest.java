@@ -24,12 +24,12 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action.stochastic;
 
+import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.agent.action.stochastic.WeightedOption;
-import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
-import nanoverse.runtime.control.arguments.*;
-import org.junit.*;
+import nanoverse.runtime.control.arguments.ProbabilitySupplierDescriptor;
+import org.junit.Test;
 
 public class WeightedOptionInstSymbolTableTest extends MapSymbolTableTest {
 

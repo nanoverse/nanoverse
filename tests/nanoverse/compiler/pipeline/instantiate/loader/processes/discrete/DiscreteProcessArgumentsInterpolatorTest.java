@@ -33,7 +33,7 @@ import org.junit.*;
 
 import java.util.function.Supplier;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class DiscreteProcessArgumentsInterpolatorTest extends InterpolatorTest {

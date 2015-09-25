@@ -26,8 +26,7 @@ package nanoverse.runtime.layers.continuum;
 
 import no.uib.cipr.matrix.DenseVector;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.ArgumentCaptor;
 import test.LinearMocks;
 
@@ -56,6 +55,12 @@ public class ContinuumLayerSchedulerTest extends LinearMocks {
         query.apply(matrix);
         runRunnable();
         checkMatrix(so.getOperator(), 2.0, 3.0, 4.0);
+    }
+
+    private void runRunnable() {
+        verify(holdManager).resolve(runArgument.capture());
+        Runnable runnable = runArgument.getValue();
+        runnable.run();
     }
 
     @Test
@@ -123,12 +128,6 @@ public class ContinuumLayerSchedulerTest extends LinearMocks {
     public void solveCallsHoldManager() throws Exception {
         query.solve();
         verify(holdManager).solve();
-    }
-
-    private void runRunnable() {
-        verify(holdManager).resolve(runArgument.capture());
-        Runnable runnable = runArgument.getValue();
-        runnable.run();
     }
 
 }

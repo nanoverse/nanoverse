@@ -24,16 +24,16 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action;
 
-import nanoverse.runtime.agent.action.*;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
+import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
 
 /**
  * Created by dbborens on 8/3/2015.
  */
-public abstract class ActionLoader<T extends ActionDescriptor> extends Loader<T>  {
+public abstract class ActionLoader<T extends ActionDescriptor> extends Loader<T> {
 
     public abstract T instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p);
 }

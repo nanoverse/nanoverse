@@ -66,14 +66,14 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
      */
     private void updateNext() {
         int numTrue = (int) iteratorMap
-                .values()
-                .stream()
-                .filter(ContinuumFrameIterator::hasNext)
-                .count();
+            .values()
+            .stream()
+            .filter(ContinuumFrameIterator::hasNext)
+            .count();
 
         if (numTrue > 0 && numTrue != iteratorMap.size()) {
             throw new IllegalStateException("Consistency error: not all continuum " +
-                    "state files have same number of observations.");
+                "state files have same number of observations.");
         }
 
         hasNext = numTrue > 0;
@@ -142,9 +142,9 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
             frameNumberList.add(frame.getFrameNumber());
             timeList.add(frame.getTime());
 
-            List<Double> values =  frame
-                    .getValue()
-                    .collect(Collectors.toList());
+            List<Double> values = frame
+                .getValue()
+                .collect(Collectors.toList());
             valueMap.put(id, values);
         });
 
@@ -159,12 +159,12 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
     private double verifyTimeIntegrity(List<Double> timeList) {
         double time = timeList.get(0);
         int numTimesOK = (int) timeList
-                .stream()
-                .filter(value -> EpsilonUtil.epsilonEquals(time, value))
-                        .count();
+            .stream()
+            .filter(value -> EpsilonUtil.epsilonEquals(time, value))
+            .count();
         if (numTimesOK != timeList.size()) {
             throw new IllegalStateException("Consistency error: uneven " +
-                    "time spacing in continuum state files");
+                "time spacing in continuum state files");
         }
         return time;
     }
@@ -172,12 +172,12 @@ public class ContinuumStateReader implements Iterator<ContinuumLayerViewer> {
     private int verifyFrameNumberIntegrity(List<Integer> frameNumberList) {
         int frameNum = frameNumberList.get(0);
         int numFramesOK = (int) frameNumberList
-                .stream()
-                .filter(value -> value == frameNum)
-                .count();
+            .stream()
+            .filter(value -> value == frameNum)
+            .count();
         if (numFramesOK != frameNumberList.size()) {
             throw new IllegalStateException("Consistency error: uneven " +
-                    "frame spacing in continuum state files");
+                "frame spacing in continuum state files");
         }
         return frameNum;
     }

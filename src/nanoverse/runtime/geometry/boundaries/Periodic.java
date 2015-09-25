@@ -25,15 +25,9 @@
 package nanoverse.runtime.geometry.boundaries;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.geometry.boundaries.helpers.WrapHelper;
-import nanoverse.runtime.geometry.boundaries.helpers.WrapHelper1D;
-import nanoverse.runtime.geometry.boundaries.helpers.WrapHelper2D;
-import nanoverse.runtime.geometry.boundaries.helpers.WrapHelper3D;
+import nanoverse.runtime.geometry.boundaries.helpers.*;
 import nanoverse.runtime.geometry.lattice.Lattice;
-import nanoverse.runtime.geometry.shape.Cuboid;
-import nanoverse.runtime.geometry.shape.Line;
-import nanoverse.runtime.geometry.shape.Rectangle;
-import nanoverse.runtime.geometry.shape.Shape;
+import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 /**
@@ -57,10 +51,10 @@ public class Periodic extends Boundary {
     @Override
     protected void verify(Shape shape, Lattice lattice) {
         if (!((shape instanceof Cuboid) || (shape instanceof Rectangle) ||
-                (shape instanceof Line))) {
+            (shape instanceof Line))) {
             throw new IllegalArgumentException("Full periodic boundary " +
-                    "condition requires a line, rectangle or cuboid arena" +
-                    " shape.");
+                "condition requires a line, rectangle or cuboid arena" +
+                " shape.");
         }
     }
 
@@ -75,12 +69,6 @@ public class Periodic extends Boundary {
     }
 
     @Override
-    public Boundary clone(Shape scaledShape, Lattice clonedLattice) {
-        return new Periodic(scaledShape, clonedLattice);
-    }
-
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -91,5 +79,10 @@ public class Periodic extends Boundary {
             return false;
 
         return true;
+    }
+
+    @Override
+    public Boundary clone(Shape scaledShape, Lattice clonedLattice) {
+        return new Periodic(scaledShape, clonedLattice);
     }
 }

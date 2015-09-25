@@ -24,9 +24,9 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action.stochastic;
 
-import nanoverse.runtime.agent.action.stochastic.WeightedOption;
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.*;
+import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
+import nanoverse.runtime.agent.action.stochastic.WeightedOption;
 
 public class WeightedOptionClassSymbolTableTest extends ClassSymbolTableTest {
 

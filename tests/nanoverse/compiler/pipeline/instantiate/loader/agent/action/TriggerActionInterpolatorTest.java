@@ -24,16 +24,16 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action;
 
-import nanoverse.runtime.agent.targets.TargetDescriptor;
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.targets.TargetLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
+import nanoverse.runtime.agent.targets.TargetDescriptor;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import org.junit.*;
 
 import java.util.function.Supplier;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
 public class TriggerActionInterpolatorTest extends InterpolatorTest {

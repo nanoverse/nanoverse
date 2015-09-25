@@ -27,8 +27,7 @@ package nanoverse.runtime.cells;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
-import nanoverse.runtime.layers.cell.CellLookupManager;
+import nanoverse.runtime.layers.cell.*;
 
 /**
  * A helper class for nanoverse.runtime.cells that triggers

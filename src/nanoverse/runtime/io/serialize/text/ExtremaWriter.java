@@ -26,8 +26,7 @@ package nanoverse.runtime.io.serialize.text;
 
 import nanoverse.runtime.control.identifiers.Extrema;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 
 /**
  * Pushes extreme values to a writer in the appropriate format

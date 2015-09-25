@@ -41,10 +41,10 @@ public class ExpandRandomDescriptor extends ActionDescriptor<ExpandRandom> {
 
     @FactoryTarget(displayName = "ExpandRandom")
     public ExpandRandomDescriptor(LayerManager layerManager,
-                        IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
+                                  IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
 
         constructor = cell -> new ExpandRandom(cell, layerManager,
-                selfChannel, targetChannel, random);
+            selfChannel, targetChannel, random);
     }
 
     @Override

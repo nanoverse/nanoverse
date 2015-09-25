@@ -24,13 +24,13 @@
 
 package nanoverse.runtime.processes.continuum;
 
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.set.CoordinateSet;
-import no.uib.cipr.matrix.DenseVector;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
+import no.uib.cipr.matrix.DenseVector;
 
 /**
  * Created by dbborens on 6/4/2015.
@@ -54,7 +54,7 @@ public class InjectionProcess extends ContinuumProcess {
     @Override
     public void fire(StepState state) throws HaltCondition {
         Coordinate[] canonicalSites = getLayerManager().getCellLayer()
-                .getGeometry().getCanonicalSites();
+            .getGeometry().getCanonicalSites();
         DenseVector source = new DenseVector(canonicalSites.length);
 
         for (int i = 0; i < canonicalSites.length; i++) {

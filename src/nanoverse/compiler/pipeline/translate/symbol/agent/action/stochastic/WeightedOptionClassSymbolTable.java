@@ -24,8 +24,8 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action.stochastic;
 
-import nanoverse.runtime.agent.action.stochastic.WeightedOption;
 import nanoverse.compiler.pipeline.translate.symbol.*;
+import nanoverse.runtime.agent.action.stochastic.WeightedOption;
 
 import java.util.HashMap;
 import java.util.function.Supplier;

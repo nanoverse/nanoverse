@@ -23,9 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.continuum;
 
-import nanoverse.runtime.processes.continuum.ScheduleRelease;
 import nanoverse.runtime.layers.continuum.ContinuumLayerScheduler;
 import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.continuum.ScheduleRelease;
 
 
 public class ScheduleReleaseFactoryHelper {

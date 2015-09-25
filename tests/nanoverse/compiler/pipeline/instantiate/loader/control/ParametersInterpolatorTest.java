@@ -76,13 +76,13 @@ public class ParametersInterpolatorTest extends InterpolatorTest {
     public void maxStepDefault() throws Exception {
         when(defaults.maxStep()).thenReturn(3);
         verifyIntegerDefault("maxStep", 3,
-                () -> query.maxStep(node, random));
+            () -> query.maxStep(node, random));
     }
 
     @Test
     public void instances() throws Exception {
         when(load.anInteger(eq(node), eq("instances"), any(), any()))
-                .thenReturn(5);
+            .thenReturn(5);
         int actual = query.instances(node, random);
         assertEquals(5, actual);
     }
@@ -91,7 +91,7 @@ public class ParametersInterpolatorTest extends InterpolatorTest {
     public void instancesDefault() throws Exception {
         when(defaults.instances()).thenReturn(3);
         verifyIntegerDefault("instances", 3,
-                () -> query.instances(node, random));
+            () -> query.instances(node, random));
     }
 
     @Test
@@ -113,7 +113,7 @@ public class ParametersInterpolatorTest extends InterpolatorTest {
     public void project() throws Exception {
         String expected = "myProject";
         when(load.aString(eq(node), eq("project"), any()))
-                .thenReturn(expected);
+            .thenReturn(expected);
         String actual = query.project(node);
         assertEquals(expected, actual);
     }
@@ -129,7 +129,7 @@ public class ParametersInterpolatorTest extends InterpolatorTest {
     public void date() throws Exception {
         Boolean expected = true;
         when(load.aBoolean(eq(node), eq("date"), any(), any()))
-                .thenReturn(expected);
+            .thenReturn(expected);
         Boolean actual = query.date(node, random);
         assertEquals(expected, actual);
     }

@@ -23,10 +23,10 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filter;
 
-import nanoverse.runtime.control.arguments.IntegerArgument;
-import nanoverse.runtime.processes.discrete.filter.DepthFilter;
-import nanoverse.runtime.layers.cell.CellLayer;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.control.arguments.IntegerArgument;
+import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.processes.discrete.filter.DepthFilter;
 
 public class DepthFilterFactory implements Factory<DepthFilter> {
 

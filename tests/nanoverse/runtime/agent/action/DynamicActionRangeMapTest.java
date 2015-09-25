@@ -28,15 +28,13 @@ package nanoverse.runtime.agent.action;
 import nanoverse.runtime.agent.action.stochastic.ProbabilitySupplier;
 import nanoverse.runtime.cells.BehaviorCell;
 import nanoverse.runtime.layers.LayerManager;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import test.TestBase;
 
 import java.util.Map;
 import java.util.stream.IntStream;
 
-import static java.util.stream.Collectors.counting;
-import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.*;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -64,6 +62,12 @@ public class DynamicActionRangeMapTest extends TestBase {
         query.refresh();
     }
 
+    private ProbabilitySupplier mockProbabilitySupplier(double p) {
+        ProbabilitySupplier ret = mock(ProbabilitySupplier.class);
+        when(ret.get()).thenReturn(p);
+        return ret;
+    }
+
     @Test
     public void addIncrementsTotalWeight() throws Exception {
         assertEquals(1.5, query.getTotalWeight(), epsilon);
@@ -77,6 +81,18 @@ public class DynamicActionRangeMapTest extends TestBase {
     @Test
     public void selectGetsTarget() throws Exception {
         doTargetCheck(query, a1, 5, a2, 10);
+    }
+
+    private void doTargetCheck(DynamicActionRangeMap target,
+                               Action aa1, long n1, Action aa2, long n2) {
+        Map<Action, Long> resultCount = IntStream.range(0, 15)
+            .boxed()
+            .map(k -> k / 10.0)
+            .map(x -> target.selectTarget(x))
+            .collect(groupingBy(x -> x, counting()));
+
+        assertEquals(n1, resultCount.get(aa1).longValue());
+        assertEquals(n2, resultCount.get(aa2).longValue());
     }
 
     @Test
@@ -96,24 +112,5 @@ public class DynamicActionRangeMapTest extends TestBase {
         DynamicActionRangeMap cloned = query.clone(child);
         cloned.refresh();
         doTargetCheck(cloned, ca1, 3, ca2, 12);
-    }
-
-
-    private void doTargetCheck(DynamicActionRangeMap target,
-                               Action aa1, long n1, Action aa2, long n2) {
-        Map<Action, Long> resultCount = IntStream.range(0, 15)
-                .boxed()
-                .map(k -> k / 10.0)
-                .map(x -> target.selectTarget(x))
-                .collect(groupingBy(x -> x, counting()));
-
-        assertEquals(n1, resultCount.get(aa1).longValue());
-        assertEquals(n2, resultCount.get(aa2).longValue());
-    }
-
-    private ProbabilitySupplier mockProbabilitySupplier(double p) {
-        ProbabilitySupplier ret = mock(ProbabilitySupplier.class);
-        when(ret.get()).thenReturn(p);
-        return ret;
     }
 }

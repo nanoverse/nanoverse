@@ -36,8 +36,8 @@ public class AgentLayerInstSymbolTable extends LayerInstSymbolTable<CellLayer> {
     @Override
     public String getDescription() {
         return "An nanoverse.runtime.agent layer contains a collection of agents, each of " +
-                "which occupies a discrete location on the lattice and can " +
-                "respond to the conditions in its local neighborhood.";
+            "which occupies a discrete location on the lattice and can " +
+            "respond to the conditions in its local neighborhood.";
     }
 
     @Override

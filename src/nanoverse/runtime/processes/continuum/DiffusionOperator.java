@@ -52,20 +52,20 @@ public class DiffusionOperator extends CompDiagMatrix {
         int n = sites.length;
         Function<Coordinate, Integer> indexer = geometry.getIndexer();
         IntStream.range(0, n)
-                .boxed()
-                .forEach(j -> {
-                    Coordinate coord = sites[j];
+            .boxed()
+            .forEach(j -> {
+                Coordinate coord = sites[j];
 
-                    // Set the diagonal value
-                    add(j, j, helper.getDiagonalValue());
+                // Set the diagonal value
+                add(j, j, helper.getDiagonalValue());
 
-                    // Set each neighbor. For reflecting boundary conditions, one or
-                    // more neighbors may be the diagonal.
-                    Arrays.asList(geometry.getNeighbors(coord, Geometry.APPLY_BOUNDARIES))
-                            .stream()
-                            .map(indexer)
-                            .forEach(i -> add(i, j, helper.getNeighborValue()));
+                // Set each neighbor. For reflecting boundary conditions, one or
+                // more neighbors may be the diagonal.
+                Arrays.asList(geometry.getNeighbors(coord, Geometry.APPLY_BOUNDARIES))
+                    .stream()
+                    .map(indexer)
+                    .forEach(i -> add(i, j, helper.getNeighborValue()));
 
-                });
+            });
     }
 }

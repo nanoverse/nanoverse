@@ -23,8 +23,8 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.control.arguments;
 
-import nanoverse.runtime.control.arguments.ConstantDouble;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.control.arguments.ConstantDouble;
 
 public class ConstantDoubleFactory implements Factory<ConstantDouble> {
 

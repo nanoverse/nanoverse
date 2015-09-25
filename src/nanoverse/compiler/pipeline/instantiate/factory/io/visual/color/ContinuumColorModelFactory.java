@@ -23,10 +23,9 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color;
 
-import nanoverse.runtime.io.visual.color.ColorManager;
-import nanoverse.runtime.io.visual.color.NormalizedContinuumColorManager;
-import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.control.arguments.DoubleArgument;
+import nanoverse.runtime.io.visual.color.*;
 
 public class ContinuumColorModelFactory implements Factory<NormalizedContinuumColorManager> {
 

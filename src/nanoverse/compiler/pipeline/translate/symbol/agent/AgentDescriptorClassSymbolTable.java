@@ -38,7 +38,7 @@ public class AgentDescriptorClassSymbolTable extends ClassSymbolTable<CellDescri
     @Override
     public String getDescription() {
         return "AgentDescriptor describes the properties of a class of agents," +
-                " such as behaviors and internal state.";
+            " such as behaviors and internal state.";
     }
 
     @Override
