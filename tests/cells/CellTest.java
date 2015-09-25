@@ -25,12 +25,12 @@
 package cells;
 
 import org.junit.Test;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 /**
  * Created by dbborens on 1/2/14.
  */
-public abstract class CellTest extends EslimeTestCase {
+public abstract class CellTest extends LegacyTest {
 
     @Test
     public abstract void testGetState() throws Exception;

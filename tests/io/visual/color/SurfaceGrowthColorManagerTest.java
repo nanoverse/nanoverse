@@ -36,12 +36,13 @@ import io.visual.HSLColor;
 import layers.*;
 import layers.cell.CellLayer;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.awt.*;
 
 import static org.junit.Assert.assertEquals;
-public class SurfaceGrowthColorManagerTest extends EslimeTestCase {
+
+public class SurfaceGrowthColorManagerTest extends LegacyTest {
 
     private MockSystemState systemState;
     private SurfaceGrowthColorManager query;

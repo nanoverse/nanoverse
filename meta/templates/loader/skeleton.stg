@@ -16,7 +16,7 @@ doImport(class) ::= "import $class.canonicalName$;$\n$"
 mLoader(member) ::= <<
 
     public void $member$(MapObjectNode node) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 >>
 

@@ -25,11 +25,11 @@
 package control.halt;
 
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class BoundaryReachedEventTest extends EslimeTestCase {
+public class BoundaryReachedEventTest extends LegacyTest {
     private BoundaryReachedEvent query;
 
     @Before

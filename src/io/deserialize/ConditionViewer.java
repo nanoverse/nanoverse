@@ -25,8 +25,7 @@
 package io.deserialize;
 
 import control.identifiers.Coordinate;
-import structural.utilities.VectorViewer;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import structural.NotYetImplementedException;
 
 import java.util.HashSet;
 
@@ -60,7 +59,7 @@ public class ConditionViewer {
     }
 
     public double getHealth(Coordinate c) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
 //        int i = deindexer.getIndex(c);
 //        return f.get(i);
     }

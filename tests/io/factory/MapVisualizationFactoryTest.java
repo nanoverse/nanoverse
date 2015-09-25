@@ -33,13 +33,13 @@ import io.visual.map.MapVisualization;
 import org.dom4j.Element;
 import org.junit.*;
 import structural.MockGeneralParameters;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/3/14.
  */
-public class MapVisualizationFactoryTest extends EslimeLatticeTestCase {
+public class MapVisualizationFactoryTest extends LegacyLatticeTest {
     private Element root;
     private MockGeneralParameters p;
 

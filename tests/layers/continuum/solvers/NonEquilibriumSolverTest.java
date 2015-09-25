@@ -24,16 +24,12 @@
 
 package layers.continuum.solvers;
 
-import layers.continuum.ContinuumLayerContent;
-import layers.continuum.ScheduledOperations;
-import no.uib.cipr.matrix.DenseVector;
-import no.uib.cipr.matrix.Vector;
+import layers.continuum.*;
+import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.mockito.ArgumentCaptor;
 import structural.utilities.MatrixUtils;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import test.TestBase;
 
 import java.util.stream.IntStream;
@@ -76,14 +72,6 @@ public class NonEquilibriumSolverTest extends TestBase {
                 .boxed()
                 .forEach(i -> vector.set(i, i * 1.0));
         return vector;
-    }
-
-    @Test(expected = NotImplementedException.class)
-    public void nontrivialMatrixThrows() throws Exception {
-        // It's probably best not to have to cast this, but
-        // we shouldn't need to do operations like this normally...
-        operator = (CompDiagMatrix) operator.scale(2.0);
-        query.solve();
     }
 
     @Test

@@ -33,10 +33,11 @@ import geometry.shape.*;
 import layers.cell.CellLayer;
 import org.dom4j.Element;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class AgentLayerFactoryTest extends EslimeTestCase {
+
+public class AgentLayerFactoryTest extends LegacyTest {
 
     private Element fixtureRoot;
     private GeometryDescriptor descriptor;

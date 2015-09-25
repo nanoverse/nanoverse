@@ -28,11 +28,11 @@ import control.identifiers.*;
 import geometry.boundaries.helpers.PlaneRingHelper;
 import geometry.lattice.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class PlaneRingHelperTest extends EslimeTestCase {
+public class PlaneRingHelperTest extends LegacyTest {
 
     private PlaneRingHelper helper;
 

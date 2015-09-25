@@ -34,10 +34,11 @@ import layers.LayerManager;
 import layers.cell.CellLayer;
 import org.dom4j.Element;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class LayerManagerFactoryTest extends EslimeTestCase {
+
+public class LayerManagerFactoryTest extends LegacyTest {
     private Element root;
     private GeometryDescriptor geometryDescriptor;
 

@@ -27,9 +27,9 @@ package processes.discrete;
 import control.arguments.*;
 import geometry.set.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
-public class CellProcessArgumentsTest extends EslimeTestCase {
+public class CellProcessArgumentsTest extends LegacyTest {
 
     private CoordinateSet activeSites;
     private IntegerArgument maxTargets;

@@ -36,7 +36,7 @@ import java.util.stream.*;
 /**
  * Created by dbborens on 3/28/14.
  */
-public class HighlightWriterTest extends EslimeLatticeTestCase {
+public class HighlightWriterTest extends LegacyLatticeTest {
 
     private List<Integer> channels = Stream.of(0, 7).collect(Collectors.toList());
 

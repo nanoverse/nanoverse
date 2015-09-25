@@ -25,12 +25,12 @@
 package io.deserialize;
 
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 /**
  * Created by dbborens on 3/28/14.
  */
-public class TimeReaderTest extends EslimeTestCase {
+public class TimeReaderTest extends LegacyTest {
 
     private TimeReader query;
 

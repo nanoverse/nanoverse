@@ -25,12 +25,12 @@
 package layers;
 
 import org.junit.Test;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 /**
  * Created by David B Borenstein on 3/23/14.
  */
-public abstract class SystemStateTest extends EslimeTestCase {
+public abstract class SystemStateTest extends LegacyTest {
 //    public abstract void testGetHealth() throws Exception;
 
     @Test

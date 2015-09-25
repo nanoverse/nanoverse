@@ -34,7 +34,7 @@ import layers.cell.*;
 import org.junit.*;
 import processes.StepState;
 import processes.discrete.filter.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -43,7 +43,7 @@ import static org.junit.Assert.*;
 /**
  * Created by dbborens on 2/11/14.
  */
-public class TriggerTest extends EslimeTestCase {
+public class TriggerTest extends LegacyTest {
 
     private Action query;
     private MockCell causeCell, effectCell;

@@ -27,7 +27,7 @@ package cells;
 import agent.control.MockBehaviorDispatcher;
 import control.identifiers.*;
 import org.junit.*;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import java.util.function.Supplier;
 
@@ -36,7 +36,7 @@ import static org.mockito.Mockito.*;
 /**
  * Created by David B Borenstein on 1/25/14.
  */
-public class BehaviorCellTest extends EslimeLatticeTestCase {
+public class BehaviorCellTest extends LegacyLatticeTest {
 
     private BehaviorCell query;
     private MockBehaviorDispatcher dispatcher;

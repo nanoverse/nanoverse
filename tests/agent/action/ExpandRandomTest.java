@@ -36,7 +36,7 @@ import layers.MockLayerManager;
 import layers.cell.CellLayer;
 import org.junit.*;
 import structural.MockRandom;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.ArrayList;
 import java.util.function.Supplier;
@@ -46,7 +46,7 @@ import static org.mockito.Mockito.*;
 /**
  * Created by annie on 3/3/15.
  */
-public class ExpandRandomTest extends EslimeTestCase {
+public class ExpandRandomTest extends LegacyTest {
 
     private MockLayerManager layerManager;
     private BehaviorCell parent;

@@ -28,7 +28,7 @@ import compiler.pipeline.interpret.nanosyntax.*;
 import compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.BoolPrimitiveContext;
 import compiler.pipeline.interpret.nodes.ASTNode;
 import org.antlr.v4.runtime.misc.NotNull;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import structural.NotYetImplementedException;
 
 /**
  * Rejects any visit that is not explicitly overridden. This prevents my custom
@@ -39,56 +39,56 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public class RejectingVisitor extends NanosyntaxBaseVisitor<ASTNode> {
     @Override
     public ASTNode visitRoot(@NotNull NanosyntaxParser.RootContext ctx) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 
     @Override
     public ASTNode visitStatement(@NotNull NanosyntaxParser.StatementContext ctx) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 
     @Override
     public ASTNode visitAssignment(@NotNull NanosyntaxParser.AssignmentContext ctx) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 
     @Override
     public ASTNode visitBlock(@NotNull NanosyntaxParser.BlockContext ctx) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 
     @Override
     public ASTNode visitSingleton(@NotNull NanosyntaxParser.SingletonContext ctx) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 
     @Override
     public ASTNode visitId(@NotNull NanosyntaxParser.IdContext ctx) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 
     @Override
     public ASTNode visitPrimitive(@NotNull NanosyntaxParser.PrimitiveContext ctx) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 
     @Override
     public ASTNode visitStringPrimitive(@NotNull NanosyntaxParser.StringPrimitiveContext ctx) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 
     @Override
     public ASTNode visitFloatPrimitive(@NotNull NanosyntaxParser.FloatPrimitiveContext ctx) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 
     @Override
     public ASTNode visitIntPrimitive(@NotNull NanosyntaxParser.IntPrimitiveContext ctx) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 
     @Override
     public ASTNode visitBoolPrimitive(@NotNull BoolPrimitiveContext ctx) {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 }

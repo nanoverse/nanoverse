@@ -38,13 +38,13 @@ import org.junit.*;
 import processes.*;
 import processes.gillespie.GillespieState;
 import structural.MockGeneralParameters;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 /**
  * Created by dbborens on 4/21/14.
  */
-public class OccupiedNeighborSwapTest extends EslimeTestCase {
+public class OccupiedNeighborSwapTest extends LegacyTest {
 
     private OccupiedNeighborSwap query;
     private MockLayerManager layerManager;

@@ -25,10 +25,9 @@
 package layers.continuum.solvers;
 
 import layers.continuum.*;
-import no.uib.cipr.matrix.*;
+import no.uib.cipr.matrix.Vector;
+import structural.NotYetImplementedException;
 import structural.annotations.FactoryTarget;
-import structural.utilities.MatrixUtils;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Created by dbborens on 6/3/2015.
@@ -40,7 +39,7 @@ public class NonEquilibriumSolver extends ContinuumSolver {
     public NonEquilibriumSolver(ContinuumLayerContent content, ScheduledOperations so) {
         super(content, so);
         if (so.isOperators()) {
-            throw new NotImplementedException();
+            throw new NotYetImplementedException();
         }
     }
 

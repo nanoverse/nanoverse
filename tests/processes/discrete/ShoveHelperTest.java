@@ -34,12 +34,13 @@ import layers.MockLayerManager;
 import layers.cell.CellLayer;
 import org.junit.*;
 import structural.MockRandom;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
-public class ShoveHelperTest extends EslimeTestCase {
+
+public class ShoveHelperTest extends LegacyTest {
 
     private CellLayer layer;
     private ShoveHelper query;

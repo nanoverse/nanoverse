@@ -38,10 +38,11 @@ import org.junit.*;
 import processes.*;
 import processes.discrete.check.CheckForThresholdOccupancy;
 import structural.MockGeneralParameters;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class CheckForThresholdOccupancyTest extends EslimeTestCase {
+
+public class CheckForThresholdOccupancyTest extends LegacyTest {
 
     private MockLayerManager layerManager;
     private CellLayer layer;

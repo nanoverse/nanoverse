@@ -29,11 +29,11 @@ import geometry.lattice.*;
 import geometry.shape.*;
 import io.visual.VisualizationProperties;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 
-public class CubePixelTranslatorTest extends EslimeTestCase {
+public class CubePixelTranslatorTest extends LegacyTest {
     private CubePixelTranslator query;
     private Coordinate c0, c1;
 

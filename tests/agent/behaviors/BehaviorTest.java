@@ -30,13 +30,13 @@ import control.halt.HaltCondition;
 import control.identifiers.*;
 import layers.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 1/21/14.
  */
-public class BehaviorTest extends EslimeTestCase {
+public class BehaviorTest extends LegacyTest {
    /*
     * NOTE: As of 3/6/2014, these tests are nearly identical
     * to those of the parent class, CompoundAction. This is

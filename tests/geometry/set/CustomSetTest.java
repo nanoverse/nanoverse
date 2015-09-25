@@ -31,7 +31,7 @@ import geometry.boundaries.*;
 import geometry.lattice.*;
 import geometry.shape.*;
 import org.junit.Test;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 /**
@@ -41,7 +41,7 @@ import static org.junit.Assert.*;
  *
  * @throws Exception
  */
-public class CustomSetTest extends EslimeTestCase {
+public class CustomSetTest extends LegacyTest {
 
     @Test
     public void testLifeCycle() throws Exception {

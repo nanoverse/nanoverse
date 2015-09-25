@@ -48,7 +48,7 @@ import java.util.*;
  * Test to make sure that multi-channel highlighting works as expected.
  * Created by dbborens on 4/3/14.
  */
-public class MultiChannelHighlightTest extends EslimeTestCase {
+public class MultiChannelHighlightTest extends LegacyTest {
 
     protected SystemState systemState;
     Geometry geometry;

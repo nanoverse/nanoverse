@@ -29,17 +29,13 @@ import geometry.MockGeometry;
 import structural.utilities.PrimitiveSerializer;
 import test.*;
 
-import java.io.BufferedOutputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 /**
  * Created by David B Borenstein on 3/25/14.
  */
-public class PrimitiveSerializerTest extends EslimeTestCase {
+public class PrimitiveSerializerTest extends LegacyTest {
     public void testWriteDoubleVector() throws Exception {
         DataOutputStream output = makeOutput("doubleListVector.bin");
         List<Double> test = new ArrayList<>(5);
@@ -52,6 +48,15 @@ public class PrimitiveSerializerTest extends EslimeTestCase {
         output.close();
         FileAssertions.assertOutputMatchesFixture("doubleVector.bin", "doubleListVector.bin", false);
 //        assertBinaryFilesEqual("doubleVector.bin", "doubleListVector.bin");
+    }
+
+    private DataOutputStream makeOutput(String filename) throws Exception {
+        String fullName = this.outputPath + filename;
+        File file = new File(fullName);
+        FileOutputStream fileOutputStream = new FileOutputStream(file);
+        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
+        DataOutputStream output = new DataOutputStream(bufferedOutputStream);
+        return output;
     }
 
     public void testWriteDoubleVector1() throws Exception {
@@ -89,15 +94,6 @@ public class PrimitiveSerializerTest extends EslimeTestCase {
         output.close();
         FileAssertions.assertOutputMatchesFixture("booleanVector.bin", false);
 //        assertBinaryFilesEqual("booleanVector.bin");
-    }
-
-    private DataOutputStream makeOutput(String filename) throws Exception {
-        String fullName = this.outputPath + filename;
-        File file = new File(fullName);
-        FileOutputStream fileOutputStream = new FileOutputStream(file);
-        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
-        DataOutputStream output = new DataOutputStream(bufferedOutputStream);
-        return output;
     }
 
     public void testWriteCoercedCoordinateVector() throws Exception {

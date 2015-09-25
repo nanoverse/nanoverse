@@ -27,10 +27,11 @@ package io.visual.map;
 import control.identifiers.*;
 import io.visual.VisualizationProperties;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class RectPixelTranslatorTest extends EslimeTestCase {
+
+public class RectPixelTranslatorTest extends LegacyTest {
     private RectPixelTranslator query;
     private Coordinate c0, c1;
 

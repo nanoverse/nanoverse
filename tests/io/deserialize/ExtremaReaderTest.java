@@ -26,7 +26,7 @@ package io.deserialize;
 
 import control.identifiers.*;
 import org.junit.Test;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.io.File;
 
@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 12/11/13.
  */
-public class ExtremaReaderTest extends EslimeTestCase {
+public class ExtremaReaderTest extends LegacyTest {
     /**
      * Read from a fixture file containing a single extreme value pair.
      *

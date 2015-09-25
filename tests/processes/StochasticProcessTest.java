@@ -29,7 +29,7 @@ import control.arguments.*;
 import control.halt.HaltCondition;
 import org.junit.Test;
 import processes.gillespie.GillespieState;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 /**
@@ -38,7 +38,7 @@ import static org.junit.Assert.assertEquals;
  * <p>
  * Created by dbborens on 5/1/14.
  */
-public class StochasticProcessTest extends EslimeTestCase {
+public class StochasticProcessTest extends LegacyTest {
 
 
     @Test

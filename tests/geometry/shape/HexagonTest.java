@@ -29,11 +29,11 @@ import geometry.Geometry;
 import geometry.boundaries.*;
 import geometry.lattice.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class HexagonTest extends EslimeTestCase {
+public class HexagonTest extends LegacyTest {
 
     private Hexagon hex;
     private Lattice lattice;

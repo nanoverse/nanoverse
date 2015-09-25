@@ -28,7 +28,7 @@ import control.arguments.*;
 import factory.control.arguments.DoubleArgumentFactory;
 import org.dom4j.Element;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.Random;
 
@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 4/7/14.
  */
-public class DoubleArgumentFactoryTest extends EslimeTestCase {
+public class DoubleArgumentFactoryTest extends LegacyTest {
     private Element root;
     private Random random;
 

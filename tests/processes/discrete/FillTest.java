@@ -37,10 +37,11 @@ import layers.MockLayerManager;
 import layers.cell.CellLayer;
 import org.junit.*;
 import processes.BaseProcessArguments;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
-public class FillTest extends EslimeTestCase {
+
+public class FillTest extends LegacyTest {
 
     private Geometry geom;
     private MockLayerManager lm;

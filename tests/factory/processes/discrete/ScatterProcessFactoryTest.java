@@ -39,10 +39,11 @@ import org.dom4j.Element;
 import org.junit.*;
 import processes.BaseProcessArguments;
 import processes.discrete.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class ScatterProcessFactoryTest extends EslimeTestCase {
+
+public class ScatterProcessFactoryTest extends LegacyTest {
 
     private GeneralParameters p;
     private Element root;

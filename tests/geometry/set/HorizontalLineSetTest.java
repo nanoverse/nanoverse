@@ -5,28 +5,19 @@
 
 package geometry.set;
 
-import control.identifiers.Coordinate;
-import control.identifiers.Coordinate2D;
-import control.identifiers.Coordinate3D;
+import control.identifiers.*;
 import geometry.Geometry;
-import geometry.boundaries.Absorbing;
-import geometry.boundaries.Boundary;
-import geometry.lattice.Lattice;
-import geometry.lattice.RectangularLattice;
-import geometry.lattice.TriangularLattice;
-import geometry.shape.Rectangle;
-import geometry.shape.Shape;
-import org.junit.Before;
-import org.junit.Test;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import geometry.boundaries.*;
+import geometry.lattice.*;
+import geometry.shape.*;
+import org.junit.*;
+import structural.NotYetImplementedException;
 import test.TestBase;
 
-import java.util.Arrays;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class HorizontalLineSetTest extends TestBase {
 
@@ -46,6 +37,23 @@ public class HorizontalLineSetTest extends TestBase {
                 new Coordinate2D(2, 0, 0)
         };
         doTest(lattice, expected);
+    }
+
+    private void doTest(Lattice lattice, Coordinate[] expectedArr) {
+        doTestWithLength(lattice, expectedArr, 3);
+    }
+
+    private void doTestWithLength(Lattice lattice, Coordinate[] expectedArr, int length) {
+        Shape shape = new Rectangle(lattice, 10, 10);
+        Boundary boundary = new Absorbing(shape, lattice);
+        Geometry geom = new Geometry(lattice, shape, boundary);
+        HorizontalLineSet actual = new HorizontalLineSet(geom, start, length);
+        Set<Coordinate> expected = Arrays
+            .asList(expectedArr)
+            .stream()
+            .collect(Collectors.toSet());
+
+        assertCollectionsEqual(expected, actual);
     }
 
     @Test
@@ -78,14 +86,14 @@ public class HorizontalLineSetTest extends TestBase {
         doTestWithLength(lattice, expected, 0);
     }
 
-    @Test(expected = NotImplementedException.class)
+    @Test(expected = NotYetImplementedException.class)
     public void geom1Dthrows() throws Exception {
         Geometry geom = mock(Geometry.class);
         when(geom.getDimensionality()).thenReturn(1);
         new HorizontalLineSet(geom, start, 3);
     }
 
-    @Test(expected = NotImplementedException.class)
+    @Test(expected = NotYetImplementedException.class)
     public void geom3Dthrows() throws Exception {
         Geometry geom = mock(Geometry.class);
         when(geom.getDimensionality()).thenReturn(3);
@@ -93,27 +101,10 @@ public class HorizontalLineSetTest extends TestBase {
         new HorizontalLineSet(geom, start, 3);
     }
 
-    @Test(expected = NotImplementedException.class)
+    @Test(expected = NotYetImplementedException.class)
     public void negativeLengthThrows() throws Exception {
         Geometry geom = mock(Geometry.class);
         when(geom.getDimensionality()).thenReturn(2);
         new HorizontalLineSet(geom, start, -1);
-    }
-
-    private void doTest(Lattice lattice, Coordinate[] expectedArr) {
-        doTestWithLength(lattice, expectedArr, 3);
-    }
-
-    private void doTestWithLength(Lattice lattice, Coordinate[] expectedArr, int length) {
-        Shape shape = new Rectangle(lattice, 10, 10);
-        Boundary boundary = new Absorbing(shape, lattice);
-        Geometry geom = new Geometry(lattice, shape, boundary);
-        HorizontalLineSet actual = new HorizontalLineSet(geom, start, length);
-        Set<Coordinate> expected = Arrays
-                .asList(expectedArr)
-                .stream()
-                .collect(Collectors.toSet());
-
-        assertCollectionsEqual(expected, actual);
     }
 }

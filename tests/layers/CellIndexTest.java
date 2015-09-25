@@ -27,10 +27,11 @@ package layers;
 import control.identifiers.*;
 import layers.cell.CellIndex;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
-public class CellIndexTest extends EslimeTestCase {
+
+public class CellIndexTest extends LegacyTest {
 
     private Coordinate p, q;
     private CellIndex index;

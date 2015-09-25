@@ -29,7 +29,7 @@ import geometry.boundaries.helpers.WrapHelper2D;
 import geometry.lattice.*;
 import geometry.shape.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 /**
@@ -37,7 +37,7 @@ import static org.junit.Assert.*;
  * the 2D wrap helper and a triangular lattice
  * with even width.
  */
-public class WrapHelper2DTriTest extends EslimeTestCase {
+public class WrapHelper2DTriTest extends LegacyTest {
 
     private WrapHelper2D query;
 

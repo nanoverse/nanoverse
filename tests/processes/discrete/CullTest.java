@@ -27,13 +27,13 @@ package processes.discrete;
 import cells.MockCell;
 import org.junit.*;
 import processes.*;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import static org.junit.Assert.*;
 /**
  * Created by dbborens on 3/5/14.
  */
-public class CullTest extends EslimeLatticeTestCase {
+public class CullTest extends LegacyLatticeTest {
 
     private final double THRESHOLD = 0.5;
 

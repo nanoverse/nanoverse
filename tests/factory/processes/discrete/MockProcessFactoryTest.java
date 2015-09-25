@@ -28,10 +28,11 @@ import control.GeneralParameters;
 import org.dom4j.Element;
 import org.junit.*;
 import processes.*;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import static org.junit.Assert.assertEquals;
-public class MockProcessFactoryTest extends EslimeLatticeTestCase {
+
+public class MockProcessFactoryTest extends LegacyLatticeTest {
 
     private GeneralParameters p;
     private Element root;

@@ -28,10 +28,11 @@ import control.GeneralParameters;
 import control.arguments.*;
 import org.dom4j.Element;
 import org.junit.*;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import static org.junit.Assert.assertEquals;
-public class CellDescriptorFactoryTest extends EslimeLatticeTestCase {
+
+public class CellDescriptorFactoryTest extends LegacyLatticeTest {
 
     private Element root;
     private GeneralParameters p;

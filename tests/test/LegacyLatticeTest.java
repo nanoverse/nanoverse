@@ -37,7 +37,7 @@ import org.junit.Before;
  * <p>
  * Created by dbborens on 2/21/14.
  */
-public abstract class EslimeLatticeTestCase extends EslimeTestCase {
+public abstract class LegacyLatticeTest extends LegacyTest {
 
     protected MockGeometry geom;
     protected MockLayerManager layerManager;

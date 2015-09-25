@@ -26,7 +26,7 @@ package io.deserialize;
 
 import control.identifiers.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 12/10/13.
  */
-public class CoordinateDeindexerTest extends EslimeTestCase {
+public class CoordinateDeindexerTest extends LegacyTest {
 
     private ExposedDeindexer query;
 

@@ -36,7 +36,7 @@ import test.*;
 /**
  * Created by dbborens on 4/28/14.
  */
-public class CensusWriterTest extends EslimeLatticeTestCase {
+public class CensusWriterTest extends LegacyLatticeTest {
     private MockGeneralParameters p;
     private CensusWriter writer;
     private ManualHaltEvent haltEvent;

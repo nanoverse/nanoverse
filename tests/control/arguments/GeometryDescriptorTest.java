@@ -29,11 +29,11 @@ import geometry.boundaries.*;
 import geometry.lattice.*;
 import geometry.shape.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 
-public class GeometryDescriptorTest extends EslimeTestCase {
+public class GeometryDescriptorTest extends LegacyTest {
 
     private Lattice lattice;
     private Shape shape;

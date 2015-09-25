@@ -24,14 +24,11 @@
 
 package structural.utilities;
 
-import org.junit.*;
-import org.mockito.InOrder;
-import test.EslimeTestCase;
+import org.junit.Test;
 
 import java.io.*;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class ParityIOTest {
 

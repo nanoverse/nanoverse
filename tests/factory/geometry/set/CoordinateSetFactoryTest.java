@@ -34,11 +34,11 @@ import geometry.shape.*;
 import org.dom4j.Element;
 import org.junit.*;
 import structural.MockGeneralParameters;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class CoordinateSetFactoryTest extends EslimeTestCase {
+public class CoordinateSetFactoryTest extends LegacyTest {
 
     private Element root;
     private Geometry g;

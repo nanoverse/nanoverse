@@ -30,11 +30,11 @@ import geometry.lattice.*;
 import geometry.shape.*;
 import org.dom4j.Element;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class BoundaryFactoryTest extends EslimeTestCase {
+public class BoundaryFactoryTest extends LegacyTest {
 
     private Element root;
     private GeometryDescriptor geometryDescriptor;

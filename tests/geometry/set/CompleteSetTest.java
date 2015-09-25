@@ -30,11 +30,11 @@ import geometry.boundaries.*;
 import geometry.lattice.*;
 import geometry.shape.*;
 import org.junit.Test;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class CompleteSetTest extends EslimeTestCase {
+public class CompleteSetTest extends LegacyTest {
 
     @Test
     public void test1D() {

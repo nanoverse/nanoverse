@@ -34,7 +34,7 @@ import processes.BaseProcessArguments;
 import processes.discrete.filter.NullFilter;
 import processes.gillespie.GillespieState;
 import structural.MockGeneralParameters;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 /**
@@ -45,7 +45,7 @@ import static org.junit.Assert.*;
  * <p>
  * Created by David B Borenstein on 2/18/14.
  */
-public class TriggerProcessTest extends EslimeTestCase {
+public class TriggerProcessTest extends LegacyTest {
 
     private TriggerProcess trigger;
     private CellLayer layer;

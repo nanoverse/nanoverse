@@ -42,7 +42,7 @@ import test.*;
 /**
  * Created by dbborens on 4/28/14.
  */
-public class InterfaceCensusWriterTest extends EslimeTestCase {
+public class InterfaceCensusWriterTest extends LegacyTest {
     private CellLayer cellLayer;
     private MockLayerManager layerManager;
 

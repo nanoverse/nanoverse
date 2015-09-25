@@ -29,12 +29,13 @@ import control.arguments.ConstantInteger;
 import control.identifiers.Coordinate;
 import layers.cell.CellUpdateManager;
 import org.junit.*;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import java.util.*;
 
 import static org.junit.Assert.assertTrue;
-public class CellStateFilterTest extends EslimeLatticeTestCase {
+
+public class CellStateFilterTest extends LegacyLatticeTest {
     private Cell yes, no;
     private CellStateFilter query;
 

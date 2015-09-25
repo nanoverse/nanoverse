@@ -25,13 +25,9 @@
 package cells;
 
 import control.identifiers.Coordinate;
-import layers.continuum.Reaction;
-import layers.continuum.ContinuumAgentLinker;
-import layers.continuum.RelationshipTuple;
+import layers.continuum.*;
 
-import java.util.HashSet;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 import java.util.stream.Stream;
 
 /**
@@ -46,36 +42,33 @@ import java.util.stream.Stream;
  */
 public class AgentContinuumManager {
 
-    private RemoverIndex index;
-    private BehaviorCell cell;
-    private Supplier<Coordinate> locator;
-    private Function<String, ContinuumAgentLinker> linkerLookup;
-    private HashSet<String> reactionIds;
+    private final AgentReactionIndex index;
+    private final RelationshipResolver resolver;
+    private final Function<String, ContinuumAgentLinker> layerResolver;
 
     public AgentContinuumManager(BehaviorCell cell,
-                                 RemoverIndex index,
                                  Supplier<Coordinate> locator,
-                                 Function<String, ContinuumAgentLinker> linkerLookup) {
+                                 Function<String, ContinuumAgentLinker> layerResolver) {
+
+        index = new AgentReactionIndex(cell);
+        resolver = new RelationshipResolver(locator);
+        this.layerResolver = layerResolver;
+    }
+
+    public AgentContinuumManager(AgentReactionIndex index,
+                                 RelationshipResolver resolver,
+                                 Function<String, ContinuumAgentLinker> layerResolver) {
 
         this.index = index;
-        this.cell = cell;
-        this.locator = locator;
-        this.linkerLookup = linkerLookup;
-        reactionIds = new HashSet<>();
+        this.resolver = resolver;
+        this.layerResolver = layerResolver;
     }
 
     public void schedule(Reaction reaction) {
         String id = reaction.getId();
-        ContinuumAgentLinker linker = linkerLookup.apply(id);
-        Supplier<RelationshipTuple> supplier = () -> getRelationshipTuple(reaction);
-        linker.getNotifier().add(cell, supplier);
-        index.add(() -> linker.getNotifier().remove(cell));
-        reactionIds.add(id);
-    }
-
-    private RelationshipTuple getRelationshipTuple(Reaction reaction) {
-        Coordinate c = locator.get();
-        return new RelationshipTuple(c, reaction);
+        ContinuumAgentLinker linker = layerResolver.apply(id);
+        Supplier<RelationshipTuple> supplier = resolver.resolve(reaction);
+        index.schedule(linker, supplier, id);
     }
 
     public void removeFromAll() {
@@ -83,6 +76,6 @@ public class AgentContinuumManager {
     }
 
     public Stream<String> getReactionIds() {
-        return reactionIds.stream();
+        return index.getReactionIds();
     }
 }

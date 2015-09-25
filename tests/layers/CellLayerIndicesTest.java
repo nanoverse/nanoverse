@@ -29,10 +29,11 @@ import control.identifiers.*;
 import layers.cell.CellLayerIndices;
 import org.junit.*;
 import structural.CanonicalCellMap;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
-public class CellLayerIndicesTest extends EslimeTestCase {
+
+public class CellLayerIndicesTest extends LegacyTest {
 
     private Coordinate c;
     private CellLayerIndices query;

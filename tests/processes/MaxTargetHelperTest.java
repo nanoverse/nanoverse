@@ -25,7 +25,7 @@
 package processes;
 
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.*;
 
@@ -33,7 +33,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 3/7/14.
  */
-public class MaxTargetHelperTest extends EslimeTestCase {
+public class MaxTargetHelperTest extends LegacyTest {
     // Set of all outcomes
     private Object[] omega;
     private Random random;

@@ -37,13 +37,13 @@ import io.visual.map.MapVisualization;
 import org.dom4j.Element;
 import org.junit.*;
 import structural.MockGeneralParameters;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/3/14.
  */
-public class VisualizationFactoryTest extends EslimeTestCase {
+public class VisualizationFactoryTest extends LegacyTest {
     private double[] times;
     private int[] frames;
     private Element fixtureRoot;

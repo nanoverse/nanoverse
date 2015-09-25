@@ -42,7 +42,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
 
-public class KymographTest extends EslimeTestCase {
+public class KymographTest extends LegacyTest {
 
     @Test
     public void testWithOutline() throws Exception {

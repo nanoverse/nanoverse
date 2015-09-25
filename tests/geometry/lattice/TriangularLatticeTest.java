@@ -26,10 +26,11 @@ package geometry.lattice;
 
 import control.identifiers.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
-public class TriangularLatticeTest extends EslimeTestCase {
+
+public class TriangularLatticeTest extends LegacyTest {
 
     private Lattice lattice;
     private Coordinate o, p, q, r, s, t;

@@ -36,10 +36,11 @@ import layers.MockLayerManager;
 import layers.cell.CellLayer;
 import org.junit.*;
 import processes.BaseProcessArguments;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class ScatterTest extends EslimeTestCase {
+
+public class ScatterTest extends LegacyTest {
     private Geometry geom;
     private MockLayerManager lm;
     private GeneralParameters p;

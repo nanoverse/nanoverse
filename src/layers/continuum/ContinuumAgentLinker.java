@@ -24,10 +24,10 @@
 
 package layers.continuum;
 
+import cells.BehaviorCell;
 import control.identifiers.Coordinate;
 
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 /**
  * Created by dbborens on 12/31/14.
@@ -48,7 +48,12 @@ public class ContinuumAgentLinker {
         return stateLookup.apply(c.get());
     }
 
-    public ContinuumAgentNotifier getNotifier() {
-        return notifier;
+    public Runnable getRemover(BehaviorCell cell) {
+        Runnable remover = () -> notifier.remove(cell);
+        return remover;
+    }
+
+    public void add(BehaviorCell cell, Supplier<RelationshipTuple> tuple) {
+        notifier.add(cell, tuple);
     }
 }

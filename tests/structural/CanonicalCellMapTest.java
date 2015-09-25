@@ -27,13 +27,13 @@ package structural;
 import cells.MockCell;
 import control.identifiers.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 4/11/14.
  */
-public class CanonicalCellMapTest extends EslimeTestCase {
+public class CanonicalCellMapTest extends LegacyTest {
     private CanonicalCellMap query;
     private Coordinate c, nc, d;
     private MockCell cell;

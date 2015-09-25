@@ -32,7 +32,7 @@ import processes.*;
 import processes.discrete.*;
 import processes.temporal.Tick;
 import structural.MockGeneralParameters;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import java.util.*;
 
@@ -40,7 +40,7 @@ import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 1/7/14.
  */
-public class IntegratorTest extends EslimeLatticeTestCase {
+public class IntegratorTest extends LegacyLatticeTest {
 
     // Items used during construction
     private MockGeneralParameters p;

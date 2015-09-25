@@ -26,10 +26,11 @@ package geometry.lattice;
 
 import control.identifiers.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
-public class CubicLatticeTest extends EslimeTestCase {
+
+public class CubicLatticeTest extends LegacyTest {
     private Lattice lattice;
 
     @Before

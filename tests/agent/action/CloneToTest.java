@@ -34,14 +34,15 @@ import geometry.lattice.*;
 import geometry.shape.*;
 import layers.cell.CellLayer;
 import org.junit.*;
-import test.EslimeLatticeTestCase;
+import test.LegacyLatticeTest;
 
 import java.util.*;
 import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-public class CloneToTest extends EslimeLatticeTestCase {
+
+public class CloneToTest extends LegacyLatticeTest {
 
     private static final int MOCK_PROGENY_STATE = 7;
     private BehaviorCell original;

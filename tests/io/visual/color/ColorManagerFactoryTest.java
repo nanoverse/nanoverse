@@ -29,13 +29,13 @@ import factory.io.visual.color.*;
 import org.dom4j.Element;
 import org.junit.*;
 import structural.MockGeneralParameters;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 /**
  * Created by dbborens on 4/2/14.
  */
-public class ColorManagerFactoryTest extends EslimeTestCase {
+public class ColorManagerFactoryTest extends LegacyTest {
     private Element fixtureRoot;
     private MockGeneralParameters p;
 

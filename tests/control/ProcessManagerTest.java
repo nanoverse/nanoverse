@@ -28,7 +28,7 @@ import control.arguments.*;
 import layers.MockLayerManager;
 import org.junit.*;
 import processes.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -37,7 +37,7 @@ import static org.junit.Assert.*;
 /**
  * Created by David B Borenstein on 1/7/14.
  */
-public class ProcessManagerTest extends EslimeTestCase {
+public class ProcessManagerTest extends LegacyTest {
 
     private static final int CURRENT_N = 2;
     private static final double CURRENT_TIME = 1.7;

@@ -26,10 +26,11 @@ package processes;
 
 import org.junit.Test;
 import processes.gillespie.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
-public class GillespieTest extends EslimeTestCase {
+
+public class GillespieTest extends LegacyTest {
 
     /**
      * Test the GillespieState object.

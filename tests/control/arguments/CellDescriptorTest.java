@@ -27,25 +27,14 @@ package control.arguments;
 import agent.action.*;
 import cells.BehaviorCell;
 import control.identifiers.Coordinate;
-import layers.continuum.Reaction;
 import layers.LayerManager;
-import layers.cell.CellLayer;
-import layers.cell.CellLayerViewer;
-import layers.cell.CellLookupManager;
-import layers.cell.CellUpdateManager;
-import layers.continuum.ContinuumAgentLinker;
-import layers.continuum.ContinuumAgentNotifier;
-import layers.continuum.ContinuumLayer;
-import org.junit.Before;
-import org.junit.Test;
+import layers.cell.*;
+import layers.continuum.*;
+import org.junit.*;
 import test.TestBase;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.*;
+import java.util.stream.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -63,6 +52,12 @@ public class CellDescriptorTest extends TestBase {
     private Action behavior;
 
     private CellDescriptor query;
+
+    @Before
+    public void init() throws Exception {
+        initEverythingButReactions();
+        initReactions();
+    }
 
     private void initEverythingButReactions() {
         threshold = new ConstantDouble(0.5);
@@ -94,7 +89,6 @@ public class CellDescriptorTest extends TestBase {
         when(cellLayer.getUpdateManager()).thenReturn(mock(CellUpdateManager.class));
         ContinuumLayer continuumLayer = mock(ContinuumLayer.class);
         ContinuumAgentLinker linker = mock(ContinuumAgentLinker.class);
-        when(linker.getNotifier()).thenReturn(mock(ContinuumAgentNotifier.class));
         when(continuumLayer.getLinker()).thenReturn(linker);
         when(layerManager.getContinuumLayer(any())).thenReturn(continuumLayer);
 
@@ -114,12 +108,6 @@ public class CellDescriptorTest extends TestBase {
         when(reaction2.getId()).thenReturn("2");
         Stream<Reaction> reactions = Arrays.asList(new Reaction[]{reaction1, reaction2}).stream();
         query.setReactions(reactions);
-    }
-
-    @Before
-    public void init() throws Exception {
-        initEverythingButReactions();
-        initReactions();
     }
 
     @Test

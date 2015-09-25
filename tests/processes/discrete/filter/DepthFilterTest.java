@@ -31,13 +31,13 @@ import geometry.Geometry;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
 
-public class DepthFilterTest extends EslimeTestCase {
+public class DepthFilterTest extends LegacyTest {
 
 
     private Geometry geom;

@@ -25,11 +25,11 @@
 package control.halt;
 
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class HaltConditionTest extends EslimeTestCase {
+public class HaltConditionTest extends LegacyTest {
     private HaltCondition query;
 
     @Before

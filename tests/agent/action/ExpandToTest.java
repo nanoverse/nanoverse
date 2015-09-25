@@ -36,7 +36,7 @@ import layers.MockLayerManager;
 import layers.cell.CellLayer;
 import org.junit.*;
 import structural.MockRandom;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -47,7 +47,7 @@ import static org.mockito.Mockito.*;
  * Functional test for the ExpandTo action, which utilizes a path-of-least-
  * resistance preferential division algorithm.
  */
-public class ExpandToTest extends EslimeTestCase {
+public class ExpandToTest extends LegacyTest {
 
     private MockLayerManager layerManager;
     private BehaviorCell parent;

@@ -29,10 +29,11 @@ import control.identifiers.*;
 import geometry.MockGeometry;
 import layers.cell.*;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import static org.junit.Assert.*;
-public class CellLayerViewerTest extends EslimeTestCase {
+
+public class CellLayerViewerTest extends LegacyTest {
 
     CellLayerViewer query;
     MockCellLayerContent content;
@@ -130,15 +131,5 @@ public class CellLayerViewerTest extends EslimeTestCase {
         indices.setDivisibleSites(divisibleSites);
         assertTrue(query.isDivisible(c1));
         assertFalse(query.isDivisible(c2));
-    }
-
-    @Test
-    public void getStateVacant() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void getStateNonVacant() {
-        fail("Not yet implemented");
     }
 }

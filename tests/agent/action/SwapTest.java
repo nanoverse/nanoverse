@@ -35,13 +35,13 @@ import geometry.shape.*;
 import layers.MockLayerManager;
 import layers.cell.CellLayer;
 import org.junit.*;
-import test.EslimeTestCase;
+import test.LegacyTest;
 
 import java.util.*;
 
 import static org.junit.Assert.*;
 
-public class SwapTest extends EslimeTestCase {
+public class SwapTest extends LegacyTest {
 
     private MockLayerManager layerManager;
     private BehaviorCell parent;
