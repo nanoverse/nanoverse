@@ -1,7 +1,15 @@
-CC=icc
+UNAME := $(shell uname)
+ifeq ($(UNAME), Darwin)
 JAVA_HOME=$(shell /usr/libexec/java_home)
 INC = -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin \
 	-I$(JAVA_HOME)/include/linux -I include
+endif
+ifeq ($(UNAME), Linux)
+JAVA_HOME=$(shell export JAVA_HOME=$(dirname $(dirname $(readlink -e \
+		$(which javac)))))
+INC = -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux -I include
+endif
+
 CFLAGS=-Wall $(INC) -std=c99
 SRCDIR = src
 VPATH = $(SRCDIR)
