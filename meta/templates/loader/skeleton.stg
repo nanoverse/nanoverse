@@ -9,7 +9,7 @@ public class $displayName$Loader extends $loaderClass$ {
 }
 >>
 
-package(class) ::= "compiler.pipeline.instantiate.$class.package.name$"
+package(class) ::= "nanoverse.compiler.pipeline.instantiate.$class.package.name$"
 
 doImport(class) ::= "import $class.canonicalName$;$\n$"
 

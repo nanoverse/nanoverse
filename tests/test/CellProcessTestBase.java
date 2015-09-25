@@ -24,12 +24,12 @@
 
 package test;
 
-import control.identifiers.Coordinate;
-import geometry.set.*;
-import layers.LayerManager;
-import layers.cell.*;
-import processes.BaseProcessArguments;
-import processes.discrete.CellProcessArguments;
+import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.geometry.set.*;
+import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.layers.cell.*;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.CellProcessArguments;
 
 import java.util.stream.Stream;
 

@@ -2,7 +2,7 @@ apply plugin: 'application'
 apply plugin: 'idea'
 
 version = '1.6.13'
-mainClassName = 'control.run.ConsoleLauncher'
+mainClassName = 'nanoverse.runtime.control.run.ConsoleLauncher'
 
 // Run with command line argument "-PpetscDebug=true" to enable PETSc debugging
 ext.petscDebug = project.hasProperty('petscDebug') ?

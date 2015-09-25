@@ -24,12 +24,10 @@
 
 package loaders;
 
-import compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import factories.FactoryTargetHelper;
 import org.stringtemplate.v4.*;
 
-import java.lang.reflect.Constructor;
-import java.util.HashSet;
 import java.util.stream.*;
 
 /**
@@ -112,7 +110,7 @@ public class LoaderSkeletonGenerator {
 //    }
 //
 //    /**
-//     * Populate the set of distinct classes dealt with in this factory
+//     * Populate the set of distinct classes dealt with in this nanoverse.runtime.factory
 //     * (for import statement)
 //     */
 //    private void pTypes(ST template, Parameter[] cParams, Constructor constructor) {

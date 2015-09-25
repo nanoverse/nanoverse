@@ -24,16 +24,16 @@
 
 package test;
 
-import control.identifiers.Coordinate;
-import geometry.MockGeometry;
-import layers.MockLayerManager;
-import layers.cell.CellLayer;
+import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.geometry.MockGeometry;
+import nanoverse.runtime.layers.MockLayerManager;
+import nanoverse.runtime.layers.cell.CellLayer;
 import org.junit.Before;
 
 /**
  * Convenience class providing automatic mock infrastructure
  * for tests that require a cell layer. This includes all
- * cells and cell processes, for example.
+ * nanoverse.runtime.cells and cell nanoverse.runtime.processes, for example.
  * <p>
  * Created by dbborens on 2/21/14.
  */

@@ -24,7 +24,7 @@
 
 package factories;
 
-import structural.annotations.FactoryTarget;
+import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -36,9 +36,9 @@ import java.util.NoSuchElementException;
 public class FactoryTargetHelper {
 
     /**
-     * If the class has a constructor that is a factory target, returns that
+     * If the class has a constructor that is a nanoverse.runtime.factory target, returns that
      * constructor. If it does not, returns null. If there is more than one
-     * factory target, throws an exception.
+     * nanoverse.runtime.factory target, throws an exception.
      */
     public Constructor getFactoryTarget(Class clazz) {
         try {

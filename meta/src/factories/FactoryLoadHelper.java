@@ -75,7 +75,7 @@ public class FactoryLoadHelper {
         ImportHelper.getImports(c)
                 .forEach(imp -> template.add("imports", imp));
 
-        template.add("imports", "compiler.pipeline.instantiate.factory.Factory");
+        template.add("imports", "nanoverse.compiler.pipeline.instantiate.nanoverse.runtime.factory.Factory");
     }
 
     public void loadParams(ST template, Constructor c) {

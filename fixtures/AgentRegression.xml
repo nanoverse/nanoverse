@@ -22,7 +22,7 @@
   ~ <http://www.gnu.org/licenses/>.
   -->
 
-<!-- A trivial model incorporating agent-driven events (behaviors). -->
+<!-- A trivial model incorporating nanoverse.runtime.agent-driven events (behaviors). -->
 
 <simulation>
 
@@ -56,7 +56,7 @@
     </general>
 
 
-    <geometry>
+    <nanoverse.runtime.geometry>
         <shape>
             <class>Rectangle</class>
             <width>32</width>
@@ -65,19 +65,19 @@
         <lattice>
             <class>Rectangular</class>
         </lattice>
-    </geometry>
+    </nanoverse.runtime.geometry>
 
 
-    <layers>
+    <nanoverse.runtime.layers>
         <cell-layer>
             <boundary>
                 <class>PlaneRingReflecting</class>
             </boundary>
         </cell-layer>
-    </layers>
+    </nanoverse.runtime.layers>
 
 
-    <cell-processes>
+    <cell-nanoverse.runtime.processes>
         <!-- Each time step should advance the integrator clock by 1 unit of time. -->
         <tick>
             <dt>1.0</dt>
@@ -94,7 +94,7 @@
 
                 <!-- "state" is really a lineage here and should be distinguished
                      from state/phenotype in the future (2/16/2014). "Sequential"
-                     means that all identical cells put down in this step will
+                     means that all identical nanoverse.runtime.cells put down in this step will
                      have the same "state" id. -->
                 <state>sequential</state>
 
@@ -103,7 +103,7 @@
 
                 <behaviors>
                     <!-- We are defining the "grow" behavior in both the fast and
-                         slow cells to mean "increase cell health by a specified
+                         slow nanoverse.runtime.cells to mean "increase cell health by a specified
                          amount." The difference is how fast they do it. -->
                     <grow>
                         <adjust-health>
@@ -153,15 +153,15 @@
             <start>0</start>
         </fill>
 
-        <!-- Ongoing: Trigger "grow" behavior in all live cells -->
+        <!-- Ongoing: Trigger "grow" behavior in all live nanoverse.runtime.cells -->
         <trigger>
             <behavior>grow</behavior>
             <skip-vacant-sites/>
         </trigger>
 
-        <!-- Ongoing: All divisible cells should divide when possible -->
+        <!-- Ongoing: All divisible nanoverse.runtime.cells should divide when possible -->
         <divide-anywhere/>
-    </cell-processes>
+    </cell-nanoverse.runtime.processes>
 
 
     <writers>

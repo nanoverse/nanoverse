@@ -22,7 +22,6 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-import compiler.pipeline.translate.symbol.MapSymbolTable;
 import factories.FactoryGenerator;
 import factories.FactoryTestGenerator;
 import factories.FactoryWriter;
@@ -31,7 +30,6 @@ import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
 
 /**
  * Created by dbborens on 8/1/2015.

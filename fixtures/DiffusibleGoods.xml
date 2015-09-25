@@ -53,8 +53,8 @@
         </output-frames>
     </general>
 
-    <!-- Use simplest possible geometry -->
-    <geometry>
+    <!-- Use simplest possible nanoverse.runtime.geometry -->
+    <nanoverse.runtime.geometry>
         <shape>
             <class>Rectangle</class>
             <width>32</width>
@@ -63,10 +63,10 @@
         <lattice>
             <class>Rectangular</class>
         </lattice>
-    </geometry>
+    </nanoverse.runtime.geometry>
 
-    <!-- Declare layers and define their boundary conditions. -->
-    <layers>
+    <!-- Declare nanoverse.runtime.layers and define their boundary conditions. -->
+    <nanoverse.runtime.layers>
         <!-- As of eSLIME v0.4.0, only one cell layer is allowed. This may be
              generalized as the need arises. -->
         <cell-layer>
@@ -78,7 +78,7 @@
         <!-- We have only one solute layer. -->
         <solute-layer>
 
-            <!-- Since multiple solute layers are allowed, they require an ID.
+            <!-- Since multiple solute nanoverse.runtime.layers are allowed, they require an ID.
                  IDs may be any Java string that does not break the XML file! -->
             <id>solute layer 0</id>
 
@@ -110,13 +110,13 @@
                 <max-coefficient>1e-4</max-coefficient>
 
                 <!-- Equilibrium solvers can solve a system larger than the
-                     geometry, which is helpful for some boundary conditions. -->
+                     nanoverse.runtime.geometry, which is helpful for some boundary conditions. -->
                 <range-scale>2</range-scale>
             </solver>
 
             <!-- The operator tag specifies the base operator associated with
                  this solute field. The base operator can be modified, eg, by
-                 transient decay and growth processes (such as feedback) during
+                 transient decay and growth nanoverse.runtime.processes (such as feedback) during
                  the simulation. The resulting operator A will be solved with
                  a source vector b as Ax = b. -->
             <operator>
@@ -131,10 +131,10 @@
             </operator>
 
         </solute-layer>
-    </layers>
+    </nanoverse.runtime.layers>
     <!-- Define the "steps" (actually fixture states) of the test -->
 
-    <processes>
+    <nanoverse.runtime.processes>
 
         <!-- Each time step should advance the integrator clock by 1 unit of time. -->
         <tick>
@@ -221,7 +221,7 @@
         <field-update>
             <target>solute layer 0</target>
         </field-update>
-    </processes>
+    </nanoverse.runtime.processes>
 
     <!-- Specify the output we want (for comparison to output fixtures) -->
     <writers>
