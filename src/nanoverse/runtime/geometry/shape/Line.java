@@ -27,7 +27,6 @@ package nanoverse.runtime.geometry.shape;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.lattice.Lattice;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
-import org.dom4j.Element;
 
 public class Line extends Shape {
 
@@ -37,17 +36,6 @@ public class Line extends Shape {
     public Line(Lattice lattice, int length) {
         super(lattice);
         this.length = length;
-
-        init();
-    }
-
-    public Line(Lattice lattice, Element descriptor) {
-        super(lattice);
-
-        if (descriptor.element("length") == null) {
-            throw new IllegalArgumentException("Length not specified for line. Why are you even using this constructor?");
-        }
-        length = Integer.valueOf(descriptor.element("length").getTextTrim());
 
         init();
     }

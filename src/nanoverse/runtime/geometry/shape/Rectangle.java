@@ -27,7 +27,6 @@ package nanoverse.runtime.geometry.shape;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.lattice.Lattice;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
-import org.dom4j.Element;
 
 import java.util.ArrayList;
 
@@ -41,15 +40,6 @@ public class Rectangle extends Shape {
 
         this.height = height;
         this.width = width;
-
-        init();
-    }
-
-    public Rectangle(Lattice lattice, Element descriptor) {
-        super(lattice);
-
-        height = Integer.valueOf(descriptor.element("height").getTextTrim());
-        width = Integer.valueOf(descriptor.element("width").getTextTrim());
 
         init();
     }

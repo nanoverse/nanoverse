@@ -38,11 +38,7 @@ import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.CellProcessArguments;
 import nanoverse.runtime.structural.MockGeneralParameters;
 import no.uib.cipr.matrix.Vector;
-import org.dom4j.*;
-import org.dom4j.io.SAXReader;
-import org.dom4j.tree.BaseElement;
 
-import java.io.*;
 import java.util.*;
 import java.util.stream.*;
 
@@ -173,12 +169,6 @@ public abstract class LegacyTest {
         return eps;
     }
 
-    protected void addElement(Element e, String name, String text) {
-        Element rElem = new BaseElement(name);
-        rElem.setText(text);
-        e.add(rElem);
-    }
-
     /**
      * Generate a basic mock nanoverse.runtime.geometry with a defined
      * set of canonical coordinates.
@@ -195,16 +185,6 @@ public abstract class LegacyTest {
         ret.setCanonicalSites(canonicals);
 
         return ret;
-    }
-
-    protected Element readXmlFile(String fileName) throws IOException, DocumentException {
-
-        String path = fixturePath + fileName;
-        File file = new File(path);
-        SAXReader reader = new SAXReader();
-        Document document = reader.read(file);
-        Element root = document.getRootElement();
-        return root;
     }
 
     protected MockGeneralParameters makeMockGeneralParameters() {
