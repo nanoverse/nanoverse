@@ -1,0 +1,30 @@
+version: "1.0.0-a1";
+
+parameters: Parameters {
+    date: True;
+    project: "exponential";
+    maxStep: 11;
+};
+
+processes {
+    Tick;
+    Scatter { 
+        maxTargets: 1;
+        period: 0;
+        description: Agent: behaviors {
+            reproduce: Expand;
+        };
+    };
+    Trigger {
+        behavior: "reproduce";
+    };
+    Record;
+};
+
+output {
+    ProgressReporter;
+    CoordinateIndexer;
+    CellStateWriter;
+    TimeWriter;
+    VisualizationSerializer;
+};

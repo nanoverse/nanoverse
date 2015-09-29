@@ -1,8 +1,9 @@
 apply plugin: 'application'
 apply plugin: 'idea'
+apply plugin: 'java'
 
-version = '1.6.13'
-mainClassName = 'nanoverse.runtime.control.run.ConsoleLauncher'
+version = '1.0.0-a1'
+mainClassName = 'nanoverse.Nanoverse'
 
 // Run with command line argument "-PpetscDebug=true" to enable PETSc debugging
 ext.petscDebug = project.hasProperty('petscDebug') ?
@@ -27,7 +28,6 @@ dependencies {
             'com.googlecode.matrix-toolkits-java:mtj:1.+',
             'com.keypoint:png-encoder:1.+',
             'org.antlr:antlr4-runtime:4.5+',
-            'dom4j:dom4j:1.+',
             'log4j:log4j:1.2+',
             'org.slf4j:slf4j-api:1.7+',
             'org.slf4j:slf4j-log4j12:1.7+',
@@ -105,4 +105,15 @@ task buildPetscSolver(type:Exec, dependsOn:['makePetscDebug', 'makePetscOpt']) {
         environment('PETSC_ARCH', 'petsc-opt')
     }
     commandLine 'make', '../../lib/libpetscsolver.dylib'
+}
+
+task standaloneJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Nanoverse',
+                'Implementation-Version': version,
+                'Main-Class': 'nanoverse.Nanoverse'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() || it.getName().endsWith(".pom") ? it : zipTree(it) } }
+    with jar
 }

@@ -27,7 +27,6 @@ package nanoverse.runtime.geometry.shape;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
-import org.dom4j.Element;
 
 import java.util.*;
 
@@ -49,14 +48,6 @@ public class Hexagon extends Shape {
     public Hexagon(Lattice lattice, int radius) {
         super(lattice);
         this.radius = radius;
-        init();
-    }
-
-    public Hexagon(Lattice lattice, Element descriptor) {
-        super(lattice);
-
-        radius = Integer.valueOf(descriptor.element("radius").getTextTrim());
-
         init();
     }
 

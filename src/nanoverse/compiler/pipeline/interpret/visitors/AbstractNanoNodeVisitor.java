@@ -39,7 +39,9 @@ public abstract class AbstractNanoNodeVisitor extends RejectingVisitor {
         Object payload = child.getPayload();
 
         if (!expected.isInstance(payload)) {
-            throw new IllegalStateException("Internal error: unexpected payload class");
+            throw new IllegalStateException("Internal error: expected " +
+                "payload " + expected.getSimpleName() + " but got " +
+                payload.getClass().getSimpleName() + ".");
         }
     }
 
