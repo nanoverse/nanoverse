@@ -53,7 +53,7 @@ public class ContinuumNormalizationHelper {
         Extrema extrema = systemState.getContinuumExtrema(continuumId);
         double rawValue = systemState.getContinuumValue(continuumId, c);
         if (!observedValues.contains(rawValue)) {
-            System.err.println(rawValue);
+//            System.err.println(rawValue);
             observedValues.add(rawValue);
         }
         double centeredValue = rawValue - extrema.min();
