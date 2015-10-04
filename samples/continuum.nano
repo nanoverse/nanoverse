@@ -31,8 +31,7 @@ processes {
             };
             reactions {
                 Reaction {
-                    exp: -0.01;
-                    inj: -0.01;
+                    inj: 0.01;
                     layer: "solute";
                 };
             };
