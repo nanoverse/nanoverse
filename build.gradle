@@ -2,7 +2,7 @@ apply plugin: 'application'
 apply plugin: 'idea'
 apply plugin: 'java'
 
-version = '1.0.0-a1'
+version = '1.0.0-a2'
 mainClassName = 'nanoverse.Nanoverse'
 
 // Run with command line argument "-PpetscDebug=true" to enable PETSc debugging
@@ -11,7 +11,7 @@ ext.petscDebug = project.hasProperty('petscDebug') ?
 
 sourceSets {
     main {
-        java.srcDirs = ['src', 'mocks']
+        java.srcDirs = ['src', 'mocks', 'meta/src']
     }
     test {
         java.srcDirs = ['tests']
@@ -31,7 +31,9 @@ dependencies {
             'log4j:log4j:1.2+',
             'org.slf4j:slf4j-api:1.7+',
             'org.slf4j:slf4j-log4j12:1.7+',
-            'junit:junit:4.+'
+            'junit:junit:4.+',
+            'org.antlr:stringtemplate:4.0.2+',
+	    'org.reflections:reflections:0.9.10+'
     testCompile 'org.apache.directory.studio:org.apache.commons.io:2.+',
                 'org.mockito:mockito-all:1.+'
     if (osName.equals("linux") || osName.equals("mac")) {

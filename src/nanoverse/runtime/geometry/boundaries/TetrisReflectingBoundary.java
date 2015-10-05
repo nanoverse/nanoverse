@@ -27,6 +27,7 @@ package nanoverse.runtime.geometry.boundaries;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
+import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 /**
  * Boundary condition that is periodic in X, reflecting on
@@ -43,6 +44,7 @@ public class TetrisReflectingBoundary extends Boundary {
     private final int WIDTH;
     private final int HEIGHT;
 
+    @FactoryTarget
     public TetrisReflectingBoundary(Shape shape, Lattice lattice) {
         super(shape, lattice);
         this.WIDTH = shape.getDimensions()[0];

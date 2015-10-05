@@ -43,7 +43,7 @@ public class FactoryGenerator {
 
     public FactoryGenerator() {
         helper = new FactoryLoadHelper();
-        group = new STGroupFile("meta/templates/nanoverse.runtime.factory/nanoverse.runtime.factory.stg", '$', '$');
+        group = new STGroupFile("meta/templates/factory/factory.stg", '$', '$');
     }
 
     public String generate(Constructor c) {

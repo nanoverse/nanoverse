@@ -1,4 +1,4 @@
-/*
+package factories;/*
  * Copyright (c) 2014, 2015 David Bruce Borenstein and the
  * Trustees of Princeton University.
  *
@@ -22,18 +22,31 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package factories;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Constructor;
 
 /**
  * Created by dbborens on 8/7/15.
  */
 public abstract class BuildFactoryTree {
 
+    private static final Logger logger = LoggerFactory.getLogger(BuildFactoryTree.class);
+
     public static void main(String[] args) {
         TargetFinder tf = new TargetFinder();
-        FactoryWriteManager fwm = new FactoryWriteManager("meta/out/nanoverse.runtime.factory/");
+        FactoryWriteManager fwm = new FactoryWriteManager("meta/out/factory/");
 
-        tf.getTargets()
-                .forEach(fwm::write);
+        tf.getTargets().filter(c -> c != null)
+                .forEach(target -> writeTarget(target, fwm));
+    }
+
+    private static void writeTarget(Constructor target, FactoryWriteManager fwm) {
+        try {
+            fwm.write(target);
+        } catch (UnsatisfiedLinkError ex) {
+            logger.warn("Failed to create factory for " + target.getDeclaringClass().getCanonicalName());
+        }
     }
 }

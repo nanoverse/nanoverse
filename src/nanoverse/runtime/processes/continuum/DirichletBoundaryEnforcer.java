@@ -30,6 +30,7 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.set.CoordinateSet;
 import nanoverse.runtime.layers.continuum.ContinuumLayerScheduler;
 import nanoverse.runtime.processes.*;
+import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 /**
  * Enforces Dirichlet boundary conditions. Make sure you place a hold on the
@@ -52,6 +53,7 @@ public class DirichletBoundaryEnforcer extends ContinuumProcess {
      *                    condition on
      * @param activeSites the list of sites that make up the boundary
      */
+    @FactoryTarget
     public DirichletBoundaryEnforcer(BaseProcessArguments arguments,
                                      Argument<Double> value, String layerId,
                                      CoordinateSet activeSites) {
