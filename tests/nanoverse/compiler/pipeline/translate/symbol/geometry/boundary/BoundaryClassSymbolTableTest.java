@@ -75,4 +75,9 @@ public class BoundaryClassSymbolTableTest extends ClassSymbolTableTest {
     public void tetris() throws Exception {
         verifyReturnSymbol("Tetris", TetrisBoundary.class);
     }
+
+    @Test
+    public void tetrisReflecting() throws Exception {
+        verifyReturnSymbol("TetrisReflecting", TetrisReflectingBoundary.class);
+    }
 }

@@ -50,6 +50,7 @@ public class BoundaryClassSymbolTable extends ClassSymbolTable<Boundary> {
         periodic(ret);
         halt(ret);
         tetris(ret);
+        tetrisReflecting(ret);
         return ret;
     }
 
@@ -88,4 +89,8 @@ public class BoundaryClassSymbolTable extends ClassSymbolTable<Boundary> {
         ret.put("Tetris", supplier);
     }
 
+    public void tetrisReflecting(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = TetrisReflectingBoundaryInstSymbolTable::new;
+        ret.put("TetrisReflecting", supplier);
+    }
 }

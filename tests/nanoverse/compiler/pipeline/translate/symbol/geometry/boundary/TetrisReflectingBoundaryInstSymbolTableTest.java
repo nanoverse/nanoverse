@@ -24,26 +24,19 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.geometry.boundary;
 
-import nanoverse.compiler.pipeline.instantiate.loader.Loader;
-import nanoverse.compiler.pipeline.instantiate.loader.geometry.boundary.TetrisBoundaryLoader;
-import nanoverse.compiler.pipeline.instantiate.loader.geometry.boundary.TetrisReflectingBoundaryLoader;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.runtime.geometry.boundaries.TetrisBoundary;
+import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import nanoverse.runtime.geometry.boundaries.TetrisReflectingBoundary;
 
-/**
- * Created by dbborens on 7/29/2015.
- */
-public class TetrisBoundaryInstSymbolTable extends MapSymbolTable<TetrisBoundary> {
+public class TetrisReflectingBoundaryInstSymbolTableTest extends MapSymbolTableTest {
+
     @Override
-    public String getDescription() {
-        return "The Tetris boundary is a 2D boundary for AGENT layers only. " +
-                "It has a hard boundary on the bottom edge, a halting " +
-                "boundary on the top edge, and periodic boundaries on the " +
-                "left and right edges.";
+    protected MapSymbolTable getQuery() {
+        return new TetrisReflectingBoundaryInstSymbolTable();
     }
 
     @Override
-    public Loader getLoader() {
-        return new TetrisBoundaryLoader();
+    protected Class getExpectedClass() {
+        return TetrisReflectingBoundary.class;
     }
 }
