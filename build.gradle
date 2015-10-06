@@ -50,6 +50,11 @@ tasks.withType(Test) {
 }
 applicationDefaultJvmArgs = ['-Djava.library.path=' + libraryPath]
 
+// Class files contain parameter names
+tasks.withType(JavaCompile) { 
+     // this subproject requires -parameters option
+     options.compilerArgs << '-parameters'
+}
 
 /*
  * Building PETSc and the PETSc solver

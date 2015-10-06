@@ -25,20 +25,15 @@
 package factories;
 
 import nanoverse.runtime.structural.annotations.FactoryTarget;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
-import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 7/31/15.
  */
 public class FactoryTargetHelper {
 
-    private static final Logger logger = LoggerFactory.getLogger(FactoryTargetHelper.class);
 
     /**
      * If the class has a constructor that is a nanoverse.runtime.factory target, returns that
@@ -46,10 +41,6 @@ public class FactoryTargetHelper {
      * nanoverse.runtime.factory target, throws an exception.
      */
     public Constructor getFactoryTarget(Class clazz) {
-//        if (clazz == null) {
-//            return null;
-//        }
-//
         try {
             return Arrays.stream(clazz.getConstructors())
                     .filter(c -> annotated(c))
@@ -58,12 +49,6 @@ public class FactoryTargetHelper {
         } catch (NoSuchElementException ex) {
             return null;
         }
-//        } catch (Throwable th) {
-//            logger.warn("Skipping " + clazz.getCanonicalName() + ". Cause: "
-//                    + th.getClass().getSimpleName());
-//            return null;
-//        }
-
     }
     /**
      * If the supplied constructor has a user-specified display name, returns
@@ -89,11 +74,7 @@ public class FactoryTargetHelper {
 
         return ft.displayName();
     }
-//
-//    public String getDisplayName(Class clazz) {
-//        Constructor constructor = getFactoryTarget(clazz);
-//        return getDisplayName(constructor);
-//    }
+
     private boolean annotated(Constructor c) {
         return Arrays.stream(c.getDeclaredAnnotations())
                 .anyMatch(annotation ->

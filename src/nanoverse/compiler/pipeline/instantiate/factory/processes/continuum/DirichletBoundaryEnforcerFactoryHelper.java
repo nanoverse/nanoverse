@@ -1,39 +1,3 @@
-file(displayName, class, parameters, pTypes) ::= <<
-$copyright()$
-$body(displayName, class, parameters, pTypes)$
->>
-
-body(displayName, class, parameters, pTypes) ::= <<
-package $package(class)$;
-
-$pTypes: doImport()$
-
-public class $displayName$FactoryHelper {
-
-    public $class.simpleName$ build($parameters: paramFormat(); separator=", "$) {
-        return new $class.simpleName$($parameters: argument(); separator=", "$);
-    }
-}
->>
-
-paramFormat(parameter) ::= "$parameter.type.simpleName$ $parameter.name$"
-
-argument(parameter) ::= "$parameter.name$"
-
-
-package(class) ::= "nanoverse.compiler.pipeline.instantiate.factory.$class.package.name$"
-
-paramList(parameters) ::= <<
-    $parameters: param2name(); separator=", "$
->>
-
-param2name(parameter) ::= <<
-    $parameter.name$
->>
-
-doImport(class) ::= "import $class$;$\n$"
-
-copyright() ::= <<
 /*
  * Copyright (c) 2014, 2015 David Bruce Borenstein and the
  * Trustees of Princeton University.
@@ -57,5 +21,18 @@ copyright() ::= <<
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
->>
+package nanoverse.compiler.pipeline.instantiate.factory.processes.continuum;
 
+import nanoverse.runtime.control.arguments.DoubleArgument;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.continuum.DirichletBoundaryEnforcer;
+import nanoverse.runtime.geometry.set.CoordinateSet;
+import nanoverse.runtime.control.arguments.Argument;
+
+
+public class DirichletBoundaryEnforcerFactoryHelper {
+
+    public DirichletBoundaryEnforcer build(BaseProcessArguments arguments, DoubleArgument value, String layerId, CoordinateSet activeSites) {
+        return new DirichletBoundaryEnforcer(arguments, value, layerId, activeSites);
+    }
+}

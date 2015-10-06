@@ -25,6 +25,7 @@
 package nanoverse.runtime.processes.continuum;
 
 import nanoverse.runtime.control.arguments.Argument;
+import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.set.CoordinateSet;
@@ -55,7 +56,7 @@ public class DirichletBoundaryEnforcer extends ContinuumProcess {
      */
     @FactoryTarget
     public DirichletBoundaryEnforcer(BaseProcessArguments arguments,
-                                     Argument<Double> value, String layerId,
+                                     DoubleArgument value, String layerId,
                                      CoordinateSet activeSites) {
         super(arguments);
         this.value = value;
