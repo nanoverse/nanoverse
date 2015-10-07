@@ -29,21 +29,22 @@ import nanoverse.compiler.pipeline.instantiate.loader.geometry.boundary.TetrisBo
 import nanoverse.compiler.pipeline.instantiate.loader.geometry.boundary.TetrisReflectingBoundaryLoader;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.runtime.geometry.boundaries.TetrisBoundary;
+import nanoverse.runtime.geometry.boundaries.TetrisReflectingBoundary;
 
 /**
  * Created by dbborens on 7/29/2015.
  */
-public class TetrisBoundaryInstSymbolTable extends MapSymbolTable<TetrisBoundary> {
+public class TetrisReflectingBoundaryInstSymbolTable extends MapSymbolTable<TetrisReflectingBoundary> {
     @Override
     public String getDescription() {
-        return "The Tetris boundary is a 2D boundary for AGENT layers only. " +
-                "It has a hard boundary on the bottom edge, a halting " +
-                "boundary on the top edge, and periodic boundaries on the " +
-                "left and right edges.";
+        return "The TetrisReflecting boundary is a 2D boundary for CONTINUUM " +
+                "layers only. It has a reflecting boundary on the bottom edge, " +
+                "an absorbing boundary on the top edge, and periodic " +
+                "boundaries on the left and right edges.";
     }
 
     @Override
     public Loader getLoader() {
-        return new TetrisBoundaryLoader();
+        return new TetrisReflectingBoundaryLoader();
     }
 }

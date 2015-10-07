@@ -25,7 +25,6 @@
 package factories;
 
 import nanoverse.runtime.structural.annotations.FactoryTarget;
-
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
@@ -34,6 +33,7 @@ import java.util.NoSuchElementException;
  * Created by dbborens on 7/31/15.
  */
 public class FactoryTargetHelper {
+
 
     /**
      * If the class has a constructor that is a nanoverse.runtime.factory target, returns that
@@ -49,9 +49,7 @@ public class FactoryTargetHelper {
         } catch (NoSuchElementException ex) {
             return null;
         }
-
     }
-
     /**
      * If the supplied constructor has a user-specified display name, returns
      * that. Otherwise, returns the simple name of the declaring class. If the
@@ -76,11 +74,7 @@ public class FactoryTargetHelper {
 
         return ft.displayName();
     }
-//
-//    public String getDisplayName(Class clazz) {
-//        Constructor constructor = getFactoryTarget(clazz);
-//        return getDisplayName(constructor);
-//    }
+
     private boolean annotated(Constructor c) {
         return Arrays.stream(c.getDeclaredAnnotations())
                 .anyMatch(annotation ->

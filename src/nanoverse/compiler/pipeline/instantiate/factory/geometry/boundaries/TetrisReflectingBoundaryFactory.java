@@ -21,34 +21,38 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package nanoverse.compiler.pipeline.instantiate.factory.geometry.set;
+package nanoverse.compiler.pipeline.instantiate.factory.geometry.boundaries;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.geometry.set.CustomSet;
+import nanoverse.runtime.geometry.boundaries.TetrisReflectingBoundary;
+import nanoverse.runtime.geometry.shape.Shape;
+import nanoverse.runtime.geometry.lattice.Lattice;
 
-import java.util.Set;
-import java.util.stream.Stream;
+public class TetrisReflectingBoundaryFactory implements Factory<TetrisReflectingBoundary> {
 
-public class CustomCoordinateSetFactory implements Factory<CustomSet> {
+    private final TetrisReflectingBoundaryFactoryHelper helper;
 
-    private final CustomCoordinateSetFactoryHelper helper;
-    private Stream<Coordinate> coordinates;
+    private Shape shape;
+    private Lattice lattice;
 
-    public CustomCoordinateSetFactory() {
-        helper = new CustomCoordinateSetFactoryHelper();
+    public TetrisReflectingBoundaryFactory() {
+        helper = new TetrisReflectingBoundaryFactoryHelper();
     }
 
-    public CustomCoordinateSetFactory(CustomCoordinateSetFactoryHelper helper) {
+    public TetrisReflectingBoundaryFactory(TetrisReflectingBoundaryFactoryHelper helper) {
         this.helper = helper;
     }
 
-    public void setCoordinates(Stream<Coordinate> coordinates) {
-        this.coordinates = coordinates;
+    public void setShape(Shape shape) {
+        this.shape = shape;
+    }
+
+    public void setLattice(Lattice lattice) {
+        this.lattice = lattice;
     }
 
     @Override
-    public CustomSet build() {
-        return helper.build(coordinates);
+    public TetrisReflectingBoundary build() {
+        return helper.build(shape, lattice);
     }
 }

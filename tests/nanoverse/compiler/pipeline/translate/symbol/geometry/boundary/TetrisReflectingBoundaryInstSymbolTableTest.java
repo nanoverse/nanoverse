@@ -22,22 +22,21 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package nanoverse.compiler.pipeline.instantiate.loader.geometry.set;
+package nanoverse.compiler.pipeline.translate.symbol.geometry.boundary;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.layers.LayerManager;
+import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import nanoverse.runtime.geometry.boundaries.TetrisReflectingBoundary;
 
-/**
- * Created by dbborens on 9/19/2015.
- */
-public class HLineCoordinateSetDefaults {
-    public Coordinate origin(LayerManager lm) {
-        Geometry geom = lm.getCellLayer().getGeometry();
-        return geom.getZeroVector();
+public class TetrisReflectingBoundaryInstSymbolTableTest extends MapSymbolTableTest {
+
+    @Override
+    protected MapSymbolTable getQuery() {
+        return new TetrisReflectingBoundaryInstSymbolTable();
     }
 
-    public int length() {
-        return 1;
+    @Override
+    protected Class getExpectedClass() {
+        return TetrisReflectingBoundary.class;
     }
 }

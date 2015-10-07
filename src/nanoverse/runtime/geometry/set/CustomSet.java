@@ -24,15 +24,24 @@
 
 package nanoverse.runtime.geometry.set;
 
+import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
+
+import java.util.*;
+import java.util.stream.*;
 
 /**
  * Created by dbborens on 7/28/14.
  */
 public class CustomSet extends CoordinateSet {
 
-    @FactoryTarget(displayName = "CustomCoordinateSet")
     public CustomSet() {
         super();
+    }
+
+    @FactoryTarget(displayName = "CustomCoordinateSet")
+    public CustomSet(Stream<Coordinate> coordinates) {
+        this();
+        addAll(coordinates.collect(Collectors.toSet()));
     }
 }

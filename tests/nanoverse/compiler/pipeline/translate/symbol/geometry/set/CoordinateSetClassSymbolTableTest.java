@@ -26,6 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.geometry.set;
 
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
+import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.set.*;
 import org.junit.Test;
 
@@ -48,7 +49,7 @@ public class CoordinateSetClassSymbolTableTest extends ClassSymbolTableTest {
 
     @Test
     public void custom() throws Exception {
-        verifyReturnSymbol("Custom", CustomSet.class);
+        verifyLSTBroadClass("Custom", Coordinate.class);
     }
 
     @Test

@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete;
 
 import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
 import nanoverse.compiler.pipeline.instantiate.loader.geometry.set.CoordinateSetLoader;
-import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
+import nanoverse.compiler.pipeline.translate.nodes.*;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.geometry.set.CoordinateSet;
@@ -59,7 +59,7 @@ public class DiscreteProcessArgumentsInterpolator {
             return defaults.activeSites(lm, p);
         }
 
-        MapObjectNode childNode = (MapObjectNode) node.getMember("activeSites");
+        ObjectNode childNode = node.getMember("activeSites");
         return loader.instantiate(childNode, lm, p);
     }
 

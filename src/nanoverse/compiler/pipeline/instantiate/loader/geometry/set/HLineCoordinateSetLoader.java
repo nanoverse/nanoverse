@@ -61,7 +61,7 @@ public class HLineCoordinateSetLoader extends CoordinateSetLoader<HorizontalLine
         int length = interpolator.length(node, p.getRandom());
         factory.setLength(length);
 
-        Coordinate start = interpolator.start(node, lm, p);
+        Coordinate start = interpolator.origin(node, lm, p);
         factory.setStart(start);
 
         return factory.build();

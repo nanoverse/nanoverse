@@ -24,8 +24,11 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.geometry.set;
 
+import nanoverse.compiler.pipeline.instantiate.loader.geometry.set.CustomCoordinateSetLoader;
 import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.runtime.geometry.set.CoordinateSet;
+import nanoverse.compiler.pipeline.translate.symbol.control.identifiers.CoordinateClassSymbolTable;
+import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.geometry.set.*;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -56,7 +59,11 @@ public class CoordinateSetClassSymbolTable extends ClassSymbolTable<CoordinateSe
     }
 
     public void custom(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = CustomCoordSetInstSymbTable::new;
+        Supplier<InstantiableSymbolTable> supplier = () -> {
+            ClassSymbolTable cst = new CoordinateClassSymbolTable();
+            ListSymbolTable<CustomSet> lst = new ListSymbolTable<>(cst, CustomCoordinateSetLoader::new);
+            return lst;
+        };
         ret.put("Custom", supplier);
     }
 

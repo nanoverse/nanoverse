@@ -21,7 +21,7 @@ paramFormat(parameter) ::= "$parameter.type.simpleName$ $parameter.name$"
 argument(parameter) ::= "$parameter.name$"
 
 
-package(class) ::= "nanoverse.compiler.pipeline.instantiate.nanoverse.runtime.factory.$class.package.name$"
+package(class) ::= "nanoverse.compiler.pipeline.instantiate.factory.$class.package.name$"
 
 paramList(parameters) ::= <<
     $parameters: param2name(); separator=", "$

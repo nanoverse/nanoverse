@@ -21,23 +21,18 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package nanoverse.compiler.pipeline.instantiate.factory.processes.continuum;
 
-package nanoverse.compiler.pipeline.instantiate.loader.geometry.set;
+import nanoverse.runtime.control.arguments.DoubleArgument;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.continuum.DirichletBoundaryEnforcer;
+import nanoverse.runtime.geometry.set.CoordinateSet;
+import nanoverse.runtime.control.arguments.Argument;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.layers.LayerManager;
 
-/**
- * Created by dbborens on 9/19/2015.
- */
-public class HLineCoordinateSetDefaults {
-    public Coordinate origin(LayerManager lm) {
-        Geometry geom = lm.getCellLayer().getGeometry();
-        return geom.getZeroVector();
-    }
+public class DirichletBoundaryEnforcerFactoryHelper {
 
-    public int length() {
-        return 1;
+    public DirichletBoundaryEnforcer build(BaseProcessArguments arguments, DoubleArgument value, String layerId, CoordinateSet activeSites) {
+        return new DirichletBoundaryEnforcer(arguments, value, layerId, activeSites);
     }
 }

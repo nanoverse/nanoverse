@@ -59,6 +59,6 @@ public class WeightedOptionLoader extends Loader<WeightedOption> {
 
         ProbabilitySupplierDescriptor weight = interpolator.weight(node, lm, p);
         factory.setWeight(weight);
-        return null;
+        return factory.build();
     }
 }

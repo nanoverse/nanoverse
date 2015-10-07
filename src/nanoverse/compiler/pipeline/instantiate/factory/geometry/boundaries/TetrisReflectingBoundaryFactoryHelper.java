@@ -21,23 +21,16 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+package nanoverse.compiler.pipeline.instantiate.factory.geometry.boundaries;
 
-package nanoverse.compiler.pipeline.instantiate.loader.geometry.set;
+import nanoverse.runtime.geometry.boundaries.TetrisReflectingBoundary;
+import nanoverse.runtime.geometry.shape.Shape;
+import nanoverse.runtime.geometry.lattice.Lattice;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.layers.LayerManager;
 
-/**
- * Created by dbborens on 9/19/2015.
- */
-public class HLineCoordinateSetDefaults {
-    public Coordinate origin(LayerManager lm) {
-        Geometry geom = lm.getCellLayer().getGeometry();
-        return geom.getZeroVector();
-    }
+public class TetrisReflectingBoundaryFactoryHelper {
 
-    public int length() {
-        return 1;
+    public TetrisReflectingBoundary build(Shape shape, Lattice lattice) {
+        return new TetrisReflectingBoundary(shape, lattice);
     }
 }

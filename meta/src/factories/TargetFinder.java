@@ -31,6 +31,8 @@ import nanoverse.runtime.geometry.set.DiscSet;
 import nanoverse.runtime.geometry.set.HorizontalLineSet;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.util.stream.Stream;
@@ -40,6 +42,8 @@ import java.util.stream.Stream;
  */
 public class TargetFinder {
 
+    private static final Logger logger = LoggerFactory.getLogger(TargetFinder.class);
+
     private final FactoryTargetHelper helper;
 
     public TargetFinder() {
@@ -47,8 +51,7 @@ public class TargetFinder {
     }
 
     public Stream<Constructor> getTargets() {
-        Stream<Class> inferred = Stream.of("agent", "cells", "control", "geometry", "io", "layers",
-                "processes", "structural")
+        Stream<Class> inferred = Stream.of("nanoverse.runtime")
                 .map(pkg -> new Reflections(pkg, new SubTypesScanner(false)))
                 .map(r -> r.getAllTypes())
                 .flatMap(set -> set.stream())
@@ -57,6 +60,10 @@ public class TargetFinder {
                         return Class.forName(className);
                     } catch (ClassNotFoundException ex) {
                         throw new IllegalStateException(ex);
+                    } catch (Throwable ex) {
+                        logger.warn("Skipping " + className + ". Cause: " +
+                                ex.getClass().getSimpleName());
+                        return null;
                     }
                 });
 
@@ -69,7 +76,7 @@ public class TargetFinder {
                 DependentProbabilitySupplierDescriptor.class
         );
 
-        Stream<Class> all = Stream.concat(inferred, cloodge);
+        Stream<Class> all = Stream.concat(inferred, cloodge).filter(c -> c != null);
 
         Stream<Constructor> ret = all
                 .map(helper::getFactoryTarget)

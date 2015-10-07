@@ -69,6 +69,20 @@ public class MasterTranslationVisitor {
         logger.info("Loading semantic information.");
     }
 
+    public MasterTranslationVisitor(MapContainerVisitor mapVisitor,
+                                    ListContainerVisitor listVisitor,
+                                    DictionaryContainerVisitor dictVisitor,
+                                    PrimitiveVisitor primitiveVisitor) {
+
+
+        this.mapVisitor = mapVisitor;
+        this.listVisitor = listVisitor;
+        this.dictVisitor = dictVisitor;
+        this.primitiveVisitor = primitiveVisitor;
+        logger = LoggerFactory.getLogger(MasterTranslationVisitor.class);
+        logger.info("Loading semantic information.");
+    }
+
     public ObjectNode translate(ASTNode toTranslate, SymbolTable symbolTable) {
         if (symbolTable instanceof ListSymbolTable) {
             logDebug("a List", toTranslate);
@@ -92,17 +106,4 @@ public class MasterTranslationVisitor {
 
     }
 
-    public MasterTranslationVisitor(MapContainerVisitor mapVisitor,
-                                    ListContainerVisitor listVisitor,
-                                    DictionaryContainerVisitor dictVisitor,
-                                    PrimitiveVisitor primitiveVisitor) {
-
-
-        this.mapVisitor = mapVisitor;
-        this.listVisitor = listVisitor;
-        this.dictVisitor = dictVisitor;
-        this.primitiveVisitor = primitiveVisitor;
-        logger = LoggerFactory.getLogger(MasterTranslationVisitor.class);
-        logger.info("Loading semantic information.");
-    }
 }

@@ -15,8 +15,7 @@ import java.util.function.Supplier;
  */
 public class ListSymbolTable<T> implements InstantiableSymbolTable, ResolvingSymbolTable {
 
-    private final TypeToken<T> type = new TypeToken<T>(getClass()) {
-    };
+    private final TypeToken<T> type = new TypeToken<T>(getClass()) {};
     private final ClassSymbolTable classSymbolTable;
     private final Supplier<Loader> loaderSupplier;
 
