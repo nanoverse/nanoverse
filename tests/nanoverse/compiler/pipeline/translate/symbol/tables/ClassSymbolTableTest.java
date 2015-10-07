@@ -59,6 +59,12 @@ public abstract class ClassSymbolTableTest extends TestBase {
         assertEquals(expected, actual);
     }
 
+    protected void verifyLSTBroadClass(String identifier, Class expected) {
+        ListSymbolTable ist = (ListSymbolTable) query.getSymbolTable(identifier);
+        Class actual = ist.getBroadClass();
+        assertEquals(expected, actual);
+    }
+
     @Test
     public void descriptionIsNotNull() {
         assertNotNull(query.getDescription());

@@ -32,7 +32,7 @@ import nanoverse.runtime.layers.LayerManager;
  * Created by dbborens on 9/19/2015.
  */
 public class HLineCoordinateSetDefaults {
-    public Coordinate start(LayerManager lm) {
+    public Coordinate origin(LayerManager lm) {
         Geometry geom = lm.getCellLayer().getGeometry();
         return geom.getZeroVector();
     }

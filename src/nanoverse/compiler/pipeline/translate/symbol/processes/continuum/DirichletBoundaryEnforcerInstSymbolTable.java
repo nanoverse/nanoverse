@@ -31,7 +31,7 @@ public class DirichletBoundaryEnforcerInstSymbolTable extends ContinuumProcessIn
                 "system, but it need not be. For example, one might hold " +
                 "the value of the continuum constant in a region at the " +
                 "center of the simulation space.\n\n" +
-                "The DirichletEnforcer process sets the specified " +
+                "The DirichletBoundaryEnforcer sets the specified " +
                 "coordinates to the desired value, regardless of any other " +
                 "processes that might have otherwise affected them. It must " +
                 "be applied between a Hold process and a Release process.";

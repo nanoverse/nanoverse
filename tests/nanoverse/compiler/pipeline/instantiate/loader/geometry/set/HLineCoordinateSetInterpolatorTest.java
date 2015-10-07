@@ -62,26 +62,26 @@ public class HLineCoordinateSetInterpolatorTest extends InterpolatorTest {
     }
 
     @Test
-    public void start() throws Exception {
+    public void origin() throws Exception {
         MapObjectNode cNode = mock(MapObjectNode.class);
-        when(node.getMember("start")).thenReturn(cNode);
+        when(node.getMember("origin")).thenReturn(cNode);
 
         CoordinateLoader loader = mock(CoordinateLoader.class);
-        when(load.getLoader(eq(node), eq("start"), anyBoolean())).thenReturn(loader);
+        when(load.getLoader(eq(node), eq("origin"), anyBoolean())).thenReturn(loader);
 
         Coordinate expected = mock(Coordinate.class);
         when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
 
-        Coordinate actual = query.start(node, lm, p);
+        Coordinate actual = query.origin(node, lm, p);
         assertSame(expected, actual);
     }
 
     @Test
-    public void startDefault() throws Exception {
+    public void originDefault() throws Exception {
         Coordinate expected = mock(Coordinate.class);
-        when(defaults.start(lm)).thenReturn(expected);
+        when(defaults.origin(lm)).thenReturn(expected);
 
-        Coordinate actual = query.start(node, lm, p);
+        Coordinate actual = query.origin(node, lm, p);
         assertSame(expected, actual);
     }
 

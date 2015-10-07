@@ -24,12 +24,16 @@
 package nanoverse.compiler.pipeline.instantiate.factory.geometry.set;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.set.CustomSet;
+
+import java.util.Set;
+import java.util.stream.Stream;
 
 public class CustomCoordinateSetFactory implements Factory<CustomSet> {
 
     private final CustomCoordinateSetFactoryHelper helper;
-
+    private Stream<Coordinate> coordinates;
 
     public CustomCoordinateSetFactory() {
         helper = new CustomCoordinateSetFactoryHelper();
@@ -39,9 +43,12 @@ public class CustomCoordinateSetFactory implements Factory<CustomSet> {
         this.helper = helper;
     }
 
+    public void setCoordinates(Stream<Coordinate> coordinates) {
+        this.coordinates = coordinates;
+    }
 
     @Override
     public CustomSet build() {
-        return helper.build();
+        return helper.build(coordinates);
     }
 }

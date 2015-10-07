@@ -158,6 +158,6 @@ public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
 
     @Test
     public void dirichletEnforcer() {
-        verifyReturnSymbol("DirichletEnforcer", DirichletBoundaryEnforcer.class);
+        verifyReturnSymbol("DirichletBoundaryEnforcer", DirichletBoundaryEnforcer.class);
     }
 }

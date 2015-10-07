@@ -62,7 +62,6 @@ public class DirichletBoundaryEnforcer extends ContinuumProcess {
         this.value = value;
         this.layerId = layerId;
         this.activeSites = activeSites;
-
     }
 
     @Override

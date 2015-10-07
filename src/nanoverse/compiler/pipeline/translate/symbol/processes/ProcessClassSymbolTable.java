@@ -79,7 +79,7 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
 
     private void dirichletEnforcer(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> st = DirichletBoundaryEnforcerInstSymbolTable::new;
-        ret.put("DirichletEnforcer", st);
+        ret.put("DirichletBoundaryEnforcer", st);
     }
 
     private void record(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {

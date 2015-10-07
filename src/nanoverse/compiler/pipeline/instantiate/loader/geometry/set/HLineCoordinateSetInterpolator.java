@@ -61,13 +61,13 @@ public class HLineCoordinateSetInterpolator {
         return lm.getCellLayer().getGeometry();
     }
 
-    public Coordinate start(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        CoordinateLoader loader = (CoordinateLoader) load.getLoader(node, "start", false);
+    public Coordinate origin(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        CoordinateLoader loader = (CoordinateLoader) load.getLoader(node, "origin", false);
         if (loader == null) {
-            return defaults.start(lm);
+            return defaults.origin(lm);
         }
 
-        MapObjectNode cNode = (MapObjectNode) node.getMember("start");
+        MapObjectNode cNode = (MapObjectNode) node.getMember("origin");
         return loader.instantiate(cNode, lm, p);
     }
 }
