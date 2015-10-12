@@ -236,6 +236,6 @@ public class TriangularLattice extends Lattice {
 
     @Override
     public Coordinate getZeroVector() {
-        return new Coordinate2D(0, 0, 0);
+        return new Coordinate3D(0, 0, 0, 0);
     }
 }

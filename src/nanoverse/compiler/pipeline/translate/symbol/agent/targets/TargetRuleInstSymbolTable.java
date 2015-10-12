@@ -27,6 +27,7 @@ package nanoverse.compiler.pipeline.translate.symbol.agent.targets;
 import com.google.common.reflect.TypeToken;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.processes.discrete.filter.FilterClassSymbolTable;
 import nanoverse.runtime.agent.targets.TargetDescriptor;
 
@@ -58,7 +59,7 @@ public abstract class TargetRuleInstSymbolTable<T extends TargetDescriptor> exte
     }
 
     private void maximum(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new DoubleClassSymbolTable();
+        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "Maximum number of targets " +
             "to select. If maximum is set to -1, no maximum will be used.");
         ret.put("maximum", ms);
