@@ -25,7 +25,6 @@
 package nanoverse.runtime.agent;
 
 import nanoverse.runtime.agent.action.*;
-import nanoverse.runtime.cells.BehaviorCell;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 import java.util.HashMap;

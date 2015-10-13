@@ -24,7 +24,8 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.*;
+import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;

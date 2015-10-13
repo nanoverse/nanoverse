@@ -22,34 +22,35 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package nanoverse.runtime.cells;
+package nanoverse.runtime.agent;
 
-import org.junit.Test;
-import test.LegacyTest;
+import nanoverse.runtime.layers.continuum.Reaction;
+import org.junit.*;
+import test.TestBase;
 
-/**
- * Created by dbborens on 1/2/14.
- */
-public abstract class CellTest extends LegacyTest {
+import static org.junit.Assert.assertEquals;
 
-    @Test
-    public abstract void testGetState() throws Exception;
+public class ReactionTest extends TestBase {
 
-    @Test
-    public abstract void testGetHealth() throws Exception;
+    private Reaction query;
 
-    @Test
-    public abstract void testIsDivisible() throws Exception;
+    @Before
+    public void init() throws Exception {
+        query = new Reaction(1.0, 2.0, "test");
+    }
 
     @Test
-    public abstract void testFeedConsiderApply() throws Exception;
+    public void getInj() throws Exception {
+        assertEquals(1.0, query.getInj(), epsilon);
+    }
 
     @Test
-    public abstract void testDivide() throws Exception;
+    public void getExp() throws Exception {
+        assertEquals(2.0, query.getExp(), epsilon);
+    }
 
     @Test
-    public abstract void testClone() throws Exception;
-
-    @Test
-    public abstract void testGetProduction() throws Exception;
+    public void getId() throws Exception {
+        assertEquals("test", query.getId());
+    }
 }

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.cells.Cell;
+import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 import java.util.IdentityHashMap;

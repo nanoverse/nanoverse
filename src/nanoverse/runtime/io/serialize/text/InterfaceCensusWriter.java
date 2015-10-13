@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.io.serialize.text;
 
-import nanoverse.runtime.cells.Cell;
+import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;

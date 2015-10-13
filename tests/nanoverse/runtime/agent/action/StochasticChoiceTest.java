@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorCell;
 import org.junit.*;
 import org.mockito.InOrder;
 import test.LinearMocks;

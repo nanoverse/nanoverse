@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.continuum;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorCell;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 import java.util.function.*;

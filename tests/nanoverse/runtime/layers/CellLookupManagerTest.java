@@ -25,6 +25,7 @@
 package nanoverse.runtime.layers;
 
 import junit.framework.TestCase;
+import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;

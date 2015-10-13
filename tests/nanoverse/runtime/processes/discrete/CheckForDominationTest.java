@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorCell;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.DominationEvent;
 import nanoverse.runtime.control.identifiers.*;

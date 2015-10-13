@@ -25,7 +25,7 @@
 package nanoverse.runtime.control.arguments;
 
 import nanoverse.runtime.agent.action.stochastic.ProbabilitySupplier;
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorCell;
 
 import java.util.function.Function;
 

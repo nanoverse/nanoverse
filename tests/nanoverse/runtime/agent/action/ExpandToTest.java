@@ -24,9 +24,10 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
-import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.boundaries.*;

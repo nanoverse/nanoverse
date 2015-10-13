@@ -26,7 +26,7 @@ package nanoverse.runtime.control.arguments;
 
 import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.agent.action.stochastic.*;
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorCell;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 

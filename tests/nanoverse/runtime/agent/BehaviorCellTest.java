@@ -22,8 +22,10 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package nanoverse.runtime.cells;
+package nanoverse.runtime.agent;
 
+import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.agent.control.MockBehaviorDispatcher;
 import nanoverse.runtime.control.identifiers.*;
 import org.junit.*;

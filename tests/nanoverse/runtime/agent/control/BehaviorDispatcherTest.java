@@ -26,7 +26,7 @@ package nanoverse.runtime.agent.control;
 
 import nanoverse.runtime.agent.MockBehavior;
 import nanoverse.runtime.agent.action.Action;
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorCell;
 import nanoverse.runtime.control.identifiers.*;
 import org.junit.*;
 

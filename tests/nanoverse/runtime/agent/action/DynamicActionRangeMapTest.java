@@ -26,7 +26,7 @@ package nanoverse.runtime.agent.action;
 
 
 import nanoverse.runtime.agent.action.stochastic.ProbabilitySupplier;
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorCell;
 import nanoverse.runtime.layers.LayerManager;
 import org.junit.*;
 import test.TestBase;

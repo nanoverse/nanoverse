@@ -22,8 +22,11 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package nanoverse.runtime.cells;
+package nanoverse.runtime.agent;
 
+import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.CallbackManager;
+import nanoverse.runtime.cells.MockCell;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;

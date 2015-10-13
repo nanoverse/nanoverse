@@ -22,7 +22,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package nanoverse.runtime.cells;
+package nanoverse.runtime.agent;
 
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;

@@ -24,6 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.BehaviorCell;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.cells.*;
 import org.junit.*;

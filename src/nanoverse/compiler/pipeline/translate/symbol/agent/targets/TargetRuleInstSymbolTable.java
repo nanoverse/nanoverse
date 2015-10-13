@@ -63,6 +63,5 @@ public abstract class TargetRuleInstSymbolTable<T extends TargetDescriptor> exte
         MemberSymbol ms = new MemberSymbol(rst, "Maximum number of targets " +
             "to select. If maximum is set to -1, no maximum will be used.");
         ret.put("maximum", ms);
-
     }
 }

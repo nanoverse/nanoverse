@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete.cluster;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorCell;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.cell.CellLayer;

@@ -24,6 +24,8 @@
 
 package nanoverse.runtime.layers;
 
+import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;

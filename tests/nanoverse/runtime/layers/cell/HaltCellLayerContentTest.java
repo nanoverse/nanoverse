@@ -24,6 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
+import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.halt.BoundaryReachedEvent;
 import nanoverse.runtime.control.identifiers.*;

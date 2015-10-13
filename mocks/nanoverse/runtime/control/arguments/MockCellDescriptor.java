@@ -24,6 +24,7 @@
 
 package nanoverse.runtime.control.arguments;
 
+import nanoverse.runtime.agent.BehaviorCell;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.halt.HaltCondition;
 

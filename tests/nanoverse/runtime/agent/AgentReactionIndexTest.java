@@ -1,5 +1,7 @@
-package nanoverse.runtime.cells;
+package nanoverse.runtime.agent;
 
+import nanoverse.runtime.agent.AgentReactionIndex;
+import nanoverse.runtime.agent.BehaviorCell;
 import nanoverse.runtime.layers.continuum.*;
 import org.junit.*;
 

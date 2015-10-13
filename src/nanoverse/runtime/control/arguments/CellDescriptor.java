@@ -24,9 +24,10 @@
 
 package nanoverse.runtime.control.arguments;
 
+import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
-import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.continuum.Reaction;

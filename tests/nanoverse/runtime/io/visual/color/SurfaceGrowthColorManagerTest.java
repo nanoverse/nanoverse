@@ -24,6 +24,7 @@
 
 package nanoverse.runtime.io.visual.color;
 
+import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.arguments.ConstantDouble;
 import nanoverse.runtime.control.identifiers.*;

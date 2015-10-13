@@ -1,4 +1,4 @@
-package nanoverse.runtime.cells;
+package nanoverse.runtime.agent;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.continuum.*;

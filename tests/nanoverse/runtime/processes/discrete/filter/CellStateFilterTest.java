@@ -24,6 +24,7 @@
 
 package nanoverse.runtime.processes.discrete.filter;
 
+import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.arguments.ConstantInteger;
 import nanoverse.runtime.control.identifiers.Coordinate;
