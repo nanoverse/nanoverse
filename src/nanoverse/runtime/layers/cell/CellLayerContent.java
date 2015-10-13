@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.halt.BoundaryReachedEvent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
@@ -79,22 +79,22 @@ public abstract class CellLayerContent {
         return (get(coord) != null);
     }
 
-    public Cell get(Coordinate coord) {
+    public AbstractAgent get(Coordinate coord) {
 
         // Get pointer to cell and return it
-        Cell res = map.get(coord);
+        AbstractAgent res = map.get(coord);
 
         return res;
     }
 
-    public void put(Coordinate coord, Cell current) throws BoundaryReachedEvent {
-        Cell previous = map.get(coord);
+    public void put(Coordinate coord, AbstractAgent current) throws BoundaryReachedEvent {
+        AbstractAgent previous = map.get(coord);
         indices.refresh(coord, previous, current);
         map.put(coord, current);
     }
 
     public void remove(Coordinate coord) {
-        Cell previous = map.get(coord);
+        AbstractAgent previous = map.get(coord);
         indices.refresh(coord, previous, null);
         map.put(coord, null);
     }
@@ -105,7 +105,7 @@ public abstract class CellLayerContent {
         int[] sArr = new int[cArr.length];
 
         for (int i = 0; i < cArr.length; i++) {
-            Cell c = map.get(cArr[i]);
+            AbstractAgent c = map.get(cArr[i]);
             if (c == null) {
                 sArr[i] = 0;
             } else {
@@ -149,7 +149,7 @@ public abstract class CellLayerContent {
         double[] fArr = new double[cArr.length];
 
         for (int i = 0; i < cArr.length; i++) {
-            Cell c = map.get(cArr[i]);
+            AbstractAgent c = map.get(cArr[i]);
             if (c == null) {
                 fArr[i] = 0D;
             } else {
@@ -164,16 +164,16 @@ public abstract class CellLayerContent {
 
     public abstract Set<Coordinate> getImaginarySites();
 
-    public Coordinate locate(Cell cell) {
-        return indices.locate(cell);
+    public Coordinate locate(AbstractAgent agent) {
+        return indices.locate(agent);
     }
 
     public Map<Integer, Integer> getStateMap() {
         return indices.getStateMap();
     }
 
-    public boolean isIndexed(Cell cell) {
-        return indices.isIndexed(cell);
+    public boolean isIndexed(AbstractAgent agent) {
+        return indices.isIndexed(agent);
     }
 
     @Override

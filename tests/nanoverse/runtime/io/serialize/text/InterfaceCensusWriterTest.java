@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.io.serialize.text;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.arguments.ConstantInteger;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.*;
@@ -102,7 +102,7 @@ public class InterfaceCensusWriterTest extends LegacyTest {
     }
 
     private void put(Coordinate c, int state) throws HaltCondition {
-        MockCell cell = new MockCell(state);
+        MockAgent cell = new MockAgent(state);
         CellUpdateManager u = cellLayer.getUpdateManager();
         u.place(cell, c);
     }

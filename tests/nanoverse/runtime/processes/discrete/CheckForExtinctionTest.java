@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.arguments.ConstantDouble;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.*;
@@ -103,7 +103,7 @@ public class CheckForExtinctionTest extends LegacyTest {
     private Coordinate populateSingletonCase() throws Exception {
         makeOneCanonicalSite();
         Coordinate coord = new Coordinate2D(0, 0, 1);
-        MockCell cell = new MockCell();
+        MockAgent cell = new MockAgent();
         cell.setState(1);
         layer.getUpdateManager().place(cell, coord);
         return coord;

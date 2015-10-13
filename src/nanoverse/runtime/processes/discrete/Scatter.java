@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.arguments.CellDescriptor;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -81,10 +81,10 @@ public class Scatter extends CellProcess {
             int o = getGeneralParameters().getRandom().nextInt(cVec.length);
             Coordinate target = cVec[o];
 
-            Cell cell = cellDescriptor.next();
+            AbstractAgent agent = cellDescriptor.next();
 
-            //System.out.println("   Placing cell of type " + cell.getState() + " at location " + target);
-            getLayer().getUpdateManager().place(cell, target);
+            //System.out.println("   Placing agent of type " + agent.getState() + " at location " + target);
+            getLayer().getUpdateManager().place(agent, target);
 
             //state.highlight(target);
             candidates.remove(target);

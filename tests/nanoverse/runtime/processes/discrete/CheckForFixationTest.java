@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
@@ -95,7 +95,7 @@ public class CheckForFixationTest extends LegacyTest {
     public void testFixationCaseSingle() throws Exception {
         makeTwoCanonicalSites();
         Coordinate coord = new Coordinate2D(0, 0, 1);
-        MockCell cell = new MockCell();
+        MockAgent cell = new MockAgent();
         cell.setState(1);
         layer.getUpdateManager().place(cell, coord);
         doTest(true);
@@ -125,7 +125,7 @@ public class CheckForFixationTest extends LegacyTest {
         makeTwoCanonicalSites();
         for (int i = 0; i < 2; i++) {
             Coordinate coord = new Coordinate2D(i, 0, 0);
-            MockCell cell = new MockCell();
+            MockAgent cell = new MockAgent();
             cell.setState(1);
             layer.getUpdateManager().place(cell, coord);
         }
@@ -144,7 +144,7 @@ public class CheckForFixationTest extends LegacyTest {
         makeTwoCanonicalSites();
         for (int i = 0; i < 2; i++) {
             Coordinate coord = new Coordinate2D(i, 0, 0);
-            MockCell cell = new MockCell();
+            MockAgent cell = new MockAgent();
             // state 0 is reserved for death / nullity
             cell.setState(i + 1);
             layer.getUpdateManager().place(cell, coord);
@@ -157,7 +157,7 @@ public class CheckForFixationTest extends LegacyTest {
     public void testOpenSpaceCase() throws Exception {
         makeTwoCanonicalSites();
         Coordinate coord = new Coordinate2D(0, 0, 0);
-        MockCell cell = new MockCell();
+        MockAgent cell = new MockAgent();
         cell.setState(1);
         layer.getUpdateManager().place(cell, coord);
         doTest(true);

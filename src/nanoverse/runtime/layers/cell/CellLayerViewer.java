@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 import java.util.*;
@@ -89,8 +89,8 @@ public class CellLayerViewer {
         return content.getDivisibleSites().contains(c);
     }
 
-    public boolean exists(Cell cell) {
-        return content.isIndexed(cell);
+    public boolean exists(AbstractAgent agent) {
+        return content.isIndexed(agent);
     }
 
     public Set<Coordinate> getImaginarySites() {
@@ -111,7 +111,7 @@ public class CellLayerViewer {
         return getCell(coord).getState();
     }
 
-    public Cell getCell(Coordinate coord) {
+    public AbstractAgent getCell(Coordinate coord) {
         return content.get(coord);
     }
 

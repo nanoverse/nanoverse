@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
@@ -48,8 +48,8 @@ public class CellUpdateManager {
      * @return
      */
     public int consider(Coordinate coord) {
-        Cell cell = content.get(coord);
-        int res = cell.consider();
+        AbstractAgent agent = content.get(coord);
+        int res = agent.consider();
         return res;
     }
 
@@ -62,11 +62,11 @@ public class CellUpdateManager {
      */
     public void apply(Coordinate coord) throws HaltCondition {
         content.sanityCheck(coord);
-        Cell cell = content.get(coord);
+        AbstractAgent agent = content.get(coord);
         content.remove(coord);
 
-        cell.apply();
-        content.put(coord, cell);
+        agent.apply();
+        content.put(coord, agent);
     }
 
     /**
@@ -91,7 +91,7 @@ public class CellUpdateManager {
         content.sanityCheck(cCoord);
 
         // Note: divide(...) updates state index for parent
-        Cell child = divide(pCoord);
+        AbstractAgent child = divide(pCoord);
 
         // Attempt to place child
         // Note: place(...) updates state index for child
@@ -102,11 +102,11 @@ public class CellUpdateManager {
     // TODO: The exposure of this method is a bit of cloodge for the shoving
     // method. There's no obvious way around it as things stand, but it does
     // suggest that a refactor may soon be necessary.
-    public Cell divide(Coordinate pCoord) throws HaltCondition {
+    public AbstractAgent divide(Coordinate pCoord) throws HaltCondition {
         content.sanityCheck(pCoord);
 
         // Divide parent
-        Cell parent = content.get(pCoord);
+        AbstractAgent parent = content.get(pCoord);
 
         if (parent == null) {
             throw new IllegalStateException("Coordinate " + pCoord + " is null");
@@ -117,7 +117,7 @@ public class CellUpdateManager {
         content.remove(pCoord);
 
         // Perform the division.
-        Cell child = parent.divide();
+        AbstractAgent child = parent.divide();
 
         // Place the parent, whose state may have changed as a result of the
         // division event.
@@ -128,21 +128,21 @@ public class CellUpdateManager {
     }
 
     /**
-     * Place the specified cell at the specified coordinate.
+     * Place the specified agent at the specified coordinate.
      *
-     * @param cell
+     * @param agent
      * @param coord
      */
-    public void place(Cell cell, Coordinate coord) throws HaltCondition {
+    public void place(AbstractAgent agent, Coordinate coord) throws HaltCondition {
         content.sanityCheck(coord);
 
         if (content.has(coord)) {
-            throw new IllegalStateException("Attempting to place a cell into " +
+            throw new IllegalStateException("Attempting to place a agent into " +
                 "an occupied site at " + coord.toString() + ".");
         }
 
-        // Place cell in cell lattice
-        content.put(coord, cell);
+        // Place agent in agent lattice
+        content.put(coord, agent);
     }
 
     /**
@@ -168,17 +168,17 @@ public class CellUpdateManager {
     public void move(Coordinate pCoord, Coordinate qCoord) throws HaltCondition {
 
         if (content.has(qCoord)) {
-            throw new IllegalStateException("Attempted to move cell to an " +
+            throw new IllegalStateException("Attempted to move agent to an " +
                 "occupied site. Origin: " + pCoord + "; destination: "
                 + qCoord);
         }
         content.sanityCheck(pCoord);
         content.sanityCheck(qCoord);
 
-        Cell cell = content.get(pCoord);
+        AbstractAgent agent = content.get(pCoord);
 
         content.remove(pCoord);
-        content.put(qCoord, cell);
+        content.put(qCoord, agent);
     }
 
     /**
@@ -193,8 +193,8 @@ public class CellUpdateManager {
         content.sanityCheck(qCoord);
 
         // Identify nanoverse.runtime.cells
-        Cell p = content.get(pCoord);
-        Cell q = content.get(qCoord);
+        AbstractAgent p = content.get(pCoord);
+        AbstractAgent q = content.get(qCoord);
 
         // Clear both sites
         content.remove(pCoord);

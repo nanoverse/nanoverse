@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.io.serialize.text;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.halt.ManualHaltEvent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.CellUpdateManager;
@@ -88,7 +88,7 @@ public class CensusWriterTest extends LegacyLatticeTest {
     }
 
     private void put(Coordinate c, int state) throws Exception {
-        MockCell cell = new MockCell(state);
+        MockAgent cell = new MockAgent(state);
         CellUpdateManager u = cellLayer.getUpdateManager();
         u.place(cell, c);
     }

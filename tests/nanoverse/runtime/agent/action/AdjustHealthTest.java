@@ -88,7 +88,7 @@ public class AdjustHealthTest extends LegacyLatticeTest {
 
     @Test
     public void testClone() throws Exception {
-        MockCell cloneCell = new MockCell();
+        MockAgent cloneCell = new MockAgent();
 
         // Clone it.
         Action clone = query.clone(cloneCell);

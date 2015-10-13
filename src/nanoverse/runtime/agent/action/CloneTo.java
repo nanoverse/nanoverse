@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -82,7 +82,7 @@ public class CloneTo extends Action {
         for (Coordinate target : targets) {
 
             // Make replicate
-            Cell child = getCallback().replicate();
+            AbstractAgent child = getCallback().replicate();
 
             // Place replicate at target site
             if (!v.isOccupied(target)) {

@@ -24,9 +24,7 @@
 
 package nanoverse.runtime.agent;
 
-import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.CallbackManager;
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;
@@ -54,7 +52,7 @@ public class CallbackManagerTest {
         MockLayerManager layerManager = new MockLayerManager();
         layerManager.setCellLayer(layer);
 
-        cell = new MockCell();
+        cell = new MockAgent();
         layer.getUpdateManager().place(cell, c);
         query = new CallbackManager(cell, layerManager);
     }
@@ -64,7 +62,7 @@ public class CallbackManagerTest {
     public void refreshDivisibility() throws Exception {
         /*
           On the face of it, this looks nearly identical to a test
-          in BehaviorCellTest. However, since MockCell does automatically
+          in BehaviorCellTest. However, since MockAgent does automatically
           update the layer indices as BehaviorCell does, this actually
           verifies the functionality of refreshDivisibility directly.
           It would be better to have a true mock cell layer that could

@@ -32,41 +32,41 @@ import nanoverse.runtime.layers.cell.*;
 /**
  * A helper class for nanoverse.runtime.cells that triggers
  * update events related to the life cycle
- * of the cell, such as death or divisibility.
+ * of the agent, such as death or divisibility.
  * <p>
  * Created by dbborens on 2/21/14.
  */
 public class CallbackManager {
 
-    private Cell cell;
+    private AbstractAgent agent;
     private LayerManager layerManager;
 
-    public CallbackManager(Cell cell, LayerManager layerManager) {
-        this.cell = cell;
+    public CallbackManager(AbstractAgent agent, LayerManager layerManager) {
+        this.agent = agent;
         this.layerManager = layerManager;
     }
 
     /**
-     * Signals to the LayerManager that the callback cell is dead
+     * Signals to the LayerManager that the callback agent is dead
      * and should be removed from the simulation.
      */
     public void die() {
         CellLayer layer = layerManager.getCellLayer();
-        Coordinate coord = layer.getLookupManager().getCellLocation(cell);
+        Coordinate coord = layer.getLookupManager().getCellLocation(agent);
         layer.getUpdateManager().banish(coord);
     }
 
     /**
-     * Signals to the LayerManager that the callback cell may have
+     * Signals to the LayerManager that the callback agent may have
      * changed its divisibility status and should be checked.
      */
     public void refreshDivisibility() throws HaltCondition {
         CellLayer layer = layerManager.getCellLayer();
 
-        if (layer.getViewer().exists(cell)) {
-            Coordinate coord = layer.getLookupManager().getCellLocation(cell);
+        if (layer.getViewer().exists(agent)) {
+            Coordinate coord = layer.getLookupManager().getCellLocation(agent);
             layer.getUpdateManager().banish(coord);
-            layer.getUpdateManager().place(cell, coord);
+            layer.getUpdateManager().place(agent, coord);
         }
     }
 
@@ -77,7 +77,7 @@ public class CallbackManager {
     public Coordinate getMyLocation() {
         CellLayer layer = layerManager.getCellLayer();
         CellLookupManager lookupManager = layer.getLookupManager();
-        Coordinate coord = lookupManager.getCellLocation(cell);
+        Coordinate coord = lookupManager.getCellLocation(agent);
         return coord;
     }
 }

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.arguments.CellDescriptor;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -84,8 +84,8 @@ public class Fill extends CellProcess {
 
                 throw new IllegalStateException(msg);
             } else if (!filled) {
-                Cell cell = cellDescriptor.next();
-                getLayer().getUpdateManager().place(cell, c);
+                AbstractAgent agent = cellDescriptor.next();
+                getLayer().getUpdateManager().place(agent, c);
             } else {
                 // Do nothing if site is filled and skipFilled is true.
             }

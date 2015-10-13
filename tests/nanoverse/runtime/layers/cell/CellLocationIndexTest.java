@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.*;
 import org.junit.*;
 
@@ -34,7 +34,7 @@ import static org.junit.Assert.*;
  * Created by David B Borenstein on 2/5/14.
  */
 public class CellLocationIndexTest {
-    private MockCell o1, o2;
+    private MockAgent o1, o2;
     private Coordinate c1, c2;
 
     // The object to be tested
@@ -42,8 +42,8 @@ public class CellLocationIndexTest {
 
     @Before
     public void setUp() throws Exception {
-        o1 = new MockCell();
-        o2 = new MockCell();
+        o1 = new MockAgent();
+        o2 = new MockAgent();
 
         c1 = new Coordinate2D(0, 0, 0);
         c2 = new Coordinate2D(0, 1, 0);
@@ -59,7 +59,7 @@ public class CellLocationIndexTest {
         // Place a cell
         locationIndex.add(o1, c1);
 
-        // Cell should index to placed coordinate
+        // AbstractAgent should index to placed coordinate
         assertEquals(1, locationIndex.keySet().size());
         assertEquals(c1, locationIndex.get(o1));
     }

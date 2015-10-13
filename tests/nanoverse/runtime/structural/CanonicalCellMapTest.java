@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.structural;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.*;
 import org.junit.*;
 import test.LegacyTest;
@@ -37,7 +37,7 @@ import static org.junit.Assert.*;
 public class CanonicalCellMapTest extends LegacyTest {
     private CanonicalCellMap query;
     private Coordinate c, nc, d;
-    private MockCell cell;
+    private MockAgent cell;
 
     @Before
     public void setUp() throws Exception {
@@ -46,7 +46,7 @@ public class CanonicalCellMapTest extends LegacyTest {
         nc = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
         d = new Coordinate3D(0, 0, 0, 0);
 
-        cell = new MockCell(1);
+        cell = new MockAgent(1);
     }
 
     @Test

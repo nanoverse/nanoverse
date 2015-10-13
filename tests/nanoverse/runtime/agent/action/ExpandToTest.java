@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
 import nanoverse.runtime.control.identifiers.*;
@@ -113,7 +113,7 @@ public class ExpandToTest extends LegacyTest {
      * <p>
      * 0123456789
      * ____45____  Initial condition
-     * <^       Cell 4 divides left
+     * <^       AbstractAgent 4 divides left
      * <p>
      * 0123456789
      * ___445____  Resulting condition
@@ -133,8 +133,8 @@ public class ExpandToTest extends LegacyTest {
 
     private void checkPosition(int x, int state) {
         Coordinate c = new Coordinate2D(x, 0, 0);
-        Cell cell = layer.getViewer().getCell(c);
-        assertEquals(state, cell.getState());
+        AbstractAgent agent = layer.getViewer().getCell(c);
+        assertEquals(state, agent.getState());
     }
 
     /**
@@ -144,7 +144,7 @@ public class ExpandToTest extends LegacyTest {
      * <p>
      * 0123456789
      * ____45____  Initial condition
-     * ^>      Cell 4 divides right. Parent and target are equidistant
+     * ^>      AbstractAgent 4 divides right. Parent and target are equidistant
      * from vacancies, and the coin toss favors parent (4)
      * getting shoved.
      * <p>
@@ -174,7 +174,7 @@ public class ExpandToTest extends LegacyTest {
      * <p>
      * 0123456789
      * ____45____  Initial condition
-     * ^>      Cell 4 divides right. Parent and target are equidistant
+     * ^>      AbstractAgent 4 divides right. Parent and target are equidistant
      * from vacancies, and the coin toss favors target (5)
      * getting shoved.
      * <p>
@@ -205,7 +205,7 @@ public class ExpandToTest extends LegacyTest {
      * <p>
      * 0123456789
      * ____456___  Initial condition
-     * ^>      Cell 4 divides right. Parent is closer to a vacancy than
+     * ^>      AbstractAgent 4 divides right. Parent is closer to a vacancy than
      * child. Parent gets shoved.
      * <p>
      * 0123456789

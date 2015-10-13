@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.control.arguments;
 
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -40,7 +40,7 @@ import java.util.stream.*;
 /**
  * Created by dbborens on 11/23/14.
  */
-public class CellDescriptor implements Argument<Cell> {
+public class CellDescriptor implements Argument<AbstractAgent> {
 
     private LayerManager layerManager;
 

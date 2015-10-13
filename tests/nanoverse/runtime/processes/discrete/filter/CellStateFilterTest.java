@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete.filter;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.arguments.ConstantInteger;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -37,15 +37,15 @@ import java.util.*;
 import static org.junit.Assert.assertTrue;
 
 public class CellStateFilterTest extends LegacyLatticeTest {
-    private Cell yes, no;
+    private AbstractAgent yes, no;
     private CellStateFilter query;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
 
-        yes = new MockCell(1);
-        no = new MockCell(2);
+        yes = new MockAgent(1);
+        no = new MockAgent(2);
 
         CellUpdateManager u = cellLayer.getUpdateManager();
 

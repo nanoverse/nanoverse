@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.halt.BoundaryReachedEvent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -40,7 +40,7 @@ public class HaltCellLayerContent extends InfiniteCellLayerContent {
     }
 
     @Override
-    public void put(Coordinate coord, Cell current) throws BoundaryReachedEvent {
+    public void put(Coordinate coord, AbstractAgent current) throws BoundaryReachedEvent {
         if (coord.hasFlag(Flags.END_OF_WORLD)) {
             throw new BoundaryReachedEvent();
         }

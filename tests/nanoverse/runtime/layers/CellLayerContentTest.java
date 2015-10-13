@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.cell.*;
@@ -37,7 +37,7 @@ public abstract class CellLayerContentTest extends LegacyTest {
     protected Coordinate[] c;
     protected MockGeometry geom;
     protected CellLayerContent query;
-    protected MockCell f0, f1, f2;
+    protected MockAgent f0, f1, f2;
     protected MockCellLayerIndices indices;
 
     @Before
@@ -60,8 +60,8 @@ public abstract class CellLayerContentTest extends LegacyTest {
         f2 = makeMockCell(2, 0.7);
     }
 
-    private MockCell makeMockCell(int state, double health) {
-        MockCell cell = new MockCell();
+    private MockAgent makeMockCell(int state, double health) {
+        MockAgent cell = new MockAgent();
         cell.setState(state);
         cell.setHealth(health);
 

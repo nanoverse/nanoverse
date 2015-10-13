@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.agent.behaviors;
 
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -49,7 +49,7 @@ public class BehaviorTest extends LegacyTest {
 
     ExposedBehavior query;
     MockLayerManager layerManager;
-    MockCell callBack;
+    MockAgent callBack;
     MockAction a, b;
     Coordinate caller;
 
@@ -58,7 +58,7 @@ public class BehaviorTest extends LegacyTest {
     @Before
     public void setUp() throws Exception {
         layerManager = new MockLayerManager();
-        callBack = new MockCell();
+        callBack = new MockAgent();
         caller = new Coordinate2D(0, 0, 0);
         initActionSequence();
         query = new ExposedBehavior(callBack, layerManager, actionSequence);
@@ -80,8 +80,8 @@ public class BehaviorTest extends LegacyTest {
 
     @Test
     public void testGetCallback() throws Exception {
-        Cell expected = callBack;
-        Cell actual = query.getCallback();
+        AbstractAgent expected = callBack;
+        AbstractAgent actual = query.getCallback();
         assertEquals(expected, actual);
     }
 

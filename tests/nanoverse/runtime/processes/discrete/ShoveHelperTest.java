@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -75,7 +75,7 @@ public class ShoveHelperTest extends LegacyTest {
     }
 
     private void placeNumberedCell(int x) throws Exception {
-        MockCell cell = new MockCell(x);
+        MockAgent cell = new MockAgent(x);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
     }
@@ -89,7 +89,7 @@ public class ShoveHelperTest extends LegacyTest {
      * So here is what is supposed to happen:
      * <p>
      * 0123456_89  Initial condition
-     * ^       (Cell to be shoved)
+     * ^       (AbstractAgent to be shoved)
      * <p>
      * 0123_45689  Result
      */
@@ -104,7 +104,7 @@ public class ShoveHelperTest extends LegacyTest {
 
         for (int x = 0; x < 4; x++) {
             Coordinate c = new Coordinate2D(x, 0, 0);
-            Cell observed = layer.getViewer().getCell(c);
+            AbstractAgent observed = layer.getViewer().getCell(c);
             int expected = leftSeq[x];
             int actual = observed.getState();
             assertEquals(expected, actual);
@@ -112,7 +112,7 @@ public class ShoveHelperTest extends LegacyTest {
 
         for (int x = 0; x < 5; x++) {
             Coordinate c = new Coordinate2D(x + 5, 0, 0);
-            Cell observed = layer.getViewer().getCell(c);
+            AbstractAgent observed = layer.getViewer().getCell(c);
             int expected = rightSeq[x];
             int actual = observed.getState();
             assertEquals(expected, actual);
@@ -135,9 +135,9 @@ public class ShoveHelperTest extends LegacyTest {
         for (int x = 0; x < 4; x++) {
             for (int y = 0; y < 4; y++) {
                 for (int z = 0; z < 4; z++) {
-                    Cell cell = new MockCell(1);
+                    AbstractAgent agent = new MockAgent(1);
                     Coordinate coord = new Coordinate3D(x, y, z, 0);
-                    layer.getUpdateManager().place(cell, coord);
+                    layer.getUpdateManager().place(agent, coord);
                 }
             }
         }
@@ -181,7 +181,7 @@ public class ShoveHelperTest extends LegacyTest {
         placeCells();
         Random random = new Random(RANDOM_SEED);
         query = new ShoveHelper(lm, random);
-        MockCell cell = new MockCell(1);
+        MockAgent cell = new MockAgent(1);
         layer.getUpdateManager().place(cell, new Coordinate2D(-1, 0, 0));
         assertEquals(1, layer.getViewer().getImaginarySites().size());
         query.removeImaginary();
@@ -208,9 +208,9 @@ public class ShoveHelperTest extends LegacyTest {
 
         // initial state: _1234567__
         for (int x = 1; x < 8; x++) {
-            Cell cell = new MockCell(1);
+            AbstractAgent agent = new MockAgent(1);
             Coordinate coord = new Coordinate2D(x, 0, 0);
-            layer.getUpdateManager().place(cell, coord);
+            layer.getUpdateManager().place(agent, coord);
         }
 
         Coordinate origin = new Coordinate2D(4, 0, 0);

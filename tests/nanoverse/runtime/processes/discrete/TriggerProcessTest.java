@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;
@@ -90,7 +90,7 @@ public class TriggerProcessTest extends LegacyTest {
 
     @Test
     public void testLifeCycle() throws Exception {
-        MockCell cell = new MockCell();
+        MockAgent cell = new MockAgent();
         Coordinate c = layer.getGeometry().getCanonicalSites()[0];
         layer.getUpdateManager().place(cell, c);
         assertTrue(layer.getViewer().isOccupied(c));
@@ -118,9 +118,9 @@ public class TriggerProcessTest extends LegacyTest {
         trigger = new TriggerProcess(arguments, cpArguments, "test", new NullFilter(), true, true);
 
         // Set up two neighboring nanoverse.runtime.cells and one isolated cell.
-        MockCell neighbor1 = new MockCell();
-        MockCell neighbor2 = new MockCell();
-        MockCell isolated = new MockCell();
+        MockAgent neighbor1 = new MockAgent();
+        MockAgent neighbor2 = new MockAgent();
+        MockAgent isolated = new MockAgent();
         setUpNeighborhoodTestCase(neighbor1, neighbor2, isolated);
 
 
@@ -137,7 +137,7 @@ public class TriggerProcessTest extends LegacyTest {
     //    public void testRecordAfterTargeting() throws Exception {
 //        fail("Not yet implemented");
 //    }
-    private void setUpNeighborhoodTestCase(MockCell neighbor1, MockCell neighbor2, MockCell isolated) throws Exception {
+    private void setUpNeighborhoodTestCase(MockAgent neighbor1, MockAgent neighbor2, MockAgent isolated) throws Exception {
         MockGeometry geom = (MockGeometry) layer.getGeometry();
         // 0, 0, 0
         Coordinate nc1 = geom.getCanonicalSites()[0];

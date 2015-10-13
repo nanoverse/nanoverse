@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.io.visual.color;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.*;
@@ -67,12 +67,12 @@ public class DefaultColorManagerTest {
         assertEquals(Color.BLACK, query.getColor(coord, systemState));
 
         // Test 1
-        layer.getUpdateManager().place(new MockCell(1), coord);
+        layer.getUpdateManager().place(new MockAgent(1), coord);
         assertEquals(Color.BLUE, query.getColor(coord, systemState));
 
         // Test 2
         layer.getUpdateManager().banish(coord);
-        layer.getUpdateManager().place(new MockCell(2), coord);
+        layer.getUpdateManager().place(new MockAgent(2), coord);
         assertEquals(Color.RED, query.getColor(coord, systemState));
     }
 

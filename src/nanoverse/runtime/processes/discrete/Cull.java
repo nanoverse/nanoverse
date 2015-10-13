@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.*;
@@ -60,8 +60,8 @@ public class Cull extends CellProcess {
                 continue;
             }
 
-            Cell cell = getLayer().getViewer().getCell(candidate);
-            if (cell.getHealth() <= threshold) {
+            AbstractAgent agent = getLayer().getViewer().getCell(candidate);
+            if (agent.getHealth() <= threshold) {
                 targets.add(candidate);
             }
         }

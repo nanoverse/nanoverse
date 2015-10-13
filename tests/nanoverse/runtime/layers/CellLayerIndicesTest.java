@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.layers.cell.CellLayerIndices;
 import nanoverse.runtime.structural.CanonicalCellMap;
@@ -54,7 +54,7 @@ public class CellLayerIndicesTest extends LegacyTest {
 
     @Test
     public void testNonNullToNull() {
-        MockCell cell = new MockCell();
+        MockAgent cell = new MockAgent();
         cell.setDivisible(true);
         query.refresh(c, null, cell);
 
@@ -66,7 +66,7 @@ public class CellLayerIndicesTest extends LegacyTest {
 
     @Test
     public void testNullToNonDivisible() {
-        MockCell cell = new MockCell();
+        MockAgent cell = new MockAgent();
 
         cell.setDivisible(false);
         cell.setState(3);
@@ -82,7 +82,7 @@ public class CellLayerIndicesTest extends LegacyTest {
 
     @Test
     public void testNullToDivisible() {
-        MockCell cell = new MockCell();
+        MockAgent cell = new MockAgent();
         cell.setDivisible(true);
         query.refresh(c, null, cell);
         assertTrue(query.isDivisible(c));
@@ -90,11 +90,11 @@ public class CellLayerIndicesTest extends LegacyTest {
 
     @Test
     public void testNonNullTransition() {
-        MockCell dCell = new MockCell();
+        MockAgent dCell = new MockAgent();
         dCell.setState(5);
         dCell.setDivisible(true);
 
-        MockCell nCell = new MockCell();
+        MockAgent nCell = new MockAgent();
         nCell.setDivisible(false);
         nCell.setState(2);
 

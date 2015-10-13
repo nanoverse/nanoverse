@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.halt.BoundaryReachedEvent;
 import nanoverse.runtime.control.identifiers.*;
@@ -53,16 +53,16 @@ public class HaltCellLayerContentTest extends LegacyTest {
 
     @Test
     public void testPutInBounds() throws Exception {
-        MockCell cell = new MockCell(1);
+        MockAgent cell = new MockAgent(1);
         Coordinate c = new Coordinate2D(0, 0, 0);
         query.put(c, cell);
-        Cell actual = query.get(c);
+        AbstractAgent actual = query.get(c);
         assertTrue(actual == cell);
     }
 
     @Test
     public void testPutOutOfBounds() throws Exception {
-        MockCell cell = new MockCell(1);
+        MockAgent cell = new MockAgent(1);
         Coordinate c = new Coordinate2D(-1, 0, Flags.END_OF_WORLD);
 
         boolean thrown = false;

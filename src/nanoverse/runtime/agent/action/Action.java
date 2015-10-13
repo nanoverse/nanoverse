@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -103,7 +103,7 @@ public abstract class Action {
 //                    + ".");
         }
 
-        Cell putative = viewer.getCell(coord);
+        AbstractAgent putative = viewer.getCell(coord);
 
         if (!(putative instanceof BehaviorCell)) {
             throw new UnsupportedOperationException("Only BehaviorCells and top-down nanoverse.runtime.processes may trigger behaviors.");

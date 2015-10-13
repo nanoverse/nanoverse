@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 
@@ -61,7 +61,7 @@ public class CellLookupManager {
         // Check state of each neighbor
         for (int i = 0; i < neighbors.length; i++) {
             Coordinate query = neighbors[i];
-            Cell neighbor = content.get(query);
+            AbstractAgent neighbor = content.get(query);
             if (ignoreVacancies && neighbor == null) {
                 continue;
             } else if (neighbor == null) {
@@ -148,7 +148,7 @@ public class CellLookupManager {
         return (res.toArray(new Coordinate[0]));
     }
 
-    public Coordinate getCellLocation(Cell cell) {
-        return content.locate(cell);
+    public Coordinate getCellLocation(AbstractAgent agent) {
+        return content.locate(agent);
     }
 }

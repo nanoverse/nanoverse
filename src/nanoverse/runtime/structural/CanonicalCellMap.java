@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.structural;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 import java.util.*;
@@ -32,7 +32,7 @@ import java.util.*;
 /**
  * Created by David B Borenstein on 4/11/14.
  */
-public class CanonicalCellMap extends HashMap<Coordinate, Cell> {
+public class CanonicalCellMap extends HashMap<Coordinate, AbstractAgent> {
     public CanonicalCellMap(int initialCapacity, float loadFactor) {
         super(initialCapacity, loadFactor);
     }
@@ -45,12 +45,12 @@ public class CanonicalCellMap extends HashMap<Coordinate, Cell> {
         super();
     }
 
-    public CanonicalCellMap(Map<? extends Coordinate, ? extends Cell> m) {
+    public CanonicalCellMap(Map<? extends Coordinate, ? extends AbstractAgent> m) {
         super(m);
     }
 
     @Override
-    public Cell get(Object key) {
+    public AbstractAgent get(Object key) {
         Coordinate canonical = objToCanonicalCoord(key);
 
         return super.get(canonical);
@@ -63,7 +63,7 @@ public class CanonicalCellMap extends HashMap<Coordinate, Cell> {
     }
 
     @Override
-    public Cell put(Coordinate key, Cell value) {
+    public AbstractAgent put(Coordinate key, AbstractAgent value) {
         Coordinate canonical = objToCanonicalCoord(key);
         return super.put(canonical, value);
     }

@@ -50,7 +50,7 @@ public class MockCellDescriptor extends CellDescriptor {
 
     @Override
     public BehaviorCell next() throws HaltCondition {
-        return new MockCell(state);
+        return new MockAgent(state);
     }
 
     public void setState(int state) {

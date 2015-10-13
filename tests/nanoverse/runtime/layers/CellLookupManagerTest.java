@@ -25,7 +25,7 @@
 package nanoverse.runtime.layers;
 
 import junit.framework.TestCase;
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
@@ -49,8 +49,8 @@ public class CellLookupManagerTest extends TestCase {
         Coordinate[] neighborhood = new Coordinate[]{c[0], c[2]};
         geometry.setCellNeighbors(c[1], neighborhood);
 
-        Cell f0 = new MockCell(4);
-        Cell f2 = new MockCell(6);
+        AbstractAgent f0 = new MockAgent(4);
+        AbstractAgent f2 = new MockAgent(6);
 
         content.put(c[0], f0);
         content.put(c[2], f2);

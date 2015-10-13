@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.processes.*;
 import org.junit.*;
 import test.LegacyLatticeTest;
@@ -56,8 +56,8 @@ public class CullTest extends LegacyLatticeTest {
      */
     @Test
     public void testLifeCycle() throws Exception {
-        MockCell live = new MockCell();
-        MockCell die = new MockCell();
+        MockAgent live = new MockAgent();
+        MockAgent die = new MockAgent();
 
         live.setHealth(THRESHOLD + 0.1);
         die.setHealth(THRESHOLD - 0.1);
@@ -88,7 +88,7 @@ public class CullTest extends LegacyLatticeTest {
      */
     @Test
     public void testBorderlineCase() throws Exception {
-        MockCell borderline = new MockCell();
+        MockAgent borderline = new MockAgent();
         borderline.setHealth(THRESHOLD);
         cellLayer.getUpdateManager().place(borderline, x);
 

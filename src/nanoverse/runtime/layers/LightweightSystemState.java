@@ -25,7 +25,7 @@
 package nanoverse.runtime.layers;
 
 import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -137,11 +137,11 @@ public class LightweightSystemState extends SystemState {
     //    private void loadCell(CellLayer cellLayer, Coordinate coord, double health, int state) {
     private void loadCell(CellLayer cellLayer, Coordinate coord, int state) {
         try {
-            // Build a dummy cell with the correct state and health.
-            Cell cell = new BehaviorCell(layerManager, state, 0.0, 0.0, null);
+            // Build a dummy agent with the correct state and health.
+            AbstractAgent agent = new BehaviorCell(layerManager, state, 0.0, 0.0, null);
 
-            // Place it in the cell layer.
-            cellLayer.getUpdateManager().place(cell, coord);
+            // Place it in the agent layer.
+            cellLayer.getUpdateManager().place(agent, coord);
         } catch (HaltCondition hc) {
             StringBuilder message = new StringBuilder();
             message.append("Consistency failure: simulation halt event thrown while reconstructing state.\n");

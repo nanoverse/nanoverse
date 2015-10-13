@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete.filter;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.arguments.ConstantInteger;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -55,13 +55,13 @@ public class DepthFilterTest extends LegacyTest {
     }
 
     // Position  0 1 2 3 4 5 6 7 8 9
-    // Cell          2 3 4 5 6
+    // AbstractAgent          2 3 4 5 6
     // Depth     0 0 0 1 2 1 0 0 0 0
     private void placeCells() throws Exception {
         initial = new ArrayList<>();
         for (int y = 2; y < 7; y++) {
             Coordinate c = new Coordinate2D(0, y, 0);
-            MockCell cell = new MockCell(y);
+            MockAgent cell = new MockAgent(y);
             layerManager.getCellLayer().getUpdateManager().place(cell, c);
             initial.add(c);
         }

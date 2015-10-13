@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -36,8 +36,8 @@ public class ActionRangeMapTest {
 
     @Test
     public void testClone() throws Exception {
-        MockCell originalCell = new MockCell(1);
-        MockCell cloneCell = new MockCell(2);
+        MockAgent originalCell = new MockAgent(1);
+        MockAgent cloneCell = new MockAgent(2);
 
         ActionRangeMap original = makeActionRangeMap(originalCell);
         ActionRangeMap expected = makeActionRangeMap(cloneCell);
@@ -50,13 +50,13 @@ public class ActionRangeMapTest {
         checkCallbacks(original, originalCell);
     }
 
-    private void checkCallbacks(ActionRangeMap map, MockCell cell) {
+    private void checkCallbacks(ActionRangeMap map, MockAgent cell) {
         for (Action key : map.getKeys()) {
             assertEquals(cell, key.getCallback());
         }
     }
 
-    private ActionRangeMap makeActionRangeMap(MockCell cell) {
+    private ActionRangeMap makeActionRangeMap(MockAgent cell) {
         ActionRangeMap ret = new ActionRangeMap(3);
         loadMockAction(ret, cell, 0.5, 1);
         loadMockAction(ret, cell, 0.75, 2);
@@ -64,7 +64,7 @@ public class ActionRangeMapTest {
         return ret;
     }
 
-    private void loadMockAction(ActionRangeMap map, MockCell cell, double weight, int identifier) {
+    private void loadMockAction(ActionRangeMap map, MockAgent cell, double weight, int identifier) {
         MockAction action = new MockAction();
         action.setIdentifier(identifier);
         action.setCallback(cell);

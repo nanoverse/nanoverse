@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.io.deserialize;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.io.serialize.binary.*;
@@ -172,8 +172,8 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
         return ret;
     }
 
-    private MockCell placeCell(Coordinate coord, double health, int state) throws Exception {
-        MockCell cell = new MockCell();
+    private MockAgent placeCell(Coordinate coord, double health, int state) throws Exception {
+        MockAgent cell = new MockAgent();
         cell.setHealth(health);
         cell.setState(state);
         cellLayer.getUpdateManager().place(cell, coord);

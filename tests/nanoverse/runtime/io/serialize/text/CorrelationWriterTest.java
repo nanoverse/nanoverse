@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.io.serialize.text;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.arguments.ConstantDouble;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -95,12 +95,12 @@ public class CorrelationWriterTest extends LegacyTest {
         for (int x = 0; x < SIDE; x += 2) {
             for (int y = 0; y < SIDE; y += 2) {
                 Coordinate c0 = new Coordinate2D(x, y, 0);
-                MockCell cell = new MockCell(1);
+                MockAgent cell = new MockAgent(1);
                 layer.getUpdateManager().place(cell, c0);
 
 
                 if ((x < SIDE - 1) && (y < SIDE - 1)) {
-                    cell = new MockCell(1);
+                    cell = new MockAgent(1);
                     Coordinate c1 = new Coordinate2D(x + 1, y + 1, 0);
                     layer.getUpdateManager().place(cell, c1);
                 }
@@ -137,12 +137,12 @@ public class CorrelationWriterTest extends LegacyTest {
         for (int x = 0; x < SIDE; x += 2) {
             for (int y = 0; y < SIDE; y += 2) {
                 Coordinate c0 = new Coordinate2D(x, y, 0);
-                MockCell cell = new MockCell(1);
+                MockAgent cell = new MockAgent(1);
                 layer.getUpdateManager().place(cell, c0);
 
 
                 if ((x < SIDE - 1) && (y < SIDE - 1)) {
-                    cell = new MockCell(2);
+                    cell = new MockAgent(2);
                     Coordinate c1 = new Coordinate2D(x + 1, y + 1, 0);
                     layer.getUpdateManager().place(cell, c1);
                 }

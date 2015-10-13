@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete.filter;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -93,9 +93,9 @@ public class CellStateFilter extends Filter {
                 continue;
             }
 
-            Cell cell = layer.getViewer().getCell(c);
+            AbstractAgent agent = layer.getViewer().getCell(c);
 
-            if (cell.getState() == chosen) {
+            if (agent.getState() == chosen) {
                 toRetain.add(c);
             }
         }

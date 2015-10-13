@@ -24,8 +24,6 @@
 
 package nanoverse.runtime.agent;
 
-import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.agent.control.MockBehaviorDispatcher;
 import nanoverse.runtime.control.identifiers.*;
 import org.junit.*;
@@ -72,7 +70,7 @@ public class BehaviorCellTest extends LegacyLatticeTest {
 
     @Test
     public void testDivide() throws Exception {
-        Cell child = query.divide();
+        AbstractAgent child = query.divide();
         assertEquals(child, query);
 
         // Health should be half for each
@@ -82,7 +80,7 @@ public class BehaviorCellTest extends LegacyLatticeTest {
 
     @Test
     public void testCloneNoArgument() throws Exception {
-        Cell clone = query.replicate();
+        AbstractAgent clone = query.replicate();
         assertEquals(clone, query);
 
         // Since no division took place, health should be original for each

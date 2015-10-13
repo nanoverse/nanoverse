@@ -41,7 +41,7 @@ import java.util.stream.Stream;
  * <p>
  * Created by David B Borenstein on 1/25/14.
  */
-public class BehaviorCell extends Cell {
+public class BehaviorCell extends AbstractAgent {
 
     // State
     private int considerCount;
@@ -104,7 +104,7 @@ public class BehaviorCell extends Cell {
     }
 
     @Override
-    public Cell divide() throws HaltCondition {
+    public AbstractAgent divide() throws HaltCondition {
         if (!isDivisible()) {
             throw new IllegalStateException("Attempted to divide non-divisible cell.");
         }

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.*;
@@ -50,11 +50,11 @@ public abstract class BulkDivisionProcess extends CellProcess {
 
     protected void execute(Coordinate[] candidates) throws HaltCondition {
         Object[] chosen = MaxTargetHelper.respectMaxTargets(candidates, getMaxTargets().next(), getGeneralParameters().getRandom());
-        Cell[] chosenCells = toCellArray(chosen);
-        for (int i = 0; i < chosenCells.length; i++) {
-            Cell cell = chosenCells[i];
+        AbstractAgent[] chosenAgents = toCellArray(chosen);
+        for (int i = 0; i < chosenAgents.length; i++) {
+            AbstractAgent agent = chosenAgents[i];
             CellLookupManager lm = getLayer().getLookupManager();
-            Coordinate currentLocation = lm.getCellLocation(cell);
+            Coordinate currentLocation = lm.getCellLocation(agent);
             doDivision(currentLocation);
         }
 
@@ -64,23 +64,23 @@ public abstract class BulkDivisionProcess extends CellProcess {
         shoveHelper.removeImaginary();
     }
 
-    private Cell[] toCellArray(Object[] chosen) {
+    private AbstractAgent[] toCellArray(Object[] chosen) {
         int n = chosen.length;
-        Cell[] cells = new Cell[n];
+        AbstractAgent[] abstractAgents = new AbstractAgent[n];
         for (int i = 0; i < n; i++) {
             Coordinate coord = (Coordinate) chosen[i];
-            Cell cell = getLayer().getViewer().getCell(coord);
-            cells[i] = cell;
+            AbstractAgent agent = getLayer().getViewer().getCell(coord);
+            abstractAgents[i] = agent;
         }
 
-        return cells;
+        return abstractAgents;
     }
 
 
     protected void doDivision(Coordinate origin) throws HaltCondition {
         // Get child cell
         CellUpdateManager um = getLayer().getUpdateManager();
-        Cell child = um.divide(origin);
+        AbstractAgent child = um.divide(origin);
 
         Coordinate target = shoveHelper.chooseVacancy(origin);
 

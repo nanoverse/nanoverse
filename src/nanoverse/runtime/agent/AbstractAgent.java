@@ -32,7 +32,7 @@ import nanoverse.runtime.control.identifiers.Coordinate;
  *
  * @author David Bruce Borenstein
  */
-public abstract class Cell {
+public abstract class AbstractAgent {
     private int state;
     private double health;
     private boolean divisible;
@@ -82,7 +82,7 @@ public abstract class Cell {
      *
      * @return
      */
-    public abstract Cell divide() throws HaltCondition;
+    public abstract AbstractAgent divide() throws HaltCondition;
 
     /**
      * Returns the current production of the specified solute.
@@ -93,7 +93,7 @@ public abstract class Cell {
      */
     public abstract double getProduction(String solute);
 
-    public Cell replicate() throws HaltCondition {
+    public AbstractAgent replicate() throws HaltCondition {
         return clone(state);
     }
 
@@ -105,7 +105,7 @@ public abstract class Cell {
      * @param state
      * @return
      */
-    public abstract Cell clone(int state) throws HaltCondition;
+    public abstract AbstractAgent clone(int state) throws HaltCondition;
 
     /**
      * Informs the cell that it has been given a direct benefit.

@@ -32,15 +32,15 @@ import nanoverse.runtime.structural.utilities.EpsilonUtil;
 /**
  * Mock cell class used for testing. We make it extend from BehaviorCell
  * for compatibility with BehaviorCell-only classes. (BehaviorCell is a
- * subclass of Cell which is capable of engaging in arbitrary behaviors,
+ * subclass of AbstractAgent which is capable of engaging in arbitrary behaviors,
  * which can then be used for nanoverse.runtime.agent-based modeling.)
  * <p>
  * Created by dbborens on 1/13/14.
  */
-public class MockCell extends BehaviorCell {
+public class MockAgent extends BehaviorCell {
 
     private int considerCount;
-    private MockCell child;
+    private MockAgent child;
     private int state = 1;
     private double health = 0.0;
     private double production;
@@ -50,11 +50,11 @@ public class MockCell extends BehaviorCell {
     private boolean died;
     private int triggerCount = 0;
 
-    public MockCell() {
+    public MockAgent() {
         super();
     }
 
-    public MockCell(int state) {
+    public MockAgent(int state) {
         super();
         this.state = state;
     }
@@ -99,12 +99,12 @@ public class MockCell extends BehaviorCell {
     }
 
     @Override
-    public MockCell divide() {
+    public MockAgent divide() {
         return child;
     }
 
     @Override
-    public MockCell clone(int state) {
+    public MockAgent clone(int state) {
         return child;
     }
 
@@ -132,11 +132,11 @@ public class MockCell extends BehaviorCell {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof MockCell)) {
+        if (!(obj instanceof MockAgent)) {
             return false;
         }
 
-        MockCell other = (MockCell) obj;
+        MockAgent other = (MockAgent) obj;
 
         if (other.state != this.state) {
             return false;
@@ -153,7 +153,7 @@ public class MockCell extends BehaviorCell {
         this.production = production;
     }
 
-    public void setChild(MockCell child) {
+    public void setChild(MockAgent child) {
         this.child = child;
     }
 

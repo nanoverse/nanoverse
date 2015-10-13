@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -77,7 +77,7 @@ public class ExpandRandom extends Action {
         HashSet<Coordinate> affectedSites = shoveHelper.shoveRandom(parentLocation);
 
         // Step 2: Clone parent.
-        Cell child = getCallback().replicate();
+        AbstractAgent child = getCallback().replicate();
 
         // Step 3: Place child in parent location.
         u.place(child, parentLocation);

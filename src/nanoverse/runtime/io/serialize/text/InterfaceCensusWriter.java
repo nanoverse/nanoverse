@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.io.serialize.text;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -169,8 +169,8 @@ public class InterfaceCensusWriter extends Serializer {
         HashSet<Coordinate> sites = layer.getViewer().getOccupiedSites();
 
         for (Coordinate site : sites) {
-            Cell focalCell = layer.getViewer().getCell(site);
-            if (focalCell.getState() == focalState) {
+            AbstractAgent focalAgent = layer.getViewer().getCell(site);
+            if (focalAgent.getState() == focalState) {
                 focalSites.add(site);
             }
         }

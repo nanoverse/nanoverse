@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.io.serialize.text;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.halt.ManualHaltEvent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -100,13 +100,13 @@ public class SurfaceCensusWriterTest extends LegacyTest {
         Coordinate c = new Coordinate2D(0, y, 0);
         CellUpdateManager u = cellLayer.getUpdateManager();
         u.banish(c);
-        MockCell cell = new MockCell(state);
+        MockAgent cell = new MockAgent(state);
         u.place(cell, c);
     }
 
     private void put(int y, int state) throws Exception {
         Coordinate c = new Coordinate2D(0, y, 0);
-        MockCell cell = new MockCell(state);
+        MockAgent cell = new MockAgent(state);
         CellUpdateManager u = cellLayer.getUpdateManager();
         u.place(cell, c);
     }

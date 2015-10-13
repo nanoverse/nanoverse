@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 public class MockCellLayerIndices extends CellLayerIndices {
@@ -32,8 +32,8 @@ public class MockCellLayerIndices extends CellLayerIndices {
     private CellIndex occupied = new CellIndex();
     private CellIndex divisible = new CellIndex();
     private Coordinate lastCoord;
-    private Cell lastPrevious;
-    private Cell lastCurrent;
+    private AbstractAgent lastPrevious;
+    private AbstractAgent lastCurrent;
 
     public void setOccupied(Coordinate k, Boolean v) {
         if (v)
@@ -74,7 +74,7 @@ public class MockCellLayerIndices extends CellLayerIndices {
     }
 
     @Override
-    public void refresh(Coordinate coord, Cell previous, Cell current) {
+    public void refresh(Coordinate coord, AbstractAgent previous, AbstractAgent current) {
         super.refresh(coord, previous, current);
         lastPrevious = previous;
         lastCurrent = current;
@@ -85,11 +85,11 @@ public class MockCellLayerIndices extends CellLayerIndices {
         return lastCoord;
     }
 
-    public Cell getLastPrevious() {
+    public AbstractAgent getLastPrevious() {
         return lastPrevious;
     }
 
-    public Cell getLastCurrent() {
+    public AbstractAgent getLastCurrent() {
         return lastCurrent;
     }
 }

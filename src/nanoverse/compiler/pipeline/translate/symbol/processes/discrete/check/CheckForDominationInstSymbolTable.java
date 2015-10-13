@@ -60,7 +60,7 @@ public class CheckForDominationInstSymbolTable extends DiscreteProcessInstSymbol
 
     private void target(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "Cell class to check for domination.");
+        MemberSymbol ms = new MemberSymbol(rst, "AbstractAgent class to check for domination.");
         ret.put("target", ms);
     }
 

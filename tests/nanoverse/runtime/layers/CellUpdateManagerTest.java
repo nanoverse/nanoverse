@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
@@ -56,7 +56,7 @@ public class CellUpdateManagerTest extends LegacyTest {
 
     @Test
     public void testConsiderApply() throws Exception {
-        MockCell cell = new MockCell();
+        MockAgent cell = new MockAgent();
         query.place(cell, o);
         assertEquals(1, query.consider(o));
         assertEquals(2, query.consider(o));
@@ -67,9 +67,9 @@ public class CellUpdateManagerTest extends LegacyTest {
 
     @Test
     public void testDivideTo() throws Exception {
-        MockCell cell = new MockCell(1);
+        MockAgent cell = new MockAgent(1);
         query.place(cell, o);
-        MockCell child = new MockCell(2);
+        MockAgent child = new MockAgent(2);
         cell.setChild(child);
         assertNull(indices.getLastPrevious());
         assertEquals(cell, indices.getLastCurrent());
@@ -86,21 +86,21 @@ public class CellUpdateManagerTest extends LegacyTest {
 
     @Test
     public void testDivide() throws Exception {
-        MockCell cell = new MockCell(1);
-        MockCell child = new MockCell(2);
+        MockAgent cell = new MockAgent(1);
+        MockAgent child = new MockAgent(2);
         cell.setChild(child);
         query.place(cell, o);
 
-        Cell actual = query.divide(o);
-        Cell expected = child;
+        AbstractAgent actual = query.divide(o);
+        AbstractAgent expected = child;
         assertEquals(expected, actual);
     }
 
 
     @Test
     public void testBanish() throws Exception {
-        Cell cell = new MockCell();
-        content.put(o, cell);
+        AbstractAgent agent = new MockAgent();
+        content.put(o, agent);
 
         assertTrue(content.has(o));
         query.banish(o);
@@ -109,38 +109,38 @@ public class CellUpdateManagerTest extends LegacyTest {
 
     @Test
     public void testMove() throws Exception {
-        Cell cell = new MockCell(1);
-        query.place(cell, o);
+        AbstractAgent agent = new MockAgent(1);
+        query.place(agent, o);
         assertNull(indices.getLastPrevious());
-        assertEquals(cell, indices.getLastCurrent());
+        assertEquals(agent, indices.getLastCurrent());
         assertEquals(o, indices.getLastCoord());
         assertTrue(content.has(o));
 
         query.move(o, t);
 
         assertFalse(content.has(o));
-        assertEquals(cell, indices.getLastCurrent());
+        assertEquals(agent, indices.getLastCurrent());
         assertEquals(t, indices.getLastCoord());
         assertTrue(content.has(t));
     }
 
     @Test
     public void testSwap() throws Exception {
-        Cell cell1 = new MockCell(1);
-        Cell cell2 = new MockCell(2);
-        query.place(cell1, o);
-        query.place(cell2, t);
+        AbstractAgent abstractAgent1 = new MockAgent(1);
+        AbstractAgent abstractAgent2 = new MockAgent(2);
+        query.place(abstractAgent1, o);
+        query.place(abstractAgent2, t);
 
-        assertEquals(o, content.locate(cell1));
-        assertEquals(t, content.locate(cell2));
+        assertEquals(o, content.locate(abstractAgent1));
+        assertEquals(t, content.locate(abstractAgent2));
 
         assertEquals(content.get(o).getState(), 1);
         assertEquals(content.get(t).getState(), 2);
 
         query.swap(o, t);
 
-        assertEquals(o, content.locate(cell2));
-        assertEquals(t, content.locate(cell1));
+        assertEquals(o, content.locate(abstractAgent2));
+        assertEquals(t, content.locate(abstractAgent1));
 
         assertEquals(content.get(o).getState(), 2);
         assertEquals(content.get(t).getState(), 1);
@@ -149,10 +149,10 @@ public class CellUpdateManagerTest extends LegacyTest {
 
     @Test
     public void testPlace() throws Exception {
-        Cell cell = new MockCell(1);
+        AbstractAgent agent = new MockAgent(1);
 
         assertFalse(content.has(o));
-        query.place(cell, o);
+        query.place(agent, o);
         assertTrue(content.has(o));
     }
 

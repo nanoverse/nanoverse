@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
 import nanoverse.runtime.control.identifiers.*;
@@ -112,8 +112,8 @@ public class SwapTest extends LegacyTest {
 
     private void checkPosition(int x, int state) {
         Coordinate c = new Coordinate2D(x, 0, 0);
-        Cell cell = layer.getViewer().getCell(c);
-        assertEquals(state, cell.getState());
+        AbstractAgent agent = layer.getViewer().getCell(c);
+        assertEquals(state, agent.getState());
     }
 
     private void checkIsVacant(int x) {

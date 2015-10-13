@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.identifiers.*;
@@ -100,7 +100,7 @@ public class FillTest extends LegacyTest {
     @Test
     public void testSkipFilledYes() throws Exception {
         Coordinate c = new Coordinate2D(0, 2, 0);
-        lm.getCellLayer().getUpdateManager().place(new MockCell(2), c);
+        lm.getCellLayer().getUpdateManager().place(new MockAgent(2), c);
         doSkipFilledTest(true);
 
         // Original cell should not have been replaced, because it was skipped
@@ -125,7 +125,7 @@ public class FillTest extends LegacyTest {
     @Test
     public void testSkipFilledNo() throws Exception {
         Coordinate c = new Coordinate2D(0, 2, 0);
-        lm.getCellLayer().getUpdateManager().place(new MockCell(2), c);
+        lm.getCellLayer().getUpdateManager().place(new MockAgent(2), c);
         doSkipFilledTest(false);
     }
 }

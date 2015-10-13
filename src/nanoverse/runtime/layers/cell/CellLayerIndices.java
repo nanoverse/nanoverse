@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.structural.*;
 
@@ -65,7 +65,7 @@ public class CellLayerIndices {
     // key, ie, using == instead of equals(...). This way, no matter
     // how equality is defined for nanoverse.runtime.cells, the cell-->coordinate map
     // will uniquely map nanoverse.runtime.cells to a location.
-//    protected IdentityHashMap<Cell, Coordinate> cellToCoord;
+//    protected IdentityHashMap<AbstractAgent, Coordinate> cellToCoord;
 
     public CellLayerIndices() {
         occupiedSites = new CellIndex();
@@ -74,12 +74,12 @@ public class CellLayerIndices {
         cellLocationIndex = new CellLocationIndex();
     }
 
-    public Coordinate locate(Cell cell) {
-        return cellLocationIndex.locate(cell);
+    public Coordinate locate(AbstractAgent agent) {
+        return cellLocationIndex.locate(agent);
     }
 
-    public boolean isIndexed(Cell cell) {
-        return cellLocationIndex.isIndexed(cell);
+    public boolean isIndexed(AbstractAgent agent) {
+        return cellLocationIndex.isIndexed(agent);
     }
 
     public boolean isOccupied(Coordinate cell) {
@@ -119,7 +119,7 @@ public class CellLayerIndices {
         return divisibleSites.set();
     }
 
-    public void refresh(Coordinate coord, Cell previous, Cell current) {
+    public void refresh(Coordinate coord, AbstractAgent previous, AbstractAgent current) {
         if (previous != null) {
             remove(coord, previous);
         }
@@ -129,9 +129,9 @@ public class CellLayerIndices {
         }
     }
 
-    private void remove(Coordinate coord, Cell cell) {
-        cellLocationIndex.remove(cell);
-        decrStateCount(cell);
+    private void remove(Coordinate coord, AbstractAgent agent) {
+        cellLocationIndex.remove(agent);
+        decrStateCount(agent);
         setOccupied(coord, false);
         setDivisible(coord, false);
     }
@@ -153,8 +153,8 @@ public class CellLayerIndices {
         }
     }
 
-    private void decrStateCount(Cell cell) {
-        Integer currentState = cell.getState();
+    private void decrStateCount(AbstractAgent agent) {
+        Integer currentState = agent.getState();
         Integer currentCount = stateMap.get(currentState);
         if (currentCount == 1) {
             stateMap.remove(currentState);
@@ -163,15 +163,15 @@ public class CellLayerIndices {
         }
     }
 
-    private void add(Coordinate coord, Cell cell) {
-        cellLocationIndex.add(cell, coord);
-        incrStateCount(cell);
+    private void add(Coordinate coord, AbstractAgent agent) {
+        cellLocationIndex.add(agent, coord);
+        incrStateCount(agent);
         setOccupied(coord, true);
-        setDivisible(coord, cell.isDivisible());
+        setDivisible(coord, agent.isDivisible());
     }
 
-    private void incrStateCount(Cell cell) {
-        Integer currentState = cell.getState();
+    private void incrStateCount(AbstractAgent agent) {
+        Integer currentState = agent.getState();
 
         if (!stateMap.containsKey(currentState)) {
             stateMap.put(currentState, 0);
@@ -197,7 +197,7 @@ public class CellLayerIndices {
     private CellLocationIndex buildLocationIndex(CanonicalCellMap cellMap) {
         CellLocationIndex ret = new CellLocationIndex();
         for (Coordinate key : cellMap.keySet()) {
-            Cell value = cellMap.get(key);
+            AbstractAgent value = cellMap.get(key);
             if (value != null) {
                 ret.add(value, key);
             }

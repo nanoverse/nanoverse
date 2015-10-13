@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.*;
 import nanoverse.runtime.geometry.boundaries.HaltArena;
@@ -86,7 +86,7 @@ public class CellLayerTest extends LegacyTest {
         ExposedCellLayer query = new ExposedCellLayer(geom);
         for (int i = 0; i < geom.getCanonicalSites().length; i++) {
             Coordinate c = geom.getCanonicalSites()[i];
-            query.getUpdateManager().place(new MockCell(i), c);
+            query.getUpdateManager().place(new MockAgent(i), c);
         }
 
         // Verify that the lattice is filled up.

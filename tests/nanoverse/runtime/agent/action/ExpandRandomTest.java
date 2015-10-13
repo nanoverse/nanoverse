@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
 import nanoverse.runtime.cells.*;
@@ -77,7 +77,7 @@ public class ExpandRandomTest extends LegacyTest {
 
     private MockTargetRule placeNumberedCell(int x) throws Exception {
         Supplier<BehaviorCell> ncSupplier = mock(Supplier.class);
-        BehaviorCell child = new MockCell(x);
+        BehaviorCell child = new MockAgent(x);
         when(ncSupplier.get()).thenReturn(child);
         BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, ncSupplier);
         Coordinate coord = new Coordinate2D(x, 0, 0);
@@ -131,16 +131,16 @@ public class ExpandRandomTest extends LegacyTest {
 
     private void checkPosition(int x, int state) {
         Coordinate c = new Coordinate2D(x, 0, 0);
-        Cell cell = layer.getViewer().getCell(c);
-        assertEquals(state, cell.getState());
+        AbstractAgent agent = layer.getViewer().getCell(c);
+        assertEquals(state, agent.getState());
     }
 
     /**
-     * Cell divides left and shoves.
+     * AbstractAgent divides left and shoves.
      * <p>
      * 0123456789
      * _1234_____  Initial condition
-     * ^       Cell 4 divides left
+     * ^       AbstractAgent 4 divides left
      * <p>
      * 0123456789
      * 12344_____  Resulting condition

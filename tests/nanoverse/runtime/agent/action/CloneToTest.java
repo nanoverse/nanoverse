@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
 import nanoverse.runtime.cells.*;
@@ -66,8 +66,8 @@ public class CloneToTest extends LegacyLatticeTest {
         targetRule.setTargets(targets);
 
         supplier = mock(Supplier.class);
-        when(supplier.get()).thenReturn(new MockCell(MOCK_PROGENY_STATE),
-            new MockCell(MOCK_PROGENY_STATE));
+        when(supplier.get()).thenReturn(new MockAgent(MOCK_PROGENY_STATE),
+            new MockAgent(MOCK_PROGENY_STATE));
 
         // Place a single cell at origin.
         original = new BehaviorCell(layerManager, 1, 1.0, 1.0, supplier);
@@ -104,10 +104,10 @@ public class CloneToTest extends LegacyLatticeTest {
     @Test
     public void testReplacement() throws Exception {
         CellLayer layer = linearLayer(false);
-        Cell cell = layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
+        AbstractAgent agent = layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
 
-        // Divide cell at position 4 toward 5
-        cell.trigger("replicate-self", null);
+        // Divide agent at position 4 toward 5
+        agent.trigger("replicate-self", null);
 
         // New configuration: _123446_89
         assertEquals(4, layer.getViewer().getState(new Coordinate2D(4, 0, 0)));
@@ -118,7 +118,7 @@ public class CloneToTest extends LegacyLatticeTest {
 
     /**
      * _123456_89  Initial condition
-     * ^       (Cell to be divided)
+     * ^       (AbstractAgent to be divided)
      */
     private CellLayer linearLayer(boolean shoving) throws Exception {
         Lattice lattice = new RectangularLattice();
@@ -144,7 +144,7 @@ public class CloneToTest extends LegacyLatticeTest {
 
     private void placeNumberedCell(int x, CellLayer layer, boolean shoving) throws Exception {
         Supplier<BehaviorCell> ncSupplier = mock(Supplier.class);
-        BehaviorCell child = new MockCell(x);
+        BehaviorCell child = new MockAgent(x);
         when(ncSupplier.get()).thenReturn(child);
         BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, ncSupplier);
         Coordinate coord = new Coordinate2D(x, 0, 0);

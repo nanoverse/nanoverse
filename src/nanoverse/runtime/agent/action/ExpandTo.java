@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -107,7 +107,7 @@ public class ExpandTo extends Action {
         CellUpdateManager u = getLayerManager().getCellLayer().getUpdateManager();
 
         // Clone parent.
-        Cell child = getCallback().replicate();
+        AbstractAgent child = getCallback().replicate();
 
         // Place child in parent location.
         u.place(child, vacancy);

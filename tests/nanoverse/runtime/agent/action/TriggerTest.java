@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.targets.*;
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.arguments.ConstantInteger;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.MockGeometry;
@@ -47,7 +47,7 @@ import static org.junit.Assert.*;
 public class TriggerTest extends LegacyTest {
 
     private Action query;
-    private MockCell causeCell, effectCell;
+    private MockAgent causeCell, effectCell;
     private MockLayerManager layerManager;
     private String effectName;
     private MockTargetRule targetRule;
@@ -63,8 +63,8 @@ public class TriggerTest extends LegacyTest {
         random = new Random(RANDOM_SEED);
 
         // Construct base supporting objects.
-        causeCell = new MockCell();
-        effectCell = new MockCell();
+        causeCell = new MockAgent();
+        effectCell = new MockAgent();
         targetRule = new MockTargetRule();
         layerManager = new MockLayerManager();
         effectName = "effect";
@@ -96,7 +96,7 @@ public class TriggerTest extends LegacyTest {
         */
 
         // Set up a calling cell at some site.
-        MockCell dummy = new MockCell();
+        MockAgent dummy = new MockAgent();
 
         CellUpdateManager updateManager = cellLayer.getUpdateManager();
         updateManager.place(dummy, p);
@@ -123,8 +123,8 @@ public class TriggerTest extends LegacyTest {
          */
         Action identical, differentBehavior, differentTargeter;
 
-        MockCell dummyCell1 = new MockCell();
-        MockCell dummyCell2 = new MockCell();
+        MockAgent dummyCell1 = new MockAgent();
+        MockAgent dummyCell2 = new MockAgent();
 
         Filter filter = new NullFilter();
         TargetRule sameTargetRule = new TargetOccupiedNeighbors(dummyCell1, layerManager, filter, -1, random);
@@ -142,7 +142,7 @@ public class TriggerTest extends LegacyTest {
 
     @Test
     public void testClone() throws Exception {
-        MockCell cloneCell = new MockCell();
+        MockAgent cloneCell = new MockAgent();
         Action cloned = query.clone(cloneCell);
         assert (cloned != query);
         assertEquals(query, cloned);
@@ -185,7 +185,7 @@ public class TriggerTest extends LegacyTest {
     @Test
     public void testSkipNewlyVacant() throws Exception {
         // Begin as with testRun() above.
-        MockCell dummy = new MockCell();
+        MockAgent dummy = new MockAgent();
         CellUpdateManager updateManager = cellLayer.getUpdateManager();
         updateManager.place(dummy, p);
 
@@ -210,7 +210,7 @@ public class TriggerTest extends LegacyTest {
     @Test
     public void testDeadCannotTrigger() throws Exception {
         // Begin as with testRun() above.
-        MockCell dummy = new MockCell();
+        MockAgent dummy = new MockAgent();
         CellUpdateManager updateManager = cellLayer.getUpdateManager();
         updateManager.place(dummy, p);
 

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.arguments.ConstantInteger;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -49,7 +49,7 @@ public class OccupiedNeighborSwapTest extends LegacyTest {
 
     private OccupiedNeighborSwap query;
     private MockLayerManager layerManager;
-    private MockCell a, b, c;
+    private MockAgent a, b, c;
     private Coordinate aa, bb, cc;
 
     @Before
@@ -70,14 +70,14 @@ public class OccupiedNeighborSwapTest extends LegacyTest {
         query = new OccupiedNeighborSwap(arguments, cpArguments);
 
         /*
-         * Cell layout:
+         * AbstractAgent layout:
          *     0 1
          *  0  b .
          *  1  a c
          */
-        a = new MockCell(1);
-        b = new MockCell(2);
-        c = new MockCell(3);
+        a = new MockAgent(1);
+        b = new MockAgent(2);
+        c = new MockAgent(3);
 
         aa = new Coordinate2D(0, 1, 0);
         bb = new Coordinate2D(0, 0, 0);

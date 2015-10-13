@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.layers;
 
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.agent.Cell;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -76,7 +76,7 @@ public class CellIntegrationTest extends LegacyTest {
         CellLayer layer = new CellLayer(geom);
 
         // Set up a cell
-        Cell toPlace = new MockCell(1);
+        AbstractAgent toPlace = new MockAgent(1);
 
         Coordinate coord = new Coordinate2D(2, 3, 0);
 
@@ -98,7 +98,7 @@ public class CellIntegrationTest extends LegacyTest {
         CellLayer layer = new CellLayer(geom);
         MockLayerManager lm = new MockLayerManager();
         lm.setCellLayer(layer);
-        Cell toPlace = new BehaviorCell(lm, 1, 0.5, 1.0, null);
+        AbstractAgent toPlace = new BehaviorCell(lm, 1, 0.5, 1.0, null);
         Coordinate coord = new Coordinate2D(2, 3, 0);
 
         layer.getUpdateManager().place(toPlace, coord);
@@ -122,7 +122,7 @@ public class CellIntegrationTest extends LegacyTest {
         CellLayer layer = new CellLayer(geom);
 
         // Set up one cell
-        Cell toPlace = new MockCell(1);
+        AbstractAgent toPlace = new MockAgent(1);
         Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
@@ -132,7 +132,7 @@ public class CellIntegrationTest extends LegacyTest {
 
         // Add an occupied neighbor
         Coordinate coordAbove = new Coordinate2D(3, 3, 0);
-        layer.getUpdateManager().place(new MockCell(2), coordAbove);
+        layer.getUpdateManager().place(new MockAgent(2), coordAbove);
 
         // Check that the right cell is placed
         assertFalse(layer.getViewer().getCell(coord).getState() == layer.getViewer().getCell(coordAbove).getState());
@@ -143,14 +143,14 @@ public class CellIntegrationTest extends LegacyTest {
 
         // Add a cell at adjacent to southern boundary
         Coordinate south = new Coordinate2D(2, 1, 0);
-        layer.getUpdateManager().place(new MockCell(1), south);
+        layer.getUpdateManager().place(new MockAgent(1), south);
 
         // Should be short one vacant neighbor (hard BCs for nanoverse.runtime.cells)
         assertEquals(5, layer.getLookupManager().getNearestVacancies(south, -1).length);
 
         // Add a cell at origin (should be just like south)
         Coordinate origin = new Coordinate2D(0, 0, 0);
-        layer.getUpdateManager().place(new MockCell(1), origin);
+        layer.getUpdateManager().place(new MockAgent(1), origin);
 
         // Should be short one vacant neighbor (hard BCs for nanoverse.runtime.cells)
         assertEquals(5, layer.getLookupManager().getNearestVacancies(origin, -1).length);
@@ -166,7 +166,7 @@ public class CellIntegrationTest extends LegacyTest {
         CellLayer layer = new CellLayer(geom);
 
         // Set up one cell
-        Cell toPlace = new MockCell(1);
+        AbstractAgent toPlace = new MockAgent(1);
         Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
@@ -186,14 +186,14 @@ public class CellIntegrationTest extends LegacyTest {
 
         // Fill all but one canonical neighbor
         for (int i = 0; i < nVec.length - 1; i++) {
-            layer.getUpdateManager().place(new MockCell(100), nVec[i]);
+            layer.getUpdateManager().place(new MockAgent(100), nVec[i]);
         }
 
         // List of vacancies should be only remaining canonical neighbor
         assertEquals(1, layer.getLookupManager().getNearestVacancies(coord, -1).length);
 
         // Fill that one -- should have 12 nearest vacancies now
-        layer.getUpdateManager().place(new MockCell(100), nVec[nVec.length - 1]);
+        layer.getUpdateManager().place(new MockAgent(100), nVec[nVec.length - 1]);
         assertEquals(12, layer.getLookupManager().getNearestVacancies(coord, -1).length);
 
         // Now try getNearestVacancies with a maximum radius of 1--shouldn't have any
@@ -216,11 +216,11 @@ public class CellIntegrationTest extends LegacyTest {
         CellLayer layer = new CellLayer(geom);
 
         // Set up one cell
-        Cell toPlace = new MockCell(1);
+        AbstractAgent toPlace = new MockAgent(1);
         Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
-        Cell second = new MockCell(2);
+        AbstractAgent second = new MockAgent(2);
 
         boolean thrown = false;
         try {
@@ -240,11 +240,11 @@ public class CellIntegrationTest extends LegacyTest {
         CellLayer layer = new CellLayer(geom);
 
         // Set up one cell
-        Cell toPlace = new MockCell(1);
+        AbstractAgent toPlace = new MockAgent(1);
         Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
-        Cell second = new MockCell(2);
+        AbstractAgent second = new MockAgent(2);
         Coordinate sc = new Coordinate2D(3, 3, 0);
         layer.getUpdateManager().place(second, sc);
 
@@ -287,8 +287,8 @@ public class CellIntegrationTest extends LegacyTest {
         assertEquals(0, layer.getViewer().getOccupiedSites().size());
 
         // Place one cell
-        MockCell toPlace = new MockCell(1);
-        MockCell childCell = new MockCell(1);
+        MockAgent toPlace = new MockAgent(1);
+        MockAgent childCell = new MockAgent(1);
         childCell.setDivisible(true);
         toPlace.setDivisible(true);
         toPlace.setChild(childCell);
