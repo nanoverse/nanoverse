@@ -24,7 +24,7 @@
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.*;
 
@@ -33,8 +33,8 @@ public class ScatterFactory implements Factory<Scatter> {
     private final ScatterFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private CellProcessArguments cpArguments;
-    private CellDescriptor cellDescriptor;
+    private AgentProcessArguments cpArguments;
+    private AgentDescriptor cellDescriptor;
 
     public ScatterFactory() {
         helper = new ScatterFactoryHelper();
@@ -48,11 +48,11 @@ public class ScatterFactory implements Factory<Scatter> {
         this.arguments = arguments;
     }
 
-    public void setCpArguments(CellProcessArguments cpArguments) {
+    public void setCpArguments(AgentProcessArguments cpArguments) {
         this.cpArguments = cpArguments;
     }
 
-    public void setCellDescriptor(CellDescriptor cellDescriptor) {
+    public void setAgentDescriptor(AgentDescriptor cellDescriptor) {
         this.cellDescriptor = cellDescriptor;
     }
 

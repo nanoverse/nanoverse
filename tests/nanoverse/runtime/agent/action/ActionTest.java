@@ -24,14 +24,14 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.*;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.StepState;
 import org.junit.*;
 import test.TestBase;
@@ -47,13 +47,13 @@ public class ActionTest extends TestBase {
 
     MockLayerManager layerManager;
     Coordinate caller;
-    BehaviorCell callback;
+    BehaviorAgent callback;
     ExposedAction query;
 
     @Before
     public void setUp() throws Exception {
         layerManager = new MockLayerManager();
-        callback = new BehaviorCell();
+        callback = new BehaviorAgent();
         caller = new Coordinate2D(0, 0, 0);
 
         query = new ExposedAction(callback, layerManager);
@@ -92,8 +92,8 @@ public class ActionTest extends TestBase {
         Coordinate[] cc = new Coordinate[]{caller};
         MockGeometry geom = new MockGeometry();
         geom.setCanonicalSites(cc);
-        CellLayer layer = new CellLayer(geom);
-        layerManager.setCellLayer(layer);
+        AgentLayer layer = new AgentLayer(geom);
+        layerManager.setAgentLayer(layer);
         StepState stepState = new StepState(0.0, 0);
         layerManager.setStepState(stepState);
         query.doHighlight(new ConstantInteger(1), caller);
@@ -110,7 +110,7 @@ public class ActionTest extends TestBase {
         private boolean isRun = false;
         private Coordinate lastCaller = null;
 
-        public ExposedAction(BehaviorCell callback, LayerManager layerManager) {
+        public ExposedAction(BehaviorAgent callback, LayerManager layerManager) {
             super(callback, layerManager);
         }
 
@@ -129,7 +129,7 @@ public class ActionTest extends TestBase {
         }
 
         @Override
-        public BehaviorCell getCallback() {
+        public BehaviorAgent getCallback() {
             return super.getCallback();
         }
 
@@ -139,7 +139,7 @@ public class ActionTest extends TestBase {
         }
 
         @Override
-        public Action clone(BehaviorCell child) {
+        public Action clone(BehaviorAgent child) {
             return new ExposedAction(child, layerManager);
         }
 

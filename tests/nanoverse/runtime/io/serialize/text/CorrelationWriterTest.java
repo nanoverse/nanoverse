@@ -32,7 +32,7 @@ import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.MockGeneralParameters;
 import org.junit.*;
@@ -46,7 +46,7 @@ public class CorrelationWriterTest extends LegacyTest {
     private static final int SIDE = 10;
     private Geometry geom;
     private MockLayerManager layerManager;
-    private CellLayer layer;
+    private AgentLayer layer;
 
     @Before
     public void setUp() throws Exception {
@@ -56,9 +56,9 @@ public class CorrelationWriterTest extends LegacyTest {
         Boundary boundary = new Arena(shape, lattice);
         geom = new Geometry(lattice, shape, boundary);
 
-        layer = new CellLayer(geom);
+        layer = new AgentLayer(geom);
         layerManager = new MockLayerManager();
-        layerManager.setCellLayer(layer);
+        layerManager.setAgentLayer(layer);
 
     }
 

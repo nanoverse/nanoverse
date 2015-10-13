@@ -47,7 +47,7 @@ public class CoordinateLoader extends Loader<Coordinate> {
     }
 
     public Coordinate instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        Geometry geom = lm.getCellLayer().getGeometry();
+        Geometry geom = lm.getAgentLayer().getGeometry();
         CoordinateSubclassLoader loader = adapter.getLoader(geom);
         return loader.instantiate(node, lm, p);
     }

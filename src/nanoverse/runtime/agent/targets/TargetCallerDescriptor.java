@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.targets;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.discrete.filter.Filter;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -36,7 +36,7 @@ import java.util.function.Function;
  * Created by dbborens on 8/4/2015.
  */
 public class TargetCallerDescriptor extends TargetDescriptor<TargetCaller> {
-    private final Function<BehaviorCell, TargetCaller> constructor;
+    private final Function<BehaviorAgent, TargetCaller> constructor;
 
     @FactoryTarget(displayName = "TargetCaller")
     public TargetCallerDescriptor(LayerManager layerManager, Filter filter, int maximum, Random random) {
@@ -44,7 +44,7 @@ public class TargetCallerDescriptor extends TargetDescriptor<TargetCaller> {
     }
 
     @Override
-    protected Function<BehaviorCell, TargetCaller> getConstructor() {
+    protected Function<BehaviorAgent, TargetCaller> getConstructor() {
         return constructor;
     }
 }

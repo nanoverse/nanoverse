@@ -27,7 +27,7 @@ package test;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import org.junit.Before;
 
 /**
@@ -41,7 +41,7 @@ public abstract class LegacyLatticeTest extends LegacyTest {
 
     protected MockGeometry geom;
     protected MockLayerManager layerManager;
-    protected CellLayer cellLayer;
+    protected AgentLayer cellLayer;
     protected Coordinate origin, x, y, z, yz;
     protected Coordinate[] cc;
 
@@ -49,8 +49,8 @@ public abstract class LegacyLatticeTest extends LegacyTest {
     public void setUp() throws Exception {
         geom = buildMockGeometry();
         layerManager = new MockLayerManager();
-        cellLayer = new CellLayer(geom);
-        layerManager.setCellLayer(cellLayer);
+        cellLayer = new AgentLayer(geom);
+        layerManager.setAgentLayer(cellLayer);
 
         cc = geom.getCanonicalSites();
 

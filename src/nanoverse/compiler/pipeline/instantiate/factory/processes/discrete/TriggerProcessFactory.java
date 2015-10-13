@@ -33,7 +33,7 @@ public class TriggerProcessFactory implements Factory<TriggerProcess> {
     private final TriggerProcessFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private CellProcessArguments cpArguments;
+    private AgentProcessArguments cpArguments;
     private String behaviorName;
     private Filter filter;
     private boolean skipVacant;
@@ -51,7 +51,7 @@ public class TriggerProcessFactory implements Factory<TriggerProcess> {
         this.arguments = arguments;
     }
 
-    public void setCpArguments(CellProcessArguments cpArguments) {
+    public void setCpArguments(AgentProcessArguments cpArguments) {
         this.cpArguments = cpArguments;
     }
 

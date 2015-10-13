@@ -39,12 +39,12 @@ import java.util.Set;
  *
  * @author dbborens
  */
-public class GeneralNeighborSwap extends CellProcess {
+public class GeneralNeighborSwap extends AgentProcess {
 
     private Coordinate[] getActiveSitesArr;
 
     @FactoryTarget
-    public GeneralNeighborSwap(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
+    public GeneralNeighborSwap(BaseProcessArguments arguments, AgentProcessArguments cpArguments) {
 
         super(arguments, cpArguments);
     }
@@ -97,10 +97,10 @@ public class GeneralNeighborSwap extends CellProcess {
      * Remove all out-of-bounds nanoverse.runtime.cells from the system.
      */
     private void removeImaginary() {
-        Set<Coordinate> imaginarySites = getLayerManager().getCellLayer().getViewer().getImaginarySites();
+        Set<Coordinate> imaginarySites = getLayerManager().getAgentLayer().getViewer().getImaginarySites();
 
         for (Coordinate c : imaginarySites) {
-            getLayerManager().getCellLayer().getUpdateManager().banish(c);
+            getLayerManager().getAgentLayer().getUpdateManager().banish(c);
         }
     }
 }

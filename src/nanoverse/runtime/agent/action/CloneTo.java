@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
@@ -55,12 +55,12 @@ public class CloneTo extends Action {
 
     private Random random;
 
-    public CloneTo(BehaviorCell behaviorCell, LayerManager layerManager,
+    public CloneTo(BehaviorAgent behaviorAgent, LayerManager layerManager,
                    TargetRule targetRule, boolean noReplace,
                    IntegerArgument selfChannel,
                    IntegerArgument targetChannel, Random random) {
 
-        super(behaviorCell, layerManager);
+        super(behaviorAgent, layerManager);
         this.targetRule = targetRule;
         this.selfChannel = selfChannel;
         this.targetChannel = targetChannel;
@@ -70,14 +70,14 @@ public class CloneTo extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        BehaviorCell callerCell = resolveCaller(caller);
+        BehaviorAgent callerAgent = resolveCaller(caller);
 
         Coordinate self = getOwnLocation();
 
-        List<Coordinate> targets = targetRule.report(callerCell);
+        List<Coordinate> targets = targetRule.report(callerAgent);
 
-        CellUpdateManager u = getLayerManager().getCellLayer().getUpdateManager();
-        CellLayerViewer v = getLayerManager().getCellLayer().getViewer();
+        AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
+        AgentLayerViewer v = getLayerManager().getAgentLayer().getViewer();
 
         for (Coordinate target : targets) {
 
@@ -121,7 +121,7 @@ public class CloneTo extends Action {
     }
 
     @Override
-    public Action clone(BehaviorCell child) {
+    public Action clone(BehaviorAgent child) {
         TargetRule clonedTargeter = targetRule.clone(child);
         return new CloneTo(child, getLayerManager(), clonedTargeter, noReplace,
             selfChannel, targetChannel, random);

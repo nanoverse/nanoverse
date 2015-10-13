@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action.stochastic;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.arguments.ProbabilitySupplierDescriptor;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
@@ -43,19 +43,19 @@ public class DependentProbabilitySupplierDescriptor extends ProbabilitySupplierD
                                                   double offset,
                                                   LayerManager layerManager) {
 
-        Function<BehaviorCell, Double> valueLookup = c -> getFieldValueAt(c, layerManager, layer);
-        Function<BehaviorCell, DependentProbabilitySupplier> constructor = cell -> new DependentProbabilitySupplier(valueLookup,
+        Function<BehaviorAgent, Double> valueLookup = c -> getFieldValueAt(c, layerManager, layer);
+        Function<BehaviorAgent, DependentProbabilitySupplier> constructor = cell -> new DependentProbabilitySupplier(valueLookup,
             cell, coefficient, offset);
 
         super.setConstructor(constructor);
     }
 
-    private double getFieldValueAt(BehaviorCell cell, LayerManager layerManager, String fieldName) {
+    private double getFieldValueAt(BehaviorAgent cell, LayerManager layerManager, String fieldName) {
 
         Supplier<Coordinate> supplier = () -> layerManager
-            .getCellLayer()
+            .getAgentLayer()
             .getLookupManager()
-            .getCellLocation(cell);
+            .getAgentLocation(cell);
 
         double value = layerManager.getContinuumLayer(fieldName).getLinker().get(supplier);
         return value;

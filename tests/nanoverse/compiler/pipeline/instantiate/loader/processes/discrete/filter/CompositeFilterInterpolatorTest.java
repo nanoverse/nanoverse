@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter
 
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
 import nanoverse.compiler.pipeline.translate.nodes.ListObjectNode;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.filter.Filter;
 import org.junit.*;
 
@@ -38,14 +38,14 @@ import static org.mockito.Mockito.*;
 public class CompositeFilterInterpolatorTest extends InterpolatorTest {
 
     private CompositeFilterDefaults defaults;
-    private CellLayer layer;
+    private AgentLayer layer;
     private CompositeFilterInterpolator query;
 
     @Before
     public void before() throws Exception {
         super.before();
         defaults = mock(CompositeFilterDefaults.class);
-        layer = mock(CellLayer.class);
+        layer = mock(AgentLayer.class);
         query = new CompositeFilterInterpolator(load, defaults);
     }
 

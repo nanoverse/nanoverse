@@ -29,7 +29,7 @@ import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.check.CheckForFixation;
 import nanoverse.runtime.processes.gillespie.GillespieState;
@@ -47,7 +47,7 @@ import static org.junit.Assert.*;
  */
 public class CheckForFixationTest extends LegacyTest {
     private MockGeometry geometry;
-    private CellLayer layer;
+    private AgentLayer layer;
     private MockLayerManager layerManager;
     private CheckForFixation query;
 
@@ -69,11 +69,11 @@ public class CheckForFixationTest extends LegacyTest {
         geometry = new MockGeometry();
         geometry.setCanonicalSites(cc);
 
-        layer = new CellLayer(geometry);
+        layer = new AgentLayer(geometry);
         layerManager = new MockLayerManager();
-        layerManager.setCellLayer(layer);
+        layerManager.setAgentLayer(layer);
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, null);
-        CellProcessArguments cpArguments = makeCellProcessArguments(geometry);
+        AgentProcessArguments cpArguments = makeAgentProcessArguments(geometry);
         query = new CheckForFixation(arguments, cpArguments);
     }
 

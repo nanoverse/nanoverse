@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete;
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.AgentDescriptorLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 import org.junit.*;
 
 import static org.junit.Assert.assertSame;
@@ -53,19 +53,19 @@ public class ScatterInterpolatorTest extends InterpolatorTest {
         AgentDescriptorLoader loader = mock(AgentDescriptorLoader.class);
         when(load.getLoader(eq(node), eq("description"), anyBoolean())).thenReturn(loader);
 
-        CellDescriptor expected = mock(CellDescriptor.class);
+        AgentDescriptor expected = mock(AgentDescriptor.class);
         when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
 
-        CellDescriptor actual = query.description(node, lm, p);
+        AgentDescriptor actual = query.description(node, lm, p);
         assertSame(expected, actual);
     }
 
     @Test
     public void descriptionDefault() throws Exception {
-        CellDescriptor expected = mock(CellDescriptor.class);
+        AgentDescriptor expected = mock(AgentDescriptor.class);
         when(defaults.description(lm, p)).thenReturn(expected);
 
-        CellDescriptor actual = query.description(node, lm, p);
+        AgentDescriptor actual = query.description(node, lm, p);
         assertSame(expected, actual);
     }
 }

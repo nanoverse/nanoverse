@@ -29,7 +29,7 @@ import nanoverse.runtime.processes.discrete.*;
 
 public class DivideFactoryHelper {
 
-    public Divide build(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
+    public Divide build(BaseProcessArguments arguments, AgentProcessArguments cpArguments) {
         return new Divide(arguments, cpArguments);
     }
 }

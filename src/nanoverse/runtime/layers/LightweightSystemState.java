@@ -24,13 +24,13 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.io.deserialize.continuum.ContinuumLayerViewer;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 
 import java.util.*;
 
@@ -102,8 +102,8 @@ public class LightweightSystemState extends SystemState {
         return highlightedSites.contains(coord);
     }
 
-    //    public void initCellLayer(int[] stateVector, double[] healthVector) {
-    public void initCellLayer(int[] stateVector) {
+    //    public void initAgentLayer(int[] stateVector, double[] healthVector) {
+    public void initAgentLayer(int[] stateVector) {
         if (stateVector.length != geometry.getCanonicalSites().length) {
             throw new IllegalStateException("Actual number of data points not equal to expected number");
         }
@@ -111,8 +111,8 @@ public class LightweightSystemState extends SystemState {
 //            throw new IllegalStateException("Actual number of data points not equal to expected number");
 //        }
         // Build cell layer.
-        CellLayer cellLayer = new CellLayer(geometry);
-        layerManager.setCellLayer(cellLayer);
+        AgentLayer cellLayer = new AgentLayer(geometry);
+        layerManager.setAgentLayer(cellLayer);
 
         // Iterate over state vector.
         for (int i = 0; i < stateVector.length; i++) {
@@ -127,18 +127,18 @@ public class LightweightSystemState extends SystemState {
             if (state == 0) {
                 continue;
             }
-            loadCell(cellLayer, coord, state);
+            loadAgent(cellLayer, coord, state);
 
-//            loadCell(cellLayer, coord, health, state);
+//            loadAgent(cellLayer, coord, health, state);
         }
 
     }
 
-    //    private void loadCell(CellLayer cellLayer, Coordinate coord, double health, int state) {
-    private void loadCell(CellLayer cellLayer, Coordinate coord, int state) {
+    //    private void loadAgent(AgentLayer cellLayer, Coordinate coord, double health, int state) {
+    private void loadAgent(AgentLayer cellLayer, Coordinate coord, int state) {
         try {
             // Build a dummy agent with the correct state and health.
-            AbstractAgent agent = new BehaviorCell(layerManager, state, 0.0, 0.0, null);
+            AbstractAgent agent = new BehaviorAgent(layerManager, state, 0.0, 0.0, null);
 
             // Place it in the agent layer.
             cellLayer.getUpdateManager().place(agent, coord);

@@ -30,7 +30,7 @@ import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.io.deserialize.continuum.*;
 import nanoverse.runtime.io.serialize.binary.ContinuumStateWriter;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.StepState;
 import org.junit.Test;
 import test.TestBase;
@@ -135,10 +135,10 @@ public class ContinuumStateLifeCycleTest extends TestBase {
         LayerManager lm = mock(LayerManager.class);
         Geometry geom = mock(Geometry.class);
         Coordinate[] cc = makeCoordinateArray();
-        CellLayer cellLayer = mock(CellLayer.class);
+        AgentLayer cellLayer = mock(AgentLayer.class);
         when(geom.getCanonicalSites()).thenReturn(cc);
         when(cellLayer.getGeometry()).thenReturn(geom);
-        when(lm.getCellLayer()).thenReturn(cellLayer);
+        when(lm.getAgentLayer()).thenReturn(cellLayer);
         when(lm.getDeindexer()).thenReturn(i -> cc[i]);
         when(lm.getContinuumLayerIds())
             .thenAnswer(invocation -> Stream.of("test1", "test2"));

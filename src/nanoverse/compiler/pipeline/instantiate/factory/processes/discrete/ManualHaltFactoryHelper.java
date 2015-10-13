@@ -29,7 +29,7 @@ import nanoverse.runtime.processes.discrete.*;
 
 public class ManualHaltFactoryHelper {
 
-    public ManualHalt build(BaseProcessArguments arguments, CellProcessArguments cpArguments, String message) {
+    public ManualHalt build(BaseProcessArguments arguments, AgentProcessArguments cpArguments, String message) {
         return new ManualHalt(arguments, cpArguments, message);
     }
 }

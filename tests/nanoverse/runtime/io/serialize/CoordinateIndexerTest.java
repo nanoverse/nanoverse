@@ -28,7 +28,7 @@ import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.io.serialize.text.CoordinateIndexer;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.MockGeneralParameters;
 import nanoverse.runtime.structural.utilities.FileConventions;
 import org.junit.*;
@@ -59,8 +59,8 @@ public class CoordinateIndexerTest extends FileAssertions {
         params = new MockGeneralParameters();
         params.setInstancePath(outputPath);
         lm = new MockLayerManager();
-        CellLayer layer = new CellLayer(geom);
-        lm.setCellLayer(layer);
+        AgentLayer layer = new AgentLayer(geom);
+        lm.setAgentLayer(layer);
         indexer = new CoordinateIndexer(params, lm);
         indexer.init();
     }

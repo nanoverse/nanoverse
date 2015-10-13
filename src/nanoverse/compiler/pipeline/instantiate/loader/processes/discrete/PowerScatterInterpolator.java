@@ -30,7 +30,7 @@ import nanoverse.compiler.pipeline.instantiate.loader.processes.BaseProcessArgum
 import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.cluster.ScatterClustersHelperLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
 
@@ -64,7 +64,7 @@ public class PowerScatterInterpolator extends DiscreteProcessInterpolator {
         return loader.instantiate(cNode, lm, p);
     }
 
-    public CellDescriptor description(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    public AgentDescriptor description(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         AgentDescriptorLoader loader = (AgentDescriptorLoader) load.getLoader(node, "description", false);
 
         if (loader == null) {

@@ -34,9 +34,9 @@ public class ScatterClustersFactory implements Factory<ScatterClusters> {
     private final ScatterClustersFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private CellProcessArguments cpArguments;
+    private AgentProcessArguments cpArguments;
     private IntegerArgument neighborCount;
-    private CellDescriptor cellDescriptor;
+    private AgentDescriptor cellDescriptor;
     private ScatterClustersHelper clustersHelper;
 
     public ScatterClustersFactory() {
@@ -51,7 +51,7 @@ public class ScatterClustersFactory implements Factory<ScatterClusters> {
         this.arguments = arguments;
     }
 
-    public void setCpArguments(CellProcessArguments cpArguments) {
+    public void setCpArguments(AgentProcessArguments cpArguments) {
         this.cpArguments = cpArguments;
     }
 
@@ -59,7 +59,7 @@ public class ScatterClustersFactory implements Factory<ScatterClusters> {
         this.neighborCount = neighborCount;
     }
 
-    public void setCellDescriptor(CellDescriptor cellDescriptor) {
+    public void setAgentDescriptor(AgentDescriptor cellDescriptor) {
         this.cellDescriptor = cellDescriptor;
     }
 

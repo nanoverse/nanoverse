@@ -28,7 +28,7 @@ import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.*;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import org.junit.*;
 
 import java.awt.*;
@@ -42,7 +42,7 @@ public class DefaultColorManagerTest {
     private MockSystemState systemState;
     private Coordinate coord;
     private ColorManager query;
-    private CellLayer layer;
+    private AgentLayer layer;
 
     @Before
     public void setUp() throws Exception {
@@ -53,8 +53,8 @@ public class DefaultColorManagerTest {
         MockGeometry geom = new MockGeometry();
         geom.setCanonicalSites(new Coordinate[]{coord});
         MockLayerManager layerManager = new MockLayerManager();
-        layer = new CellLayer(geom);
-        layerManager.setCellLayer(layer);
+        layer = new AgentLayer(geom);
+        layerManager.setAgentLayer(layer);
         systemState.setLayerManager(layerManager);
     }
 

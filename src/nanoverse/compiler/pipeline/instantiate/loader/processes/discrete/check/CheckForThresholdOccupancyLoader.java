@@ -31,7 +31,7 @@ import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.processes.discrete.AgentProcessArguments;
 import nanoverse.runtime.processes.discrete.check.CheckForThresholdOccupancy;
 
 /**
@@ -57,7 +57,7 @@ public class CheckForThresholdOccupancyLoader extends ProcessLoader<CheckForThre
         BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
         factory.setArguments(arguments);
 
-        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        AgentProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
         factory.setCpArguments(cpArguments);
 
         DoubleArgument threshold = interpolator.threshold(node, p.getRandom());

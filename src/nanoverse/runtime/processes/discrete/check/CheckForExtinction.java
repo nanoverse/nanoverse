@@ -37,13 +37,13 @@ import nanoverse.runtime.structural.utilities.EpsilonUtil;
  * <p>
  * Created by dbborens on 1/13/14.
  */
-public class CheckForExtinction extends CellProcess {
+public class CheckForExtinction extends AgentProcess {
 
     private double threshold;
     private DoubleArgument thresholdArg;
 
     @FactoryTarget
-    public CheckForExtinction(BaseProcessArguments arguments, CellProcessArguments cpArguments, DoubleArgument thresholdArg) {
+    public CheckForExtinction(BaseProcessArguments arguments, AgentProcessArguments cpArguments, DoubleArgument thresholdArg) {
         super(arguments, cpArguments);
         this.thresholdArg = thresholdArg;
     }

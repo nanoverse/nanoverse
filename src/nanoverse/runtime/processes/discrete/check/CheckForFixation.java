@@ -36,10 +36,10 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
  * <p>
  * Created by dbborens on 1/13/14.
  */
-public class CheckForFixation extends CellProcess {
+public class CheckForFixation extends AgentProcess {
 
     @FactoryTarget
-    public CheckForFixation(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
+    public CheckForFixation(BaseProcessArguments arguments, AgentProcessArguments cpArguments) {
         super(arguments, cpArguments);
     }
 

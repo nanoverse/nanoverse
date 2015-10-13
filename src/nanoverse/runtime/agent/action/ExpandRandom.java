@@ -25,12 +25,12 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellUpdateManager;
+import nanoverse.runtime.layers.cell.AgentUpdateManager;
 import nanoverse.runtime.processes.discrete.ShoveHelper;
 
 import java.util.*;
@@ -56,7 +56,7 @@ public class ExpandRandom extends Action {
 
     private Random random;
 
-    public ExpandRandom(BehaviorCell callback, LayerManager layerManager,
+    public ExpandRandom(BehaviorAgent callback, LayerManager layerManager,
                         IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
 
         super(callback, layerManager);
@@ -71,7 +71,7 @@ public class ExpandRandom extends Action {
     public void run(Coordinate caller) throws HaltCondition {
         Coordinate parentLocation = getOwnLocation();
 
-        CellUpdateManager u = getLayerManager().getCellLayer().getUpdateManager();
+        AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
 
         // Step 1: shove parent toward vacant site in a cardinal direction
         HashSet<Coordinate> affectedSites = shoveHelper.shoveRandom(parentLocation);
@@ -113,7 +113,7 @@ public class ExpandRandom extends Action {
     }
 
     @Override
-    public Action clone(BehaviorCell child) {
+    public Action clone(BehaviorAgent child) {
         return new ExpandRandom(child, getLayerManager(), selfChannel, targetChannel,
             random);
     }

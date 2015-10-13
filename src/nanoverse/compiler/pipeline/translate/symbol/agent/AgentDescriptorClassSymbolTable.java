@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.translate.symbol.agent;
 
 import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -33,7 +33,7 @@ import java.util.function.Supplier;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class AgentDescriptorClassSymbolTable extends ClassSymbolTable<CellDescriptor> {
+public class AgentDescriptorClassSymbolTable extends ClassSymbolTable<AgentDescriptor> {
 
     @Override
     public String getDescription() {

@@ -26,7 +26,7 @@ package nanoverse.runtime.processes;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 
 import java.util.*;
 import java.util.stream.*;
@@ -47,7 +47,7 @@ public class StepState {
     private final double startTime;
     private final int frame;
     private final HashMap<String, List<Double>> continuumValues;
-    private CellLayer recordedCellLayer;
+    private AgentLayer recordedAgentLayer;
     private boolean recorded;
     private double dt;
 
@@ -103,7 +103,7 @@ public class StepState {
     }
 
     public void record(LayerManager layerManager) {
-        recordedCellLayer = layerManager.getCellLayer().clone();
+        recordedAgentLayer = layerManager.getAgentLayer().clone();
         layerManager.getContinuumLayerIds().forEach(id -> {
             List<Double> values = layerManager
                 .getContinuumLayer(id)
@@ -119,8 +119,8 @@ public class StepState {
         return frame;
     }
 
-    public CellLayer getRecordedCellLayer() {
-        return recordedCellLayer;
+    public AgentLayer getRecordedAgentLayer() {
+        return recordedAgentLayer;
     }
 
     public Stream<Double> getRecordedContinuumValues(String id) {

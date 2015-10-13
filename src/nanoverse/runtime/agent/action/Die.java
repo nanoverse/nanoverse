@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -37,7 +37,7 @@ public class Die extends Action {
 
     private IntegerArgument channel;
 
-    public Die(BehaviorCell callback, LayerManager layerManager, IntegerArgument channel) {
+    public Die(BehaviorAgent callback, LayerManager layerManager, IntegerArgument channel) {
         super(callback, layerManager);
         this.channel = channel;
     }
@@ -57,7 +57,7 @@ public class Die extends Action {
     }
 
     @Override
-    public Action clone(BehaviorCell child) {
+    public Action clone(BehaviorAgent child) {
         return new Die(child, getLayerManager(), channel);
     }
 }

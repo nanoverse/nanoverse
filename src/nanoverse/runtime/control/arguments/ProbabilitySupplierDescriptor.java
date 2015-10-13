@@ -25,7 +25,7 @@
 package nanoverse.runtime.control.arguments;
 
 import nanoverse.runtime.agent.action.stochastic.ProbabilitySupplier;
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 
 import java.util.function.Function;
 
@@ -34,20 +34,20 @@ import java.util.function.Function;
  */
 public class ProbabilitySupplierDescriptor<T extends ProbabilitySupplier> {
 
-    private Function<BehaviorCell, T> constructor;
+    private Function<BehaviorAgent, T> constructor;
 
     protected ProbabilitySupplierDescriptor() {
     }
 
-    public ProbabilitySupplierDescriptor(Function<BehaviorCell, T> constructor) {
+    public ProbabilitySupplierDescriptor(Function<BehaviorAgent, T> constructor) {
         this.constructor = constructor;
     }
 
-    protected void setConstructor(Function<BehaviorCell, T> constructor) {
+    protected void setConstructor(Function<BehaviorAgent, T> constructor) {
         this.constructor = constructor;
     }
 
-    public T instantiate(BehaviorCell cell) {
+    public T instantiate(BehaviorAgent cell) {
         return constructor.apply(cell);
     }
 }

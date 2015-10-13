@@ -39,13 +39,13 @@ import java.util.ArrayList;
  * <p>
  * Created by dbborens on 3/5/14.
  */
-public class Cull extends CellProcess {
+public class Cull extends AgentProcess {
     private Coordinate[] targetsArr;
     private double threshold;
 
     @FactoryTarget
     public Cull(BaseProcessArguments arguments,
-                CellProcessArguments cpArguments,
+                AgentProcessArguments cpArguments,
                 double threshold) {
 
         super(arguments, cpArguments);
@@ -60,7 +60,7 @@ public class Cull extends CellProcess {
                 continue;
             }
 
-            AbstractAgent agent = getLayer().getViewer().getCell(candidate);
+            AbstractAgent agent = getLayer().getViewer().getAgent(candidate);
             if (agent.getHealth() <= threshold) {
                 targets.add(candidate);
             }
@@ -84,9 +84,9 @@ public class Cull extends CellProcess {
     }
 
     private void execute(StepState state, Coordinate[] targetsArr) {
-//        CellUpdateManager manager = getLayer().getUpdateManager();
+//        AgentUpdateManager manager = getLayer().getUpdateManager();
         for (Coordinate target : targetsArr) {
-            getLayer().getViewer().getCell(target).die();
+            getLayer().getViewer().getAgent(target).die();
 //            manager.banish(target);
         }
     }

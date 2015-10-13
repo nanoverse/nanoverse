@@ -28,7 +28,7 @@ import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.Scatte
 import nanoverse.compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.*;
@@ -56,11 +56,11 @@ public class ScatterLoader extends ProcessLoader<Scatter> {
         BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
         factory.setArguments(arguments);
 
-        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        AgentProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
         factory.setCpArguments(cpArguments);
 
-        CellDescriptor description = interpolator.description(node, lm, p);
-        factory.setCellDescriptor(description);
+        AgentDescriptor description = interpolator.description(node, lm, p);
+        factory.setAgentDescriptor(description);
 
         return factory.build();
     }

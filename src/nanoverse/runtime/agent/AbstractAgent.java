@@ -116,7 +116,7 @@ public abstract class AbstractAgent {
     /**
      * Triggers a behavior associated with the cell. The specific details of the
      * behavior are defined by the cell's class. As of 1/24/2014, only the
-     * BehaviorCell class will have an instantiated trigger(...) method; other
+     * BehaviorAgent class will have an instantiated trigger(...) method; other
      * classes of nanoverse.runtime.cells will throw an UnsupportedOperationException.
      *
      * @param behaviorName the name of the behavior to trigger.

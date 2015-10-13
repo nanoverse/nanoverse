@@ -32,7 +32,7 @@ public class GeneralNeighborSwapFactory implements Factory<GeneralNeighborSwap> 
     private final GeneralNeighborSwapFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private CellProcessArguments cpArguments;
+    private AgentProcessArguments cpArguments;
 
     public GeneralNeighborSwapFactory() {
         helper = new GeneralNeighborSwapFactoryHelper();
@@ -46,7 +46,7 @@ public class GeneralNeighborSwapFactory implements Factory<GeneralNeighborSwap> 
         this.arguments = arguments;
     }
 
-    public void setCpArguments(CellProcessArguments cpArguments) {
+    public void setCpArguments(AgentProcessArguments cpArguments) {
         this.cpArguments = cpArguments;
     }
 

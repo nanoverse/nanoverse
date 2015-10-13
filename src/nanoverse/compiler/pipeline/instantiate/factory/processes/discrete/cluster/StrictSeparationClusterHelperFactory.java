@@ -24,14 +24,14 @@
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.cluster;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.cluster.StrictSeparationClusterHelper;
 
 public class StrictSeparationClusterHelperFactory implements Factory<StrictSeparationClusterHelper> {
 
     private final StrictSeparationClusterHelperFactoryHelper helper;
 
-    private CellLayer layer;
+    private AgentLayer layer;
 
     public StrictSeparationClusterHelperFactory() {
         helper = new StrictSeparationClusterHelperFactoryHelper();
@@ -41,7 +41,7 @@ public class StrictSeparationClusterHelperFactory implements Factory<StrictSepar
         this.helper = helper;
     }
 
-    public void setLayer(CellLayer layer) {
+    public void setLayer(AgentLayer layer) {
         this.layer = layer;
     }
 

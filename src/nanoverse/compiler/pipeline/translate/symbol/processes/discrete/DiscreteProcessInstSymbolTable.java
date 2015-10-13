@@ -28,14 +28,14 @@ import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.geometry.set.CoordinateSetClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.processes.ProcessInstSymbolTable;
-import nanoverse.runtime.processes.discrete.CellProcess;
+import nanoverse.runtime.processes.discrete.AgentProcess;
 
 import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
-public abstract class DiscreteProcessInstSymbolTable<T extends CellProcess>
+public abstract class DiscreteProcessInstSymbolTable<T extends AgentProcess>
     extends ProcessInstSymbolTable<T> {
 
     @Override

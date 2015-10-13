@@ -13,18 +13,18 @@ public class AgentReactionIndex {
 
     private final HashSet<String> reactionIds;
     private final HashSet<Runnable> index;
-    private final BehaviorCell cell;
+    private final BehaviorAgent cell;
 
     public AgentReactionIndex(HashSet<String> reactionIds,
                               HashSet<Runnable> index,
-                              BehaviorCell cell) {
+                              BehaviorAgent cell) {
 
         this.reactionIds = reactionIds;
         this.index = index;
         this.cell = cell;
     }
 
-    public AgentReactionIndex(BehaviorCell cell) {
+    public AgentReactionIndex(BehaviorAgent cell) {
 
         reactionIds = new HashSet<>();
         index = new HashSet<>();

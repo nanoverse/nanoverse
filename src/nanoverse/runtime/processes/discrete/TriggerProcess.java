@@ -38,7 +38,7 @@ import java.util.*;
  * Causes nanoverse.runtime.cells within the active area to perform the specified behavior.
  * Created by David B Borenstein on 2/15/14.
  */
-public class TriggerProcess extends CellProcess {
+public class TriggerProcess extends AgentProcess {
     private String behaviorName;
     private boolean skipVacant;
     private boolean requireNeighbors;
@@ -48,7 +48,7 @@ public class TriggerProcess extends CellProcess {
     private AbstractAgent[] targets;
 
     @FactoryTarget
-    public TriggerProcess(BaseProcessArguments arguments, CellProcessArguments cpArguments,
+    public TriggerProcess(BaseProcessArguments arguments, AgentProcessArguments cpArguments,
                           String behaviorName,
                           Filter filter,
                           boolean skipVacant,
@@ -80,7 +80,7 @@ public class TriggerProcess extends CellProcess {
         AbstractAgent[] selectedAgents = new AbstractAgent[selectedCoords.length];
         for (int i = 0; i < selectedAgents.length; i++) {
             Coordinate coord = (Coordinate) selectedCoords[i];
-            selectedAgents[i] = getLayer().getViewer().getCell(coord);
+            selectedAgents[i] = getLayer().getViewer().getAgent(coord);
         }
 
         return selectedAgents;

@@ -67,7 +67,7 @@ public class DirichletBoundaryEnforcer extends ContinuumProcess {
     @Override
     public void fire(StepState state) throws HaltCondition {
 
-        Coordinate[] canonicalSites = getLayerManager().getCellLayer()
+        Coordinate[] canonicalSites = getLayerManager().getAgentLayer()
             .getGeometry().getCanonicalSites();
         ContinuumLayerScheduler scheduler = getLayerManager()
             .getContinuumLayer(layerId).getScheduler();

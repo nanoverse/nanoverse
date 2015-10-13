@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.control;
 
 import nanoverse.runtime.agent.action.Action;
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
@@ -63,7 +63,7 @@ public class BehaviorDispatcher {
         behavior.run(caller);
     }
 
-    public BehaviorDispatcher clone(BehaviorCell child) {
+    public BehaviorDispatcher clone(BehaviorAgent child) {
         BehaviorDispatcher clone = new BehaviorDispatcher();
 
         // Clone the behavior catalog item for item.

@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.BehaviorCell;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.*;
@@ -37,17 +37,17 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
 import java.util.*;
 import java.util.stream.*;
 
-public class PowerScatter extends CellProcess {
+public class PowerScatter extends AgentProcess {
 
-    private final CellDescriptor cellDescriptor;
+    private final AgentDescriptor cellDescriptor;
     private final ScatterClustersHelper clustersHelper;
     private final RangeMap<Integer> neighborChooser;
     private List<Coordinate> candidates;
 
     @FactoryTarget
     public PowerScatter(BaseProcessArguments arguments,
-                        CellProcessArguments cpArguments,
-                        CellDescriptor cellDescriptor,
+                        AgentProcessArguments cpArguments,
+                        AgentDescriptor cellDescriptor,
                         ScatterClustersHelper clustersHelper) {
 
         super(arguments, cpArguments);
@@ -87,7 +87,7 @@ public class PowerScatter extends CellProcess {
         int n = getFloor();
 
         Iterator<Coordinate> cIter = candidates.iterator();
-        BehaviorCell toPlace = cellDescriptor.next();
+        BehaviorAgent toPlace = cellDescriptor.next();
 
         while (ttlPlaced < n) {
             if (!cIter.hasNext()) {

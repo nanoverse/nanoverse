@@ -51,7 +51,7 @@ public class CompleteCoordinateSetLoader extends CoordinateSetLoader<CompleteSet
 
     @Override
     public CompleteSet instantiate(ObjectNode o, LayerManager lm, GeneralParameters p) {
-        Geometry geom = lm.getCellLayer().getGeometry();
+        Geometry geom = lm.getAgentLayer().getGeometry();
         return new CompleteSet(geom);
     }
 }

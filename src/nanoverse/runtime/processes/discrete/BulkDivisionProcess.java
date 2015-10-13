@@ -32,13 +32,13 @@ import nanoverse.runtime.processes.*;
 
 import java.util.Random;
 
-public abstract class BulkDivisionProcess extends CellProcess {
+public abstract class BulkDivisionProcess extends AgentProcess {
 
 
     protected Random random;
     private ShoveHelper shoveHelper;
 
-    public BulkDivisionProcess(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
+    public BulkDivisionProcess(BaseProcessArguments arguments, AgentProcessArguments cpArguments) {
         super(arguments, cpArguments);
     }
 
@@ -50,11 +50,11 @@ public abstract class BulkDivisionProcess extends CellProcess {
 
     protected void execute(Coordinate[] candidates) throws HaltCondition {
         Object[] chosen = MaxTargetHelper.respectMaxTargets(candidates, getMaxTargets().next(), getGeneralParameters().getRandom());
-        AbstractAgent[] chosenAgents = toCellArray(chosen);
+        AbstractAgent[] chosenAgents = toAgentArray(chosen);
         for (int i = 0; i < chosenAgents.length; i++) {
             AbstractAgent agent = chosenAgents[i];
-            CellLookupManager lm = getLayer().getLookupManager();
-            Coordinate currentLocation = lm.getCellLocation(agent);
+            AgentLookupManager lm = getLayer().getLookupManager();
+            Coordinate currentLocation = lm.getAgentLocation(agent);
             doDivision(currentLocation);
         }
 
@@ -64,12 +64,12 @@ public abstract class BulkDivisionProcess extends CellProcess {
         shoveHelper.removeImaginary();
     }
 
-    private AbstractAgent[] toCellArray(Object[] chosen) {
+    private AbstractAgent[] toAgentArray(Object[] chosen) {
         int n = chosen.length;
         AbstractAgent[] abstractAgents = new AbstractAgent[n];
         for (int i = 0; i < n; i++) {
             Coordinate coord = (Coordinate) chosen[i];
-            AbstractAgent agent = getLayer().getViewer().getCell(coord);
+            AbstractAgent agent = getLayer().getViewer().getAgent(coord);
             abstractAgents[i] = agent;
         }
 
@@ -79,7 +79,7 @@ public abstract class BulkDivisionProcess extends CellProcess {
 
     protected void doDivision(Coordinate origin) throws HaltCondition {
         // Get child cell
-        CellUpdateManager um = getLayer().getUpdateManager();
+        AgentUpdateManager um = getLayer().getUpdateManager();
         AbstractAgent child = um.divide(origin);
 
         Coordinate target = shoveHelper.chooseVacancy(origin);

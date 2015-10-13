@@ -24,20 +24,20 @@
 
 package nanoverse.runtime.cells;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.structural.utilities.EpsilonUtil;
 
 /**
- * Mock cell class used for testing. We make it extend from BehaviorCell
- * for compatibility with BehaviorCell-only classes. (BehaviorCell is a
+ * Mock cell class used for testing. We make it extend from BehaviorAgent
+ * for compatibility with BehaviorAgent-only classes. (BehaviorAgent is a
  * subclass of AbstractAgent which is capable of engaging in arbitrary behaviors,
  * which can then be used for nanoverse.runtime.agent-based modeling.)
  * <p>
  * Created by dbborens on 1/13/14.
  */
-public class MockAgent extends BehaviorCell {
+public class MockAgent extends BehaviorAgent {
 
     private int considerCount;
     private MockAgent child;

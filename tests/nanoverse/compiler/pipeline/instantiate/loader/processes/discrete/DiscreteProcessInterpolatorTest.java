@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete;
 
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.processes.discrete.AgentProcessArguments;
 import org.junit.*;
 
 import static org.junit.Assert.assertSame;
@@ -45,10 +45,10 @@ public class DiscreteProcessInterpolatorTest extends InterpolatorTest {
 
     @Test
     public void cpArguments() throws Exception {
-        CellProcessArguments expected = mock(CellProcessArguments.class);
+        AgentProcessArguments expected = mock(AgentProcessArguments.class);
         when(dpaLoader.instantiate(node, lm, p)).thenReturn(expected);
 
-        CellProcessArguments actual = query.cpArguments(node, lm, p);
+        AgentProcessArguments actual = query.cpArguments(node, lm, p);
         assertSame(expected, actual);
     }
 }

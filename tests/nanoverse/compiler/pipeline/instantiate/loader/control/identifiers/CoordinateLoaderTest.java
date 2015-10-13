@@ -29,7 +29,7 @@ import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import org.junit.*;
 
 import static org.junit.Assert.assertSame;
@@ -49,8 +49,8 @@ public class CoordinateLoaderTest {
     @Test
     public void instantiate() throws Exception {
         LayerManager lm = mock(LayerManager.class);
-        CellLayer layer = mock(CellLayer.class);
-        when(lm.getCellLayer()).thenReturn(layer);
+        AgentLayer layer = mock(AgentLayer.class);
+        when(lm.getAgentLayer()).thenReturn(layer);
 
         Geometry geom = mock(Geometry.class);
         when(layer.getGeometry()).thenReturn(geom);

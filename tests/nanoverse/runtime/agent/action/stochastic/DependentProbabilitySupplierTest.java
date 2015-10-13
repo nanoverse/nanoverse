@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action.stochastic;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import org.junit.*;
 import test.TestBase;
 
@@ -35,19 +35,19 @@ import static org.mockito.Mockito.*;
 
 public class DependentProbabilitySupplierTest extends TestBase {
 
-    private Function<BehaviorCell, Double> valueLookup;
+    private Function<BehaviorAgent, Double> valueLookup;
     private double coefficient;
     private double offset;
-    private BehaviorCell cell, child;
+    private BehaviorAgent cell, child;
 
     private DependentProbabilitySupplier query;
 
     @Before
     public void init() throws Exception {
-        cell = mock(BehaviorCell.class);
-        child = mock(BehaviorCell.class);
+        cell = mock(BehaviorAgent.class);
+        child = mock(BehaviorAgent.class);
 
-        valueLookup = (Function<BehaviorCell, Double>) mock(Function.class);
+        valueLookup = (Function<BehaviorAgent, Double>) mock(Function.class);
         when(valueLookup.apply(cell)).thenReturn(1.0);
         when(valueLookup.apply(child)).thenReturn(2.0);
 

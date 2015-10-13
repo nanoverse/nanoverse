@@ -58,7 +58,7 @@ public class VisualizationSerializer extends Serializer {
                                    Visualization visualization,
                                    String prefix, LayerManager lm) {
         super(p, lm);
-        geometry = lm.getCellLayer().getGeometry();
+        geometry = lm.getAgentLayer().getGeometry();
         this.visualization = visualization;
         this.prefix = prefix;
     }

@@ -35,7 +35,7 @@ import nanoverse.runtime.geometry.set.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.processes.discrete.AgentProcessArguments;
 import nanoverse.runtime.structural.MockGeneralParameters;
 import no.uib.cipr.matrix.Vector;
 
@@ -201,10 +201,10 @@ public abstract class LegacyTest {
         return new BaseProcessArguments(layerManager, p, 0, start, period);
     }
 
-    protected CellProcessArguments makeCellProcessArguments(Geometry geom) {
+    protected AgentProcessArguments makeAgentProcessArguments(Geometry geom) {
         CoordinateSet activeSites = new CompleteSet(geom);
         IntegerArgument maxTargets = new ConstantInteger(-1);
-        return new CellProcessArguments(activeSites, maxTargets);
+        return new AgentProcessArguments(activeSites, maxTargets);
     }
 
     protected boolean arraysEqual(Object[] expected, Object[] actual) {

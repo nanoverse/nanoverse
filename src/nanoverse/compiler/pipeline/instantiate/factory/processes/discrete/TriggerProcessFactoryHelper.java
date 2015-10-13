@@ -30,7 +30,7 @@ import nanoverse.runtime.processes.discrete.filter.Filter;
 
 public class TriggerProcessFactoryHelper {
 
-    public TriggerProcess build(BaseProcessArguments arguments, CellProcessArguments cpArguments, String behaviorName, Filter filter, boolean skipVacant, boolean requireNeighbors) {
+    public TriggerProcess build(BaseProcessArguments arguments, AgentProcessArguments cpArguments, String behaviorName, Filter filter, boolean skipVacant, boolean requireNeighbors) {
         return new TriggerProcess(arguments, cpArguments, behaviorName, filter, skipVacant, requireNeighbors);
     }
 }

@@ -24,20 +24,20 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.LatticeFullEvent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.discrete.cluster.*;
 import org.junit.*;
-import test.CellProcessTestBase;
+import test.AgentProcessTestBase;
 
 import static org.mockito.Mockito.*;
 
-public class ScatterClustersTest extends CellProcessTestBase {
+public class ScatterClustersTest extends AgentProcessTestBase {
 
     private IntegerArgument neighborCount;
-    private CellDescriptor cellDescriptor;
+    private AgentDescriptor cellDescriptor;
     private ScatterClusters query;
     private ScatterClustersHelper helper;
 
@@ -46,9 +46,9 @@ public class ScatterClustersTest extends CellProcessTestBase {
         setup();
         helper = new ContactClustersHelper(layer);
         neighborCount = new ConstantInteger(1);
-        cellDescriptor = mock(CellDescriptor.class);
+        cellDescriptor = mock(AgentDescriptor.class);
         when(cellDescriptor.next()).thenAnswer(invocation -> {
-            BehaviorCell ret = mock(BehaviorCell.class);
+            BehaviorAgent ret = mock(BehaviorAgent.class);
             when(ret.getState()).thenReturn(1);
             return ret;
         });

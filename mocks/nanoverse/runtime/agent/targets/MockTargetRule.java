@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.targets;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.discrete.filter.NullFilter;
 
@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class MockTargetRule extends TargetRule {
     private List<Coordinate> targets;
-    private BehaviorCell lastCaller;
+    private BehaviorAgent lastCaller;
 
     public MockTargetRule() {
         super(null, null, new NullFilter(), -1, null);
@@ -45,18 +45,18 @@ public class MockTargetRule extends TargetRule {
         this.targets = targets;
     }
 
-    public BehaviorCell getLastCaller() {
+    public BehaviorAgent getLastCaller() {
         return lastCaller;
     }
 
     @Override
-    protected List<Coordinate> getCandidates(BehaviorCell caller) {
+    protected List<Coordinate> getCandidates(BehaviorAgent caller) {
         lastCaller = caller;
         return targets;
     }
 
     @Override
-    public TargetRule clone(BehaviorCell child) {
+    public TargetRule clone(BehaviorAgent child) {
         return new MockTargetRule();
     }
 }

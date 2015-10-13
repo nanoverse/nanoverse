@@ -31,7 +31,7 @@ import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 import nanoverse.runtime.structural.utilities.FileConventions;
@@ -162,14 +162,14 @@ public class InterfaceCensusWriter extends Serializer {
     }
 
     private ArrayList<Coordinate> getFocalSites(StepState stepState) {
-        CellLayer layer = stepState.getRecordedCellLayer();
+        AgentLayer layer = stepState.getRecordedAgentLayer();
         ArrayList<Coordinate> focalSites = new ArrayList<>();
 
         // Find all nanoverse.runtime.cells of focal type.
         HashSet<Coordinate> sites = layer.getViewer().getOccupiedSites();
 
         for (Coordinate site : sites) {
-            AbstractAgent focalAgent = layer.getViewer().getCell(site);
+            AbstractAgent focalAgent = layer.getViewer().getAgent(site);
             if (focalAgent.getState() == focalState) {
                 focalSites.add(site);
             }
@@ -187,7 +187,7 @@ public class InterfaceCensusWriter extends Serializer {
     private void processNeighbors(Coordinate site, StepState stepState,
                                   Map<Integer, Double> histo) {
 
-        CellLayer layer = stepState.getRecordedCellLayer();
+        AgentLayer layer = stepState.getRecordedAgentLayer();
 
         int[] neighborStates = layer.getLookupManager().getNeighborStates(site, false);
 

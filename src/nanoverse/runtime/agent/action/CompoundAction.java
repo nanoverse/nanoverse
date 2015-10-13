@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
@@ -36,14 +36,14 @@ import nanoverse.runtime.layers.LayerManager;
  */
 public class CompoundAction extends Action {
 
-    protected final BehaviorCell callback;
+    protected final BehaviorAgent callback;
     protected final LayerManager layerManager;
 
     // Each action in the actionSequence array is fired,
 // in order, when the trigger(...) method is invoked.
     protected final Action[] actionSequence;
 
-    public CompoundAction(BehaviorCell callback, LayerManager layerManager, Action[] actionSequence) {
+    public CompoundAction(BehaviorAgent callback, LayerManager layerManager, Action[] actionSequence) {
         super(callback, layerManager);
         this.callback = callback;
         this.layerManager = layerManager;
@@ -54,7 +54,7 @@ public class CompoundAction extends Action {
         return layerManager;
     }
 
-    public BehaviorCell getCallback() {
+    public BehaviorAgent getCallback() {
         return callback;
     }
 
@@ -110,13 +110,13 @@ public class CompoundAction extends Action {
         return actionSequence;
     }
 
-    public CompoundAction clone(BehaviorCell child) {
+    public CompoundAction clone(BehaviorAgent child) {
         Action[] clonedActionSequence = cloneActionSequence(child);
         CompoundAction clone = new CompoundAction(child, layerManager, clonedActionSequence);
         return clone;
     }
 
-    protected Action[] cloneActionSequence(BehaviorCell child) {
+    protected Action[] cloneActionSequence(BehaviorAgent child) {
         int n = actionSequence.length;
         Action[] clonedActionSequence = new Action[n];
         for (int i = 0; i < n; i++) {

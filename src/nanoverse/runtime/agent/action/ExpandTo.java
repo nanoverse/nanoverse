@@ -25,14 +25,14 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellUpdateManager;
+import nanoverse.runtime.layers.cell.AgentUpdateManager;
 import nanoverse.runtime.processes.discrete.ShoveHelper;
 
 import java.util.*;
@@ -58,7 +58,7 @@ public class ExpandTo extends Action {
 
     private TargetRule targetRule;
 
-    public ExpandTo(BehaviorCell callback, LayerManager layerManager, TargetRule targetRule,
+    public ExpandTo(BehaviorAgent callback, LayerManager layerManager, TargetRule targetRule,
                     IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
         super(callback, layerManager);
         this.selfChannel = selfChannel;
@@ -71,8 +71,8 @@ public class ExpandTo extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        BehaviorCell callerCell = resolveCaller(caller);
-        List<Coordinate> targets = targetRule.report(callerCell);
+        BehaviorAgent callerAgent = resolveCaller(caller);
+        List<Coordinate> targets = targetRule.report(callerAgent);
         for (Coordinate target : targets) {
             preferentialExpand(target);
         }
@@ -104,7 +104,7 @@ public class ExpandTo extends Action {
     }
 
     private void cloneToVacancy(Coordinate vacancy) throws HaltCondition {
-        CellUpdateManager u = getLayerManager().getCellLayer().getUpdateManager();
+        AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
 
         // Clone parent.
         AbstractAgent child = getCallback().replicate();
@@ -147,7 +147,7 @@ public class ExpandTo extends Action {
     }
 
     private DisplacementOption getOption(Coordinate start) throws HaltCondition {
-        Geometry geom = getLayerManager().getCellLayer().getGeometry();
+        Geometry geom = getLayerManager().getAgentLayer().getGeometry();
         Coordinate end = shoveHelper.chooseVacancy(start);
         int distance = geom.getL1Distance(start, end, Geometry.APPLY_BOUNDARIES);
 
@@ -174,7 +174,7 @@ public class ExpandTo extends Action {
     }
 
     @Override
-    public Action clone(BehaviorCell child) {
+    public Action clone(BehaviorAgent child) {
         TargetRule clonedTargetRule = targetRule.clone(child);
         return new ExpandTo(child, getLayerManager(), clonedTargetRule, selfChannel,
             targetChannel, random);

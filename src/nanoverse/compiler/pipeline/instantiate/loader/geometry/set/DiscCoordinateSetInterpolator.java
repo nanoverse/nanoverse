@@ -55,7 +55,7 @@ public class DiscCoordinateSetInterpolator {
     }
 
     public Geometry geometry(LayerManager lm) {
-        return lm.getCellLayer().getGeometry();
+        return lm.getAgentLayer().getGeometry();
     }
 
     public Coordinate offset(MapObjectNode node, LayerManager lm, GeneralParameters p) {

@@ -32,14 +32,14 @@ import nanoverse.compiler.pipeline.translate.symbol.agent.action.ActionClassSymb
 import nanoverse.compiler.pipeline.translate.symbol.layers.continuum.ReactionClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 
 import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class AgentDescriptorInstSymbolTable extends MapSymbolTable<CellDescriptor> {
+public class AgentDescriptorInstSymbolTable extends MapSymbolTable<AgentDescriptor> {
     @Override
     public String getDescription() {
         return "AgentDescriptor describes the properties of a class of agents," +

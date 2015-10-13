@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action.stochastic;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 
 /**
  * Created by dbborens on 1/9/15.
@@ -37,7 +37,7 @@ public class ConstantProbabilitySupplier extends ProbabilitySupplier {
     }
 
     @Override
-    public ConstantProbabilitySupplier clone(BehaviorCell child) {
+    public ConstantProbabilitySupplier clone(BehaviorAgent child) {
         return new ConstantProbabilitySupplier(value);
     }
 

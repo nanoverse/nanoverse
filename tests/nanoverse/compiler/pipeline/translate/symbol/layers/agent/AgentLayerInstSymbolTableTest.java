@@ -28,7 +28,7 @@ import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.control.arguments.StringArgument;
 import nanoverse.runtime.geometry.boundaries.Boundary;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import org.junit.Test;
 
 public class AgentLayerInstSymbolTableTest extends MapSymbolTableTest {
@@ -41,7 +41,7 @@ public class AgentLayerInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
     protected Class getExpectedClass() {
-        return CellLayer.class;
+        return AgentLayer.class;
     }
 
     @Test

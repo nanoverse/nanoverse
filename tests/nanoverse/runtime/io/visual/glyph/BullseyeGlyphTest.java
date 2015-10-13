@@ -98,7 +98,7 @@ public class BullseyeGlyphTest extends LegacyTest {
         }
 
         LightweightSystemState ret = new LightweightSystemState(geometry);
-        ret.initCellLayer(state);
+        ret.initAgentLayer(state);
 
         Set<Coordinate> highlights = new HashSet<>();
         for (Coordinate c : geometry.getCanonicalSites()) {

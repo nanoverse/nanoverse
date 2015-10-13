@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.*;
@@ -33,7 +33,7 @@ import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.check.CheckForThresholdOccupancy;
 import nanoverse.runtime.structural.MockGeneralParameters;
@@ -45,7 +45,7 @@ import static org.junit.Assert.assertEquals;
 public class CheckForThresholdOccupancyTest extends LegacyTest {
 
     private MockLayerManager layerManager;
-    private CellLayer layer;
+    private AgentLayer layer;
     private CheckForThresholdOccupancy query;
 
     @Before
@@ -55,15 +55,15 @@ public class CheckForThresholdOccupancyTest extends LegacyTest {
         Shape shape = new Rectangle(lattice, 10, 1);
         Boundary boundary = new Periodic(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        layer = new CellLayer(geom);
-        layerManager.setCellLayer(layer);
+        layer = new AgentLayer(geom);
+        layerManager.setAgentLayer(layer);
         MockGeneralParameters p = makeMockGeneralParameters();
         DoubleArgument thresholdArg = new ConstantDouble(0.2);
 
         // Create a 1D lattice of length 10.
         // Create an occupancy test that checks for 30% occupancy.
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
-        CellProcessArguments cpArguments = makeCellProcessArguments(geom);
+        AgentProcessArguments cpArguments = makeAgentProcessArguments(geom);
         query = new CheckForThresholdOccupancy(arguments, cpArguments, thresholdArg);
         query.init();
     }
@@ -71,7 +71,7 @@ public class CheckForThresholdOccupancyTest extends LegacyTest {
     @Test
     public void testAboveThreshold() throws Exception {
         for (int i = 1; i < 4; i++) {
-            placeNumberedCell(i);
+            placeNumberedAgent(i);
         }
 
         doTest(true);
@@ -89,8 +89,8 @@ public class CheckForThresholdOccupancyTest extends LegacyTest {
         assertEquals(expectThrow, thrown);
     }
 
-    private void placeNumberedCell(int x) throws HaltCondition {
-        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, null);
+    private void placeNumberedAgent(int x) throws HaltCondition {
+        BehaviorAgent cell = new BehaviorAgent(layerManager, x, x, x, null);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
     }
@@ -98,7 +98,7 @@ public class CheckForThresholdOccupancyTest extends LegacyTest {
     @Test
     public void testAtThreshold() throws Exception {
         for (int i = 1; i < 3; i++) {
-            placeNumberedCell(i);
+            placeNumberedAgent(i);
         }
 
         doTest(true);
@@ -107,7 +107,7 @@ public class CheckForThresholdOccupancyTest extends LegacyTest {
     @Test
     public void testBelowThreshold() throws Exception {
         for (int i = 1; i < 2; i++) {
-            placeNumberedCell(i);
+            placeNumberedAgent(i);
         }
 
         doTest(false);

@@ -190,7 +190,7 @@ public class HexArenaTest extends LegacyTest {
     }
 
     @Test
-    public void testCellNeighbors() {
+    public void testAgentNeighbors() {
 
         Lattice lattice = new TriangularLattice();
         Shape shape = new Rectangle(lattice, 6, 6);
@@ -257,7 +257,7 @@ public class HexArenaTest extends LegacyTest {
         }
     }
 
-    // All cases but top/bottom should be same as getCellNeighbors(...)
+    // All cases but top/bottom should be same as getAgentNeighbors(...)
     // for the HexTorus nanoverse.runtime.geometry.
     // getSoluteNeighbors(...)
     @Test

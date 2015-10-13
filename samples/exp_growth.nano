@@ -24,7 +24,7 @@ processes {
 output {
     ProgressReporter;
     CoordinateIndexer;
-    CellStateWriter;
+    AgentClassWriter;
     TimeWriter;
     VisualizationSerializer;
 };

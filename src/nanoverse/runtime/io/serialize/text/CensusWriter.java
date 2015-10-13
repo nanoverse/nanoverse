@@ -80,7 +80,7 @@ public class CensusWriter extends Serializer {
 
     public void dispatchHalt(HaltCondition ex) {
         int t = (int) Math.round(ex.getGillespie());
-        doFlush(lm.getCellLayer(), t);
+        doFlush(lm.getAgentLayer(), t);
         conclude();
         closed = true;
     }
@@ -133,11 +133,11 @@ public class CensusWriter extends Serializer {
 
     @Override
     public void flush(StepState stepState) {
-        CellLayer layer = stepState.getRecordedCellLayer();
+        AgentLayer layer = stepState.getRecordedAgentLayer();
         doFlush(layer, stepState.getFrame());
     }
 
-    private void doFlush(CellLayer layer, int t) {
+    private void doFlush(AgentLayer layer, int t) {
         frames.add(t);
 
         // Create a bucket for this frame.

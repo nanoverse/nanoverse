@@ -28,7 +28,7 @@ import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.cluste
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.cluster.CompactSeparatedClustersHelper;
 
 /**
@@ -54,7 +54,7 @@ public class CompactSeparatedClustersHelperLoader extends ScatterClustersHelperL
 
     @Override
     public CompactSeparatedClustersHelper instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        CellLayer layer = lm.getCellLayer();
+        AgentLayer layer = lm.getAgentLayer();
         factory.setLayer(layer);
         return factory.build();
     }

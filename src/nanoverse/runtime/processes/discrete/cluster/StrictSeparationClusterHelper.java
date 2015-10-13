@@ -24,10 +24,10 @@
 
 package nanoverse.runtime.processes.discrete.cluster;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 /**
@@ -36,12 +36,12 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
 public class StrictSeparationClusterHelper extends ScatterClustersHelper {
 
     @FactoryTarget
-    public StrictSeparationClusterHelper(CellLayer layer) {
+    public StrictSeparationClusterHelper(AgentLayer layer) {
         super(layer);
     }
 
     @Override
-    public int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m) {
+    public int attemptPlacement(Coordinate candidate, BehaviorAgent toPlace, int m) {
         if (layer.getViewer().isOccupied(candidate)) {
             return 0;
         }
@@ -62,7 +62,7 @@ public class StrictSeparationClusterHelper extends ScatterClustersHelper {
         return 0;
     }
 
-    private boolean neighborsHaveSelfNeighbors(Coordinate candidate, BehaviorCell toPlace) {
+    private boolean neighborsHaveSelfNeighbors(Coordinate candidate, BehaviorAgent toPlace) {
         Coordinate[] neighbors = layer.getGeometry().getAnnulus(candidate, 1, Geometry.APPLY_BOUNDARIES);
         for (Coordinate neighbor : neighbors) {
             if (hasSelfNeighbors(neighbor, toPlace)) {

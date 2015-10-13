@@ -29,7 +29,7 @@ import nanoverse.runtime.control.arguments.ConstantInteger;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.filter.*;
 import org.junit.*;
 import test.LegacyTest;
@@ -45,7 +45,7 @@ public class TargetRuleTest extends LegacyTest {
 
     private MockGeometry geom;
     private MockLayerManager layerManager;
-    private CellLayer cellLayer;
+    private AgentLayer cellLayer;
     private MockAgent self, occupiedNeighbor;
     private Coordinate[] cc, neighbors;
     private Coordinate left, right, center;
@@ -68,8 +68,8 @@ public class TargetRuleTest extends LegacyTest {
         geom.setCanonicalSites(cc);
 
         layerManager = new MockLayerManager();
-        cellLayer = new CellLayer(geom);
-        layerManager.setCellLayer(cellLayer);
+        cellLayer = new AgentLayer(geom);
+        layerManager.setAgentLayer(cellLayer);
 
         occupiedNeighbor = new MockAgent(1);
         self = new MockAgent(2);
@@ -80,7 +80,7 @@ public class TargetRuleTest extends LegacyTest {
 
         // Associate the neighborhood with the coordinate
         neighbors = new Coordinate[]{left, right};
-        geom.setCellNeighbors(center, neighbors);
+        geom.setAgentNeighbors(center, neighbors);
 
         filter = new NullFilter();
     }
@@ -225,7 +225,7 @@ public class TargetRuleTest extends LegacyTest {
         MockAgent anotherNeighbor = new MockAgent(3);
         cellLayer.getUpdateManager().place(anotherNeighbor, right);
 
-        filter = new CellStateFilter(cellLayer, new ConstantInteger(1));
+        filter = new AgentClassFilter(cellLayer, new ConstantInteger(1));
         TargetRule query = new TargetAllNeighbors(self, layerManager, filter, -1, random);
 
         List<Coordinate> actual = query.report(null);

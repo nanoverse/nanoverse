@@ -44,7 +44,7 @@ public class CullTest extends LegacyLatticeTest {
     public void setUp() throws Exception {
         super.setUp();
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, null);
-        CellProcessArguments cpArguments = makeCellProcessArguments(geom);
+        AgentProcessArguments cpArguments = makeAgentProcessArguments(geom);
         query = new Cull(arguments, cpArguments, 0.5);
     }
 

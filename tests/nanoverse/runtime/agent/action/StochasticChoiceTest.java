@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import org.junit.*;
 import org.mockito.InOrder;
 import test.LinearMocks;
@@ -83,7 +83,7 @@ public class StochasticChoiceTest extends LinearMocks {
 
     @Test
     public void cloneBehavesAsExpected() throws Exception {
-        BehaviorCell child = mock(BehaviorCell.class);
+        BehaviorAgent child = mock(BehaviorAgent.class);
         Action clone = query.clone(child);
         verify(chooser).clone(child);
         doTriggerTest(clone);

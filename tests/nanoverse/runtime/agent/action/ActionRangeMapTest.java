@@ -36,18 +36,18 @@ public class ActionRangeMapTest {
 
     @Test
     public void testClone() throws Exception {
-        MockAgent originalCell = new MockAgent(1);
-        MockAgent cloneCell = new MockAgent(2);
+        MockAgent originalAgent = new MockAgent(1);
+        MockAgent cloneAgent = new MockAgent(2);
 
-        ActionRangeMap original = makeActionRangeMap(originalCell);
-        ActionRangeMap expected = makeActionRangeMap(cloneCell);
-        ActionRangeMap actual = original.clone(cloneCell);
+        ActionRangeMap original = makeActionRangeMap(originalAgent);
+        ActionRangeMap expected = makeActionRangeMap(cloneAgent);
+        ActionRangeMap actual = original.clone(cloneAgent);
 
         assertEquals(expected, actual);
         assertFalse(expected == actual);
 
-        checkCallbacks(actual, cloneCell);
-        checkCallbacks(original, originalCell);
+        checkCallbacks(actual, cloneAgent);
+        checkCallbacks(original, originalAgent);
     }
 
     private void checkCallbacks(ActionRangeMap map, MockAgent cell) {

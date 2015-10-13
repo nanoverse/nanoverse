@@ -101,7 +101,7 @@ public class KymographTest extends LegacyTest {
             health[i] = 0.0;
             state[i] = i % 3;
         }
-        systemState.initCellLayer(state);
+        systemState.initAgentLayer(state);
 
     }
 

@@ -56,7 +56,7 @@ public class ManualHaltLoader extends ProcessLoader<ManualHalt> {
         BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
         factory.setArguments(arguments);
 
-        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        AgentProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
         factory.setCpArguments(cpArguments);
 
         String message = interpolator.message(node);

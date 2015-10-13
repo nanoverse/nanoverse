@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -35,7 +35,7 @@ import java.util.function.Function;
  * Created by dbborens on 8/3/2015.
  */
 public class InjectDescriptor extends ActionDescriptor<Inject> {
-    private final Function<BehaviorCell, Inject> constructor;
+    private final Function<BehaviorAgent, Inject> constructor;
 
     @FactoryTarget(displayName = "Inject")
     public InjectDescriptor(LayerManager layerManager,
@@ -47,7 +47,7 @@ public class InjectDescriptor extends ActionDescriptor<Inject> {
     }
 
     @Override
-    protected Function<BehaviorCell, Inject> resolveConstructor() {
+    protected Function<BehaviorAgent, Inject> resolveConstructor() {
         return constructor;
     }
 }

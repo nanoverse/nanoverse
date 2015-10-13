@@ -29,7 +29,7 @@ import nanoverse.runtime.processes.discrete.*;
 
 public class GeneralNeighborSwapFactoryHelper {
 
-    public GeneralNeighborSwap build(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
+    public GeneralNeighborSwap build(BaseProcessArguments arguments, AgentProcessArguments cpArguments) {
         return new GeneralNeighborSwap(arguments, cpArguments);
     }
 }

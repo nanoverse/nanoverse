@@ -40,7 +40,7 @@ public class AgentDescriptorInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
     protected Class getExpectedClass() {
-        return CellDescriptor.class;
+        return AgentDescriptor.class;
     }
 
     @Test

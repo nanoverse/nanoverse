@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action.stochastic;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.arguments.ProbabilitySupplierDescriptor;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -38,7 +38,7 @@ public class ConstantProbabilitySupplierDescriptor
 
     @FactoryTarget(displayName = "ConstantProbabilitySupplier")
     public ConstantProbabilitySupplierDescriptor(Double value) {
-        Function<BehaviorCell, ConstantProbabilitySupplier> constructor = cell ->
+        Function<BehaviorAgent, ConstantProbabilitySupplier> constructor = cell ->
             new ConstantProbabilitySupplier(value);
 
         super.setConstructor(constructor);

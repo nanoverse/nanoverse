@@ -32,7 +32,7 @@ import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.MockRandom;
 import org.junit.*;
 import test.LegacyTest;
@@ -43,7 +43,7 @@ import static org.junit.Assert.*;
 
 public class ShoveHelperTest extends LegacyTest {
 
-    private CellLayer layer;
+    private AgentLayer layer;
     private ShoveHelper query;
 
     @Before
@@ -55,26 +55,26 @@ public class ShoveHelperTest extends LegacyTest {
         Boundary boundary = new Periodic(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
         MockLayerManager lm = new MockLayerManager();
-        layer = new CellLayer(geom);
-        lm.setCellLayer(layer);
-        placeCells();
+        layer = new AgentLayer(geom);
+        lm.setAgentLayer(layer);
+        placeAgents();
 
         Random random = new Random(RANDOM_SEED);
 
         query = new ShoveHelper(lm, random);
     }
 
-    private void placeCells() throws Exception {
+    private void placeAgents() throws Exception {
         for (int x = 0; x < 7; x++) {
-            placeNumberedCell(x);
+            placeNumberedAgent(x);
         }
 
         for (int x = 8; x <= 9; x++) {
-            placeNumberedCell(x);
+            placeNumberedAgent(x);
         }
     }
 
-    private void placeNumberedCell(int x) throws Exception {
+    private void placeNumberedAgent(int x) throws Exception {
         MockAgent cell = new MockAgent(x);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
@@ -104,7 +104,7 @@ public class ShoveHelperTest extends LegacyTest {
 
         for (int x = 0; x < 4; x++) {
             Coordinate c = new Coordinate2D(x, 0, 0);
-            AbstractAgent observed = layer.getViewer().getCell(c);
+            AbstractAgent observed = layer.getViewer().getAgent(c);
             int expected = leftSeq[x];
             int actual = observed.getState();
             assertEquals(expected, actual);
@@ -112,7 +112,7 @@ public class ShoveHelperTest extends LegacyTest {
 
         for (int x = 0; x < 5; x++) {
             Coordinate c = new Coordinate2D(x + 5, 0, 0);
-            AbstractAgent observed = layer.getViewer().getCell(c);
+            AbstractAgent observed = layer.getViewer().getAgent(c);
             int expected = rightSeq[x];
             int actual = observed.getState();
             assertEquals(expected, actual);
@@ -127,8 +127,8 @@ public class ShoveHelperTest extends LegacyTest {
         Boundary boundary = new Absorbing(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
         MockLayerManager lm = new MockLayerManager();
-        layer = new CellLayer(geom);
-        lm.setCellLayer(layer);
+        layer = new AgentLayer(geom);
+        lm.setAgentLayer(layer);
         Random random = new MockRandom();
         query = new ShoveHelper(lm, random);
 
@@ -176,9 +176,9 @@ public class ShoveHelperTest extends LegacyTest {
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
         MockLayerManager lm = new MockLayerManager();
-        layer = new CellLayer(geom);
-        lm.setCellLayer(layer);
-        placeCells();
+        layer = new AgentLayer(geom);
+        lm.setAgentLayer(layer);
+        placeAgents();
         Random random = new Random(RANDOM_SEED);
         query = new ShoveHelper(lm, random);
         MockAgent cell = new MockAgent(1);
@@ -201,8 +201,8 @@ public class ShoveHelperTest extends LegacyTest {
         Boundary boundary = new Periodic(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
         MockLayerManager lm = new MockLayerManager();
-        layer = new CellLayer(geom);
-        lm.setCellLayer(layer);
+        layer = new AgentLayer(geom);
+        lm.setAgentLayer(layer);
         Random random = new MockRandom();
         query = new ShoveHelper(lm, random);
 
@@ -221,7 +221,7 @@ public class ShoveHelperTest extends LegacyTest {
         Arrays.sort(affectedArray);
         Coordinate[] displacements = new Coordinate2D[affectedArray.length - 1];
         for (int i = 0; i < affectedArray.length - 1; i++) {
-            displacements[i] = lm.getCellLayer().getGeometry().
+            displacements[i] = lm.getAgentLayer().getGeometry().
                 getDisplacement(affectedArray[i],
                     affectedArray[i + 1], Geometry.APPLY_BOUNDARIES);
         }

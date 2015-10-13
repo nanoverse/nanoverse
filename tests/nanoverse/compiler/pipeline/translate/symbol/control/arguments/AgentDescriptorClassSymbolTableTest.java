@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.translate.symbol.control.arguments;
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.agent.AgentDescriptorClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 
 public class AgentDescriptorClassSymbolTableTest extends ClassSymbolTableTest {
 
@@ -38,7 +38,7 @@ public class AgentDescriptorClassSymbolTableTest extends ClassSymbolTableTest {
 
     @Override
     protected Class getExpectedClass() {
-        return CellDescriptor.class;
+        return AgentDescriptor.class;
     }
 
 }

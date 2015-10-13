@@ -23,14 +23,14 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.*;
 
 
 public class ScatterFactoryHelper {
 
-    public Scatter build(BaseProcessArguments arguments, CellProcessArguments cpArguments, CellDescriptor cellDescriptor) {
+    public Scatter build(BaseProcessArguments arguments, AgentProcessArguments cpArguments, AgentDescriptor cellDescriptor) {
         return new Scatter(arguments, cpArguments, cellDescriptor);
     }
 }

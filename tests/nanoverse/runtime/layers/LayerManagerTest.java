@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.layers.continuum.*;
 import nanoverse.runtime.processes.StepState;
 import org.junit.*;
@@ -39,7 +39,7 @@ public class LayerManagerTest {
 
     private LayerManager query;
     private ContinuumLayer continuumLayer;
-    private CellLayer cellLayer;
+    private AgentLayer cellLayer;
     private String id;
 
     @Before
@@ -51,7 +51,7 @@ public class LayerManagerTest {
         when(continuumLayer.getLinker()).thenReturn(linker);
         when(continuumLayer.getId()).thenReturn(id);
 
-        cellLayer = mock(CellLayer.class);
+        cellLayer = mock(AgentLayer.class);
         query = new LayerManager();
     }
 
@@ -62,8 +62,8 @@ public class LayerManagerTest {
     }
 
     @Test
-    public void resetClearsCellLayer() throws Exception {
-        query.setCellLayer(cellLayer);
+    public void resetClearsAgentLayer() throws Exception {
+        query.setAgentLayer(cellLayer);
         query.reset();
         verify(cellLayer).reset();
     }
@@ -84,7 +84,7 @@ public class LayerManagerTest {
 
     @Test
     public void cellLayer() throws Exception {
-        query.setCellLayer(cellLayer);
-        assertEquals(cellLayer, query.getCellLayer());
+        query.setAgentLayer(cellLayer);
+        assertEquals(cellLayer, query.getAgentLayer());
     }
 }

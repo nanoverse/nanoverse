@@ -58,7 +58,7 @@ public class HLineCoordinateSetInterpolator {
     }
 
     public Geometry geometry(LayerManager lm) {
-        return lm.getCellLayer().getGeometry();
+        return lm.getAgentLayer().getGeometry();
     }
 
     public Coordinate origin(MapObjectNode node, LayerManager lm, GeneralParameters p) {

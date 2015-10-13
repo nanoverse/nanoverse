@@ -37,7 +37,7 @@ public class Divide extends BulkDivisionProcess {
     private Coordinate[] candidates;
 
     @FactoryTarget
-    public Divide(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
+    public Divide(BaseProcessArguments arguments, AgentProcessArguments cpArguments) {
         super(arguments, cpArguments);
     }
 

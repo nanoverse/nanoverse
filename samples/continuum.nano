@@ -52,7 +52,7 @@ processes {
 output {
     ProgressReporter;
     CoordinateIndexer;
-    CellStateWriter;
+    AgentClassWriter;
     TimeWriter;
     ContinuumStateWriter;
     VisualizationSerializer {

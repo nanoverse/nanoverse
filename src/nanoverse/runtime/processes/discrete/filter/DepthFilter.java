@@ -27,7 +27,7 @@ package nanoverse.runtime.processes.discrete.filter;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.util.*;
@@ -41,10 +41,10 @@ import java.util.*;
 public class DepthFilter extends Filter {
 
     private IntegerArgument maxDepth;
-    private CellLayer layer;
+    private AgentLayer layer;
 
     @FactoryTarget
-    public DepthFilter(CellLayer layer, IntegerArgument maxDepth) {
+    public DepthFilter(AgentLayer layer, IntegerArgument maxDepth) {
         this.maxDepth = maxDepth;
         this.layer = layer;
     }

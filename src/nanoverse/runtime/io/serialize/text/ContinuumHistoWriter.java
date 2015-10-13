@@ -84,7 +84,7 @@ public class ContinuumHistoWriter extends Serializer {
         int t = (int) Math.round(ex.getGillespie());
         Function<Integer, Boolean> isOccupied = i -> {
             Coordinate c = lm.getDeindexer().apply(i);
-            return lm.getCellLayer().getViewer().isOccupied(c);
+            return lm.getAgentLayer().getViewer().isOccupied(c);
         };
         doFlush(lm.getContinuumLayer(layerId).getStateStream(), t, isOccupied);
         conclude();
@@ -144,7 +144,7 @@ public class ContinuumHistoWriter extends Serializer {
         Function<Integer, Boolean> isOccupied = i -> {
             Coordinate c = lm.getDeindexer().apply(i);
             return stepState
-                .getRecordedCellLayer()
+                .getRecordedAgentLayer()
                 .getViewer()
                 .isOccupied(c);
         };

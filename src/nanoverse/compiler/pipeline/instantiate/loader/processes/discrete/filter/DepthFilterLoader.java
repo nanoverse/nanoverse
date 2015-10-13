@@ -52,7 +52,7 @@ public class DepthFilterLoader extends FilterLoader<DepthFilter> {
 
     @Override
     public DepthFilter instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        factory.setLayer(lm.getCellLayer());
+        factory.setLayer(lm.getAgentLayer());
 
         IntegerArgument state = interpolator.depth(node, p.getRandom());
         factory.setMaxDepth(state);

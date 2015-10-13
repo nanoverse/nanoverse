@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.action.stochastic.ProbabilitySupplier;
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.layers.LayerManager;
 
 import java.util.*;
@@ -68,7 +68,7 @@ public class DynamicActionRangeMap {
         return valueMap.getTotalWeight();
     }
 
-    public DynamicActionRangeMap clone(BehaviorCell child) {
+    public DynamicActionRangeMap clone(BehaviorAgent child) {
         DynamicActionRangeMap cloned = new DynamicActionRangeMap(layerManager);
 
         functionMap.forEach((action, supplier) -> {

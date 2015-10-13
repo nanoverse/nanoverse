@@ -38,9 +38,9 @@ import static org.junit.Assert.*;
  */
 public class CallbackManagerTest {
     private CallbackManager query;
-    private CellLayer layer;
+    private AgentLayer layer;
     private Coordinate c;
-    private BehaviorCell cell;
+    private BehaviorAgent cell;
 
     @Before
     public void setUp() throws Exception {
@@ -48,9 +48,9 @@ public class CallbackManagerTest {
         c = new Coordinate2D(0, 0, 0);
         Coordinate[] cc = new Coordinate[]{c};
         geom.setCanonicalSites(cc);
-        layer = new CellLayer(geom);
+        layer = new AgentLayer(geom);
         MockLayerManager layerManager = new MockLayerManager();
-        layerManager.setCellLayer(layer);
+        layerManager.setAgentLayer(layer);
 
         cell = new MockAgent();
         layer.getUpdateManager().place(cell, c);
@@ -62,8 +62,8 @@ public class CallbackManagerTest {
     public void refreshDivisibility() throws Exception {
         /*
           On the face of it, this looks nearly identical to a test
-          in BehaviorCellTest. However, since MockAgent does automatically
-          update the layer indices as BehaviorCell does, this actually
+          in BehaviorAgentTest. However, since MockAgent does automatically
+          update the layer indices as BehaviorAgent does, this actually
           verifies the functionality of refreshDivisibility directly.
           It would be better to have a true mock cell layer that could
           confirm the appropriate calls were made and nothing more.
@@ -92,7 +92,7 @@ public class CallbackManagerTest {
     @Test
     public void die() {
         // Perform the test
-        CellLayerViewer viewer = layer.getViewer();
+        AgentLayerViewer viewer = layer.getViewer();
         boolean isOccupied = viewer.isOccupied(c);
         assertTrue(isOccupied);
         query.die();

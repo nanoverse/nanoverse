@@ -25,7 +25,7 @@
 package nanoverse.runtime.control.arguments;
 
 import nanoverse.runtime.agent.action.ActionRangeMap;
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 
 import java.util.function.Function;
 
@@ -34,13 +34,13 @@ import java.util.function.Function;
  */
 public class ActionRangeMapDescriptor {
 
-    private Function<BehaviorCell, ActionRangeMap> constructor;
+    private Function<BehaviorAgent, ActionRangeMap> constructor;
 
-    public ActionRangeMapDescriptor(Function<BehaviorCell, ActionRangeMap> constructor) {
+    public ActionRangeMapDescriptor(Function<BehaviorAgent, ActionRangeMap> constructor) {
         this.constructor = constructor;
     }
 
-    public ActionRangeMap instantiate(BehaviorCell cell) {
+    public ActionRangeMap instantiate(BehaviorAgent cell) {
         return constructor.apply(cell);
     }
 }

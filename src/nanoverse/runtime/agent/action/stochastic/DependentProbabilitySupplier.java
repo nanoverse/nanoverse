@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action.stochastic;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 
@@ -41,29 +41,29 @@ public class DependentProbabilitySupplier extends ProbabilitySupplier {
 
     private double coefficient;
     private double offset;
-    private BehaviorCell cell;
-    private Function<BehaviorCell, Double> valueLookup;
+    private BehaviorAgent cell;
+    private Function<BehaviorAgent, Double> valueLookup;
 
-    public DependentProbabilitySupplier(Function<BehaviorCell, Double> valueLookup, BehaviorCell cell, double coefficient, double offset) {
+    public DependentProbabilitySupplier(Function<BehaviorAgent, Double> valueLookup, BehaviorAgent cell, double coefficient, double offset) {
         this.coefficient = coefficient;
         this.offset = offset;
         this.cell = cell;
         this.valueLookup = valueLookup;
     }
 
-    private static double getFieldValueAt(BehaviorCell cell, LayerManager layerManager, String fieldName) {
+    private static double getFieldValueAt(BehaviorAgent cell, LayerManager layerManager, String fieldName) {
 
         Supplier<Coordinate> supplier = () -> layerManager
-            .getCellLayer()
+            .getAgentLayer()
             .getLookupManager()
-            .getCellLocation(cell);
+            .getAgentLocation(cell);
 
         double value = layerManager.getContinuumLayer(fieldName).getLinker().get(supplier);
         return value;
     }
 
     @Override
-    public DependentProbabilitySupplier clone(BehaviorCell child) {
+    public DependentProbabilitySupplier clone(BehaviorAgent child) {
         return new DependentProbabilitySupplier(valueLookup, child, coefficient, offset);
     }
 

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -36,18 +36,18 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ScatterClusters extends CellProcess {
+public class ScatterClusters extends AgentProcess {
 
     private final IntegerArgument neighborCount;
-    private final CellDescriptor cellDescriptor;
+    private final AgentDescriptor cellDescriptor;
     private final ScatterClustersHelper clustersHelper;
     private List<Coordinate> candidates;
 
     @FactoryTarget
     public ScatterClusters(BaseProcessArguments arguments,
-                           CellProcessArguments cpArguments,
+                           AgentProcessArguments cpArguments,
                            IntegerArgument neighborCount,
-                           CellDescriptor cellDescriptor,
+                           AgentDescriptor cellDescriptor,
                            ScatterClustersHelper clustersHelper) {
 
         super(arguments, cpArguments);
@@ -77,7 +77,7 @@ public class ScatterClusters extends CellProcess {
         int m = getNeighborCount();
 
         Iterator<Coordinate> cIter = candidates.iterator();
-        BehaviorCell toPlace = cellDescriptor.next();
+        BehaviorAgent toPlace = cellDescriptor.next();
 
         while (placed < n) {
             if (!cIter.hasNext()) {

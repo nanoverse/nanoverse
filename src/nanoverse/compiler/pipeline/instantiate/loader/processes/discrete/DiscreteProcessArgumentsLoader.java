@@ -31,12 +31,12 @@ import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.geometry.set.CoordinateSet;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.processes.discrete.AgentProcessArguments;
 
 /**
  * Created by dbborens on 8/12/15.
  */
-public class DiscreteProcessArgumentsLoader extends Loader<CellProcessArguments> {
+public class DiscreteProcessArgumentsLoader extends Loader<AgentProcessArguments> {
 
     private final DiscreteProcessArgumentsFactory factory;
     private final DiscreteProcessArgumentsInterpolator interpolator;
@@ -52,7 +52,7 @@ public class DiscreteProcessArgumentsLoader extends Loader<CellProcessArguments>
         this.interpolator = interpolator;
     }
 
-    public CellProcessArguments instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    public AgentProcessArguments instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         CoordinateSet activeSites = interpolator.activeSites(node, lm, p);
         factory.setActiveSites(activeSites);
 

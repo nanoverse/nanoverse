@@ -31,7 +31,7 @@ import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
 
 public class ScatterClustersFactoryHelper {
 
-    public ScatterClusters build(BaseProcessArguments arguments, CellProcessArguments cpArguments, IntegerArgument neighborCount, CellDescriptor cellDescriptor, ScatterClustersHelper clustersHelper) {
+    public ScatterClusters build(BaseProcessArguments arguments, AgentProcessArguments cpArguments, IntegerArgument neighborCount, AgentDescriptor cellDescriptor, ScatterClustersHelper clustersHelper) {
         return new ScatterClusters(arguments, cpArguments, neighborCount, cellDescriptor, clustersHelper);
     }
 }

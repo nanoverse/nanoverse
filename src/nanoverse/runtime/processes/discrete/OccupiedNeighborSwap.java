@@ -39,13 +39,13 @@ import java.util.*;
  *
  * @author dbborens
  */
-public class OccupiedNeighborSwap extends CellProcess {
+public class OccupiedNeighborSwap extends AgentProcess {
 
     private List<Object> candidates;
     private Geometry geom;
 
     @FactoryTarget
-    public OccupiedNeighborSwap(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
+    public OccupiedNeighborSwap(BaseProcessArguments arguments, AgentProcessArguments cpArguments) {
 
         super(arguments, cpArguments);
         geom = getLayer().getGeometry();

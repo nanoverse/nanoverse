@@ -38,7 +38,7 @@ public class ManualHaltTest extends LegacyTest {
     public void testLifeCycle() {
         MockLayerManager layerManager = new MockLayerManager();
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, null);
-        CellProcessArguments cpArguments = new CellProcessArguments(null, null);
+        AgentProcessArguments cpArguments = new AgentProcessArguments(null, null);
         ManualHalt halt = new ManualHalt(arguments, cpArguments, "message");
         boolean thrown = false;
         try {

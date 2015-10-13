@@ -25,14 +25,14 @@ package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filte
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.arguments.IntegerArgument;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.filter.DepthFilter;
 
 public class DepthFilterFactory implements Factory<DepthFilter> {
 
     private final DepthFilterFactoryHelper helper;
 
-    private CellLayer layer;
+    private AgentLayer layer;
     private IntegerArgument maxDepth;
 
     public DepthFilterFactory() {
@@ -43,7 +43,7 @@ public class DepthFilterFactory implements Factory<DepthFilter> {
         this.helper = helper;
     }
 
-    public void setLayer(CellLayer layer) {
+    public void setLayer(AgentLayer layer) {
         this.layer = layer;
     }
 

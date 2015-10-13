@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.continuum;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import org.junit.*;
 
 import java.util.IdentityHashMap;
@@ -34,15 +34,15 @@ import static org.mockito.Mockito.*;
 
 public class ContinuumAgentIndexTest {
 
-    private IdentityHashMap<BehaviorCell, Supplier<RelationshipTuple>> map;
-    private BehaviorCell cell;
+    private IdentityHashMap<BehaviorAgent, Supplier<RelationshipTuple>> map;
+    private BehaviorAgent cell;
     private Supplier<RelationshipTuple> supplier;
     private ContinuumAgentIndex query;
 
     @Before
     public void init() throws Exception {
-        map = (IdentityHashMap<BehaviorCell, Supplier<RelationshipTuple>>) mock(IdentityHashMap.class);
-        cell = mock(BehaviorCell.class);
+        map = (IdentityHashMap<BehaviorAgent, Supplier<RelationshipTuple>>) mock(IdentityHashMap.class);
+        cell = mock(BehaviorAgent.class);
         supplier = (Supplier<RelationshipTuple>) mock(Supplier.class);
         query = new ContinuumAgentIndex(map);
 

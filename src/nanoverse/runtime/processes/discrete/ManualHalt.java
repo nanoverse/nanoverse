@@ -32,11 +32,11 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
 /**
  * Created by dbborens on 7/31/14.
  */
-public class ManualHalt extends CellProcess {
+public class ManualHalt extends AgentProcess {
     private String message;
 
     @FactoryTarget
-    public ManualHalt(BaseProcessArguments arguments, CellProcessArguments cpArguments, String message) {
+    public ManualHalt(BaseProcessArguments arguments, AgentProcessArguments cpArguments, String message) {
         super(arguments, cpArguments);
         this.message = message;
     }

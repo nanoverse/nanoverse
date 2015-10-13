@@ -51,8 +51,8 @@ public class CallbackManager {
      * and should be removed from the simulation.
      */
     public void die() {
-        CellLayer layer = layerManager.getCellLayer();
-        Coordinate coord = layer.getLookupManager().getCellLocation(agent);
+        AgentLayer layer = layerManager.getAgentLayer();
+        Coordinate coord = layer.getLookupManager().getAgentLocation(agent);
         layer.getUpdateManager().banish(coord);
     }
 
@@ -61,10 +61,10 @@ public class CallbackManager {
      * changed its divisibility status and should be checked.
      */
     public void refreshDivisibility() throws HaltCondition {
-        CellLayer layer = layerManager.getCellLayer();
+        AgentLayer layer = layerManager.getAgentLayer();
 
         if (layer.getViewer().exists(agent)) {
-            Coordinate coord = layer.getLookupManager().getCellLocation(agent);
+            Coordinate coord = layer.getLookupManager().getAgentLocation(agent);
             layer.getUpdateManager().banish(coord);
             layer.getUpdateManager().place(agent, coord);
         }
@@ -75,9 +75,9 @@ public class CallbackManager {
     }
 
     public Coordinate getMyLocation() {
-        CellLayer layer = layerManager.getCellLayer();
-        CellLookupManager lookupManager = layer.getLookupManager();
-        Coordinate coord = lookupManager.getCellLocation(agent);
+        AgentLayer layer = layerManager.getAgentLayer();
+        AgentLookupManager lookupManager = layer.getLookupManager();
+        Coordinate coord = lookupManager.getAgentLocation(agent);
         return coord;
     }
 }

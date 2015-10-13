@@ -25,9 +25,9 @@ package nanoverse.compiler.pipeline.instantiate.factory.layers.cell;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 
-public class AgentLayerFactory implements Factory<CellLayer> {
+public class AgentLayerFactory implements Factory<AgentLayer> {
 
     private final AgentLayerFactoryHelper helper;
 
@@ -46,7 +46,7 @@ public class AgentLayerFactory implements Factory<CellLayer> {
     }
 
     @Override
-    public CellLayer build() {
+    public AgentLayer build() {
         return helper.build(geom);
     }
 }

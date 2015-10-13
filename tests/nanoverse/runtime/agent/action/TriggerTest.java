@@ -47,11 +47,11 @@ import static org.junit.Assert.*;
 public class TriggerTest extends LegacyTest {
 
     private Action query;
-    private MockAgent causeCell, effectCell;
+    private MockAgent causeAgent, effectAgent;
     private MockLayerManager layerManager;
     private String effectName;
     private MockTargetRule targetRule;
-    private CellLayer cellLayer;
+    private AgentLayer cellLayer;
     private MockGeometry geom;
     private Coordinate o, p, q;
     private Random random;
@@ -63,8 +63,8 @@ public class TriggerTest extends LegacyTest {
         random = new Random(RANDOM_SEED);
 
         // Construct base supporting objects.
-        causeCell = new MockAgent();
-        effectCell = new MockAgent();
+        causeAgent = new MockAgent();
+        effectAgent = new MockAgent();
         targetRule = new MockTargetRule();
         layerManager = new MockLayerManager();
         effectName = "effect";
@@ -74,15 +74,15 @@ public class TriggerTest extends LegacyTest {
         o = geom.getCanonicalSites()[0];
         p = geom.getCanonicalSites()[1];
         q = geom.getCanonicalSites()[2];
-        cellLayer = new CellLayer(geom);
-        cellLayer.getUpdateManager().place(effectCell, o);
-        cellLayer.getUpdateManager().place(causeCell, q);
-        layerManager.setCellLayer(cellLayer);
+        cellLayer = new AgentLayer(geom);
+        cellLayer.getUpdateManager().place(effectAgent, o);
+        cellLayer.getUpdateManager().place(causeAgent, q);
+        layerManager.setAgentLayer(cellLayer);
         List<Coordinate> targets = new ArrayList<>(1);
         targets.add(o);
         targetRule.setTargets(targets);
 
-        query = new Trigger(causeCell, layerManager, effectName, targetRule, null, null);
+        query = new Trigger(causeAgent, layerManager, effectName, targetRule, null, null);
     }
 
     @Test
@@ -91,14 +91,14 @@ public class TriggerTest extends LegacyTest {
           A note on "callers" in this test: the trigger action causes
           some named behavior to take place in the target cell(s). The
           cause of the trigger action is therefore distinct from the
-          cause of the behavior that it triggers. Cells can of course
+          cause of the behavior that it triggers. Agents can of course
           trigger their own behaviors, depending on the specified target.
         */
 
         // Set up a calling cell at some site.
         MockAgent dummy = new MockAgent();
 
-        CellUpdateManager updateManager = cellLayer.getUpdateManager();
+        AgentUpdateManager updateManager = cellLayer.getUpdateManager();
         updateManager.place(dummy, p);
 
         // Run the proces originating at the dummy calling cell.
@@ -109,11 +109,11 @@ public class TriggerTest extends LegacyTest {
         assertEquals(dummy, targetRule.getLastCaller());
 
         // The target cell's "effect" behavior should have fired.
-        assertEquals(effectName, effectCell.getLastTriggeredBehaviorName());
+        assertEquals(effectName, effectAgent.getLastTriggeredBehaviorName());
 
-        // "causeCell", which causes the target cell to execute the effect
+        // "causeAgent", which causes the target cell to execute the effect
         // behavior, should be the caller of the effect behavior.
-        assertEquals(q, effectCell.getLastTriggeredCaller());
+        assertEquals(q, effectAgent.getLastTriggeredCaller());
     }
 
     @Test
@@ -123,17 +123,17 @@ public class TriggerTest extends LegacyTest {
          */
         Action identical, differentBehavior, differentTargeter;
 
-        MockAgent dummyCell1 = new MockAgent();
-        MockAgent dummyCell2 = new MockAgent();
+        MockAgent dummyAgent1 = new MockAgent();
+        MockAgent dummyAgent2 = new MockAgent();
 
         Filter filter = new NullFilter();
-        TargetRule sameTargetRule = new TargetOccupiedNeighbors(dummyCell1, layerManager, filter, -1, random);
-        TargetRule differentTargetRule = new TargetOccupiedNeighbors(dummyCell2, layerManager, filter, -1, random);
+        TargetRule sameTargetRule = new TargetOccupiedNeighbors(dummyAgent1, layerManager, filter, -1, random);
+        TargetRule differentTargetRule = new TargetOccupiedNeighbors(dummyAgent2, layerManager, filter, -1, random);
         String differentEffectName = "not the same as effectName";
 
-        identical = new Trigger(dummyCell1, layerManager, effectName, targetRule, null, null);
-        differentBehavior = new Trigger(dummyCell1, layerManager, differentEffectName, sameTargetRule, null, null);
-        differentTargeter = new Trigger(dummyCell2, layerManager, effectName, differentTargetRule, null, null);
+        identical = new Trigger(dummyAgent1, layerManager, effectName, targetRule, null, null);
+        differentBehavior = new Trigger(dummyAgent1, layerManager, differentEffectName, sameTargetRule, null, null);
+        differentTargeter = new Trigger(dummyAgent2, layerManager, effectName, differentTargetRule, null, null);
 
         assertEquals(query, identical);
         assertNotEquals(query, differentBehavior);
@@ -142,12 +142,12 @@ public class TriggerTest extends LegacyTest {
 
     @Test
     public void testClone() throws Exception {
-        MockAgent cloneCell = new MockAgent();
-        Action cloned = query.clone(cloneCell);
+        MockAgent cloneAgent = new MockAgent();
+        Action cloned = query.clone(cloneAgent);
         assert (cloned != query);
         assertEquals(query, cloned);
-        assertEquals(cloneCell, cloned.getCallback());
-        assertEquals(causeCell, query.getCallback());
+        assertEquals(cloneAgent, cloned.getCallback());
+        assertEquals(causeAgent, query.getCallback());
     }
 
     @Test
@@ -156,7 +156,7 @@ public class TriggerTest extends LegacyTest {
         layerManager.setStepState(stepState);
         ConstantInteger selfChannel = new ConstantInteger(2);
         ConstantInteger targetChannel = new ConstantInteger(4);
-        query = new Trigger(causeCell, layerManager, effectName, targetRule, selfChannel, targetChannel);
+        query = new Trigger(causeAgent, layerManager, effectName, targetRule, selfChannel, targetChannel);
         query.run(null);
 
         Stream<Coordinate> expected, actual;
@@ -186,7 +186,7 @@ public class TriggerTest extends LegacyTest {
     public void testSkipNewlyVacant() throws Exception {
         // Begin as with testRun() above.
         MockAgent dummy = new MockAgent();
-        CellUpdateManager updateManager = cellLayer.getUpdateManager();
+        AgentUpdateManager updateManager = cellLayer.getUpdateManager();
         updateManager.place(dummy, p);
 
         // Remove the target.
@@ -200,7 +200,7 @@ public class TriggerTest extends LegacyTest {
 
         // ...however, the target was not on the lattice, and should not
         // have been affected.
-        assertNull(effectCell.getLastTriggeredBehaviorName());
+        assertNull(effectAgent.getLastTriggeredBehaviorName());
     }
 
     /**
@@ -211,7 +211,7 @@ public class TriggerTest extends LegacyTest {
     public void testDeadCannotTrigger() throws Exception {
         // Begin as with testRun() above.
         MockAgent dummy = new MockAgent();
-        CellUpdateManager updateManager = cellLayer.getUpdateManager();
+        AgentUpdateManager updateManager = cellLayer.getUpdateManager();
         updateManager.place(dummy, p);
 
         // Remove the target.
@@ -226,7 +226,7 @@ public class TriggerTest extends LegacyTest {
         assertNull(targetRule.getLastCaller());
 
         // The target should not have been affected.
-        assertNull(effectCell.getLastTriggeredBehaviorName());
+        assertNull(effectAgent.getLastTriggeredBehaviorName());
 
     }
 }

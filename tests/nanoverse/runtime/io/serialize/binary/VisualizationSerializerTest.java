@@ -27,7 +27,7 @@ package nanoverse.runtime.io.serialize.binary;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.io.visual.MockVisualization;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.MockGeneralParameters;
 import org.junit.*;
 import test.LegacyTest;
@@ -52,8 +52,8 @@ public class VisualizationSerializerTest extends LegacyTest {
     public void setUp() throws Exception {
         MockLayerManager lm = new MockLayerManager();
         MockGeometry geom = buildMockGeometry();
-        CellLayer layer = new CellLayer(geom);
-        lm.setCellLayer(layer);
+        AgentLayer layer = new AgentLayer(geom);
+        lm.setAgentLayer(layer);
         visualization = new MockVisualization();
         MockGeneralParameters p = new MockGeneralParameters();
 

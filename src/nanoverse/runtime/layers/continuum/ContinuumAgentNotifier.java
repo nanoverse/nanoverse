@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.continuum;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 
 import java.util.function.*;
 
@@ -36,19 +36,19 @@ import java.util.function.*;
  */
 public class ContinuumAgentNotifier {
 
-    private BiConsumer<BehaviorCell, Supplier<RelationshipTuple>> adder;
-    private Consumer<BehaviorCell> remover;
+    private BiConsumer<BehaviorAgent, Supplier<RelationshipTuple>> adder;
+    private Consumer<BehaviorAgent> remover;
 
-    public ContinuumAgentNotifier(BiConsumer<BehaviorCell, Supplier<RelationshipTuple>> adder, Consumer<BehaviorCell> remover) {
+    public ContinuumAgentNotifier(BiConsumer<BehaviorAgent, Supplier<RelationshipTuple>> adder, Consumer<BehaviorAgent> remover) {
         this.adder = adder;
         this.remover = remover;
     }
 
-    public void add(BehaviorCell cell, Supplier<RelationshipTuple> supplier) {
+    public void add(BehaviorAgent cell, Supplier<RelationshipTuple> supplier) {
         adder.accept(cell, supplier);
     }
 
-    public void remove(BehaviorCell cell) {
+    public void remove(BehaviorAgent cell) {
         remover.accept(cell);
     }
 }

@@ -48,7 +48,7 @@ public class IntegratorTest extends LegacyLatticeTest {
     private MockSerializationManager sm;
     private MockProcessManager mgr;
     private BaseProcessArguments arguments;
-    private CellProcessArguments cpArguments;
+    private AgentProcessArguments cpArguments;
     // And now, the thing to be tested...
     private Integrator integrator;
 
@@ -61,7 +61,7 @@ public class IntegratorTest extends LegacyLatticeTest {
         mgr = new MockProcessManager();
         integrator = new Integrator(p, mgr, sm);
         arguments = makeBaseProcessArguments(layerManager, p);
-        cpArguments = new CellProcessArguments(null, new ConstantInteger(-1));
+        cpArguments = new AgentProcessArguments(null, new ConstantInteger(-1));
     }
 
     @Test

@@ -23,7 +23,7 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.*;
 import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
@@ -31,7 +31,7 @@ import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
 
 public class PowerScatterFactoryHelper {
 
-    public PowerScatter build(BaseProcessArguments arguments, CellProcessArguments cpArguments, CellDescriptor cellDescriptor, ScatterClustersHelper clustersHelper) {
+    public PowerScatter build(BaseProcessArguments arguments, AgentProcessArguments cpArguments, AgentDescriptor cellDescriptor, ScatterClustersHelper clustersHelper) {
         return new PowerScatter(arguments, cpArguments, cellDescriptor, clustersHelper);
     }
 }

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -37,7 +37,7 @@ import java.util.function.Function;
  */
 public class ExpandRandomDescriptor extends ActionDescriptor<ExpandRandom> {
 
-    private final Function<BehaviorCell, ExpandRandom> constructor;
+    private final Function<BehaviorAgent, ExpandRandom> constructor;
 
     @FactoryTarget(displayName = "ExpandRandom")
     public ExpandRandomDescriptor(LayerManager layerManager,
@@ -48,7 +48,7 @@ public class ExpandRandomDescriptor extends ActionDescriptor<ExpandRandom> {
     }
 
     @Override
-    protected Function<BehaviorCell, ExpandRandom> resolveConstructor() {
+    protected Function<BehaviorAgent, ExpandRandom> resolveConstructor() {
         return constructor;
     }
 }

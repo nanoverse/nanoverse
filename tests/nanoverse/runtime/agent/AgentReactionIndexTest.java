@@ -1,7 +1,7 @@
 package nanoverse.runtime.agent;
 
 import nanoverse.runtime.agent.AgentReactionIndex;
-import nanoverse.runtime.agent.BehaviorCell;
+import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.layers.continuum.*;
 import org.junit.*;
 
@@ -16,7 +16,7 @@ public class AgentReactionIndexTest {
 
     private HashSet<String> reactionIds;
     private HashSet<Runnable> index;
-    private BehaviorCell cell;
+    private BehaviorAgent cell;
 
     private AgentReactionIndex query;
 
@@ -24,7 +24,7 @@ public class AgentReactionIndexTest {
     public void before() throws Exception {
         reactionIds = mock(HashSet.class);
         index = mock(HashSet.class);
-        cell = mock(BehaviorCell.class);
+        cell = mock(BehaviorAgent.class);
 
         query = new AgentReactionIndex(reactionIds, index, cell);
     }

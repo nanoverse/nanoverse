@@ -24,13 +24,13 @@
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filter;
 
 import nanoverse.runtime.control.arguments.IntegerArgument;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.filter.DepthFilter;
 
 
 public class DepthFilterFactoryHelper {
 
-    public DepthFilter build(CellLayer layer, IntegerArgument maxDepth) {
+    public DepthFilter build(AgentLayer layer, IntegerArgument maxDepth) {
         return new DepthFilter(layer, maxDepth);
     }
 }

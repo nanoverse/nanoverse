@@ -25,7 +25,7 @@
 package nanoverse.runtime.layers;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.layers.continuum.ContinuumLayer;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -39,13 +39,13 @@ import java.util.stream.Stream;
  */
 public class LayerManager {
 
-    protected CellLayer cellLayer;
+    protected AgentLayer cellLayer;
 
     protected HashMap<String, ContinuumLayer> continuumLayers;
     private StepState stepState;
 
     @FactoryTarget
-    public LayerManager(CellLayer cellLayer,
+    public LayerManager(AgentLayer cellLayer,
                         HashMap<String, ContinuumLayer> continuumLayers) {
 
         this.cellLayer = cellLayer;
@@ -58,12 +58,12 @@ public class LayerManager {
         continuumLayers = new HashMap<>();
     }
 
-    public CellLayer getCellLayer() {
+    public AgentLayer getAgentLayer() {
         return cellLayer;
     }
 
     @Deprecated
-    public void setCellLayer(CellLayer cellLayer) {
+    public void setAgentLayer(AgentLayer cellLayer) {
         this.cellLayer = cellLayer;
     }
 

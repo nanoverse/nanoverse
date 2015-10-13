@@ -24,13 +24,13 @@
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.cluster;
 
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.cluster.CompactSeparatedClustersHelper;
 
 
 public class CompactSeparatedClustersHelperFactoryHelper {
 
-    public CompactSeparatedClustersHelper build(CellLayer layer, GeneralParameters p) {
+    public CompactSeparatedClustersHelper build(AgentLayer layer, GeneralParameters p) {
         return new CompactSeparatedClustersHelper(layer, p);
     }
 }
