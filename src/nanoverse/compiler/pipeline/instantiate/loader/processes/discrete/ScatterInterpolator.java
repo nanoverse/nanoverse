@@ -29,7 +29,7 @@ import nanoverse.compiler.pipeline.instantiate.loader.agent.AgentDescriptorLoade
 import nanoverse.compiler.pipeline.instantiate.loader.processes.BaseProcessArgumentsLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.layers.LayerManager;
 
 /**
@@ -51,7 +51,7 @@ public class ScatterInterpolator extends DiscreteProcessInterpolator {
         this.defaults = defaults;
     }
 
-    public CellDescriptor description(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    public AgentDescriptor description(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         AgentDescriptorLoader loader = (AgentDescriptorLoader) load.getLoader(node, "description", false);
 
         if (loader == null) {

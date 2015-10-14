@@ -25,8 +25,8 @@
 package nanoverse.runtime.agent.action;
 
 
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.stochastic.ProbabilitySupplier;
-import nanoverse.runtime.cells.BehaviorCell;
 import nanoverse.runtime.layers.LayerManager;
 import org.junit.*;
 import test.TestBase;
@@ -108,7 +108,7 @@ public class DynamicActionRangeMapTest extends TestBase {
         when(a1.clone(any())).thenReturn(ca1);
         when(a2.clone(any())).thenReturn(ca2);
 
-        BehaviorCell child = mock(BehaviorCell.class);
+        Agent child = mock(Agent.class);
         DynamicActionRangeMap cloned = query.clone(child);
         cloned.refresh();
         doTargetCheck(cloned, ca1, 3, ca2, 12);

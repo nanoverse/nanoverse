@@ -31,12 +31,12 @@ import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.GeometryDescriptor;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.boundaries.Boundary;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 
 /**
  * Created by dbborens on 8/1/2015.
  */
-public class AgentLayerLoader extends LayerLoader<CellLayer> {
+public class AgentLayerLoader extends LayerLoader<AgentLayer> {
 
     private final AgentLayerFactory factory;
     private final AgentLayerInterpolator interpolator;
@@ -51,12 +51,12 @@ public class AgentLayerLoader extends LayerLoader<CellLayer> {
         this.interpolator = interpolator;
     }
 
-    public CellLayer instantiate(GeometryDescriptor geom, GeneralParameters p) {
+    public AgentLayer instantiate(GeometryDescriptor geom, GeneralParameters p) {
         return instantiate(null, geom, p);
     }
 
     @Override
-    public CellLayer instantiate(MapObjectNode child, GeometryDescriptor geom, GeneralParameters p) {
+    public AgentLayer instantiate(MapObjectNode child, GeometryDescriptor geom, GeneralParameters p) {
         Boundary boundary = interpolator.boundary(child, geom);
         Geometry geometry = geom.make(boundary);
 

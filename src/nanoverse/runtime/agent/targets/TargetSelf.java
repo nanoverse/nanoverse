@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.targets;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.discrete.filter.Filter;
@@ -41,20 +41,20 @@ import java.util.*;
  * Created by dbborens on 2/7/14.
  */
 public class TargetSelf extends TargetRule {
-    public TargetSelf(BehaviorCell callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
+    public TargetSelf(Agent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
         super(callback, layerManager, filter, maximum, random);
     }
 
     @Override
-    protected List<Coordinate> getCandidates(BehaviorCell caller) {
-        Coordinate self = layerManager.getCellLayer().getLookupManager().getCellLocation(callback);
+    protected List<Coordinate> getCandidates(Agent caller) {
+        Coordinate self = layerManager.getAgentLayer().getLookupManager().getAgentLocation(callback);
         List<Coordinate> ret = new ArrayList<>(1);
         ret.add(self);
         return ret;
     }
 
     @Override
-    public TargetRule clone(BehaviorCell child) {
+    public TargetRule clone(Agent child) {
         return new TargetSelf(child, layerManager, filter, maximum, random);
     }
 }

@@ -34,7 +34,7 @@ import nanoverse.runtime.layers.LayerManager;
  */
 public class DiscCoordinateSetDefaults {
     public Coordinate offset(LayerManager lm) {
-        Geometry geom = lm.getCellLayer().getGeometry();
+        Geometry geom = lm.getAgentLayer().getGeometry();
         return geom.getZeroVector();
     }
 

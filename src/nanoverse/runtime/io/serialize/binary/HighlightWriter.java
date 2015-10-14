@@ -72,7 +72,7 @@ public class HighlightWriter extends Serializer {
 
     @Override
     public void flush(StepState stepState) {
-        Geometry geometry = stepState.getRecordedCellLayer().getGeometry();
+        Geometry geometry = stepState.getRecordedAgentLayer().getGeometry();
         for (int channel : channelList) {
             DataOutputStream stream = streamMap.get(channel);
             List<Coordinate> vector = stepState

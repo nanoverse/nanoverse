@@ -53,7 +53,7 @@ public class InjectionProcess extends ContinuumProcess {
 
     @Override
     public void fire(StepState state) throws HaltCondition {
-        Coordinate[] canonicalSites = getLayerManager().getCellLayer()
+        Coordinate[] canonicalSites = getLayerManager().getAgentLayer()
             .getGeometry().getCanonicalSites();
         DenseVector source = new DenseVector(canonicalSites.length);
 

@@ -24,6 +24,7 @@
 
 package nanoverse.runtime.io.visual.color;
 
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.arguments.ConstantDouble;
 import nanoverse.runtime.control.identifiers.*;
@@ -34,7 +35,7 @@ import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.geometry.shape.Shape;
 import nanoverse.runtime.io.visual.HSLColor;
 import nanoverse.runtime.layers.*;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import org.junit.*;
 import test.LegacyTest;
 
@@ -55,9 +56,9 @@ public class SurfaceGrowthColorManagerTest extends LegacyTest {
         Boundary boundary = new Absorbing(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
 
-        CellLayer layer = new CellLayer(geom);
+        AgentLayer layer = new AgentLayer(geom);
         MockLayerManager layerManager = new MockLayerManager();
-        layerManager.setCellLayer(layer);
+        layerManager.setAgentLayer(layer);
         put(layer, 1, 1);
         put(layer, 2, 1);
         put(layer, 3, 1);
@@ -69,10 +70,10 @@ public class SurfaceGrowthColorManagerTest extends LegacyTest {
         query = new SurfaceGrowthColorManager(base, new ConstantDouble(0.5), new ConstantDouble(1.0));
     }
 
-    private void put(CellLayer layer, int pos, int state) throws Exception {
+    private void put(AgentLayer layer, int pos, int state) throws Exception {
         Coordinate coord = new Coordinate2D(0, pos, 0);
-        Cell cell = new MockCell(state);
-        layer.getUpdateManager().place(cell, coord);
+        AbstractAgent agent = new MockAgent(state);
+        layer.getUpdateManager().place(agent, coord);
     }
 
     @Test

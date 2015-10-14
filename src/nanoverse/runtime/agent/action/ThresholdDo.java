@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -44,7 +44,7 @@ public class ThresholdDo extends Action {
     private final String layerId;
     private final Action child;
 
-    public ThresholdDo(BehaviorCell callback, LayerManager layerManager, String layerId, DoubleArgument minimumArg, DoubleArgument maximumArg, Action child) {
+    public ThresholdDo(Agent callback, LayerManager layerManager, String layerId, DoubleArgument minimumArg, DoubleArgument maximumArg, Action child) {
         super(callback, layerManager);
         if (layerManager.getContinuumLayer(layerId) == null) {
             throw new IllegalArgumentException("Unrecognized continuum layer '"
@@ -94,9 +94,9 @@ public class ThresholdDo extends Action {
     }
 
     @Override
-    public Action clone(BehaviorCell clonedCell) {
-        Action clonedAction = child.clone(clonedCell);
-        return new ThresholdDo(clonedCell, getLayerManager(), layerId, minimumArg, maximumArg, clonedAction);
+    public Action clone(Agent clonedAgent) {
+        Action clonedAction = child.clone(clonedAgent);
+        return new ThresholdDo(clonedAgent, getLayerManager(), layerId, minimumArg, maximumArg, clonedAction);
     }
 
     @Override

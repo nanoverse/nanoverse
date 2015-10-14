@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.structural.RangeMap;
 
 /**
@@ -41,10 +41,10 @@ public class ActionRangeMap extends RangeMap<Action> {
 
     @Override
     public RangeMap<Action> clone() {
-        throw new UnsupportedOperationException("Clone using the replicate(BehaviorCell child) method.");
+        throw new UnsupportedOperationException("Clone using the replicate(BehaviorAgent child) method.");
     }
 
-    public ActionRangeMap clone(BehaviorCell child) {
+    public ActionRangeMap clone(Agent child) {
         int n = keys.size();
         ActionRangeMap cloned = new ActionRangeMap(n);
 

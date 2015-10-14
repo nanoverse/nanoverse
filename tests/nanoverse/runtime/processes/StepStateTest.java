@@ -26,7 +26,7 @@ package nanoverse.runtime.processes;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.layers.continuum.ContinuumLayer;
 import org.junit.*;
 import test.TestBase;
@@ -44,7 +44,7 @@ public class StepStateTest extends TestBase {
 
     private LayerManager lm;
     private ContinuumLayer continuumLayer;
-    private CellLayer cellLayer;
+    private AgentLayer cellLayer;
     private StepState query;
     private List<Double> continuumValues;
     private HashMap<String, List<Double>> continuumValueMap;
@@ -61,10 +61,10 @@ public class StepStateTest extends TestBase {
     }
 
     private void buildMockLayerManager() throws Exception {
-        cellLayer = mock(CellLayer.class);
+        cellLayer = mock(AgentLayer.class);
         continuumLayer = mock(ContinuumLayer.class);
         lm = mock(LayerManager.class);
-        when(lm.getCellLayer()).thenReturn(cellLayer);
+        when(lm.getAgentLayer()).thenReturn(cellLayer);
         when(lm.getContinuumLayerIds()).thenReturn(Stream.of("test"));
         when(lm.getContinuumLayer("test")).thenReturn(continuumLayer);
         continuumValues = DoubleStream.of(3.7, 2)
@@ -126,11 +126,11 @@ public class StepStateTest extends TestBase {
     }
 
     @Test
-    public void recordCapturesCellLayerClone() throws Exception {
-        CellLayer expected = mock(CellLayer.class);
+    public void recordCapturesAgentLayerClone() throws Exception {
+        AgentLayer expected = mock(AgentLayer.class);
         when(cellLayer.clone()).thenReturn(expected);
         query.record(lm);
-        CellLayer actual = query.getRecordedCellLayer();
+        AgentLayer actual = query.getRecordedAgentLayer();
         assertSame(expected, actual);
     }
 

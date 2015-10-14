@@ -24,12 +24,12 @@
 package nanoverse.compiler.pipeline.instantiate.factory.layers.cell;
 
 import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 
 
 public class AgentLayerFactoryHelper {
 
-    public CellLayer build(Geometry geom) {
-        return new CellLayer(geom);
+    public AgentLayer build(Geometry geom) {
+        return new AgentLayer(geom);
     }
 }

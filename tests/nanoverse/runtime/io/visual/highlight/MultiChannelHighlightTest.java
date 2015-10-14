@@ -125,7 +125,7 @@ public class MultiChannelHighlightTest extends LegacyTest {
             health[i] = 0;
             state[i] = 0;
         }
-        systemState.initCellLayer(state);
+        systemState.initAgentLayer(state);
 
     }
 

@@ -32,7 +32,7 @@ public class CullFactory implements Factory<Cull> {
     private final CullFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private CellProcessArguments cpArguments;
+    private AgentProcessArguments cpArguments;
     private double threshold;
 
     public CullFactory() {
@@ -47,7 +47,7 @@ public class CullFactory implements Factory<Cull> {
         this.arguments = arguments;
     }
 
-    public void setCpArguments(CellProcessArguments cpArguments) {
+    public void setCpArguments(AgentProcessArguments cpArguments) {
         this.cpArguments = cpArguments;
     }
 

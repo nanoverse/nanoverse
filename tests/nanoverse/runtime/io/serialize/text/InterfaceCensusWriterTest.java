@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.io.serialize.text;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.arguments.ConstantInteger;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.*;
@@ -43,7 +43,7 @@ import test.*;
  * Created by dbborens on 4/28/14.
  */
 public class InterfaceCensusWriterTest extends LegacyTest {
-    private CellLayer cellLayer;
+    private AgentLayer cellLayer;
     private MockLayerManager layerManager;
 
     @Before
@@ -52,9 +52,9 @@ public class InterfaceCensusWriterTest extends LegacyTest {
         Shape shape = new Rectangle(lattice, 3, 3);
         Boundary boundary = new Absorbing(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        cellLayer = new CellLayer(geom);
+        cellLayer = new AgentLayer(geom);
         layerManager = new MockLayerManager();
-        layerManager.setCellLayer(cellLayer);
+        layerManager.setAgentLayer(cellLayer);
 
         buildInitialCondition();
 
@@ -102,8 +102,8 @@ public class InterfaceCensusWriterTest extends LegacyTest {
     }
 
     private void put(Coordinate c, int state) throws HaltCondition {
-        MockCell cell = new MockCell(state);
-        CellUpdateManager u = cellLayer.getUpdateManager();
+        MockAgent cell = new MockAgent(state);
+        AgentUpdateManager u = cellLayer.getUpdateManager();
         u.place(cell, c);
     }
 
@@ -147,7 +147,7 @@ public class InterfaceCensusWriterTest extends LegacyTest {
     }
 
     private void replace(Coordinate c, int state) throws HaltCondition {
-        CellUpdateManager u = cellLayer.getUpdateManager();
+        AgentUpdateManager u = cellLayer.getUpdateManager();
         u.banish(c);
         put(c, state);
     }

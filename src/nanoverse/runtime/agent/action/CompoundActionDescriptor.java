@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -36,7 +36,7 @@ import java.util.stream.*;
  * Created by dbborens on 8/3/2015.
  */
 public class CompoundActionDescriptor extends ActionDescriptor<CompoundAction> {
-    private final Function<BehaviorCell, CompoundAction> constructor;
+    private final Function<Agent, CompoundAction> constructor;
     private final List<ActionDescriptor> childList;
 
     @FactoryTarget(displayName = "CompoundAction")
@@ -52,7 +52,7 @@ public class CompoundActionDescriptor extends ActionDescriptor<CompoundAction> {
     }
 
     @Override
-    protected Function<BehaviorCell, CompoundAction> resolveConstructor() {
+    protected Function<Agent, CompoundAction> resolveConstructor() {
         return constructor;
     }
 }

@@ -46,7 +46,7 @@ public class ExponentialInverse extends TimeProcess {
 
     @Override
     public void fire(StepState state) throws HaltCondition {
-        double lambda = 1.0D / getLayerManager().getCellLayer().getViewer().getOccupiedSites().size();
+        double lambda = 1.0D / getLayerManager().getAgentLayer().getViewer().getOccupiedSites().size();
         double dt = expRandom(lambda);
         state.advanceClock(dt);
     }

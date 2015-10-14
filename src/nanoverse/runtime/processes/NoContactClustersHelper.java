@@ -24,21 +24,21 @@
 
 package nanoverse.runtime.processes;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
 
 /**
  * Created by dbborens on 6/14/2015.
  */
 public class NoContactClustersHelper extends ScatterClustersHelper {
-    public NoContactClustersHelper(CellLayer layer) {
+    public NoContactClustersHelper(AgentLayer layer) {
         super(layer);
     }
 
     @Override
-    public int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m) {
+    public int attemptPlacement(Coordinate candidate, Agent toPlace, int m) {
         if (layer.getViewer().isOccupied(candidate)) {
             return 0;
         }

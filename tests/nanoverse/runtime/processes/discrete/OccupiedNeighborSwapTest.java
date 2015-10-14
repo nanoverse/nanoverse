@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.arguments.ConstantInteger;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -33,7 +33,7 @@ import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.set.CompleteSet;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.MockGeneralParameters;
@@ -49,7 +49,7 @@ public class OccupiedNeighborSwapTest extends LegacyTest {
 
     private OccupiedNeighborSwap query;
     private MockLayerManager layerManager;
-    private MockCell a, b, c;
+    private MockAgent a, b, c;
     private Coordinate aa, bb, cc;
 
     @Before
@@ -58,26 +58,26 @@ public class OccupiedNeighborSwapTest extends LegacyTest {
         Shape shape = new Rectangle(lattice, 2, 2);
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        CellLayer cellLayer = new CellLayer(geom);
+        AgentLayer cellLayer = new AgentLayer(geom);
 
         layerManager = new MockLayerManager();
-        layerManager.setCellLayer(cellLayer);
+        layerManager.setAgentLayer(cellLayer);
 
         MockGeneralParameters p = makeMockGeneralParameters();
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
-        CellProcessArguments cpArguments = new CellProcessArguments(new CompleteSet(geom), new ConstantInteger(1));
+        AgentProcessArguments cpArguments = new AgentProcessArguments(new CompleteSet(geom), new ConstantInteger(1));
 
         query = new OccupiedNeighborSwap(arguments, cpArguments);
 
         /*
-         * Cell layout:
+         * AbstractAgent layout:
          *     0 1
          *  0  b .
          *  1  a c
          */
-        a = new MockCell(1);
-        b = new MockCell(2);
-        c = new MockCell(3);
+        a = new MockAgent(1);
+        b = new MockAgent(2);
+        c = new MockAgent(3);
 
         aa = new Coordinate2D(0, 1, 0);
         bb = new Coordinate2D(0, 0, 0);
@@ -88,14 +88,14 @@ public class OccupiedNeighborSwapTest extends LegacyTest {
     }
 
     @Test
-    public void testCellsReflectSwap() throws Exception {
+    public void testAgentsReflectSwap() throws Exception {
         query.target(null);
         MockStepState state = new MockStepState();
         query.fire(state);
 
-        CellLayer cl = layerManager.getCellLayer();
+        AgentLayer cl = layerManager.getAgentLayer();
 
-        assertFalse(cl.getViewer().getCell(aa).equals(a));
+        assertFalse(cl.getViewer().getAgent(aa).equals(a));
     }
 
     @Test

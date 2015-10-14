@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -36,7 +36,7 @@ import java.util.function.Function;
  */
 public class ThresholdDoDescriptor extends ActionDescriptor<ThresholdDo> {
 
-    private final Function<BehaviorCell, ThresholdDo> constructor;
+    private final Function<Agent, ThresholdDo> constructor;
 
     @FactoryTarget(displayName = "ThresholdDo")
     public ThresholdDoDescriptor(LayerManager layerManager,
@@ -53,7 +53,7 @@ public class ThresholdDoDescriptor extends ActionDescriptor<ThresholdDo> {
     }
 
     @Override
-    protected Function<BehaviorCell, ThresholdDo> resolveConstructor() {
+    protected Function<Agent, ThresholdDo> resolveConstructor() {
         return constructor;
     }
 }

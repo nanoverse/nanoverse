@@ -44,7 +44,7 @@ public class ScatterClustersInstSymbolTableTest extends DiscreteProcessInstSymbo
 
     @Test
     public void description() throws Exception {
-        verifyReturnSymbol("description", CellDescriptor.class);
+        verifyReturnSymbol("description", AgentDescriptor.class);
     }
 
     @Test

@@ -24,6 +24,8 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
 import nanoverse.runtime.cells.*;
@@ -33,7 +35,7 @@ import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.MockRandom;
 import org.junit.*;
 import test.LegacyTest;
@@ -50,9 +52,9 @@ import static org.mockito.Mockito.*;
 public class ExpandRandomTest extends LegacyTest {
 
     private MockLayerManager layerManager;
-    private BehaviorCell parent;
+    private Agent parent;
     private MockRandom random;
-    private CellLayer layer;
+    private AgentLayer layer;
     private MockTargetRule parentTargetRule;
 
     @Before
@@ -63,21 +65,21 @@ public class ExpandRandomTest extends LegacyTest {
         Shape shape = new Rectangle(lattice, 10, 1);
         Boundary boundary = new Periodic(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        layer = new CellLayer(geom);
-        layerManager.setCellLayer(layer);
+        layer = new AgentLayer(geom);
+        layerManager.setAgentLayer(layer);
         random = new MockRandom();
 
         // Place the parent at site 4 and get its target rule
-        parentTargetRule = placeNumberedCell(4);
-        parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
+        parentTargetRule = placeNumberedAgent(4);
+        parent = (Agent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
 
     }
 
-    private MockTargetRule placeNumberedCell(int x) throws Exception {
-        Supplier<BehaviorCell> ncSupplier = mock(Supplier.class);
-        BehaviorCell child = new MockCell(x);
+    private MockTargetRule placeNumberedAgent(int x) throws Exception {
+        Supplier<Agent> ncSupplier = mock(Supplier.class);
+        Agent child = new MockAgent(x);
         when(ncSupplier.get()).thenReturn(child);
-        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, ncSupplier);
+        Agent cell = new Agent(layerManager, x, x, x, ncSupplier);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();
@@ -85,7 +87,7 @@ public class ExpandRandomTest extends LegacyTest {
 
         MockTargetRule targetRule = new MockTargetRule();
 
-        // Cells always divide to the right
+        // Agents always divide to the right
         ArrayList<Coordinate> targets = new ArrayList<>(1);
         Coordinate target = new Coordinate2D(x + 1, 0, 0);
         targets.add(target);
@@ -129,25 +131,25 @@ public class ExpandRandomTest extends LegacyTest {
 
     private void checkPosition(int x, int state) {
         Coordinate c = new Coordinate2D(x, 0, 0);
-        Cell cell = layer.getViewer().getCell(c);
-        assertEquals(state, cell.getState());
+        AbstractAgent agent = layer.getViewer().getAgent(c);
+        assertEquals(state, agent.getState());
     }
 
     /**
-     * Cell divides left and shoves.
+     * AbstractAgent divides left and shoves.
      * <p>
      * 0123456789
      * _1234_____  Initial condition
-     * ^       Cell 4 divides left
+     * ^       AbstractAgent 4 divides left
      * <p>
      * 0123456789
      * 12344_____  Resulting condition
      */
     @Test
     public void testVacancySameDirection() throws Exception {
-        placeNumberedCell(1);
-        placeNumberedCell(2);
-        placeNumberedCell(3);
+        placeNumberedAgent(1);
+        placeNumberedAgent(2);
+        placeNumberedAgent(3);
 
         Coordinate target = new Coordinate2D(3, 0, 0);
         ArrayList<Coordinate> targets = new ArrayList<>(1);

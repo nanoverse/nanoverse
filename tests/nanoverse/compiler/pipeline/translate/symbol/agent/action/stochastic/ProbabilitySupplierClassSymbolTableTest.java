@@ -49,7 +49,12 @@ public class ProbabilitySupplierClassSymbolTableTest extends ClassSymbolTableTes
     }
 
     @Test
-    public void dependent() throws Exception {
-        verifyReturnSymbol("Dependent", DependentProbabilitySupplierDescriptor.class);
+    public void continuum() throws Exception {
+        verifyReturnSymbol("Continuum", ContinuumProbabilitySupplierDescriptor.class);
+    }
+
+    @Test
+    public void neighborhood() throws Exception {
+        verifyReturnSymbol("Neighborhood", NeighborhoodProbabilitySupplierDescriptor.class);
     }
 }

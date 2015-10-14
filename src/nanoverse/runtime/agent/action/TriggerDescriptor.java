@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.targets.*;
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -37,7 +37,7 @@ import java.util.function.Function;
  */
 public class TriggerDescriptor extends ActionDescriptor<Trigger> {
 
-    private final Function<BehaviorCell, Trigger> constructor;
+    private final Function<Agent, Trigger> constructor;
 
     @FactoryTarget(displayName = "Trigger")
     public TriggerDescriptor(LayerManager layerManager,
@@ -54,7 +54,7 @@ public class TriggerDescriptor extends ActionDescriptor<Trigger> {
     }
 
     @Override
-    protected Function<BehaviorCell, Trigger> resolveConstructor() {
+    protected Function<Agent, Trigger> resolveConstructor() {
         return constructor;
     }
 }

@@ -26,20 +26,20 @@ package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.geometry.set.CoordinateSet;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.processes.discrete.AgentProcessArguments;
 
-public class DiscreteProcessArgumentsFactory implements Factory<CellProcessArguments> {
+public class DiscreteProcessArgumentsFactory implements Factory<AgentProcessArguments> {
 
-    private final CellProcessArgumentsFactoryHelper helper;
+    private final AgentProcessArgumentsFactoryHelper helper;
 
     private CoordinateSet activeSites;
     private IntegerArgument maxTargets;
 
     public DiscreteProcessArgumentsFactory() {
-        helper = new CellProcessArgumentsFactoryHelper();
+        helper = new AgentProcessArgumentsFactoryHelper();
     }
 
-    public DiscreteProcessArgumentsFactory(CellProcessArgumentsFactoryHelper helper) {
+    public DiscreteProcessArgumentsFactory(AgentProcessArgumentsFactoryHelper helper) {
         this.helper = helper;
     }
 
@@ -52,7 +52,7 @@ public class DiscreteProcessArgumentsFactory implements Factory<CellProcessArgum
     }
 
     @Override
-    public CellProcessArguments build() {
+    public AgentProcessArguments build() {
         return helper.build(activeSites, maxTargets);
     }
 }

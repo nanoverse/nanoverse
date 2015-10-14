@@ -41,7 +41,7 @@ public abstract class SystemState {
     /**
      * Retrieves a reconstructed LayerManager object, through which the state of
      * cell nanoverse.runtime.layers and solute nanoverse.runtime.layers can be accessed. Note that mutating this
-     * CellLayer object will have undefined results.
+     * AgentLayer object will have undefined results.
      *
      * @return
      */

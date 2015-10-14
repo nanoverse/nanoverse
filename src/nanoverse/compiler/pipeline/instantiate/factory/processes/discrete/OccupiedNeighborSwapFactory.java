@@ -32,7 +32,7 @@ public class OccupiedNeighborSwapFactory implements Factory<OccupiedNeighborSwap
     private final OccupiedNeighborSwapFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private CellProcessArguments cpArguments;
+    private AgentProcessArguments cpArguments;
 
     public OccupiedNeighborSwapFactory() {
         helper = new OccupiedNeighborSwapFactoryHelper();
@@ -46,7 +46,7 @@ public class OccupiedNeighborSwapFactory implements Factory<OccupiedNeighborSwap
         this.arguments = arguments;
     }
 
-    public void setCpArguments(CellProcessArguments cpArguments) {
+    public void setCpArguments(AgentProcessArguments cpArguments) {
         this.cpArguments = cpArguments;
     }
 

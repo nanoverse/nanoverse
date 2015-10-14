@@ -24,16 +24,17 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
-import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.MockRandom;
 import org.junit.*;
 import test.LegacyTest;
@@ -51,9 +52,9 @@ import static org.mockito.Mockito.*;
 public class ExpandToTest extends LegacyTest {
 
     private MockLayerManager layerManager;
-    private BehaviorCell parent;
+    private Agent parent;
     private MockRandom random;
-    private CellLayer layer;
+    private AgentLayer layer;
     private MockTargetRule parentTargetRule;
 
     @Before
@@ -64,20 +65,20 @@ public class ExpandToTest extends LegacyTest {
         Shape shape = new Rectangle(lattice, 10, 1);
         Boundary boundary = new Periodic(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        layer = new CellLayer(geom);
-        layerManager.setCellLayer(layer);
+        layer = new AgentLayer(geom);
+        layerManager.setAgentLayer(layer);
         random = new MockRandom();
 
         // Place the parent at site 4 and get its target rule
-        parentTargetRule = placeNumberedCell(4);
-        parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
+        parentTargetRule = placeNumberedAgent(4);
+        parent = (Agent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
 
         // A cell exists in position 5 for all cases
-        placeNumberedCell(5);
+        placeNumberedAgent(5);
     }
 
-    private MockTargetRule placeNumberedCell(int x) throws Exception {
-        BehaviorCell cell = makeNumberedCell(x);
+    private MockTargetRule placeNumberedAgent(int x) throws Exception {
+        Agent cell = makeNumberedAgent(x);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();
@@ -85,7 +86,7 @@ public class ExpandToTest extends LegacyTest {
 
         MockTargetRule targetRule = new MockTargetRule();
 
-        // Cells always divide to the right
+        // Agents always divide to the right
         List<Coordinate> targets = new ArrayList<>(1);
         Coordinate target = new Coordinate2D(x + 1, 0, 0);
         targets.add(target);
@@ -100,10 +101,10 @@ public class ExpandToTest extends LegacyTest {
         return targetRule;
     }
 
-    private BehaviorCell makeNumberedCell(int x) throws Exception {
-        Supplier<BehaviorCell> supplier = mock(Supplier.class);
-        when(supplier.get()).thenReturn(new BehaviorCell(layerManager, x, x, x, supplier));
-        return new BehaviorCell(layerManager, x, x, x, supplier);
+    private Agent makeNumberedAgent(int x) throws Exception {
+        Supplier<Agent> supplier = mock(Supplier.class);
+        when(supplier.get()).thenReturn(new Agent(layerManager, x, x, x, supplier));
+        return new Agent(layerManager, x, x, x, supplier);
     }
 
     /**
@@ -112,7 +113,7 @@ public class ExpandToTest extends LegacyTest {
      * <p>
      * 0123456789
      * ____45____  Initial condition
-     * <^       Cell 4 divides left
+     * <^       AbstractAgent 4 divides left
      * <p>
      * 0123456789
      * ___445____  Resulting condition
@@ -132,8 +133,8 @@ public class ExpandToTest extends LegacyTest {
 
     private void checkPosition(int x, int state) {
         Coordinate c = new Coordinate2D(x, 0, 0);
-        Cell cell = layer.getViewer().getCell(c);
-        assertEquals(state, cell.getState());
+        AbstractAgent agent = layer.getViewer().getAgent(c);
+        assertEquals(state, agent.getState());
     }
 
     /**
@@ -143,7 +144,7 @@ public class ExpandToTest extends LegacyTest {
      * <p>
      * 0123456789
      * ____45____  Initial condition
-     * ^>      Cell 4 divides right. Parent and target are equidistant
+     * ^>      AbstractAgent 4 divides right. Parent and target are equidistant
      * from vacancies, and the coin toss favors parent (4)
      * getting shoved.
      * <p>
@@ -173,7 +174,7 @@ public class ExpandToTest extends LegacyTest {
      * <p>
      * 0123456789
      * ____45____  Initial condition
-     * ^>      Cell 4 divides right. Parent and target are equidistant
+     * ^>      AbstractAgent 4 divides right. Parent and target are equidistant
      * from vacancies, and the coin toss favors target (5)
      * getting shoved.
      * <p>
@@ -204,7 +205,7 @@ public class ExpandToTest extends LegacyTest {
      * <p>
      * 0123456789
      * ____456___  Initial condition
-     * ^>      Cell 4 divides right. Parent is closer to a vacancy than
+     * ^>      AbstractAgent 4 divides right. Parent is closer to a vacancy than
      * child. Parent gets shoved.
      * <p>
      * 0123456789
@@ -213,7 +214,7 @@ public class ExpandToTest extends LegacyTest {
     @Test
     public void testInwardAsymmetricDisplacement() throws Exception {
         // A cell exists in position 5 for all cases
-        placeNumberedCell(6);
+        placeNumberedAgent(6);
 
         Coordinate target = new Coordinate2D(5, 0, 0);
         List<Coordinate> targets = new ArrayList<>(1);

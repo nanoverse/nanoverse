@@ -32,7 +32,7 @@ import nanoverse.runtime.layers.continuum.Reaction;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class AgentDescriptorFactory implements Factory<CellDescriptor> {
+public class AgentDescriptorFactory implements Factory<AgentDescriptor> {
 
     private final AgentDescriptorFactoryHelper helper;
 
@@ -55,7 +55,7 @@ public class AgentDescriptorFactory implements Factory<CellDescriptor> {
         this.layerManager = layerManager;
     }
 
-    public void setCellState(IntegerArgument cellState) {
+    public void setAgentClass(IntegerArgument cellState) {
         this.cellState = cellState;
     }
 
@@ -76,7 +76,7 @@ public class AgentDescriptorFactory implements Factory<CellDescriptor> {
     }
 
     @Override
-    public CellDescriptor build() {
+    public AgentDescriptor build() {
         return helper.build(layerManager, cellState, threshold, initialHealth, reactions, behaviorDescriptors);
     }
 }

@@ -24,16 +24,17 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
-import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import org.junit.*;
 import test.LegacyTest;
 
@@ -44,8 +45,8 @@ import static org.junit.Assert.*;
 public class SwapTest extends LegacyTest {
 
     private MockLayerManager layerManager;
-    private BehaviorCell parent;
-    private CellLayer layer;
+    private Agent parent;
+    private AgentLayer layer;
     private MockTargetRule parentTargetRule;
 
     @Before
@@ -56,17 +57,17 @@ public class SwapTest extends LegacyTest {
         Shape shape = new Rectangle(lattice, 10, 1);
         Boundary boundary = new Periodic(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        layer = new CellLayer(geom);
-        layerManager.setCellLayer(layer);
+        layer = new AgentLayer(geom);
+        layerManager.setAgentLayer(layer);
 
         // Place the parent at site 4 and get its target rule
-        parentTargetRule = placeNumberedCell(4);
-        parent = (BehaviorCell) layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
+        parentTargetRule = placeNumberedAgent(4);
+        parent = (Agent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
 
     }
 
-    private MockTargetRule placeNumberedCell(int x) throws Exception {
-        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, null);
+    private MockTargetRule placeNumberedAgent(int x) throws Exception {
+        Agent cell = new Agent(layerManager, x, x, x, null);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();
@@ -74,7 +75,7 @@ public class SwapTest extends LegacyTest {
 
         MockTargetRule targetRule = new MockTargetRule();
 
-        // Cells always divide to the right
+        // Agents always divide to the right
         List<Coordinate> targets = new ArrayList<>(1);
         Coordinate target = new Coordinate2D(x + 1, 0, 0);
         targets.add(target);
@@ -97,7 +98,7 @@ public class SwapTest extends LegacyTest {
      */
     @Test
     public void testTwoOccupied() throws Exception {
-        placeNumberedCell(5);
+        placeNumberedAgent(5);
         Coordinate target = new Coordinate2D(5, 0, 0);
         List<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);
@@ -111,8 +112,8 @@ public class SwapTest extends LegacyTest {
 
     private void checkPosition(int x, int state) {
         Coordinate c = new Coordinate2D(x, 0, 0);
-        Cell cell = layer.getViewer().getCell(c);
-        assertEquals(state, cell.getState());
+        AbstractAgent agent = layer.getViewer().getAgent(c);
+        assertEquals(state, agent.getState());
     }
 
     private void checkIsVacant(int x) {

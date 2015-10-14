@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 
 /**
  * Created by dbborens on 12/31/13.
@@ -35,11 +35,11 @@ public class MockLayerManager extends LayerManager {
 //        soluteLayers = new HashMap<>();
     }
 
-    public CellLayer getCellLayer() {
+    public AgentLayer getAgentLayer() {
         return cellLayer;
     }
 
-    public void setCellLayer(CellLayer cellLayer) {
+    public void setAgentLayer(AgentLayer cellLayer) {
         this.cellLayer = cellLayer;
     }
 

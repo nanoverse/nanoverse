@@ -24,11 +24,11 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.io.deserialize.MockCoordinateDeindexer;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import org.junit.*;
 
 import java.util.*;
@@ -55,7 +55,7 @@ public class LightweightSystemStateTest extends SystemStateTest {
         canonicals = g.getCanonicalSites();
         deindexer.setUnderlying(canonicals);
         query = new LightweightSystemState(g);
-        query.initCellLayer(stateVector);
+        query.initAgentLayer(stateVector);
 
     }
 
@@ -65,7 +65,7 @@ public class LightweightSystemStateTest extends SystemStateTest {
         for (int i = 0; i < 4; i++) {
             Coordinate coord = canonicals[i];
             int expected = stateVector[i];
-            int actual = query.getLayerManager().getCellLayer().getViewer().getState(coord);
+            int actual = query.getLayerManager().getAgentLayer().getViewer().getState(coord);
             assertEquals(expected, actual);
         }
     }
@@ -104,9 +104,9 @@ public class LightweightSystemStateTest extends SystemStateTest {
     public void testGetLayerManager() throws Exception {
         MockLayerManager expected = new MockLayerManager();
 
-        CellLayer cellLayer = new CellLayer(g);
+        AgentLayer cellLayer = new AgentLayer(g);
 //        LightweightSoluteLayer soluteLayer = new LightweightSoluteLayer(g, expected, id);
-        expected.setCellLayer(cellLayer);
+        expected.setAgentLayer(cellLayer);
 //        expected.addSoluteLayer(id, soluteLayer);
 
         for (int i = 0; i < g.getCanonicalSites().length; i++) {
@@ -115,7 +115,7 @@ public class LightweightSystemStateTest extends SystemStateTest {
             double health = healthVector[i];
 
             if (state != 0) {
-                BehaviorCell cell = new BehaviorCell(expected, state, health, 0.0, null);
+                Agent cell = new Agent(expected, state, health, 0.0, null);
                 cellLayer.getUpdateManager().place(cell, c);
             }
 //            soluteLayer.set(c, health);

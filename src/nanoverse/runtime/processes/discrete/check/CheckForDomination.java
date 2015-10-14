@@ -39,14 +39,14 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
  * <p>
  * Created by dbborens on 1/13/14.
  */
-public class CheckForDomination extends CellProcess {
+public class CheckForDomination extends AgentProcess {
     private DoubleArgument targetFractionArg;
     private IntegerArgument targetStateArg;
     private double targetFraction;
     private int targetState;
 
     @FactoryTarget
-    public CheckForDomination(BaseProcessArguments arguments, CellProcessArguments cpArguments, IntegerArgument targetStateArg, DoubleArgument targetFractionArg) {
+    public CheckForDomination(BaseProcessArguments arguments, AgentProcessArguments cpArguments, IntegerArgument targetStateArg, DoubleArgument targetFractionArg) {
         super(arguments, cpArguments);
 
         this.targetFractionArg = targetFractionArg;
@@ -97,10 +97,10 @@ public class CheckForDomination extends CellProcess {
     }
 
     private void doCheck(int target, StepState stepState) throws HaltCondition {
-        double numTargetCells = getLayer().getViewer().getStateMapViewer().getCount(target);
-        double numCells = getLayer().getViewer().getOccupiedSites().size();
+        double numTargetAgents = getLayer().getViewer().getStateMapViewer().getCount(target);
+        double numAgents = getLayer().getViewer().getOccupiedSites().size();
 
-        double fraction = numTargetCells / numCells;
+        double fraction = numTargetAgents / numAgents;
 
         if (fraction >= targetFraction) {
             throw new DominationEvent(target);

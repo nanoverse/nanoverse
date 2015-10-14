@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.io.deserialize;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.io.serialize.binary.*;
@@ -99,11 +99,11 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
 //        assertEquals(1.0, state.getLayerManager().getSoluteLayer("0").getState().getAbsolute(origin), epsilon);
 
         // Check cell state
-        assertEquals(5, state.getLayerManager().getCellLayer().getViewer().getState(x));
-//        assertEquals(2.0, state.getLayerManager().getCellLayer().getViewer().getCell(x).getHealth(), epsilon);
+        assertEquals(5, state.getLayerManager().getAgentLayer().getViewer().getState(x));
+//        assertEquals(2.0, state.getLayerManager().getAgentLayer().getViewer().getAgent(x).getHealth(), epsilon);
 
         // Origin is vacant
-        assertEquals(0, state.getLayerManager().getCellLayer().getViewer().getState(origin));
+        assertEquals(0, state.getLayerManager().getAgentLayer().getViewer().getState(origin));
 
         // Check time and frame
         assertEquals(2, state.getFrame());
@@ -128,8 +128,8 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
 
 //        pushState(layer0, new double[]{1.0, 2.0, 3.0, 4.0, 5.0});
 
-        placeCell(x, 2.0, 5);
-        placeCell(y, 1.0, 3);
+        placeAgent(x, 2.0, 5);
+        placeAgent(y, 1.0, 3);
 
 //        Coordinate[] highlights = new Coordinate[]{x};
         Stream<Coordinate> highlights = Stream.of(x);
@@ -165,15 +165,15 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
             new CoordinateIndexer(p, layerManager),
             new TimeWriter(p, layerManager),
             new ContinuumStateWriter(p, layerManager),
-            new LegacyCellStateWriter(p, layerManager),
+            new LegacyAgentClassWriter(p, layerManager),
             new HighlightWriter(p, Stream.<Integer>empty(), layerManager)
         };
 
         return ret;
     }
 
-    private MockCell placeCell(Coordinate coord, double health, int state) throws Exception {
-        MockCell cell = new MockCell();
+    private MockAgent placeAgent(Coordinate coord, double health, int state) throws Exception {
+        MockAgent cell = new MockAgent();
         cell.setHealth(health);
         cell.setState(state);
         cellLayer.getUpdateManager().place(cell, coord);

@@ -39,7 +39,7 @@ import java.util.stream.Stream;
 /**
  * Created by dbborens on 8/3/2015.
  */
-public class AgentDescriptorLoader extends Loader<CellDescriptor> {
+public class AgentDescriptorLoader extends Loader<AgentDescriptor> {
 
     private final AgentDescriptorFactory factory;
     private final AgentDescriptorInterpolator interpolator;
@@ -55,18 +55,18 @@ public class AgentDescriptorLoader extends Loader<CellDescriptor> {
         this.interpolator = interpolator;
     }
 
-    public CellDescriptor instantiate(LayerManager lm, GeneralParameters p) {
+    public AgentDescriptor instantiate(LayerManager lm, GeneralParameters p) {
         return instantiate(null, lm, p);
     }
 
-    public CellDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    public AgentDescriptor instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         factory.setLayerManager(lm);
 
         Map<String, ActionDescriptor> behaviors = interpolator.behaviors(node, lm, p);
         factory.setBehaviorDescriptors(behaviors);
 
         IntegerArgument clazz = interpolator.clazz(node, p.getRandom());
-        factory.setCellState(clazz);
+        factory.setAgentClass(clazz);
 
         DoubleArgument initialHealth = interpolator.initialHealth(node, p.getRandom());
         factory.setInitialHealth(initialHealth);

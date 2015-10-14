@@ -24,7 +24,8 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.*;
+import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -42,10 +43,10 @@ import nanoverse.runtime.processes.StepState;
  */
 public abstract class Action {
 
-    private final BehaviorCell callback;
+    private final Agent callback;
     private final LayerManager layerManager;
 
-    public Action(BehaviorCell callback, LayerManager layerManager) {
+    public Action(Agent callback, LayerManager layerManager) {
         this.callback = callback;
         this.layerManager = layerManager;
     }
@@ -58,16 +59,16 @@ public abstract class Action {
      * @return
      */
     protected Coordinate getOwnLocation() {
-        CellLookupManager lookup = getLayerManager().getCellLayer().getLookupManager();
-        BehaviorCell self = getCallback();
+        AgentLookupManager lookup = getLayerManager().getAgentLayer().getLookupManager();
+        Agent self = getCallback();
 
         // If the acting cell has been removed from the lattice, return no coordinate.
         // It's up to the particular Action to decide what happens at that point.
-        if (!getLayerManager().getCellLayer().getViewer().exists(self)) {
+        if (!getLayerManager().getAgentLayer().getViewer().exists(self)) {
             return null;
         }
 
-        Coordinate location = lookup.getCellLocation(self);
+        Coordinate location = lookup.getAgentLocation(self);
         return location;
     }
 
@@ -75,11 +76,11 @@ public abstract class Action {
         return layerManager;
     }
 
-    public BehaviorCell getCallback() {
+    public Agent getCallback() {
         return callback;
     }
 
-    protected BehaviorCell resolveCaller(Coordinate caller) {
+    protected Agent resolveCaller(Coordinate caller) {
         // The caller is null, indicating that the call came from
         // a top-down process. Return null.
         if (caller == null) {
@@ -88,13 +89,13 @@ public abstract class Action {
 
         // Blow up unless target coordinate contains a behavior cell.
         // In that case, return that cell.
-        BehaviorCell callerCell = getWithCast(caller);
+        Agent callerAgent = getWithCast(caller);
 
-        return callerCell;
+        return callerAgent;
     }
 
-    protected BehaviorCell getWithCast(Coordinate coord) {
-        CellLayerViewer viewer = getLayerManager().getCellLayer().getViewer();
+    protected Agent getWithCast(Coordinate coord) {
+        AgentLayerViewer viewer = getLayerManager().getAgentLayer().getViewer();
 
         if (!viewer.isOccupied(coord)) {
             return null;
@@ -102,13 +103,13 @@ public abstract class Action {
 //                    + ".");
         }
 
-        Cell putative = viewer.getCell(coord);
+        AbstractAgent putative = viewer.getAgent(coord);
 
-        if (!(putative instanceof BehaviorCell)) {
-            throw new UnsupportedOperationException("Only BehaviorCells and top-down nanoverse.runtime.processes may trigger behaviors.");
+        if (!(putative instanceof Agent)) {
+            throw new UnsupportedOperationException("Only BehaviorAgents and top-down nanoverse.runtime.processes may trigger behaviors.");
         }
 
-        BehaviorCell result = (BehaviorCell) putative;
+        Agent result = (Agent) putative;
 
         return result;
     }
@@ -123,7 +124,7 @@ public abstract class Action {
      */
     public abstract boolean equals(Object obj);
 
-    public abstract Action clone(BehaviorCell child);
+    public abstract Action clone(Agent child);
 
     protected void doHighlight(IntegerArgument channelArg, Coordinate toHighlight) throws HaltCondition {
         // If not using highlights, do nothing
@@ -131,7 +132,7 @@ public abstract class Action {
             return;
         }
 
-        if (!layerManager.getCellLayer().getGeometry().isInBounds(toHighlight)) {
+        if (!layerManager.getAgentLayer().getGeometry().isInBounds(toHighlight)) {
             return;
         }
 
@@ -142,7 +143,7 @@ public abstract class Action {
 
     protected boolean callbackExists() {
         return getLayerManager()
-            .getCellLayer()
+            .getAgentLayer()
             .getViewer()
             .exists(getCallback());
     }

@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.targets.*;
-import nanoverse.runtime.cells.BehaviorCell;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -37,7 +37,7 @@ import java.util.function.Function;
  * Created by dbborens on 8/3/2015.
  */
 public class CloneToDescriptor extends ActionDescriptor<CloneTo> {
-    private final Function<BehaviorCell, CloneTo> constructor;
+    private final Function<Agent, CloneTo> constructor;
 
     @FactoryTarget(displayName = "CloneTo")
     public CloneToDescriptor(LayerManager layerManager,
@@ -55,7 +55,7 @@ public class CloneToDescriptor extends ActionDescriptor<CloneTo> {
     }
 
     @Override
-    protected Function<BehaviorCell, CloneTo> resolveConstructor() {
+    protected Function<Agent, CloneTo> resolveConstructor() {
         return constructor;
     }
 }

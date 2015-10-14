@@ -24,6 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.cells.*;
 import org.junit.*;
@@ -36,7 +37,7 @@ import static org.junit.Assert.*;
  */
 public class DieTest extends LegacyLatticeTest {
     private Action query, identical, different;
-    private BehaviorCell cell;
+    private Agent cell;
     private BehaviorDispatcher dispatcher;
     private Action behavior;
     private String eventName;
@@ -46,7 +47,7 @@ public class DieTest extends LegacyLatticeTest {
     public void setUp() throws Exception {
         super.setUp();
         // Set up test objects
-        cell = new BehaviorCell(layerManager, 1, 1.0, 1.0, null);
+        cell = new Agent(layerManager, 1, 1.0, 1.0, null);
         query = new Die(cell, layerManager, null);
         identical = new Die(cell, layerManager, null);
         different = new AdjustHealth(cell, layerManager, 0.7);
@@ -83,10 +84,10 @@ public class DieTest extends LegacyLatticeTest {
 
     @Test
     public void testClone() throws Exception {
-        MockCell cloneCell = new MockCell();
+        MockAgent cloneAgent = new MockAgent();
 
         // Clone it.
-        Action clone = query.clone(cloneCell);
+        Action clone = query.clone(cloneAgent);
 
         // Clone should not be the same object.
         assertFalse(clone == query);

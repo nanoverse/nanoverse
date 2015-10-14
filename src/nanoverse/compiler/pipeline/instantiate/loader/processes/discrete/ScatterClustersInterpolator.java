@@ -59,7 +59,7 @@ public class ScatterClustersInterpolator extends DiscreteProcessInterpolator {
         return load.anIntegerArgument(node, "neighbors", random, defaults::neighbors);
     }
 
-    public CellDescriptor description(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    public AgentDescriptor description(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         AgentDescriptorLoader loader = (AgentDescriptorLoader) load.getLoader(node, "description", false);
 
         if (loader == null) {

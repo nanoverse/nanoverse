@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.Cell;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.*;
@@ -34,13 +34,13 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.util.HashSet;
 
-public class Scatter extends CellProcess {
+public class Scatter extends AgentProcess {
 
     private HashSet<Coordinate> candidates;
-    private CellDescriptor cellDescriptor;
+    private AgentDescriptor cellDescriptor;
 
     @FactoryTarget
-    public Scatter(BaseProcessArguments arguments, CellProcessArguments cpArguments, CellDescriptor cellDescriptor) {
+    public Scatter(BaseProcessArguments arguments, AgentProcessArguments cpArguments, AgentDescriptor cellDescriptor) {
         super(arguments, cpArguments);
         this.cellDescriptor = cellDescriptor;
     }
@@ -81,10 +81,10 @@ public class Scatter extends CellProcess {
             int o = getGeneralParameters().getRandom().nextInt(cVec.length);
             Coordinate target = cVec[o];
 
-            Cell cell = cellDescriptor.next();
+            AbstractAgent agent = cellDescriptor.next();
 
-            //System.out.println("   Placing cell of type " + cell.getState() + " at location " + target);
-            getLayer().getUpdateManager().place(cell, target);
+            //System.out.println("   Placing agent of type " + agent.getState() + " at location " + target);
+            getLayer().getUpdateManager().place(agent, target);
 
             //state.highlight(target);
             candidates.remove(target);

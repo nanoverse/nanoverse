@@ -24,11 +24,12 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import org.junit.*;
 import test.LegacyLatticeTest;
 
@@ -39,7 +40,7 @@ import static org.junit.Assert.*;
  */
 public class AdjustHealthTest extends LegacyLatticeTest {
     private AdjustHealth query, identical, different;
-    private BehaviorCell cell;
+    private Agent cell;
     private BehaviorDispatcher dispatcher;
     private Action behavior;
     private String eventName;
@@ -50,9 +51,9 @@ public class AdjustHealthTest extends LegacyLatticeTest {
         // Set up test objects
         layerManager = new MockLayerManager();
         MockGeometry geom = buildMockGeometry();
-        cellLayer = new CellLayer(geom);
-        layerManager.setCellLayer(cellLayer);
-        cell = new BehaviorCell(layerManager, 1, 0.5, 1.0, null);
+        cellLayer = new AgentLayer(geom);
+        layerManager.setAgentLayer(cellLayer);
+        cell = new Agent(layerManager, 1, 0.5, 1.0, null);
         cellLayer.getUpdateManager().place(cell, origin);
         query = new AdjustHealth(cell, layerManager, 0.5);
         identical = new AdjustHealth(cell, layerManager, 0.5);
@@ -87,10 +88,10 @@ public class AdjustHealthTest extends LegacyLatticeTest {
 
     @Test
     public void testClone() throws Exception {
-        MockCell cloneCell = new MockCell();
+        MockAgent cloneAgent = new MockAgent();
 
         // Clone it.
-        Action clone = query.clone(cloneCell);
+        Action clone = query.clone(cloneAgent);
 
         // Clone should not be the same object.
         assertFalse(clone == query);

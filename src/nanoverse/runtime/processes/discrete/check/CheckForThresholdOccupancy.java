@@ -35,12 +35,12 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
  * Throws a halt event when the system's total occupancy exceeds a specified
  * threshold.
  */
-public class CheckForThresholdOccupancy extends CellProcess {
+public class CheckForThresholdOccupancy extends AgentProcess {
     private int thresholdCount;
     private DoubleArgument thresholdOccupancy;
 
     @FactoryTarget
-    public CheckForThresholdOccupancy(BaseProcessArguments arguments, CellProcessArguments cpArguments, DoubleArgument thresholdOccupancy) {
+    public CheckForThresholdOccupancy(BaseProcessArguments arguments, AgentProcessArguments cpArguments, DoubleArgument thresholdOccupancy) {
         super(arguments, cpArguments);
         this.thresholdOccupancy = thresholdOccupancy;
     }

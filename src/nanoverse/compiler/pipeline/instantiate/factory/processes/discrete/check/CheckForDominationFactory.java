@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.check
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.processes.discrete.AgentProcessArguments;
 import nanoverse.runtime.processes.discrete.check.CheckForDomination;
 
 public class CheckForDominationFactory implements Factory<CheckForDomination> {
@@ -34,7 +34,7 @@ public class CheckForDominationFactory implements Factory<CheckForDomination> {
     private final CheckForDominationFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private CellProcessArguments cpArguments;
+    private AgentProcessArguments cpArguments;
     private IntegerArgument targetStateArg;
     private DoubleArgument targetFractionArg;
 
@@ -50,7 +50,7 @@ public class CheckForDominationFactory implements Factory<CheckForDomination> {
         this.arguments = arguments;
     }
 
-    public void setCpArguments(CellProcessArguments cpArguments) {
+    public void setCpArguments(AgentProcessArguments cpArguments) {
         this.cpArguments = cpArguments;
     }
 

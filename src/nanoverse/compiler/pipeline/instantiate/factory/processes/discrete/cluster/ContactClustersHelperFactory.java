@@ -24,14 +24,14 @@
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.cluster;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.cluster.ContactClustersHelper;
 
 public class ContactClustersHelperFactory implements Factory<ContactClustersHelper> {
 
     private final ContactClustersHelperFactoryHelper helper;
 
-    private CellLayer layer;
+    private AgentLayer layer;
 
     public ContactClustersHelperFactory() {
         helper = new ContactClustersHelperFactoryHelper();
@@ -41,7 +41,7 @@ public class ContactClustersHelperFactory implements Factory<ContactClustersHelp
         this.helper = helper;
     }
 
-    public void setLayer(CellLayer layer) {
+    public void setLayer(AgentLayer layer) {
         this.layer = layer;
     }
 

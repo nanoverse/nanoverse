@@ -24,8 +24,9 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.targets.TargetRule;
-import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -54,12 +55,12 @@ public class CloneTo extends Action {
 
     private Random random;
 
-    public CloneTo(BehaviorCell behaviorCell, LayerManager layerManager,
+    public CloneTo(Agent agent, LayerManager layerManager,
                    TargetRule targetRule, boolean noReplace,
                    IntegerArgument selfChannel,
                    IntegerArgument targetChannel, Random random) {
 
-        super(behaviorCell, layerManager);
+        super(agent, layerManager);
         this.targetRule = targetRule;
         this.selfChannel = selfChannel;
         this.targetChannel = targetChannel;
@@ -69,19 +70,19 @@ public class CloneTo extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        BehaviorCell callerCell = resolveCaller(caller);
+        Agent callerAgent = resolveCaller(caller);
 
         Coordinate self = getOwnLocation();
 
-        List<Coordinate> targets = targetRule.report(callerCell);
+        List<Coordinate> targets = targetRule.report(callerAgent);
 
-        CellUpdateManager u = getLayerManager().getCellLayer().getUpdateManager();
-        CellLayerViewer v = getLayerManager().getCellLayer().getViewer();
+        AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
+        AgentLayerViewer v = getLayerManager().getAgentLayer().getViewer();
 
         for (Coordinate target : targets) {
 
             // Make replicate
-            Cell child = getCallback().replicate();
+            AbstractAgent child = getCallback().replicate();
 
             // Place replicate at target site
             if (!v.isOccupied(target)) {
@@ -120,7 +121,7 @@ public class CloneTo extends Action {
     }
 
     @Override
-    public Action clone(BehaviorCell child) {
+    public Action clone(Agent child) {
         TargetRule clonedTargeter = targetRule.clone(child);
         return new CloneTo(child, getLayerManager(), clonedTargeter, noReplace,
             selfChannel, targetChannel, random);

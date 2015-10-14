@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.targets.TargetRule;
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -43,7 +43,7 @@ public class Swap extends Action {
     private IntegerArgument selfChannel;
     private IntegerArgument targetChannel;
 
-    public Swap(BehaviorCell callback, LayerManager layerManager,
+    public Swap(Agent callback, LayerManager layerManager,
                 TargetRule targetRule, IntegerArgument selfChannel,
                 IntegerArgument targetChannel) {
         super(callback, layerManager);
@@ -54,9 +54,9 @@ public class Swap extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        BehaviorCell callerCell = resolveCaller(caller);
+        Agent callerAgent = resolveCaller(caller);
         Coordinate self = getOwnLocation();
-        List<Coordinate> targets = targetRule.report(callerCell);
+        List<Coordinate> targets = targetRule.report(callerAgent);
 
         if (targets.size() != 1) {
             throw new IllegalStateException("Swap action requires exactly one " +
@@ -65,7 +65,7 @@ public class Swap extends Action {
 
         Coordinate target = targets.get(0);
 
-        getLayerManager().getCellLayer().getUpdateManager().swap(self, target);
+        getLayerManager().getAgentLayer().getUpdateManager().swap(self, target);
 
         doHighlight(selfChannel, self);
         doHighlight(targetChannel, target);
@@ -85,7 +85,7 @@ public class Swap extends Action {
     }
 
     @Override
-    public Action clone(BehaviorCell child) {
+    public Action clone(Agent child) {
         TargetRule clonedTargetRule = targetRule.clone(child);
         return new Swap(child, getLayerManager(), clonedTargetRule, selfChannel, targetChannel);
     }

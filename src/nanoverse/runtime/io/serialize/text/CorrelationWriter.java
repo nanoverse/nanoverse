@@ -31,7 +31,7 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 import nanoverse.runtime.structural.utilities.EpsilonUtil;
@@ -157,7 +157,7 @@ public class CorrelationWriter extends Serializer {
             return;
         }
 
-        CellLayer layer = stepState.getRecordedCellLayer();
+        AgentLayer layer = stepState.getRecordedAgentLayer();
         Geometry geom = layer.getGeometry();
         Coordinate[] cc = geom.getCanonicalSites();
         // Iterate over all canonical sites.
@@ -172,7 +172,7 @@ public class CorrelationWriter extends Serializer {
         fired = true;
     }
 
-    private void recordObservation(Coordinate i, Coordinate j, CellLayer l) {
+    private void recordObservation(Coordinate i, Coordinate j, AgentLayer l) {
 
         // Calculate L1 distance r.
         int r = l.getGeometry().getL1Distance(i, j, Geometry.IGNORE_BOUNDARIES);

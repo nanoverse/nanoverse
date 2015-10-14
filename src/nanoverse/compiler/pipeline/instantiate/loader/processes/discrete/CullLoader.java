@@ -55,7 +55,7 @@ public class CullLoader extends ProcessLoader<Cull> {
         BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
         factory.setArguments(arguments);
 
-        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        AgentProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
         factory.setCpArguments(cpArguments);
 
         double threshold = interpolator.threshold(node, p.getRandom());

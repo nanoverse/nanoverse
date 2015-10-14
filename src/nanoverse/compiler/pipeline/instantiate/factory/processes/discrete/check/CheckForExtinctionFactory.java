@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.check
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.processes.discrete.AgentProcessArguments;
 import nanoverse.runtime.processes.discrete.check.CheckForExtinction;
 
 public class CheckForExtinctionFactory implements Factory<CheckForExtinction> {
@@ -34,7 +34,7 @@ public class CheckForExtinctionFactory implements Factory<CheckForExtinction> {
     private final CheckForExtinctionFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private CellProcessArguments cpArguments;
+    private AgentProcessArguments cpArguments;
     private DoubleArgument thresholdArg;
 
     public CheckForExtinctionFactory() {
@@ -49,7 +49,7 @@ public class CheckForExtinctionFactory implements Factory<CheckForExtinction> {
         this.arguments = arguments;
     }
 
-    public void setCpArguments(CellProcessArguments cpArguments) {
+    public void setCpArguments(AgentProcessArguments cpArguments) {
         this.cpArguments = cpArguments;
     }
 

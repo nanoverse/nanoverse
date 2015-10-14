@@ -24,11 +24,11 @@
 
 package nanoverse.runtime.agent.targets;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayerViewer;
+import nanoverse.runtime.layers.cell.AgentLayerViewer;
 import nanoverse.runtime.processes.discrete.filter.Filter;
 
 import java.util.*;
@@ -39,25 +39,25 @@ import java.util.*;
  * Created by dbborens on 2/7/14.
  */
 public class TargetOccupiedNeighbors extends TargetRule {
-    public TargetOccupiedNeighbors(BehaviorCell callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
+    public TargetOccupiedNeighbors(Agent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
         super(callback, layerManager, filter, maximum, random);
     }
 
     @Override
-    public TargetRule clone(BehaviorCell child) {
+    public TargetRule clone(Agent child) {
         return new TargetOccupiedNeighbors(child, layerManager, filter, maximum, random);
     }
 
     @Override
-    protected List<Coordinate> getCandidates(BehaviorCell caller) {
+    protected List<Coordinate> getCandidates(Agent caller) {
         // Get nanoverse.runtime.geometry
-        Geometry geom = layerManager.getCellLayer().getGeometry();
+        Geometry geom = layerManager.getAgentLayer().getGeometry();
 
         // Get cell layer viewer
-        CellLayerViewer viewer = layerManager.getCellLayer().getViewer();
+        AgentLayerViewer viewer = layerManager.getAgentLayer().getViewer();
 
         // Get self coordinate
-        Coordinate self = layerManager.getCellLayer().getLookupManager().getCellLocation(callback);
+        Coordinate self = layerManager.getAgentLayer().getLookupManager().getAgentLocation(callback);
 
         // Get coordinates of neighbors from nanoverse.runtime.geometry
         Coordinate[] neighbors = geom.getNeighbors(self, Geometry.APPLY_BOUNDARIES);

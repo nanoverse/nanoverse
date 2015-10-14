@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.Cell;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.*;
@@ -40,9 +40,9 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
  *
  * @author dbborens
  */
-public class Fill extends CellProcess {
+public class Fill extends AgentProcess {
 
-    private CellDescriptor cellDescriptor;
+    private AgentDescriptor cellDescriptor;
 
     // If true, the process will skip over any already-filled sites. If
     // false, it will blow up if it encounters an already-filled site
@@ -50,7 +50,7 @@ public class Fill extends CellProcess {
     private boolean skipFilled;
 
     @FactoryTarget
-    public Fill(BaseProcessArguments arguments, CellProcessArguments cpArguments, boolean skipFilled, CellDescriptor cellDescriptor) {
+    public Fill(BaseProcessArguments arguments, AgentProcessArguments cpArguments, boolean skipFilled, AgentDescriptor cellDescriptor) {
         super(arguments, cpArguments);
         this.skipFilled = skipFilled;
         this.cellDescriptor = cellDescriptor;
@@ -84,8 +84,8 @@ public class Fill extends CellProcess {
 
                 throw new IllegalStateException(msg);
             } else if (!filled) {
-                Cell cell = cellDescriptor.next();
-                getLayer().getUpdateManager().place(cell, c);
+                AbstractAgent agent = cellDescriptor.next();
+                getLayer().getUpdateManager().place(agent, c);
             } else {
                 // Do nothing if site is filled and skipFilled is true.
             }

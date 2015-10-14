@@ -32,7 +32,7 @@ public class ManualHaltFactory implements Factory<ManualHalt> {
     private final ManualHaltFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private CellProcessArguments cpArguments;
+    private AgentProcessArguments cpArguments;
     private String message;
 
     public ManualHaltFactory() {
@@ -47,7 +47,7 @@ public class ManualHaltFactory implements Factory<ManualHalt> {
         this.arguments = arguments;
     }
 
-    public void setCpArguments(CellProcessArguments cpArguments) {
+    public void setCpArguments(AgentProcessArguments cpArguments) {
         this.cpArguments = cpArguments;
     }
 

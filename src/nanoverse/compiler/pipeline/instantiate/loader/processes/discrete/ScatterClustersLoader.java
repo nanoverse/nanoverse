@@ -57,11 +57,11 @@ public class ScatterClustersLoader extends ProcessLoader<ScatterClusters> {
         BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
         factory.setArguments(arguments);
 
-        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        AgentProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
         factory.setCpArguments(cpArguments);
 
-        CellDescriptor description = interpolator.description(node, lm, p);
-        factory.setCellDescriptor(description);
+        AgentDescriptor description = interpolator.description(node, lm, p);
+        factory.setAgentDescriptor(description);
 
         ScatterClustersHelper helper = interpolator.helper(node, lm, p);
         factory.setClustersHelper(helper);

@@ -26,14 +26,14 @@ package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete;
 
 import nanoverse.compiler.pipeline.instantiate.loader.agent.AgentDescriptorLoader;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.layers.LayerManager;
 
 /**
  * Created by dbborens on 8/27/2015.
  */
 public class ScatterDefaults {
-    public CellDescriptor description(LayerManager lm, GeneralParameters p) {
+    public AgentDescriptor description(LayerManager lm, GeneralParameters p) {
         AgentDescriptorLoader loader = new AgentDescriptorLoader();
         return loader.instantiate(lm, p);
     }

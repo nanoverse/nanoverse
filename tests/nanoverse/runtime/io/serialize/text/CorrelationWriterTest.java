@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.io.serialize.text;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.arguments.ConstantDouble;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -32,7 +32,7 @@ import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.MockGeneralParameters;
 import org.junit.*;
@@ -46,7 +46,7 @@ public class CorrelationWriterTest extends LegacyTest {
     private static final int SIDE = 10;
     private Geometry geom;
     private MockLayerManager layerManager;
-    private CellLayer layer;
+    private AgentLayer layer;
 
     @Before
     public void setUp() throws Exception {
@@ -56,9 +56,9 @@ public class CorrelationWriterTest extends LegacyTest {
         Boundary boundary = new Arena(shape, lattice);
         geom = new Geometry(lattice, shape, boundary);
 
-        layer = new CellLayer(geom);
+        layer = new AgentLayer(geom);
         layerManager = new MockLayerManager();
-        layerManager.setCellLayer(layer);
+        layerManager.setAgentLayer(layer);
 
     }
 
@@ -95,12 +95,12 @@ public class CorrelationWriterTest extends LegacyTest {
         for (int x = 0; x < SIDE; x += 2) {
             for (int y = 0; y < SIDE; y += 2) {
                 Coordinate c0 = new Coordinate2D(x, y, 0);
-                MockCell cell = new MockCell(1);
+                MockAgent cell = new MockAgent(1);
                 layer.getUpdateManager().place(cell, c0);
 
 
                 if ((x < SIDE - 1) && (y < SIDE - 1)) {
-                    cell = new MockCell(1);
+                    cell = new MockAgent(1);
                     Coordinate c1 = new Coordinate2D(x + 1, y + 1, 0);
                     layer.getUpdateManager().place(cell, c1);
                 }
@@ -137,12 +137,12 @@ public class CorrelationWriterTest extends LegacyTest {
         for (int x = 0; x < SIDE; x += 2) {
             for (int y = 0; y < SIDE; y += 2) {
                 Coordinate c0 = new Coordinate2D(x, y, 0);
-                MockCell cell = new MockCell(1);
+                MockAgent cell = new MockAgent(1);
                 layer.getUpdateManager().place(cell, c0);
 
 
                 if ((x < SIDE - 1) && (y < SIDE - 1)) {
-                    cell = new MockCell(2);
+                    cell = new MockAgent(2);
                     Coordinate c1 = new Coordinate2D(x + 1, y + 1, 0);
                     layer.getUpdateManager().place(cell, c1);
                 }

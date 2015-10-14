@@ -29,7 +29,7 @@ import nanoverse.compiler.pipeline.instantiate.loader.processes.*;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.processes.discrete.AgentProcessArguments;
 
 /**
  * Created by dbborens on 8/26/2015.
@@ -51,7 +51,7 @@ public class DiscreteProcessInterpolator extends ProcessInterpolator {
         this.dpaLoader = dpaLoader;
     }
 
-    public CellProcessArguments cpArguments(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    public AgentProcessArguments cpArguments(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         return dpaLoader.instantiate(node, lm, p);
     }
 }

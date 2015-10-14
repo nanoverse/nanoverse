@@ -41,7 +41,7 @@ public class DefaultColorManager extends ColorManager {
 
     @Override
     public Color getColor(Coordinate c, SystemState systemState) {
-        int state = systemState.getLayerManager().getCellLayer().getViewer().getState(c);
+        int state = systemState.getLayerManager().getAgentLayer().getViewer().getState(c);
 
         switch (state) {
             case 0:

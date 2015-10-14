@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.check
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.discrete.CellProcessArguments;
+import nanoverse.runtime.processes.discrete.AgentProcessArguments;
 import nanoverse.runtime.processes.discrete.check.CheckForThresholdOccupancy;
 
 public class CheckForThresholdOccupancyFactory implements Factory<CheckForThresholdOccupancy> {
@@ -34,7 +34,7 @@ public class CheckForThresholdOccupancyFactory implements Factory<CheckForThresh
     private final CheckForThresholdOccupancyFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private CellProcessArguments cpArguments;
+    private AgentProcessArguments cpArguments;
     private DoubleArgument thresholdOccupancy;
 
     public CheckForThresholdOccupancyFactory() {
@@ -49,7 +49,7 @@ public class CheckForThresholdOccupancyFactory implements Factory<CheckForThresh
         this.arguments = arguments;
     }
 
-    public void setCpArguments(CellProcessArguments cpArguments) {
+    public void setCpArguments(AgentProcessArguments cpArguments) {
         this.cpArguments = cpArguments;
     }
 

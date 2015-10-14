@@ -24,12 +24,13 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.*;
+import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellUpdateManager;
+import nanoverse.runtime.layers.cell.AgentUpdateManager;
 import nanoverse.runtime.processes.discrete.ShoveHelper;
 
 import java.util.Random;
@@ -54,7 +55,7 @@ public class Expand extends Action {
 
     private Random random;
 
-    public Expand(BehaviorCell callback, LayerManager layerManager,
+    public Expand(Agent callback, LayerManager layerManager,
                   IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
 
         super(callback, layerManager);
@@ -69,7 +70,7 @@ public class Expand extends Action {
     public void run(Coordinate caller) throws HaltCondition {
         Coordinate parentLocation = getOwnLocation();
 
-        CellUpdateManager u = getLayerManager().getCellLayer().getUpdateManager();
+        AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
 
         // Step 1: identify nearest vacant site.
         Coordinate target = shoveHelper.chooseVacancy(parentLocation);
@@ -78,7 +79,7 @@ public class Expand extends Action {
         shoveHelper.shove(parentLocation, target);
 
         // Step 3: Clone parent.
-        Cell child = getCallback().replicate();
+        AbstractAgent child = getCallback().replicate();
 
         // Step 4: Place child in parent location.
         u.place(child, parentLocation);
@@ -105,7 +106,7 @@ public class Expand extends Action {
     }
 
     @Override
-    public Action clone(BehaviorCell child) {
+    public Action clone(Agent child) {
         return new Expand(child, getLayerManager(), selfChannel, targetChannel,
             random);
     }

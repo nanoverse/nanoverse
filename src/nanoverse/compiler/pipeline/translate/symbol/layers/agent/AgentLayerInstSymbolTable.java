@@ -27,12 +27,12 @@ package nanoverse.compiler.pipeline.translate.symbol.layers.agent;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.layers.agent.AgentLayerLoader;
 import nanoverse.compiler.pipeline.translate.symbol.layers.LayerInstSymbolTable;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 
 /**
  * Created by dbborens on 7/28/2015.
  */
-public class AgentLayerInstSymbolTable extends LayerInstSymbolTable<CellLayer> {
+public class AgentLayerInstSymbolTable extends LayerInstSymbolTable<AgentLayer> {
     @Override
     public String getDescription() {
         return "An nanoverse.runtime.agent layer contains a collection of agents, each of " +

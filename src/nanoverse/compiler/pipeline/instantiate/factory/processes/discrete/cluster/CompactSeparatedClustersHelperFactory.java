@@ -25,14 +25,14 @@ package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.clust
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.cluster.CompactSeparatedClustersHelper;
 
 public class CompactSeparatedClustersHelperFactory implements Factory<CompactSeparatedClustersHelper> {
 
     private final CompactSeparatedClustersHelperFactoryHelper helper;
 
-    private CellLayer layer;
+    private AgentLayer layer;
     private GeneralParameters p;
 
     public CompactSeparatedClustersHelperFactory() {
@@ -43,7 +43,7 @@ public class CompactSeparatedClustersHelperFactory implements Factory<CompactSep
         this.helper = helper;
     }
 
-    public void setLayer(CellLayer layer) {
+    public void setLayer(AgentLayer layer) {
         this.layer = layer;
     }
 

@@ -29,7 +29,7 @@ import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -132,7 +132,7 @@ public class SurfaceCensusWriter extends Serializer {
 
     @Override
     public void flush(StepState stepState) {
-        CellLayer layer = stepState.getRecordedCellLayer();
+        AgentLayer layer = stepState.getRecordedAgentLayer();
         frames.add(stepState.getFrame());
 
         // Create a bucket for this frame.
@@ -159,7 +159,7 @@ public class SurfaceCensusWriter extends Serializer {
         observedStates.add(state);
     }
 
-    private boolean isAtFront(Coordinate c, CellLayer layer) {
+    private boolean isAtFront(Coordinate c, AgentLayer layer) {
         int[] neighborStates = layer.getLookupManager().getNeighborStates(c, false);
 
         // If any neighbor is 0 (vacant), the point is at the front

@@ -50,7 +50,7 @@ public class CoordinateIndexer extends Serializer {
     @Override
     public void init() {
         super.init();
-        geometry = lm.getCellLayer().getGeometry();
+        geometry = lm.getAgentLayer().getGeometry();
     }
 
     @Override

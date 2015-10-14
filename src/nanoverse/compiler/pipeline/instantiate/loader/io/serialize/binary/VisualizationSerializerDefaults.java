@@ -40,7 +40,7 @@ public class VisualizationSerializerDefaults {
     }
 
     public Visualization visualization(LayerManager layerManager, GeneralParameters p) {
-        Geometry geometry = layerManager.getCellLayer().getGeometry();
+        Geometry geometry = layerManager.getAgentLayer().getGeometry();
 
         if (geometry.getDimensionality() == 1) {
             KymographLoader loader = new KymographLoader();

@@ -24,12 +24,12 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.check.CheckForFixation;
 import nanoverse.runtime.processes.gillespie.GillespieState;
@@ -47,7 +47,7 @@ import static org.junit.Assert.*;
  */
 public class CheckForFixationTest extends LegacyTest {
     private MockGeometry geometry;
-    private CellLayer layer;
+    private AgentLayer layer;
     private MockLayerManager layerManager;
     private CheckForFixation query;
 
@@ -69,11 +69,11 @@ public class CheckForFixationTest extends LegacyTest {
         geometry = new MockGeometry();
         geometry.setCanonicalSites(cc);
 
-        layer = new CellLayer(geometry);
+        layer = new AgentLayer(geometry);
         layerManager = new MockLayerManager();
-        layerManager.setCellLayer(layer);
+        layerManager.setAgentLayer(layer);
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, null);
-        CellProcessArguments cpArguments = makeCellProcessArguments(geometry);
+        AgentProcessArguments cpArguments = makeAgentProcessArguments(geometry);
         query = new CheckForFixation(arguments, cpArguments);
     }
 
@@ -95,7 +95,7 @@ public class CheckForFixationTest extends LegacyTest {
     public void testFixationCaseSingle() throws Exception {
         makeTwoCanonicalSites();
         Coordinate coord = new Coordinate2D(0, 0, 1);
-        MockCell cell = new MockCell();
+        MockAgent cell = new MockAgent();
         cell.setState(1);
         layer.getUpdateManager().place(cell, coord);
         doTest(true);
@@ -125,7 +125,7 @@ public class CheckForFixationTest extends LegacyTest {
         makeTwoCanonicalSites();
         for (int i = 0; i < 2; i++) {
             Coordinate coord = new Coordinate2D(i, 0, 0);
-            MockCell cell = new MockCell();
+            MockAgent cell = new MockAgent();
             cell.setState(1);
             layer.getUpdateManager().place(cell, coord);
         }
@@ -144,7 +144,7 @@ public class CheckForFixationTest extends LegacyTest {
         makeTwoCanonicalSites();
         for (int i = 0; i < 2; i++) {
             Coordinate coord = new Coordinate2D(i, 0, 0);
-            MockCell cell = new MockCell();
+            MockAgent cell = new MockAgent();
             // state 0 is reserved for death / nullity
             cell.setState(i + 1);
             layer.getUpdateManager().place(cell, coord);
@@ -157,7 +157,7 @@ public class CheckForFixationTest extends LegacyTest {
     public void testOpenSpaceCase() throws Exception {
         makeTwoCanonicalSites();
         Coordinate coord = new Coordinate2D(0, 0, 0);
-        MockCell cell = new MockCell();
+        MockAgent cell = new MockAgent();
         cell.setState(1);
         layer.getUpdateManager().place(cell, coord);
         doTest(true);

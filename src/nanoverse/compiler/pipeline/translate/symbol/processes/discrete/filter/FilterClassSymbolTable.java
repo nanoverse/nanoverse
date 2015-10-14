@@ -51,8 +51,8 @@ public class FilterClassSymbolTable extends ClassSymbolTable<Filter> {
     }
 
     private void cellState(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> st = CellStateFilterInstSymbolTable::new;
-        ret.put("CellState", st);
+        Supplier<InstantiableSymbolTable> st = AgentClassFilterInstSymbolTable::new;
+        ret.put("AgentClass", st);
     }
 
     private void composite(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {

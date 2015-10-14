@@ -59,7 +59,7 @@ public class MapVisualizationTest extends GlyphTest {
         for (int i = 0; i < n; i++) {
             state[i] = ((i + 1) % 2) + 1;
         }
-        systemState.initCellLayer(state);
+        systemState.initAgentLayer(state);
     }
 
     @Override
@@ -188,6 +188,6 @@ public class MapVisualizationTest extends GlyphTest {
                 state[i] = ((i + 1) % 2) + 1;
             }
         }
-        ((LightweightSystemState) systemState).initCellLayer(state);
+        ((LightweightSystemState) systemState).initAgentLayer(state);
     }
 }

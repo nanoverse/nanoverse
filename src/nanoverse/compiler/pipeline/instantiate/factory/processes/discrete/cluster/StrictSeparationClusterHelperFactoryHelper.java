@@ -23,13 +23,13 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.cluster;
 
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.cluster.StrictSeparationClusterHelper;
 
 
 public class StrictSeparationClusterHelperFactoryHelper {
 
-    public StrictSeparationClusterHelper build(CellLayer layer) {
+    public StrictSeparationClusterHelper build(AgentLayer layer) {
         return new StrictSeparationClusterHelper(layer);
     }
 }

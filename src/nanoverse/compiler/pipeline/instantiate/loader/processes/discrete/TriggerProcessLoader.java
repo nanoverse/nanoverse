@@ -56,7 +56,7 @@ public class TriggerProcessLoader extends ProcessLoader<TriggerProcess> {
         BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
         factory.setArguments(arguments);
 
-        CellProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
+        AgentProcessArguments cpArguments = interpolator.cpArguments(node, lm, p);
         factory.setCpArguments(cpArguments);
 
         Filter filter = interpolator.filter(node, lm, p);

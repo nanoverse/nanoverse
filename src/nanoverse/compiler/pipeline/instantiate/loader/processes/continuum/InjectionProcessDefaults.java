@@ -34,7 +34,7 @@ import nanoverse.runtime.layers.LayerManager;
  */
 public class InjectionProcessDefaults {
     public CoordinateSet activeSites(LayerManager lm, GeneralParameters p) {
-        Geometry geom = lm.getCellLayer().getGeometry();
+        Geometry geom = lm.getAgentLayer().getGeometry();
         return new CompleteSet(geom);
     }
 }

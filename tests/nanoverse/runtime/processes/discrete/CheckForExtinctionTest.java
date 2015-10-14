@@ -24,13 +24,13 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.arguments.ConstantDouble;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.check.CheckForExtinction;
 import nanoverse.runtime.structural.MockGeneralParameters;
@@ -44,7 +44,7 @@ import static org.junit.Assert.*;
  */
 public class CheckForExtinctionTest extends LegacyTest {
     private MockGeometry geometry;
-    private CellLayer layer;
+    private AgentLayer layer;
     private MockLayerManager layerManager;
     private CheckForExtinction query;
     private MockGeneralParameters p;
@@ -85,11 +85,11 @@ public class CheckForExtinctionTest extends LegacyTest {
         geometry = new MockGeometry();
         geometry.setCanonicalSites(cc);
 
-        layer = new CellLayer(geometry);
+        layer = new AgentLayer(geometry);
         layerManager = new MockLayerManager();
-        layerManager.setCellLayer(layer);
+        layerManager.setAgentLayer(layer);
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
-        CellProcessArguments cpArguments = makeCellProcessArguments(geometry);
+        AgentProcessArguments cpArguments = makeAgentProcessArguments(geometry);
         query = new CheckForExtinction(arguments, cpArguments, new ConstantDouble(0.0));
         query.init();
     }
@@ -103,7 +103,7 @@ public class CheckForExtinctionTest extends LegacyTest {
     private Coordinate populateSingletonCase() throws Exception {
         makeOneCanonicalSite();
         Coordinate coord = new Coordinate2D(0, 0, 1);
-        MockCell cell = new MockCell();
+        MockAgent cell = new MockAgent();
         cell.setState(1);
         layer.getUpdateManager().place(cell, coord);
         return coord;

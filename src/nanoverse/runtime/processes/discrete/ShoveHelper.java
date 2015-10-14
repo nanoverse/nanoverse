@@ -61,7 +61,7 @@ public class ShoveHelper {
     public HashSet<Coordinate> shove(Coordinate origin, Coordinate target) throws HaltCondition {
         HashSet<Coordinate> affectedSites = new HashSet<>();
 
-        Coordinate displacement = layerManager.getCellLayer().getGeometry().
+        Coordinate displacement = layerManager.getAgentLayer().getGeometry().
             getDisplacement(origin,
                 target, Geometry.APPLY_BOUNDARIES);
 
@@ -74,10 +74,10 @@ public class ShoveHelper {
      * operation.
      */
     public void removeImaginary() {
-        Set<Coordinate> imaginarySites = layerManager.getCellLayer().getViewer().getImaginarySites();
+        Set<Coordinate> imaginarySites = layerManager.getAgentLayer().getViewer().getImaginarySites();
 
         for (Coordinate c : imaginarySites) {
-            layerManager.getCellLayer().getUpdateManager().banish(c);
+            layerManager.getAgentLayer().getUpdateManager().banish(c);
         }
     }
 
@@ -93,7 +93,7 @@ public class ShoveHelper {
         StepState state = layerManager.getStepState();
         Coordinate target;
         // Get nearest vacancies to the cell
-        Coordinate[] targets = layerManager.getCellLayer().getLookupManager().getNearestVacancies(origin, -1);
+        Coordinate[] targets = layerManager.getAgentLayer().getLookupManager().getNearestVacancies(origin, -1);
         if (targets.length == 0) {
             throw new LatticeFullEvent();
         } else {
@@ -149,7 +149,7 @@ public class ShoveHelper {
         Coordinate du = new Coordinate2D(nextDisplacement, d.flags());
         doShove(nextLocation, du, sites);
 
-        layerManager.getCellLayer().getUpdateManager().swap(currentLocation,
+        layerManager.getAgentLayer().getUpdateManager().swap(currentLocation,
             nextLocation);
 
         sites.add(nextLocation);
@@ -159,7 +159,7 @@ public class ShoveHelper {
         Coordinate nextLoc;
         int o = random.nextInt(nv);
         Coordinate disp = calcDisp(d, dNext, rel, o);
-        nextLoc = layerManager.getCellLayer().getGeometry().rel2abs(curLoc,
+        nextLoc = layerManager.getAgentLayer().getGeometry().rel2abs(curLoc,
             disp, Geometry.APPLY_BOUNDARIES);
         return nextLoc;
     }
@@ -198,7 +198,7 @@ public class ShoveHelper {
         HashSet<Coordinate> affectedSites = new HashSet<>();
 
         Coordinate target = chooseRandomNeighbor(origin);
-        Coordinate displacement = layerManager.getCellLayer().getGeometry().
+        Coordinate displacement = layerManager.getAgentLayer().getGeometry().
             getDisplacement(origin,
                 target, Geometry.APPLY_BOUNDARIES);
         doShoveCardinal(origin, displacement, affectedSites);
@@ -214,7 +214,7 @@ public class ShoveHelper {
      * @return target neighbor
      */
     private Coordinate chooseRandomNeighbor(Coordinate parentLocation) {
-        Coordinate[] options = layerManager.getCellLayer().getGeometry().getNeighbors(parentLocation, Geometry.APPLY_BOUNDARIES);
+        Coordinate[] options = layerManager.getAgentLayer().getGeometry().getNeighbors(parentLocation, Geometry.APPLY_BOUNDARIES);
         int i = random.nextInt(options.length);
         Coordinate target = options[i];
         return target;
@@ -231,7 +231,7 @@ public class ShoveHelper {
      */
     private void doShoveCardinal(Coordinate currentLocation, Coordinate d, HashSet<Coordinate> sites) throws HaltCondition {
         // base case: if the currentLocation is vacant, can stop shoving
-        if (!layerManager.getCellLayer().getViewer().isOccupied(currentLocation)) {
+        if (!layerManager.getAgentLayer().getViewer().isOccupied(currentLocation)) {
             return;
         }
 
@@ -264,7 +264,7 @@ public class ShoveHelper {
         // use the same displacement vector d each time
         doShoveCardinal(nextLocation, d, sites);
 
-        layerManager.getCellLayer().getUpdateManager().swap(currentLocation,
+        layerManager.getAgentLayer().getUpdateManager().swap(currentLocation,
             nextLocation);
 
         sites.add(nextLocation);
@@ -280,7 +280,7 @@ public class ShoveHelper {
      * @throws HaltCondition
      */
     public HashSet<Coordinate> shoveWeighted(Coordinate origin) throws HaltCondition {
-        Coordinate[] neighbors = layerManager.getCellLayer().getGeometry().getNeighbors(origin, Geometry.APPLY_BOUNDARIES);
+        Coordinate[] neighbors = layerManager.getAgentLayer().getGeometry().getNeighbors(origin, Geometry.APPLY_BOUNDARIES);
         Coordinate target;
         Coordinate displacement;
         HashSet<Coordinate> affectedSites;
@@ -289,7 +289,7 @@ public class ShoveHelper {
         double total = 0.0;
         for (int i = 0; i < neighbors.length; i++) {
             target = neighbors[i];
-            displacement = layerManager.getCellLayer().getGeometry().
+            displacement = layerManager.getAgentLayer().getGeometry().
                 getDisplacement(origin,
                     target, Geometry.APPLY_BOUNDARIES);
             affectedSites = new HashSet<>();
@@ -318,7 +318,7 @@ public class ShoveHelper {
             }
         }
 
-        displacement = layerManager.getCellLayer().getGeometry().
+        displacement = layerManager.getAgentLayer().getGeometry().
             getDisplacement(origin,
                 chosenTarget, Geometry.APPLY_BOUNDARIES);
         affectedSites = new HashSet<>();
@@ -338,7 +338,7 @@ public class ShoveHelper {
      */
     private void calculateDistToVacancy(Coordinate currentLocation, Coordinate d, HashSet<Coordinate> sites) throws HaltCondition {
         // base case: if the currentLocation is vacant, can stop shoving
-        if (!layerManager.getCellLayer().getViewer().isOccupied(currentLocation)) {
+        if (!layerManager.getAgentLayer().getViewer().isOccupied(currentLocation)) {
             return;
         }
 

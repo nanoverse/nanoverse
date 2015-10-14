@@ -95,19 +95,19 @@ public class ScatterClustersInterpolatorTest extends InterpolatorTest {
         AgentDescriptorLoader loader = mock(AgentDescriptorLoader.class);
         when(load.getLoader(eq(node), eq("description"), anyBoolean())).thenReturn(loader);
 
-        CellDescriptor expected = mock(CellDescriptor.class);
+        AgentDescriptor expected = mock(AgentDescriptor.class);
         when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
 
-        CellDescriptor actual = query.description(node, lm, p);
+        AgentDescriptor actual = query.description(node, lm, p);
         assertSame(expected, actual);
     }
 
     @Test
     public void descriptionDefault() throws Exception {
-        CellDescriptor expected = mock(CellDescriptor.class);
+        AgentDescriptor expected = mock(AgentDescriptor.class);
         when(defaults.description(lm, p)).thenReturn(expected);
 
-        CellDescriptor actual = query.description(node, lm, p);
+        AgentDescriptor actual = query.description(node, lm, p);
         assertSame(expected, actual);
     }
 }

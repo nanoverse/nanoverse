@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.ConstantDouble;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -71,7 +71,7 @@ public class ThresholdDoTest {
         ConstantDouble maximumArg = new ConstantDouble(maximum);
         LayerManager lm = makeLayerManager(value, exists);
 
-        BehaviorCell callback = mock(BehaviorCell.class);
+        Agent callback = mock(Agent.class);
         ThresholdDo query = new ThresholdDo(callback, lm, LAYER_NAME, minimumArg, maximumArg, child);
         return query;
     }
@@ -80,7 +80,7 @@ public class ThresholdDoTest {
         LayerManager lm = mock(LayerManager.class);
 
         makeContinuumLayer(value, lm);
-        makeCellLayer(exists, lm);
+        makeAgentLayer(exists, lm);
 
         return lm;
     }
@@ -91,16 +91,16 @@ public class ThresholdDoTest {
         when(cl.getValueAt(c)).thenReturn(value);
     }
 
-    private void makeCellLayer(boolean exists, LayerManager lm) {
-        CellLayer cellLayer = mock(CellLayer.class);
-        when(lm.getCellLayer()).thenReturn(cellLayer);
+    private void makeAgentLayer(boolean exists, LayerManager lm) {
+        AgentLayer cellLayer = mock(AgentLayer.class);
+        when(lm.getAgentLayer()).thenReturn(cellLayer);
 
-        CellLayerViewer clv = mock(CellLayerViewer.class);
+        AgentLayerViewer clv = mock(AgentLayerViewer.class);
         when(clv.exists(any())).thenReturn(exists);
         when(cellLayer.getViewer()).thenReturn(clv);
 
-        CellLookupManager clm = mock(CellLookupManager.class);
-        when(clm.getCellLocation(any())).thenReturn(c);
+        AgentLookupManager clm = mock(AgentLookupManager.class);
+        when(clm.getAgentLocation(any())).thenReturn(c);
         when(cellLayer.getLookupManager()).thenReturn(clm);
     }
 

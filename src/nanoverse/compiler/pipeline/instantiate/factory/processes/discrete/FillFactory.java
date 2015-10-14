@@ -24,7 +24,7 @@
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.*;
 
@@ -33,9 +33,9 @@ public class FillFactory implements Factory<Fill> {
     private final FillFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private CellProcessArguments cpArguments;
+    private AgentProcessArguments cpArguments;
     private boolean skipFilled;
-    private CellDescriptor cellDescriptor;
+    private AgentDescriptor cellDescriptor;
 
     public FillFactory() {
         helper = new FillFactoryHelper();
@@ -49,7 +49,7 @@ public class FillFactory implements Factory<Fill> {
         this.arguments = arguments;
     }
 
-    public void setCpArguments(CellProcessArguments cpArguments) {
+    public void setCpArguments(AgentProcessArguments cpArguments) {
         this.cpArguments = cpArguments;
     }
 
@@ -57,7 +57,7 @@ public class FillFactory implements Factory<Fill> {
         this.skipFilled = skipFilled;
     }
 
-    public void setCellDescriptor(CellDescriptor cellDescriptor) {
+    public void setAgentDescriptor(AgentDescriptor cellDescriptor) {
         this.cellDescriptor = cellDescriptor;
     }
 

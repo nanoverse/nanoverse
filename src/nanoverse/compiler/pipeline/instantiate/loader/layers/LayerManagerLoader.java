@@ -32,7 +32,7 @@ import nanoverse.compiler.pipeline.translate.nodes.*;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.GeometryDescriptor;
 import nanoverse.runtime.layers.*;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.layers.continuum.ContinuumLayer;
 
 import java.util.HashMap;
@@ -44,7 +44,7 @@ public class LayerManagerLoader extends Loader<LayerManager> {
 
     private final LayerManagerFactory factory;
     private final HashMap<String, ContinuumLayer> continuumLayers;
-    private int numCellLayers = 0;
+    private int numAgentLayers = 0;
 
     public LayerManagerLoader() {
         factory = new LayerManagerFactory();
@@ -80,15 +80,15 @@ public class LayerManagerLoader extends Loader<LayerManager> {
 
     public LayerManager instantiate(GeometryDescriptor geom, GeneralParameters p) {
         AgentLayerLoader loader = new AgentLayerLoader();
-        CellLayer layer = loader.instantiate(geom, p);
-        factory.setCellLayer(layer);
+        AgentLayer layer = loader.instantiate(geom, p);
+        factory.setAgentLayer(layer);
         factory.setContinuumLayers(continuumLayers);
         return factory.build();
     }
 
     private void assignLayer(Layer layer) {
-        if (layer instanceof CellLayer) {
-            assignCellLayer((CellLayer) layer);
+        if (layer instanceof AgentLayer) {
+            assignAgentLayer((AgentLayer) layer);
         } else if (layer instanceof ContinuumLayer) {
             assignContinuumLayer((ContinuumLayer) layer);
         } else {
@@ -105,12 +105,12 @@ public class LayerManagerLoader extends Loader<LayerManager> {
         continuumLayers.put(id, layer);
     }
 
-    private void assignCellLayer(CellLayer layer) {
-        if (numCellLayers > 0) {
+    private void assignAgentLayer(AgentLayer layer) {
+        if (numAgentLayers > 0) {
             throw new UnsupportedOperationException("Multiple cell nanoverse.runtime.layers not implemented.");
         }
 
-        factory.setCellLayer(layer);
-        numCellLayers++;
+        factory.setAgentLayer(layer);
+        numAgentLayers++;
     }
 }

@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.agent.targets;
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter.FilterLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.filter.Filter;
 import org.junit.*;
 
@@ -39,7 +39,7 @@ import static org.mockito.Mockito.*;
 public class TargetInterpolatorTest extends InterpolatorTest {
 
     private TargetDefaults defaults;
-    private CellLayer layer;
+    private AgentLayer layer;
     private TargetInterpolator query;
 
     @Before
@@ -47,7 +47,7 @@ public class TargetInterpolatorTest extends InterpolatorTest {
     public void before() throws Exception {
         super.before();
         defaults = mock(TargetDefaults.class);
-        layer = mock(CellLayer.class);
+        layer = mock(AgentLayer.class);
         query = new TargetInterpolator(load, defaults);
     }
 

@@ -35,7 +35,7 @@ import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
  * Created by dbborens on 8/27/2015.
  */
 public class ScatterClustersDefaults {
-    public CellDescriptor description(LayerManager lm, GeneralParameters p) {
+    public AgentDescriptor description(LayerManager lm, GeneralParameters p) {
         AgentDescriptorLoader loader = new AgentDescriptorLoader();
         return loader.instantiate(lm, p);
     }

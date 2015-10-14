@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.io.serialize.text;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.halt.ManualHaltEvent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -44,7 +44,7 @@ public class SurfaceCensusWriterTest extends LegacyTest {
     private ManualHaltEvent haltEvent;
     private Geometry geom;
     private MockLayerManager layerManager;
-    private CellLayer cellLayer;
+    private AgentLayer cellLayer;
 
     @Before
     public void setUp() throws Exception {
@@ -55,9 +55,9 @@ public class SurfaceCensusWriterTest extends LegacyTest {
         Boundary boundary = new Arena(shape, lattice);
         geom = new Geometry(lattice, shape, boundary);
 
-        cellLayer = new CellLayer(geom);
+        cellLayer = new AgentLayer(geom);
         layerManager = new MockLayerManager();
-        layerManager.setCellLayer(cellLayer);
+        layerManager.setAgentLayer(cellLayer);
         haltEvent = new ManualHaltEvent("");
         writer = new SurfaceCensusWriter(p, layerManager);
     }
@@ -98,16 +98,16 @@ public class SurfaceCensusWriterTest extends LegacyTest {
 
     private void replace(int y, int state) throws Exception {
         Coordinate c = new Coordinate2D(0, y, 0);
-        CellUpdateManager u = cellLayer.getUpdateManager();
+        AgentUpdateManager u = cellLayer.getUpdateManager();
         u.banish(c);
-        MockCell cell = new MockCell(state);
+        MockAgent cell = new MockAgent(state);
         u.place(cell, c);
     }
 
     private void put(int y, int state) throws Exception {
         Coordinate c = new Coordinate2D(0, y, 0);
-        MockCell cell = new MockCell(state);
-        CellUpdateManager u = cellLayer.getUpdateManager();
+        MockAgent cell = new MockAgent(state);
+        AgentUpdateManager u = cellLayer.getUpdateManager();
         u.place(cell, c);
     }
 

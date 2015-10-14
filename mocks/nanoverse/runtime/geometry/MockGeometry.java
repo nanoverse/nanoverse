@@ -132,7 +132,7 @@ public class MockGeometry extends Geometry {
         this.dimensionality = dimensionality;
     }
 
-    public void setCellNeighbors(Coordinate coord, Coordinate[] neighbors) {
+    public void setAgentNeighbors(Coordinate coord, Coordinate[] neighbors) {
         cellNeighbors.put(coord, neighbors);
     }
 

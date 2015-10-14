@@ -25,7 +25,7 @@ package nanoverse.compiler.pipeline.instantiate.factory.layers;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 
 import java.util.HashMap;
 
@@ -33,7 +33,7 @@ public class LayerManagerFactory implements Factory<LayerManager> {
 
     private final LayerManagerFactoryHelper helper;
 
-    private CellLayer cellLayer;
+    private AgentLayer cellLayer;
     private HashMap continuumLayers;
 
     public LayerManagerFactory() {
@@ -44,7 +44,7 @@ public class LayerManagerFactory implements Factory<LayerManager> {
         this.helper = helper;
     }
 
-    public void setCellLayer(CellLayer cellLayer) {
+    public void setAgentLayer(AgentLayer cellLayer) {
         this.cellLayer = cellLayer;
     }
 

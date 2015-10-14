@@ -24,14 +24,14 @@
 package nanoverse.compiler.pipeline.instantiate.factory.layers;
 
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 
 import java.util.HashMap;
 
 
 public class LayerManagerFactoryHelper {
 
-    public LayerManager build(CellLayer cellLayer, HashMap continuumLayers) {
+    public LayerManager build(AgentLayer cellLayer, HashMap continuumLayers) {
         return new LayerManager(cellLayer, continuumLayers);
     }
 }

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.continuum;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import org.junit.*;
 import test.LinearMocks;
@@ -57,7 +57,7 @@ public class ContinuumAgentLinkerTest extends LinearMocks {
 
     @Test
     public void add() throws Exception {
-        BehaviorCell cell = mock(BehaviorCell.class);
+        Agent cell = mock(Agent.class);
         Supplier<RelationshipTuple> tuple = mock(Supplier.class);
         query.add(cell, tuple);
         verify(notifier).add(cell, tuple);
@@ -65,7 +65,7 @@ public class ContinuumAgentLinkerTest extends LinearMocks {
 
     @Test
     public void getRemover() throws Exception {
-        BehaviorCell cell = mock(BehaviorCell.class);
+        Agent cell = mock(Agent.class);
         Runnable remover = query.getRemover(cell);
         remover.run();
         verify(notifier).remove(cell);

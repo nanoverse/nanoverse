@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.targets.TargetRule;
-import nanoverse.runtime.cells.BehaviorCell;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -54,7 +54,7 @@ public class Trigger extends Action {
      * @param behaviorName The name of the behavior to be triggered in the targets.
      * @param targetRule   The targeting rule used to identify targets when called.
      */
-    public Trigger(BehaviorCell callback, LayerManager layerManager, String behaviorName, TargetRule targetRule, IntegerArgument selfChannel, IntegerArgument targetChannel) {
+    public Trigger(Agent callback, LayerManager layerManager, String behaviorName, TargetRule targetRule, IntegerArgument selfChannel, IntegerArgument targetChannel) {
         super(callback, layerManager);
         this.behaviorName = behaviorName;
         this.targetRule = targetRule;
@@ -64,7 +64,7 @@ public class Trigger extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        BehaviorCell callerCell = resolveCaller(caller);
+        Agent callerAgent = resolveCaller(caller);
 
         // Since the Trigger behavior is the cause of the triggered behaviors,
         // the caller for the triggered behaviors is this cell.
@@ -76,15 +76,15 @@ public class Trigger extends Action {
             return;
         }
 
-        List<Coordinate> targets = targetRule.report(callerCell);
+        List<Coordinate> targets = targetRule.report(callerAgent);
 
         for (Coordinate target : targets) {
             // We require an occupied cell for the target of trigger actions.
-            BehaviorCell targetCell = getWithCast(target);
-            if (targetCell == null) {
+            Agent targetAgent = getWithCast(target);
+            if (targetAgent == null) {
                 continue;
             }
-            targetCell.trigger(behaviorName, self);
+            targetAgent.trigger(behaviorName, self);
             highlight(target, self);
         }
     }
@@ -114,7 +114,7 @@ public class Trigger extends Action {
     }
 
     @Override
-    public Action clone(BehaviorCell child) {
+    public Action clone(Agent child) {
         TargetRule clonedTargeter = targetRule.clone(child);
         Trigger cloned = new Trigger(child, getLayerManager(), behaviorName, clonedTargeter, selfChannel, targetChannel);
         return cloned;

@@ -29,7 +29,7 @@ import nanoverse.runtime.processes.discrete.*;
 
 public class CullFactoryHelper {
 
-    public Cull build(BaseProcessArguments arguments, CellProcessArguments cpArguments, double threshold) {
+    public Cull build(BaseProcessArguments arguments, AgentProcessArguments cpArguments, double threshold) {
         return new Cull(arguments, cpArguments, threshold);
     }
 }

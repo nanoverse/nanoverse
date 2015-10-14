@@ -36,7 +36,7 @@ public class DominationEvent extends HaltCondition {
         this.cellState = cellState;
     }
 
-    public Integer getCellState() {
+    public Integer getAgentClass() {
         return cellState;
     }
 

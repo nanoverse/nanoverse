@@ -63,8 +63,8 @@ public class OutputClassSymbolTable extends ClassSymbolTable<Serializer> {
     }
 
     public void cellStateWriter(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = CellStateWriterInstSymbolTable::new;
-        ret.put("CellStateWriter", supplier);
+        Supplier<InstantiableSymbolTable> supplier = AgentClassWriterInstSymbolTable::new;
+        ret.put("AgentClassWriter", supplier);
     }
 
     public void haltTimeWriter(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {

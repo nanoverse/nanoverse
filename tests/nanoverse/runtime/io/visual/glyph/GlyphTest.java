@@ -110,7 +110,7 @@ public abstract class GlyphTest extends LegacyTest {
         for (int i = 0; i < n; i++) {
             state[i] = 0;
         }
-        systemState.initCellLayer(state);
+        systemState.initAgentLayer(state);
 
     }
 

@@ -24,12 +24,12 @@
 
 package nanoverse.runtime.processes.discrete.cluster;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 /**
@@ -40,13 +40,13 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
     private final GeneralParameters p;
 
     @FactoryTarget
-    public CompactSeparatedClustersHelper(CellLayer layer, GeneralParameters p) {
+    public CompactSeparatedClustersHelper(AgentLayer layer, GeneralParameters p) {
         super(layer);
         this.p = p;
     }
 
     @Override
-    public int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m) {
+    public int attemptPlacement(Coordinate candidate, Agent toPlace, int m) {
         if (layer.getViewer().isOccupied(candidate)) {
             return 0;
         }
@@ -70,7 +70,7 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
      * clockwise through the neighborhood.
      */
     private void doAttempt(Coordinate candidate,
-                           BehaviorCell toPlace,
+                           Agent toPlace,
                            int m) {
 
         place(candidate, toPlace);
@@ -87,7 +87,7 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
             int iWrapped = (i + start) % vacancies.length;
             Coordinate c = vacancies[iWrapped];
             int state = toPlace.getState();
-            BehaviorCell clone;
+            Agent clone;
 
             try {
                 clone = toPlace.clone(state);
@@ -98,7 +98,7 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
         }
     }
 
-    private void place(Coordinate c, BehaviorCell cell) {
+    private void place(Coordinate c, Agent cell) {
         try {
             layer.getUpdateManager().place(cell, c);
         } catch (HaltCondition ex) {

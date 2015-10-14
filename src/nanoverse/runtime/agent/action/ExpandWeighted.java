@@ -24,12 +24,13 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.*;
+import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.CellUpdateManager;
+import nanoverse.runtime.layers.cell.AgentUpdateManager;
 import nanoverse.runtime.processes.discrete.ShoveHelper;
 
 import java.util.*;
@@ -55,7 +56,7 @@ public class ExpandWeighted extends Action {
 
     private Random random;
 
-    public ExpandWeighted(BehaviorCell callback, LayerManager layerManager,
+    public ExpandWeighted(Agent callback, LayerManager layerManager,
                           IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
 
         super(callback, layerManager);
@@ -70,14 +71,14 @@ public class ExpandWeighted extends Action {
     public void run(Coordinate caller) throws HaltCondition {
         Coordinate parentLocation = getOwnLocation();
 
-        CellUpdateManager u = getLayerManager().getCellLayer().getUpdateManager();
+        AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
 
         // Step 1: shove parent toward vacant site in a cardinal direction; choice
         // weighted by the distance to the vacancy in each of the directions
         HashSet<Coordinate> affectedSites = shoveHelper.shoveWeighted(parentLocation);
 
         // Step 2: Clone parent.
-        Cell child = getCallback().replicate();
+        AbstractAgent child = getCallback().replicate();
 
         // Step 3: Place child in parent location.
         u.place(child, parentLocation);
@@ -113,7 +114,7 @@ public class ExpandWeighted extends Action {
     }
 
     @Override
-    public Action clone(BehaviorCell child) {
+    public Action clone(Agent child) {
         return new ExpandWeighted(child, getLayerManager(), selfChannel, targetChannel,
             random);
     }

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.DominationEvent;
 import nanoverse.runtime.control.identifiers.*;
@@ -33,7 +33,7 @@ import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.check.CheckForDomination;
 import nanoverse.runtime.structural.MockGeneralParameters;
@@ -44,7 +44,7 @@ import static org.junit.Assert.assertEquals;
 
 public class CheckForDominationTest extends LegacyTest {
     private MockLayerManager layerManager;
-    private CellLayer layer;
+    private AgentLayer layer;
     private CheckForDomination query;
 
     @Before
@@ -54,8 +54,8 @@ public class CheckForDominationTest extends LegacyTest {
         Shape shape = new Rectangle(lattice, 11, 1);
         Boundary boundary = new Periodic(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        layer = new CellLayer(geom);
-        layerManager.setCellLayer(layer);
+        layer = new AgentLayer(geom);
+        layerManager.setAgentLayer(layer);
         MockGeneralParameters p = makeMockGeneralParameters();
         DoubleArgument thresholdArg = new ConstantDouble(0.2);
         IntegerArgument stateArg = new ConstantInteger(1);
@@ -63,7 +63,7 @@ public class CheckForDominationTest extends LegacyTest {
         // Create a 1D lattice of length 10.
         // Create an occupancy test that checks for 30% occupancy.
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
-        CellProcessArguments cpArguments = makeCellProcessArguments(geom);
+        AgentProcessArguments cpArguments = makeAgentProcessArguments(geom);
         query = new CheckForDomination(arguments, cpArguments, stateArg, thresholdArg);
         query.init();
     }
@@ -94,7 +94,7 @@ public class CheckForDominationTest extends LegacyTest {
     }
 
     private void populate(int x, int state) throws Exception {
-        BehaviorCell cell = new BehaviorCell(layerManager, state, state, state, null);
+        Agent cell = new Agent(layerManager, state, state, state, null);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
     }

@@ -39,15 +39,23 @@ public class ProbabilitySupplierClassSymbolTable extends ClassSymbolTable<Probab
     protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         constant(ret);
-        dependent(ret);
+        continuum(ret);
+        neighborhood(ret);
         return ret;
     }
 
-    private void dependent(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+    private void continuum(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> supplier =
-            DependentProbabilitySupplierInstSymbolTable::new;
+            ContinuumProbabilitySupplierInstSymbolTable::new;
 
-        ret.put("Dependent", supplier);
+        ret.put("Continuum", supplier);
+    }
+
+    private void neighborhood(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier =
+                NeighborhoodProbabilitySupplierInstSymbolTable::new;
+
+        ret.put("Neighborhood", supplier);
     }
 
     private void constant(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {

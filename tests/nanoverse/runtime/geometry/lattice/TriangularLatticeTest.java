@@ -357,7 +357,7 @@ public class TriangularLatticeTest extends LegacyTest {
 
     @Test
     public void testGetZeroVector() {
-        Coordinate expected = new Coordinate2D(0, 0, 0);
+        Coordinate expected = new Coordinate3D(0, 0, 0, 0);
         Coordinate actual = lattice.getZeroVector();
         assertEquals(expected, actual);
     }

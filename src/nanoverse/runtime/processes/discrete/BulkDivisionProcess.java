@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.*;
@@ -32,13 +32,13 @@ import nanoverse.runtime.processes.*;
 
 import java.util.Random;
 
-public abstract class BulkDivisionProcess extends CellProcess {
+public abstract class BulkDivisionProcess extends AgentProcess {
 
 
     protected Random random;
     private ShoveHelper shoveHelper;
 
-    public BulkDivisionProcess(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
+    public BulkDivisionProcess(BaseProcessArguments arguments, AgentProcessArguments cpArguments) {
         super(arguments, cpArguments);
     }
 
@@ -50,11 +50,11 @@ public abstract class BulkDivisionProcess extends CellProcess {
 
     protected void execute(Coordinate[] candidates) throws HaltCondition {
         Object[] chosen = MaxTargetHelper.respectMaxTargets(candidates, getMaxTargets().next(), getGeneralParameters().getRandom());
-        Cell[] chosenCells = toCellArray(chosen);
-        for (int i = 0; i < chosenCells.length; i++) {
-            Cell cell = chosenCells[i];
-            CellLookupManager lm = getLayer().getLookupManager();
-            Coordinate currentLocation = lm.getCellLocation(cell);
+        AbstractAgent[] chosenAgents = toAgentArray(chosen);
+        for (int i = 0; i < chosenAgents.length; i++) {
+            AbstractAgent agent = chosenAgents[i];
+            AgentLookupManager lm = getLayer().getLookupManager();
+            Coordinate currentLocation = lm.getAgentLocation(agent);
             doDivision(currentLocation);
         }
 
@@ -64,23 +64,23 @@ public abstract class BulkDivisionProcess extends CellProcess {
         shoveHelper.removeImaginary();
     }
 
-    private Cell[] toCellArray(Object[] chosen) {
+    private AbstractAgent[] toAgentArray(Object[] chosen) {
         int n = chosen.length;
-        Cell[] cells = new Cell[n];
+        AbstractAgent[] abstractAgents = new AbstractAgent[n];
         for (int i = 0; i < n; i++) {
             Coordinate coord = (Coordinate) chosen[i];
-            Cell cell = getLayer().getViewer().getCell(coord);
-            cells[i] = cell;
+            AbstractAgent agent = getLayer().getViewer().getAgent(coord);
+            abstractAgents[i] = agent;
         }
 
-        return cells;
+        return abstractAgents;
     }
 
 
     protected void doDivision(Coordinate origin) throws HaltCondition {
         // Get child cell
-        CellUpdateManager um = getLayer().getUpdateManager();
-        Cell child = um.divide(origin);
+        AgentUpdateManager um = getLayer().getUpdateManager();
+        AbstractAgent child = um.divide(origin);
 
         Coordinate target = shoveHelper.chooseVacancy(origin);
 

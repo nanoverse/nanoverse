@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -38,7 +38,7 @@ public class Inject extends Action {
     private final DoubleArgument deltaArg;
     private final String layerId;
 
-    public Inject(BehaviorCell callback, LayerManager layerManager, String layerId, DoubleArgument deltaArg) {
+    public Inject(Agent callback, LayerManager layerManager, String layerId, DoubleArgument deltaArg) {
         super(callback, layerManager);
         this.deltaArg = deltaArg;
         this.layerId = layerId;
@@ -72,7 +72,7 @@ public class Inject extends Action {
     }
 
     @Override
-    public Action clone(BehaviorCell child) {
+    public Action clone(Agent child) {
         return new Inject(child, getLayerManager(), layerId, deltaArg);
     }
 

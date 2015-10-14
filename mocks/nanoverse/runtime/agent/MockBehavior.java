@@ -25,7 +25,6 @@
 package nanoverse.runtime.agent;
 
 import nanoverse.runtime.agent.action.*;
-import nanoverse.runtime.cells.BehaviorCell;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 import java.util.HashMap;
@@ -47,7 +46,7 @@ public class MockBehavior extends CompoundAction {
         callerCounts = new HashMap<>();
     }
 
-    public MockBehavior(BehaviorCell callback) {
+    public MockBehavior(Agent callback) {
         super(callback, null, null);
         timesRun = 0;
         callerCounts = new HashMap<>();
@@ -78,7 +77,7 @@ public class MockBehavior extends CompoundAction {
     }
 
     @Override
-    public MockBehavior clone(BehaviorCell child) {
+    public MockBehavior clone(Agent child) {
         return new MockBehavior(child);
     }
 

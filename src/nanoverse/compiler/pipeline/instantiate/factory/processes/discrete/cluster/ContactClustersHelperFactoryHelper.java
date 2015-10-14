@@ -23,13 +23,13 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.cluster;
 
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.cluster.ContactClustersHelper;
 
 
 public class ContactClustersHelperFactoryHelper {
 
-    public ContactClustersHelper build(CellLayer layer) {
+    public ContactClustersHelper build(AgentLayer layer) {
         return new ContactClustersHelper(layer);
     }
 }

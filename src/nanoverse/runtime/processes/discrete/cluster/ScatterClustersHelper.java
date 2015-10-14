@@ -24,10 +24,10 @@
 
 package nanoverse.runtime.processes.discrete.cluster;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -36,13 +36,13 @@ import java.util.stream.IntStream;
  * Created by dbborens on 6/14/2015.
  */
 public abstract class ScatterClustersHelper {
-    protected final CellLayer layer;
+    protected final AgentLayer layer;
 
-    public ScatterClustersHelper(CellLayer layer) {
+    public ScatterClustersHelper(AgentLayer layer) {
         this.layer = layer;
     }
 
-    public abstract int attemptPlacement(Coordinate candidate, BehaviorCell toPlace, int m);
+    public abstract int attemptPlacement(Coordinate candidate, Agent toPlace, int m);
 
     /**
      * Examines a coordinate to determine whether its neighborhood has room
@@ -56,7 +56,7 @@ public abstract class ScatterClustersHelper {
      * @param m
      * @return
      */
-    protected int needed(Coordinate current, BehaviorCell toPlace, int m) {
+    protected int needed(Coordinate current, Agent toPlace, int m) {
         // Get new cell's state.
         int state = toPlace.getState();
 
@@ -86,7 +86,7 @@ public abstract class ScatterClustersHelper {
             .count();
     }
 
-    protected void placeAndColonize(Coordinate current, BehaviorCell toPlace, int needed) {
+    protected void placeAndColonize(Coordinate current, Agent toPlace, int needed) {
         try {
             layer.getUpdateManager().place(toPlace, current);
         } catch (HaltCondition ex) {
@@ -98,7 +98,7 @@ public abstract class ScatterClustersHelper {
 
         IntStream.range(0, needed).mapToObj(vacancies::get).forEach(c -> {
             int state = toPlace.getState();
-            BehaviorCell clone;
+            Agent clone;
             try {
                 clone = toPlace.clone(state);
                 layer.getUpdateManager().place(clone, c);
@@ -108,7 +108,7 @@ public abstract class ScatterClustersHelper {
         });
     }
 
-    protected boolean hasSelfNeighbors(Coordinate candidate, BehaviorCell toPlace) {
+    protected boolean hasSelfNeighbors(Coordinate candidate, Agent toPlace) {
         // Get new cell's state.
         int state = toPlace.getState();
 

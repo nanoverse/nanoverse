@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.targets;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.LayerManager;
@@ -39,22 +39,22 @@ import java.util.*;
  */
 public class TargetAllNeighbors extends TargetRule {
 
-    public TargetAllNeighbors(BehaviorCell callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
+    public TargetAllNeighbors(Agent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
         super(callback, layerManager, filter, maximum, random);
     }
 
     @Override
-    public TargetRule clone(BehaviorCell child) {
+    public TargetRule clone(Agent child) {
         return new TargetAllNeighbors(child, layerManager, filter, maximum, random);
     }
 
     @Override
-    protected List<Coordinate> getCandidates(BehaviorCell caller) {
+    protected List<Coordinate> getCandidates(Agent caller) {
         // Get nanoverse.runtime.geometry
-        Geometry geom = layerManager.getCellLayer().getGeometry();
+        Geometry geom = layerManager.getAgentLayer().getGeometry();
 
         // Get self coordinate
-        Coordinate self = layerManager.getCellLayer().getLookupManager().getCellLocation(callback);
+        Coordinate self = layerManager.getAgentLayer().getLookupManager().getAgentLocation(callback);
 
         // Get coordinates of neighbors from nanoverse.runtime.geometry
         Coordinate[] neighbors = geom.getNeighbors(self, Geometry.APPLY_BOUNDARIES);

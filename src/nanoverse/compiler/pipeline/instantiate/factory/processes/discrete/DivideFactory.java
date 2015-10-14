@@ -32,7 +32,7 @@ public class DivideFactory implements Factory<Divide> {
     private final DivideFactoryHelper helper;
 
     private BaseProcessArguments arguments;
-    private CellProcessArguments cpArguments;
+    private AgentProcessArguments cpArguments;
 
     public DivideFactory() {
         helper = new DivideFactoryHelper();
@@ -46,7 +46,7 @@ public class DivideFactory implements Factory<Divide> {
         this.arguments = arguments;
     }
 
-    public void setCpArguments(CellProcessArguments cpArguments) {
+    public void setCpArguments(AgentProcessArguments cpArguments) {
         this.cpArguments = cpArguments;
     }
 

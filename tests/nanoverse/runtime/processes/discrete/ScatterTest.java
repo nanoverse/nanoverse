@@ -33,7 +33,7 @@ import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.set.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import org.junit.*;
 import test.LegacyTest;
@@ -45,7 +45,7 @@ public class ScatterTest extends LegacyTest {
     private MockLayerManager lm;
     private GeneralParameters p;
     private BaseProcessArguments arguments;
-    private CellDescriptor cd;
+    private AgentDescriptor cd;
 
     @Before
     public void setUp() throws Exception {
@@ -58,22 +58,22 @@ public class ScatterTest extends LegacyTest {
         Boundary boundary = new Arena(shape, lattice);
         geom = new Geometry(lattice, shape, boundary);
 
-        CellLayer layer = new CellLayer(geom);
-        lm.setCellLayer(layer);
+        AgentLayer layer = new AgentLayer(geom);
+        lm.setAgentLayer(layer);
 
         arguments = makeBaseProcessArguments(lm, p);
 
-        cd = new MockCellDescriptor();
+        cd = new MockAgentDescriptor();
     }
 
     @Test
     public void testBaseBehavior() throws Exception {
-        CellProcessArguments cpArguments = makeCellProcessArguments(geom);
+        AgentProcessArguments cpArguments = makeAgentProcessArguments(geom);
         Scatter query = new Scatter(arguments, cpArguments, cd);
         query.init();
         query.iterate();
 
-        assertEquals(10, lm.getCellLayer().getViewer().getOccupiedSites().size());
+        assertEquals(10, lm.getAgentLayer().getViewer().getOccupiedSites().size());
     }
 
     @Test
@@ -83,14 +83,14 @@ public class ScatterTest extends LegacyTest {
             activeSites.add(new Coordinate2D(0, y, 0));
         }
 
-        CellProcessArguments cpArguments = new CellProcessArguments(activeSites, new ConstantInteger(-1));
+        AgentProcessArguments cpArguments = new AgentProcessArguments(activeSites, new ConstantInteger(-1));
 
         Scatter query = new Scatter(arguments, cpArguments, cd);
         query.init();
         query.iterate();
 
         for (Coordinate c : geom.getCanonicalSites()) {
-            boolean actual = lm.getCellLayer().getViewer().isOccupied(c);
+            boolean actual = lm.getAgentLayer().getViewer().isOccupied(c);
             boolean expected = activeSites.contains(c);
             assertEquals(expected, actual);
         }
@@ -100,11 +100,11 @@ public class ScatterTest extends LegacyTest {
     public void testRespectMaxTargets() throws Exception {
         CoordinateSet activeSites = new CompleteSet(geom);
         IntegerArgument maxTargets = new ConstantInteger(3);
-        CellProcessArguments cpArguments = new CellProcessArguments(activeSites, maxTargets);
+        AgentProcessArguments cpArguments = new AgentProcessArguments(activeSites, maxTargets);
         Scatter query = new Scatter(arguments, cpArguments, cd);
         query.init();
         query.iterate();
 
-        assertEquals(3, lm.getCellLayer().getViewer().getOccupiedSites().size());
+        assertEquals(3, lm.getAgentLayer().getViewer().getOccupiedSites().size());
     }
 }

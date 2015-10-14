@@ -24,10 +24,10 @@
 
 package nanoverse.runtime.io.serialize.text;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.halt.ManualHaltEvent;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.cell.CellUpdateManager;
+import nanoverse.runtime.layers.cell.AgentUpdateManager;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.MockGeneralParameters;
 import org.junit.*;
@@ -82,14 +82,14 @@ public class CensusWriterTest extends LegacyLatticeTest {
     }
 
     private void replace(Coordinate c, int state) throws Exception {
-        CellUpdateManager u = cellLayer.getUpdateManager();
+        AgentUpdateManager u = cellLayer.getUpdateManager();
         u.banish(c);
         put(c, state);
     }
 
     private void put(Coordinate c, int state) throws Exception {
-        MockCell cell = new MockCell(state);
-        CellUpdateManager u = cellLayer.getUpdateManager();
+        MockAgent cell = new MockAgent(state);
+        AgentUpdateManager u = cellLayer.getUpdateManager();
         u.place(cell, c);
     }
 

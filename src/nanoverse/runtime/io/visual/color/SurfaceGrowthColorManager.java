@@ -74,7 +74,7 @@ public class SurfaceGrowthColorManager extends ColorManager {
     }
 
     private boolean isVacant(SystemState systemState, Coordinate c) {
-        if (systemState.getLayerManager().getCellLayer().getViewer().isOccupied(c)) {
+        if (systemState.getLayerManager().getAgentLayer().getViewer().isOccupied(c)) {
             return false;
         }
 
@@ -115,7 +115,7 @@ public class SurfaceGrowthColorManager extends ColorManager {
     }
 
     private boolean checkIsInterior(Coordinate c, SystemState systemState) {
-        int[] neighborStates = systemState.getLayerManager().getCellLayer().getLookupManager().getNeighborStates(c, false);
+        int[] neighborStates = systemState.getLayerManager().getAgentLayer().getLookupManager().getNeighborStates(c, false);
 
         // If any neighbor is 0 (vacant), the point is not interior
         for (int neighborState : neighborStates) {

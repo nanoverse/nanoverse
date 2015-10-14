@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.translate.symbol.processes.discrete;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.runtime.control.arguments.CellDescriptor;
+import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.processes.discrete.PowerScatter;
 import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
 import org.junit.Test;
@@ -44,7 +44,7 @@ public class PowerScatterInstSymbolTableTest extends DiscreteProcessInstSymbolTa
 
     @Test
     public void description() throws Exception {
-        verifyReturnSymbol("description", CellDescriptor.class);
+        verifyReturnSymbol("description", AgentDescriptor.class);
     }
 
     @Test

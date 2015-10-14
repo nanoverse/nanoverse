@@ -51,7 +51,7 @@ public class SystemStateReader implements Iterable<LightweightSystemState> {
 
     /* Data handles */
     private HighlightReader highlightReader;
-    private LegacyCellStateReader cellStateReader;
+    private LegacyAgentClassReader cellStateReader;
     private ContinuumStateReader continuumStateReader;
     private Map<String, Extrema> extremaMap;
 
@@ -76,7 +76,7 @@ public class SystemStateReader implements Iterable<LightweightSystemState> {
         highlightReader = new HighlightReader(fileRoot, channelIds, deindexer);
 
         // Open handle to data file for cell state vector.
-        cellStateReader = new LegacyCellStateReader(fileRoot, deindexer);
+        cellStateReader = new LegacyAgentClassReader(fileRoot, deindexer);
 
         continuumStateReader = new ContinuumStateReader(fileRoot,
             geometry.getCanonicalSites().length);

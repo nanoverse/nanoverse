@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.targets;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 
 import java.util.function.Function;
 
@@ -33,10 +33,10 @@ import java.util.function.Function;
  */
 public abstract class TargetDescriptor<T extends TargetRule> {
 
-    public T instantiate(BehaviorCell cell) {
+    public T instantiate(Agent cell) {
         return getConstructor().apply(cell);
     }
 
-    protected abstract Function<BehaviorCell, T> getConstructor();
+    protected abstract Function<Agent, T> getConstructor();
 
 }

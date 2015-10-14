@@ -29,7 +29,7 @@ import nanoverse.runtime.processes.discrete.*;
 
 public class OccupiedNeighborSwapFactoryHelper {
 
-    public OccupiedNeighborSwap build(BaseProcessArguments arguments, CellProcessArguments cpArguments) {
+    public OccupiedNeighborSwap build(BaseProcessArguments arguments, AgentProcessArguments cpArguments) {
         return new OccupiedNeighborSwap(arguments, cpArguments);
     }
 }

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.cells.BehaviorCell;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
@@ -42,7 +42,7 @@ public class StochasticChoice extends Action {
     private DynamicActionRangeMap chooser;
     private Random random;
 
-    public StochasticChoice(BehaviorCell callback, LayerManager layerManager,
+    public StochasticChoice(Agent callback, LayerManager layerManager,
                             DynamicActionRangeMap chooser, Random random) {
 
         super(callback, layerManager);
@@ -80,7 +80,7 @@ public class StochasticChoice extends Action {
     }
 
     @Override
-    public Action clone(BehaviorCell child) {
+    public Action clone(Agent child) {
         DynamicActionRangeMap clonedChooser = chooser.clone(child);
         StochasticChoice cloned = new StochasticChoice(child, getLayerManager(), clonedChooser, random);
         return cloned;

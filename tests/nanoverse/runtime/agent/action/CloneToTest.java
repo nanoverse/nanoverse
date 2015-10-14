@@ -24,6 +24,8 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
 import nanoverse.runtime.cells.*;
@@ -32,7 +34,7 @@ import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import org.junit.*;
 import test.LegacyLatticeTest;
 
@@ -45,11 +47,11 @@ import static org.mockito.Mockito.*;
 public class CloneToTest extends LegacyLatticeTest {
 
     private static final int MOCK_PROGENY_STATE = 7;
-    private BehaviorCell original;
+    private Agent original;
     private MockTargetRule targetRule;
     private CloneTo query;
     private Random random;
-    private Supplier<BehaviorCell> supplier;
+    private Supplier<Agent> supplier;
 
     @Override
     @Before
@@ -64,11 +66,11 @@ public class CloneToTest extends LegacyLatticeTest {
         targetRule.setTargets(targets);
 
         supplier = mock(Supplier.class);
-        when(supplier.get()).thenReturn(new MockCell(MOCK_PROGENY_STATE),
-            new MockCell(MOCK_PROGENY_STATE));
+        when(supplier.get()).thenReturn(new MockAgent(MOCK_PROGENY_STATE),
+            new MockAgent(MOCK_PROGENY_STATE));
 
         // Place a single cell at origin.
-        original = new BehaviorCell(layerManager, 1, 1.0, 1.0, supplier);
+        original = new Agent(layerManager, 1, 1.0, 1.0, supplier);
         BehaviorDispatcher bd = new BehaviorDispatcher();
         original.setDispatcher(bd);
 
@@ -90,8 +92,8 @@ public class CloneToTest extends LegacyLatticeTest {
         assertTrue(cellLayer.getViewer().isOccupied(x));
         assertTrue(cellLayer.getViewer().isOccupied(y));
 
-        assertEquals(MOCK_PROGENY_STATE, cellLayer.getViewer().getCell(x).getState());
-        assertEquals(MOCK_PROGENY_STATE, cellLayer.getViewer().getCell(y).getState());
+        assertEquals(MOCK_PROGENY_STATE, cellLayer.getViewer().getAgent(x).getState());
+        assertEquals(MOCK_PROGENY_STATE, cellLayer.getViewer().getAgent(y).getState());
     }
 
     /**
@@ -101,11 +103,11 @@ public class CloneToTest extends LegacyLatticeTest {
      */
     @Test
     public void testReplacement() throws Exception {
-        CellLayer layer = linearLayer(false);
-        Cell cell = layer.getViewer().getCell(new Coordinate2D(4, 0, 0));
+        AgentLayer layer = linearLayer(false);
+        AbstractAgent agent = layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
 
-        // Divide cell at position 4 toward 5
-        cell.trigger("replicate-self", null);
+        // Divide agent at position 4 toward 5
+        agent.trigger("replicate-self", null);
 
         // New configuration: _123446_89
         assertEquals(4, layer.getViewer().getState(new Coordinate2D(4, 0, 0)));
@@ -116,35 +118,35 @@ public class CloneToTest extends LegacyLatticeTest {
 
     /**
      * _123456_89  Initial condition
-     * ^       (Cell to be divided)
+     * ^       (AbstractAgent to be divided)
      */
-    private CellLayer linearLayer(boolean shoving) throws Exception {
+    private AgentLayer linearLayer(boolean shoving) throws Exception {
         Lattice lattice = new RectangularLattice();
         Shape shape = new Rectangle(lattice, 10, 1);
         Boundary boundary = new Periodic(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        CellLayer layer = new CellLayer(geom);
-        layerManager.setCellLayer(layer);
-        placeCells(layer, shoving);
+        AgentLayer layer = new AgentLayer(geom);
+        layerManager.setAgentLayer(layer);
+        placeAgents(layer, shoving);
 
         return layer;
     }
 
-    private void placeCells(CellLayer layer, boolean shoving) throws Exception {
+    private void placeAgents(AgentLayer layer, boolean shoving) throws Exception {
         for (int x = 1; x < 7; x++) {
-            placeNumberedCell(x, layer, shoving);
+            placeNumberedAgent(x, layer, shoving);
         }
 
         for (int x = 8; x <= 9; x++) {
-            placeNumberedCell(x, layer, shoving);
+            placeNumberedAgent(x, layer, shoving);
         }
     }
 
-    private void placeNumberedCell(int x, CellLayer layer, boolean shoving) throws Exception {
-        Supplier<BehaviorCell> ncSupplier = mock(Supplier.class);
-        BehaviorCell child = new MockCell(x);
+    private void placeNumberedAgent(int x, AgentLayer layer, boolean shoving) throws Exception {
+        Supplier<Agent> ncSupplier = mock(Supplier.class);
+        Agent child = new MockAgent(x);
         when(ncSupplier.get()).thenReturn(child);
-        BehaviorCell cell = new BehaviorCell(layerManager, x, x, x, ncSupplier);
+        Agent cell = new Agent(layerManager, x, x, x, ncSupplier);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();
@@ -152,7 +154,7 @@ public class CloneToTest extends LegacyLatticeTest {
 
         MockTargetRule mtr = new MockTargetRule();
 
-        // Cells always divide to the right
+        // Agents always divide to the right
         Coordinate target = new Coordinate2D(x + 1, 0, 0);
         List<Coordinate> targets = new ArrayList<>(1);
         targets.add(target);

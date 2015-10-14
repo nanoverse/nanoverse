@@ -29,7 +29,7 @@ import nanoverse.compiler.pipeline.instantiate.loader.control.identifiers.Coordi
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import org.junit.*;
 
 import java.util.function.Supplier;
@@ -51,8 +51,8 @@ public class HLineCoordinateSetInterpolatorTest extends InterpolatorTest {
 
     @Test
     public void geometry() throws Exception {
-        CellLayer layer = mock(CellLayer.class);
-        when(lm.getCellLayer()).thenReturn(layer);
+        AgentLayer layer = mock(AgentLayer.class);
+        when(lm.getAgentLayer()).thenReturn(layer);
 
         Geometry expected = mock(Geometry.class);
         when(layer.getGeometry()).thenReturn(expected);

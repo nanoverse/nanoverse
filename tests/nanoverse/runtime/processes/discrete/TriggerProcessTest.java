@@ -24,11 +24,11 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.MockCell;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.CellLayer;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.filter.NullFilter;
 import nanoverse.runtime.processes.gillespie.GillespieState;
@@ -49,7 +49,7 @@ import static org.junit.Assert.*;
 public class TriggerProcessTest extends LegacyTest {
 
     private TriggerProcess trigger;
-    private CellLayer layer;
+    private AgentLayer layer;
     private MockLayerManager layerManager;
     private MockGeneralParameters p;
     private MockGeometry geom;
@@ -60,13 +60,13 @@ public class TriggerProcessTest extends LegacyTest {
 
         p = new MockGeneralParameters();
         p.initializeRandom(0);
-        layer = new CellLayer(geom);
+        layer = new AgentLayer(geom);
         layerManager = new MockLayerManager();
-        layerManager.setCellLayer(layer);
+        layerManager.setAgentLayer(layer);
 
 //        trigger = new TriggerProcess(layerManager, 0, "test", p, true, false, -1, false);
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
-        CellProcessArguments cpArguments = makeCellProcessArguments(geom);
+        AgentProcessArguments cpArguments = makeAgentProcessArguments(geom);
 
         trigger = new TriggerProcess(arguments, cpArguments, "test", new NullFilter(), true, false);
     }
@@ -90,7 +90,7 @@ public class TriggerProcessTest extends LegacyTest {
 
     @Test
     public void testLifeCycle() throws Exception {
-        MockCell cell = new MockCell();
+        MockAgent cell = new MockAgent();
         Coordinate c = layer.getGeometry().getCanonicalSites()[0];
         layer.getUpdateManager().place(cell, c);
         assertTrue(layer.getViewer().isOccupied(c));
@@ -113,14 +113,14 @@ public class TriggerProcessTest extends LegacyTest {
         // triggered.
 //        trigger = new TriggerProcess(layerManager, 0, "test", p, true, true, -1, false);
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
-        CellProcessArguments cpArguments = makeCellProcessArguments(geom);
+        AgentProcessArguments cpArguments = makeAgentProcessArguments(geom);
 
         trigger = new TriggerProcess(arguments, cpArguments, "test", new NullFilter(), true, true);
 
         // Set up two neighboring nanoverse.runtime.cells and one isolated cell.
-        MockCell neighbor1 = new MockCell();
-        MockCell neighbor2 = new MockCell();
-        MockCell isolated = new MockCell();
+        MockAgent neighbor1 = new MockAgent();
+        MockAgent neighbor2 = new MockAgent();
+        MockAgent isolated = new MockAgent();
         setUpNeighborhoodTestCase(neighbor1, neighbor2, isolated);
 
 
@@ -137,7 +137,7 @@ public class TriggerProcessTest extends LegacyTest {
     //    public void testRecordAfterTargeting() throws Exception {
 //        fail("Not yet implemented");
 //    }
-    private void setUpNeighborhoodTestCase(MockCell neighbor1, MockCell neighbor2, MockCell isolated) throws Exception {
+    private void setUpNeighborhoodTestCase(MockAgent neighbor1, MockAgent neighbor2, MockAgent isolated) throws Exception {
         MockGeometry geom = (MockGeometry) layer.getGeometry();
         // 0, 0, 0
         Coordinate nc1 = geom.getCanonicalSites()[0];
@@ -153,9 +153,9 @@ public class TriggerProcessTest extends LegacyTest {
 
         // Since we're using a mock nanoverse.runtime.geometry, we have to manually define
         // the neighborhoods.
-        geom.setCellNeighbors(nc1, new Coordinate[]{nc2});
-        geom.setCellNeighbors(nc2, new Coordinate[]{nc1});
-        geom.setCellNeighbors(ni, new Coordinate[]{});
+        geom.setAgentNeighbors(nc1, new Coordinate[]{nc2});
+        geom.setAgentNeighbors(nc2, new Coordinate[]{nc1});
+        geom.setAgentNeighbors(ni, new Coordinate[]{});
 
     }
 

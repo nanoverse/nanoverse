@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.Cell;
+import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.*;
@@ -38,17 +38,17 @@ import java.util.*;
  * Causes nanoverse.runtime.cells within the active area to perform the specified behavior.
  * Created by David B Borenstein on 2/15/14.
  */
-public class TriggerProcess extends CellProcess {
+public class TriggerProcess extends AgentProcess {
     private String behaviorName;
     private boolean skipVacant;
     private boolean requireNeighbors;
     private Filter filter;
 
     // We use a cell array because triggering may also move nanoverse.runtime.cells
-    private Cell[] targets;
+    private AbstractAgent[] targets;
 
     @FactoryTarget
-    public TriggerProcess(BaseProcessArguments arguments, CellProcessArguments cpArguments,
+    public TriggerProcess(BaseProcessArguments arguments, AgentProcessArguments cpArguments,
                           String behaviorName,
                           Filter filter,
                           boolean skipVacant,
@@ -71,19 +71,19 @@ public class TriggerProcess extends CellProcess {
 
     }
 
-    private Cell[] resolveTargets() throws HaltCondition {
+    private AbstractAgent[] resolveTargets() throws HaltCondition {
         ArrayList<Coordinate> vacancyFiltered = respectVacancyRequirements(getActiveSites());
         Collection<Coordinate> stateFiltered = filter.apply(vacancyFiltered);
         Collection<? extends Object> neighborFiltered = respectNeighborhoodRequirements(stateFiltered);
         Object[] selectedCoords = MaxTargetHelper.respectMaxTargets(neighborFiltered, getMaxTargets().next(), getGeneralParameters().getRandom());
 
-        Cell[] selectedCells = new Cell[selectedCoords.length];
-        for (int i = 0; i < selectedCells.length; i++) {
+        AbstractAgent[] selectedAgents = new AbstractAgent[selectedCoords.length];
+        for (int i = 0; i < selectedAgents.length; i++) {
             Coordinate coord = (Coordinate) selectedCoords[i];
-            selectedCells[i] = getLayer().getViewer().getCell(coord);
+            selectedAgents[i] = getLayer().getViewer().getAgent(coord);
         }
 
-        return selectedCells;
+        return selectedAgents;
     }
 
     /**
@@ -152,7 +152,7 @@ public class TriggerProcess extends CellProcess {
 
     @Override
     public void fire(StepState state) throws HaltCondition {
-        for (Cell target : targets) {
+        for (AbstractAgent target : targets) {
 
             // If the cell has been removed as a result of firing the trigger
             // process in a previous target, skip it.
