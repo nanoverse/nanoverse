@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete.cluster;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -49,7 +49,7 @@ public class ContactClustersHelper extends ScatterClustersHelper {
      * @return
      */
     @Override
-    public int attemptPlacement(Coordinate candidate, BehaviorAgent toPlace, int m) {
+    public int attemptPlacement(Coordinate candidate, Agent toPlace, int m) {
         if (layer.getViewer().isOccupied(candidate)) {
             return 0;
         }

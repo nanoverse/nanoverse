@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
@@ -38,7 +38,7 @@ public class NoContactClustersHelper extends ScatterClustersHelper {
     }
 
     @Override
-    public int attemptPlacement(Coordinate candidate, BehaviorAgent toPlace, int m) {
+    public int attemptPlacement(Coordinate candidate, Agent toPlace, int m) {
         if (layer.getViewer().isOccupied(candidate)) {
             return 0;
         }

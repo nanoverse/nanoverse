@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.agent.action;
 
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.targets.*;
-import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -36,7 +36,7 @@ import java.util.function.Function;
  * Created by dbborens on 8/3/2015.
  */
 public class SwapDescriptor extends ActionDescriptor<Swap> {
-    private final Function<BehaviorAgent, Swap> constructor;
+    private final Function<Agent, Swap> constructor;
 
     @FactoryTarget(displayName = "Swap")
     public SwapDescriptor(LayerManager layerManager, TargetDescriptor ruleDescriptor,
@@ -50,7 +50,7 @@ public class SwapDescriptor extends ActionDescriptor<Swap> {
     }
 
     @Override
-    protected Function<BehaviorAgent, Swap> resolveConstructor() {
+    protected Function<Agent, Swap> resolveConstructor() {
         return constructor;
     }
 }

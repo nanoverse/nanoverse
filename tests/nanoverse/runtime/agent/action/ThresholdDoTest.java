@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.ConstantDouble;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -71,7 +71,7 @@ public class ThresholdDoTest {
         ConstantDouble maximumArg = new ConstantDouble(maximum);
         LayerManager lm = makeLayerManager(value, exists);
 
-        BehaviorAgent callback = mock(BehaviorAgent.class);
+        Agent callback = mock(Agent.class);
         ThresholdDo query = new ThresholdDo(callback, lm, LAYER_NAME, minimumArg, maximumArg, child);
         return query;
     }

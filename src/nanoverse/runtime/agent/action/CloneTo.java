@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
@@ -55,12 +55,12 @@ public class CloneTo extends Action {
 
     private Random random;
 
-    public CloneTo(BehaviorAgent behaviorAgent, LayerManager layerManager,
+    public CloneTo(Agent agent, LayerManager layerManager,
                    TargetRule targetRule, boolean noReplace,
                    IntegerArgument selfChannel,
                    IntegerArgument targetChannel, Random random) {
 
-        super(behaviorAgent, layerManager);
+        super(agent, layerManager);
         this.targetRule = targetRule;
         this.selfChannel = selfChannel;
         this.targetChannel = targetChannel;
@@ -70,7 +70,7 @@ public class CloneTo extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        BehaviorAgent callerAgent = resolveCaller(caller);
+        Agent callerAgent = resolveCaller(caller);
 
         Coordinate self = getOwnLocation();
 
@@ -121,7 +121,7 @@ public class CloneTo extends Action {
     }
 
     @Override
-    public Action clone(BehaviorAgent child) {
+    public Action clone(Agent child) {
         TargetRule clonedTargeter = targetRule.clone(child);
         return new CloneTo(child, getLayerManager(), clonedTargeter, noReplace,
             selfChannel, targetChannel, random);

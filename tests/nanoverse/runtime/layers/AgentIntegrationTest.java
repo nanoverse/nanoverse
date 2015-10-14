@@ -25,7 +25,7 @@
 package nanoverse.runtime.layers;
 
 import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -98,7 +98,7 @@ public class AgentIntegrationTest extends LegacyTest {
         AgentLayer layer = new AgentLayer(geom);
         MockLayerManager lm = new MockLayerManager();
         lm.setAgentLayer(layer);
-        AbstractAgent toPlace = new BehaviorAgent(lm, 1, 0.5, 1.0, null);
+        AbstractAgent toPlace = new Agent(lm, 1, 0.5, 1.0, null);
         Coordinate coord = new Coordinate2D(2, 3, 0);
 
         layer.getUpdateManager().place(toPlace, coord);

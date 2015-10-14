@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.geometry.MockGeometry;
@@ -40,7 +40,7 @@ import static org.junit.Assert.*;
  */
 public class AdjustHealthTest extends LegacyLatticeTest {
     private AdjustHealth query, identical, different;
-    private BehaviorAgent cell;
+    private Agent cell;
     private BehaviorDispatcher dispatcher;
     private Action behavior;
     private String eventName;
@@ -53,7 +53,7 @@ public class AdjustHealthTest extends LegacyLatticeTest {
         MockGeometry geom = buildMockGeometry();
         cellLayer = new AgentLayer(geom);
         layerManager.setAgentLayer(cellLayer);
-        cell = new BehaviorAgent(layerManager, 1, 0.5, 1.0, null);
+        cell = new Agent(layerManager, 1, 0.5, 1.0, null);
         cellLayer.getUpdateManager().place(cell, origin);
         query = new AdjustHealth(cell, layerManager, 0.5);
         identical = new AdjustHealth(cell, layerManager, 0.5);

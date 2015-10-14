@@ -24,40 +24,29 @@
 
 package nanoverse.runtime.agent.action.stochastic;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.ProbabilitySupplierDescriptor;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.util.function.*;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * Created by dbborens on 8/25/2015.
  */
-public class DependentProbabilitySupplierDescriptor extends ProbabilitySupplierDescriptor<DependentProbabilitySupplier> {
+public class NeighborhoodProbabilitySupplierDescriptor extends ProbabilitySupplierDescriptor<NeighborhoodProbabilitySupplier> {
 
-    @FactoryTarget(displayName = "DependentProbabilitySupplier")
-    public DependentProbabilitySupplierDescriptor(String layer,
-                                                  double coefficient,
-                                                  double offset,
-                                                  LayerManager layerManager) {
+    @FactoryTarget(displayName = "NeighborhoodProbabilitySupplier")
+    public NeighborhoodProbabilitySupplierDescriptor(double coefficient,
+                                                     double offset,
+                                                     AgentLayer layer) {
 
-        Function<BehaviorAgent, Double> valueLookup = c -> getFieldValueAt(c, layerManager, layer);
-        Function<BehaviorAgent, DependentProbabilitySupplier> constructor = cell -> new DependentProbabilitySupplier(valueLookup,
+        Function<Agent, NeighborhoodProbabilitySupplier> constructor = cell -> new NeighborhoodProbabilitySupplier(layer,
             cell, coefficient, offset);
 
         super.setConstructor(constructor);
-    }
-
-    private double getFieldValueAt(BehaviorAgent cell, LayerManager layerManager, String fieldName) {
-
-        Supplier<Coordinate> supplier = () -> layerManager
-            .getAgentLayer()
-            .getLookupManager()
-            .getAgentLocation(cell);
-
-        double value = layerManager.getContinuumLayer(fieldName).getLinker().get(supplier);
-        return value;
     }
 }

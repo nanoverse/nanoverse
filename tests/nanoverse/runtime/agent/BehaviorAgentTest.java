@@ -39,16 +39,16 @@ import static org.mockito.Mockito.*;
  */
 public class BehaviorAgentTest extends LegacyLatticeTest {
 
-    private BehaviorAgent query;
+    private Agent query;
     private MockBehaviorDispatcher dispatcher;
 
     @Before
     public void setUp() throws Exception {
         super.setUp();
         dispatcher = new MockBehaviorDispatcher();
-        Supplier<BehaviorAgent> supplier = mock(Supplier.class);
-        when(supplier.get()).thenReturn(new BehaviorAgent(layerManager, 1, 1.0, 0.5, supplier));
-        query = new BehaviorAgent(layerManager, 1, 1.0, 0.5, supplier);
+        Supplier<Agent> supplier = mock(Supplier.class);
+        when(supplier.get()).thenReturn(new Agent(layerManager, 1, 1.0, 0.5, supplier));
+        query = new Agent(layerManager, 1, 1.0, 0.5, supplier);
         query.setDispatcher(dispatcher);
         cellLayer.getUpdateManager().place(query, origin);
     }
@@ -108,7 +108,7 @@ public class BehaviorAgentTest extends LegacyLatticeTest {
     @Test
     public void testEquals() throws Exception {
         // Difference based on dispatcher (in)equality.
-        BehaviorAgent other = new BehaviorAgent(layerManager, 1, 1.0, 0.5, null);
+        Agent other = new Agent(layerManager, 1, 1.0, 0.5, null);
         MockBehaviorDispatcher d2 = new MockBehaviorDispatcher();
         other.setDispatcher(d2);
         d2.setOverrideEquals(true);
@@ -122,12 +122,12 @@ public class BehaviorAgentTest extends LegacyLatticeTest {
         assertEquals(query, other);
 
         // Test a cell that differs in division threshold.
-        other = new BehaviorAgent(layerManager, 1, 1.0, 1.0, null);
+        other = new Agent(layerManager, 1, 1.0, 1.0, null);
         other.setDispatcher(d2);
         assertNotEquals(query, other);
 
         // Test a cell that differs in state.
-        other = new BehaviorAgent(layerManager, 2, 1.0, 0.5, null);
+        other = new Agent(layerManager, 2, 1.0, 0.5, null);
         other.setDispatcher(d2);
         assertNotEquals(query, other);
     }

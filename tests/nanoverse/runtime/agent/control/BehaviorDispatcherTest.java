@@ -24,9 +24,9 @@
 
 package nanoverse.runtime.agent.control;
 
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.MockBehavior;
 import nanoverse.runtime.agent.action.Action;
-import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.identifiers.*;
 import org.junit.*;
 
@@ -109,7 +109,7 @@ public class BehaviorDispatcherTest {
         String name = "testBehavior";
         query.map(name, behavior1);
 
-        BehaviorAgent alternate = new BehaviorAgent();
+        Agent alternate = new Agent();
         BehaviorDispatcher clone = query.clone(alternate);
 
         // The objects should be equal in that their behavior lists are equal.

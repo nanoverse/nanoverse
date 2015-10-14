@@ -22,38 +22,39 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package nanoverse.compiler.pipeline.translate.symbol.agent.action.stochastic;
+package nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
-import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
-import nanoverse.runtime.agent.action.stochastic.DependentProbabilitySupplierDescriptor;
-import nanoverse.runtime.control.arguments.*;
-import org.junit.Test;
+import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
+import org.junit.*;
 
-public class DependentProbabilitySupplierInstSymbolTableTest extends MapSymbolTableTest {
+import java.util.function.Supplier;
 
-    @Override
-    protected MapSymbolTable getQuery() {
-        return new DependentProbabilitySupplierInstSymbolTable();
-    }
+public class ContinuumProbabilitySupplierInterpolatorTest
+    extends InterpolatorTest {
 
-    @Override
-    protected Class getExpectedClass() {
-        return DependentProbabilitySupplierDescriptor.class;
+    private ContinuumProbabilitySupplierInterpolator query;
+
+    @Before
+    public void before() throws Exception {
+        super.before();
+        query = new ContinuumProbabilitySupplierInterpolator(load);
     }
 
     @Test
     public void coefficient() throws Exception {
-        verifyReturnSymbol("coefficient", DoubleArgument.class);
+        Supplier<Double> trigger = () -> query.coefficient(node, random);
+        verifyDouble("coefficient", trigger);
     }
 
     @Test
     public void offset() throws Exception {
-        verifyReturnSymbol("offset", DoubleArgument.class);
+        Supplier<Double> trigger = () -> query.offset(node, random);
+        verifyDouble("offset", trigger);
     }
 
     @Test
     public void layer() throws Exception {
-        verifyReturnSymbol("layer", StringArgument.class);
+        Supplier<String> trigger = () -> query.layer(node);
+        verifyString("layer", trigger);
     }
 }

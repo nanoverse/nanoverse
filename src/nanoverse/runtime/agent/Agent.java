@@ -41,7 +41,7 @@ import java.util.stream.Stream;
  * <p>
  * Created by David B Borenstein on 1/25/14.
  */
-public class BehaviorAgent extends AbstractAgent {
+public class Agent extends AbstractAgent {
 
     // State
     private int considerCount;
@@ -53,14 +53,14 @@ public class BehaviorAgent extends AbstractAgent {
     private CallbackManager callbackManager;
     private AgentContinuumManager reactionManager;
 
-    private Supplier<BehaviorAgent> supplier;
+    private Supplier<Agent> supplier;
 
     // Default constructor for testing
     @Deprecated
-    public BehaviorAgent() {
+    public Agent() {
     }
 
-    public BehaviorAgent(LayerManager layerManager, int state, double initialHealth, double threshold, Supplier<BehaviorAgent> supplier) throws HaltCondition {
+    public Agent(LayerManager layerManager, int state, double initialHealth, double threshold, Supplier<Agent> supplier) throws HaltCondition {
         this.threshold = threshold;
         callbackManager = new CallbackManager(this, layerManager);
         this.supplier = supplier;
@@ -109,7 +109,7 @@ public class BehaviorAgent extends AbstractAgent {
             throw new IllegalStateException("Attempted to divide non-divisible cell.");
         }
 
-        BehaviorAgent daughter = supplier.get();
+        Agent daughter = supplier.get();
         daughter.setHealth(daughter.getHealth() / 2.0);
         double halfHealth = getHealth() / 2.0D;
         setHealth(halfHealth);
@@ -119,10 +119,10 @@ public class BehaviorAgent extends AbstractAgent {
     }
 
     @Override
-    public BehaviorAgent clone(int childState) throws HaltCondition {
+    public Agent clone(int childState) throws HaltCondition {
         double health = getHealth();
 
-        BehaviorAgent child = supplier.get();
+        Agent child = supplier.get();
         child.setHealth(health);
         child.considerCount = considerCount;
         child.nextHealth = nextHealth;
@@ -184,11 +184,11 @@ public class BehaviorAgent extends AbstractAgent {
             return true;
         }
 
-        if (!(obj instanceof BehaviorAgent)) {
+        if (!(obj instanceof Agent)) {
             return false;
         }
 
-        BehaviorAgent other = (BehaviorAgent) obj;
+        Agent other = (Agent) obj;
 
         if (other.getState() != this.getState()) {
             return false;

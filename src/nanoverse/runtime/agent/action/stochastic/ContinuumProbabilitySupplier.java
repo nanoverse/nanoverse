@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action.stochastic;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 
@@ -37,34 +37,23 @@ import java.util.function.*;
  * <p>
  * Created by dbborens on 1/9/15.
  */
-public class DependentProbabilitySupplier extends ProbabilitySupplier {
+public class ContinuumProbabilitySupplier extends ProbabilitySupplier {
 
     private double coefficient;
     private double offset;
-    private BehaviorAgent cell;
-    private Function<BehaviorAgent, Double> valueLookup;
+    private Agent cell;
+    private Function<Agent, Double> valueLookup;
 
-    public DependentProbabilitySupplier(Function<BehaviorAgent, Double> valueLookup, BehaviorAgent cell, double coefficient, double offset) {
+    public ContinuumProbabilitySupplier(Function<Agent, Double> valueLookup, Agent cell, double coefficient, double offset) {
         this.coefficient = coefficient;
         this.offset = offset;
         this.cell = cell;
         this.valueLookup = valueLookup;
     }
 
-    private static double getFieldValueAt(BehaviorAgent cell, LayerManager layerManager, String fieldName) {
-
-        Supplier<Coordinate> supplier = () -> layerManager
-            .getAgentLayer()
-            .getLookupManager()
-            .getAgentLocation(cell);
-
-        double value = layerManager.getContinuumLayer(fieldName).getLinker().get(supplier);
-        return value;
-    }
-
     @Override
-    public DependentProbabilitySupplier clone(BehaviorAgent child) {
-        return new DependentProbabilitySupplier(valueLookup, child, coefficient, offset);
+    public ContinuumProbabilitySupplier clone(Agent child) {
+        return new ContinuumProbabilitySupplier(valueLookup, child, coefficient, offset);
     }
 
     @Override

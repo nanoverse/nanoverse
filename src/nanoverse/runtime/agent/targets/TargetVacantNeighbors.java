@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.targets;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.LayerManager;
@@ -40,12 +40,12 @@ import java.util.*;
  */
 public class TargetVacantNeighbors extends TargetRule {
 
-    public TargetVacantNeighbors(BehaviorAgent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
+    public TargetVacantNeighbors(Agent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
         super(callback, layerManager, filter, maximum, random);
     }
 
     @Override
-    protected List<Coordinate> getCandidates(BehaviorAgent caller) {
+    protected List<Coordinate> getCandidates(Agent caller) {
         // Get nanoverse.runtime.geometry
         Geometry geom = layerManager.getAgentLayer().getGeometry();
 
@@ -72,7 +72,7 @@ public class TargetVacantNeighbors extends TargetRule {
     }
 
     @Override
-    public TargetRule clone(BehaviorAgent child) {
+    public TargetRule clone(Agent child) {
         return new TargetVacantNeighbors(child, layerManager, filter, maximum, random);
     }
 }

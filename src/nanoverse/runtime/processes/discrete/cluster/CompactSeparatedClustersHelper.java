@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete.cluster;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -46,7 +46,7 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
     }
 
     @Override
-    public int attemptPlacement(Coordinate candidate, BehaviorAgent toPlace, int m) {
+    public int attemptPlacement(Coordinate candidate, Agent toPlace, int m) {
         if (layer.getViewer().isOccupied(candidate)) {
             return 0;
         }
@@ -70,7 +70,7 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
      * clockwise through the neighborhood.
      */
     private void doAttempt(Coordinate candidate,
-                           BehaviorAgent toPlace,
+                           Agent toPlace,
                            int m) {
 
         place(candidate, toPlace);
@@ -87,7 +87,7 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
             int iWrapped = (i + start) % vacancies.length;
             Coordinate c = vacancies[iWrapped];
             int state = toPlace.getState();
-            BehaviorAgent clone;
+            Agent clone;
 
             try {
                 clone = toPlace.clone(state);
@@ -98,7 +98,7 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
         }
     }
 
-    private void place(Coordinate c, BehaviorAgent cell) {
+    private void place(Coordinate c, Agent cell) {
         try {
             layer.getUpdateManager().place(cell, c);
         } catch (HaltCondition ex) {

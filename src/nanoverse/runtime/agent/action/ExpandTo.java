@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -58,7 +58,7 @@ public class ExpandTo extends Action {
 
     private TargetRule targetRule;
 
-    public ExpandTo(BehaviorAgent callback, LayerManager layerManager, TargetRule targetRule,
+    public ExpandTo(Agent callback, LayerManager layerManager, TargetRule targetRule,
                     IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
         super(callback, layerManager);
         this.selfChannel = selfChannel;
@@ -71,7 +71,7 @@ public class ExpandTo extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        BehaviorAgent callerAgent = resolveCaller(caller);
+        Agent callerAgent = resolveCaller(caller);
         List<Coordinate> targets = targetRule.report(callerAgent);
         for (Coordinate target : targets) {
             preferentialExpand(target);
@@ -174,7 +174,7 @@ public class ExpandTo extends Action {
     }
 
     @Override
-    public Action clone(BehaviorAgent child) {
+    public Action clone(Agent child) {
         TargetRule clonedTargetRule = targetRule.clone(child);
         return new ExpandTo(child, getLayerManager(), clonedTargetRule, selfChannel,
             targetChannel, random);

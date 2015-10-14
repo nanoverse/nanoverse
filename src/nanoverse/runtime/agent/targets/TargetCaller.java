@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.targets;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.discrete.filter.Filter;
@@ -37,17 +37,17 @@ import java.util.*;
  * Created by dbborens on 2/7/14.
  */
 public class TargetCaller extends TargetRule {
-    public TargetCaller(BehaviorAgent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
+    public TargetCaller(Agent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
         super(callback, layerManager, filter, maximum, random);
     }
 
     @Override
-    public TargetRule clone(BehaviorAgent child) {
+    public TargetRule clone(Agent child) {
         return new TargetCaller(child, layerManager, filter, maximum, random);
     }
 
     @Override
-    protected List<Coordinate> getCandidates(BehaviorAgent caller) {
+    protected List<Coordinate> getCandidates(Agent caller) {
         Coordinate coord = layerManager.getAgentLayer().getLookupManager().getAgentLocation(caller);
 
         ArrayList<Coordinate> ret = new ArrayList<>(1);

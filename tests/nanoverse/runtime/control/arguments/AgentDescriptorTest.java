@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.control.arguments;
 
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.*;
-import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.*;
@@ -112,26 +112,26 @@ public class AgentDescriptorTest extends TestBase {
 
     @Test
     public void cellState() throws Exception {
-        BehaviorAgent result = query.next();
+        Agent result = query.next();
         assertEquals((int) cellState.next(), result.getState());
     }
 
     @Test
     public void threshold() throws Exception {
-        BehaviorAgent result = query.next();
+        Agent result = query.next();
         assertEquals(threshold.next(), result.getThreshold(), epsilon);
     }
 
     @Test
     public void initialHealth() throws Exception {
-        BehaviorAgent result = query.next();
+        Agent result = query.next();
         assertEquals(initialHealth.next(), result.getHealth(), epsilon);
     }
 
     // TODO this should be tested directly
     @Test
     public void reactions() throws Exception {
-        BehaviorAgent result = query.next();
+        Agent result = query.next();
         List<String> expected = Arrays.asList("1", "2");
 
         assertEquals(expected, result.getReactionIds().collect(Collectors.toList()));
@@ -140,7 +140,7 @@ public class AgentDescriptorTest extends TestBase {
     // TODO this should be tested directly
     @Test
     public void behaviors() throws Exception {
-        BehaviorAgent result = query.next();
+        Agent result = query.next();
         List<String> expected = Stream.of("behavior").collect(Collectors.toList());
         verify(behaviorDescriptor).instantiate(any());
         assertEquals(expected, result.getBehaviorNames().collect(Collectors.toList()));
@@ -149,7 +149,7 @@ public class AgentDescriptorTest extends TestBase {
     @Test
     public void nullReactionsAccepted() throws Exception {
         initEverythingButReactions();
-        BehaviorAgent result = query.next();
+        Agent result = query.next();
         assertEquals(0, result.getReactionIds().count());
     }
 

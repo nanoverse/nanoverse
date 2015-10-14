@@ -40,7 +40,7 @@ public class CallbackManagerTest {
     private CallbackManager query;
     private AgentLayer layer;
     private Coordinate c;
-    private BehaviorAgent cell;
+    private Agent cell;
 
     @Before
     public void setUp() throws Exception {

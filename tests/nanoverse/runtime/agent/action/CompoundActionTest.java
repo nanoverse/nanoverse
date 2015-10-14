@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.*;
@@ -110,14 +110,14 @@ public class CompoundActionTest extends LegacyTest {
 
     @Test
     public void testClone() throws Exception {
-        BehaviorAgent cloneAgent = new BehaviorAgent();
+        Agent cloneAgent = new Agent();
         CompoundAction clone = query.clone(cloneAgent);
         assertEquals(cloneAgent, clone.getCallback());
         assertEquals(clone, query);
     }
 
     private class ExposedCompoundAction extends CompoundAction {
-        public ExposedCompoundAction(BehaviorAgent callback, LayerManager layerManager, Action[] actionSequence) {
+        public ExposedCompoundAction(Agent callback, LayerManager layerManager, Action[] actionSequence) {
             super(callback, layerManager, actionSequence);
         }
 

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 
 import java.util.function.Function;
 
@@ -36,10 +36,10 @@ import java.util.function.Function;
  */
 public abstract class ActionDescriptor<T extends Action> {
 
-    public T instantiate(BehaviorAgent cell) {
-        Function<BehaviorAgent, T> constructor = resolveConstructor();
+    public T instantiate(Agent cell) {
+        Function<Agent, T> constructor = resolveConstructor();
         return constructor.apply(cell);
     }
 
-    protected abstract Function<BehaviorAgent, T> resolveConstructor();
+    protected abstract Function<Agent, T> resolveConstructor();
 }

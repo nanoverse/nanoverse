@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -35,7 +35,7 @@ import java.util.function.Function;
  */
 public class AdjustHealthDescriptor extends ActionDescriptor<AdjustHealth> {
 
-    private final Function<BehaviorAgent, AdjustHealth> constructor;
+    private final Function<Agent, AdjustHealth> constructor;
 
     @FactoryTarget(displayName = "AdjustHealth")
     public AdjustHealthDescriptor(LayerManager layerManager, double delta) {
@@ -43,7 +43,7 @@ public class AdjustHealthDescriptor extends ActionDescriptor<AdjustHealth> {
     }
 
     @Override
-    protected Function<BehaviorAgent, AdjustHealth> resolveConstructor() {
+    protected Function<Agent, AdjustHealth> resolveConstructor() {
         return constructor;
     }
 }

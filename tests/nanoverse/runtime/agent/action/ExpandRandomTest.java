@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
 import nanoverse.runtime.cells.*;
@@ -52,7 +52,7 @@ import static org.mockito.Mockito.*;
 public class ExpandRandomTest extends LegacyTest {
 
     private MockLayerManager layerManager;
-    private BehaviorAgent parent;
+    private Agent parent;
     private MockRandom random;
     private AgentLayer layer;
     private MockTargetRule parentTargetRule;
@@ -71,15 +71,15 @@ public class ExpandRandomTest extends LegacyTest {
 
         // Place the parent at site 4 and get its target rule
         parentTargetRule = placeNumberedAgent(4);
-        parent = (BehaviorAgent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
+        parent = (Agent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
 
     }
 
     private MockTargetRule placeNumberedAgent(int x) throws Exception {
-        Supplier<BehaviorAgent> ncSupplier = mock(Supplier.class);
-        BehaviorAgent child = new MockAgent(x);
+        Supplier<Agent> ncSupplier = mock(Supplier.class);
+        Agent child = new MockAgent(x);
         when(ncSupplier.get()).thenReturn(child);
-        BehaviorAgent cell = new BehaviorAgent(layerManager, x, x, x, ncSupplier);
+        Agent cell = new Agent(layerManager, x, x, x, ncSupplier);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -37,7 +37,7 @@ import java.util.function.Function;
  */
 public class ExpandWeightedDescriptor extends ActionDescriptor<ExpandWeighted> {
 
-    private final Function<BehaviorAgent, ExpandWeighted> constructor;
+    private final Function<Agent, ExpandWeighted> constructor;
 
     @FactoryTarget(displayName = "ExpandWeighted")
     public ExpandWeightedDescriptor(LayerManager layerManager,
@@ -47,7 +47,7 @@ public class ExpandWeightedDescriptor extends ActionDescriptor<ExpandWeighted> {
     }
 
     @Override
-    protected Function<BehaviorAgent, ExpandWeighted> resolveConstructor() {
+    protected Function<Agent, ExpandWeighted> resolveConstructor() {
         return constructor;
     }
 }

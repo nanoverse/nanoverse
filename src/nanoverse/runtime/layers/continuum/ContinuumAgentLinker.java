@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.continuum;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 import java.util.function.*;
@@ -48,12 +48,12 @@ public class ContinuumAgentLinker {
         return stateLookup.apply(c.get());
     }
 
-    public Runnable getRemover(BehaviorAgent cell) {
+    public Runnable getRemover(Agent cell) {
         Runnable remover = () -> notifier.remove(cell);
         return remover;
     }
 
-    public void add(BehaviorAgent cell, Supplier<RelationshipTuple> tuple) {
+    public void add(Agent cell, Supplier<RelationshipTuple> tuple) {
         notifier.add(cell, tuple);
     }
 }

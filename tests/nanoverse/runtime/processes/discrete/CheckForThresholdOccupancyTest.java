@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.*;
@@ -90,7 +90,7 @@ public class CheckForThresholdOccupancyTest extends LegacyTest {
     }
 
     private void placeNumberedAgent(int x) throws HaltCondition {
-        BehaviorAgent cell = new BehaviorAgent(layerManager, x, x, x, null);
+        Agent cell = new Agent(layerManager, x, x, x, null);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
     }

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.DominationEvent;
 import nanoverse.runtime.control.identifiers.*;
@@ -94,7 +94,7 @@ public class CheckForDominationTest extends LegacyTest {
     }
 
     private void populate(int x, int state) throws Exception {
-        BehaviorAgent cell = new BehaviorAgent(layerManager, state, state, state, null);
+        Agent cell = new Agent(layerManager, state, state, state, null);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
     }

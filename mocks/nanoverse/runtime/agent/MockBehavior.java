@@ -46,7 +46,7 @@ public class MockBehavior extends CompoundAction {
         callerCounts = new HashMap<>();
     }
 
-    public MockBehavior(BehaviorAgent callback) {
+    public MockBehavior(Agent callback) {
         super(callback, null, null);
         timesRun = 0;
         callerCounts = new HashMap<>();
@@ -77,7 +77,7 @@ public class MockBehavior extends CompoundAction {
     }
 
     @Override
-    public MockBehavior clone(BehaviorAgent child) {
+    public MockBehavior clone(Agent child) {
         return new MockBehavior(child);
     }
 

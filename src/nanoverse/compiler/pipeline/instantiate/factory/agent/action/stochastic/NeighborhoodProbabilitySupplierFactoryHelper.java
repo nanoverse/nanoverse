@@ -23,13 +23,13 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
-import nanoverse.runtime.agent.action.stochastic.DependentProbabilitySupplierDescriptor;
-import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.agent.action.stochastic.NeighborhoodProbabilitySupplierDescriptor;
+import nanoverse.runtime.layers.cell.AgentLayer;
 
 
-public class DependentProbabilitySupplierFactoryHelper {
+public class NeighborhoodProbabilitySupplierFactoryHelper {
 
-    public DependentProbabilitySupplierDescriptor build(String layer, double coefficient, double offset, LayerManager layerManager) {
-        return new DependentProbabilitySupplierDescriptor(layer, coefficient, offset, layerManager);
+    public NeighborhoodProbabilitySupplierDescriptor build(double coefficient, double offset, AgentLayer layer) {
+        return new NeighborhoodProbabilitySupplierDescriptor(coefficient, offset, layer);
     }
 }

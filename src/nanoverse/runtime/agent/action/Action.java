@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -43,10 +43,10 @@ import nanoverse.runtime.processes.StepState;
  */
 public abstract class Action {
 
-    private final BehaviorAgent callback;
+    private final Agent callback;
     private final LayerManager layerManager;
 
-    public Action(BehaviorAgent callback, LayerManager layerManager) {
+    public Action(Agent callback, LayerManager layerManager) {
         this.callback = callback;
         this.layerManager = layerManager;
     }
@@ -60,7 +60,7 @@ public abstract class Action {
      */
     protected Coordinate getOwnLocation() {
         AgentLookupManager lookup = getLayerManager().getAgentLayer().getLookupManager();
-        BehaviorAgent self = getCallback();
+        Agent self = getCallback();
 
         // If the acting cell has been removed from the lattice, return no coordinate.
         // It's up to the particular Action to decide what happens at that point.
@@ -76,11 +76,11 @@ public abstract class Action {
         return layerManager;
     }
 
-    public BehaviorAgent getCallback() {
+    public Agent getCallback() {
         return callback;
     }
 
-    protected BehaviorAgent resolveCaller(Coordinate caller) {
+    protected Agent resolveCaller(Coordinate caller) {
         // The caller is null, indicating that the call came from
         // a top-down process. Return null.
         if (caller == null) {
@@ -89,12 +89,12 @@ public abstract class Action {
 
         // Blow up unless target coordinate contains a behavior cell.
         // In that case, return that cell.
-        BehaviorAgent callerAgent = getWithCast(caller);
+        Agent callerAgent = getWithCast(caller);
 
         return callerAgent;
     }
 
-    protected BehaviorAgent getWithCast(Coordinate coord) {
+    protected Agent getWithCast(Coordinate coord) {
         AgentLayerViewer viewer = getLayerManager().getAgentLayer().getViewer();
 
         if (!viewer.isOccupied(coord)) {
@@ -105,11 +105,11 @@ public abstract class Action {
 
         AbstractAgent putative = viewer.getAgent(coord);
 
-        if (!(putative instanceof BehaviorAgent)) {
+        if (!(putative instanceof Agent)) {
             throw new UnsupportedOperationException("Only BehaviorAgents and top-down nanoverse.runtime.processes may trigger behaviors.");
         }
 
-        BehaviorAgent result = (BehaviorAgent) putative;
+        Agent result = (Agent) putative;
 
         return result;
     }
@@ -124,7 +124,7 @@ public abstract class Action {
      */
     public abstract boolean equals(Object obj);
 
-    public abstract Action clone(BehaviorAgent child);
+    public abstract Action clone(Agent child);
 
     protected void doHighlight(IntegerArgument channelArg, Coordinate toHighlight) throws HaltCondition {
         // If not using highlights, do nothing

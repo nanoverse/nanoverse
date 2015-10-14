@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.targets.TargetRule;
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -43,7 +43,7 @@ public class Swap extends Action {
     private IntegerArgument selfChannel;
     private IntegerArgument targetChannel;
 
-    public Swap(BehaviorAgent callback, LayerManager layerManager,
+    public Swap(Agent callback, LayerManager layerManager,
                 TargetRule targetRule, IntegerArgument selfChannel,
                 IntegerArgument targetChannel) {
         super(callback, layerManager);
@@ -54,7 +54,7 @@ public class Swap extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        BehaviorAgent callerAgent = resolveCaller(caller);
+        Agent callerAgent = resolveCaller(caller);
         Coordinate self = getOwnLocation();
         List<Coordinate> targets = targetRule.report(callerAgent);
 
@@ -85,7 +85,7 @@ public class Swap extends Action {
     }
 
     @Override
-    public Action clone(BehaviorAgent child) {
+    public Action clone(Agent child) {
         TargetRule clonedTargetRule = targetRule.clone(child);
         return new Swap(child, getLayerManager(), clonedTargetRule, selfChannel, targetChannel);
     }

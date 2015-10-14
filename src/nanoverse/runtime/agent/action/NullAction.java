@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 /**
@@ -49,7 +49,7 @@ public class NullAction extends Action {
     }
 
     @Override
-    public Action clone(BehaviorAgent child) {
+    public Action clone(Agent child) {
         return new NullAction();
     }
 }

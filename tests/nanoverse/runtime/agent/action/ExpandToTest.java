@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
@@ -52,7 +52,7 @@ import static org.mockito.Mockito.*;
 public class ExpandToTest extends LegacyTest {
 
     private MockLayerManager layerManager;
-    private BehaviorAgent parent;
+    private Agent parent;
     private MockRandom random;
     private AgentLayer layer;
     private MockTargetRule parentTargetRule;
@@ -71,14 +71,14 @@ public class ExpandToTest extends LegacyTest {
 
         // Place the parent at site 4 and get its target rule
         parentTargetRule = placeNumberedAgent(4);
-        parent = (BehaviorAgent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
+        parent = (Agent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
 
         // A cell exists in position 5 for all cases
         placeNumberedAgent(5);
     }
 
     private MockTargetRule placeNumberedAgent(int x) throws Exception {
-        BehaviorAgent cell = makeNumberedAgent(x);
+        Agent cell = makeNumberedAgent(x);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();
@@ -101,10 +101,10 @@ public class ExpandToTest extends LegacyTest {
         return targetRule;
     }
 
-    private BehaviorAgent makeNumberedAgent(int x) throws Exception {
-        Supplier<BehaviorAgent> supplier = mock(Supplier.class);
-        when(supplier.get()).thenReturn(new BehaviorAgent(layerManager, x, x, x, supplier));
-        return new BehaviorAgent(layerManager, x, x, x, supplier);
+    private Agent makeNumberedAgent(int x) throws Exception {
+        Supplier<Agent> supplier = mock(Supplier.class);
+        when(supplier.get()).thenReturn(new Agent(layerManager, x, x, x, supplier));
+        return new Agent(layerManager, x, x, x, supplier);
     }
 
     /**

@@ -32,15 +32,15 @@ import java.util.Random;
 /**
  * Created by dbborens on 8/25/2015.
  */
-public class DependentProbabilitySupplierInterpolator {
+public class NeighborhoodProbabilitySupplierInterpolator {
 
     private final LoadHelper load;
 
-    public DependentProbabilitySupplierInterpolator() {
+    public NeighborhoodProbabilitySupplierInterpolator() {
         load = new LoadHelper();
     }
 
-    public DependentProbabilitySupplierInterpolator(LoadHelper load) {
+    public NeighborhoodProbabilitySupplierInterpolator(LoadHelper load) {
         this.load = load;
     }
 
@@ -50,9 +50,5 @@ public class DependentProbabilitySupplierInterpolator {
 
     public double offset(MapObjectNode node, Random random) {
         return load.aDouble(node, "offset", random);
-    }
-
-    public String layer(MapObjectNode node) {
-        return load.aString(node, "layer");
     }
 }

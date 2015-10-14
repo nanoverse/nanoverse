@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 
 /**
  * Created by dbborens on 4/27/14.
@@ -38,7 +38,7 @@ public class MockActionRangeMap extends ActionRangeMap {
     }
 
     @Override
-    public MockActionRangeMap clone(BehaviorAgent child) {
+    public MockActionRangeMap clone(Agent child) {
         timesCloned++;
 
         MockActionRangeMap ret = new MockActionRangeMap();

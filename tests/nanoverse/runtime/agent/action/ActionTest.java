@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -47,13 +47,13 @@ public class ActionTest extends TestBase {
 
     MockLayerManager layerManager;
     Coordinate caller;
-    BehaviorAgent callback;
+    Agent callback;
     ExposedAction query;
 
     @Before
     public void setUp() throws Exception {
         layerManager = new MockLayerManager();
-        callback = new BehaviorAgent();
+        callback = new Agent();
         caller = new Coordinate2D(0, 0, 0);
 
         query = new ExposedAction(callback, layerManager);
@@ -110,7 +110,7 @@ public class ActionTest extends TestBase {
         private boolean isRun = false;
         private Coordinate lastCaller = null;
 
-        public ExposedAction(BehaviorAgent callback, LayerManager layerManager) {
+        public ExposedAction(Agent callback, LayerManager layerManager) {
             super(callback, layerManager);
         }
 
@@ -129,7 +129,7 @@ public class ActionTest extends TestBase {
         }
 
         @Override
-        public BehaviorAgent getCallback() {
+        public Agent getCallback() {
             return super.getCallback();
         }
 
@@ -139,7 +139,7 @@ public class ActionTest extends TestBase {
         }
 
         @Override
-        public Action clone(BehaviorAgent child) {
+        public Action clone(Agent child) {
             return new ExposedAction(child, layerManager);
         }
 

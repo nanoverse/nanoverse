@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action.stochastic;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import org.junit.*;
 import test.TestBase;
 
@@ -33,28 +33,28 @@ import java.util.function.Function;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class DependentProbabilitySupplierTest extends TestBase {
+public class ContinuumProbabilitySupplierTest extends TestBase {
 
-    private Function<BehaviorAgent, Double> valueLookup;
+    private Function<Agent, Double> valueLookup;
     private double coefficient;
     private double offset;
-    private BehaviorAgent cell, child;
+    private Agent cell, child;
 
-    private DependentProbabilitySupplier query;
+    private ContinuumProbabilitySupplier query;
 
     @Before
     public void init() throws Exception {
-        cell = mock(BehaviorAgent.class);
-        child = mock(BehaviorAgent.class);
+        cell = mock(Agent.class);
+        child = mock(Agent.class);
 
-        valueLookup = (Function<BehaviorAgent, Double>) mock(Function.class);
+        valueLookup = (Function<Agent, Double>) mock(Function.class);
         when(valueLookup.apply(cell)).thenReturn(1.0);
         when(valueLookup.apply(child)).thenReturn(2.0);
 
         coefficient = 3.0;
         offset = 0.5;
 
-        query = new DependentProbabilitySupplier(valueLookup, cell, coefficient, offset);
+        query = new ContinuumProbabilitySupplier(valueLookup, cell, coefficient, offset);
     }
 
     @Test
@@ -64,7 +64,7 @@ public class DependentProbabilitySupplierTest extends TestBase {
 
     @Test
     public void cloneReturnsEquivalent() throws Exception {
-        DependentProbabilitySupplier clone = query.clone(child);
+        ContinuumProbabilitySupplier clone = query.clone(child);
         assertEquals(6.5, clone.get(), epsilon);
     }
 

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.targets;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.discrete.filter.Filter;
@@ -46,7 +46,7 @@ public abstract class TargetRule {
 
     protected Random random;
     protected int maximum;
-    protected BehaviorAgent callback;
+    protected Agent callback;
     protected LayerManager layerManager;
     protected Filter filter;
 
@@ -54,7 +54,7 @@ public abstract class TargetRule {
      * @param callback     The cell whose behavior is being described
      * @param layerManager
      */
-    public TargetRule(BehaviorAgent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
+    public TargetRule(Agent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
         this.callback = callback;
         this.layerManager = layerManager;
         this.maximum = maximum;
@@ -72,7 +72,7 @@ public abstract class TargetRule {
      *
      * @param caller The cell that triggered the action.
      */
-    public List<Coordinate> report(BehaviorAgent caller) {
+    public List<Coordinate> report(Agent caller) {
         List<Coordinate> candidates = getCandidates(caller);
         List<Coordinate> filtered = filter.apply(candidates);
         List<Coordinate> targets = respectMaximum(filtered);
@@ -97,7 +97,7 @@ public abstract class TargetRule {
         return reduced;
     }
 
-    protected abstract List<Coordinate> getCandidates(BehaviorAgent caller);
+    protected abstract List<Coordinate> getCandidates(Agent caller);
 
     @Override
     /**
@@ -126,9 +126,9 @@ public abstract class TargetRule {
         return true;
     }
 
-    public abstract TargetRule clone(BehaviorAgent child);
+    public abstract TargetRule clone(Agent child);
 
-    public BehaviorAgent getCallback() {
+    public Agent getCallback() {
         return callback;
     }
 }

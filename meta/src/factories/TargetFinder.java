@@ -24,7 +24,7 @@
 
 package factories;
 
-import nanoverse.runtime.agent.action.stochastic.DependentProbabilitySupplierDescriptor;
+import nanoverse.runtime.agent.action.stochastic.ContinuumProbabilitySupplierDescriptor;
 import nanoverse.runtime.geometry.set.CompleteSet;
 import nanoverse.runtime.geometry.set.CustomSet;
 import nanoverse.runtime.geometry.set.DiscSet;
@@ -73,7 +73,7 @@ public class TargetFinder {
                 CustomSet.class,
                 DiscSet.class,
                 HorizontalLineSet.class,
-                DependentProbabilitySupplierDescriptor.class
+                ContinuumProbabilitySupplierDescriptor.class
         );
 
         Stream<Class> all = Stream.concat(inferred, cloodge).filter(c -> c != null);

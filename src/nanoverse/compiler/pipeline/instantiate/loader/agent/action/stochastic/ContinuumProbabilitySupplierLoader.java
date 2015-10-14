@@ -24,36 +24,36 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
-import nanoverse.compiler.pipeline.instantiate.factory.agent.action.stochastic.DependentProbabilitySupplierFactory;
+import nanoverse.compiler.pipeline.instantiate.factory.agent.action.stochastic.ContinuumProbabilitySupplierFactory;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
-import nanoverse.runtime.agent.action.stochastic.DependentProbabilitySupplierDescriptor;
+import nanoverse.runtime.agent.action.stochastic.ContinuumProbabilitySupplierDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
 
 /**
  * Created by dbborens on 8/25/2015.
  */
-public class DependentProbabilitySupplierLoader
-    extends ProbabilitySupplierLoader<DependentProbabilitySupplierDescriptor> {
+public class ContinuumProbabilitySupplierLoader
+    extends ProbabilitySupplierLoader<ContinuumProbabilitySupplierDescriptor> {
 
-    private final DependentProbabilitySupplierFactory factory;
-    private final DependentProbabilitySupplierInterpolator interpolator;
+    private final ContinuumProbabilitySupplierFactory factory;
+    private final ContinuumProbabilitySupplierInterpolator interpolator;
 
-    public DependentProbabilitySupplierLoader() {
-        factory = new DependentProbabilitySupplierFactory();
-        interpolator = new DependentProbabilitySupplierInterpolator();
+    public ContinuumProbabilitySupplierLoader() {
+        factory = new ContinuumProbabilitySupplierFactory();
+        interpolator = new ContinuumProbabilitySupplierInterpolator();
     }
 
-    public DependentProbabilitySupplierLoader(
-        DependentProbabilitySupplierFactory factory,
-        DependentProbabilitySupplierInterpolator interpolator) {
+    public ContinuumProbabilitySupplierLoader(
+            ContinuumProbabilitySupplierFactory factory,
+            ContinuumProbabilitySupplierInterpolator interpolator) {
 
         this.factory = factory;
         this.interpolator = interpolator;
     }
 
     @Override
-    public DependentProbabilitySupplierDescriptor instantiate(MapObjectNode node,
+    public ContinuumProbabilitySupplierDescriptor instantiate(MapObjectNode node,
                                                               LayerManager lm,
                                                               GeneralParameters p) {
 

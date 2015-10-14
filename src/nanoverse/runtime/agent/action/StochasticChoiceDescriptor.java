@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.DynamicActionRangeMapDescriptor;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -36,7 +36,7 @@ import java.util.function.Function;
  * Created by dbborens on 8/3/2015.
  */
 public class StochasticChoiceDescriptor extends ActionDescriptor<StochasticChoice> {
-    private final Function<BehaviorAgent, StochasticChoice> constructor;
+    private final Function<Agent, StochasticChoice> constructor;
 
     @FactoryTarget(displayName = "StochasticChoice")
     public StochasticChoiceDescriptor(LayerManager layerManager,
@@ -50,7 +50,7 @@ public class StochasticChoiceDescriptor extends ActionDescriptor<StochasticChoic
     }
 
     @Override
-    protected Function<BehaviorAgent, StochasticChoice> resolveConstructor() {
+    protected Function<Agent, StochasticChoice> resolveConstructor() {
         return constructor;
     }
 }

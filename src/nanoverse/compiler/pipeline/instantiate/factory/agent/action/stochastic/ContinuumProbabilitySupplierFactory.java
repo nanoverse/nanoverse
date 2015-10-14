@@ -24,23 +24,23 @@
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
-import nanoverse.runtime.agent.action.stochastic.DependentProbabilitySupplierDescriptor;
+import nanoverse.runtime.agent.action.stochastic.ContinuumProbabilitySupplierDescriptor;
 import nanoverse.runtime.layers.LayerManager;
 
-public class DependentProbabilitySupplierFactory implements Factory<DependentProbabilitySupplierDescriptor> {
+public class ContinuumProbabilitySupplierFactory implements Factory<ContinuumProbabilitySupplierDescriptor> {
 
-    private final DependentProbabilitySupplierFactoryHelper helper;
+    private final ContinuumProbabilitySupplierFactoryHelper helper;
 
     private String layer;
     private double coefficient;
     private double offset;
     private LayerManager layerManager;
 
-    public DependentProbabilitySupplierFactory() {
-        helper = new DependentProbabilitySupplierFactoryHelper();
+    public ContinuumProbabilitySupplierFactory() {
+        helper = new ContinuumProbabilitySupplierFactoryHelper();
     }
 
-    public DependentProbabilitySupplierFactory(DependentProbabilitySupplierFactoryHelper helper) {
+    public ContinuumProbabilitySupplierFactory(ContinuumProbabilitySupplierFactoryHelper helper) {
         this.helper = helper;
     }
 
@@ -61,7 +61,7 @@ public class DependentProbabilitySupplierFactory implements Factory<DependentPro
     }
 
     @Override
-    public DependentProbabilitySupplierDescriptor build() {
+    public ContinuumProbabilitySupplierDescriptor build() {
         return helper.build(layer, coefficient, offset, layerManager);
     }
 }

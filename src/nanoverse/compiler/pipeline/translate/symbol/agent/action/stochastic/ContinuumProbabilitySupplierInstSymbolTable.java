@@ -25,19 +25,19 @@
 package nanoverse.compiler.pipeline.translate.symbol.agent.action.stochastic;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
-import nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic.DependentProbabilitySupplierLoader;
+import nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic.ContinuumProbabilitySupplierLoader;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
-import nanoverse.runtime.agent.action.stochastic.DependentProbabilitySupplierDescriptor;
+import nanoverse.runtime.agent.action.stochastic.ContinuumProbabilitySupplierDescriptor;
 
 import java.util.HashMap;
 
 /**
  * Created by dbborens on 8/25/2015.
  */
-public class DependentProbabilitySupplierInstSymbolTable
-    extends MapSymbolTable<DependentProbabilitySupplierDescriptor> {
+public class ContinuumProbabilitySupplierInstSymbolTable
+    extends MapSymbolTable<ContinuumProbabilitySupplierDescriptor> {
 
     @Override
     public String getDescription() {
@@ -49,7 +49,7 @@ public class DependentProbabilitySupplierInstSymbolTable
 
     @Override
     public Loader getLoader() {
-        return new DependentProbabilitySupplierLoader();
+        return new ContinuumProbabilitySupplierLoader();
     }
 
     @Override

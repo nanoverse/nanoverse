@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -36,7 +36,7 @@ import java.util.function.Function;
  */
 public class DieDescriptor extends ActionDescriptor<Die> {
 
-    private final Function<BehaviorAgent, Die> constructor;
+    private final Function<Agent, Die> constructor;
 
     @FactoryTarget(displayName = "Die")
     public DieDescriptor(LayerManager layerManager, IntegerArgument channel) {
@@ -44,7 +44,7 @@ public class DieDescriptor extends ActionDescriptor<Die> {
     }
 
     @Override
-    protected Function<BehaviorAgent, Die> resolveConstructor() {
+    protected Function<Agent, Die> resolveConstructor() {
         return constructor;
     }
 

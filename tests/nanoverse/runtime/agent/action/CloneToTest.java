@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
@@ -47,11 +47,11 @@ import static org.mockito.Mockito.*;
 public class CloneToTest extends LegacyLatticeTest {
 
     private static final int MOCK_PROGENY_STATE = 7;
-    private BehaviorAgent original;
+    private Agent original;
     private MockTargetRule targetRule;
     private CloneTo query;
     private Random random;
-    private Supplier<BehaviorAgent> supplier;
+    private Supplier<Agent> supplier;
 
     @Override
     @Before
@@ -70,7 +70,7 @@ public class CloneToTest extends LegacyLatticeTest {
             new MockAgent(MOCK_PROGENY_STATE));
 
         // Place a single cell at origin.
-        original = new BehaviorAgent(layerManager, 1, 1.0, 1.0, supplier);
+        original = new Agent(layerManager, 1, 1.0, 1.0, supplier);
         BehaviorDispatcher bd = new BehaviorDispatcher();
         original.setDispatcher(bd);
 
@@ -143,10 +143,10 @@ public class CloneToTest extends LegacyLatticeTest {
     }
 
     private void placeNumberedAgent(int x, AgentLayer layer, boolean shoving) throws Exception {
-        Supplier<BehaviorAgent> ncSupplier = mock(Supplier.class);
-        BehaviorAgent child = new MockAgent(x);
+        Supplier<Agent> ncSupplier = mock(Supplier.class);
+        Agent child = new MockAgent(x);
         when(ncSupplier.get()).thenReturn(child);
-        BehaviorAgent cell = new BehaviorAgent(layerManager, x, x, x, ncSupplier);
+        Agent cell = new Agent(layerManager, x, x, x, ncSupplier);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();

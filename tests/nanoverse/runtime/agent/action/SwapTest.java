@@ -25,7 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
 import nanoverse.runtime.control.identifiers.*;
@@ -45,7 +45,7 @@ import static org.junit.Assert.*;
 public class SwapTest extends LegacyTest {
 
     private MockLayerManager layerManager;
-    private BehaviorAgent parent;
+    private Agent parent;
     private AgentLayer layer;
     private MockTargetRule parentTargetRule;
 
@@ -62,12 +62,12 @@ public class SwapTest extends LegacyTest {
 
         // Place the parent at site 4 and get its target rule
         parentTargetRule = placeNumberedAgent(4);
-        parent = (BehaviorAgent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
+        parent = (Agent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
 
     }
 
     private MockTargetRule placeNumberedAgent(int x) throws Exception {
-        BehaviorAgent cell = new BehaviorAgent(layerManager, x, x, x, null);
+        Agent cell = new Agent(layerManager, x, x, x, null);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
         BehaviorDispatcher bd = new BehaviorDispatcher();

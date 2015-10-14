@@ -24,37 +24,35 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
-import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
-import org.junit.*;
+import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
+import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 
-import java.util.function.Supplier;
+import java.util.Random;
 
-public class DependentProbabilitySupplierInterpolatorTest
-    extends InterpolatorTest {
+/**
+ * Created by dbborens on 8/25/2015.
+ */
+public class ContinuumProbabilitySupplierInterpolator {
 
-    private DependentProbabilitySupplierInterpolator query;
+    private final LoadHelper load;
 
-    @Before
-    public void before() throws Exception {
-        super.before();
-        query = new DependentProbabilitySupplierInterpolator(load);
+    public ContinuumProbabilitySupplierInterpolator() {
+        load = new LoadHelper();
     }
 
-    @Test
-    public void coefficient() throws Exception {
-        Supplier<Double> trigger = () -> query.coefficient(node, random);
-        verifyDouble("coefficient", trigger);
+    public ContinuumProbabilitySupplierInterpolator(LoadHelper load) {
+        this.load = load;
     }
 
-    @Test
-    public void offset() throws Exception {
-        Supplier<Double> trigger = () -> query.offset(node, random);
-        verifyDouble("offset", trigger);
+    public double coefficient(MapObjectNode node, Random random) {
+        return load.aDouble(node, "coefficient", random);
     }
 
-    @Test
-    public void layer() throws Exception {
-        Supplier<String> trigger = () -> query.layer(node);
-        verifyString("layer", trigger);
+    public double offset(MapObjectNode node, Random random) {
+        return load.aDouble(node, "offset", random);
+    }
+
+    public String layer(MapObjectNode node) {
+        return load.aString(node, "layer");
     }
 }

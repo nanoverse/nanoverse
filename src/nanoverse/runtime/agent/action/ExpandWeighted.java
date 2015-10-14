@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -56,7 +56,7 @@ public class ExpandWeighted extends Action {
 
     private Random random;
 
-    public ExpandWeighted(BehaviorAgent callback, LayerManager layerManager,
+    public ExpandWeighted(Agent callback, LayerManager layerManager,
                           IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
 
         super(callback, layerManager);
@@ -114,7 +114,7 @@ public class ExpandWeighted extends Action {
     }
 
     @Override
-    public Action clone(BehaviorAgent child) {
+    public Action clone(Agent child) {
         return new ExpandWeighted(child, getLayerManager(), selfChannel, targetChannel,
             random);
     }

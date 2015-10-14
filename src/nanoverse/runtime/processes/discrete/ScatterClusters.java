@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -77,7 +77,7 @@ public class ScatterClusters extends AgentProcess {
         int m = getNeighborCount();
 
         Iterator<Coordinate> cIter = candidates.iterator();
-        BehaviorAgent toPlace = cellDescriptor.next();
+        Agent toPlace = cellDescriptor.next();
 
         while (placed < n) {
             if (!cIter.hasNext()) {

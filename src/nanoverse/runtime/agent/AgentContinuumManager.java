@@ -46,7 +46,7 @@ public class AgentContinuumManager {
     private final RelationshipResolver resolver;
     private final Function<String, ContinuumAgentLinker> layerResolver;
 
-    public AgentContinuumManager(BehaviorAgent cell,
+    public AgentContinuumManager(Agent cell,
                                  Supplier<Coordinate> locator,
                                  Function<String, ContinuumAgentLinker> layerResolver) {
 

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
@@ -33,7 +33,7 @@ import java.util.function.Function;
  * Created by dbborens on 8/3/2015.
  */
 public class NullActionDescriptor extends ActionDescriptor<NullAction> {
-    private final Function<BehaviorAgent, NullAction> constructor;
+    private final Function<Agent, NullAction> constructor;
 
     @FactoryTarget(displayName = "NullAction")
     public NullActionDescriptor() {
@@ -41,7 +41,7 @@ public class NullActionDescriptor extends ActionDescriptor<NullAction> {
     }
 
     @Override
-    protected Function<BehaviorAgent, NullAction> resolveConstructor() {
+    protected Function<Agent, NullAction> resolveConstructor() {
         return constructor;
     }
 }

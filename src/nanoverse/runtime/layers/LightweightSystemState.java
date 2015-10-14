@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.*;
@@ -138,7 +138,7 @@ public class LightweightSystemState extends SystemState {
     private void loadAgent(AgentLayer cellLayer, Coordinate coord, int state) {
         try {
             // Build a dummy agent with the correct state and health.
-            AbstractAgent agent = new BehaviorAgent(layerManager, state, 0.0, 0.0, null);
+            AbstractAgent agent = new Agent(layerManager, state, 0.0, 0.0, null);
 
             // Place it in the agent layer.
             cellLayer.getUpdateManager().place(agent, coord);

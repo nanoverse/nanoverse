@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.io.deserialize.MockCoordinateDeindexer;
@@ -115,7 +115,7 @@ public class LightweightSystemStateTest extends SystemStateTest {
             double health = healthVector[i];
 
             if (state != 0) {
-                BehaviorAgent cell = new BehaviorAgent(expected, state, health, 0.0, null);
+                Agent cell = new Agent(expected, state, health, 0.0, null);
                 cellLayer.getUpdateManager().place(cell, c);
             }
 //            soluteLayer.set(c, health);

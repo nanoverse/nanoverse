@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.control.arguments;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.halt.HaltCondition;
 
@@ -49,7 +49,7 @@ public class MockAgentDescriptor extends AgentDescriptor {
     }
 
     @Override
-    public BehaviorAgent next() throws HaltCondition {
+    public Agent next() throws HaltCondition {
         return new MockAgent(state);
     }
 

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
@@ -39,14 +39,14 @@ public class AdjustHealth extends Action {
 
     private double delta;
 
-    public AdjustHealth(BehaviorAgent callback, LayerManager layerManager, double delta) {
+    public AdjustHealth(Agent callback, LayerManager layerManager, double delta) {
         super(callback, layerManager);
         this.delta = delta;
     }
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        BehaviorAgent cell = getCallback();
+        Agent cell = getCallback();
         double curHealth = cell.getHealth();
         double adjHealth = curHealth + delta;
         cell.setHealth(adjHealth);
@@ -72,7 +72,7 @@ public class AdjustHealth extends Action {
     }
 
     @Override
-    public Action clone(BehaviorAgent child) {
+    public Action clone(Agent child) {
         AdjustHealth clone = new AdjustHealth(child, getLayerManager(), delta);
         return clone;
     }

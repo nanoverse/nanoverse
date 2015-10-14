@@ -24,9 +24,9 @@
 
 package nanoverse.runtime.control.arguments;
 
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.agent.action.stochastic.*;
-import nanoverse.runtime.agent.BehaviorAgent;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -40,13 +40,13 @@ import java.util.stream.*;
 @Deprecated
 public class DynamicActionRangeMapDescriptor {
 
-    private final Function<BehaviorAgent, DynamicActionRangeMap> constructor;
+    private final Function<Agent, DynamicActionRangeMap> constructor;
 
     @FactoryTarget(displayName = "DynamicActionRangeMap")
     public DynamicActionRangeMapDescriptor(Stream<WeightedOption> options, LayerManager layerManager) {
         List<WeightedOption> optionList = options.collect(Collectors.toList());
 
-        Function<BehaviorAgent, DynamicActionRangeMap> constructor = cell -> {
+        Function<Agent, DynamicActionRangeMap> constructor = cell -> {
             Map<Action, ProbabilitySupplier> map = optionList.stream()
                 .collect(Collectors.toMap(
                     option -> option.getAction().instantiate(cell),
@@ -59,11 +59,11 @@ public class DynamicActionRangeMapDescriptor {
         this.constructor = constructor;
     }
 
-    public DynamicActionRangeMapDescriptor(Function<BehaviorAgent, DynamicActionRangeMap> constructor) {
+    public DynamicActionRangeMapDescriptor(Function<Agent, DynamicActionRangeMap> constructor) {
         this.constructor = constructor;
     }
 
-    public DynamicActionRangeMap instantiate(BehaviorAgent cell) {
+    public DynamicActionRangeMap instantiate(Agent cell) {
         return constructor.apply(cell);
     }
 }

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.util.function.Function;
@@ -34,7 +34,7 @@ import java.util.function.Function;
  */
 public class MockActionDescriptor extends ActionDescriptor<MockAction> {
 
-    private final Function<BehaviorAgent, MockAction> constructor;
+    private final Function<Agent, MockAction> constructor;
 
     @FactoryTarget(displayName = "MockAction")
     public MockActionDescriptor() {
@@ -42,7 +42,7 @@ public class MockActionDescriptor extends ActionDescriptor<MockAction> {
     }
 
     @Override
-    protected Function<BehaviorAgent, MockAction> resolveConstructor() {
+    protected Function<Agent, MockAction> resolveConstructor() {
         return constructor;
     }
 }

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.agent.action.stochastic;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 
 import java.util.function.Supplier;
 
@@ -33,5 +33,5 @@ import java.util.function.Supplier;
  */
 public abstract class ProbabilitySupplier implements Supplier<Double> {
 
-    public abstract ProbabilitySupplier clone(BehaviorAgent child);
+    public abstract ProbabilitySupplier clone(Agent child);
 }

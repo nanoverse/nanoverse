@@ -25,7 +25,7 @@
 package nanoverse.runtime.control.arguments;
 
 import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -89,13 +89,13 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
     }
 
     @Override
-    public BehaviorAgent next() throws HaltCondition {
+    public Agent next() throws HaltCondition {
         // Load cell properties
         double initialHealthValue = initialHealth.next();
         double thresholdValue = threshold.next();
         int stateValue = cellState.next();
 
-        Supplier<BehaviorAgent> supplier = () -> {
+        Supplier<Agent> supplier = () -> {
             try {
                 return next();
             } catch (HaltCondition ex) {
@@ -104,7 +104,7 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
         };
 
         // Construct cell
-        BehaviorAgent cell = new BehaviorAgent(layerManager, stateValue, initialHealthValue, thresholdValue, supplier);
+        Agent cell = new Agent(layerManager, stateValue, initialHealthValue, thresholdValue, supplier);
 
         loadReactions(cell);
         loadBehaviors(cell);
@@ -124,11 +124,11 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
         this.initialHealth = initialHealth;
     }
 
-    private void loadReactions(BehaviorAgent cell) {
+    private void loadReactions(Agent cell) {
         reactions.forEach(cell::load);
     }
 
-    private void loadBehaviors(BehaviorAgent cell) {
+    private void loadBehaviors(Agent cell) {
         BehaviorDispatcher dispatcher = new BehaviorDispatcher();
 
         behaviorDescriptors.keySet()

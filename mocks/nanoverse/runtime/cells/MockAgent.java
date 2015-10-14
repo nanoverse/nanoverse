@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.cells;
 
-import nanoverse.runtime.agent.BehaviorAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.structural.utilities.EpsilonUtil;
@@ -37,7 +37,7 @@ import nanoverse.runtime.structural.utilities.EpsilonUtil;
  * <p>
  * Created by dbborens on 1/13/14.
  */
-public class MockAgent extends BehaviorAgent {
+public class MockAgent extends Agent {
 
     private int considerCount;
     private MockAgent child;
