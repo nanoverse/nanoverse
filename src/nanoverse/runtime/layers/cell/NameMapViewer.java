@@ -22,28 +22,34 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package nanoverse.compiler.pipeline.translate.symbol.processes.discrete.filter;
+package nanoverse.runtime.layers.cell;
 
-import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
-import nanoverse.runtime.control.arguments.IntegerArgument;
-import nanoverse.runtime.processes.discrete.filter.AgentClassFilter;
-import org.junit.Test;
+import java.util.Map;
 
-public class AgentClassFilterInstSymbolTableTest extends MapSymbolTableTest {
+/**
+ * @author David Bruce Borenstein
+ * @test StateMapViewerTest
+ */
+public class NameMapViewer {
 
-    @Override
-    protected MapSymbolTable getQuery() {
-        return new AgentClassFilterInstSymbolTable();
+    private Map<String, Integer> nameMap;
+
+    public NameMapViewer(Map<String, Integer> nameMap) {
+        this.nameMap = nameMap;
     }
 
-    @Override
-    protected Class getExpectedClass() {
-        return AgentClassFilter.class;
+    public String[] getNames() {
+        String[] names = nameMap.keySet().toArray(new String[0]);
+        return names;
     }
 
-    @Test
-    public void state() throws Exception {
-        verifyReturnSymbol("state", IntegerArgument.class);
+    public Integer getCount(String name) {
+
+        // If it doesn't have the key, there are no nanoverse.runtime.cells of that state
+        if (!nameMap.containsKey(name)) {
+            return 0;
+        }
+
+        return nameMap.get(name);
     }
 }

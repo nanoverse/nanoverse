@@ -25,7 +25,6 @@
 package nanoverse.runtime.processes.discrete.filter;
 
 import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.*;
@@ -36,18 +35,18 @@ import java.util.*;
 /**
  * Created by dbborens on 5/5/14.
  */
-public class AgentClassFilter extends Filter {
+public class AgentNameFilter extends Filter {
 
     private AgentLayer layer;
 
-    private IntegerArgument toChoose;
+    private String toChoose;
 
     /**
      * @param toChoose The cell state to retain. If random, a value will be
      *                 chosen each time the filter is applied.
      */
     @FactoryTarget
-    public AgentClassFilter(AgentLayer layer, IntegerArgument toChoose) {
+    public AgentNameFilter(AgentLayer layer, String toChoose) {
         this.toChoose = toChoose;
         this.layer = layer;
     }
@@ -70,7 +69,7 @@ public class AgentClassFilter extends Filter {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AgentClassFilter that = (AgentClassFilter) o;
+        AgentNameFilter that = (AgentNameFilter) o;
 
         if (toChoose != null ? !toChoose.equals(that.toChoose) : that.toChoose != null)
             return false;
@@ -79,13 +78,6 @@ public class AgentClassFilter extends Filter {
     }
 
     private ArrayList<Coordinate> getRetained(Collection<Coordinate> toFilter) {
-        int chosen;
-        try {
-            chosen = toChoose.next();
-        } catch (HaltCondition ex) {
-            throw new IllegalStateException(ex);
-        }
-
         ArrayList<Coordinate> toRetain = new ArrayList<>();
         AgentLayerViewer viewer = layer.getViewer();
         for (Coordinate c : toFilter) {
@@ -95,7 +87,7 @@ public class AgentClassFilter extends Filter {
 
             AbstractAgent agent = layer.getViewer().getAgent(c);
 
-            if (agent.getState() == chosen) {
+            if (agent.getName().equals(toChoose)) {
                 toRetain.add(c);
             }
         }

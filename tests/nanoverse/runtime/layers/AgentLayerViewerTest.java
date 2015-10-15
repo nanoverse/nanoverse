@@ -105,7 +105,7 @@ public class AgentLayerViewerTest extends LegacyTest {
     public void testGetStateVector() {
         int[] states = new int[]{1, 2};
         content.setStateVector(states);
-        assertArraysEqual(states, query.getStateVector(), false);
+        assertArraysEqual(states, query.getNames(), false);
     }
 
     @Test

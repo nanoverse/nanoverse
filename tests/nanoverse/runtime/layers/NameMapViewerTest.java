@@ -24,22 +24,22 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.layers.cell.StateMapViewer;
+import nanoverse.runtime.layers.cell.NameMapViewer;
 import org.junit.Test;
 
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
-public class StateMapViewerTest {
+public class NameMapViewerTest {
 
     @Test
     public void testGetStates() {
         // Set up
-        StateMapViewer viewer = makeViewer();
+        NameMapViewer viewer = makeViewer();
 
-        // Get state array
-        Integer[] states = viewer.getStates();
+        // Get name array
+        Integer[] states = viewer.getNames();
 
         // Sort it
         Arrays.sort(states);
@@ -51,12 +51,12 @@ public class StateMapViewerTest {
 
     }
 
-    private StateMapViewer makeViewer() {
+    private NameMapViewer makeViewer() {
         Map<Integer, Integer> stateMap = new HashMap<Integer, Integer>();
         stateMap.put(1, 3);
         stateMap.put(2, 5);
 
-        StateMapViewer viewer = new StateMapViewer(stateMap);
+        NameMapViewer viewer = new NameMapViewer(stateMap);
 
         return viewer;
     }
@@ -64,7 +64,7 @@ public class StateMapViewerTest {
     @Test
     public void testGetCount() {
         // Set up
-        StateMapViewer viewer = makeViewer();
+        NameMapViewer viewer = makeViewer();
 
         int count = viewer.getCount(2);
 

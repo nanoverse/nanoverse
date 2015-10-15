@@ -25,7 +25,6 @@
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.runtime.agent.action.AdjustHealthDescriptor;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import org.junit.Test;
 

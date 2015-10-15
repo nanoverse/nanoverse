@@ -95,15 +95,15 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
     public void testNext() throws Exception {
         LightweightSystemState state = query.next();
 
-        // Check solute state
-//        assertEquals(1.0, state.getLayerManager().getSoluteLayer("0").getState().getAbsolute(origin), epsilon);
+        // Check solute name
+//        assertEquals(1.0, name.getLayerManager().getSoluteLayer("0").getState().getAbsolute(origin), epsilon);
 
-        // Check cell state
-        assertEquals(5, state.getLayerManager().getAgentLayer().getViewer().getState(x));
-//        assertEquals(2.0, state.getLayerManager().getAgentLayer().getViewer().getAgent(x).getHealth(), epsilon);
+        // Check cell name
+        assertEquals(5, state.getLayerManager().getAgentLayer().getViewer().getName(x));
+//        assertEquals(2.0, name.getLayerManager().getAgentLayer().getViewer().getAgent(x).getHealth(), epsilon);
 
         // Origin is vacant
-        assertEquals(0, state.getLayerManager().getAgentLayer().getViewer().getState(origin));
+        assertEquals(0, state.getLayerManager().getAgentLayer().getViewer().getName(origin));
 
         // Check time and frame
         assertEquals(2, state.getFrame());
@@ -135,14 +135,14 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
         Stream<Coordinate> highlights = Stream.of(x);
         MockStepState stepState = new MockStepState(1.7, 2);
         stepState.setHighlights(0, highlights);
-        /* Initialize output and push first state */
+        /* Initialize output and push first name */
         for (Serializer serializer : serializers) {
             serializer.init();
             serializer.flush(stepState);
             serializer.flush(stepState);
         }
 
-        /* Set up second state */
+        /* Set up second name */
         cellLayer.getUpdateManager().banish(x);
 //        highlights = new Coordinate[]{y};
         highlights = Stream.of(y);
@@ -151,7 +151,7 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
 
 //        pushState(layer0, new double[]{0.1, 0.2, 0.3, 0.4, 0.5});
 
-        /* Push second state and close fixture */
+        /* Push second name and close fixture */
         for (Serializer serializer : serializers) {
             serializer.flush(stepState);
             serializer.dispatchHalt(null);

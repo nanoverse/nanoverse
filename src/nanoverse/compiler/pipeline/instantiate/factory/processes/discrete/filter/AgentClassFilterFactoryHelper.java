@@ -25,12 +25,12 @@ package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filte
 
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.cell.AgentLayer;
-import nanoverse.runtime.processes.discrete.filter.AgentClassFilter;
+import nanoverse.runtime.processes.discrete.filter.AgentNameFilter;
 
 
 public class AgentClassFilterFactoryHelper {
 
-    public AgentClassFilter build(AgentLayer layer, IntegerArgument toChoose) {
-        return new AgentClassFilter(layer, toChoose);
+    public AgentNameFilter build(AgentLayer layer, String toChoose) {
+        return new AgentNameFilter(layer, toChoose);
     }
 }

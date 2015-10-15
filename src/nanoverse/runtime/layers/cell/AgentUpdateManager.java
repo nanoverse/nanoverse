@@ -39,37 +39,6 @@ public class AgentUpdateManager {
     }
 
     /**
-     * Instructs the specified cell to calculate its next state. Returns number
-     * of calls to consider since last call to apply (including this one). This
-     * should not change the apparent state of the cell. Therefore no indices
-     * are updated.
-     *
-     * @param coord
-     * @return
-     */
-    public int consider(Coordinate coord) {
-        AbstractAgent agent = content.get(coord);
-        int res = agent.consider();
-        return res;
-    }
-
-    /**
-     * Instructs the specified cell to update its state. Should blow up if
-     * the cell has not called consider since last apply call. You should
-     * USE THIS METHOD for updating nanoverse.runtime.cells, rather than doing so directly.
-     *
-     * @param coord
-     */
-    public void apply(Coordinate coord) throws HaltCondition {
-        content.sanityCheck(coord);
-        AbstractAgent agent = content.get(coord);
-        content.remove(coord);
-
-        agent.apply();
-        content.put(coord, agent);
-    }
-
-    /**
      * Request a daughter cell from the specified cell, and place it at the
      * specified location. divideTo(...) may trigger physical state changes
      * on the part of the parent cell.

@@ -177,11 +177,11 @@ public class CorrelationWriter extends Serializer {
         // Calculate L1 distance r.
         int r = l.getGeometry().getL1Distance(i, j, Geometry.IGNORE_BOUNDARIES);
 
-        int iState = l.getViewer().getState(i);
-        int jState = l.getViewer().getState(j);
+        String iName = l.getViewer().getName(i);
+        String jName = l.getViewer().getName(j);
 
         // If identical, record an identity at distance r.
-        if (iState == jState) {
+        if (iName == jName) {
             increment(identity, r);
         }
 

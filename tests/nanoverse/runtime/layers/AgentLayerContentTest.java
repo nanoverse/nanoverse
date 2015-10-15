@@ -75,7 +75,7 @@ public abstract class AgentLayerContentTest extends LegacyTest {
     @Test
     public void testPutHasGetRemove() throws Exception {
 
-        // Test before and after state
+        // Test before and after name
         assertFalse(query.has(c[0]));
         query.put(c[0], f0);
         assertTrue(query.has(c[0]));

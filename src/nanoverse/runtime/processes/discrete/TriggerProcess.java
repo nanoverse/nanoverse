@@ -98,12 +98,12 @@ public class TriggerProcess extends AgentProcess {
 
         for (Object cObj : unfiltered) {
             Coordinate candidate = (Coordinate) cObj;
-            int[] neighborStates = getLayer().getLookupManager().getNeighborStates(candidate, true);
+            String[] neighborStates = getLayer().getLookupManager().getNeighborNames(candidate, true);
 
             // Count up the number of vacant neighbors.
             int numVacantNeighbors = 0;
             for (int i = 0; i < numVacantNeighbors; i++) {
-                if (neighborStates[i] == 0) {
+                if (neighborStates[i] == null) {
                     numVacantNeighbors++;
                 }
             }

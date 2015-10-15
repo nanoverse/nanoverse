@@ -104,7 +104,7 @@ public class FillTest extends LegacyTest {
         doSkipFilledTest(true);
 
         // Original cell should not have been replaced, because it was skipped
-        assertEquals(2, lm.getAgentLayer().getViewer().getState(c));
+        assertEquals(2, lm.getAgentLayer().getViewer().getName(c));
     }
 
     private void doSkipFilledTest(boolean skip) throws Exception {

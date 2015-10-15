@@ -26,7 +26,6 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.runtime.control.arguments.DoubleArgument;
-import nanoverse.runtime.processes.discrete.Cull;
 import org.junit.Test;
 
 public class CullInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {

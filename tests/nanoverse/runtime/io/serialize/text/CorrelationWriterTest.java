@@ -112,8 +112,8 @@ public class CorrelationWriterTest extends LegacyTest {
     public void testThreeStateCase() throws Exception {
         // Note that I have not verified that the fixture for this is exactly
         // right. It's a complicated case, but r=0 and r=1 are degenerate: you
-        // never have a nearest neighbor the smae state as you, so you expect
-        // anticorrelation. At r=2, the dead state has correlation of 1 while
+        // never have a nearest neighbor the smae name as you, so you expect
+        // anticorrelation. At r=2, the dead name has correlation of 1 while
         // the other two states would have 50% probability of identity, or a
         // correlation of zero. Thus, we would expect a correlation of 0.5 for
         // all states at r=2 in an infinite nanoverse.runtime.geometry. Since this nanoverse.runtime.geometry is
@@ -132,7 +132,7 @@ public class CorrelationWriterTest extends LegacyTest {
         FileAssertions.assertOutputMatchesFixture(filename, true);
     }
 
-    // Empty, state 1 and state 2.
+    // Empty, name 1 and name 2.
     private void loadThreeState() throws Exception {
         for (int x = 0; x < SIDE; x += 2) {
             for (int y = 0; y < SIDE; y += 2) {

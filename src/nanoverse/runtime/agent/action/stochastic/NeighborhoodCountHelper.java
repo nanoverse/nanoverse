@@ -22,8 +22,8 @@ public class NeighborhoodCountHelper {
                 .getLookupManager()
                 .getAgentLocation(agent);
 
-        int[] neighborStates = layer.getLookupManager().getNeighborStates(location, true);
-        double neighborCount = neighborStates.length;
+        String[] neighborNames = layer.getLookupManager().getNeighborNames(location, true);
+        double neighborCount = neighborNames.length;
         return neighborCount;
     }
 

@@ -84,7 +84,7 @@ public class SurfaceCensusWriterTest extends LegacyTest {
         state.record(layerManager);
         writer.flush(state);
 
-        // Replace left cell with a different state
+        // Replace left cell with a different name
         replace(4, 2);
         state = new StepState(3.0, 3);
         state.record(layerManager);

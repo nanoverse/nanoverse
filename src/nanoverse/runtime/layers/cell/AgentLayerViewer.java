@@ -55,38 +55,12 @@ public class AgentLayerViewer {
         return res;
     }
 
-    /**
-     * Returns a list of divisible sites on the lattice.
-     *
-     * @return
-     */
-    public HashSet<Coordinate> getDivisibleSites() {
-        // Construct a copy of internal state
-        HashSet<Coordinate> res = new HashSet<>(content.getDivisibleSites());
-
-        // Return it
-        return res;
+    public String[] getNames() {
+        return content.getNames();
     }
 
-    public int[] getStateVector() {
-        return content.getStateVector();
-    }
-
-    /**
-     * Returns a vector of health values, in canonical site order.
-     *
-     * @return
-     */
-    public double[] getHealthVector() {
-        return content.getHealthVector();
-    }
-
-    public StateMapViewer getStateMapViewer() {
-        return new StateMapViewer(content.getStateMap());
-    }
-
-    public boolean isDivisible(Coordinate c) {
-        return content.getDivisibleSites().contains(c);
+    public NameMapViewer getStateMapViewer() {
+        return new NameMapViewer(content.getNameMap());
     }
 
     public boolean exists(AbstractAgent agent) {
@@ -103,12 +77,12 @@ public class AgentLayerViewer {
      * @param coord
      * @return
      */
-    public int getState(Coordinate coord) {
+    public String getName(Coordinate coord) {
         if (!isOccupied(coord)) {
-            return 0;
+            return null;
         }
 
-        return getAgent(coord).getState();
+        return getAgent(coord).getName();
     }
 
     public AbstractAgent getAgent(Coordinate coord) {

@@ -126,7 +126,7 @@ public class BehaviorAgentTest extends LegacyLatticeTest {
         other.setDispatcher(d2);
         assertNotEquals(query, other);
 
-        // Test a cell that differs in state.
+        // Test a cell that differs in name.
         other = new Agent(layerManager, 2, 1.0, 0.5, null);
         other.setDispatcher(d2);
         assertNotEquals(query, other);

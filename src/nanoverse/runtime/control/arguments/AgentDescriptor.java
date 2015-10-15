@@ -44,26 +44,19 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
 
     private LayerManager layerManager;
 
-    private Argument<Integer> cellState;
-
-    private Argument<Double> threshold;
-    private Argument<Double> initialHealth;
+    private String name;
 
     private List<Reaction> reactions;
     private Map<String, ActionDescriptor> behaviorDescriptors;
 
     @FactoryTarget(displayName = "AgentDescriptor")
     public AgentDescriptor(LayerManager layerManager,
-                          Argument<Integer> cellState,
-                          Argument<Double> threshold,
-                          Argument<Double> initialHealth,
-                          Stream<Reaction> reactions,
-                          Map<String, ActionDescriptor> behaviorDescriptors) {
+                           String name,
+                           Stream<Reaction> reactions,
+                           Map<String, ActionDescriptor> behaviorDescriptors) {
 
         this.layerManager = layerManager;
-        this.cellState = cellState;
-        this.threshold = threshold;
-        this.initialHealth = initialHealth;
+        this.name = name;
         this.reactions = reactions.collect(Collectors.toList());
         this.behaviorDescriptors = behaviorDescriptors;
     }
@@ -81,9 +74,7 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
         AgentDescriptor that = (AgentDescriptor) o;
 
         //if (!behaviorRoot.equals(that.behaviorRoot)) return false;
-        if (!cellState.equals(that.cellState)) return false;
-        if (!initialHealth.equals(that.initialHealth)) return false;
-        if (!threshold.equals(that.threshold)) return false;
+        if (!name.equals(that.name)) return false;
 
         return true;
     }
@@ -91,10 +82,6 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
     @Override
     public Agent next() throws HaltCondition {
         // Load cell properties
-        double initialHealthValue = initialHealth.next();
-        double thresholdValue = threshold.next();
-        int stateValue = cellState.next();
-
         Supplier<Agent> supplier = () -> {
             try {
                 return next();
@@ -104,7 +91,7 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
         };
 
         // Construct cell
-        Agent cell = new Agent(layerManager, stateValue, initialHealthValue, thresholdValue, supplier);
+        Agent cell = new Agent(layerManager, name, supplier);
 
         loadReactions(cell);
         loadBehaviors(cell);
@@ -112,16 +99,8 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
         return cell;
     }
 
-    public void setAgentClass(Argument<Integer> cellState) {
-        this.cellState = cellState;
-    }
-
-    public void setThreshold(Argument<Double> threshold) {
-        this.threshold = threshold;
-    }
-
-    public void setInitialHealth(Argument<Double> initialHealth) {
-        this.initialHealth = initialHealth;
+    public void setName(String name) {
+        this.name = name;
     }
 
     private void loadReactions(Agent cell) {

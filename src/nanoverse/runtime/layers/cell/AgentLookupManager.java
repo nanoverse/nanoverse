@@ -24,11 +24,13 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import com.google.common.collect.Lists;
+import nanoverse.runtime.agent.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author David Bruce Borenstein
@@ -49,36 +51,20 @@ public class AgentLookupManager {
      * @param coord
      * @return
      */
-    public int[] getNeighborStates(Coordinate coord, boolean ignoreVacancies) {
+    public String[] getNeighborNames(Coordinate coord, boolean ignoreVacancies) {
         content.sanityCheck(coord);
 
         // Get set of neighbors
         Coordinate[] neighbors = geom.getNeighbors(coord, Geometry.APPLY_BOUNDARIES);
 
-        // Allocate return vector
-        ArrayList<Integer> states = new ArrayList<>(neighbors.length);
+        List<String> retStr = Arrays.stream(neighbors)
+            .filter(c -> c != null)
+            .map(content::get)
+            .map(agent -> agent.getName())
+            .collect(Collectors.toList());
 
-        // Check state of each neighbor
-        for (int i = 0; i < neighbors.length; i++) {
-            Coordinate query = neighbors[i];
-            AbstractAgent neighbor = content.get(query);
-            if (ignoreVacancies && neighbor == null) {
-                continue;
-            } else if (neighbor == null) {
-                states.add(0);
-            } else {
-                states.add(content.get(query).getState());
-            }
-        }
-
-        // Convert to array and return
-        int[] ret = new int[states.size()];
-        int i = 0;
-        for (Integer state : states) {
-            ret[i] = state;
-            i++;
-        }
-        return ret;
+        // TODO lambdify return type
+        return retStr.toArray(new String[retStr.size()]);
     }
 
     /**

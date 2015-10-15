@@ -22,34 +22,30 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete;
+package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter;
 
 import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
-import nanoverse.compiler.pipeline.instantiate.loader.processes.BaseProcessArgumentsLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 
 import java.util.Random;
 
 /**
- * Created by dbborens on 8/26/2015.
+ * Created by dbborens on 8/24/2015.
  */
-public class CullInterpolator extends DiscreteProcessInterpolator {
-    private final CullDefaults defaults;
+public class AgentNameFilterInterpolator {
 
-    public CullInterpolator() {
-        super();
-        defaults = new CullDefaults();
+    private final LoadHelper load;
+
+    public AgentNameFilterInterpolator() {
+        load = new LoadHelper();
     }
 
-    public CullInterpolator(LoadHelper load,
-                            BaseProcessArgumentsLoader bpaLoader,
-                            DiscreteProcessArgumentsLoader dpaLoader,
-                            CullDefaults defaults) {
-        super(load, bpaLoader, dpaLoader);
-        this.defaults = defaults;
+    public AgentNameFilterInterpolator(LoadHelper load) {
+        this.load = load;
     }
 
-    public double threshold(MapObjectNode node, Random random) {
-        return load.aDouble(node, "threshold", random, defaults::threshold);
+    public String name(MapObjectNode node) {
+        return load.aString(node, "name");
     }
 }

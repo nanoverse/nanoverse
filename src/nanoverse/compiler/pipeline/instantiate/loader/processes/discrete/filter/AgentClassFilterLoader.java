@@ -27,36 +27,35 @@ package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter
 import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filter.AgentClassFilterFactory;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.discrete.filter.AgentClassFilter;
+import nanoverse.runtime.processes.discrete.filter.AgentNameFilter;
 
 /**
  * Created by dbborens on 8/24/2015.
  */
-public class AgentClassFilterLoader extends FilterLoader<AgentClassFilter> {
+public class AgentClassFilterLoader extends FilterLoader<AgentNameFilter> {
 
     private final AgentClassFilterFactory factory;
-    private final AgentClassFilterInterpolator interpolator;
+    private final AgentNameFilterInterpolator interpolator;
 
     public AgentClassFilterLoader() {
         factory = new AgentClassFilterFactory();
-        interpolator = new AgentClassFilterInterpolator();
+        interpolator = new AgentNameFilterInterpolator();
     }
 
     public AgentClassFilterLoader(AgentClassFilterFactory factory,
-                                 AgentClassFilterInterpolator interpolator) {
+                                 AgentNameFilterInterpolator interpolator) {
 
         this.factory = factory;
         this.interpolator = interpolator;
     }
 
     @Override
-    public AgentClassFilter instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    public AgentNameFilter instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         factory.setLayer(lm.getAgentLayer());
 
-        IntegerArgument state = interpolator.state(node, p.getRandom());
-        factory.setToChoose(state);
+        String name = interpolator.name(node);
+        factory.setToChoose(name);
 
         return factory.build();
     }

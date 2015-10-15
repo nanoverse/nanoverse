@@ -110,9 +110,9 @@ public class CloneToTest extends LegacyLatticeTest {
         agent.trigger("replicate-self", null);
 
         // New configuration: _123446_89
-        assertEquals(4, layer.getViewer().getState(new Coordinate2D(4, 0, 0)));
-        assertEquals(4, layer.getViewer().getState(new Coordinate2D(5, 0, 0)));
-        assertEquals(6, layer.getViewer().getState(new Coordinate2D(6, 0, 0)));
+        assertEquals(4, layer.getViewer().getName(new Coordinate2D(4, 0, 0)));
+        assertEquals(4, layer.getViewer().getName(new Coordinate2D(5, 0, 0)));
+        assertEquals(6, layer.getViewer().getName(new Coordinate2D(6, 0, 0)));
         assertFalse(layer.getViewer().isOccupied(new Coordinate2D(7, 0, 0)));
     }
 

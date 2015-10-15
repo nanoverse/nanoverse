@@ -225,7 +225,7 @@ public class TargetRuleTest extends LegacyTest {
         MockAgent anotherNeighbor = new MockAgent(3);
         cellLayer.getUpdateManager().place(anotherNeighbor, right);
 
-        filter = new AgentClassFilter(cellLayer, new ConstantInteger(1));
+        filter = new AgentNameFilter(cellLayer, new ConstantInteger(1));
         TargetRule query = new TargetAllNeighbors(self, layerManager, filter, -1, random);
 
         List<Coordinate> actual = query.report(null);

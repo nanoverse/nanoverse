@@ -37,7 +37,7 @@ public class FileConventionsTest {
     @Test
     public void testMakeContinuumStateFilename() throws Exception {
         String soluteId = "Test";
-        String expected = "Test.state.bin";
+        String expected = "Test.name.bin";
         String actual = FileConventions.makeContinuumStateFilename(soluteId);
         assertEquals(expected, actual);
     }

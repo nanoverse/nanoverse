@@ -40,17 +40,18 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
  * Created by dbborens on 1/13/14.
  */
 public class CheckForDomination extends AgentProcess {
-    private DoubleArgument targetFractionArg;
-    private IntegerArgument targetStateArg;
-    private double targetFraction;
-    private int targetState;
+    private final double targetFraction;
+    private final String targetName;
 
     @FactoryTarget
-    public CheckForDomination(BaseProcessArguments arguments, AgentProcessArguments cpArguments, IntegerArgument targetStateArg, DoubleArgument targetFractionArg) {
+    public CheckForDomination(BaseProcessArguments arguments, AgentProcessArguments cpArguments, String targetName, Argument<Double> targetFractionArg) {
         super(arguments, cpArguments);
-
-        this.targetFractionArg = targetFractionArg;
-        this.targetStateArg = targetStateArg;
+        this.targetName = targetName;
+        try {
+            targetFraction = targetFractionArg.next();
+        } catch (HaltCondition haltCondition) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
@@ -63,40 +64,31 @@ public class CheckForDomination extends AgentProcess {
 
     @Override
     public void fire(StepState stepState) throws HaltCondition {
-        if (targetState == -1) {
-            checkAllStates(stepState);
+        if (targetName.equals("")) {
+            checkAllStates();
         } else {
-            doCheck(targetState, stepState);
+            doCheck(targetName);
         }
     }
 
     @Override
     public void init() {
-        try {
-            targetFraction = targetFractionArg.next();
-            targetState = targetStateArg.next();
-            if (targetState == 0) {
-                throw new IllegalArgumentException("Dead state (0) set as domination target. Use CheckForExtinction instead.");
-            }
-        } catch (HaltCondition ex) {
-            throw new IllegalStateException(ex);
-        }
     }
 
-    private void checkAllStates(StepState stepState) throws HaltCondition {
-        Integer[] states = getLayer().getViewer().getStateMapViewer().getStates();
+    private void checkAllStates() throws HaltCondition {
+        String[] names = getLayer().getViewer().getStateMapViewer().getNames();
 
-        for (Integer targetState : states) {
+        for (String name : names) {
             // The dead state cannot "dominate" the system (that's extinction)
-            if (targetState == 0) {
+            if (name == null) {
                 continue;
             }
-            doCheck(targetState, stepState);
+            doCheck(name);
         }
 
     }
 
-    private void doCheck(int target, StepState stepState) throws HaltCondition {
+    private void doCheck(String target) throws HaltCondition {
         double numTargetAgents = getLayer().getViewer().getStateMapViewer().getCount(target);
         double numAgents = getLayer().getViewer().getOccupiedSites().size();
 

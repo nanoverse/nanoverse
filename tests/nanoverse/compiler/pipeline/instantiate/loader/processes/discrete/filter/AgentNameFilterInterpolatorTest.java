@@ -22,34 +22,27 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package nanoverse.runtime.layers.cell;
+package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter;
 
-import java.util.Map;
+import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
+import nanoverse.runtime.control.arguments.IntegerArgument;
+import org.junit.*;
 
-/**
- * @author David Bruce Borenstein
- * @test StateMapViewerTest
- */
-public class StateMapViewer {
+import java.util.function.Supplier;
 
-    private Map<Integer, Integer> stateMap;
+public class AgentNameFilterInterpolatorTest extends InterpolatorTest {
 
-    public StateMapViewer(Map<Integer, Integer> stateMap) {
-        this.stateMap = stateMap;
+    private AgentNameFilterInterpolator query;
+
+    @Before
+    public void before() throws Exception {
+        super.before();
+        query = new AgentNameFilterInterpolator(load);
     }
 
-    public Integer[] getStates() {
-        Integer[] states = stateMap.keySet().toArray(new Integer[0]);
-        return states;
-    }
-
-    public Integer getCount(Integer state) {
-
-        // If it doesn't have the key, there are no nanoverse.runtime.cells of that state
-        if (!stateMap.containsKey(state)) {
-            return 0;
-        }
-
-        return stateMap.get(state);
+    @Test
+    public void state() throws Exception {
+        Supplier<IntegerArgument> trigger = () -> query.name(node, random);
+        verifyIntegerArgument("name", trigger);
     }
 }

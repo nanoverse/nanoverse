@@ -25,7 +25,6 @@
 package nanoverse.compiler.pipeline.translate.symbol.processes.discrete;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.runtime.processes.discrete.Divide;
 
 public class DivideInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {
 

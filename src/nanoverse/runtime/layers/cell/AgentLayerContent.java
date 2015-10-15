@@ -71,10 +71,6 @@ public abstract class AgentLayerContent {
         return indices.getOccupiedSites();
     }
 
-    public Set<Coordinate> getDivisibleSites() {
-        return indices.getDivisibleSites();
-    }
-
     public boolean has(Coordinate coord) {
         return (get(coord) != null);
     }
@@ -99,21 +95,21 @@ public abstract class AgentLayerContent {
         map.put(coord, null);
     }
 
-    public int[] getStateVector() {
+    public String[] getNames() {
         Coordinate[] cArr = getCanonicalSites();
 
-        int[] sArr = new int[cArr.length];
+        String[] nArr = new String[cArr.length];
 
         for (int i = 0; i < cArr.length; i++) {
             AbstractAgent c = map.get(cArr[i]);
             if (c == null) {
-                sArr[i] = 0;
+                nArr[i] = null;
             } else {
-                sArr[i] = map.get(cArr[i]).getState();
+                nArr[i] = map.get(cArr[i]).getName();
             }
         }
 
-        return sArr;
+        return nArr;
     }
 
     /**
@@ -140,26 +136,6 @@ public abstract class AgentLayerContent {
         return has;
     }
 
-    /**
-     * Returns the health vector, in canonical site order.
-     */
-    public double[] getHealthVector() {
-        Coordinate[] cArr = getCanonicalSites();
-
-        double[] fArr = new double[cArr.length];
-
-        for (int i = 0; i < cArr.length; i++) {
-            AbstractAgent c = map.get(cArr[i]);
-            if (c == null) {
-                fArr[i] = 0D;
-            } else {
-                fArr[i] = map.get(cArr[i]).getHealth();
-            }
-        }
-
-        return fArr;
-    }
-
     public abstract void sanityCheck(Coordinate coord);
 
     public abstract Set<Coordinate> getImaginarySites();
@@ -168,7 +144,7 @@ public abstract class AgentLayerContent {
         return indices.locate(agent);
     }
 
-    public Map<Integer, Integer> getStateMap() {
+    public Map<String, Integer> getNameMap() {
         return indices.getStateMap();
     }
 

@@ -43,11 +43,6 @@ import java.util.stream.Stream;
  */
 public class Agent extends AbstractAgent {
 
-    // State
-    private int considerCount;
-    private double nextHealth;
-    private double threshold;
-
     // Helpers
     private BehaviorDispatcher dispatcher;
     private CallbackManager callbackManager;
@@ -60,18 +55,10 @@ public class Agent extends AbstractAgent {
     public Agent() {
     }
 
-    public Agent(LayerManager layerManager, int state, double initialHealth, double threshold, Supplier<Agent> supplier) throws HaltCondition {
-        this.threshold = threshold;
+    public Agent(LayerManager layerManager, String name, Supplier<Agent> supplier) throws HaltCondition {
+        setName(name);
         callbackManager = new CallbackManager(this, layerManager);
         this.supplier = supplier;
-
-        setState(state);
-
-        // We use the superclass setHealth here so it doesn't try to update
-        // the location, as the cell is usually created before being placed.
-        setHealth(initialHealth);
-
-        considerCount = 0;
 
         Supplier<Coordinate> locator = () -> callbackManager.getMyLocation();
         Function<String, ContinuumAgentLinker> layerResolver =
@@ -80,68 +67,22 @@ public class Agent extends AbstractAgent {
         reactionManager = new AgentContinuumManager(this, locator, layerResolver);
     }
 
-    @Override
-    public void setHealth(double health) throws HaltCondition {
-        super.setHealth(health);
-        checkDivisibility();
-    }
-
-    @Override
-    protected void setDivisible(boolean divisible) throws HaltCondition {
-        super.setDivisible(divisible);
-        callbackManager.refreshDivisibility();
-    }
-
-    @Override
-    public int consider() {
-        considerCount++;
-        return considerCount;
-    }
-
-    @Override
-    public void apply() {
-        considerCount = 0;
-    }
 
     @Override
     public AbstractAgent divide() throws HaltCondition {
-        if (!isDivisible()) {
-            throw new IllegalStateException("Attempted to divide non-divisible cell.");
-        }
 
         Agent daughter = supplier.get();
-        daughter.setHealth(daughter.getHealth() / 2.0);
-        double halfHealth = getHealth() / 2.0D;
-        setHealth(halfHealth);
         daughter.setDispatcher(dispatcher.clone(daughter));
-        checkDivisibility();
+        daughter.setName(getName());
         return daughter;
     }
 
     @Override
-    public Agent clone(int childState) throws HaltCondition {
-        double health = getHealth();
-
+    public Agent clone(String childName) throws HaltCondition {
         Agent child = supplier.get();
-        child.setHealth(health);
-        child.considerCount = considerCount;
-        child.nextHealth = nextHealth;
+        child.setName(childName);
         child.setDispatcher(dispatcher.clone(child));
-        child.setDivisible(isDivisible());
-
         return child;
-    }
-
-    @Override
-    public double getProduction(String solute) {
-        throw new UnsupportedOperationException("BehaviorAgent does not yet support diffusible solutes.");
-    }
-
-    @Override
-    public void adjustHealth(double delta) throws HaltCondition {
-        double current = getHealth();
-        double next = current + delta;
-        setHealth(next);
     }
 
     @Override
@@ -157,15 +98,6 @@ public class Agent extends AbstractAgent {
 
     public void setDispatcher(BehaviorDispatcher dispatcher) {
         this.dispatcher = dispatcher;
-    }
-
-    private void checkDivisibility() throws HaltCondition {
-        //System.out.println("   " + getHealth() + " -- " + threshold);
-        if (getHealth() > threshold) {
-            setDivisible(true);
-        } else {
-            setDivisible(false);
-        }
     }
 
     /**
@@ -190,19 +122,11 @@ public class Agent extends AbstractAgent {
 
         Agent other = (Agent) obj;
 
-        if (other.getState() != this.getState()) {
-            return false;
-        }
-
-        if (!EpsilonUtil.epsilonEquals(this.threshold, other.threshold)) {
+        if (!other.getName().equals(getName())) {
             return false;
         }
 
         return other.dispatcher.equals(this.dispatcher);
-    }
-
-    public double getThreshold() {
-        return threshold;
     }
 
     public Stream<String> getReactionIds() {

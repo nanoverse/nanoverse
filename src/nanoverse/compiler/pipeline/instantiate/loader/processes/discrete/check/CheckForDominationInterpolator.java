@@ -56,7 +56,7 @@ public class CheckForDominationInterpolator extends DiscreteProcessInterpolator 
         return load.aDoubleArgument(node, "threshold", random, defaults::threshold);
     }
 
-    public IntegerArgument target(MapObjectNode node, Random random) {
-        return load.anIntegerArgument(node, "target", random);
+    public String target(MapObjectNode node) {
+        return load.aString(node, "target");
     }
 }

@@ -206,7 +206,7 @@ public class ShoveHelperTest extends LegacyTest {
         Random random = new MockRandom();
         query = new ShoveHelper(lm, random);
 
-        // initial state: _1234567__
+        // initial name: _1234567__
         for (int x = 1; x < 8; x++) {
             AbstractAgent agent = new MockAgent(1);
             Coordinate coord = new Coordinate2D(x, 0, 0);

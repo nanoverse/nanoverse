@@ -123,8 +123,8 @@ public class LightweightSystemState extends SystemState {
 //            double health = healthVector[i];
 
             // If site is vacant, don't place anything
-            int state = stateVector[i];
-            if (state == 0) {
+            String state = stateVector[i];
+            if (state == null) {
                 continue;
             }
             loadAgent(cellLayer, coord, state);
@@ -135,10 +135,10 @@ public class LightweightSystemState extends SystemState {
     }
 
     //    private void loadAgent(AgentLayer cellLayer, Coordinate coord, double health, int state) {
-    private void loadAgent(AgentLayer cellLayer, Coordinate coord, int state) {
+    private void loadAgent(AgentLayer cellLayer, Coordinate coord, String name) {
         try {
             // Build a dummy agent with the correct state and health.
-            AbstractAgent agent = new Agent(layerManager, state, 0.0, 0.0, null);
+            AbstractAgent agent = new Agent(layerManager, name, null);
 
             // Place it in the agent layer.
             cellLayer.getUpdateManager().place(agent, coord);

@@ -37,7 +37,7 @@ import java.io.BufferedWriter;
 import java.util.*;
 
 /**
- * Writes out the number of each "state" as a function of time.
+ * Writes out the number of each "name" as a function of time.
  *
  * @author dbborens
  */
@@ -46,19 +46,19 @@ public class SurfaceCensusWriter extends Serializer {
     private static final String FILENAME = "surface_census.txt";
 
     // It is necessary to flush all data at the end of each iteration, rather
-    // than after each flush event, because a state may appear for the first
+    // than after each flush event, because a name may appear for the first
     // time in the middle of the simulation, and we want an accurate column
-    // for every observed state in the census table.
+    // for every observed name in the census table.
 
 //    ArrayList<Integer> frames = new ArrayList<>();
 
     ArrayList<Integer> frames;
-    // The keys to this map are FRAMES. The values are a mapping from STATE
-    // number to count. If a state number does not appear, that means the
+    // The keys to this map are FRAMES. The values are a mapping from NAME
+    // number to count. If a name number does not appear, that means the
     // count was zero at that time.
-    HashMap<Integer, HashMap<Integer, Integer>> histo;
-    //    HashSet<Integer> observedStates = new HashSet<>();
-    HashSet<Integer> observedStates;
+    HashMap<Integer, HashMap<String, Integer>> histo;
+    //    HashSet<Integer> observedNames = new HashSet<>();
+    HashSet<String> observedNames;
 
     private BufferedWriter bw;
 
@@ -72,7 +72,7 @@ public class SurfaceCensusWriter extends Serializer {
         super.init();
         histo = new HashMap<>();
         frames = new ArrayList<>();
-        observedStates = new HashSet<>();
+        observedNames = new HashSet<>();
 
         String filename = p.getInstancePath() + '/' + FILENAME;
         mkDir(p.getInstancePath(), true);
@@ -85,16 +85,16 @@ public class SurfaceCensusWriter extends Serializer {
     }
 
     private void conclude() {
-        // Sort the states numerically
-        TreeSet<Integer> sortedStates = new TreeSet<>(observedStates);
+        // Sort the names numerically
+        TreeSet<String> sortedNames = new TreeSet<>(observedNames);
 
         // Write out the header
         StringBuilder line = new StringBuilder();
         line.append("frame");
 
-        for (Integer state : sortedStates) {
+        for (String name : sortedNames) {
             line.append("\t");
-            line.append(state);
+            line.append(name);
         }
 
         line.append("\n");
@@ -103,16 +103,16 @@ public class SurfaceCensusWriter extends Serializer {
 
         TreeSet<Integer> sortedFrames = new TreeSet<>(histo.keySet());
         for (Integer frame : sortedFrames) {
-            HashMap<Integer, Integer> observations = histo.get(frame);
+            HashMap<String, Integer> observations = histo.get(frame);
 
             line = new StringBuilder();
             line.append(frame);
 
-            for (Integer state : sortedStates) {
+            for (String name : sortedNames) {
                 line.append("\t");
 
-                if (observations.containsKey(state)) {
-                    line.append(observations.get(state));
+                if (observations.containsKey(name)) {
+                    line.append(observations.get(name));
                 } else {
                     line.append("0");
                 }
@@ -131,40 +131,40 @@ public class SurfaceCensusWriter extends Serializer {
     }
 
     @Override
-    public void flush(StepState stepState) {
-        AgentLayer layer = stepState.getRecordedAgentLayer();
-        frames.add(stepState.getFrame());
+    public void flush(StepState stepName) {
+        AgentLayer layer = stepName.getRecordedAgentLayer();
+        frames.add(stepName.getFrame());
 
         // Create a bucket for this frame.
-        HashMap<Integer, Integer> observations = new HashMap<>();
-        histo.put(stepState.getFrame(), observations);
+        HashMap<String, Integer> observations = new HashMap<>();
+        histo.put(stepName.getFrame(), observations);
 
         // Iterate over all occupied sites.
         for (Coordinate c : layer.getViewer().getOccupiedSites()) {
             // Is it at the front? If so, count it.
             if (isAtFront(c, layer)) {
-                int state = layer.getViewer().getState(c);
-                increment(observations, state);
+                String name = layer.getViewer().getName(c);
+                increment(observations, name);
             }
         }
     }
 
-    private void increment(HashMap<Integer, Integer> observations, int state) {
-        if (!observations.containsKey(state)) {
-            observations.put(state, 0);
+    private void increment(HashMap<String, Integer> observations, String name) {
+        if (!observations.containsKey(name)) {
+            observations.put(name, 0);
         }
 
-        int value = observations.get(state);
-        observations.put(state, value + 1);
-        observedStates.add(state);
+        int value = observations.get(name);
+        observations.put(name, value + 1);
+        observedNames.add(name);
     }
 
     private boolean isAtFront(Coordinate c, AgentLayer layer) {
-        int[] neighborStates = layer.getLookupManager().getNeighborStates(c, false);
+        String[] neighborNames = layer.getLookupManager().getNeighborNames(c, false);
 
         // If any neighbor is 0 (vacant), the point is at the front
-        for (int neighborState : neighborStates) {
-            if (neighborState == 0) {
+        for (String neighborName : neighborNames) {
+            if (neighborName == null) {
                 return true;
             }
         }

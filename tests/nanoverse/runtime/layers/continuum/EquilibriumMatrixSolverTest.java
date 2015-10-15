@@ -157,7 +157,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
 
     /**
      * If the matrix is not the identity, but every row and column sums to one,
-     * then there is no steady state solution -- we expect an error.
+     * then there is no steady name solution -- we expect an error.
      */
     @Test(expected = IllegalStateException.class)
     public void noSteadyStateThrows() {
@@ -168,7 +168,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
 
     /**
      * Advection with periodic boundary conditions. No steady
-     * state.
+     * name.
      *
      * @return
      */
@@ -199,7 +199,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
 
     /**
      * If there is no source and the matrix is non-identical and has a steady
-     * state solution, that steady state solution must be zero.
+     * name solution, that steady name solution must be zero.
      */
     @Test
     public void decayGoesToZero() {

@@ -80,7 +80,7 @@ public class TriggerProcessTest extends LegacyTest {
         Integer[] keys = new Integer[]{0};
         GillespieState state = new GillespieState(keys);
 
-        // Gillespie state should be updated by target
+        // Gillespie name should be updated by target
 
         trigger.target(state);
         state.close();

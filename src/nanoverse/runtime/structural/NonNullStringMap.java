@@ -29,20 +29,20 @@ import java.util.*;
 /**
  * Created by David B Borenstein on 4/11/14.
  */
-public class NonNullIntegerMap extends HashMap<Integer, Integer> {
-    public NonNullIntegerMap(int initialCapacity, float loadFactor) {
+public class NonNullStringMap extends HashMap<String, Integer> {
+    public NonNullStringMap(int initialCapacity, float loadFactor) {
         super(initialCapacity, loadFactor);
     }
 
-    public NonNullIntegerMap(int initialCapacity) {
+    public NonNullStringMap(int initialCapacity) {
         super(initialCapacity);
     }
 
-    public NonNullIntegerMap() {
+    public NonNullStringMap() {
         super();
     }
 
-    public NonNullIntegerMap(Map<? extends Integer, ? extends Integer> m) {
+    public NonNullStringMap(Map<? extends String, ? extends Integer> m) {
         super(m);
     }
 
@@ -51,13 +51,13 @@ public class NonNullIntegerMap extends HashMap<Integer, Integer> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        NonNullIntegerMap other = this;
+        NonNullStringMap other = this;
 
         if (other.size() != this.size()) {
             return false;
         }
 
-        for (Integer key : keySet()) {
+        for (String key : keySet()) {
             if (!other.containsKey(key)) {
                 return false;
             }

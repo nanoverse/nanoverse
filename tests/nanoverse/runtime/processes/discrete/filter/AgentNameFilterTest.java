@@ -36,9 +36,9 @@ import java.util.*;
 
 import static org.junit.Assert.assertTrue;
 
-public class AgentClassFilterTest extends LegacyLatticeTest {
+public class AgentNameFilterTest extends LegacyLatticeTest {
     private AbstractAgent yes, no;
-    private AgentClassFilter query;
+    private AgentNameFilter query;
 
     @Before
     public void setUp() throws Exception {
@@ -52,7 +52,7 @@ public class AgentClassFilterTest extends LegacyLatticeTest {
         u.place(yes, x);
         u.place(no, y);
 
-        query = new AgentClassFilter(cellLayer, new ConstantInteger(1));
+        query = new AgentNameFilter(cellLayer, new ConstantInteger(1));
     }
 
     @Test

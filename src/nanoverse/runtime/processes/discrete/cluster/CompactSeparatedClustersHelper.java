@@ -86,11 +86,11 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
 
             int iWrapped = (i + start) % vacancies.length;
             Coordinate c = vacancies[iWrapped];
-            int state = toPlace.getState();
+            String name = toPlace.getName();
             Agent clone;
 
             try {
-                clone = toPlace.clone(state);
+                clone = toPlace.clone(name);
                 layer.getUpdateManager().place(clone, c);
             } catch (HaltCondition ex) {
                 throw new RuntimeException("Unexpected halt condition", ex);
@@ -118,11 +118,11 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
 
     protected boolean hasAnyNeighbors(Coordinate candidate) {
         // Get neighborhood state.
-        int[] neighborStates = layer.getLookupManager().getNeighborStates(candidate, false);
+        String[] neighborNames = layer.getLookupManager().getNeighborNames(candidate, false);
 
         // Count any non-vacant neighbors.
-        int numVacant = getMatchCount(neighborStates, 0);
+        int numVacant = getMatchCount(neighborNames, null);
 
-        return (numVacant < neighborStates.length);
+        return (numVacant < neighborNames.length);
     }
 }

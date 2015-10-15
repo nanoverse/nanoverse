@@ -69,7 +69,7 @@ public class TriggerTest extends LegacyTest {
         layerManager = new MockLayerManager();
         effectName = "effect";
 
-        // Configure geometric state.
+        // Configure geometric name.
         geom = buildMockGeometry();
         o = geom.getCanonicalSites()[0];
         p = geom.getCanonicalSites()[1];

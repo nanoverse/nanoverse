@@ -115,11 +115,11 @@ public class SurfaceGrowthColorManager extends ColorManager {
     }
 
     private boolean checkIsInterior(Coordinate c, SystemState systemState) {
-        int[] neighborStates = systemState.getLayerManager().getAgentLayer().getLookupManager().getNeighborStates(c, false);
+        String[] neighborStates = systemState.getLayerManager().getAgentLayer().getLookupManager().getNeighborNames(c, false);
 
         // If any neighbor is 0 (vacant), the point is not interior
-        for (int neighborState : neighborStates) {
-            if (neighborState == 0) {
+        for (String neighborState : neighborStates) {
+            if (neighborState == null) {
                 return false;
             }
         }

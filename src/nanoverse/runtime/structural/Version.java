@@ -28,5 +28,5 @@ package nanoverse.runtime.structural;
  * Created by dbborens on 8/13/15.
  */
 public class Version {
-    public final static String VERSION = "1.0.0-a2";
+    public final static String VERSION = "1.0.0-a4";
 }

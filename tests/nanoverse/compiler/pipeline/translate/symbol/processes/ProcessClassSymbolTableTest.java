@@ -142,11 +142,6 @@ public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
     }
 
     @Test
-    public void divide() {
-        verifyReturnSymbol("Divide", Divide.class);
-    }
-
-    @Test
     public void manualHalt() {
         verifyReturnSymbol("ManualHalt", ManualHalt.class);
     }

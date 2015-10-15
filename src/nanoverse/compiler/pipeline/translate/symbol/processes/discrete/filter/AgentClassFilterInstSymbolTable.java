@@ -28,14 +28,14 @@ import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter.AgentClassFilterLoader;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
-import nanoverse.runtime.processes.discrete.filter.AgentClassFilter;
+import nanoverse.runtime.processes.discrete.filter.AgentNameFilter;
 
 import java.util.HashMap;
 
 /**
  * Created by dbborens on 8/24/2015.
  */
-public class AgentClassFilterInstSymbolTable extends MapSymbolTable<AgentClassFilter> {
+public class AgentClassFilterInstSymbolTable extends MapSymbolTable<AgentNameFilter> {
     @Override
     public Loader getLoader() {
         return new AgentClassFilterLoader();

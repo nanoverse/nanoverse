@@ -35,7 +35,7 @@ public class CheckForDominationFactory implements Factory<CheckForDomination> {
 
     private BaseProcessArguments arguments;
     private AgentProcessArguments cpArguments;
-    private IntegerArgument targetStateArg;
+    private String target;
     private DoubleArgument targetFractionArg;
 
     public CheckForDominationFactory() {
@@ -54,8 +54,8 @@ public class CheckForDominationFactory implements Factory<CheckForDomination> {
         this.cpArguments = cpArguments;
     }
 
-    public void setTargetStateArg(IntegerArgument targetStateArg) {
-        this.targetStateArg = targetStateArg;
+    public void setTarget(String target) {
+        this.target = target;
     }
 
     public void setTargetFractionArg(DoubleArgument targetFractionArg) {
@@ -64,6 +64,6 @@ public class CheckForDominationFactory implements Factory<CheckForDomination> {
 
     @Override
     public CheckForDomination build() {
-        return helper.build(arguments, cpArguments, targetStateArg, targetFractionArg);
+        return helper.build(arguments, cpArguments, target, targetFractionArg);
     }
 }

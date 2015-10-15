@@ -57,17 +57,17 @@ public abstract class ScatterClustersHelper {
      * @return
      */
     protected int needed(Coordinate current, Agent toPlace, int m) {
-        // Get new cell's state.
-        int state = toPlace.getState();
+        // Get new cell's name.
+        String name = toPlace.getName();
 
         // Get neighborhood state.
-        int[] neighborStates = layer.getLookupManager().getNeighborStates(current, false);
+        String[] neighborNames = layer.getLookupManager().getNeighborNames(current, false);
 
         // Count self-similar neighbors.
-        int numSelfSimilar = getMatchCount(neighborStates, state);
+        int numSelfSimilar = getMatchCount(neighborNames, name);
 
         // Count adjacent vacancies
-        int numVacant = getMatchCount(neighborStates, 0);
+        int numVacant = getMatchCount(neighborNames, null);
 
         if (numSelfSimilar + numVacant < m) {
             return -1;
@@ -78,11 +78,11 @@ public abstract class ScatterClustersHelper {
         }
     }
 
-    protected int getMatchCount(int[] toMatch, int expected) {
+    protected int getMatchCount(String[] toMatch, String expected) {
         return (int) IntStream
             .range(0, toMatch.length)
-            .map(i -> toMatch[i])
-            .filter(neighborState -> neighborState == expected)
+            .mapToObj(i -> toMatch[i])
+            .filter(neighborState -> neighborState.equals(expected))
             .count();
     }
 
@@ -97,10 +97,10 @@ public abstract class ScatterClustersHelper {
         Collections.shuffle(vacancies);
 
         IntStream.range(0, needed).mapToObj(vacancies::get).forEach(c -> {
-            int state = toPlace.getState();
+            String name = toPlace.getName();
             Agent clone;
             try {
-                clone = toPlace.clone(state);
+                clone = toPlace.clone(name);
                 layer.getUpdateManager().place(clone, c);
             } catch (HaltCondition ex) {
                 throw new RuntimeException("Unexpected halt condition", ex);
@@ -110,13 +110,13 @@ public abstract class ScatterClustersHelper {
 
     protected boolean hasSelfNeighbors(Coordinate candidate, Agent toPlace) {
         // Get new cell's state.
-        int state = toPlace.getState();
+        String name = toPlace.getName();
 
         // Get neighborhood state.
-        int[] neighborStates = layer.getLookupManager().getNeighborStates(candidate, false);
+        String[] neighborNames = layer.getLookupManager().getNeighborNames(candidate, false);
 
         // Count self-similar neighbors.
-        int numSelfSimilar = getMatchCount(neighborStates, state);
+        int numSelfSimilar = getMatchCount(neighborNames, name);
 
         return (numSelfSimilar > 0);
     }

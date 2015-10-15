@@ -1,0 +1,116 @@
+version: "1.0.0-a2";
+
+parameters: Parameters {
+    date: True;
+    project: "neutral/deplete-0.5_diffuse0.01";
+    maxStep: 1000;
+};
+
+geometry: Geometry {
+    shape: Rectangle {
+        width: 128;
+        height: 128;
+    };
+};
+
+layers {
+    ContinuumLayer {
+        id: "oxygen";
+        boundary: TetrisReflecting;
+    };
+    AgentLayer {
+        id: "agents";
+        boundary: Tetris;
+    };
+};
+
+processes {
+    Tick;
+
+    // Create the aerobes -- growth is proportional to oxygen, and
+    // they deplete it
+    Fill {
+        period: 0;
+        description: Agent {
+            class: 1;
+            behaviors: reproduce: StochasticChoice {
+                options {
+                    Option {
+                        weight: Dependent {
+                            offset: 0.1;
+                            coefficient: 0.9;
+                            layer: "oxygen";
+                        };
+                        action: ExpandTo: target: VacantNeighbors;
+                    };
+                    Option {
+                        weight: Dependent {
+                            offset: 1.00;
+                            coefficient: -0.9;
+                            layer: "oxygen";
+                        };
+                        action: Null;
+                    };
+                };
+            };
+            reactions {
+                Reaction {
+                    exp: -0.5;
+                    layer: "oxygen";
+                };
+            };
+        };
+        activeSites: HLine {
+            origin: Coordinate {
+                x: 0;
+                y: 0;
+            };
+            length: 128;
+        };
+    };
+
+    Trigger {
+        behavior: "reproduce";
+    };
+    Hold: layer: "oxygen";
+
+    Diffuse {
+        layer: "oxygen";
+        constant: 0.01;
+    };
+
+    DirichletBoundaryEnforcer {
+        layer: "oxygen";
+        value: 1.00;
+        activeSites: HLine {
+            origin: Coordinate {
+                x: 0;
+                y: 127;
+            };
+            length: 128;
+        };
+    }
+
+    Release: layer: "oxygen";
+    Record;
+};
+
+output {
+    ProgressReporter;
+    CoordinateIndexer;
+    CellStateWriter;
+    TimeWriter;
+    ContinuumStateWriter;
+    VisualizationSerializer {
+        visualization: Map: color: Continuum {
+                        id: "oxygen";
+                        base: Indexed;
+                        minSat: 0.0;
+                        maxSat: 0.0;
+                        minLum: 0.1;
+                        maxLum: 0.9;
+                        useLuminanceAverage: True;
+        };
+    };
+};
+

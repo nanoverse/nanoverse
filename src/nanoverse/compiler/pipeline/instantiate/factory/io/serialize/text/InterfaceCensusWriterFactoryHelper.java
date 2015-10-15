@@ -27,11 +27,12 @@ import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.io.serialize.text.InterfaceCensusWriter;
 import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.structural.NotYetImplementedException;
 
 
 public class InterfaceCensusWriterFactoryHelper {
 
-    public InterfaceCensusWriter build(GeneralParameters p, IntegerArgument focalStateArg, LayerManager lm) {
-        return new InterfaceCensusWriter(p, focalStateArg, lm);
+    public InterfaceCensusWriter build(GeneralParameters p, String name, LayerManager lm) {
+        return new InterfaceCensusWriter(p, name, lm);
     }
 }

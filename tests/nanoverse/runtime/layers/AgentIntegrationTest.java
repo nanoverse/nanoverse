@@ -273,8 +273,8 @@ public class AgentIntegrationTest extends LegacyTest {
         Geometry geom = new Geometry(lattice, shape, boundary);
         AgentLayer layer = new AgentLayer(geom);
 
-        // There shouldn't be anything in the state map yet.
-        assertEquals(0, layer.getViewer().getStateMapViewer().getStates().length);
+        // There shouldn't be anything in the name map yet.
+        assertEquals(0, layer.getViewer().getStateMapViewer().getNames().length);
 
         // Unoccupied lattice: occupied and divisible sites should be empty, vacant == canonical
         Coordinate[] canonical = geom.getCanonicalSites();
@@ -295,10 +295,10 @@ public class AgentIntegrationTest extends LegacyTest {
         Coordinate coord = new Coordinate2D(2, 3, 0);
         layer.getUpdateManager().place(toPlace, coord);
 
-        // Verify state index integrity
-        StateMapViewer v = layer.getViewer().getStateMapViewer();
-        assertEquals(1, v.getStates().length);
-        assertEquals(1, v.getStates()[0].intValue());
+        // Verify name index integrity
+        NameMapViewer v = layer.getViewer().getStateMapViewer();
+        assertEquals(1, v.getNames().length);
+        assertEquals(1, v.getNames()[0].intValue());
         assertEquals(1, v.getCount(1).intValue());
 
         // Indices should reflect the placement
@@ -311,13 +311,13 @@ public class AgentIntegrationTest extends LegacyTest {
 
         layer.getUpdateManager().divideTo(coord, child);
 
-        // Verify state index integrity
+        // Verify name index integrity
         v = layer.getViewer().getStateMapViewer();
-        assertEquals(1, v.getStates().length);
-        assertEquals(1, v.getStates()[0].intValue());
+        assertEquals(1, v.getNames().length);
+        assertEquals(1, v.getNames()[0].intValue());
         assertEquals(2, v.getCount(1).intValue());
 
-        // Verify state
+        // Verify name
         assertEquals(layer.getViewer().getAgent(coord).getState(), layer.getViewer().getAgent(coord).getState());
 
         // Indices should reflect the division
@@ -346,10 +346,10 @@ public class AgentIntegrationTest extends LegacyTest {
         // Banish the other one
         layer.getUpdateManager().banish(child);
 
-        // Verify state index integrity
+        // Verify name index integrity
         v = layer.getViewer().getStateMapViewer();
-        assertEquals(1, v.getStates().length);
-        assertEquals(1, v.getStates()[0].intValue());
+        assertEquals(1, v.getNames().length);
+        assertEquals(1, v.getNames()[0].intValue());
         assertEquals(1, v.getCount(1).intValue());
 
         // Indices should reflect the banishment

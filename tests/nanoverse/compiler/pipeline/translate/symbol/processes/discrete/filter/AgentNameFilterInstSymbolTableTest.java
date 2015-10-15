@@ -22,28 +22,28 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package nanoverse.runtime.agent.action;
+package nanoverse.compiler.pipeline.translate.symbol.processes.discrete.filter;
 
-import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
+import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.processes.discrete.filter.AgentNameFilter;
+import org.junit.Test;
 
-import java.util.function.Function;
+public class AgentNameFilterInstSymbolTableTest extends MapSymbolTableTest {
 
-/**
- * Created by dbborens on 8/3/2015.
- */
-public class AdjustHealthDescriptor extends ActionDescriptor<AdjustHealth> {
-
-    private final Function<Agent, AdjustHealth> constructor;
-
-    @FactoryTarget(displayName = "AdjustHealth")
-    public AdjustHealthDescriptor(LayerManager layerManager, double delta) {
-        constructor = cell -> new AdjustHealth(cell, layerManager, delta);
+    @Override
+    protected MapSymbolTable getQuery() {
+        return new AgentClassFilterInstSymbolTable();
     }
 
     @Override
-    protected Function<Agent, AdjustHealth> resolveConstructor() {
-        return constructor;
+    protected Class getExpectedClass() {
+        return AgentNameFilter.class;
+    }
+
+    @Test
+    public void name() throws Exception {
+        verifyReturnSymbol("name", StringArgument.class);
     }
 }

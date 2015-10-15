@@ -39,6 +39,8 @@ import nanoverse.runtime.structural.MockGeneralParameters;
 import org.junit.*;
 import test.*;
 
+import static org.junit.Assert.fail;
+
 /**
  * Created by dbborens on 4/28/14.
  */
@@ -61,7 +63,7 @@ public class InterfaceCensusWriterTest extends LegacyTest {
     }
 
     /**
-     * Initial condition (1 is focal state)
+     * Initial condition (1 is focal name)
      * 0 1 2
      * _____
      * <p>
@@ -70,22 +72,22 @@ public class InterfaceCensusWriterTest extends LegacyTest {
      * 0 |  0 1 2
      * <p>
      * <p>
-     * Upper left "1": 2 of 2 neighbors in state 2
+     * Upper left "1": 2 of 2 neighbors in name 2
      * <p>
-     * Center "1": 1 of 4 neighbors vacant (state 0)
-     * 1 of 4 neighbors in state 1
-     * 2 of 4 neighbors in state 2
+     * Center "1": 1 of 4 neighbors vacant (name 0)
+     * 1 of 4 neighbors in name 1
+     * 2 of 4 neighbors in name 2
      * <p>
-     * Lower "1": 1 of 3 neighbors vacant (state 0)
-     * : 1 of 3 neighbors in state 1
-     * : 1 of 3 neighbors in state 2
+     * Lower "1": 1 of 3 neighbors vacant (name 0)
+     * : 1 of 3 neighbors in name 1
+     * : 1 of 3 neighbors in name 2
      * <p>
      * Therefore, expected totals:
-     * 2 of 9 total neighbors vacant (state 0)
-     * 2 of 9 total neighbors in state 1
-     * 5 of 9 total neighbors in state 2
+     * 2 of 9 total neighbors vacant (name 0)
+     * 2 of 9 total neighbors in name 1
+     * 5 of 9 total neighbors in name 2
      * <p>
-     * Note that "3" never appears as an interface state,
+     * Note that "3" never appears as an interface name,
      * despite existing in the system, because it does not
      * border a 1.
      */
@@ -109,40 +111,41 @@ public class InterfaceCensusWriterTest extends LegacyTest {
 
     @Test
     public void testLifeCycle() throws Exception {
-        MockGeneralParameters p = makeMockGeneralParameters();
-        p.setInstancePath(outputPath);
-        InterfaceCensusWriter writer = new InterfaceCensusWriter(p, new ConstantInteger(1), layerManager);
-        writer.init();
-
-        // Flush original configuration
-        StepState state = new StepState(0.0, 0);
-        state.record(layerManager);
-        writer.flush(state);
-
-        /*
-         * Replace "2" at (1, 2) with "3"
-         *
-         *      0 1 2
-         *      _____
-         *
-         * 2 |  1 3 3
-         * 1 |  2 1 0
-         * 0 |  0 1 2
-         *
-         * Now expected values are:
-         *   State 0 --> 2 of 9
-         *   State 1 --> 2 of 9
-         *   State 2 --> 3 of 9
-         *   State 3 --> 2 of 9
-         */
-        replace(new Coordinate2D(1, 2, 0), 3);
-        state = new StepState(1.0, 1);
-        state.record(layerManager);
-        writer.flush(state);
-
-        writer.dispatchHalt(null);
-        writer.close();
-        FileAssertions.assertOutputMatchesFixture("interface_1.txt", true);
+        fail("Fix me!");
+//        MockGeneralParameters p = makeMockGeneralParameters();
+//        p.setInstancePath(outputPath);
+//        InterfaceCensusWriter writer = new InterfaceCensusWriter(p, new ConstantInteger(1), layerManager);
+//        writer.init();
+//
+//        // Flush original configuration
+//        StepState name = new StepState(0.0, 0);
+//        name.record(layerManager);
+//        writer.flush(name);
+//
+//        /*
+//         * Replace "2" at (1, 2) with "3"
+//         *
+//         *      0 1 2
+//         *      _____
+//         *
+//         * 2 |  1 3 3
+//         * 1 |  2 1 0
+//         * 0 |  0 1 2
+//         *
+//         * Now expected values are:
+//         *   State 0 --> 2 of 9
+//         *   State 1 --> 2 of 9
+//         *   State 2 --> 3 of 9
+//         *   State 3 --> 2 of 9
+//         */
+//        replace(new Coordinate2D(1, 2, 0), 3);
+//        name = new StepState(1.0, 1);
+//        name.record(layerManager);
+//        writer.flush(name);
+//
+//        writer.dispatchHalt(null);
+//        writer.close();
+//        FileAssertions.assertOutputMatchesFixture("interface_1.txt", true);
 //        assertFilesEqual("interface_1.txt");
     }
 

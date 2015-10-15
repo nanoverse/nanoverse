@@ -41,12 +41,9 @@ public class MockAgent extends Agent {
 
     private int considerCount;
     private MockAgent child;
-    private int state = 1;
-    private double health = 0.0;
-    private double production;
+    private String name = "mock";
     private String lastTriggeredBehaviorName;
     private Coordinate lastTriggeredCaller;
-    private boolean divisible;
     private boolean died;
     private int triggerCount = 0;
 
@@ -54,48 +51,18 @@ public class MockAgent extends Agent {
         super();
     }
 
-    public MockAgent(int state) {
+    public MockAgent(String name) {
         super();
-        this.state = state;
+        this.name = name;
     }
 
     @Override
-    public int getState() {
-        return state;
+    public String getName() {
+        return name;
     }
 
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    @Override
-    public double getHealth() {
-        return health;
-    }
-
-    public void setHealth(double health) {
-        this.health = health;
-    }
-
-    @Override
-    public boolean isDivisible() {
-        return divisible;
-    }
-
-    @Override
-    public void setDivisible(boolean divisible) {
-        this.divisible = divisible;
-    }
-
-    @Override
-    public int consider() {
-        considerCount++;
-        return considerCount;
-    }
-
-    @Override
-    public void apply() {
-        considerCount = 0;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -104,18 +71,8 @@ public class MockAgent extends Agent {
     }
 
     @Override
-    public MockAgent clone(int state) {
+    public MockAgent clone(String name) {
         return child;
-    }
-
-    @Override
-    public double getProduction(String solute) {
-        return production;
-    }
-
-    @Override
-    public void adjustHealth(double delta) {
-
     }
 
     @Override
@@ -138,19 +95,11 @@ public class MockAgent extends Agent {
 
         MockAgent other = (MockAgent) obj;
 
-        if (other.state != this.state) {
-            return false;
-        }
-
-        if (!EpsilonUtil.epsilonEquals(other.health, health)) {
+        if (!other.name.equals(name)) {
             return false;
         }
 
         return true;
-    }
-
-    public void setProduction(double production) {
-        this.production = production;
     }
 
     public void setChild(MockAgent child) {

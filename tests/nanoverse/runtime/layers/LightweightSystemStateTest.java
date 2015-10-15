@@ -65,7 +65,7 @@ public class LightweightSystemStateTest extends SystemStateTest {
         for (int i = 0; i < 4; i++) {
             Coordinate coord = canonicals[i];
             int expected = stateVector[i];
-            int actual = query.getLayerManager().getAgentLayer().getViewer().getState(coord);
+            int actual = query.getLayerManager().getAgentLayer().getViewer().getName(coord);
             assertEquals(expected, actual);
         }
     }

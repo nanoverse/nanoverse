@@ -78,7 +78,7 @@ public abstract class GlyphTest extends LegacyTest {
         map = new MapVisualization(mapState);
         map.init(geometry, null, null);
 
-        // Create system state
+        // Create system name
         systemState = makeSystemState(geometry);
 
     }

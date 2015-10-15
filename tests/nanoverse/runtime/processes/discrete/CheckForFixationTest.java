@@ -145,7 +145,7 @@ public class CheckForFixationTest extends LegacyTest {
         for (int i = 0; i < 2; i++) {
             Coordinate coord = new Coordinate2D(i, 0, 0);
             MockAgent cell = new MockAgent();
-            // state 0 is reserved for death / nullity
+            // name 0 is reserved for death / nullity
             cell.setState(i + 1);
             layer.getUpdateManager().place(cell, coord);
         }
@@ -172,13 +172,13 @@ public class CheckForFixationTest extends LegacyTest {
         // This test should start with two nanoverse.runtime.cells, each of a different type.
         setUpMixedCase();
 
-        // We don't expect a fixation state exception.
+        // We don't expect a fixation name exception.
         doTest(false);
 
         // Remove one of the nanoverse.runtime.cells. Now there's only one cell type in the system.
         layer.getUpdateManager().banish(new Coordinate2D(0, 0, 0));
 
-        // The state should now reflect fixation.
+        // The name should now reflect fixation.
         doTest(true);
     }
 

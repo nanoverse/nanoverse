@@ -28,50 +28,20 @@ import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 /**
- * Parent class for nanoverse.runtime.cells.
+ * Parent class for agents.
  *
  * @author David Bruce Borenstein
  */
 public abstract class AbstractAgent {
-    private int state;
-    private double health;
-    private boolean divisible;
+    private String name;
 
-    public int getState() {
-        return state;
+    public String getName() {
+        return name;
     }
 
-    protected void setState(int state) {
-        if (state == 0) {
-            throw new IllegalStateException("Attempted to assign special 'dead' state code 0 to an active cell.");
-        }
-
-        this.state = state;
+    protected void setName(String name) {
+        this.name = name;
     }
-
-    public double getHealth() {
-        return health;
-    }
-
-    protected void setHealth(double health) throws HaltCondition {
-        this.health = health;
-    }
-
-    public boolean isDivisible() {
-        return divisible;
-    }
-
-    protected void setDivisible(boolean divisible) throws HaltCondition {
-        this.divisible = divisible;
-    }
-
-    public abstract int consider();
-
-    /**
-     * Applies changes to the cell. DO NOT CALL THIS METHOD DIRECTLY
-     * FROM A PROCESS. Instead, use lattice.apply().
-     */
-    public abstract void apply();
 
     /**
      * Instructs the cell to divide and returns the daughter cell.
@@ -84,34 +54,16 @@ public abstract class AbstractAgent {
      */
     public abstract AbstractAgent divide() throws HaltCondition;
 
-    /**
-     * Returns the current production of the specified solute.
-     *
-     * @param solute the ID of the solute layer associated with
-     *               the solute whose production is to be checked.
-     * @return
-     */
-    public abstract double getProduction(String solute);
-
     public AbstractAgent replicate() throws HaltCondition {
-        return clone(state);
+        return clone(name);
     }
 
     /**
-     * Creates an exact replica of the cell, differing only by the
-     * state value. Copies all internal state variables. Does not
-     * trigger any division-related events or changes.
+     * Creates an exact replica of the cell.
      *
-     * @param state
      * @return
      */
-    public abstract AbstractAgent clone(int state) throws HaltCondition;
-
-    /**
-     * Informs the cell that it has been given a direct benefit.
-     * The effect of this benefit depends on the cell class.
-     */
-    public abstract void adjustHealth(double delta) throws HaltCondition;
+    public abstract AbstractAgent clone(String name) throws HaltCondition;
 
     /**
      * Triggers a behavior associated with the cell. The specific details of the
