@@ -26,6 +26,7 @@ package nanoverse.runtime.io.visual.color;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.SystemState;
+import nanoverse.runtime.structural.NotYetImplementedException;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.awt.*;
@@ -41,20 +42,20 @@ public class DefaultColorManager extends ColorManager {
 
     @Override
     public Color getColor(Coordinate c, SystemState systemState) {
-        int state = systemState.getLayerManager().getAgentLayer().getViewer().getName(c);
-
-        switch (state) {
-            case 0:
-                return Color.BLACK;
-            case 1:
-                return Color.BLUE;
-            case 2:
-                return Color.RED;
-            case 3:
-                return Color.YELLOW;
-            default:
-                throw new UnsupportedOperationException("Default color manager supports only states 1 and 2, or dead.");
-        }
+        String state = systemState.getLayerManager().getAgentLayer().getViewer().getName(c);
+        throw new NotYetImplementedException();
+//        switch (state) {
+//            case 0:
+//                return Color.BLACK;
+//            case 1:
+//                return Color.BLUE;
+//            case 2:
+//                return Color.RED;
+//            case 3:
+//                return Color.YELLOW;
+//            default:
+//                throw new UnsupportedOperationException("Default color manager supports only states 1 and 2, or dead.");
+//        }
     }
 
     @Override

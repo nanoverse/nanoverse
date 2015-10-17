@@ -32,15 +32,15 @@ import nanoverse.runtime.control.halt.HaltCondition;
  * Created by dbborens on 12/1/14.
  */
 public class MockAgentDescriptor extends AgentDescriptor {
-    private int state = 1;
+    private String name = "agent";
 
     public MockAgentDescriptor() {
         super(null);
     }
 
-    public MockAgentDescriptor(int state) {
+    public MockAgentDescriptor(String name) {
         super(null);
-        this.state = state;
+        this.name = name;
     }
 
     @Override
@@ -50,10 +50,10 @@ public class MockAgentDescriptor extends AgentDescriptor {
 
     @Override
     public Agent next() throws HaltCondition {
-        return new MockAgent(state);
+        return new MockAgent(name);
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setState(String name) {
+        this.name = name;
     }
 }

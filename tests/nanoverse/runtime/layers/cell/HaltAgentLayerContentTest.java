@@ -53,7 +53,7 @@ public class HaltAgentLayerContentTest extends LegacyTest {
 
     @Test
     public void testPutInBounds() throws Exception {
-        MockAgent cell = new MockAgent(1);
+        MockAgent cell = new MockAgent();
         Coordinate c = new Coordinate2D(0, 0, 0);
         query.put(c, cell);
         AbstractAgent actual = query.get(c);
@@ -62,7 +62,7 @@ public class HaltAgentLayerContentTest extends LegacyTest {
 
     @Test
     public void testPutOutOfBounds() throws Exception {
-        MockAgent cell = new MockAgent(1);
+        MockAgent cell = new MockAgent();
         Coordinate c = new Coordinate2D(-1, 0, Flags.END_OF_WORLD);
 
         boolean thrown = false;

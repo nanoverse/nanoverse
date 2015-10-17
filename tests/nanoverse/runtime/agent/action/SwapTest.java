@@ -35,6 +35,7 @@ import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.AgentLayer;
+import nanoverse.runtime.structural.NotYetImplementedException;
 import org.junit.*;
 import test.LegacyTest;
 
@@ -51,42 +52,43 @@ public class SwapTest extends LegacyTest {
 
     @Before
     public void setUp() throws Exception {
-
-        Lattice lattice = new RectangularLattice();
-        layerManager = new MockLayerManager();
-        Shape shape = new Rectangle(lattice, 10, 1);
-        Boundary boundary = new Periodic(shape, lattice);
-        Geometry geom = new Geometry(lattice, shape, boundary);
-        layer = new AgentLayer(geom);
-        layerManager.setAgentLayer(layer);
-
-        // Place the parent at site 4 and get its target rule
-        parentTargetRule = placeNumberedAgent(4);
-        parent = (Agent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
+//
+//        Lattice lattice = new RectangularLattice();
+//        layerManager = new MockLayerManager();
+//        Shape shape = new Rectangle(lattice, 10, 1);
+//        Boundary boundary = new Periodic(shape, lattice);
+//        Geometry geom = new Geometry(lattice, shape, boundary);
+//        layer = new AgentLayer(geom);
+//        layerManager.setAgentLayer(layer);
+//
+//        // Place the parent at site 4 and get its target rule
+//        parentTargetRule = placeNumberedAgent(4);
+//        parent = (Agent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
 
     }
 
     private MockTargetRule placeNumberedAgent(int x) throws Exception {
-        Agent cell = new Agent(layerManager, x, x, x, null);
-        Coordinate coord = new Coordinate2D(x, 0, 0);
-        layer.getUpdateManager().place(cell, coord);
-        BehaviorDispatcher bd = new BehaviorDispatcher();
-        cell.setDispatcher(bd);
-
-        MockTargetRule targetRule = new MockTargetRule();
-
-        // Agents always divide to the right
-        List<Coordinate> targets = new ArrayList<>(1);
-        Coordinate target = new Coordinate2D(x + 1, 0, 0);
-        targets.add(target);
-        targetRule.setTargets(targets);
-
-        Action action = new Swap(cell, layerManager, targetRule, null, null);
-
-        Action behavior = new CompoundAction(cell, layerManager, new Action[]{action});
-        bd.map("swap", behavior);
-
-        return targetRule;
+        throw new NotYetImplementedException();
+//        Agent cell = new Agent(layerManager, x, x, x, null);
+//        Coordinate coord = new Coordinate2D(x, 0, 0);
+//        layer.getUpdateManager().place(cell, coord);
+//        BehaviorDispatcher bd = new BehaviorDispatcher();
+//        cell.setDispatcher(bd);
+//
+//        MockTargetRule targetRule = new MockTargetRule();
+//
+//        // Agents always divide to the right
+//        List<Coordinate> targets = new ArrayList<>(1);
+//        Coordinate target = new Coordinate2D(x + 1, 0, 0);
+//        targets.add(target);
+//        targetRule.setTargets(targets);
+//
+//        Action action = new Swap(cell, layerManager, targetRule, null, null);
+//
+//        Action behavior = new CompoundAction(cell, layerManager, new Action[]{action});
+//        bd.map("swap", behavior);
+//
+//        return targetRule;
     }
 
     /**
@@ -98,22 +100,23 @@ public class SwapTest extends LegacyTest {
      */
     @Test
     public void testTwoOccupied() throws Exception {
-        placeNumberedAgent(5);
-        Coordinate target = new Coordinate2D(5, 0, 0);
-        List<Coordinate> targets = new ArrayList<>(1);
-        targets.add(target);
-        parent.trigger("swap", null);
-
-        checkIsVacant(3);
-        checkPosition(4, 5);
-        checkPosition(5, 4);
-        checkIsVacant(6);
+        fail("Rewrite as a modern test");
+//        placeNumberedAgent(5);
+//        Coordinate target = new Coordinate2D(5, 0, 0);
+//        List<Coordinate> targets = new ArrayList<>(1);
+//        targets.add(target);
+//        parent.trigger("swap", null);
+//
+//        checkIsVacant(3);
+//        checkPosition(4, 5);
+//        checkPosition(5, 4);
+//        checkIsVacant(6);
     }
 
     private void checkPosition(int x, int state) {
-        Coordinate c = new Coordinate2D(x, 0, 0);
-        AbstractAgent agent = layer.getViewer().getAgent(c);
-        assertEquals(state, agent.getState());
+//        Coordinate c = new Coordinate2D(x, 0, 0);
+//        AbstractAgent agent = layer.getViewer().getAgent(c);
+//        assertEquals(state, agent.getState());
     }
 
     private void checkIsVacant(int x) {
@@ -130,15 +133,16 @@ public class SwapTest extends LegacyTest {
      */
     @Test
     public void testOneVacant() throws Exception {
-        Coordinate target = new Coordinate2D(5, 0, 0);
-        List<Coordinate> targets = new ArrayList<>(1);
-        targets.add(target);
-        parentTargetRule.setTargets(targets);
-        parent.trigger("swap", null);
-
-        checkIsVacant(3);
-        checkIsVacant(4);
-        checkPosition(5, 4);
+        fail("Rewrite as a modern test");
+//        Coordinate target = new Coordinate2D(5, 0, 0);
+//        List<Coordinate> targets = new ArrayList<>(1);
+//        targets.add(target);
+//        parentTargetRule.setTargets(targets);
+//        parent.trigger("swap", null);
+//
+//        checkIsVacant(3);
+//        checkIsVacant(4);
+//        checkPosition(5, 4);
     }
 
 }

@@ -30,6 +30,7 @@ import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.AgentLayer;
+import nanoverse.runtime.structural.NotYetImplementedException;
 import org.junit.*;
 import test.LegacyTest;
 
@@ -58,47 +59,52 @@ public class DepthFilterTest extends LegacyTest {
     // AbstractAgent          2 3 4 5 6
     // Depth     0 0 0 1 2 1 0 0 0 0
     private void placeAgents() throws Exception {
-        initial = new ArrayList<>();
-        for (int y = 2; y < 7; y++) {
-            Coordinate c = new Coordinate2D(0, y, 0);
-            MockAgent cell = new MockAgent(y);
-            layerManager.getAgentLayer().getUpdateManager().place(cell, c);
-            initial.add(c);
-        }
+        throw new NotYetImplementedException();
+//        initial = new ArrayList<>();
+//        for (int y = 2; y < 7; y++) {
+//            Coordinate c = new Coordinate2D(0, y, 0);
+//            MockAgent cell = new MockAgent(y);
+//            layerManager.getAgentLayer().getUpdateManager().place(cell, c);
+//            initial.add(c);
+//        }
     }
 
     @Test
     public void testSurfaceCase() {
-        DepthFilter query = new DepthFilter(layer, new ConstantInteger(0));
-        List<Coordinate> actual = query.apply(initial);
-
-        List<Coordinate> expected = new ArrayList<>();
-        expected.add(new Coordinate2D(0, 2, 0));
-        expected.add(new Coordinate2D(0, 6, 0));
-
-        assertEquals(expected, actual);
+        fail("Rewrite as a modern test");
+//        DepthFilter query = new DepthFilter(layer, new ConstantInteger(0));
+//        List<Coordinate> actual = query.apply(initial);
+//
+//        List<Coordinate> expected = new ArrayList<>();
+//        expected.add(new Coordinate2D(0, 2, 0));
+//        expected.add(new Coordinate2D(0, 6, 0));
+//
+//        assertEquals(expected, actual);
     }
 
     @Test
     public void testDepth1Case() {
-        DepthFilter query = new DepthFilter(layer, new ConstantInteger(1));
-        List<Coordinate> actual = query.apply(initial);
-
-        List<Coordinate> expected = new ArrayList<>();
-        expected.add(new Coordinate2D(0, 2, 0));
-        expected.add(new Coordinate2D(0, 3, 0));
-        expected.add(new Coordinate2D(0, 5, 0));
-        expected.add(new Coordinate2D(0, 6, 0));
-
-        assertEquals(expected, actual);
+        fail("Rewrite as a modern test");
+//        DepthFilter query = new DepthFilter(layer, new ConstantInteger(1));
+//        List<Coordinate> actual = query.apply(initial);
+//
+//        List<Coordinate> expected = new ArrayList<>();
+//        expected.add(new Coordinate2D(0, 2, 0));
+//        expected.add(new Coordinate2D(0, 3, 0));
+//        expected.add(new Coordinate2D(0, 5, 0));
+//        expected.add(new Coordinate2D(0, 6, 0));
+//
+//        assertEquals(expected, actual);
     }
 
+    @Test
     public void testOriginalNotMutated() {
-        DepthFilter query = new DepthFilter(layer, new ConstantInteger(0));
-        List<Coordinate> expected = new ArrayList<>(initial);
-        query.apply(initial);
-        List<Coordinate> actual = initial;
-        assertFalse(expected == actual);
-        assertEquals(expected, actual);
+        fail("Rewrite as a modern test");
+//        DepthFilter query = new DepthFilter(layer, new ConstantInteger(0));
+//        List<Coordinate> expected = new ArrayList<>(initial);
+//        query.apply(initial);
+//        List<Coordinate> actual = initial;
+//        assertFalse(expected == actual);
+//        assertEquals(expected, actual);
     }
 }

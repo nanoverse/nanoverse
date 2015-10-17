@@ -104,7 +104,7 @@ public class CheckForExtinctionTest extends LegacyTest {
         makeOneCanonicalSite();
         Coordinate coord = new Coordinate2D(0, 0, 1);
         MockAgent cell = new MockAgent();
-        cell.setState(1);
+        cell.setName("1");
         layer.getUpdateManager().place(cell, coord);
         return coord;
     }

@@ -36,8 +36,8 @@ public class ActionRangeMapTest {
 
     @Test
     public void testClone() throws Exception {
-        MockAgent originalAgent = new MockAgent(1);
-        MockAgent cloneAgent = new MockAgent(2);
+        MockAgent originalAgent = new MockAgent("1");
+        MockAgent cloneAgent = new MockAgent("2");
 
         ActionRangeMap original = makeActionRangeMap(originalAgent);
         ActionRangeMap expected = makeActionRangeMap(cloneAgent);

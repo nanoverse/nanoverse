@@ -34,6 +34,7 @@ import org.junit.*;
 import java.awt.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * Created by dbborens on 4/2/14.
@@ -62,18 +63,19 @@ public class DefaultColorManagerTest {
     // so we can test all of them.
     @Test
     public void testGetColor() throws Exception {
+        fail("Rewrite me after you rewrite indexed color");
         // Test dead
 //        systemState.setState(coord, 0);
-        assertEquals(Color.BLACK, query.getColor(coord, systemState));
-
-        // Test 1
-        layer.getUpdateManager().place(new MockAgent(1), coord);
-        assertEquals(Color.BLUE, query.getColor(coord, systemState));
-
-        // Test 2
-        layer.getUpdateManager().banish(coord);
-        layer.getUpdateManager().place(new MockAgent(2), coord);
-        assertEquals(Color.RED, query.getColor(coord, systemState));
+//        assertEquals(Color.BLACK, query.getColor(coord, systemState));
+//
+//        // Test 1
+//        layer.getUpdateManager().place(new MockAgent(1), coord);
+//        assertEquals(Color.BLUE, query.getColor(coord, systemState));
+//
+//        // Test 2
+//        layer.getUpdateManager().banish(coord);
+//        layer.getUpdateManager().place(new MockAgent(2), coord);
+//        assertEquals(Color.RED, query.getColor(coord, systemState));
     }
 
     @Test

@@ -55,15 +55,13 @@ public abstract class AgentLayerContentTest extends LegacyTest {
 
         query = makeQuery();
 
-        f0 = makeMockAgent(1, 0.5);
-        f1 = makeMockAgent(1, 0.5);
-        f2 = makeMockAgent(2, 0.7);
+        f0 = makeMockAgent("1");
+        f1 = makeMockAgent("1");
+        f2 = makeMockAgent("2");
     }
 
-    private MockAgent makeMockAgent(int state, double health) {
+    private MockAgent makeMockAgent(String name) {
         MockAgent cell = new MockAgent();
-        cell.setState(state);
-        cell.setHealth(health);
 
         return cell;
     }
@@ -102,27 +100,15 @@ public abstract class AgentLayerContentTest extends LegacyTest {
     }
 
     @Test
-    public void testGetStateVector() throws Exception {
+    public void testGetNameVector() throws Exception {
         query.put(c[0], f0);
         query.put(c[1], f1);
         query.put(c[2], f2);
 
         // Health vector goes in order of canonical sites array
-        assertEquals(query.getStateVector()[0], 1);
-        assertEquals(query.getStateVector()[1], 1);
-        assertEquals(query.getStateVector()[2], 2);
-    }
-
-    @Test
-    public void testGetHealthVector() throws Exception {
-        query.put(c[0], f0);
-        query.put(c[1], f1);
-        query.put(c[2], f2);
-
-        // Health vector goes in order of canonical sites array
-        assertEquals(query.getHealthVector()[0], 0.5, epsilon);
-        assertEquals(query.getHealthVector()[1], 0.5, epsilon);
-        assertEquals(query.getHealthVector()[2], 0.7, epsilon);
+        assertEquals(query.getNames()[0], "1");
+        assertEquals(query.getNames()[1], "1");
+        assertEquals(query.getNames()[2], "2");
     }
 
     @Test

@@ -38,6 +38,8 @@ import nanoverse.runtime.structural.MockGeneralParameters;
 import org.junit.*;
 import test.*;
 
+import static org.junit.Assert.fail;
+
 public class SurfaceCensusWriterTest extends LegacyTest {
     private MockGeneralParameters p;
     private SurfaceCensusWriter writer;
@@ -48,55 +50,57 @@ public class SurfaceCensusWriterTest extends LegacyTest {
 
     @Before
     public void setUp() throws Exception {
-        p = makeMockGeneralParameters();
-
-        Lattice lattice = new LinearLattice();
-        Shape shape = new Line(lattice, 10);
-        Boundary boundary = new Arena(shape, lattice);
-        geom = new Geometry(lattice, shape, boundary);
-
-        cellLayer = new AgentLayer(geom);
-        layerManager = new MockLayerManager();
-        layerManager.setAgentLayer(cellLayer);
-        haltEvent = new ManualHaltEvent("");
-        writer = new SurfaceCensusWriter(p, layerManager);
+        fail("Rewrite as a modern test");
+//        p = makeMockGeneralParameters();
+//
+//        Lattice lattice = new LinearLattice();
+//        Shape shape = new Line(lattice, 10);
+//        Boundary boundary = new Arena(shape, lattice);
+//        geom = new Geometry(lattice, shape, boundary);
+//
+//        cellLayer = new AgentLayer(geom);
+//        layerManager = new MockLayerManager();
+//        layerManager.setAgentLayer(cellLayer);
+//        haltEvent = new ManualHaltEvent("");
+//        writer = new SurfaceCensusWriter(p, layerManager);
     }
 
     @Test
     public void testLifeCycle() throws Exception {
-        writer.init();
-
-        // Place single cell at center -- it is the surface
-        StepState state = new StepState(0.0, 0);
-        put(5, 1);
-        state.record(layerManager);
-        writer.flush(state);
-
-        // Place a cell to its left -- both surface
-        put(4, 1);
-        state = new StepState(1.0, 1);
-        state.record(layerManager);
-        writer.flush(state);
-
-        // Place a cell to the right of the original -- now the center is not surface
-        put(6, 2);
-        state = new StepState(2.0, 2);
-        state.record(layerManager);
-        writer.flush(state);
-
-        // Replace left cell with a different name
-        replace(4, 2);
-        state = new StepState(3.0, 3);
-        state.record(layerManager);
-        writer.flush(state);
-
-        haltEvent.setGillespie(3.0);
-        writer.dispatchHalt(haltEvent);
-        writer.close();
-        FileAssertions.assertOutputMatchesFixture("surface_census.txt", true);
+        fail("Rewrite as a modern test");
+//        writer.init();
+//
+//        // Place single cell at center -- it is the surface
+//        StepState state = new StepState(0.0, 0);
+//        put(5, 1);
+//        state.record(layerManager);
+//        writer.flush(state);
+//
+//        // Place a cell to its left -- both surface
+//        put(4, 1);
+//        state = new StepState(1.0, 1);
+//        state.record(layerManager);
+//        writer.flush(state);
+//
+//        // Place a cell to the right of the original -- now the center is not surface
+//        put(6, 2);
+//        state = new StepState(2.0, 2);
+//        state.record(layerManager);
+//        writer.flush(state);
+//
+//        // Replace left cell with a different name
+//        replace(4, 2);
+//        state = new StepState(3.0, 3);
+//        state.record(layerManager);
+//        writer.flush(state);
+//
+//        haltEvent.setGillespie(3.0);
+//        writer.dispatchHalt(haltEvent);
+//        writer.close();
+//        FileAssertions.assertOutputMatchesFixture("surface_census.txt", true);
     }
 
-    private void replace(int y, int state) throws Exception {
+    private void replace(int y, String state) throws Exception {
         Coordinate c = new Coordinate2D(0, y, 0);
         AgentUpdateManager u = cellLayer.getUpdateManager();
         u.banish(c);
@@ -104,7 +108,7 @@ public class SurfaceCensusWriterTest extends LegacyTest {
         u.place(cell, c);
     }
 
-    private void put(int y, int state) throws Exception {
+    private void put(int y, String state) throws Exception {
         Coordinate c = new Coordinate2D(0, y, 0);
         MockAgent cell = new MockAgent(state);
         AgentUpdateManager u = cellLayer.getUpdateManager();
@@ -113,18 +117,19 @@ public class SurfaceCensusWriterTest extends LegacyTest {
 
     @Test
     public void testImaginarySites() throws Exception {
-        writer.init();
-
-        // Place nanoverse.runtime.cells in imaginary sites -- they should be treated normally
-        StepState state = new StepState(0.0, 0);
-        put(-2, 2);
-        put(-1, 1);
-        state.record(layerManager);
-        writer.flush(state);
-        haltEvent.setGillespie(0.0);
-        writer.dispatchHalt(haltEvent);
-        writer.close();
-        FileAssertions.assertOutputMatchesFixture("surface_census_imaginary.txt", "surface_census.txt", true);
+        fail("Rewrite as a modern test");
+//        writer.init();
+//
+//        // Place nanoverse.runtime.cells in imaginary sites -- they should be treated normally
+//        StepState state = new StepState(0.0, 0);
+//        put(-2, 2);
+//        put(-1, 1);
+//        state.record(layerManager);
+//        writer.flush(state);
+//        haltEvent.setGillespie(0.0);
+//        writer.dispatchHalt(haltEvent);
+//        writer.close();
+//        FileAssertions.assertOutputMatchesFixture("surface_census_imaginary.txt", "surface_census.txt", true);
 //        assertFilesEqual("surface_census_imaginary.txt", "surface_census.txt");
     }
 }

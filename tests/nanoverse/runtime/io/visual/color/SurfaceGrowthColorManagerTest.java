@@ -42,6 +42,7 @@ import test.LegacyTest;
 import java.awt.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class SurfaceGrowthColorManagerTest extends LegacyTest {
 
@@ -71,13 +72,14 @@ public class SurfaceGrowthColorManagerTest extends LegacyTest {
     }
 
     private void put(AgentLayer layer, int pos, int state) throws Exception {
-        Coordinate coord = new Coordinate2D(0, pos, 0);
-        AbstractAgent agent = new MockAgent(state);
-        layer.getUpdateManager().place(agent, coord);
+//        Coordinate coord = new Coordinate2D(0, pos, 0);
+//        AbstractAgent agent = new MockAgent(state);
+//        layer.getUpdateManager().place(agent, coord);
     }
 
     @Test
     public void testGetBorderColor() throws Exception {
+        fail("Rewrite as a modern test");
         Color actual = query.getBorderColor();
         Color expected = Color.DARK_GRAY;
         assertEquals(expected, actual);
@@ -85,6 +87,7 @@ public class SurfaceGrowthColorManagerTest extends LegacyTest {
 
     @Test
     public void testInteriorPoint() throws Exception {
+        fail("Rewrite as a modern test");
         Color actual = getColor(2);
         Color expected = scaleColor(Color.BLUE);
 
@@ -109,6 +112,7 @@ public class SurfaceGrowthColorManagerTest extends LegacyTest {
 
     @Test
     public void testExteriorPoint() throws Exception {
+        fail("Rewrite as a modern test");
         Color actual = getColor(1);
         Color expected = Color.BLUE;
 
@@ -117,6 +121,7 @@ public class SurfaceGrowthColorManagerTest extends LegacyTest {
 
     @Test
     public void testVacantPoint() throws Exception {
+        fail("Rewrite as a modern test");
         Color actual = getColor(0);
         Color expected = Color.BLACK;
 

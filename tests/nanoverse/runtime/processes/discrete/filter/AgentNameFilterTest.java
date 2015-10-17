@@ -44,15 +44,15 @@ public class AgentNameFilterTest extends LegacyLatticeTest {
     public void setUp() throws Exception {
         super.setUp();
 
-        yes = new MockAgent(1);
-        no = new MockAgent(2);
+        yes = new MockAgent("a");
+        no = new MockAgent("b");
 
         AgentUpdateManager u = cellLayer.getUpdateManager();
 
         u.place(yes, x);
         u.place(no, y);
 
-        query = new AgentNameFilter(cellLayer, new ConstantInteger(1));
+        query = new AgentNameFilter(cellLayer, "a");
     }
 
     @Test

@@ -100,11 +100,11 @@ public class FillTest extends LegacyTest {
     @Test
     public void testSkipFilledYes() throws Exception {
         Coordinate c = new Coordinate2D(0, 2, 0);
-        lm.getAgentLayer().getUpdateManager().place(new MockAgent(2), c);
+        lm.getAgentLayer().getUpdateManager().place(new MockAgent("test"), c);
         doSkipFilledTest(true);
 
         // Original cell should not have been replaced, because it was skipped
-        assertEquals(2, lm.getAgentLayer().getViewer().getName(c));
+        assertEquals("test", lm.getAgentLayer().getViewer().getName(c));
     }
 
     private void doSkipFilledTest(boolean skip) throws Exception {
@@ -125,7 +125,7 @@ public class FillTest extends LegacyTest {
     @Test
     public void testSkipFilledNo() throws Exception {
         Coordinate c = new Coordinate2D(0, 2, 0);
-        lm.getAgentLayer().getUpdateManager().place(new MockAgent(2), c);
+        lm.getAgentLayer().getUpdateManager().place(new MockAgent(), c);
         doSkipFilledTest(false);
     }
 }

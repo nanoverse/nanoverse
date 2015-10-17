@@ -118,12 +118,10 @@ public class MultiChannelHighlightTest extends LegacyTest {
 
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
         int n = geom.getCanonicalSites().length;
-        double[] health = new double[n];
-        int[] state = new int[n];
+        String[] state = new String[n];
 
         for (int i = 0; i < n; i++) {
-            health[i] = 0;
-            state[i] = 0;
+            state[i] = "test";
         }
         systemState.initAgentLayer(state);
 

@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.function.Supplier;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 /**
@@ -76,29 +77,30 @@ public class ExpandRandomTest extends LegacyTest {
     }
 
     private MockTargetRule placeNumberedAgent(int x) throws Exception {
-        Supplier<Agent> ncSupplier = mock(Supplier.class);
-        Agent child = new MockAgent(x);
-        when(ncSupplier.get()).thenReturn(child);
-        Agent cell = new Agent(layerManager, x, x, x, ncSupplier);
-        Coordinate coord = new Coordinate2D(x, 0, 0);
-        layer.getUpdateManager().place(cell, coord);
-        BehaviorDispatcher bd = new BehaviorDispatcher();
-        cell.setDispatcher(bd);
-
-        MockTargetRule targetRule = new MockTargetRule();
-
-        // Agents always divide to the right
-        ArrayList<Coordinate> targets = new ArrayList<>(1);
-        Coordinate target = new Coordinate2D(x + 1, 0, 0);
-        targets.add(target);
-        targetRule.setTargets(targets);
-
-        ExpandRandom expandRandom = new ExpandRandom(cell, layerManager, null, null, random);
-
-        Action behavior = new CompoundAction(cell, layerManager, new Action[]{expandRandom});
-        bd.map("replicate-self", behavior);
-
-        return targetRule;
+//        Supplier<Agent> ncSupplier = mock(Supplier.class);
+//        Agent child = new MockAgent(x);
+//        when(ncSupplier.get()).thenReturn(child);
+//        Agent cell = new Agent(layerManager, x, x, x, ncSupplier);
+//        Coordinate coord = new Coordinate2D(x, 0, 0);
+//        layer.getUpdateManager().place(cell, coord);
+//        BehaviorDispatcher bd = new BehaviorDispatcher();
+//        cell.setDispatcher(bd);
+//
+//        MockTargetRule targetRule = new MockTargetRule();
+//
+//        // Agents always divide to the right
+//        ArrayList<Coordinate> targets = new ArrayList<>(1);
+//        Coordinate target = new Coordinate2D(x + 1, 0, 0);
+//        targets.add(target);
+//        targetRule.setTargets(targets);
+//
+//        ExpandRandom expandRandom = new ExpandRandom(cell, layerManager, null, null, random);
+//
+//        Action behavior = new CompoundAction(cell, layerManager, new Action[]{expandRandom});
+//        bd.map("replicate-self", behavior);
+//
+//        return targetRule;
+        return null;
     }
 
     /**
@@ -120,19 +122,21 @@ public class ExpandRandomTest extends LegacyTest {
      */
     @Test
     public void testRandomShove() throws Exception {
-        Coordinate target = new Coordinate2D(3, 0, 0);
-        ArrayList<Coordinate> targets = new ArrayList<>(1);
-        targets.add(target);
-        parent.trigger("replicate-self", null);
-
-        checkPosition(3, 4);
-        checkPosition(4, 4);
+        fail("Rewrite as a modern mock");
+//        Coordinate target = new Coordinate2D(3, 0, 0);
+//        ArrayList<Coordinate> targets = new ArrayList<>(1);
+//        targets.add(target);
+//        parent.trigger("replicate-self", null);
+//
+//        checkPosition(3, 4);
+//        checkPosition(4, 4);
     }
 
     private void checkPosition(int x, int state) {
-        Coordinate c = new Coordinate2D(x, 0, 0);
-        AbstractAgent agent = layer.getViewer().getAgent(c);
-        assertEquals(state, agent.getState());
+        fail("Rewrite as a modern mock");
+//        Coordinate c = new Coordinate2D(x, 0, 0);
+//        AbstractAgent agent = layer.getViewer().getAgent(c);
+//        assertEquals(state, agent.getState());
     }
 
     /**
@@ -147,20 +151,21 @@ public class ExpandRandomTest extends LegacyTest {
      */
     @Test
     public void testVacancySameDirection() throws Exception {
-        placeNumberedAgent(1);
-        placeNumberedAgent(2);
-        placeNumberedAgent(3);
-
-        Coordinate target = new Coordinate2D(3, 0, 0);
-        ArrayList<Coordinate> targets = new ArrayList<>(1);
-        targets.add(target);
-        parentTargetRule.setTargets(targets);
-        parent.trigger("replicate-self", null);
-
-        checkPosition(0, 1);
-        checkPosition(1, 2);
-        checkPosition(2, 3);
-        checkPosition(3, 4);
-        checkPosition(4, 4);
+        fail("Rewrite as a modern mock");
+//        placeNumberedAgent(1);
+//        placeNumberedAgent(2);
+//        placeNumberedAgent(3);
+//
+//        Coordinate target = new Coordinate2D(3, 0, 0);
+//        ArrayList<Coordinate> targets = new ArrayList<>(1);
+//        targets.add(target);
+//        parentTargetRule.setTargets(targets);
+//        parent.trigger("replicate-self", null);
+//
+//        checkPosition(0, 1);
+//        checkPosition(1, 2);
+//        checkPosition(2, 3);
+//        checkPosition(3, 4);
+//        checkPosition(4, 4);
     }
 }

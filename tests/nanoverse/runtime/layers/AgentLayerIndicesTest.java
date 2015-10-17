@@ -47,70 +47,51 @@ public class AgentLayerIndicesTest extends LegacyTest {
     @Test
     public void testNulltoNull() {
         query.refresh(c, null, null);
-
-        assertFalse(query.isDivisible(c));
         assertFalse(query.isOccupied(c));
     }
 
     @Test
     public void testNonNullToNull() {
         MockAgent cell = new MockAgent();
-        cell.setDivisible(true);
         query.refresh(c, null, cell);
 
         query.refresh(c, cell, null);
         assertFalse(query.isIndexed(cell));
-        assertFalse(query.isDivisible(c));
         assertFalse(query.isOccupied(c));
     }
 
     @Test
     public void testNullToNonDivisible() {
         MockAgent cell = new MockAgent();
-
-        cell.setDivisible(false);
-        cell.setState(3);
+        cell.setName("test");
 
         query.refresh(c, null, cell);
 
         assertTrue(query.isIndexed(cell));
         assertEquals(c, query.locate(cell));
-        assertFalse(query.isDivisible(c));
         assertTrue(query.isOccupied(c));
-        assertEquals((Integer) 1, query.getStateMap().get(3));
-    }
-
-    @Test
-    public void testNullToDivisible() {
-        MockAgent cell = new MockAgent();
-        cell.setDivisible(true);
-        query.refresh(c, null, cell);
-        assertTrue(query.isDivisible(c));
+        assertEquals((Integer) 1, query.getNameMap().get("test"));
     }
 
     @Test
     public void testNonNullTransition() {
         MockAgent dAgent = new MockAgent();
-        dAgent.setState(5);
-        dAgent.setDivisible(true);
+        dAgent.setName("5");
 
         MockAgent nAgent = new MockAgent();
-        nAgent.setDivisible(false);
-        nAgent.setState(2);
+        nAgent.setName("2");
 
         query.refresh(c, null, nAgent);
         assertTrue(query.isIndexed(nAgent));
         assertFalse(query.isIndexed(dAgent));
-        assertFalse(query.isDivisible(c));
-        assertEquals((Integer) 0, query.getStateMap().get(5));
-        assertEquals((Integer) 1, query.getStateMap().get(2));
+        assertEquals((Integer) 0, query.getNameMap().get("5"));
+        assertEquals((Integer) 1, query.getNameMap().get("2"));
 
         query.refresh(c, nAgent, dAgent);
         assertFalse(query.isIndexed(nAgent));
         assertTrue(query.isIndexed(dAgent));
-        assertTrue(query.isDivisible(c));
-        assertEquals((Integer) 1, query.getStateMap().get(5));
-        assertEquals((Integer) 0, query.getStateMap().get(2));
+        assertEquals((Integer) 1, query.getNameMap().get("5"));
+        assertEquals((Integer) 0, query.getNameMap().get("2"));
     }
 
     @Test

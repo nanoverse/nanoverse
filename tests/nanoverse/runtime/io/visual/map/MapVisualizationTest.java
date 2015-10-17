@@ -42,6 +42,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+import static org.junit.Assert.fail;
+
 /**
  * Created by dbborens on 4/1/14.
  */
@@ -53,13 +55,14 @@ public class MapVisualizationTest extends GlyphTest {
 
     @Override
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
-        int n = geom.getCanonicalSites().length;
-        int[] state = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            state[i] = ((i + 1) % 2) + 1;
-        }
-        systemState.initAgentLayer(state);
+        fail("Rewrite me");
+//        int n = geom.getCanonicalSites().length;
+//        int[] state = new int[n];
+//
+//        for (int i = 0; i < n; i++) {
+//            state[i] = ((i + 1) % 2) + 1;
+//        }
+//        systemState.initAgentLayer(state);
     }
 
     @Override
@@ -174,20 +177,21 @@ public class MapVisualizationTest extends GlyphTest {
     }
 
     private void remakeStatesForCube(Geometry geom) {
-        MockCoordinateDeindexer deindexer = new MockCoordinateDeindexer();
-        deindexer.setUnderlying(geom.getCanonicalSites());
-        int n = geom.getCanonicalSites().length;
-        double[] health = new double[n];
-        int[] state = new int[n];
-        for (int i = 0; i < n; i++) {
-            health[i] = (i % 2) + 1;
-            Coordinate c = deindexer.getCoordinate(i);
-            if (c.z() == 2) {
-                state[i] = 3;
-            } else {
-                state[i] = ((i + 1) % 2) + 1;
-            }
-        }
-        ((LightweightSystemState) systemState).initAgentLayer(state);
+        fail("rewrite me");
+//        MockCoordinateDeindexer deindexer = new MockCoordinateDeindexer();
+//        deindexer.setUnderlying(geom.getCanonicalSites());
+//        int n = geom.getCanonicalSites().length;
+//        double[] health = new double[n];
+//        int[] state = new int[n];
+//        for (int i = 0; i < n; i++) {
+//            health[i] = (i % 2) + 1;
+//            Coordinate c = deindexer.getCoordinate(i);
+//            if (c.z() == 2) {
+//                state[i] = 3;
+//            } else {
+//                state[i] = ((i + 1) % 2) + 1;
+//            }
+//        }
+//        ((LightweightSystemState) systemState).initAgentLayer(state);
     }
 }

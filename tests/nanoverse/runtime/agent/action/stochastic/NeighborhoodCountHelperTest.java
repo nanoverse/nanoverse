@@ -36,9 +36,9 @@ public class NeighborhoodCountHelperTest extends TestBase {
         Coordinate c = mock(Coordinate.class);
         when(lm.getAgentLocation(agent)).thenReturn(c);
 
-        int[] neighborStates = new int[3];
-        when(layer.getLookupManager().getNeighborStates(c, true))
-                .thenReturn(neighborStates);
+        String[] neighborNames = new String[3];
+        when(layer.getLookupManager().getNeighborNames(c, true))
+                .thenReturn(neighborNames);
 
         double actual = query.getNeighborCount();
         assertEquals(3.0, actual, epsilon);

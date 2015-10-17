@@ -74,46 +74,11 @@ public class AgentDescriptorInterpolatorTest extends InterpolatorTest {
     }
 
     @Test
-    public void clazz() throws Exception {
-        Supplier<IntegerArgument> trigger = () -> query.clazz(node, random);
-        verifyIntegerArgument("class", trigger);
+    public void name() throws Exception {
+        Supplier<String> trigger = () -> query.name(node);
+        verifyString("name", trigger);
     }
 
-    @Test
-    public void clazzDefault() throws Exception {
-        IntegerArgument expected = mock(IntegerArgument.class);
-        when(defaults.clazz()).thenReturn(expected);
-        Runnable trigger = () -> query.clazz(node, random);
-        verifyIntegerArgumentDefault("class", expected, trigger);
-    }
-
-    @Test
-    public void initialHealth() throws Exception {
-        Supplier<DoubleArgument> trigger = () -> query.initialHealth(node, random);
-        verifyDoubleArgument("initialHealth", trigger);
-    }
-
-    @Test
-    public void initialHealthDefault() throws Exception {
-        DoubleArgument expected = mock(DoubleArgument.class);
-        when(defaults.initialHealth()).thenReturn(expected);
-        Runnable trigger = () -> query.initialHealth(node, random);
-        verifyDoubleArgumentDefault("initialHealth", expected, trigger);
-    }
-
-    @Test
-    public void threshold() throws Exception {
-        Supplier<DoubleArgument> trigger = () -> query.threshold(node, random);
-        verifyDoubleArgument("threshold", trigger);
-    }
-
-    @Test
-    public void thresholdDefault() throws Exception {
-        DoubleArgument expected = mock(DoubleArgument.class);
-        when(defaults.threshold()).thenReturn(expected);
-        Runnable trigger = () -> query.threshold(node, random);
-        verifyDoubleArgumentDefault("threshold", expected, trigger);
-    }
 
     @Test
     public void reactions() throws Exception {

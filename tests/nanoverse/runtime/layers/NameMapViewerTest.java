@@ -34,27 +34,27 @@ import static org.junit.Assert.assertEquals;
 public class NameMapViewerTest {
 
     @Test
-    public void testGetStates() {
+    public void testGetNames() {
         // Set up
         NameMapViewer viewer = makeViewer();
 
         // Get name array
-        Integer[] states = viewer.getNames();
+        String[] names = viewer.getNames();
 
         // Sort it
-        Arrays.sort(states);
+        Arrays.sort(names);
 
         // Verify elements
-        assertEquals(states.length, 2);
-        assertEquals((int) states[0], 1);
-        assertEquals((int) states[1], 2);
+        assertEquals(names.length, 2);
+        assertEquals(names[0], "1");
+        assertEquals(names[1], "2");
 
     }
 
     private NameMapViewer makeViewer() {
-        Map<Integer, Integer> stateMap = new HashMap<Integer, Integer>();
-        stateMap.put(1, 3);
-        stateMap.put(2, 5);
+        Map<String, Integer> stateMap = new HashMap<>();
+        stateMap.put("1", 3);
+        stateMap.put("2", 5);
 
         NameMapViewer viewer = new NameMapViewer(stateMap);
 
@@ -66,7 +66,7 @@ public class NameMapViewerTest {
         // Set up
         NameMapViewer viewer = makeViewer();
 
-        int count = viewer.getCount(2);
+        int count = viewer.getCount("2");
 
         assertEquals(count, 5);
     }

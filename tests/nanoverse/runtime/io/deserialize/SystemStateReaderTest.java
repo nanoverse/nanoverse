@@ -95,12 +95,8 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
     public void testNext() throws Exception {
         LightweightSystemState state = query.next();
 
-        // Check solute name
-//        assertEquals(1.0, name.getLayerManager().getSoluteLayer("0").getState().getAbsolute(origin), epsilon);
-
         // Check cell name
         assertEquals(5, state.getLayerManager().getAgentLayer().getViewer().getName(x));
-//        assertEquals(2.0, name.getLayerManager().getAgentLayer().getViewer().getAgent(x).getHealth(), epsilon);
 
         // Origin is vacant
         assertEquals(0, state.getLayerManager().getAgentLayer().getViewer().getName(origin));
@@ -122,19 +118,13 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
 
         Serializer[] serializers = makeSerializerArray();
 
-        /* Populate the system */
-//        MockSoluteLayer layer0 = initializeSoluteLayer("0");
-//        layerManager.addSoluteLayer("0", layer0);
+        placeAgent(x, 2.0, "5");
+        placeAgent(y, 1.0, "3");
 
-//        pushState(layer0, new double[]{1.0, 2.0, 3.0, 4.0, 5.0});
-
-        placeAgent(x, 2.0, 5);
-        placeAgent(y, 1.0, 3);
-
-//        Coordinate[] highlights = new Coordinate[]{x};
         Stream<Coordinate> highlights = Stream.of(x);
         MockStepState stepState = new MockStepState(1.7, 2);
         stepState.setHighlights(0, highlights);
+
         /* Initialize output and push first name */
         for (Serializer serializer : serializers) {
             serializer.init();
@@ -172,12 +162,11 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
         return ret;
     }
 
-    private MockAgent placeAgent(Coordinate coord, double health, int state) throws Exception {
-        MockAgent cell = new MockAgent();
-        cell.setHealth(health);
-        cell.setState(state);
-        cellLayer.getUpdateManager().place(cell, coord);
+    private MockAgent placeAgent(Coordinate coord, double health, String name) throws Exception {
+        MockAgent agent = new MockAgent();
+        agent.setName(name);
+        cellLayer.getUpdateManager().place(agent, coord);
 
-        return cell;
+        return agent;
     }
 }

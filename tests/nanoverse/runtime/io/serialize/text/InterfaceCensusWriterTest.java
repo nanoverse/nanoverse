@@ -92,18 +92,18 @@ public class InterfaceCensusWriterTest extends LegacyTest {
      * border a 1.
      */
     private void buildInitialCondition() throws HaltCondition {
-        put(new Coordinate2D(0, 0, 0), 0);
-        put(new Coordinate2D(1, 0, 0), 1);
-        put(new Coordinate2D(2, 0, 0), 2);
-        put(new Coordinate2D(0, 1, 0), 2);
-        put(new Coordinate2D(1, 1, 0), 1);
-        put(new Coordinate2D(2, 1, 0), 0);
-        put(new Coordinate2D(0, 2, 0), 1);
-        put(new Coordinate2D(1, 2, 0), 2);
-        put(new Coordinate2D(2, 2, 0), 3);
+        put(new Coordinate2D(0, 0, 0), "0");
+        put(new Coordinate2D(1, 0, 0), "1");
+        put(new Coordinate2D(2, 0, 0), "2");
+        put(new Coordinate2D(0, 1, 0), "2");
+        put(new Coordinate2D(1, 1, 0), "1");
+        put(new Coordinate2D(2, 1, 0), "0");
+        put(new Coordinate2D(0, 2, 0), "1");
+        put(new Coordinate2D(1, 2, 0), "2");
+        put(new Coordinate2D(2, 2, 0), "3");
     }
 
-    private void put(Coordinate c, int state) throws HaltCondition {
+    private void put(Coordinate c, String state) throws HaltCondition {
         MockAgent cell = new MockAgent(state);
         AgentUpdateManager u = cellLayer.getUpdateManager();
         u.place(cell, c);
@@ -149,7 +149,7 @@ public class InterfaceCensusWriterTest extends LegacyTest {
 //        assertFilesEqual("interface_1.txt");
     }
 
-    private void replace(Coordinate c, int state) throws HaltCondition {
+    private void replace(Coordinate c, String state) throws HaltCondition {
         AgentUpdateManager u = cellLayer.getUpdateManager();
         u.banish(c);
         put(c, state);

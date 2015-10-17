@@ -41,6 +41,7 @@ import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class CheckForDominationTest extends LegacyTest {
     private MockLayerManager layerManager;
@@ -49,36 +50,37 @@ public class CheckForDominationTest extends LegacyTest {
 
     @Before
     public void setUp() throws Exception {
-        Lattice lattice = new RectangularLattice();
-        layerManager = new MockLayerManager();
-        Shape shape = new Rectangle(lattice, 11, 1);
-        Boundary boundary = new Periodic(shape, lattice);
-        Geometry geom = new Geometry(lattice, shape, boundary);
-        layer = new AgentLayer(geom);
-        layerManager.setAgentLayer(layer);
-        MockGeneralParameters p = makeMockGeneralParameters();
-        DoubleArgument thresholdArg = new ConstantDouble(0.2);
-        IntegerArgument stateArg = new ConstantInteger(1);
-
-        // Create a 1D lattice of length 10.
-        // Create an occupancy test that checks for 30% occupancy.
-        BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
-        AgentProcessArguments cpArguments = makeAgentProcessArguments(geom);
-        query = new CheckForDomination(arguments, cpArguments, stateArg, thresholdArg);
-        query.init();
+//        Lattice lattice = new RectangularLattice();
+//        layerManager = new MockLayerManager();
+//        Shape shape = new Rectangle(lattice, 11, 1);
+//        Boundary boundary = new Periodic(shape, lattice);
+//        Geometry geom = new Geometry(lattice, shape, boundary);
+//        layer = new AgentLayer(geom);
+//        layerManager.setAgentLayer(layer);
+//        MockGeneralParameters p = makeMockGeneralParameters();
+//        DoubleArgument thresholdArg = new ConstantDouble(0.2);
+//        IntegerArgument stateArg = new ConstantInteger(1);
+//
+//        // Create a 1D lattice of length 10.
+//        // Create an occupancy test that checks for 30% occupancy.
+//        BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
+//        AgentProcessArguments cpArguments = makeAgentProcessArguments(geom);
+//        query = new CheckForDomination(arguments, cpArguments, nameArg, thresholdArg);
+//        query.init();
     }
 
     @Test
     public void testAboveThreshold() throws Exception {
-        for (int i = 1; i < 4; i++) {
-            populate(i, 1);
-        }
-
-        for (int i = 4; i < 11; i++) {
-            populate(i, i);
-        }
-
-        doTest(true);
+        fail("Rewrite as modern test");
+//        for (int i = 1; i < 4; i++) {
+//            populate(i, 1);
+//        }
+//
+//        for (int i = 4; i < 11; i++) {
+//            populate(i, i);
+//        }
+//
+//        doTest(true);
     }
 
     private void doTest(boolean expectThrow) throws Exception {
@@ -94,34 +96,36 @@ public class CheckForDominationTest extends LegacyTest {
     }
 
     private void populate(int x, int state) throws Exception {
-        Agent cell = new Agent(layerManager, state, state, state, null);
-        Coordinate coord = new Coordinate2D(x, 0, 0);
-        layer.getUpdateManager().place(cell, coord);
+//        Agent cell = new Agent(layerManager, state, state, state, null);
+//        Coordinate coord = new Coordinate2D(x, 0, 0);
+//        layer.getUpdateManager().place(cell, coord);
     }
 
     @Test
     public void testAtThreshold() throws Exception {
-        for (int i = 1; i < 3; i++) {
-            populate(i, 1);
-        }
-
-        for (int i = 3; i < 11; i++) {
-            populate(i, i);
-        }
-
-        doTest(true);
+        fail("Rewrite as modern test");
+//        for (int i = 1; i < 3; i++) {
+//            populate(i, 1);
+//        }
+//
+//        for (int i = 3; i < 11; i++) {
+//            populate(i, i);
+//        }
+//
+//        doTest(true);
     }
 
     @Test
     public void testBelowThreshold() throws Exception {
-        for (int i = 1; i < 2; i++) {
-            populate(i, 1);
-        }
-
-        for (int i = 2; i < 11; i++) {
-            populate(i, i);
-        }
-
-        doTest(false);
+        fail("Rewrite as modern test");
+//        for (int i = 1; i < 2; i++) {
+//            populate(i, 1);
+//        }
+//
+//        for (int i = 2; i < 11; i++) {
+//            populate(i, i);
+//        }
+//
+//        doTest(false);
     }
 }

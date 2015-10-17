@@ -98,11 +98,6 @@ public class ActionClassSymbolTableTest extends ClassSymbolTableTest {
     }
 
     @Test
-    public void adjustHealth() throws Exception {
-        verifyReturnSymbol("AdjustHealth", AdjustHealthDescriptor.class);
-    }
-
-    @Test
     public void die() throws Exception {
         verifyReturnSymbol("Die", DieDescriptor.class);
     }

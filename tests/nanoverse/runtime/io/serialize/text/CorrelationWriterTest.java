@@ -38,6 +38,8 @@ import nanoverse.runtime.structural.MockGeneralParameters;
 import org.junit.*;
 import test.*;
 
+import static org.junit.Assert.fail;
+
 /**
  * Created by dbborens on 4/22/14.
  */
@@ -64,52 +66,55 @@ public class CorrelationWriterTest extends LegacyTest {
 
     @Test
     public void testTrivialCase() throws Exception {
-        String filename = "TrivialCorrelation.txt";
-        MockGeneralParameters p = makeMockGeneralParameters();
-        CorrelationWriter query = new CorrelationWriter(p, filename, new ConstantDouble(1.0), layerManager);
-        query.init();
-        StepState state = new StepState(2.0, 1);
-        state.record(layerManager);
-        query.flush(state);
-        query.dispatchHalt(null);
-        query.close();
-        FileAssertions.assertOutputMatchesFixture(filename, true);
+        fail("Rewrite as either a modern mock or a full integration test (or both)");
+//        String filename = "TrivialCorrelation.txt";
+//        MockGeneralParameters p = makeMockGeneralParameters();
+//        CorrelationWriter query = new CorrelationWriter(p, filename, new ConstantDouble(1.0), layerManager);
+//        query.init();
+//        StepState state = new StepState(2.0, 1);
+//        state.record(layerManager);
+//        query.flush(state);
+//        query.dispatchHalt(null);
+//        query.close();
+//        FileAssertions.assertOutputMatchesFixture(filename, true);
     }
 
     @Test
     public void testCheckerboardCase() throws Exception {
-        String filename = "CheckerboardCorrelation.txt";
-        MockGeneralParameters p = makeMockGeneralParameters();
-        CorrelationWriter query = new CorrelationWriter(p, filename, new ConstantDouble(1.0), layerManager);
-        loadCheckerboard();
-        query.init();
-        StepState state = new StepState(2.0, 1);
-        state.record(layerManager);
-        query.flush(state);
-        query.dispatchHalt(null);
-        query.close();
-        FileAssertions.assertOutputMatchesFixture(filename, true);
+        fail("Rewrite as either a modern mock or a full integration test (or both)");
+//        String filename = "CheckerboardCorrelation.txt";
+//        MockGeneralParameters p = makeMockGeneralParameters();
+//        CorrelationWriter query = new CorrelationWriter(p, filename, new ConstantDouble(1.0), layerManager);
+//        loadCheckerboard();
+//        query.init();
+//        StepState state = new StepState(2.0, 1);
+//        state.record(layerManager);
+//        query.flush(state);
+//        query.dispatchHalt(null);
+//        query.close();
+//        FileAssertions.assertOutputMatchesFixture(filename, true);
     }
 
     private void loadCheckerboard() throws Exception {
-        for (int x = 0; x < SIDE; x += 2) {
-            for (int y = 0; y < SIDE; y += 2) {
-                Coordinate c0 = new Coordinate2D(x, y, 0);
-                MockAgent cell = new MockAgent(1);
-                layer.getUpdateManager().place(cell, c0);
-
-
-                if ((x < SIDE - 1) && (y < SIDE - 1)) {
-                    cell = new MockAgent(1);
-                    Coordinate c1 = new Coordinate2D(x + 1, y + 1, 0);
-                    layer.getUpdateManager().place(cell, c1);
-                }
-            }
-        }
+//        for (int x = 0; x < SIDE; x += 2) {
+//            for (int y = 0; y < SIDE; y += 2) {
+//                Coordinate c0 = new Coordinate2D(x, y, 0);
+//                MockAgent cell = new MockAgent();
+//                layer.getUpdateManager().place(cell, c0);
+//
+//
+//                if ((x < SIDE - 1) && (y < SIDE - 1)) {
+//                    cell = new MockAgent(1);
+//                    Coordinate c1 = new Coordinate2D(x + 1, y + 1, 0);
+//                    layer.getUpdateManager().place(cell, c1);
+//                }
+//            }
+//        }
     }
 
     @Test
     public void testThreeStateCase() throws Exception {
+        fail("Rewrite as a modern test");
         // Note that I have not verified that the fixture for this is exactly
         // right. It's a complicated case, but r=0 and r=1 are degenerate: you
         // never have a nearest neighbor the smae name as you, so you expect
@@ -119,35 +124,35 @@ public class CorrelationWriterTest extends LegacyTest {
         // all states at r=2 in an infinite nanoverse.runtime.geometry. Since this nanoverse.runtime.geometry is
         // finite, we expect some weirdness. The result we got looked plausible
         // at longer lengths and exactly right at shorter states.
-        String filename = "ThreeStateCorrelation.txt";
-        MockGeneralParameters p = makeMockGeneralParameters();
-        CorrelationWriter query = new CorrelationWriter(p, filename, new ConstantDouble(1.0), layerManager);
-        loadThreeState();
-        query.init();
-        StepState state = new StepState(2.0, 1);
-        state.record(layerManager);
-        query.flush(state);
-        query.dispatchHalt(null);
-        query.close();
-        FileAssertions.assertOutputMatchesFixture(filename, true);
+//        String filename = "ThreeStateCorrelation.txt";
+//        MockGeneralParameters p = makeMockGeneralParameters();
+//        CorrelationWriter query = new CorrelationWriter(p, filename, new ConstantDouble(1.0), layerManager);
+//        loadThreeState();
+//        query.init();
+//        StepState state = new StepState(2.0, 1);
+//        state.record(layerManager);
+//        query.flush(state);
+//        query.dispatchHalt(null);
+//        query.close();
+//        FileAssertions.assertOutputMatchesFixture(filename, true);
     }
 
     // Empty, name 1 and name 2.
     private void loadThreeState() throws Exception {
-        for (int x = 0; x < SIDE; x += 2) {
-            for (int y = 0; y < SIDE; y += 2) {
-                Coordinate c0 = new Coordinate2D(x, y, 0);
-                MockAgent cell = new MockAgent(1);
-                layer.getUpdateManager().place(cell, c0);
-
-
-                if ((x < SIDE - 1) && (y < SIDE - 1)) {
-                    cell = new MockAgent(2);
-                    Coordinate c1 = new Coordinate2D(x + 1, y + 1, 0);
-                    layer.getUpdateManager().place(cell, c1);
-                }
-            }
-        }
+//        for (int x = 0; x < SIDE; x += 2) {
+//            for (int y = 0; y < SIDE; y += 2) {
+//                Coordinate c0 = new Coordinate2D(x, y, 0);
+//                MockAgent cell = new MockAgent(1);
+//                layer.getUpdateManager().place(cell, c0);
+//
+//
+//                if ((x < SIDE - 1) && (y < SIDE - 1)) {
+//                    cell = new MockAgent(2);
+//                    Coordinate c1 = new Coordinate2D(x + 1, y + 1, 0);
+//                    layer.getUpdateManager().place(cell, c1);
+//                }
+//            }
+//        }
     }
 
     /**
@@ -161,20 +166,22 @@ public class CorrelationWriterTest extends LegacyTest {
      */
     @Test
     public void testAggregation() throws Exception {
-        String filename = "AggregateCorrelation.txt";
-        MockGeneralParameters p = makeMockGeneralParameters();
-        CorrelationWriter query = new CorrelationWriter(p, filename, new ConstantDouble(1.0), layerManager);
-        query.init();
-        StepState state = new StepState(2.0, 1);
-        state.record(layerManager);
-        query.flush(state);
-        query.dispatchHalt(null);
-        loadCheckerboard();
-        query.init();
-        state.record(layerManager);
-        query.flush(state);
-        query.dispatchHalt(null);
-        query.close();
-        FileAssertions.assertOutputMatchesFixture(filename, true);
+        fail("Rewrite as a modern test");
+//
+//        String filename = "AggregateCorrelation.txt";
+//        MockGeneralParameters p = makeMockGeneralParameters();
+//        CorrelationWriter query = new CorrelationWriter(p, filename, new ConstantDouble(1.0), layerManager);
+//        query.init();
+//        StepState state = new StepState(2.0, 1);
+//        state.record(layerManager);
+//        query.flush(state);
+//        query.dispatchHalt(null);
+//        loadCheckerboard();
+//        query.init();
+//        state.record(layerManager);
+//        query.flush(state);
+//        query.dispatchHalt(null);
+//        query.close();
+//        FileAssertions.assertOutputMatchesFixture(filename, true);
     }
 }

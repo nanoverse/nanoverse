@@ -43,6 +43,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
 
+import static org.junit.Assert.fail;
+
 /**
  * Integration test for glyphs.
  * <p>
@@ -104,14 +106,14 @@ public abstract class GlyphTest extends LegacyTest {
     }
 
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
-        int n = geom.getCanonicalSites().length;
-        int[] state = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            state[i] = 0;
-        }
-        systemState.initAgentLayer(state);
-
+        fail("Rewrite me");
+//        int n = geom.getCanonicalSites().length;
+//        int[] state = new int[n];
+//
+//        for (int i = 0; i < n; i++) {
+//            state[i] = 0;
+//        }
+//        systemState.initAgentLayer(state);
     }
 
     protected Geometry makeGeometry() {

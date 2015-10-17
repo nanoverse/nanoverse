@@ -54,146 +54,155 @@ public class TargetRuleTest extends LegacyTest {
 
     @Before
     public void setUp() throws Exception {
+        fail("Rewrite each test as its own class test and use modern mocks");
         // Restart RN generator
-        random = new Random(RANDOM_SEED);
-
-        geom = new MockGeometry();
-
-        center = new Coordinate2D(1, 0, 0);
-        left = new Coordinate2D(0, 0, 0);
-        right = new Coordinate2D(2, 0, 0);
-
-        cc = new Coordinate[]{center, left, right};
-
-        geom.setCanonicalSites(cc);
-
-        layerManager = new MockLayerManager();
-        cellLayer = new AgentLayer(geom);
-        layerManager.setAgentLayer(cellLayer);
-
-        occupiedNeighbor = new MockAgent(1);
-        self = new MockAgent(2);
-
-        // Only one neighbor is occupied; the other is not.
-        cellLayer.getUpdateManager().place(self, center);
-        cellLayer.getUpdateManager().place(occupiedNeighbor, left);
-
-        // Associate the neighborhood with the coordinate
-        neighbors = new Coordinate[]{left, right};
-        geom.setAgentNeighbors(center, neighbors);
-
-        filter = new NullFilter();
+//        random = new Random(RANDOM_SEED);
+//
+//        geom = new MockGeometry();
+//
+//        center = new Coordinate2D(1, 0, 0);
+//        left = new Coordinate2D(0, 0, 0);
+//        right = new Coordinate2D(2, 0, 0);
+//
+//        cc = new Coordinate[]{center, left, right};
+//
+//        geom.setCanonicalSites(cc);
+//
+//        layerManager = new MockLayerManager();
+//        cellLayer = new AgentLayer(geom);
+//        layerManager.setAgentLayer(cellLayer);
+//
+//        occupiedNeighbor = new MockAgent(1);
+//        self = new MockAgent(2);
+//
+//        // Only one neighbor is occupied; the other is not.
+//        cellLayer.getUpdateManager().place(self, center);
+//        cellLayer.getUpdateManager().place(occupiedNeighbor, left);
+//
+//        // Associate the neighborhood with the coordinate
+//        neighbors = new Coordinate[]{left, right};
+//        geom.setAgentNeighbors(center, neighbors);
+//
+//        filter = new NullFilter();
     }
 
     @Test
     public void testTargetAllNeighbors() {
-        TargetRule query = new TargetAllNeighbors(self, layerManager, filter, -1, random);
-
-        // Get target list
-        List<Coordinate> actual = query.report(null);
-        List<Coordinate> expected = Arrays.asList(neighbors);
-
-        // Should contain all neighbors
-        assertEquals(expected, actual);
+        fail("Rewrite each test as its own class test and use modern mocks");
+//        TargetRule query = new TargetAllNeighbors(self, layerManager, filter, -1, random);
+//
+//        // Get target list
+//        List<Coordinate> actual = query.report(null);
+//        List<Coordinate> expected = Arrays.asList(neighbors);
+//
+//        // Should contain all neighbors
+//        assertEquals(expected, actual);
     }
 
     @Test
     public void testTargetVacantNeighbors() {
-        TargetRule query = new TargetVacantNeighbors(self, layerManager, filter, -1, random);
-
-        // Get target list
-        List<Coordinate> actual = query.report(null);
-        List<Coordinate> expected = new ArrayList<>(1);
-        expected.add(right);
-
-        assertEquals(expected, actual);
+        fail("Rewrite each test as its own class test and use modern mocks");
+//        TargetRule query = new TargetVacantNeighbors(self, layerManager, filter, -1, random);
+//
+//        // Get target list
+//        List<Coordinate> actual = query.report(null);
+//        List<Coordinate> expected = new ArrayList<>(1);
+//        expected.add(right);
+//
+//        assertEquals(expected, actual);
     }
 
     @Test
     public void testTargetOccupiedNeighbors() {
-        TargetRule query = new TargetOccupiedNeighbors(self, layerManager, filter, -1, random);
-
-        // Get target list
-        List<Coordinate> actual = query.report(null);
-        List<Coordinate> expected = new ArrayList<>(1);
-        expected.add(left);
-
-        assertEquals(expected, actual);
+        fail("Rewrite each test as its own class test and use modern mocks");
+//        TargetRule query = new TargetOccupiedNeighbors(self, layerManager, filter, -1, random);
+//
+//        // Get target list
+//        List<Coordinate> actual = query.report(null);
+//        List<Coordinate> expected = new ArrayList<>(1);
+//        expected.add(left);
+//
+//        assertEquals(expected, actual);
     }
 
     @Test
     public void testTargetSelf() {
-        TargetRule query = new TargetSelf(self, layerManager, filter, -1, random);
-
-        // Get target list
-        List<Coordinate> actual = query.report(null);
-        List<Coordinate> expected = new ArrayList<>(1);
-        expected.add(center);
-
-        assertEquals(expected, actual);
+        fail("Rewrite each test as its own class test and use modern mocks");
+//        TargetRule query = new TargetSelf(self, layerManager, filter, -1, random);
+//
+//        // Get target list
+//        List<Coordinate> actual = query.report(null);
+//        List<Coordinate> expected = new ArrayList<>(1);
+//        expected.add(center);
+//
+//        assertEquals(expected, actual);
     }
 
     @Test
     public void testTargetCaller() {
+        fail("Rewrite each test as its own class test and use modern mocks");
         // Left caller
-        TargetRule query = new TargetCaller(self, layerManager, filter, -1, random);
-        List<Coordinate> actual = query.report(occupiedNeighbor);
-        List<Coordinate> expected = new ArrayList<>(1);
-        expected.add(left);
-        assertEquals(expected, actual);
+//        TargetRule query = new TargetCaller(self, layerManager, filter, -1, random);
+//        List<Coordinate> actual = query.report(occupiedNeighbor);
+//        List<Coordinate> expected = new ArrayList<>(1);
+//        expected.add(left);
+//        assertEquals(expected, actual);
 
     }
 
     // Null caller: should blow up
     @Test
     public void testTargetCallerNull() {
-        TargetRule query = new TargetCaller(self, layerManager, filter, -1, random);
-        boolean thrown = false;
-        try {
-            query.report(null);
-        } catch (IllegalStateException ex) {
-            thrown = true;
-        } catch (NullPointerException ex) {
-            fail();
-        }
-
-        assertTrue(thrown);
+        fail("Rewrite each test as its own class test and use modern mocks");
+//        TargetRule query = new TargetCaller(self, layerManager, filter, -1, random);
+//        boolean thrown = false;
+//        try {
+//            query.report(null);
+//        } catch (IllegalStateException ex) {
+//            thrown = true;
+//        } catch (NullPointerException ex) {
+//            fail();
+//        }
+//
+//        assertTrue(thrown);
     }
 
     @Test
     public void testEquality() {
-        // Equality is defined at the superclass level, so one test is sufficient.
-
-        TargetRule p, q, r;
-
-        // Make two targeters of the same class, but with different callbacks
-        p = new TargetSelf(new MockAgent(), layerManager, filter, -1, random);
-        q = new TargetSelf(new MockAgent(), layerManager, filter, -1, random);
-
-        // Make one targeter of a different class
-        r = new TargetCaller(new MockAgent(), layerManager, filter, -1, random);
-
-        // Test that the two of the same class are equal
-        assertEquals(p, q);
-
-        // Test that the two of different classes are not equal
-        assertNotEquals(p, r);
+        fail("Rewrite each test as its own class test and use modern mocks");
+//        // Equality is defined at the superclass level, so one test is sufficient.
+//
+//        TargetRule p, q, r;
+//
+//        // Make two targeters of the same class, but with different callbacks
+//        p = new TargetSelf(new MockAgent(), layerManager, filter, -1, random);
+//        q = new TargetSelf(new MockAgent(), layerManager, filter, -1, random);
+//
+//        // Make one targeter of a different class
+//        r = new TargetCaller(new MockAgent(), layerManager, filter, -1, random);
+//
+//        // Test that the two of the same class are equal
+//        assertEquals(p, q);
+//
+//        // Test that the two of different classes are not equal
+//        assertNotEquals(p, r);
     }
 
     @Test
     public void testClone() {
-        MockAgent parent = new MockAgent();
-        TargetRule[] rules = new TargetRule[]{
-            new TargetAllNeighbors(parent, layerManager, filter, -1, random),
-            new TargetCaller(parent, layerManager, filter, -1, random),
-            new TargetOccupiedNeighbors(parent, layerManager, filter, -1, random),
-            new TargetSelf(parent, layerManager, filter, -1, random),
-            new TargetVacantNeighbors(parent, layerManager, filter, -1, random)
-        };
-
-        for (TargetRule rule : rules) {
-            doCloneTest(rule, parent);
-        }
+        fail("Rewrite each test as its own class test and use modern mocks");
+//        MockAgent parent = new MockAgent();
+//        TargetRule[] rules = new TargetRule[]{
+//            new TargetAllNeighbors(parent, layerManager, filter, -1, random),
+//            new TargetCaller(parent, layerManager, filter, -1, random),
+//            new TargetOccupiedNeighbors(parent, layerManager, filter, -1, random),
+//            new TargetSelf(parent, layerManager, filter, -1, random),
+//            new TargetVacantNeighbors(parent, layerManager, filter, -1, random)
+//        };
+//
+//        for (TargetRule rule : rules) {
+//            doCloneTest(rule, parent);
+//        }
     }
 
     private void doCloneTest(TargetRule original, MockAgent parent) {
@@ -210,28 +219,30 @@ public class TargetRuleTest extends LegacyTest {
      */
     @Test
     public void testMaximum() {
-        TargetRule query = new TargetAllNeighbors(self, layerManager, filter, 1, random);
-
-        // Get target list
-        List<Coordinate> actual = query.report(null);
-        List<Coordinate> expected = new ArrayList<>(1);
-        expected.add(left);
-
-        assertEquals(expected, actual);
+        fail("Rewrite each test as its own class test and use modern mocks");
+//        TargetRule query = new TargetAllNeighbors(self, layerManager, filter, 1, random);
+//
+//        // Get target list
+//        List<Coordinate> actual = query.report(null);
+//        List<Coordinate> expected = new ArrayList<>(1);
+//        expected.add(left);
+//
+//        assertEquals(expected, actual);
     }
 
     @Test
     public void testFilterApplied() throws Exception {
-        MockAgent anotherNeighbor = new MockAgent(3);
-        cellLayer.getUpdateManager().place(anotherNeighbor, right);
-
-        filter = new AgentNameFilter(cellLayer, new ConstantInteger(1));
-        TargetRule query = new TargetAllNeighbors(self, layerManager, filter, -1, random);
-
-        List<Coordinate> actual = query.report(null);
-        List<Coordinate> expected = new ArrayList<>(1);
-        expected.add(left);
-
-        assertEquals(expected, actual);
+        fail("Rewrite each test as its own class test and use modern mocks");
+//        MockAgent anotherNeighbor = new MockAgent(3);
+//        cellLayer.getUpdateManager().place(anotherNeighbor, right);
+//
+//        filter = new AgentNameFilter(cellLayer, new ConstantInteger(1));
+//        TargetRule query = new TargetAllNeighbors(self, layerManager, filter, -1, random);
+//
+//        List<Coordinate> actual = query.report(null);
+//        List<Coordinate> expected = new ArrayList<>(1);
+//        expected.add(left);
+//
+//        assertEquals(expected, actual);
     }
 }

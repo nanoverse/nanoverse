@@ -44,17 +44,18 @@ public class AgentLayerViewerTest extends LegacyTest {
 
     @Before
     public void setUp() throws Exception {
-        indices = new MockAgentLayerIndices();
-
-        c1 = new Coordinate2D(1, 0, 0);
-        c2 = new Coordinate2D(5, 0, 0);
-
-        geom = new MockGeometry();
-        Coordinate[] cc = new Coordinate[]{c1, c2};
-        geom.setCanonicalSites(cc);
-        content = new MockAgentLayerContent(geom, indices);
-
-        query = new AgentLayerViewer(content);
+        fail("This class actually isn't that bad--most tests can be preserved with new mocks");
+//        indices = new MockAgentLayerIndices();
+//
+//        c1 = new Coordinate2D(1, 0, 0);
+//        c2 = new Coordinate2D(5, 0, 0);
+//
+//        geom = new MockGeometry();
+//        Coordinate[] cc = new Coordinate[]{c1, c2};
+//        geom.setCanonicalSites(cc);
+//        content = new MockAgentLayerContent(geom, indices);
+//
+//        query = new AgentLayerViewer(content);
     }
 
     @Test
@@ -72,21 +73,6 @@ public class AgentLayerViewerTest extends LegacyTest {
     }
 
     @Test
-    public void testGetDivisibleSites() {
-        AgentIndex expected = new AgentIndex();
-
-        expected.add(c1);
-        expected.add(c2);
-
-        indices.setDivisibleSites(expected);
-
-        assertEquals(query.getDivisibleSites().size(), expected.size());
-        assertTrue(query.getDivisibleSites().contains(c1));
-        assertTrue(query.getDivisibleSites().contains(c2));
-    }
-
-
-    @Test
     public void testGetAgent() throws Exception {
 
         AbstractAgent agent = new MockAgent();
@@ -95,17 +81,11 @@ public class AgentLayerViewerTest extends LegacyTest {
     }
 
     @Test
-    public void testGetHealthVector() {
-        double[] healthes = new double[]{0.1, 0.2};
-        content.setHealthVector(healthes);
-        assertArraysEqual(healthes, query.getHealthVector(), false);
-    }
-
-    @Test
-    public void testGetStateVector() {
-        int[] states = new int[]{1, 2};
-        content.setStateVector(states);
-        assertArraysEqual(states, query.getNames(), false);
+    public void testGetNames() {
+        fail("This class actually isn't that bad--most tests can be preserved with new mocks");
+//        String[] states = new String[]{"a", "b"};
+//        content.setStateVector(states);
+//        assertArraysEqual(states, query.getNames(), false);
     }
 
     @Test
@@ -119,18 +99,5 @@ public class AgentLayerViewerTest extends LegacyTest {
         indices.setOccupiedSites(occupiedSites);
         assertTrue(query.isOccupied(c1));
         assertFalse(query.isOccupied(c2));
-    }
-
-    @Test
-    public void testIsDivisible() {
-        AgentIndex divisibleSites = new AgentIndex();
-        Coordinate c1 = new Coordinate2D(1, 0, 0);
-        Coordinate c2 = new Coordinate2D(5, 0, 0);
-
-        divisibleSites.add(c1);
-
-        indices.setDivisibleSites(divisibleSites);
-        assertTrue(query.isDivisible(c1));
-        assertFalse(query.isDivisible(c2));
     }
 }

@@ -86,7 +86,7 @@ public class AgentLayerTest extends LegacyTest {
         ExposedAgentLayer query = new ExposedAgentLayer(geom);
         for (int i = 0; i < geom.getCanonicalSites().length; i++) {
             Coordinate c = geom.getCanonicalSites()[i];
-            query.getUpdateManager().place(new MockAgent(i), c);
+            query.getUpdateManager().place(new MockAgent(), c);
         }
 
         // Verify that the lattice is filled up.

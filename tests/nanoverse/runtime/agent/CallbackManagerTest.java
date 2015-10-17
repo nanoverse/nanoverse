@@ -57,38 +57,6 @@ public class CallbackManagerTest {
         query = new CallbackManager(cell, layerManager);
     }
 
-
-    @Test
-    public void refreshDivisibility() throws Exception {
-        /*
-          On the face of it, this looks nearly identical to a test
-          in BehaviorAgentTest. However, since MockAgent does automatically
-          update the layer indices as BehaviorAgent does, this actually
-          verifies the functionality of refreshDivisibility directly.
-          It would be better to have a true mock cell layer that could
-          confirm the appropriate calls were made and nothing more.
-         */
-
-        cell.setDivisible(false);
-        query.refreshDivisibility();
-        assertDivisibilityStatus(false);
-
-        // Adjust above threshold.
-        cell.setDivisible(true);
-        query.refreshDivisibility();
-        assertDivisibilityStatus(true);
-
-        // Adjust below threshold again.
-        cell.setDivisible(false);
-        query.refreshDivisibility();
-        assertDivisibilityStatus(false);
-    }
-
-    private void assertDivisibilityStatus(boolean expected) {
-        boolean actual = layer.getViewer().isDivisible(c);
-        assertEquals(expected, actual);
-    }
-
     @Test
     public void die() {
         // Perform the test

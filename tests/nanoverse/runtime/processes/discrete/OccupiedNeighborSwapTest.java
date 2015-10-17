@@ -54,59 +54,62 @@ public class OccupiedNeighborSwapTest extends LegacyTest {
 
     @Before
     public void setUp() throws Exception {
-        Lattice lattice = new RectangularLattice();
-        Shape shape = new Rectangle(lattice, 2, 2);
-        Boundary boundary = new Arena(shape, lattice);
-        Geometry geom = new Geometry(lattice, shape, boundary);
-        AgentLayer cellLayer = new AgentLayer(geom);
-
-        layerManager = new MockLayerManager();
-        layerManager.setAgentLayer(cellLayer);
-
-        MockGeneralParameters p = makeMockGeneralParameters();
-        BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
-        AgentProcessArguments cpArguments = new AgentProcessArguments(new CompleteSet(geom), new ConstantInteger(1));
-
-        query = new OccupiedNeighborSwap(arguments, cpArguments);
-
-        /*
-         * AbstractAgent layout:
-         *     0 1
-         *  0  b .
-         *  1  a c
-         */
-        a = new MockAgent(1);
-        b = new MockAgent(2);
-        c = new MockAgent(3);
-
-        aa = new Coordinate2D(0, 1, 0);
-        bb = new Coordinate2D(0, 0, 0);
-        cc = new Coordinate2D(1, 1, 0);
-        cellLayer.getUpdateManager().place(a, aa);
-        cellLayer.getUpdateManager().place(b, bb);
-        cellLayer.getUpdateManager().place(c, cc);
+        fail("Rewrite all as modern tests");
+//        Lattice lattice = new RectangularLattice();
+//        Shape shape = new Rectangle(lattice, 2, 2);
+//        Boundary boundary = new Arena(shape, lattice);
+//        Geometry geom = new Geometry(lattice, shape, boundary);
+//        AgentLayer cellLayer = new AgentLayer(geom);
+//
+//        layerManager = new MockLayerManager();
+//        layerManager.setAgentLayer(cellLayer);
+//
+//        MockGeneralParameters p = makeMockGeneralParameters();
+//        BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
+//        AgentProcessArguments cpArguments = new AgentProcessArguments(new CompleteSet(geom), new ConstantInteger(1));
+//
+//        query = new OccupiedNeighborSwap(arguments, cpArguments);
+//
+//        /*
+//         * AbstractAgent layout:
+//         *     0 1
+//         *  0  b .
+//         *  1  a c
+//         */
+//        a = new MockAgent(1);
+//        b = new MockAgent(2);
+//        c = new MockAgent(3);
+//
+//        aa = new Coordinate2D(0, 1, 0);
+//        bb = new Coordinate2D(0, 0, 0);
+//        cc = new Coordinate2D(1, 1, 0);
+//        cellLayer.getUpdateManager().place(a, aa);
+//        cellLayer.getUpdateManager().place(b, bb);
+//        cellLayer.getUpdateManager().place(c, cc);
     }
 
     @Test
     public void testAgentsReflectSwap() throws Exception {
-        query.target(null);
-        MockStepState state = new MockStepState();
-        query.fire(state);
-
-        AgentLayer cl = layerManager.getAgentLayer();
-
-        assertFalse(cl.getViewer().getAgent(aa).equals(a));
+        fail("Rewrite all as modern tests");
+//        query.target(null);
+//        MockStepState state = new MockStepState();
+//        query.fire(state);
+//
+//        AgentLayer cl = layerManager.getAgentLayer();
+//
+//        assertFalse(cl.getViewer().getAgent(aa).equals(a));
     }
 
     @Test
     public void testGillespie() throws Exception {
-        GillespieState gs = new GillespieState(new Integer[]{0});
-        query.target(gs);
-        gs.close();
-        // a, b, and c are all involved.
-        // WARNING: This method will count nanoverse.runtime.cells that cannot participate in
-        // a swap toward the weight of the Gillespie function as of 4/30/2014.
-        assertEquals(3.0, gs.getWeight(0), epsilon);
-        assertEquals(2, gs.getEventCount(0));
+        fail("Rewrite all as modern tests");
+//        GillespieState gs = new GillespieState(new Integer[]{0});
+//        query.target(gs);
+//        gs.close();
+//        // a, b, and c are all involved.
+//        // WARNING: This method will count nanoverse.runtime.cells that cannot participate in
+//        // a swap toward the weight of the Gillespie function as of 4/30/2014.
+//        assertEquals(3.0, gs.getWeight(0), epsilon);
+//        assertEquals(2, gs.getEventCount(0));
     }
 }

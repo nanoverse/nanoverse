@@ -103,33 +103,26 @@ public class LightweightSystemState extends SystemState {
     }
 
     //    public void initAgentLayer(int[] stateVector, double[] healthVector) {
-    public void initAgentLayer(int[] stateVector) {
-        if (stateVector.length != geometry.getCanonicalSites().length) {
+    public void initAgentLayer(String[] nameArr) {
+        if (nameArr.length != geometry.getCanonicalSites().length) {
             throw new IllegalStateException("Actual number of data points not equal to expected number");
         }
-//        if (healthVector.length != nanoverse.runtime.geometry.getCanonicalSites().length) {
-//            throw new IllegalStateException("Actual number of data points not equal to expected number");
-//        }
         // Build cell layer.
         AgentLayer cellLayer = new AgentLayer(geometry);
         layerManager.setAgentLayer(cellLayer);
 
         // Iterate over state vector.
-        for (int i = 0; i < stateVector.length; i++) {
+        for (int i = 0; i < nameArr.length; i++) {
 
             // Convert index to coordinate.
             Coordinate coord = geometry.getCanonicalSites()[i];
 
-//            double health = healthVector[i];
-
             // If site is vacant, don't place anything
-            String state = stateVector[i];
+            String state = nameArr[i];
             if (state == null) {
                 continue;
             }
             loadAgent(cellLayer, coord, state);
-
-//            loadAgent(cellLayer, coord, health, state);
         }
 
     }
@@ -158,18 +151,4 @@ public class LightweightSystemState extends SystemState {
     public void setExtremaMap(Map<String, Extrema> extremaMap) {
         this.extremaMap = extremaMap;
     }
-
-//    public void initSoluteLayer(String id, double[] soluteVector) {
-//        if (soluteVector.length != nanoverse.runtime.geometry.getCanonicalSites().length) {
-//            throw new IllegalStateException("Actual number of data points not equal to expected number");
-//        }
-//        LightweightSoluteLayer soluteLayer = new LightweightSoluteLayer(nanoverse.runtime.geometry, layerManager, id);
-//        for (int i = 0; i < soluteVector.length; i++) {
-//            Coordinate coord = nanoverse.runtime.geometry.getCanonicalSites()[i];
-//            double value = soluteVector[i];
-//            soluteLayer.set(coord, value);
-//        }
-//
-//        layerManager.addSoluteLayer(id, soluteLayer);
-//    }
 }

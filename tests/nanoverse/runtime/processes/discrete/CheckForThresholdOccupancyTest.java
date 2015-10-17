@@ -41,6 +41,7 @@ import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class CheckForThresholdOccupancyTest extends LegacyTest {
 
@@ -50,31 +51,33 @@ public class CheckForThresholdOccupancyTest extends LegacyTest {
 
     @Before
     public void setUp() throws Exception {
-        Lattice lattice = new RectangularLattice();
-        layerManager = new MockLayerManager();
-        Shape shape = new Rectangle(lattice, 10, 1);
-        Boundary boundary = new Periodic(shape, lattice);
-        Geometry geom = new Geometry(lattice, shape, boundary);
-        layer = new AgentLayer(geom);
-        layerManager.setAgentLayer(layer);
-        MockGeneralParameters p = makeMockGeneralParameters();
-        DoubleArgument thresholdArg = new ConstantDouble(0.2);
-
-        // Create a 1D lattice of length 10.
-        // Create an occupancy test that checks for 30% occupancy.
-        BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
-        AgentProcessArguments cpArguments = makeAgentProcessArguments(geom);
-        query = new CheckForThresholdOccupancy(arguments, cpArguments, thresholdArg);
-        query.init();
+        fail("Rewrite all as modern tests");
+//        Lattice lattice = new RectangularLattice();
+//        layerManager = new MockLayerManager();
+//        Shape shape = new Rectangle(lattice, 10, 1);
+//        Boundary boundary = new Periodic(shape, lattice);
+//        Geometry geom = new Geometry(lattice, shape, boundary);
+//        layer = new AgentLayer(geom);
+//        layerManager.setAgentLayer(layer);
+//        MockGeneralParameters p = makeMockGeneralParameters();
+//        DoubleArgument thresholdArg = new ConstantDouble(0.2);
+//
+//        // Create a 1D lattice of length 10.
+//        // Create an occupancy test that checks for 30% occupancy.
+//        BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
+//        AgentProcessArguments cpArguments = makeAgentProcessArguments(geom);
+//        query = new CheckForThresholdOccupancy(arguments, cpArguments, thresholdArg);
+//        query.init();
     }
 
     @Test
     public void testAboveThreshold() throws Exception {
-        for (int i = 1; i < 4; i++) {
-            placeNumberedAgent(i);
-        }
-
-        doTest(true);
+        fail("Rewrite all as modern tests");
+//        for (int i = 1; i < 4; i++) {
+//            placeNumberedAgent(i);
+//        }
+//
+//        doTest(true);
     }
 
     private void doTest(boolean expectThrow) throws Exception {
@@ -90,27 +93,29 @@ public class CheckForThresholdOccupancyTest extends LegacyTest {
     }
 
     private void placeNumberedAgent(int x) throws HaltCondition {
-        Agent cell = new Agent(layerManager, x, x, x, null);
-        Coordinate coord = new Coordinate2D(x, 0, 0);
-        layer.getUpdateManager().place(cell, coord);
+//        Agent cell = new Agent(layerManager, x, x, x, null);
+//        Coordinate coord = new Coordinate2D(x, 0, 0);
+//        layer.getUpdateManager().place(cell, coord);
     }
 
     @Test
     public void testAtThreshold() throws Exception {
-        for (int i = 1; i < 3; i++) {
-            placeNumberedAgent(i);
-        }
-
-        doTest(true);
+        fail("Rewrite all as modern tests");
+//        for (int i = 1; i < 3; i++) {
+//            placeNumberedAgent(i);
+//        }
+//
+//        doTest(true);
     }
 
     @Test
     public void testBelowThreshold() throws Exception {
-        for (int i = 1; i < 2; i++) {
-            placeNumberedAgent(i);
-        }
-
-        doTest(false);
+        fail("Rewrite all as modern tests");
+//        for (int i = 1; i < 2; i++) {
+//            placeNumberedAgent(i);
+//        }
+//
+//        doTest(false);
     }
 
 }

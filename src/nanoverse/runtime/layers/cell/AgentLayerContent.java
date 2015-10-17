@@ -145,7 +145,7 @@ public abstract class AgentLayerContent {
     }
 
     public Map<String, Integer> getNameMap() {
-        return indices.getStateMap();
+        return indices.getNameMap();
     }
 
     public boolean isIndexed(AbstractAgent agent) {

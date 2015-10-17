@@ -59,6 +59,6 @@ public class InterfaceCensusWriterInstSymbolTable extends MapSymbolTable<Interfa
         ResolvingSymbolTable rst = new IntegerClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The focal state for the " +
             "interface census.");
-        ret.put("focalState", ms);
+        ret.put("focus", ms);
     }
 }

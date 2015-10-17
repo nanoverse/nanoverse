@@ -44,6 +44,7 @@ import java.util.ArrayList;
 import java.util.function.Supplier;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 public class ExpandTest extends LegacyTest {
@@ -56,45 +57,46 @@ public class ExpandTest extends LegacyTest {
 
     @Before
     public void setUp() throws Exception {
-
-        Lattice lattice = new RectangularLattice();
-        layerManager = new MockLayerManager();
-        Shape shape = new Rectangle(lattice, 10, 1);
-        Boundary boundary = new Periodic(shape, lattice);
-        Geometry geom = new Geometry(lattice, shape, boundary);
-        layer = new AgentLayer(geom);
-        layerManager.setAgentLayer(layer);
-        random = new MockRandom();
-
-        // Place the parent at site 4 and get its target rule
-        parentTargetRule = placeNumberedAgent(4);
-        parent = (Agent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
+        fail("Rewrite as modern");
+//        Lattice lattice = new RectangularLattice();
+//        layerManager = new MockLayerManager();
+//        Shape shape = new Rectangle(lattice, 10, 1);
+//        Boundary boundary = new Periodic(shape, lattice);
+//        Geometry geom = new Geometry(lattice, shape, boundary);
+//        layer = new AgentLayer(geom);
+//        layerManager.setAgentLayer(layer);
+//        random = new MockRandom();
+//
+//        // Place the parent at site 4 and get its target rule
+//        parentTargetRule = placeNumberedAgent(4);
+//        parent = (Agent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
 
     }
 
     private MockTargetRule placeNumberedAgent(int x) throws Exception {
-        Supplier<Agent> supplier = mock(Supplier.class);
-        when(supplier.get()).thenReturn(new MockAgent(x));
-        Agent cell = new Agent(layerManager, x, x, x, supplier);
-        Coordinate coord = new Coordinate2D(x, 0, 0);
-        layer.getUpdateManager().place(cell, coord);
-        BehaviorDispatcher bd = new BehaviorDispatcher();
-        cell.setDispatcher(bd);
-
-        MockTargetRule targetRule = new MockTargetRule();
-
-        // Agents always divide to the right
-        ArrayList<Coordinate> targets = new ArrayList<>(1);
-        Coordinate target = new Coordinate2D(x + 1, 0, 0);
-        targets.add(target);
-        targetRule.setTargets(targets);
-
-        Expand expand = new Expand(cell, layerManager, null, null, random);
-
-        Action behavior = new CompoundAction(cell, layerManager, new Action[]{expand});
-        bd.map("replicate-self", behavior);
-
-        return targetRule;
+        return null;
+//        Supplier<Agent> supplier = mock(Supplier.class);
+//        when(supplier.get()).thenReturn(new MockAgent(x));
+//        Agent cell = new Agent(layerManager, x, x, x, supplier);
+//        Coordinate coord = new Coordinate2D(x, 0, 0);
+//        layer.getUpdateManager().place(cell, coord);
+//        BehaviorDispatcher bd = new BehaviorDispatcher();
+//        cell.setDispatcher(bd);
+//
+//        MockTargetRule targetRule = new MockTargetRule();
+//
+//        // Agents always divide to the right
+//        ArrayList<Coordinate> targets = new ArrayList<>(1);
+//        Coordinate target = new Coordinate2D(x + 1, 0, 0);
+//        targets.add(target);
+//        targetRule.setTargets(targets);
+//
+//        Expand expand = new Expand(cell, layerManager, null, null, random);
+//
+//        Action behavior = new CompoundAction(cell, layerManager, new Action[]{expand});
+//        bd.map("replicate-self", behavior);
+//
+//        return targetRule;
     }
 
     /**
@@ -109,6 +111,7 @@ public class ExpandTest extends LegacyTest {
      */
     @Test
     public void testOneVacancy() throws Exception {
+        fail("Rewrite as modern");
         // Place blocking cell
         placeNumberedAgent(5);
 
@@ -124,9 +127,9 @@ public class ExpandTest extends LegacyTest {
     }
 
     private void checkPosition(int x, int state) {
-        Coordinate c = new Coordinate2D(x, 0, 0);
-        AbstractAgent agent = layer.getViewer().getAgent(c);
-        assertEquals(state, agent.getState());
+//        Coordinate c = new Coordinate2D(x, 0, 0);
+//        AbstractAgent agent = layer.getViewer().getAgent(c);
+//        assertEquals(state, agent.getState());
     }
 
     /**
@@ -147,6 +150,7 @@ public class ExpandTest extends LegacyTest {
      */
     @Test
     public void testMultipleVacancies() throws Exception {
+        fail("Rewrite as modern");
 
         Coordinate target = new Coordinate2D(3, 0, 0);
         ArrayList<Coordinate> targets = new ArrayList<>(1);
@@ -168,6 +172,7 @@ public class ExpandTest extends LegacyTest {
      */
     @Test
     public void testUnequalBarrierWidths() throws Exception {
+        fail("Rewrite as modern");
         // Place blocking cell
         placeNumberedAgent(2);
         placeNumberedAgent(3);

@@ -44,8 +44,7 @@ public class LightweightSystemStateTest extends SystemStateTest {
 
     private LightweightSystemState query;
     private Coordinate[] canonicals;
-    private int[] stateVector = new int[]{1, 0, 2, 3, 2};
-    private double[] healthVector = new double[]{1.0, 0.0, -0.1, 2.0, 1};
+    private String[] nameVector = new String[]{"1", "0", "2", "3", "2"};
     private Geometry g;
 
     @Before
@@ -55,7 +54,7 @@ public class LightweightSystemStateTest extends SystemStateTest {
         canonicals = g.getCanonicalSites();
         deindexer.setUnderlying(canonicals);
         query = new LightweightSystemState(g);
-        query.initAgentLayer(stateVector);
+        query.initAgentLayer(nameVector);
 
     }
 
@@ -64,8 +63,8 @@ public class LightweightSystemStateTest extends SystemStateTest {
     public void testGetState() throws Exception {
         for (int i = 0; i < 4; i++) {
             Coordinate coord = canonicals[i];
-            int expected = stateVector[i];
-            int actual = query.getLayerManager().getAgentLayer().getViewer().getName(coord);
+            String expected = nameVector[i];
+            String actual = query.getLayerManager().getAgentLayer().getViewer().getName(coord);
             assertEquals(expected, actual);
         }
     }
@@ -111,14 +110,12 @@ public class LightweightSystemStateTest extends SystemStateTest {
 
         for (int i = 0; i < g.getCanonicalSites().length; i++) {
             Coordinate c = g.getCanonicalSites()[i];
-            int state = stateVector[i];
-            double health = healthVector[i];
+            String name = nameVector[i];
 
-            if (state != 0) {
-                Agent cell = new Agent(expected, state, health, 0.0, null);
+            if (name != null) {
+                Agent cell = new Agent(expected, name, null);
                 cellLayer.getUpdateManager().place(cell, c);
             }
-//            soluteLayer.set(c, health);
         }
 
         LayerManager actual = query.getLayerManager();

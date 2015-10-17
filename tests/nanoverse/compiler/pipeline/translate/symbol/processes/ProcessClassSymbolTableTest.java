@@ -97,11 +97,6 @@ public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
     }
 
     @Test
-    public void cull() {
-        verifyReturnSymbol("Cull", Cull.class);
-    }
-
-    @Test
     public void trigger() {
         verifyReturnSymbol("Trigger", TriggerProcess.class);
     }

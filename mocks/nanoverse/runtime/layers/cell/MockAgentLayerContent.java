@@ -45,20 +45,10 @@ public class MockAgentLayerContent extends AgentLayerContent {
         return map.get(coord);
     }
 
-    @Override
-    public int[] getStateVector() {
-        return stateVector;
-    }
-
 	/* stateVector */
 
     public void setStateVector(int[] stateVector) {
         this.stateVector = stateVector;
-    }
-
-    @Override
-    public double[] getHealthVector() {
-        return healthVector;
     }
 
     @Override

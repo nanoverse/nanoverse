@@ -159,7 +159,7 @@ public class AgentLayerIndices {
         return ret;
     }
 
-    public NonNullStringMap getStateMap() {
+    public NonNullStringMap getNameMap() {
         return nameMap;
     }
 

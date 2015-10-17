@@ -33,7 +33,7 @@ public class InterfaceCensusWriterFactory implements Factory<InterfaceCensusWrit
     private final InterfaceCensusWriterFactoryHelper helper;
 
     private GeneralParameters p;
-    private String name;
+    private String focus;
     private LayerManager lm;
 
     public InterfaceCensusWriterFactory() {
@@ -48,8 +48,8 @@ public class InterfaceCensusWriterFactory implements Factory<InterfaceCensusWrit
         this.p = p;
     }
 
-    public void setFocalStateArg(String name) {
-        this.name = name;
+    public void setFocus(String focus) {
+        this.focus = focus;
     }
 
     public void setLm(LayerManager lm) {
@@ -58,6 +58,6 @@ public class InterfaceCensusWriterFactory implements Factory<InterfaceCensusWrit
 
     @Override
     public InterfaceCensusWriter build() {
-        return helper.build(p, name, lm);
+        return helper.build(p, focus, lm);
     }
 }

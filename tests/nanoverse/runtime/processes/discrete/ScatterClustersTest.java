@@ -32,6 +32,7 @@ import nanoverse.runtime.processes.discrete.cluster.*;
 import org.junit.*;
 import test.AgentProcessTestBase;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 public class ScatterClustersTest extends AgentProcessTestBase {
@@ -49,7 +50,7 @@ public class ScatterClustersTest extends AgentProcessTestBase {
         cellDescriptor = mock(AgentDescriptor.class);
         when(cellDescriptor.next()).thenAnswer(invocation -> {
             Agent ret = mock(Agent.class);
-            when(ret.getState()).thenReturn(1);
+            when(ret.getName()).thenReturn("test");
             return ret;
         });
         ConstantInteger maxTargets = new ConstantInteger(1);
@@ -59,13 +60,13 @@ public class ScatterClustersTest extends AgentProcessTestBase {
 
     @Test(expected = LatticeFullEvent.class)
     public void insufficientVacancies() throws Exception {
-        doTest(3);
+        doTest("3");
     }
 
-    private void doTest(int neighbor) throws Exception {
-        int[] neighborStates = new int[]{neighbor};
+    private void doTest(String neighbor) throws Exception {
+        String[] neighborStates = new String[]{neighbor};
         makeActiveSites(a);
-        when(lookup.getNeighborStates(a, false))
+        when(lookup.getNeighborNames(a, false))
             .thenReturn(neighborStates);
         query.target(null);
         query.fire(null);
@@ -75,17 +76,19 @@ public class ScatterClustersTest extends AgentProcessTestBase {
     public void sufficientVacancies() throws Exception {
         Coordinate[] vacancy = new Coordinate[]{b};
         when(lookup.getNearestVacancies(a, 1)).thenReturn(vacancy);
-        doTest(0);
+        doTest("0");
         verify(update).place(any(), eq(a));
         verify(update).place(any(), eq(b));
+        fail("Make sure you understand what this test really does");
     }
 
     @Test
     public void alreadyHasEnoughNeighbors() throws Exception {
         Coordinate[] vacancy = new Coordinate[]{b};
         when(lookup.getNearestVacancies(a, 1)).thenReturn(vacancy);
-        doTest(1);
+        doTest("1");
         verify(update).place(any(), any());
+        fail("Make sure you understand what this test really does");
     }
 
     @Test(expected = LatticeFullEvent.class)
@@ -93,5 +96,6 @@ public class ScatterClustersTest extends AgentProcessTestBase {
         makeActiveSites();
         query.target(null);
         query.fire(null);
+        fail("Make sure you understand what this test really does");
     }
 }

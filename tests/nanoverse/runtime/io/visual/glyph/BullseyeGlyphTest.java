@@ -89,12 +89,10 @@ public class BullseyeGlyphTest extends LegacyTest {
 
         int n = makeGeometry().getCanonicalSites().length;
 
-        double[] health = new double[n];
-        int[] state = new int[n];
+        String[] state = new String[n];
 
         for (int i = 0; i < n; i++) {
-            health[i] = 0;
-            state[i] = 0;
+            state[i] = "test";
         }
 
         LightweightSystemState ret = new LightweightSystemState(geometry);

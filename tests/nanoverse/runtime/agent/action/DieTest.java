@@ -45,54 +45,58 @@ public class DieTest extends LegacyLatticeTest {
     @Before
     @Override
     public void setUp() throws Exception {
-        super.setUp();
-        // Set up test objects
-        cell = new Agent(layerManager, 1, 1.0, 1.0, null);
-        query = new Die(cell, layerManager, null);
-        identical = new Die(cell, layerManager, null);
-        different = new AdjustHealth(cell, layerManager, 0.7);
-
-        // Configure behavior dispatcher
-        eventName = "TEST";
-        Action[] actionSequence = new Action[]{query};
-        behavior = new CompoundAction(cell, layerManager, actionSequence);
-        dispatcher = new BehaviorDispatcher();
-        cell.setDispatcher(dispatcher);
-        dispatcher.map(eventName, behavior);
-
-        cellLayer.getUpdateManager().place(cell, origin);
+        fail("Rewrite as a modern test");
+//        super.setUp();
+//        // Set up test objects
+//        cell = new Agent(layerManager, "test", null);
+//        query = new Die(cell, layerManager, null);
+//        identical = new Die(cell, layerManager, null);
+//        different = new CloneTo(cell, layerManager, 0.7);
+//
+//        // Configure behavior dispatcher
+//        eventName = "TEST";
+//        Action[] actionSequence = new Action[]{query};
+//        behavior = new CompoundAction(cell, layerManager, actionSequence);
+//        dispatcher = new BehaviorDispatcher();
+//        cell.setDispatcher(dispatcher);
+//        dispatcher.map(eventName, behavior);
+//
+//        cellLayer.getUpdateManager().place(cell, origin);
     }
 
     @Test
     public void testRun() throws Exception {
-        assertTrue(cellLayer.getViewer().isOccupied(origin));
-        cell.trigger("TEST", null);
-        assertFalse(cellLayer.getViewer().isOccupied(origin));
+//        fail("Rewrite as a modern test");
+//        assertTrue(cellLayer.getViewer().isOccupied(origin));
+//        cell.trigger("TEST", null);
+//        assertFalse(cellLayer.getViewer().isOccupied(origin));
     }
 
     @Test
     public void testEquals() throws Exception {
+        fail("Rewrite as a modern test");
         // Create two equivalent Die objects.
         // Should be equal.
-        assertEquals(query, identical);
-
-        // Create a third, different Die object.
-        // Should not be equal.
-        assertNotEquals(query, different);
+//        assertEquals(query, identical);
+//
+//        // Create a third, different Die object.
+//        // Should not be equal.
+//        assertNotEquals(query, different);
     }
 
 
     @Test
     public void testClone() throws Exception {
-        MockAgent cloneAgent = new MockAgent();
-
-        // Clone it.
-        Action clone = query.clone(cloneAgent);
-
-        // Clone should not be the same object.
-        assertFalse(clone == query);
-
-        // Clone should be equal.
-        assertTrue(clone.equals(query));
+        fail("Rewrite as a modern test");
+//        MockAgent cloneAgent = new MockAgent();
+//
+//        // Clone it.
+//        Action clone = query.clone(cloneAgent);
+//
+//        // Clone should not be the same object.
+//        assertFalse(clone == query);
+//
+//        // Clone should be equal.
+//        assertTrue(clone.equals(query));
     }
 }

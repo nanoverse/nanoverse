@@ -42,7 +42,7 @@ public class AgentNameFilterInterpolatorTest extends InterpolatorTest {
 
     @Test
     public void state() throws Exception {
-        Supplier<IntegerArgument> trigger = () -> query.name(node, random);
-        verifyIntegerArgument("name", trigger);
+        Supplier<String> trigger = () -> query.name(node);
+        verifyString("name", trigger);
     }
 }

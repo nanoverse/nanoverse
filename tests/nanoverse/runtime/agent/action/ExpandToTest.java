@@ -43,6 +43,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 /**
@@ -59,22 +60,22 @@ public class ExpandToTest extends LegacyTest {
 
     @Before
     public void setUp() throws Exception {
-
-        Lattice lattice = new RectangularLattice();
-        layerManager = new MockLayerManager();
-        Shape shape = new Rectangle(lattice, 10, 1);
-        Boundary boundary = new Periodic(shape, lattice);
-        Geometry geom = new Geometry(lattice, shape, boundary);
-        layer = new AgentLayer(geom);
-        layerManager.setAgentLayer(layer);
-        random = new MockRandom();
-
-        // Place the parent at site 4 and get its target rule
-        parentTargetRule = placeNumberedAgent(4);
-        parent = (Agent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
-
-        // A cell exists in position 5 for all cases
-        placeNumberedAgent(5);
+        fail("Rewrite as a modern test");
+//        Lattice lattice = new RectangularLattice();
+//        layerManager = new MockLayerManager();
+//        Shape shape = new Rectangle(lattice, 10, 1);
+//        Boundary boundary = new Periodic(shape, lattice);
+//        Geometry geom = new Geometry(lattice, shape, boundary);
+//        layer = new AgentLayer(geom);
+//        layerManager.setAgentLayer(layer);
+//        random = new MockRandom();
+//
+//        // Place the parent at site 4 and get its target rule
+//        parentTargetRule = placeNumberedAgent(4);
+//        parent = (Agent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
+//
+//        // A cell exists in position 5 for all cases
+//        placeNumberedAgent(5);
     }
 
     private MockTargetRule placeNumberedAgent(int x) throws Exception {
@@ -102,9 +103,11 @@ public class ExpandToTest extends LegacyTest {
     }
 
     private Agent makeNumberedAgent(int x) throws Exception {
-        Supplier<Agent> supplier = mock(Supplier.class);
-        when(supplier.get()).thenReturn(new Agent(layerManager, x, x, x, supplier));
-        return new Agent(layerManager, x, x, x, supplier);
+        fail("Rewrite as a modern test");
+//        Supplier<Agent> supplier = mock(Supplier.class);
+//        when(supplier.get()).thenReturn(new Agent(layerManager, x, x, x, supplier));
+//        return new Agent(layerManager, x, x, x, supplier);
+        return null;
     }
 
     /**
@@ -120,21 +123,22 @@ public class ExpandToTest extends LegacyTest {
      */
     @Test
     public void testOutwardSymmetricDisplacement() throws Exception {
-        Coordinate target = new Coordinate2D(3, 0, 0);
-        List<Coordinate> targets = new ArrayList<>(1);
-        targets.add(target);
-        parentTargetRule.setTargets(targets);
-        parent.trigger("replicate-self", null);
-
-        checkPosition(3, 4);
-        checkPosition(4, 4);
-        checkPosition(5, 5);
+        fail("Rewrite as a modern test");
+//        Coordinate target = new Coordinate2D(3, 0, 0);
+//        List<Coordinate> targets = new ArrayList<>(1);
+//        targets.add(target);
+//        parentTargetRule.setTargets(targets);
+//        parent.trigger("replicate-self", null);
+//
+//        checkPosition(3, 4);
+//        checkPosition(4, 4);
+//        checkPosition(5, 5);
     }
 
     private void checkPosition(int x, int state) {
-        Coordinate c = new Coordinate2D(x, 0, 0);
-        AbstractAgent agent = layer.getViewer().getAgent(c);
-        assertEquals(state, agent.getState());
+//        Coordinate c = new Coordinate2D(x, 0, 0);
+//        AbstractAgent agent = layer.getViewer().getAgent(c);
+//        assertEquals(state, agent.getState());
     }
 
     /**
@@ -153,18 +157,19 @@ public class ExpandToTest extends LegacyTest {
      */
     @Test
     public void testInwardSymmetricParentDisplacement() throws Exception {
-        Coordinate target = new Coordinate2D(5, 0, 0);
-        List<Coordinate> targets = new ArrayList<>(1);
-        targets.add(target);
-        parentTargetRule.setTargets(targets);
-
-        // The coin toss arbitrarily favors shoving parent on true.
-        random.setBooleanValue(true);
-        parent.trigger("replicate-self", null);
-
-        checkPosition(3, 4);
-        checkPosition(4, 4);
-        checkPosition(5, 5);
+        fail("Rewrite");
+//        Coordinate target = new Coordinate2D(5, 0, 0);
+//        List<Coordinate> targets = new ArrayList<>(1);
+//        targets.add(target);
+//        parentTargetRule.setTargets(targets);
+//
+//        // The coin toss arbitrarily favors shoving parent on true.
+//        random.setBooleanValue(true);
+//        parent.trigger("replicate-self", null);
+//
+//        checkPosition(3, 4);
+//        checkPosition(4, 4);
+//        checkPosition(5, 5);
     }
 
     /**
@@ -183,18 +188,19 @@ public class ExpandToTest extends LegacyTest {
      */
     @Test
     public void testInwardSymmetricTargetDisplacement() throws Exception {
-        Coordinate target = new Coordinate2D(5, 0, 0);
-        List<Coordinate> targets = new ArrayList<>(1);
-        targets.add(target);
-        parentTargetRule.setTargets(targets);
-
-        // The coin toss arbitrarily favors shoving parent on true.
-        random.setBooleanValue(false);
-        parent.trigger("replicate-self", null);
-
-        checkPosition(4, 4);
-        checkPosition(5, 4);
-        checkPosition(6, 5);
+        fail("Rewrite");
+//        Coordinate target = new Coordinate2D(5, 0, 0);
+//        List<Coordinate> targets = new ArrayList<>(1);
+//        targets.add(target);
+//        parentTargetRule.setTargets(targets);
+//
+//        // The coin toss arbitrarily favors shoving parent on true.
+//        random.setBooleanValue(false);
+//        parent.trigger("replicate-self", null);
+//
+//        checkPosition(4, 4);
+//        checkPosition(5, 4);
+//        checkPosition(6, 5);
     }
 
     /**
@@ -213,21 +219,22 @@ public class ExpandToTest extends LegacyTest {
      */
     @Test
     public void testInwardAsymmetricDisplacement() throws Exception {
-        // A cell exists in position 5 for all cases
-        placeNumberedAgent(6);
-
-        Coordinate target = new Coordinate2D(5, 0, 0);
-        List<Coordinate> targets = new ArrayList<>(1);
-        targets.add(target);
-        parentTargetRule.setTargets(targets);
-
-        // The coin toss arbitrarily favors shoving parent on true.
-        random.setBooleanValue(true);
-        parent.trigger("replicate-self", null);
-
-        checkPosition(3, 4);
-        checkPosition(4, 4);
-        checkPosition(5, 5);
-        checkPosition(6, 6);
+        fail("Rewrite");
+//        // A cell exists in position 5 for all cases
+//        placeNumberedAgent(6);
+//
+//        Coordinate target = new Coordinate2D(5, 0, 0);
+//        List<Coordinate> targets = new ArrayList<>(1);
+//        targets.add(target);
+//        parentTargetRule.setTargets(targets);
+//
+//        // The coin toss arbitrarily favors shoving parent on true.
+//        random.setBooleanValue(true);
+//        parent.trigger("replicate-self", null);
+//
+//        checkPosition(3, 4);
+//        checkPosition(4, 4);
+//        checkPosition(5, 5);
+//        checkPosition(6, 6);
     }
 }
