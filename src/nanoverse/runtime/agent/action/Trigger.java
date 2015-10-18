@@ -111,7 +111,7 @@ public class Trigger extends Action {
 
     @Override
     public Action copy(Agent child) {
-        TargetRule clonedTargeter = targetRule.clone(child);
+        TargetRule clonedTargeter = targetRule.copy(child);
         Trigger cloned = new Trigger(child, mapper.getLayerManager(), behaviorName, clonedTargeter, selfChannel, targetChannel);
         return cloned;
     }

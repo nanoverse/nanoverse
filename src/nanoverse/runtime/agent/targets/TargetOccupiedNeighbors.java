@@ -44,11 +44,6 @@ public class TargetOccupiedNeighbors extends TargetRule {
     }
 
     @Override
-    public TargetRule clone(Agent child) {
-        return new TargetOccupiedNeighbors(child, layerManager, filter, maximum, random);
-    }
-
-    @Override
     protected List<Coordinate> getCandidates(Agent caller) {
         // Get nanoverse.runtime.geometry
         Geometry geom = layerManager.getAgentLayer().getGeometry();
@@ -73,6 +68,11 @@ public class TargetOccupiedNeighbors extends TargetRule {
 
         // Return the array
         return occNeighbors;
+    }
+
+    @Override
+    public TargetRule copy(Agent child) {
+        return new TargetOccupiedNeighbors(child, layerManager, filter, maximum, random);
     }
 
 }

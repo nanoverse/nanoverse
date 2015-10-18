@@ -90,7 +90,7 @@ public class Swap extends Action {
 
     @Override
     public Action copy(Agent child) {
-        TargetRule clonedTargetRule = targetRule.clone(child);
+        TargetRule clonedTargetRule = targetRule.copy(child);
         return new Swap(child, mapper.getLayerManager(), clonedTargetRule, selfChannel, targetChannel);
     }
 

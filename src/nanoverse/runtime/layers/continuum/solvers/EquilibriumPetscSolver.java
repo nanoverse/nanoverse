@@ -34,7 +34,6 @@ import no.uib.cipr.matrix.sparse.CompDiagMatrix;
  * @author Daniel Greenidge
  */
 public class EquilibriumPetscSolver extends EquilibriumMatrixSolver {
-
     static {
         System.loadLibrary("petscsolver");
     }

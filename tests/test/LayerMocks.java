@@ -1,5 +1,6 @@
 package test;
 
+import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.*;
 import org.junit.Before;
@@ -16,6 +17,7 @@ public abstract class LayerMocks extends TestBase {
     protected AgentLookupManager lookup;
     protected AgentUpdateManager update;
     protected AgentLayerViewer viewer;
+    protected Geometry geometry;
 
     @Before
     public void before() throws Exception {
@@ -32,5 +34,8 @@ public abstract class LayerMocks extends TestBase {
 
         viewer = mock(AgentLayerViewer.class);
         when(agentLayer.getViewer()).thenReturn(viewer);
+
+        geometry = mock(Geometry.class);
+        when(agentLayer.getGeometry()).thenReturn(geometry);
     }
 }

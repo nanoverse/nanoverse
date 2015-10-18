@@ -24,12 +24,11 @@
 
 package nanoverse.runtime.agent;
 
-import nanoverse.runtime.agent.control.*;
-import nanoverse.runtime.control.identifiers.*;
-import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.agent.control.BehaviorDispatcher;
+import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.continuum.Reaction;
 import org.junit.*;
-import test.*;
+import test.TestBase;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -67,7 +66,7 @@ public class AgentTest extends TestBase {
         when(supplier.get()).thenReturn(child);
 
         BehaviorDispatcher childDispatcher = mock(BehaviorDispatcher.class);
-        when(dispatcher.clone(child)).thenReturn(childDispatcher);
+        when(dispatcher.copy(child)).thenReturn(childDispatcher);
 
         Agent actual = query.copy();
         assertSame(child, actual);

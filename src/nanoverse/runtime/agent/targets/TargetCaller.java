@@ -42,16 +42,16 @@ public class TargetCaller extends TargetRule {
     }
 
     @Override
-    public TargetRule clone(Agent child) {
-        return new TargetCaller(child, layerManager, filter, maximum, random);
-    }
-
-    @Override
     protected List<Coordinate> getCandidates(Agent caller) {
         Coordinate coord = layerManager.getAgentLayer().getLookupManager().getAgentLocation(caller);
 
         ArrayList<Coordinate> ret = new ArrayList<>(1);
         ret.add(coord);
         return ret;
+    }
+
+    @Override
+    public TargetRule copy(Agent child) {
+        return new TargetCaller(child, layerManager, filter, maximum, random);
     }
 }

@@ -32,7 +32,7 @@ import java.io.*;
 public abstract class FileConventions {
     public final static String COORDINATE_FILENAME = "coordinates.txt";
 
-    public final static String CONTINUUM_STATE_SUFFIX = ".state.bin";
+    public final static String CONTINUUM_STATE_SUFFIX = ".name.bin";
     public final static String CONTINUUM_METADATA_SUFFIX = ".extrema.bin";
     public final static String CONTINUUM_OVERVIEW_FILENAME = "solute.overview.txt";
 

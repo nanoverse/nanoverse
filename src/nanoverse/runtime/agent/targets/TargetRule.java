@@ -126,7 +126,7 @@ public abstract class TargetRule {
         return true;
     }
 
-    public abstract TargetRule clone(Agent child);
+    public abstract TargetRule copy(Agent child);
 
     public Agent getCallback() {
         return callback;

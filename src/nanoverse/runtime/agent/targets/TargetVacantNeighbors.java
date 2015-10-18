@@ -72,7 +72,7 @@ public class TargetVacantNeighbors extends TargetRule {
     }
 
     @Override
-    public TargetRule clone(Agent child) {
+    public TargetRule copy(Agent child) {
         return new TargetVacantNeighbors(child, layerManager, filter, maximum, random);
     }
 }

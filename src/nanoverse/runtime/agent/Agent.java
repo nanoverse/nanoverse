@@ -87,9 +87,13 @@ public class Agent {
     public Agent copy() throws HaltCondition {
         Agent child = supplier.get();
         child.setName(name);
-        BehaviorDispatcher childDispatcher = dispatcher.clone(child);
+        BehaviorDispatcher childDispatcher = dispatcher.copy(child);
         child.setDispatcher(childDispatcher);
         return child;
+    }
+
+    public void setDispatcher(BehaviorDispatcher dispatcher) {
+        this.dispatcher = dispatcher;
     }
 
     public void trigger(String behaviorName, Coordinate caller) throws HaltCondition {
@@ -99,10 +103,6 @@ public class Agent {
     public void die() {
         reactionManager.removeFromAll();
         callbackManager.die();
-    }
-
-    public void setDispatcher(BehaviorDispatcher dispatcher) {
-        this.dispatcher = dispatcher;
     }
 
     public Stream<String> getReactionIds() {

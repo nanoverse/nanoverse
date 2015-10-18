@@ -56,7 +56,7 @@ public class MockTargetRule extends TargetRule {
     }
 
     @Override
-    public TargetRule clone(Agent child) {
+    public TargetRule copy(Agent child) {
         return new MockTargetRule();
     }
 }

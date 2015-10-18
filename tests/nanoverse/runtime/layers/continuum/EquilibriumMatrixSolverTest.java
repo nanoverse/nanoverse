@@ -54,7 +54,8 @@ public class EquilibriumMatrixSolverTest extends TestBase {
         EquilibriumMatrixSolver[] solvers = new EquilibriumMatrixSolver[]{
             new EquilibriumKrylovSolver(true),
             new EquilibriumBandSolver(true),
-            new EquilibriumPetscSolver(true)};
+//            new EquilibriumPetscSolver(true)};
+        };
         return Arrays.asList(solvers);
     }
 

@@ -163,6 +163,12 @@ public class ExpandTo extends Action {
         highlighter.doHighlight(selfChannel, ownLocation);
     }
 
+    @Override
+    public Action copy(Agent child) {
+        TargetRule clonedTargetRule = targetRule.copy(child);
+        return new ExpandTo(child, mapper.getLayerManager(), clonedTargetRule, selfChannel,
+            targetChannel, random);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -170,13 +176,6 @@ public class ExpandTo extends Action {
         if (o == null || getClass() != o.getClass()) return false;
 
         return true;
-    }
-
-    @Override
-    public Action copy(Agent child) {
-        TargetRule clonedTargetRule = targetRule.clone(child);
-        return new ExpandTo(child, mapper.getLayerManager(), clonedTargetRule, selfChannel,
-            targetChannel, random);
     }
 
     private class DisplacementOption {

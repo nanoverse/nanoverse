@@ -24,8 +24,8 @@
 
 package nanoverse.runtime.agent.control;
 
-import nanoverse.runtime.agent.action.Action;
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.Action;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
@@ -40,10 +40,14 @@ import java.util.stream.Stream;
  * Created by David B Borenstein on 1/21/14.
  */
 public class BehaviorDispatcher {
-    private HashMap<String, Action> behaviors;
+    private final HashMap<String, Action> behaviors;
 
     public BehaviorDispatcher() {
         behaviors = new HashMap<>();
+    }
+
+    public BehaviorDispatcher(HashMap<String, Action> behaviors) {
+        this.behaviors = behaviors;
     }
 
     /**
@@ -56,14 +60,14 @@ public class BehaviorDispatcher {
      */
     public void trigger(String behaviorName, Coordinate caller) throws HaltCondition {
         if (!behaviors.containsKey(behaviorName)) {
-            throw new IllegalArgumentException("Action '" + behaviorName + "' not found.");
+            throw new IllegalStateException("Action '" + behaviorName + "' not found.");
         }
 
         Action behavior = behaviors.get(behaviorName);
         behavior.run(caller);
     }
 
-    public BehaviorDispatcher clone(Agent child) {
+    public BehaviorDispatcher copy(Agent child) {
         BehaviorDispatcher clone = new BehaviorDispatcher();
 
         // Clone the behavior catalog item for item.
@@ -78,44 +82,6 @@ public class BehaviorDispatcher {
 
     public void map(String name, Action behavior) {
         behaviors.put(name, behavior);
-    }
-
-    /**
-     * A BehaviorDispatcher is equal to another object only if:
-     * (1) The other Object is a BehaviorDispatcher.
-     * (2) Each Action in the other BehaviorDispatcher
-     * has an equivalent Action mapped to the same name
-     * as this BehaviorDispatcher.
-     *
-     * @param obj
-     * @return
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof BehaviorDispatcher)) {
-            return false;
-        }
-
-        BehaviorDispatcher other = (BehaviorDispatcher) obj;
-
-        if (other.behaviors.size() != this.behaviors.size()) {
-            return false;
-        }
-
-        for (String behaviorName : behaviors.keySet()) {
-            if (!other.behaviors.containsKey(behaviorName)) {
-                return false;
-            }
-
-            Action otherBehavior = other.behaviors.get(behaviorName);
-            Action thisBehavior = this.behaviors.get(behaviorName);
-
-            if (!thisBehavior.equals(otherBehavior)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public Action getMappedBehavior(String behaviorName) {
