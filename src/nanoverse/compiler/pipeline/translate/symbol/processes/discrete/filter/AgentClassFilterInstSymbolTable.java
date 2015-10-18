@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete.filter;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter.AgentClassFilterLoader;
 import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import nanoverse.runtime.processes.discrete.filter.AgentNameFilter;
 
 import java.util.HashMap;
@@ -49,13 +49,13 @@ public class AgentClassFilterInstSymbolTable extends MapSymbolTable<AgentNameFil
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        state(ret);
+        name(ret);
         return ret;
     }
 
-    private void state(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "The nanoverse.runtime.agent state/class to which the process should be restricted.");
-        ret.put("state", ms);
+    private void name(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "The agent name to which the process should be restricted.");
+        ret.put("name", ms);
     }
 }

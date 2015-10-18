@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.io.serialize;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
-import nanoverse.runtime.control.arguments.IntegerArgument;
+import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.io.serialize.text.InterfaceCensusWriter;
 import org.junit.Test;
 
@@ -44,6 +44,6 @@ public class InterfaceCensusWriterInstSymbolTableTest extends MapSymbolTableTest
 
     @Test
     public void focalState() throws Exception {
-        verifyReturnSymbol("focalState", IntegerArgument.class);
+        verifyReturnSymbol("focus", StringArgument.class);
     }
 }

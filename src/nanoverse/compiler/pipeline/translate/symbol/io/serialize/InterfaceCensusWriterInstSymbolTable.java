@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.translate.symbol.io.serialize;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.io.serialize.text.InterfaceCensusWriterLoader;
 import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import nanoverse.runtime.io.serialize.text.InterfaceCensusWriter;
 
 import java.util.HashMap;
@@ -51,12 +51,12 @@ public class InterfaceCensusWriterInstSymbolTable extends MapSymbolTable<Interfa
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        focalState(ret);
+        focus(ret);
         return ret;
     }
 
-    private void focalState(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+    private void focus(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
         MemberSymbol ms = new MemberSymbol(rst, "The focal state for the " +
             "interface census.");
         ret.put("focus", ms);
