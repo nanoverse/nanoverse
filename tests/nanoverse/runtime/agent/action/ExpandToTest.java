@@ -72,27 +72,28 @@ public class ExpandToTest extends LegacyTest {
     }
 
     private MockTargetRule placeNumberedAgent(int x) throws Exception {
-        Agent cell = makeNumberedAgent(x);
-        Coordinate coord = new Coordinate2D(x, 0, 0);
-        layer.getUpdateManager().place(cell, coord);
-        BehaviorDispatcher bd = new BehaviorDispatcher();
-        cell.setDispatcher(bd);
-
-        MockTargetRule targetRule = new MockTargetRule();
-
-        // Agents always divide to the right
-        List<Coordinate> targets = new ArrayList<>(1);
-        Coordinate target = new Coordinate2D(x + 1, 0, 0);
-        targets.add(target);
-        targetRule.setTargets(targets);
-
-        ExpandTo expandTo = new ExpandTo(cell, layerManager, targetRule,
-            null, null, random);
-
-        Action behavior = new CompoundAction(cell, layerManager, new Action[]{expandTo});
-        bd.map("replicate-self", behavior);
-
-        return targetRule;
+//        Agent cell = makeNumberedAgent(x);
+//        Coordinate coord = new Coordinate2D(x, 0, 0);
+//        layer.getUpdateManager().place(cell, coord);
+//        BehaviorDispatcher bd = new BehaviorDispatcher();
+//        cell.setDispatcher(bd);
+//
+//        MockTargetRule targetRule = new MockTargetRule();
+//
+//        // Agents always divide to the right
+//        List<Coordinate> targets = new ArrayList<>(1);
+//        Coordinate target = new Coordinate2D(x + 1, 0, 0);
+//        targets.add(target);
+//        targetRule.setTargets(targets);
+//
+//        ExpandTo expandTo = new ExpandTo(cell, layerManager, targetRule,
+//            null, null, random);
+//
+//        Action behavior = new CompoundAction(cell, layerManager, new Action[]{expandTo});
+//        bd.map("replicate-self", behavior);
+//
+//        return targetRule;
+        return null;
     }
 
     private Agent makeNumberedAgent(int x) throws Exception {

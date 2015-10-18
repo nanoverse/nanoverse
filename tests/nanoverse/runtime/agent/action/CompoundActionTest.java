@@ -32,114 +32,68 @@ import nanoverse.runtime.layers.*;
 import org.junit.*;
 import test.LegacyTest;
 
+import java.util.List;
+import java.util.stream.*;
+
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by dbborens on 3/6/14.
  */
-public class CompoundActionTest extends LegacyTest {
+public class CompoundActionTest extends ActionTest {
 
-//    ExposedCompoundAction query;
-    MockLayerManager layerManager;
-    MockAgent callBack;
-    MockAction a, b;
-    Coordinate caller;
+    private List<Action> actions;
+    private CompoundAction query;
 
-    Action[] actionSequence;
-
-    @Before
-    public void setUp() throws Exception {
-        fail("Rewrite me");
-//        layerManager = new MockLayerManager();
-//        callBack = new MockAgent();
-//        caller = new Coordinate2D(0, 0, 0);
-//        initActionSequence();
-//        query = new ExposedCompoundAction(callBack, layerManager, actionSequence);
+    @Before @Override
+    public void before() throws Exception {
+        super.before();
+        actions = makeActions();
+        query = new CompoundAction(identity, mapper, highlighter, actions.stream());
     }
 
-    private void initActionSequence() {
-        a = new MockAction();
-        b = new MockAction();
-
-        actionSequence = new Action[]{a, b};
+    private List<Action> makeActions() {
+        Action a = mock(Action.class);
+        Action b = mock(Action.class);
+        Stream<Action> actionStream = Stream.of(a, b);
+        return actionStream.collect(Collectors.toList());
     }
 
     @Test
-    public void testGetLayerManager() throws Exception {
-        fail("Rewrite me");
-//        LayerManager expected = layerManager;
-//        LayerManager actual = query.getLayerManager();
-//        assertEquals(expected, actual);
+    public void run() throws Exception {
+        Coordinate caller = mock(Coordinate.class);
+        query.run(caller);
+
+        actions.stream()
+            .forEach(action -> verifyRan(action, caller));
+    }
+
+    private void verifyRan(Action action, Coordinate caller) {
+        try {
+            verify(action).run(caller);
+        } catch (HaltCondition ex) {
+            fail();
+        }
     }
 
     @Test
-    public void testGetCallback() throws Exception {
-        fail("Rewrite me");
-//        Agent expected = callBack;
-//        Agent actual = query.getCallback();
-//        assertEquals(expected, actual);
-    }
+    public void copyIsDeep() throws Exception {
+        Agent child = mock(Agent.class);
 
-    @Test
-    public void testGetActionSequence() throws Exception {
-        fail("Rewrite me");
-//        Action[] expected = actionSequence;
-//        Action[] actual = query.getActionSequence();
-//
-//        assertEquals(2, actual.length);
-//        for (int i = 0; i < 2; i++) {
-//            // These should just be assigned
-//            assertEquals(expected[i], actual[i]);
-//        }
-    }
+        Action a = actions.get(0);
+        Action aCopy = mock(Action.class);
+        when(a.copy(child)).thenReturn(aCopy);
 
-    @Test
-    public void testRunNullCaller() throws Exception {
-        fail("Rewrite me");
-//        query.run(null);
-//        assertEquals(1, a.getTimesRun());
-//        assertEquals(1, b.getTimesRun());
-//        assertNull(a.getLastCaller());
-//        assertNull(b.getLastCaller());
-    }
+        Action b = actions.get(1);
+        Action bCopy = mock(Action.class);
+        when(b.copy(child)).thenReturn(bCopy);
 
-    @Test
-    public void testRunWithCaller() throws Exception {
-        fail("Rewrite me");
-//        query.run(caller);
-//        assertEquals(1, a.getTimesRun());
-//        assertEquals(1, b.getTimesRun());
-//        assertEquals(caller, a.getLastCaller());
-//        assertEquals(caller, b.getLastCaller());
-    }
+        CompoundAction copy = query.copy(child);
 
-    @Test
-    public void testClone() throws Exception {
-        fail("Rewrite me");
-//        Agent cloneAgent = new Agent();
-//        CompoundAction clone = query.copy(cloneAgent);
-//        assertEquals(cloneAgent, clone.getCallback());
-//        assertEquals(clone, query);
+        Stream<Action> expected = Stream.of(aCopy, bCopy);
+        Stream<Action> actual = copy.getActionSequence();
+        
+        assertStreamsEqual(expected, actual);
     }
-//
-//    private class ExposedCompoundAction extends CompoundAction {
-//        public ExposedCompoundAction(Agent callback, LayerManager layerManager, Action[] actionSequence) {
-//            super(callback, layerManager, actionSequence);
-//        }
-//
-//        @Override
-//        public LayerManager getLayerManager() {
-//            return super.getLayerManager();
-//        }
-//
-//        @Override
-//        public void run(Coordinate caller) throws HaltCondition {
-//            super.run(caller);
-//        }
-//
-//        @Override
-//        public Action[] getActionSequence() {
-//            return super.getActionSequence();
-//        }
-//    }
 }

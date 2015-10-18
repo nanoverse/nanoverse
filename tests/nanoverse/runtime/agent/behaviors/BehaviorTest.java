@@ -85,7 +85,7 @@ public class BehaviorTest extends LegacyTest {
 //    @Test
 //    public void testGetCallback() throws Exception {
 //        Agent expected = callBack;
-//        Agent actual = query.getCallback();
+//        Agent actual = query.getSelf();
 //        assertEquals(expected, actual);
 //    }
 //
@@ -122,9 +122,9 @@ public class BehaviorTest extends LegacyTest {
 //    @Test
 //    public void testClone() throws Exception {
 //        Agent cloneAgent = new Agent();
-//        Action clone = query.copy(cloneAgent);
-//        assertEquals(cloneAgent, clone.getCallback());
-//        assertEquals(clone, query);
+//        Action copy = query.copy(cloneAgent);
+//        assertEquals(cloneAgent, copy.getSelf());
+//        assertEquals(copy, query);
 //    }
 //
 //    private class ExposedBehavior extends CompoundAction {

@@ -114,18 +114,18 @@ public class BehaviorDispatcherTest {
 //        query.map(name, behavior1);
 //
 //        Agent alternate = new Agent();
-//        BehaviorDispatcher clone = query.clone(alternate);
+//        BehaviorDispatcher copy = query.copy(alternate);
 //
 //        // The objects should be equal in that their behavior lists are equal.
-//        assertEquals(query, clone);
+//        assertEquals(query, copy);
 //
 //        // The objects should not be the same object.
-//        assertFalse(query == clone);
+//        assertFalse(query == copy);
 //
 //        // The new object should have the alternate as a callback.
 //        // TODO Rewrite me as a modern test
-//        Action clonedBehavior = clone.getMappedBehavior(name);
-//        assertEquals(alternate, clonedBehavior.getCallback());
+//        Action clonedBehavior = copy.getMappedBehavior(name);
+//        assertEquals(alternate, clonedBehavior.getSelf());
 //    }
 
 }

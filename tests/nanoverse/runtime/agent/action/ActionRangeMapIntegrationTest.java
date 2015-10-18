@@ -25,32 +25,36 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.structural.RangeMap;
+import nanoverse.runtime.cells.MockAgent;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by dbborens on 4/27/14.
  */
-public class ActionRangeMap extends RangeMap<Action> {
-    public ActionRangeMap(int initialSize) {
-        super(initialSize);
+public class ActionRangeMapIntegrationTest {
+
+    @Test
+    public void copy() {
+        ActionRangeMap toCopy = new ActionRangeMap();
+        Agent child = mock(Agent.class);
+
+        Action a = mock(Action.class);
+        Action aCopy = mock(Action.class);
+        when(a.copy(child)).thenReturn(aCopy);
+
+        Action b = mock(Action.class);
+        Action bCopy = mock(Action.class);
+        when(b.copy(child)).thenReturn(bCopy);
+
+        toCopy.add(a, 1.0);
+        toCopy.add(b, 0.5);
+
+        ActionRangeMap copy = toCopy.copy(child);
+        assertSame(aCopy, copy.selectTarget(0.25));
+        assertEquals(bCopy, copy.selectTarget(1.25));
     }
 
-    public ActionRangeMap() {
-        super();
-    }
-
-    public ActionRangeMap copy(Agent child) {
-        int n = keys.size();
-        ActionRangeMap cloned = new ActionRangeMap(n);
-
-        for (int i = 1; i < floors.size(); i++) {
-            Action key = keys.get(i - 1);
-            Action clonedKey = key.copy(child);
-            Double weight = floors.get(i) - floors.get(i - 1);
-
-            cloned.add(clonedKey, weight);
-        }
-
-        return cloned;
-    }
 }

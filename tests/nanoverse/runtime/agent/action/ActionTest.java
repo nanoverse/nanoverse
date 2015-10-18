@@ -5,7 +5,7 @@ import nanoverse.runtime.layers.LayerManager;
 import org.junit.Before;
 import test.LayerMocks;
 
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by dbborens on 10/18/2015.
@@ -22,5 +22,7 @@ public class ActionTest extends LayerMocks {
         identity = mock(ActionIdentityManager.class);
         mapper = mock(CoordAgentMapper.class);
         highlighter = mock(ActionHighlighter.class);
+
+        when(mapper.getLayerManager()).thenReturn(layerManager);
     }
 }

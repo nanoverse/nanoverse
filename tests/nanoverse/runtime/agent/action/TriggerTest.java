@@ -149,8 +149,8 @@ public class TriggerTest extends LegacyTest {
 //        Action cloned = query.copy(cloneAgent);
 //        assert (cloned != query);
 //        assertEquals(query, cloned);
-//        assertEquals(cloneAgent, cloned.getCallback());
-//        assertEquals(causeAgent, query.getCallback());
+//        assertEquals(cloneAgent, cloned.getSelf());
+//        assertEquals(causeAgent, query.getSelf());
     }
 
     @Test

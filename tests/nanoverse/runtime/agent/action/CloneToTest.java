@@ -51,7 +51,7 @@ public class CloneToTest extends LegacyLatticeTest {
     @Override
     @Before
     public void setUp() throws Exception {
-        fail("Rewrite as a modern test");
+        fail("To be combined with other 'expand' processes");
 //        super.setUp();
 //
 //        // Create mock targeter that lists other two sites as targets.
