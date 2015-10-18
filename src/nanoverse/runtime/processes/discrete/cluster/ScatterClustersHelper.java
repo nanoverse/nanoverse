@@ -97,10 +97,9 @@ public abstract class ScatterClustersHelper {
         Collections.shuffle(vacancies);
 
         IntStream.range(0, needed).mapToObj(vacancies::get).forEach(c -> {
-            String name = toPlace.getName();
             Agent clone;
             try {
-                clone = toPlace.clone(name);
+                clone = toPlace.copy();
                 layer.getUpdateManager().place(clone, c);
             } catch (HaltCondition ex) {
                 throw new RuntimeException("Unexpected halt condition", ex);

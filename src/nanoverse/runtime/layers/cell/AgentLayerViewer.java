@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 import java.util.*;
@@ -63,7 +63,7 @@ public class AgentLayerViewer {
         return new NameMapViewer(content.getNameMap());
     }
 
-    public boolean exists(AbstractAgent agent) {
+    public boolean exists(Agent agent) {
         return content.isIndexed(agent);
     }
 
@@ -85,7 +85,7 @@ public class AgentLayerViewer {
         return getAgent(coord).getName();
     }
 
-    public AbstractAgent getAgent(Coordinate coord) {
+    public Agent getAgent(Coordinate coord) {
         return content.get(coord);
     }
 

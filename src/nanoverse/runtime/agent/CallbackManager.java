@@ -38,10 +38,10 @@ import nanoverse.runtime.layers.cell.*;
  */
 public class CallbackManager {
 
-    private AbstractAgent agent;
-    private LayerManager layerManager;
+    private final Agent agent;
+    private final LayerManager layerManager;
 
-    public CallbackManager(AbstractAgent agent, LayerManager layerManager) {
+    public CallbackManager(Agent agent, LayerManager layerManager) {
         this.agent = agent;
         this.layerManager = layerManager;
     }
@@ -51,23 +51,8 @@ public class CallbackManager {
      * and should be removed from the simulation.
      */
     public void die() {
-        AgentLayer layer = layerManager.getAgentLayer();
-        Coordinate coord = layer.getLookupManager().getAgentLocation(agent);
-        layer.getUpdateManager().banish(coord);
-    }
-
-    /**
-     * Signals to the LayerManager that the callback agent may have
-     * changed its divisibility status and should be checked.
-     */
-    public void refreshDivisibility() throws HaltCondition {
-        AgentLayer layer = layerManager.getAgentLayer();
-
-        if (layer.getViewer().exists(agent)) {
-            Coordinate coord = layer.getLookupManager().getAgentLocation(agent);
-            layer.getUpdateManager().banish(coord);
-            layer.getUpdateManager().place(agent, coord);
-        }
+        Coordinate coord = getMyLocation();
+        layerManager.getAgentLayer().getUpdateManager().banish(coord);
     }
 
     public LayerManager getLayerManager() {

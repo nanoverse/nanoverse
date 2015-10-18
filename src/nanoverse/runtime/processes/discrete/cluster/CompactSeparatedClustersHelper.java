@@ -86,11 +86,10 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
 
             int iWrapped = (i + start) % vacancies.length;
             Coordinate c = vacancies[iWrapped];
-            String name = toPlace.getName();
             Agent clone;
 
             try {
-                clone = toPlace.clone(name);
+                clone = toPlace.copy();
                 layer.getUpdateManager().place(clone, c);
             } catch (HaltCondition ex) {
                 throw new RuntimeException("Unexpected halt condition", ex);

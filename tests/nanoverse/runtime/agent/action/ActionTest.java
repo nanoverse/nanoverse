@@ -25,7 +25,6 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.*;
@@ -68,8 +67,8 @@ public class ActionTest extends TestBase {
 
     @Test
     public void getCallback() throws Exception {
-        AbstractAgent expected = callback;
-        AbstractAgent actual = query.getCallback();
+        Agent expected = callback;
+        Agent actual = query.getCallback();
         assertEquals(expected, actual);
         assertTrue(expected == actual);
     }

@@ -134,7 +134,7 @@ public class AgentLookupManager {
         return (res.toArray(new Coordinate[0]));
     }
 
-    public Coordinate getAgentLocation(AbstractAgent agent) {
+    public Coordinate getAgentLocation(Agent agent) {
         return content.locate(agent);
     }
 }

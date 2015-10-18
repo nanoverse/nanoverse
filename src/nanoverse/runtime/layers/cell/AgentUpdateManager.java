@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
@@ -60,7 +60,7 @@ public class AgentUpdateManager {
         content.sanityCheck(cCoord);
 
         // Note: divide(...) updates state index for parent
-        AbstractAgent child = divide(pCoord);
+        Agent child = divide(pCoord);
 
         // Attempt to place child
         // Note: place(...) updates state index for child
@@ -71,11 +71,11 @@ public class AgentUpdateManager {
     // TODO: The exposure of this method is a bit of cloodge for the shoving
     // method. There's no obvious way around it as things stand, but it does
     // suggest that a refactor may soon be necessary.
-    public AbstractAgent divide(Coordinate pCoord) throws HaltCondition {
+    public Agent divide(Coordinate pCoord) throws HaltCondition {
         content.sanityCheck(pCoord);
 
         // Divide parent
-        AbstractAgent parent = content.get(pCoord);
+        Agent parent = content.get(pCoord);
 
         if (parent == null) {
             throw new IllegalStateException("Coordinate " + pCoord + " is null");
@@ -86,7 +86,7 @@ public class AgentUpdateManager {
         content.remove(pCoord);
 
         // Perform the division.
-        AbstractAgent child = parent.divide();
+        Agent child = parent.copy();
 
         // Place the parent, whose state may have changed as a result of the
         // division event.
@@ -102,7 +102,7 @@ public class AgentUpdateManager {
      * @param agent
      * @param coord
      */
-    public void place(AbstractAgent agent, Coordinate coord) throws HaltCondition {
+    public void place(Agent agent, Coordinate coord) throws HaltCondition {
         content.sanityCheck(coord);
 
         if (content.has(coord)) {
@@ -144,7 +144,7 @@ public class AgentUpdateManager {
         content.sanityCheck(pCoord);
         content.sanityCheck(qCoord);
 
-        AbstractAgent agent = content.get(pCoord);
+        Agent agent = content.get(pCoord);
 
         content.remove(pCoord);
         content.put(qCoord, agent);
@@ -162,8 +162,8 @@ public class AgentUpdateManager {
         content.sanityCheck(qCoord);
 
         // Identify nanoverse.runtime.cells
-        AbstractAgent p = content.get(pCoord);
-        AbstractAgent q = content.get(qCoord);
+        Agent p = content.get(pCoord);
+        Agent q = content.get(qCoord);
 
         // Clear both sites
         content.remove(pCoord);

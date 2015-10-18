@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.structural.*;
 
@@ -58,11 +58,11 @@ public class AgentLayerIndices {
         cellLocationIndex = new AgentLocationIndex();
     }
 
-    public Coordinate locate(AbstractAgent agent) {
+    public Coordinate locate(Agent agent) {
         return cellLocationIndex.locate(agent);
     }
 
-    public boolean isIndexed(AbstractAgent agent) {
+    public boolean isIndexed(Agent agent) {
         return cellLocationIndex.isIndexed(agent);
     }
 
@@ -85,7 +85,7 @@ public class AgentLayerIndices {
         return occupiedSites.set();
     }
 
-    public void refresh(Coordinate coord, AbstractAgent previous, AbstractAgent current) {
+    public void refresh(Coordinate coord, Agent previous, Agent current) {
         if (previous != null) {
             remove(coord, previous);
         }
@@ -95,7 +95,7 @@ public class AgentLayerIndices {
         }
     }
 
-    private void remove(Coordinate coord, AbstractAgent agent) {
+    private void remove(Coordinate coord, Agent agent) {
         cellLocationIndex.remove(agent);
         decrStateCount(agent);
         setOccupied(coord, false);
@@ -109,7 +109,7 @@ public class AgentLayerIndices {
         }
     }
 
-    private void decrStateCount(AbstractAgent agent) {
+    private void decrStateCount(Agent agent) {
         String name = agent.getName();
         Integer currentCount = nameMap.get(name);
         if (currentCount == 1) {
@@ -119,13 +119,13 @@ public class AgentLayerIndices {
         }
     }
 
-    private void add(Coordinate coord, AbstractAgent agent) {
+    private void add(Coordinate coord, Agent agent) {
         cellLocationIndex.add(agent, coord);
         incrStateCount(agent);
         setOccupied(coord, true);
     }
 
-    private void incrStateCount(AbstractAgent agent) {
+    private void incrStateCount(Agent agent) {
         String name = agent.getName();
 
         if (!nameMap.containsKey(name)) {
@@ -150,7 +150,7 @@ public class AgentLayerIndices {
     private AgentLocationIndex buildLocationIndex(CanonicalAgentMap cellMap) {
         AgentLocationIndex ret = new AgentLocationIndex();
         for (Coordinate key : cellMap.keySet()) {
-            AbstractAgent value = cellMap.get(key);
+            Agent value = cellMap.get(key);
             if (value != null) {
                 ret.add(value, key);
             }

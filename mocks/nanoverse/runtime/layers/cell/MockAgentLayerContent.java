@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 
@@ -40,7 +40,7 @@ public class MockAgentLayerContent extends AgentLayerContent {
         super(geom, indices);
     }
 
-    public AbstractAgent get(Coordinate coord) {
+    public Agent get(Coordinate coord) {
         // Mock getter doesn't do any validation
         return map.get(coord);
     }

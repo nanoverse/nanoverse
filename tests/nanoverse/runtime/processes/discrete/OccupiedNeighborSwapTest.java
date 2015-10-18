@@ -71,7 +71,7 @@ public class OccupiedNeighborSwapTest extends LegacyTest {
 //        query = new OccupiedNeighborSwap(arguments, cpArguments);
 //
 //        /*
-//         * AbstractAgent layout:
+//         * Agent layout:
 //         *     0 1
 //         *  0  b .
 //         *  1  a c

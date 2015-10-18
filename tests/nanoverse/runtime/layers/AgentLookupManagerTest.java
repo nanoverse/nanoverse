@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
@@ -50,8 +50,8 @@ public class AgentLookupManagerTest {
         Coordinate[] neighborhood = new Coordinate[]{c[0], c[2]};
         geometry.setAgentNeighbors(c[1], neighborhood);
 
-        AbstractAgent f0 = new MockAgent("4");
-        AbstractAgent f2 = new MockAgent("6");
+        Agent f0 = new MockAgent("4");
+        Agent f2 = new MockAgent("6");
 
         content.put(c[0], f0);
         content.put(c[2], f2);

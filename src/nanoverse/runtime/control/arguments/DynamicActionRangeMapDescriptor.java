@@ -37,7 +37,6 @@ import java.util.stream.*;
 /**
  * Created by dbborens on 1/26/15.
  */
-@Deprecated
 public class DynamicActionRangeMapDescriptor {
 
     private final Function<Agent, DynamicActionRangeMap> constructor;

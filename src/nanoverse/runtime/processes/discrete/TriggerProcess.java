@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.*;
@@ -45,7 +45,7 @@ public class TriggerProcess extends AgentProcess {
     private Filter filter;
 
     // We use a cell array because triggering may also move nanoverse.runtime.cells
-    private AbstractAgent[] targets;
+    private Agent[] targets;
 
     @FactoryTarget
     public TriggerProcess(BaseProcessArguments arguments, AgentProcessArguments cpArguments,
@@ -71,13 +71,13 @@ public class TriggerProcess extends AgentProcess {
 
     }
 
-    private AbstractAgent[] resolveTargets() throws HaltCondition {
+    private Agent[] resolveTargets() throws HaltCondition {
         ArrayList<Coordinate> vacancyFiltered = respectVacancyRequirements(getActiveSites());
         Collection<Coordinate> stateFiltered = filter.apply(vacancyFiltered);
         Collection<? extends Object> neighborFiltered = respectNeighborhoodRequirements(stateFiltered);
         Object[] selectedCoords = MaxTargetHelper.respectMaxTargets(neighborFiltered, getMaxTargets().next(), getGeneralParameters().getRandom());
 
-        AbstractAgent[] selectedAgents = new AbstractAgent[selectedCoords.length];
+        Agent[] selectedAgents = new Agent[selectedCoords.length];
         for (int i = 0; i < selectedAgents.length; i++) {
             Coordinate coord = (Coordinate) selectedCoords[i];
             selectedAgents[i] = getLayer().getViewer().getAgent(coord);
@@ -152,7 +152,7 @@ public class TriggerProcess extends AgentProcess {
 
     @Override
     public void fire(StepState state) throws HaltCondition {
-        for (AbstractAgent target : targets) {
+        for (Agent target : targets) {
 
             // If the cell has been removed as a result of firing the trigger
             // process in a previous target, skip it.

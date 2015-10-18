@@ -24,7 +24,6 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
@@ -107,7 +106,7 @@ public class ExpandTo extends Action {
         AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
 
         // Clone parent.
-        AbstractAgent child = getCallback().replicate();
+        Agent child = getCallback().copy();
 
         // Place child in parent location.
         u.place(child, vacancy);

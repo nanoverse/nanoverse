@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.halt.BoundaryReachedEvent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
@@ -75,22 +75,22 @@ public abstract class AgentLayerContent {
         return (get(coord) != null);
     }
 
-    public AbstractAgent get(Coordinate coord) {
+    public Agent get(Coordinate coord) {
 
         // Get pointer to cell and return it
-        AbstractAgent res = map.get(coord);
+        Agent res = map.get(coord);
 
         return res;
     }
 
-    public void put(Coordinate coord, AbstractAgent current) throws BoundaryReachedEvent {
-        AbstractAgent previous = map.get(coord);
+    public void put(Coordinate coord, Agent current) throws BoundaryReachedEvent {
+        Agent previous = map.get(coord);
         indices.refresh(coord, previous, current);
         map.put(coord, current);
     }
 
     public void remove(Coordinate coord) {
-        AbstractAgent previous = map.get(coord);
+        Agent previous = map.get(coord);
         indices.refresh(coord, previous, null);
         map.put(coord, null);
     }
@@ -101,7 +101,7 @@ public abstract class AgentLayerContent {
         String[] nArr = new String[cArr.length];
 
         for (int i = 0; i < cArr.length; i++) {
-            AbstractAgent c = map.get(cArr[i]);
+            Agent c = map.get(cArr[i]);
             if (c == null) {
                 nArr[i] = null;
             } else {
@@ -140,7 +140,7 @@ public abstract class AgentLayerContent {
 
     public abstract Set<Coordinate> getImaginarySites();
 
-    public Coordinate locate(AbstractAgent agent) {
+    public Coordinate locate(Agent agent) {
         return indices.locate(agent);
     }
 
@@ -148,7 +148,7 @@ public abstract class AgentLayerContent {
         return indices.getNameMap();
     }
 
-    public boolean isIndexed(AbstractAgent agent) {
+    public boolean isIndexed(Agent agent) {
         return indices.isIndexed(agent);
     }
 

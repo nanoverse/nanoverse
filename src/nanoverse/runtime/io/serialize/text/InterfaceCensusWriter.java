@@ -24,22 +24,12 @@
 
 package nanoverse.runtime.io.serialize.text;
 
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.NotYetImplementedException;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
-import nanoverse.runtime.structural.utilities.FileConventions;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.io.BufferedWriter;
-import java.util.*;
 
 /**
  * @author dbborens
@@ -192,7 +182,7 @@ public class InterfaceCensusWriter extends Serializer {
 //        HashSet<Coordinate> sites = layer.getViewer().getOccupiedSites();
 //
 //        for (Coordinate site : sites) {
-//            AbstractAgent focalAgent = layer.getViewer().getAgent(site);
+//            Agent focalAgent = layer.getViewer().getAgent(site);
 //            if (focalAgent.getState() == focalState) {
 //                focalSites.add(site);
 //            }

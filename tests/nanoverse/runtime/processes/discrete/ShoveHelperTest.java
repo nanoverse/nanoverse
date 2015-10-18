@@ -24,20 +24,9 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.cells.*;
-import nanoverse.runtime.control.identifiers.*;
-import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.geometry.boundaries.*;
-import nanoverse.runtime.geometry.lattice.*;
-import nanoverse.runtime.geometry.shape.*;
-import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.AgentLayer;
-import nanoverse.runtime.structural.MockRandom;
 import org.junit.*;
 import test.LegacyTest;
-
-import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -89,7 +78,7 @@ public class ShoveHelperTest extends LegacyTest {
      * So here is what is supposed to happen:
      * <p>
      * 0123456_89  Initial condition
-     * ^       (AbstractAgent to be shoved)
+     * ^       (Agent to be shoved)
      * <p>
      * 0123_45689  Result
      */
@@ -105,7 +94,7 @@ public class ShoveHelperTest extends LegacyTest {
 //
 //        for (int x = 0; x < 4; x++) {
 //            Coordinate c = new Coordinate2D(x, 0, 0);
-//            AbstractAgent observed = layer.getViewer().getAgent(c);
+//            Agent observed = layer.getViewer().getAgent(c);
 //            int expected = leftSeq[x];
 //            int actual = observed.getState();
 //            assertEquals(expected, actual);
@@ -113,7 +102,7 @@ public class ShoveHelperTest extends LegacyTest {
 //
 //        for (int x = 0; x < 5; x++) {
 //            Coordinate c = new Coordinate2D(x + 5, 0, 0);
-//            AbstractAgent observed = layer.getViewer().getAgent(c);
+//            Agent observed = layer.getViewer().getAgent(c);
 //            int expected = rightSeq[x];
 //            int actual = observed.getState();
 //            assertEquals(expected, actual);
@@ -137,7 +126,7 @@ public class ShoveHelperTest extends LegacyTest {
 //        for (int x = 0; x < 4; x++) {
 //            for (int y = 0; y < 4; y++) {
 //                for (int z = 0; z < 4; z++) {
-//                    AbstractAgent agent = new MockAgent(1);
+//                    Agent agent = new MockAgent(1);
 //                    Coordinate coord = new Coordinate3D(x, y, z, 0);
 //                    layer.getUpdateManager().place(agent, coord);
 //                }
@@ -213,7 +202,7 @@ public class ShoveHelperTest extends LegacyTest {
 //
 //        // initial name: _1234567__
 //        for (int x = 1; x < 8; x++) {
-//            AbstractAgent agent = new MockAgent(1);
+//            Agent agent = new MockAgent(1);
 //            Coordinate coord = new Coordinate2D(x, 0, 0);
 //            layer.getUpdateManager().place(agent, coord);
 //        }

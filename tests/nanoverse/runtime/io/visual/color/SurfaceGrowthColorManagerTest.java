@@ -24,8 +24,6 @@
 
 package nanoverse.runtime.io.visual.color;
 
-import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.arguments.ConstantDouble;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -73,7 +71,7 @@ public class SurfaceGrowthColorManagerTest extends LegacyTest {
 
     private void put(AgentLayer layer, int pos, int state) throws Exception {
 //        Coordinate coord = new Coordinate2D(0, pos, 0);
-//        AbstractAgent agent = new MockAgent(state);
+//        Agent agent = new MockAgent(state);
 //        layer.getUpdateManager().place(agent, coord);
     }
 

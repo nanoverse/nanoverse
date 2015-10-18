@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 import java.util.IdentityHashMap;
@@ -36,14 +36,14 @@ import java.util.IdentityHashMap;
  * <p>
  * Created by David B Borenstein on 2/5/14.
  */
-public class AgentLocationIndex extends IdentityHashMap<AbstractAgent, Coordinate> {
+public class AgentLocationIndex extends IdentityHashMap<Agent, Coordinate> {
 
 
     public AgentLocationIndex() {
         super();
     }
 
-    public void add(AbstractAgent agent, Coordinate coordinate) {
+    public void add(Agent agent, Coordinate coordinate) {
         if (containsKey(agent)) {
             throw new IllegalStateException("Attempting to overwrite existing location key.");
         }
@@ -51,7 +51,7 @@ public class AgentLocationIndex extends IdentityHashMap<AbstractAgent, Coordinat
         put(agent, coordinate);
     }
 
-    public Coordinate locate(AbstractAgent agent) {
+    public Coordinate locate(Agent agent) {
         if (!containsKey(agent)) {
             throw new IllegalStateException("Attempting to locate a agent that does not have an indexed spatial location.");
         }
@@ -65,7 +65,7 @@ public class AgentLocationIndex extends IdentityHashMap<AbstractAgent, Coordinat
         return super.remove(key);
     }
 
-    public boolean isIndexed(AbstractAgent agent) {
+    public boolean isIndexed(Agent agent) {
         return containsKey(agent);
     }
 

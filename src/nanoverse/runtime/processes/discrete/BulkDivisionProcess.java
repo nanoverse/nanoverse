@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.*;
@@ -50,9 +50,9 @@ public abstract class BulkDivisionProcess extends AgentProcess {
 
     protected void execute(Coordinate[] candidates) throws HaltCondition {
         Object[] chosen = MaxTargetHelper.respectMaxTargets(candidates, getMaxTargets().next(), getGeneralParameters().getRandom());
-        AbstractAgent[] chosenAgents = toAgentArray(chosen);
+        Agent[] chosenAgents = toAgentArray(chosen);
         for (int i = 0; i < chosenAgents.length; i++) {
-            AbstractAgent agent = chosenAgents[i];
+            Agent agent = chosenAgents[i];
             AgentLookupManager lm = getLayer().getLookupManager();
             Coordinate currentLocation = lm.getAgentLocation(agent);
             doDivision(currentLocation);
@@ -64,12 +64,12 @@ public abstract class BulkDivisionProcess extends AgentProcess {
         shoveHelper.removeImaginary();
     }
 
-    private AbstractAgent[] toAgentArray(Object[] chosen) {
+    private Agent[] toAgentArray(Object[] chosen) {
         int n = chosen.length;
-        AbstractAgent[] abstractAgents = new AbstractAgent[n];
+        Agent[] abstractAgents = new Agent[n];
         for (int i = 0; i < n; i++) {
             Coordinate coord = (Coordinate) chosen[i];
-            AbstractAgent agent = getLayer().getViewer().getAgent(coord);
+            Agent agent = getLayer().getViewer().getAgent(coord);
             abstractAgents[i] = agent;
         }
 
@@ -80,7 +80,7 @@ public abstract class BulkDivisionProcess extends AgentProcess {
     protected void doDivision(Coordinate origin) throws HaltCondition {
         // Get child cell
         AgentUpdateManager um = getLayer().getUpdateManager();
-        AbstractAgent child = um.divide(origin);
+        Agent child = um.divide(origin);
 
         Coordinate target = shoveHelper.chooseVacancy(origin);
 

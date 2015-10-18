@@ -25,11 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
-import nanoverse.runtime.cells.*;
-import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
@@ -42,7 +38,6 @@ import java.util.*;
 import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class CloneToTest extends LegacyLatticeTest {
 
@@ -107,7 +102,7 @@ public class CloneToTest extends LegacyLatticeTest {
     public void testReplacement() throws Exception {
         fail("Rewrite as a modern test");
 //        AgentLayer layer = linearLayer(false);
-//        AbstractAgent agent = layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
+//        Agent agent = layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
 //
 //        // Divide agent at position 4 toward 5
 //        agent.trigger("replicate-self", null);
@@ -121,7 +116,7 @@ public class CloneToTest extends LegacyLatticeTest {
 
     /**
      * _123456_89  Initial condition
-     * ^       (AbstractAgent to be divided)
+     * ^       (Agent to be divided)
      */
     private AgentLayer linearLayer(boolean shoving) throws Exception {
         Lattice lattice = new RectangularLattice();

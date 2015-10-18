@@ -24,8 +24,7 @@
 
 package nanoverse.runtime.processes.discrete.filter;
 
-import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.control.halt.HaltCondition;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -85,7 +84,7 @@ public class AgentNameFilter extends Filter {
                 continue;
             }
 
-            AbstractAgent agent = layer.getViewer().getAgent(c);
+            Agent agent = layer.getViewer().getAgent(c);
 
             if (agent.getName().equals(toChoose)) {
                 toRetain.add(c);

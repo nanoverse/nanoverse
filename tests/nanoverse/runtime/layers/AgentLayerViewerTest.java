@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
@@ -75,7 +75,7 @@ public class AgentLayerViewerTest extends LegacyTest {
     @Test
     public void testGetAgent() throws Exception {
 
-        AbstractAgent agent = new MockAgent();
+        Agent agent = new MockAgent();
         content.put(c1, agent);
         assertEquals(agent, query.getAgent(c1));
     }

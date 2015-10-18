@@ -30,16 +30,14 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.structural.utilities.EpsilonUtil;
 
 /**
- * Mock cell class used for testing. We make it extend from BehaviorAgent
- * for compatibility with BehaviorAgent-only classes. (BehaviorAgent is a
- * subclass of AbstractAgent which is capable of engaging in arbitrary behaviors,
- * which can then be used for nanoverse.runtime.agent-based modeling.)
- * <p>
+ * LEGACY -- DO NOT USE
+ *
+ * Mock cell class used for testing.
+ *
  * Created by dbborens on 1/13/14.
  */
 public class MockAgent extends Agent {
 
-    private int considerCount;
     private MockAgent child;
     private String name = "mock";
     private String lastTriggeredBehaviorName;
@@ -66,12 +64,7 @@ public class MockAgent extends Agent {
     }
 
     @Override
-    public MockAgent divide() {
-        return child;
-    }
-
-    @Override
-    public MockAgent clone(String name) {
+    public MockAgent copy() {
         return child;
     }
 
@@ -116,9 +109,5 @@ public class MockAgent extends Agent {
 
     public int getTriggerCount() {
         return triggerCount;
-    }
-
-    public boolean died() {
-        return died;
     }
 }

@@ -24,7 +24,6 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -73,8 +72,8 @@ public class CompoundActionTest extends LegacyTest {
 
     @Test
     public void testGetCallback() throws Exception {
-        AbstractAgent expected = callBack;
-        AbstractAgent actual = query.getCallback();
+        Agent expected = callBack;
+        Agent actual = query.getCallback();
         assertEquals(expected, actual);
     }
 

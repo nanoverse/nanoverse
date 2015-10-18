@@ -24,16 +24,9 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
-import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
-import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.geometry.boundaries.*;
-import nanoverse.runtime.geometry.lattice.*;
-import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.MockRandom;
@@ -41,11 +34,9 @@ import org.junit.*;
 import test.LegacyTest;
 
 import java.util.ArrayList;
-import java.util.function.Supplier;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.mockito.Mockito.*;
 
 public class ExpandTest extends LegacyTest {
 
@@ -104,7 +95,7 @@ public class ExpandTest extends LegacyTest {
      * <p>
      * 0123456789
      * ____45____  Initial condition
-     * ^       AbstractAgent 4 divides left
+     * ^       Agent 4 divides left
      * <p>
      * 0123456789
      * ___445____  Resulting condition
@@ -128,7 +119,7 @@ public class ExpandTest extends LegacyTest {
 
     private void checkPosition(int x, int state) {
 //        Coordinate c = new Coordinate2D(x, 0, 0);
-//        AbstractAgent agent = layer.getViewer().getAgent(c);
+//        Agent agent = layer.getViewer().getAgent(c);
 //        assertEquals(state, agent.getState());
     }
 

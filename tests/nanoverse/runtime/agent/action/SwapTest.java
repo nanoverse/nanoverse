@@ -24,22 +24,14 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
 import nanoverse.runtime.control.identifiers.*;
-import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.geometry.boundaries.*;
-import nanoverse.runtime.geometry.lattice.*;
-import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.NotYetImplementedException;
 import org.junit.*;
 import test.LegacyTest;
-
-import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -115,7 +107,7 @@ public class SwapTest extends LegacyTest {
 
     private void checkPosition(int x, int state) {
 //        Coordinate c = new Coordinate2D(x, 0, 0);
-//        AbstractAgent agent = layer.getViewer().getAgent(c);
+//        Agent agent = layer.getViewer().getAgent(c);
 //        assertEquals(state, agent.getState());
     }
 

@@ -24,9 +24,8 @@
 
 package nanoverse.runtime.processes.discrete.filter;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.cells.*;
-import nanoverse.runtime.control.arguments.ConstantInteger;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.AgentUpdateManager;
 import org.junit.*;
@@ -37,7 +36,7 @@ import java.util.*;
 import static org.junit.Assert.assertTrue;
 
 public class AgentNameFilterTest extends LegacyLatticeTest {
-    private AbstractAgent yes, no;
+    private Agent yes, no;
     private AgentNameFilter query;
 
     @Before

@@ -24,7 +24,6 @@
 
 package nanoverse.runtime.control.arguments;
 
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
@@ -40,7 +39,7 @@ import java.util.stream.*;
 /**
  * Created by dbborens on 11/23/14.
  */
-public class AgentDescriptor implements Argument<AbstractAgent> {
+public class AgentDescriptor implements Argument<Agent> {
 
     private LayerManager layerManager;
 
@@ -82,7 +81,7 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
     @Override
     public Agent next() throws HaltCondition {
         // Load cell properties
-        Supplier<Agent> supplier = () -> {
+        Supplier<Agent> nextFromDescriptor = () -> {
             try {
                 return next();
             } catch (HaltCondition ex) {
@@ -91,7 +90,7 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
         };
 
         // Construct cell
-        Agent cell = new Agent(layerManager, name, supplier);
+        Agent cell = new Agent(layerManager, name, nextFromDescriptor);
 
         loadReactions(cell);
         loadBehaviors(cell);

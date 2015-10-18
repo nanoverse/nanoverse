@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
@@ -80,15 +80,15 @@ public class AgentUpdateManagerTest extends LegacyTest {
         cell.setChild(child);
         query.place(cell, o);
 
-        AbstractAgent actual = query.divide(o);
-        AbstractAgent expected = child;
+        Agent actual = query.divide(o);
+        Agent expected = child;
         assertEquals(expected, actual);
     }
 
 
     @Test
     public void testBanish() throws Exception {
-        AbstractAgent agent = new MockAgent();
+        Agent agent = new MockAgent();
         content.put(o, agent);
 
         assertTrue(content.has(o));
@@ -98,7 +98,7 @@ public class AgentUpdateManagerTest extends LegacyTest {
 
     @Test
     public void testMove() throws Exception {
-        AbstractAgent agent = new MockAgent();
+        Agent agent = new MockAgent();
         query.place(agent, o);
         assertNull(indices.getLastPrevious());
         assertEquals(agent, indices.getLastCurrent());
@@ -115,8 +115,8 @@ public class AgentUpdateManagerTest extends LegacyTest {
 
     @Test
     public void testSwap() throws Exception {
-        AbstractAgent abstractAgent1 = new MockAgent("1");
-        AbstractAgent abstractAgent2 = new MockAgent("2");
+        Agent abstractAgent1 = new MockAgent("1");
+        Agent abstractAgent2 = new MockAgent("2");
         query.place(abstractAgent1, o);
         query.place(abstractAgent2, t);
 
@@ -138,7 +138,7 @@ public class AgentUpdateManagerTest extends LegacyTest {
 
     @Test
     public void testPlace() throws Exception {
-        AbstractAgent agent = new MockAgent();
+        Agent agent = new MockAgent();
 
         assertFalse(content.has(o));
         query.place(agent, o);

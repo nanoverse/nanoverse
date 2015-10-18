@@ -29,7 +29,6 @@ import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.continuum.*;
-import nanoverse.runtime.structural.utilities.EpsilonUtil;
 
 import java.util.function.*;
 import java.util.stream.Stream;
@@ -41,22 +40,30 @@ import java.util.stream.Stream;
  * <p>
  * Created by David B Borenstein on 1/25/14.
  */
-public class Agent extends AbstractAgent {
+public class Agent {
 
-    // Helpers
+    private final CallbackManager callbackManager;
+    private final AgentContinuumManager reactionManager;
+    private final Supplier<Agent> supplier;
+
     private BehaviorDispatcher dispatcher;
-    private CallbackManager callbackManager;
-    private AgentContinuumManager reactionManager;
+    private String name;
 
-    private Supplier<Agent> supplier;
-
-    // Default constructor for testing
     @Deprecated
+    /**
+     * This constructor exists to maintain legacy (pre-Mockito) mocks.
+     */
     public Agent() {
+        callbackManager = null;
+        reactionManager = null;
+        supplier = null;
     }
 
+    /**
+     * Main constructor
+     */
     public Agent(LayerManager layerManager, String name, Supplier<Agent> supplier) throws HaltCondition {
-        setName(name);
+        this.name = name;
         callbackManager = new CallbackManager(this, layerManager);
         this.supplier = supplier;
 
@@ -67,30 +74,28 @@ public class Agent extends AbstractAgent {
         reactionManager = new AgentContinuumManager(this, locator, layerResolver);
     }
 
-
-    @Override
-    public AbstractAgent divide() throws HaltCondition {
-
-        Agent daughter = supplier.get();
-        daughter.setDispatcher(dispatcher.clone(daughter));
-        daughter.setName(getName());
-        return daughter;
+    /**
+     * Constructor for testing
+     */
+    public Agent(String name, CallbackManager callbackManager, AgentContinuumManager reactionManager, Supplier<Agent> supplier) {
+        this.name = name;
+        this.callbackManager = callbackManager;
+        this.reactionManager = reactionManager;
+        this.supplier = supplier;
     }
 
-    @Override
-    public Agent clone(String childName) throws HaltCondition {
+    public Agent copy() throws HaltCondition {
         Agent child = supplier.get();
-        child.setName(childName);
-        child.setDispatcher(dispatcher.clone(child));
+        child.setName(name);
+        BehaviorDispatcher childDispatcher = dispatcher.clone(child);
+        child.setDispatcher(childDispatcher);
         return child;
     }
 
-    @Override
     public void trigger(String behaviorName, Coordinate caller) throws HaltCondition {
         dispatcher.trigger(behaviorName, caller);
     }
 
-    @Override
     public void die() {
         reactionManager.removeFromAll();
         callbackManager.die();
@@ -98,35 +103,6 @@ public class Agent extends AbstractAgent {
 
     public void setDispatcher(BehaviorDispatcher dispatcher) {
         this.dispatcher = dispatcher;
-    }
-
-    /**
-     * A BehaviorAgent is equal to another Object if and only if:
-     * - The other Object is a BehaviorAgent.
-     * - The other Object has a division threshold equal to this one.
-     * - The other Object has a state ID equal to this one.
-     * - The other Object has a dispatcher that reports equality
-     * with this cell's dispatcher.
-     *
-     * @see nanoverse.runtime.agent.control.BehaviorDispatcher
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-
-        if (!(obj instanceof Agent)) {
-            return false;
-        }
-
-        Agent other = (Agent) obj;
-
-        if (!other.getName().equals(getName())) {
-            return false;
-        }
-
-        return other.dispatcher.equals(this.dispatcher);
     }
 
     public Stream<String> getReactionIds() {
@@ -139,5 +115,13 @@ public class Agent extends AbstractAgent {
 
     public void load(Reaction reaction) {
         reactionManager.schedule(reaction);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

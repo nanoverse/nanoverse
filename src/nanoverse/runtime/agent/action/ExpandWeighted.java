@@ -25,7 +25,6 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -78,7 +77,7 @@ public class ExpandWeighted extends Action {
         HashSet<Coordinate> affectedSites = shoveHelper.shoveWeighted(parentLocation);
 
         // Step 2: Clone parent.
-        AbstractAgent child = getCallback().replicate();
+        Agent child = getCallback().copy();
 
         // Step 3: Place child in parent location.
         u.place(child, parentLocation);

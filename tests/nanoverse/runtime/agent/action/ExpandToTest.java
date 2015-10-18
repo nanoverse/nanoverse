@@ -25,14 +25,9 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.agent.targets.MockTargetRule;
 import nanoverse.runtime.control.identifiers.*;
-import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.geometry.boundaries.*;
-import nanoverse.runtime.geometry.lattice.*;
-import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.MockRandom;
@@ -40,11 +35,9 @@ import org.junit.*;
 import test.LegacyTest;
 
 import java.util.*;
-import java.util.function.Supplier;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.mockito.Mockito.*;
 
 /**
  * Functional test for the ExpandTo action, which utilizes a path-of-least-
@@ -116,7 +109,7 @@ public class ExpandToTest extends LegacyTest {
      * <p>
      * 0123456789
      * ____45____  Initial condition
-     * <^       AbstractAgent 4 divides left
+     * <^       Agent 4 divides left
      * <p>
      * 0123456789
      * ___445____  Resulting condition
@@ -137,7 +130,7 @@ public class ExpandToTest extends LegacyTest {
 
     private void checkPosition(int x, int state) {
 //        Coordinate c = new Coordinate2D(x, 0, 0);
-//        AbstractAgent agent = layer.getViewer().getAgent(c);
+//        Agent agent = layer.getViewer().getAgent(c);
 //        assertEquals(state, agent.getState());
     }
 
@@ -148,7 +141,7 @@ public class ExpandToTest extends LegacyTest {
      * <p>
      * 0123456789
      * ____45____  Initial condition
-     * ^>      AbstractAgent 4 divides right. Parent and target are equidistant
+     * ^>      Agent 4 divides right. Parent and target are equidistant
      * from vacancies, and the coin toss favors parent (4)
      * getting shoved.
      * <p>
@@ -179,7 +172,7 @@ public class ExpandToTest extends LegacyTest {
      * <p>
      * 0123456789
      * ____45____  Initial condition
-     * ^>      AbstractAgent 4 divides right. Parent and target are equidistant
+     * ^>      Agent 4 divides right. Parent and target are equidistant
      * from vacancies, and the coin toss favors target (5)
      * getting shoved.
      * <p>
@@ -211,7 +204,7 @@ public class ExpandToTest extends LegacyTest {
      * <p>
      * 0123456789
      * ____456___  Initial condition
-     * ^>      AbstractAgent 4 divides right. Parent is closer to a vacancy than
+     * ^>      Agent 4 divides right. Parent is closer to a vacancy than
      * child. Parent gets shoved.
      * <p>
      * 0123456789

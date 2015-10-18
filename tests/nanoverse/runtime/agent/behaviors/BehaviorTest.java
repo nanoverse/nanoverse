@@ -24,7 +24,6 @@
 
 package nanoverse.runtime.agent.behaviors;
 
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.cells.*;
@@ -80,8 +79,8 @@ public class BehaviorTest extends LegacyTest {
 
     @Test
     public void testGetCallback() throws Exception {
-        AbstractAgent expected = callBack;
-        AbstractAgent actual = query.getCallback();
+        Agent expected = callBack;
+        Agent actual = query.getCallback();
         assertEquals(expected, actual);
     }
 
