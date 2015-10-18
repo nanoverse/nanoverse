@@ -69,7 +69,7 @@ public class BehaviorDispatcher {
         // Clone the behavior catalog item for item.
         for (String behaviorName : behaviors.keySet()) {
             Action b = behaviors.get(behaviorName);
-            Action bc = b.clone(child);
+            Action bc = b.copy(child);
             clone.map(behaviorName, bc);
         }
 

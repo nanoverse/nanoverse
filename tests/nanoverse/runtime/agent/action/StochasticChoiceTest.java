@@ -84,7 +84,7 @@ public class StochasticChoiceTest extends LinearMocks {
     @Test
     public void cloneBehavesAsExpected() throws Exception {
         Agent child = mock(Agent.class);
-        Action clone = query.clone(child);
+        Action clone = query.copy(child);
         verify(chooser).clone(child);
         doTriggerTest(clone);
     }

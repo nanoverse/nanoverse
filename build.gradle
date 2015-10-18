@@ -60,7 +60,7 @@ tasks.withType(JavaCompile) {
  * Building PETSc and the PETSc solver
  */
 
-// Downloads PETSc if the user forgot to run git clone --recursive
+// Downloads PETSc if the user forgot to run git copy --recursive
 task updateGitSubmodules(type:Exec) {
     commandLine 'git', 'submodule', 'update', '--init', '--recursive'
 }

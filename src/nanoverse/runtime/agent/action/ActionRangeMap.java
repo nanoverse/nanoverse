@@ -50,7 +50,7 @@ public class ActionRangeMap extends RangeMap<Action> {
 
         for (int i = 1; i < floors.size(); i++) {
             Action key = keys.get(i - 1);
-            Action clonedKey = key.clone(child);
+            Action clonedKey = key.copy(child);
             Double weight = floors.get(i) - floors.get(i - 1);
 
             cloned.add(clonedKey, weight);

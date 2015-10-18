@@ -87,91 +87,95 @@ public class TriggerTest extends LegacyTest {
 
     @Test
     public void testRun() throws Exception {
-        /*
-          A note on "callers" in this test: the trigger action causes
-          some named behavior to take place in the target cell(s). The
-          cause of the trigger action is therefore distinct from the
-          cause of the behavior that it triggers. Agents can of course
-          trigger their own behaviors, depending on the specified target.
-        */
-
-        // Set up a calling cell at some site.
-        MockAgent dummy = new MockAgent();
-
-        AgentUpdateManager updateManager = cellLayer.getUpdateManager();
-        updateManager.place(dummy, p);
-
-        // Run the proces originating at the dummy calling cell.
-        query.run(p);
-
-        // "dummy" should be the caller of the trigger() event.
-        // (The caller of the targeter is the cause of the Trigger event.)
-        assertEquals(dummy, targetRule.getLastCaller());
-
-        // The target cell's "effect" behavior should have fired.
-        assertEquals(effectName, effectAgent.getLastTriggeredBehaviorName());
-
-        // "causeAgent", which causes the target cell to execute the effect
-        // behavior, should be the caller of the effect behavior.
-        assertEquals(q, effectAgent.getLastTriggeredCaller());
+        fail();
+//        /*
+//          A note on "callers" in this test: the trigger action causes
+//          some named behavior to take place in the target cell(s). The
+//          cause of the trigger action is therefore distinct from the
+//          cause of the behavior that it triggers. Agents can of course
+//          trigger their own behaviors, depending on the specified target.
+//        */
+//
+//        // Set up a calling cell at some site.
+//        MockAgent dummy = new MockAgent();
+//
+//        AgentUpdateManager updateManager = cellLayer.getUpdateManager();
+//        updateManager.place(dummy, p);
+//
+//        // Run the proces originating at the dummy calling cell.
+//        query.run(p);
+//
+//        // "dummy" should be the caller of the trigger() event.
+//        // (The caller of the targeter is the cause of the Trigger event.)
+//        assertEquals(dummy, targetRule.getLastCaller());
+//
+//        // The target cell's "effect" behavior should have fired.
+//        assertEquals(effectName, effectAgent.getLastTriggeredBehaviorName());
+//
+//        // "causeAgent", which causes the target cell to execute the effect
+//        // behavior, should be the caller of the effect behavior.
+//        assertEquals(q, effectAgent.getLastTriggeredCaller());
     }
 
     @Test
     public void testEquals() throws Exception {
-        /*
-         Trigger actions
-         */
-        Action identical, differentBehavior, differentTargeter;
-
-        MockAgent dummyAgent1 = new MockAgent();
-        MockAgent dummyAgent2 = new MockAgent();
-
-        Filter filter = new NullFilter();
-        TargetRule sameTargetRule = new TargetOccupiedNeighbors(dummyAgent1, layerManager, filter, -1, random);
-        TargetRule differentTargetRule = new TargetOccupiedNeighbors(dummyAgent2, layerManager, filter, -1, random);
-        String differentEffectName = "not the same as effectName";
-
-        identical = new Trigger(dummyAgent1, layerManager, effectName, targetRule, null, null);
-        differentBehavior = new Trigger(dummyAgent1, layerManager, differentEffectName, sameTargetRule, null, null);
-        differentTargeter = new Trigger(dummyAgent2, layerManager, effectName, differentTargetRule, null, null);
-
-        assertEquals(query, identical);
-        assertNotEquals(query, differentBehavior);
-        assertNotEquals(query, differentTargeter);
+        fail("Rewrite me");
+//        /*
+//         Trigger actions
+//         */
+//        Action identical, differentBehavior, differentTargeter;
+//
+//        MockAgent dummyAgent1 = new MockAgent();
+//        MockAgent dummyAgent2 = new MockAgent();
+//
+//        Filter filter = new NullFilter();
+//        TargetRule sameTargetRule = new TargetOccupiedNeighbors(dummyAgent1, layerManager, filter, -1, random);
+//        TargetRule differentTargetRule = new TargetOccupiedNeighbors(dummyAgent2, layerManager, filter, -1, random);
+//        String differentEffectName = "not the same as effectName";
+//
+//        identical = new Trigger(dummyAgent1, layerManager, effectName, targetRule, null, null);
+//        differentBehavior = new Trigger(dummyAgent1, layerManager, differentEffectName, sameTargetRule, null, null);
+//        differentTargeter = new Trigger(dummyAgent2, layerManager, effectName, differentTargetRule, null, null);
+//
+//        assertEquals(query, identical);
+//        assertNotEquals(query, differentBehavior);
+//        assertNotEquals(query, differentTargeter);
     }
 
     @Test
     public void testClone() throws Exception {
-        MockAgent cloneAgent = new MockAgent();
-        Action cloned = query.clone(cloneAgent);
-        assert (cloned != query);
-        assertEquals(query, cloned);
-        assertEquals(cloneAgent, cloned.getCallback());
-        assertEquals(causeAgent, query.getCallback());
+        fail("Rewrite me");
+//        MockAgent cloneAgent = new MockAgent();
+//        Action cloned = query.copy(cloneAgent);
+//        assert (cloned != query);
+//        assertEquals(query, cloned);
+//        assertEquals(cloneAgent, cloned.getCallback());
+//        assertEquals(causeAgent, query.getCallback());
     }
 
     @Test
     public void testHighlighting() throws Exception {
-        StepState stepState = new StepState(0.0, 0);
-        layerManager.setStepState(stepState);
-        ConstantInteger selfChannel = new ConstantInteger(2);
-        ConstantInteger targetChannel = new ConstantInteger(4);
-        query = new Trigger(causeAgent, layerManager, effectName, targetRule, selfChannel, targetChannel);
-        query.run(null);
-
-        Stream<Coordinate> expected, actual;
-
-        // Check target highlights
-//        expected = new Coordinate[]{q};
-        expected = Stream.of(q);
-        actual = stepState.getHighlights(2);
-        assertStreamsEqual(expected, actual);
-
-        // Check cause highlights
-//        expected = new Coordinate[]{o};
-        expected = Stream.of(o);
-        actual = stepState.getHighlights(4);
-        assertStreamsEqual(expected, actual);
+        fail("Rewrite me");
+//        StepState stepState = new StepState(0.0, 0);
+//        layerManager.setStepState(stepState);
+//        ConstantInteger selfChannel = new ConstantInteger(2);
+//        ConstantInteger targetChannel = new ConstantInteger(4);
+//        query = new Trigger(causeAgent, layerManager, effectName, targetRule, selfChannel, targetChannel);
+//        query.run(null);
+//
+//        Stream<Coordinate> expected, actual;
+//
+//        // Check target highlights
+////        expected = new Coordinate[]{q};
+//        expected = Stream.of(q);
+//        actual = stepState.getHighlights(2);
+//        assertStreamsEqual(expected, actual);
+//
+//        // Check cause highlights
+////        expected = new Coordinate[]{o};
+//        expected = Stream.of(o);
+//        actual = stepState.getHighlights(4);
+//        assertStreamsEqual(expected, actual);
     }
 
     /**
@@ -184,23 +188,24 @@ public class TriggerTest extends LegacyTest {
      */
     @Test
     public void testSkipNewlyVacant() throws Exception {
-        // Begin as with testRun() above.
-        MockAgent dummy = new MockAgent();
-        AgentUpdateManager updateManager = cellLayer.getUpdateManager();
-        updateManager.place(dummy, p);
-
-        // Remove the target.
-        updateManager.banish(o);
-
-        // Run the action.
-        query.run(p);
-
-        // The action should still report that it was called.
-        assertEquals(dummy, targetRule.getLastCaller());
-
-        // ...however, the target was not on the lattice, and should not
-        // have been affected.
-        assertNull(effectAgent.getLastTriggeredBehaviorName());
+        fail("Rewrite me");
+//        // Begin as with testRun() above.
+//        MockAgent dummy = new MockAgent();
+//        AgentUpdateManager updateManager = cellLayer.getUpdateManager();
+//        updateManager.place(dummy, p);
+//
+//        // Remove the target.
+//        updateManager.banish(o);
+//
+//        // Run the action.
+//        query.run(p);
+//
+//        // The action should still report that it was called.
+//        assertEquals(dummy, targetRule.getLastCaller());
+//
+//        // ...however, the target was not on the lattice, and should not
+//        // have been affected.
+//        assertNull(effectAgent.getLastTriggeredBehaviorName());
     }
 
     /**
@@ -209,24 +214,25 @@ public class TriggerTest extends LegacyTest {
      */
     @Test
     public void testDeadCannotTrigger() throws Exception {
-        // Begin as with testRun() above.
-        MockAgent dummy = new MockAgent();
-        AgentUpdateManager updateManager = cellLayer.getUpdateManager();
-        updateManager.place(dummy, p);
-
-        // Remove the target.
-        updateManager.banish(q);
-
-        // Run the action.
-        query.run(p);
-
-        // The entire action was aborted, so the target rule should
-        // never have been called.
-        // The action should still report that it was called.
-        assertNull(targetRule.getLastCaller());
-
-        // The target should not have been affected.
-        assertNull(effectAgent.getLastTriggeredBehaviorName());
+        fail("Rewrite me");
+//        // Begin as with testRun() above.
+//        MockAgent dummy = new MockAgent();
+//        AgentUpdateManager updateManager = cellLayer.getUpdateManager();
+//        updateManager.place(dummy, p);
+//
+//        // Remove the target.
+//        updateManager.banish(q);
+//
+//        // Run the action.
+//        query.run(p);
+//
+//        // The entire action was aborted, so the target rule should
+//        // never have been called.
+//        // The action should still report that it was called.
+//        assertNull(targetRule.getLastCaller());
+//
+//        // The target should not have been affected.
+//        assertNull(effectAgent.getLastTriggeredBehaviorName());
 
     }
 }

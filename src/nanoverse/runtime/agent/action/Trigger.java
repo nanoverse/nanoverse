@@ -64,11 +64,11 @@ public class Trigger extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        Agent callerAgent = resolveCaller(caller);
+        Agent callerAgent = mapper.resolveCaller(caller);
 
         // Since the Trigger behavior is the cause of the triggered behaviors,
         // the caller for the triggered behaviors is this cell.
-        Coordinate self = getOwnLocation();
+        Coordinate self = identity.getOwnLocation();
 
         // If this cell is no longer on the lattice, then it can no longer act,
         // so skip the action.
@@ -80,7 +80,7 @@ public class Trigger extends Action {
 
         for (Coordinate target : targets) {
             // We require an occupied cell for the target of trigger actions.
-            Agent targetAgent = getWithCast(target);
+            Agent targetAgent = mapper.resolveAgent(target);
             if (targetAgent == null) {
                 continue;
             }
@@ -90,8 +90,8 @@ public class Trigger extends Action {
     }
 
     private void highlight(Coordinate target, Coordinate ownLocation) throws HaltCondition {
-        doHighlight(targetChannel, target);
-        doHighlight(selfChannel, ownLocation);
+        highlighter.doHighlight(targetChannel, target);
+        highlighter.doHighlight(selfChannel, ownLocation);
     }
 
     @Override
@@ -114,9 +114,9 @@ public class Trigger extends Action {
     }
 
     @Override
-    public Action clone(Agent child) {
+    public Action copy(Agent child) {
         TargetRule clonedTargeter = targetRule.clone(child);
-        Trigger cloned = new Trigger(child, getLayerManager(), behaviorName, clonedTargeter, selfChannel, targetChannel);
+        Trigger cloned = new Trigger(child, mapper.getLayerManager(), behaviorName, clonedTargeter, selfChannel, targetChannel);
         return cloned;
     }
 }

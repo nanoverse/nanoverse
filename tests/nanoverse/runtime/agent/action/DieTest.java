@@ -25,78 +25,48 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.helper.*;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
 import nanoverse.runtime.cells.*;
+import nanoverse.runtime.control.arguments.IntegerArgument;
+import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.layers.LayerManager;
 import org.junit.*;
-import test.LegacyLatticeTest;
+import test.*;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by dbborens on 2/10/14.
  */
-public class DieTest extends LegacyLatticeTest {
-    private Action query, identical, different;
-    private Agent cell;
-    private BehaviorDispatcher dispatcher;
-    private Action behavior;
-    private String eventName;
+public class DieTest extends ActionTest {
 
-    @Before
-    @Override
-    public void setUp() throws Exception {
-        fail("Rewrite as a modern test");
-//        super.setUp();
-//        // Set up test objects
-//        cell = new Agent(layerManager, "test", null);
-//        query = new Die(cell, layerManager, null);
-//        identical = new Die(cell, layerManager, null);
-//        different = new CloneTo(cell, layerManager, 0.7);
-//
-//        // Configure behavior dispatcher
-//        eventName = "TEST";
-//        Action[] actionSequence = new Action[]{query};
-//        behavior = new CompoundAction(cell, layerManager, actionSequence);
-//        dispatcher = new BehaviorDispatcher();
-//        cell.setDispatcher(dispatcher);
-//        dispatcher.map(eventName, behavior);
-//
-//        cellLayer.getUpdateManager().place(cell, origin);
+    private Agent self;
+    private Die query;
+    private IntegerArgument channel;
+
+    @Override @Before
+    public void before() throws Exception {
+        super.before();
+        channel = mock(IntegerArgument.class);
+        query = new Die(identity, mapper, highlighter, channel);
+
+        self = mock(Agent.class);
+        when(identity.getSelf()).thenReturn(self);
     }
 
     @Test
-    public void testRun() throws Exception {
-//        fail("Rewrite as a modern test");
-//        assertTrue(cellLayer.getViewer().isOccupied(origin));
-//        cell.trigger("TEST", null);
-//        assertFalse(cellLayer.getViewer().isOccupied(origin));
+    public void runDoesHighlight() throws Exception {
+        Coordinate c = mock(Coordinate.class);
+        when(identity.getOwnLocation()).thenReturn(c);
+        query.run(null);
+        verify(highlighter).doHighlight(channel, c);
     }
 
     @Test
-    public void testEquals() throws Exception {
-        fail("Rewrite as a modern test");
-        // Create two equivalent Die objects.
-        // Should be equal.
-//        assertEquals(query, identical);
-//
-//        // Create a third, different Die object.
-//        // Should not be equal.
-//        assertNotEquals(query, different);
-    }
-
-
-    @Test
-    public void testClone() throws Exception {
-        fail("Rewrite as a modern test");
-//        MockAgent cloneAgent = new MockAgent();
-//
-//        // Clone it.
-//        Action clone = query.clone(cloneAgent);
-//
-//        // Clone should not be the same object.
-//        assertFalse(clone == query);
-//
-//        // Clone should be equal.
-//        assertTrue(clone.equals(query));
+    public void runDies() throws Exception {
+        query.run(null);
+        verify(self).die();
     }
 }

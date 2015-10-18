@@ -80,9 +80,9 @@ public class StochasticChoice extends Action {
     }
 
     @Override
-    public Action clone(Agent child) {
+    public Action copy(Agent child) {
         DynamicActionRangeMap clonedChooser = chooser.clone(child);
-        StochasticChoice cloned = new StochasticChoice(child, getLayerManager(), clonedChooser, random);
+        StochasticChoice cloned = new StochasticChoice(child, mapper.getLayerManager(), clonedChooser, random);
         return cloned;
     }
 }

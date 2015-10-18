@@ -54,8 +54,8 @@ public class Swap extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        Agent callerAgent = resolveCaller(caller);
-        Coordinate self = getOwnLocation();
+        Agent callerAgent = mapper.resolveCaller(caller);
+        Coordinate self = identity.getOwnLocation();
         List<Coordinate> targets = targetRule.report(callerAgent);
 
         if (targets.size() != 1) {
@@ -65,10 +65,10 @@ public class Swap extends Action {
 
         Coordinate target = targets.get(0);
 
-        getLayerManager().getAgentLayer().getUpdateManager().swap(self, target);
+        mapper.getLayerManager().getAgentLayer().getUpdateManager().swap(self, target);
 
-        doHighlight(selfChannel, self);
-        doHighlight(targetChannel, target);
+        highlighter.doHighlight(selfChannel, self);
+        highlighter.doHighlight(targetChannel, target);
     }
 
 
@@ -85,8 +85,8 @@ public class Swap extends Action {
     }
 
     @Override
-    public Action clone(Agent child) {
+    public Action copy(Agent child) {
         TargetRule clonedTargetRule = targetRule.clone(child);
-        return new Swap(child, getLayerManager(), clonedTargetRule, selfChannel, targetChannel);
+        return new Swap(child, mapper.getLayerManager(), clonedTargetRule, selfChannel, targetChannel);
     }
 }

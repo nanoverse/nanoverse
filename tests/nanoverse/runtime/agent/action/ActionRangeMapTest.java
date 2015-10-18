@@ -35,39 +35,43 @@ import static org.junit.Assert.*;
 public class ActionRangeMapTest {
 
     @Test
-    public void testClone() throws Exception {
-        MockAgent originalAgent = new MockAgent("1");
-        MockAgent cloneAgent = new MockAgent("2");
-
-        ActionRangeMap original = makeActionRangeMap(originalAgent);
-        ActionRangeMap expected = makeActionRangeMap(cloneAgent);
-        ActionRangeMap actual = original.clone(cloneAgent);
-
-        assertEquals(expected, actual);
-        assertFalse(expected == actual);
-
-        checkCallbacks(actual, cloneAgent);
-        checkCallbacks(original, originalAgent);
+    public void nothing() {
+        fail();
     }
-
-    private void checkCallbacks(ActionRangeMap map, MockAgent cell) {
-        for (Action key : map.getKeys()) {
-            assertEquals(cell, key.getCallback());
-        }
-    }
-
-    private ActionRangeMap makeActionRangeMap(MockAgent cell) {
-        ActionRangeMap ret = new ActionRangeMap(3);
-        loadMockAction(ret, cell, 0.5, 1);
-        loadMockAction(ret, cell, 0.75, 2);
-        loadMockAction(ret, cell, 0.01, 3);
-        return ret;
-    }
-
-    private void loadMockAction(ActionRangeMap map, MockAgent cell, double weight, int identifier) {
-        MockAction action = new MockAction();
-        action.setIdentifier(identifier);
-        action.setCallback(cell);
-        map.add(action, weight);
-    }
+//    @Test
+//    public void testClone() throws Exception {
+//        MockAgent originalAgent = new MockAgent("1");
+//        MockAgent cloneAgent = new MockAgent("2");
+//
+//        ActionRangeMap original = makeActionRangeMap(originalAgent);
+//        ActionRangeMap expected = makeActionRangeMap(cloneAgent);
+//        ActionRangeMap actual = original.clone(cloneAgent);
+//
+//        assertEquals(expected, actual);
+//        assertFalse(expected == actual);
+//
+//        checkCallbacks(actual, cloneAgent);
+//        checkCallbacks(original, originalAgent);
+//    }
+//
+//    private void checkCallbacks(ActionRangeMap map, MockAgent cell) {
+//        for (Action key : map.getKeys()) {
+//            assertEquals(cell, key.getCallback());
+//        }
+//    }
+//
+//    private ActionRangeMap makeActionRangeMap(MockAgent cell) {
+//        ActionRangeMap ret = new ActionRangeMap(3);
+//        loadMockAction(ret, cell, 0.5, 1);
+//        loadMockAction(ret, cell, 0.75, 2);
+//        loadMockAction(ret, cell, 0.01, 3);
+//        return ret;
+//    }
+//
+//    private void loadMockAction(ActionRangeMap map, MockAgent cell, double weight, int identifier) {
+//        MockAction action = new MockAction();
+//        action.setIdentifier(identifier);
+//        action.setCallback(cell);
+//        map.add(action, weight);
+//    }
 }

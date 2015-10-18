@@ -32,7 +32,6 @@ import nanoverse.runtime.layers.LayerManager;
 /**
  * An action that calls other actions on run.
  *
- * @see nanoverse.runtime.agent.Action
  */
 public class CompoundAction extends Action {
 
@@ -48,10 +47,6 @@ public class CompoundAction extends Action {
         this.callback = callback;
         this.layerManager = layerManager;
         this.actionSequence = actionSequence;
-    }
-
-    protected LayerManager getLayerManager() {
-        return layerManager;
     }
 
     public Agent getCallback() {
@@ -110,7 +105,7 @@ public class CompoundAction extends Action {
         return actionSequence;
     }
 
-    public CompoundAction clone(Agent child) {
+    public CompoundAction copy(Agent child) {
         Action[] clonedActionSequence = cloneActionSequence(child);
         CompoundAction clone = new CompoundAction(child, layerManager, clonedActionSequence);
         return clone;
@@ -121,7 +116,7 @@ public class CompoundAction extends Action {
         Action[] clonedActionSequence = new Action[n];
         for (int i = 0; i < n; i++) {
             Action action = actionSequence[i];
-            Action clonedAction = action.clone(child);
+            Action clonedAction = action.copy(child);
             clonedActionSequence[i] = clonedAction;
         }
 

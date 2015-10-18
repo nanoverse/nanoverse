@@ -68,16 +68,16 @@ public class ExpandWeighted extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        Coordinate parentLocation = getOwnLocation();
+        Coordinate parentLocation = identity.getOwnLocation();
 
-        AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
+        AgentUpdateManager u = mapper.getLayerManager().getAgentLayer().getUpdateManager();
 
         // Step 1: shove parent toward vacant site in a cardinal direction; choice
         // weighted by the distance to the vacancy in each of the directions
         HashSet<Coordinate> affectedSites = shoveHelper.shoveWeighted(parentLocation);
 
         // Step 2: Clone parent.
-        Agent child = getCallback().copy();
+        Agent child = identity.getSelf().copy();
 
         // Step 3: Place child in parent location.
         u.place(child, parentLocation);
@@ -99,8 +99,8 @@ public class ExpandWeighted extends Action {
     }
 
     private void highlight(Coordinate target, Coordinate ownLocation) throws HaltCondition {
-        doHighlight(targetChannel, target);
-        doHighlight(selfChannel, ownLocation);
+        highlighter.doHighlight(targetChannel, target);
+        highlighter.doHighlight(selfChannel, ownLocation);
     }
 
 
@@ -113,8 +113,8 @@ public class ExpandWeighted extends Action {
     }
 
     @Override
-    public Action clone(Agent child) {
-        return new ExpandWeighted(child, getLayerManager(), selfChannel, targetChannel,
+    public Action copy(Agent child) {
+        return new ExpandWeighted(child, mapper.getLayerManager(), selfChannel, targetChannel,
             random);
     }
 }

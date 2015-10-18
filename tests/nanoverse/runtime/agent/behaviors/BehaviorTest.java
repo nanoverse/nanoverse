@@ -39,107 +39,112 @@ import static org.junit.Assert.*;
  * Created by David B Borenstein on 1/21/14.
  */
 public class BehaviorTest extends LegacyTest {
-   /*
-    * NOTE: As of 3/6/2014, these tests are nearly identical
-    * to those of the parent class, CompoundAction. This is
-    * deliberate, as I want to make sure that these objects
-    * are tested separately as they diverge.
-    */
-
-    ExposedBehavior query;
-    MockLayerManager layerManager;
-    MockAgent callBack;
-    MockAction a, b;
-    Coordinate caller;
-
-    Action[] actionSequence;
-
-    @Before
-    public void setUp() throws Exception {
-        layerManager = new MockLayerManager();
-        callBack = new MockAgent();
-        caller = new Coordinate2D(0, 0, 0);
-        initActionSequence();
-        query = new ExposedBehavior(callBack, layerManager, actionSequence);
-    }
-
-    private void initActionSequence() {
-        a = new MockAction();
-        b = new MockAction();
-
-        actionSequence = new Action[]{a, b};
-    }
 
     @Test
-    public void testGetLayerManager() throws Exception {
-        LayerManager expected = layerManager;
-        LayerManager actual = query.getLayerManager();
-        assertEquals(expected, actual);
+    public void nothing() {
+        fail();
     }
-
-    @Test
-    public void testGetCallback() throws Exception {
-        Agent expected = callBack;
-        Agent actual = query.getCallback();
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testGetActionSequence() throws Exception {
-        Action[] expected = actionSequence;
-        Action[] actual = query.getActionSequence();
-
-        assertEquals(2, actual.length);
-        for (int i = 0; i < 2; i++) {
-            // These should just be assigned
-            assertEquals(expected[i], actual[i]);
-        }
-    }
-
-    @Test
-    public void testRunNullCaller() throws Exception {
-        query.run(null);
-        assertEquals(1, a.getTimesRun());
-        assertEquals(1, b.getTimesRun());
-        assertNull(a.getLastCaller());
-        assertNull(b.getLastCaller());
-    }
-
-    @Test
-    public void testRunWithCaller() throws Exception {
-        query.run(caller);
-        assertEquals(1, a.getTimesRun());
-        assertEquals(1, b.getTimesRun());
-        assertEquals(caller, a.getLastCaller());
-        assertEquals(caller, b.getLastCaller());
-    }
-
-    @Test
-    public void testClone() throws Exception {
-        Agent cloneAgent = new Agent();
-        Action clone = query.clone(cloneAgent);
-        assertEquals(cloneAgent, clone.getCallback());
-        assertEquals(clone, query);
-    }
-
-    private class ExposedBehavior extends CompoundAction {
-        public ExposedBehavior(Agent callback, LayerManager layerManager, Action[] actionSequence) {
-            super(callback, layerManager, actionSequence);
-        }
-
-        @Override
-        public LayerManager getLayerManager() {
-            return super.getLayerManager();
-        }
-
-        @Override
-        public void run(Coordinate caller) throws HaltCondition {
-            super.run(caller);
-        }
-
-        @Override
-        public Action[] getActionSequence() {
-            return super.getActionSequence();
-        }
-    }
+//   /*
+//    * NOTE: As of 3/6/2014, these tests are nearly identical
+//    * to those of the parent class, CompoundAction. This is
+//    * deliberate, as I want to make sure that these objects
+//    * are tested separately as they diverge.
+//    */
+//
+//    ExposedBehavior query;
+//    MockLayerManager layerManager;
+//    MockAgent callBack;
+//    MockAction a, b;
+//    Coordinate caller;
+//
+//    Action[] actionSequence;
+//
+//    @Before
+//    public void setUp() throws Exception {
+//        layerManager = new MockLayerManager();
+//        callBack = new MockAgent();
+//        caller = new Coordinate2D(0, 0, 0);
+//        initActionSequence();
+//        query = new ExposedBehavior(callBack, layerManager, actionSequence);
+//    }
+//
+//    private void initActionSequence() {
+//        a = new MockAction();
+//        b = new MockAction();
+//
+//        actionSequence = new Action[]{a, b};
+//    }
+//
+//    @Test
+//    public void testGetLayerManager() throws Exception {
+//        LayerManager expected = layerManager;
+//        LayerManager actual = query.getLayerManager();
+//        assertEquals(expected, actual);
+//    }
+//
+//    @Test
+//    public void testGetCallback() throws Exception {
+//        Agent expected = callBack;
+//        Agent actual = query.getCallback();
+//        assertEquals(expected, actual);
+//    }
+//
+//    @Test
+//    public void testGetActionSequence() throws Exception {
+//        Action[] expected = actionSequence;
+//        Action[] actual = query.getActionSequence();
+//
+//        assertEquals(2, actual.length);
+//        for (int i = 0; i < 2; i++) {
+//            // These should just be assigned
+//            assertEquals(expected[i], actual[i]);
+//        }
+//    }
+//
+//    @Test
+//    public void testRunNullCaller() throws Exception {
+//        query.run(null);
+//        assertEquals(1, a.getTimesRun());
+//        assertEquals(1, b.getTimesRun());
+//        assertNull(a.getLastCaller());
+//        assertNull(b.getLastCaller());
+//    }
+//
+//    @Test
+//    public void testRunWithCaller() throws Exception {
+//        query.run(caller);
+//        assertEquals(1, a.getTimesRun());
+//        assertEquals(1, b.getTimesRun());
+//        assertEquals(caller, a.getLastCaller());
+//        assertEquals(caller, b.getLastCaller());
+//    }
+//
+//    @Test
+//    public void testClone() throws Exception {
+//        Agent cloneAgent = new Agent();
+//        Action clone = query.copy(cloneAgent);
+//        assertEquals(cloneAgent, clone.getCallback());
+//        assertEquals(clone, query);
+//    }
+//
+//    private class ExposedBehavior extends CompoundAction {
+//        public ExposedBehavior(Agent callback, LayerManager layerManager, Action[] actionSequence) {
+//            super(callback, layerManager, actionSequence);
+//        }
+//
+//        @Override
+//        public LayerManager getLayerManager() {
+//            return super.getLayerManager();
+//        }
+//
+//        @Override
+//        public void run(Coordinate caller) throws HaltCondition {
+//            super.run(caller);
+//        }
+//
+//        @Override
+//        public Action[] getActionSequence() {
+//            return super.getActionSequence();
+//        }
+//    }
 }

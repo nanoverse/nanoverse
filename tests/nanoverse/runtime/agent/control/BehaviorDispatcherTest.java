@@ -37,91 +37,95 @@ import static org.junit.Assert.*;
  */
 public class BehaviorDispatcherTest {
 
-    private BehaviorDispatcher query;
-    private Coordinate caller1, caller2;
-    private MockBehavior behavior1, behavior2;
-
-    @Before
-    public void setUp() throws Exception {
-        query = new BehaviorDispatcher();
-        caller1 = new Coordinate2D(0, 0, 0);
-        caller2 = new Coordinate2D(1, 0, 0);
-        behavior1 = new MockBehavior();
-        behavior2 = new MockBehavior();
-    }
-
     @Test
-    public void testLifeCycle() throws Exception {
-        String name = "testBehavior";
-
-        // Neither behavior has occurred.
-        assertEquals(0, behavior1.getTimesRun());
-        assertEquals(0, behavior2.getTimesRun());
-
-        // Map first behavior.
-        query.map(name, behavior1);
-
-        // Trigger behavior.
-        query.trigger(name, null);
-
-        // Only the first behavior should have occured.
-        assertEquals(1, behavior1.getTimesRun());
-        assertEquals(0, behavior2.getTimesRun());
-
-        // Remap to second behavior.
-        query.map(name, behavior2);
-
-        // Trigger behavior.
-        query.trigger(name, null);
-
-        // Each behavior should have happened once.
-        assertEquals(1, behavior1.getTimesRun());
-        assertEquals(1, behavior2.getTimesRun());
+    public void nothing() {
+        fail();
     }
-
-    @Test
-    public void testTriggerWithCallback() throws Exception {
-        // Set up
-        String name = "testBehavior";
-        query.map(name, behavior1);
-
-        // Nobody's been the caller yet
-        assertEquals(0, behavior1.timesCaller(caller1));
-        assertEquals(0, behavior1.timesCaller(caller2));
-
-        // Trigger with first caller
-        query.trigger(name, caller1);
-
-        // First caller has been caller once
-        assertEquals(1, behavior1.timesCaller(caller1));
-        assertEquals(0, behavior1.timesCaller(caller2));
-
-        // Trigger with second caller
-        query.trigger(name, caller2);
-
-        // Each caller has called once
-        assertEquals(1, behavior1.timesCaller(caller1));
-        assertEquals(1, behavior1.timesCaller(caller2));
-    }
-
-    @Test
-    public void testClone() throws Exception {
-        String name = "testBehavior";
-        query.map(name, behavior1);
-
-        Agent alternate = new Agent();
-        BehaviorDispatcher clone = query.clone(alternate);
-
-        // The objects should be equal in that their behavior lists are equal.
-        assertEquals(query, clone);
-
-        // The objects should not be the same object.
-        assertFalse(query == clone);
-
-        // The new object should have the alternate as a callback.
-        // TODO Rewrite me as a modern test
-        Action clonedBehavior = clone.getMappedBehavior(name);
-        assertEquals(alternate, clonedBehavior.getCallback());
-    }
+//    private BehaviorDispatcher query;
+//    private Coordinate caller1, caller2;
+//    private MockBehavior behavior1, behavior2;
+//
+//    @Before
+//    public void setUp() throws Exception {
+//        query = new BehaviorDispatcher();
+//        caller1 = new Coordinate2D(0, 0, 0);
+//        caller2 = new Coordinate2D(1, 0, 0);
+//        behavior1 = new MockBehavior();
+//        behavior2 = new MockBehavior();
+//    }
+//
+//    @Test
+//    public void testLifeCycle() throws Exception {
+//        String name = "testBehavior";
+//
+//        // Neither behavior has occurred.
+//        assertEquals(0, behavior1.getTimesRun());
+//        assertEquals(0, behavior2.getTimesRun());
+//
+//        // Map first behavior.
+//        query.map(name, behavior1);
+//
+//        // Trigger behavior.
+//        query.trigger(name, null);
+//
+//        // Only the first behavior should have occured.
+//        assertEquals(1, behavior1.getTimesRun());
+//        assertEquals(0, behavior2.getTimesRun());
+//
+//        // Remap to second behavior.
+//        query.map(name, behavior2);
+//
+//        // Trigger behavior.
+//        query.trigger(name, null);
+//
+//        // Each behavior should have happened once.
+//        assertEquals(1, behavior1.getTimesRun());
+//        assertEquals(1, behavior2.getTimesRun());
+//    }
+//
+//    @Test
+//    public void testTriggerWithCallback() throws Exception {
+//        // Set up
+//        String name = "testBehavior";
+//        query.map(name, behavior1);
+//
+//        // Nobody's been the caller yet
+//        assertEquals(0, behavior1.timesCaller(caller1));
+//        assertEquals(0, behavior1.timesCaller(caller2));
+//
+//        // Trigger with first caller
+//        query.trigger(name, caller1);
+//
+//        // First caller has been caller once
+//        assertEquals(1, behavior1.timesCaller(caller1));
+//        assertEquals(0, behavior1.timesCaller(caller2));
+//
+//        // Trigger with second caller
+//        query.trigger(name, caller2);
+//
+//        // Each caller has called once
+//        assertEquals(1, behavior1.timesCaller(caller1));
+//        assertEquals(1, behavior1.timesCaller(caller2));
+//    }
+//
+//    @Test
+//    public void testClone() throws Exception {
+//        String name = "testBehavior";
+//        query.map(name, behavior1);
+//
+//        Agent alternate = new Agent();
+//        BehaviorDispatcher clone = query.clone(alternate);
+//
+//        // The objects should be equal in that their behavior lists are equal.
+//        assertEquals(query, clone);
+//
+//        // The objects should not be the same object.
+//        assertFalse(query == clone);
+//
+//        // The new object should have the alternate as a callback.
+//        // TODO Rewrite me as a modern test
+//        Action clonedBehavior = clone.getMappedBehavior(name);
+//        assertEquals(alternate, clonedBehavior.getCallback());
+//    }
 
 }

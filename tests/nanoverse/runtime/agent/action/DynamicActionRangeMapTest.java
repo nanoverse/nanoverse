@@ -105,8 +105,8 @@ public class DynamicActionRangeMapTest extends TestBase {
 
         Action ca1 = mock(Action.class);
         Action ca2 = mock(Action.class);
-        when(a1.clone(any())).thenReturn(ca1);
-        when(a2.clone(any())).thenReturn(ca2);
+        when(a1.copy(any())).thenReturn(ca1);
+        when(a2.copy(any())).thenReturn(ca2);
 
         Agent child = mock(Agent.class);
         DynamicActionRangeMap cloned = query.clone(child);

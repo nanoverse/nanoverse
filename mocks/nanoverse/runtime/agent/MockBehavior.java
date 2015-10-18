@@ -77,7 +77,7 @@ public class MockBehavior extends CompoundAction {
     }
 
     @Override
-    public MockBehavior clone(Agent child) {
+    public MockBehavior copy(Agent child) {
         return new MockBehavior(child);
     }
 

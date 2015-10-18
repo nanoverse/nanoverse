@@ -69,19 +69,19 @@ public class CloneTo extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        Agent callerAgent = resolveCaller(caller);
+        Agent callerAgent = mapper.resolveCaller(caller);
 
-        Coordinate self = getOwnLocation();
+        Coordinate self = identity.getOwnLocation();
 
         List<Coordinate> targets = targetRule.report(callerAgent);
 
-        AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
-        AgentLayerViewer v = getLayerManager().getAgentLayer().getViewer();
+        AgentUpdateManager u = mapper.getLayerManager().getAgentLayer().getUpdateManager();
+        AgentLayerViewer v = mapper.getLayerManager().getAgentLayer().getViewer();
 
         for (Coordinate target : targets) {
 
             // Make replicate
-            Agent child = getCallback().copy();
+            Agent child = identity.getSelf().copy();
 
             // Place replicate at target site
             if (!v.isOccupied(target)) {
@@ -101,8 +101,8 @@ public class CloneTo extends Action {
     }
 
     private void highlight(Coordinate target, Coordinate ownLocation) throws HaltCondition {
-        doHighlight(targetChannel, target);
-        doHighlight(selfChannel, ownLocation);
+        highlighter.doHighlight(targetChannel, target);
+        highlighter.doHighlight(selfChannel, ownLocation);
     }
 
 
@@ -120,9 +120,9 @@ public class CloneTo extends Action {
     }
 
     @Override
-    public Action clone(Agent child) {
+    public Action copy(Agent child) {
         TargetRule clonedTargeter = targetRule.clone(child);
-        return new CloneTo(child, getLayerManager(), clonedTargeter, noReplace,
+        return new CloneTo(child, mapper.getLayerManager(), clonedTargeter, noReplace,
             selfChannel, targetChannel, random);
     }
 

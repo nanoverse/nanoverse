@@ -67,9 +67,9 @@ public class Expand extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        Coordinate parentLocation = getOwnLocation();
+        Coordinate parentLocation = identity.getOwnLocation();
 
-        AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
+        AgentUpdateManager u = mapper.getLayerManager().getAgentLayer().getUpdateManager();
 
         // Step 1: identify nearest vacant site.
         Coordinate target = shoveHelper.chooseVacancy(parentLocation);
@@ -78,7 +78,7 @@ public class Expand extends Action {
         shoveHelper.shove(parentLocation, target);
 
         // Step 3: Clone parent.
-        Agent child = getCallback().copy();
+        Agent child = identity.getSelf().copy();
 
         // Step 4: Place child in parent location.
         u.place(child, parentLocation);
@@ -91,8 +91,8 @@ public class Expand extends Action {
     }
 
     private void highlight(Coordinate target, Coordinate ownLocation) throws HaltCondition {
-        doHighlight(targetChannel, target);
-        doHighlight(selfChannel, ownLocation);
+        highlighter.doHighlight(targetChannel, target);
+        highlighter.doHighlight(selfChannel, ownLocation);
     }
 
 
@@ -105,8 +105,8 @@ public class Expand extends Action {
     }
 
     @Override
-    public Action clone(Agent child) {
-        return new Expand(child, getLayerManager(), selfChannel, targetChannel,
+    public Action copy(Agent child) {
+        return new Expand(child, mapper.getLayerManager(), selfChannel, targetChannel,
             random);
     }
 }

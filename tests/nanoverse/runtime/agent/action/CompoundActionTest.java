@@ -39,7 +39,7 @@ import static org.junit.Assert.*;
  */
 public class CompoundActionTest extends LegacyTest {
 
-    ExposedCompoundAction query;
+//    ExposedCompoundAction query;
     MockLayerManager layerManager;
     MockAgent callBack;
     MockAction a, b;
@@ -49,11 +49,12 @@ public class CompoundActionTest extends LegacyTest {
 
     @Before
     public void setUp() throws Exception {
-        layerManager = new MockLayerManager();
-        callBack = new MockAgent();
-        caller = new Coordinate2D(0, 0, 0);
-        initActionSequence();
-        query = new ExposedCompoundAction(callBack, layerManager, actionSequence);
+        fail("Rewrite me");
+//        layerManager = new MockLayerManager();
+//        callBack = new MockAgent();
+//        caller = new Coordinate2D(0, 0, 0);
+//        initActionSequence();
+//        query = new ExposedCompoundAction(callBack, layerManager, actionSequence);
     }
 
     private void initActionSequence() {
@@ -65,74 +66,80 @@ public class CompoundActionTest extends LegacyTest {
 
     @Test
     public void testGetLayerManager() throws Exception {
-        LayerManager expected = layerManager;
-        LayerManager actual = query.getLayerManager();
-        assertEquals(expected, actual);
+        fail("Rewrite me");
+//        LayerManager expected = layerManager;
+//        LayerManager actual = query.getLayerManager();
+//        assertEquals(expected, actual);
     }
 
     @Test
     public void testGetCallback() throws Exception {
-        Agent expected = callBack;
-        Agent actual = query.getCallback();
-        assertEquals(expected, actual);
+        fail("Rewrite me");
+//        Agent expected = callBack;
+//        Agent actual = query.getCallback();
+//        assertEquals(expected, actual);
     }
 
     @Test
     public void testGetActionSequence() throws Exception {
-        Action[] expected = actionSequence;
-        Action[] actual = query.getActionSequence();
-
-        assertEquals(2, actual.length);
-        for (int i = 0; i < 2; i++) {
-            // These should just be assigned
-            assertEquals(expected[i], actual[i]);
-        }
+        fail("Rewrite me");
+//        Action[] expected = actionSequence;
+//        Action[] actual = query.getActionSequence();
+//
+//        assertEquals(2, actual.length);
+//        for (int i = 0; i < 2; i++) {
+//            // These should just be assigned
+//            assertEquals(expected[i], actual[i]);
+//        }
     }
 
     @Test
     public void testRunNullCaller() throws Exception {
-        query.run(null);
-        assertEquals(1, a.getTimesRun());
-        assertEquals(1, b.getTimesRun());
-        assertNull(a.getLastCaller());
-        assertNull(b.getLastCaller());
+        fail("Rewrite me");
+//        query.run(null);
+//        assertEquals(1, a.getTimesRun());
+//        assertEquals(1, b.getTimesRun());
+//        assertNull(a.getLastCaller());
+//        assertNull(b.getLastCaller());
     }
 
     @Test
     public void testRunWithCaller() throws Exception {
-        query.run(caller);
-        assertEquals(1, a.getTimesRun());
-        assertEquals(1, b.getTimesRun());
-        assertEquals(caller, a.getLastCaller());
-        assertEquals(caller, b.getLastCaller());
+        fail("Rewrite me");
+//        query.run(caller);
+//        assertEquals(1, a.getTimesRun());
+//        assertEquals(1, b.getTimesRun());
+//        assertEquals(caller, a.getLastCaller());
+//        assertEquals(caller, b.getLastCaller());
     }
 
     @Test
     public void testClone() throws Exception {
-        Agent cloneAgent = new Agent();
-        CompoundAction clone = query.clone(cloneAgent);
-        assertEquals(cloneAgent, clone.getCallback());
-        assertEquals(clone, query);
+        fail("Rewrite me");
+//        Agent cloneAgent = new Agent();
+//        CompoundAction clone = query.copy(cloneAgent);
+//        assertEquals(cloneAgent, clone.getCallback());
+//        assertEquals(clone, query);
     }
-
-    private class ExposedCompoundAction extends CompoundAction {
-        public ExposedCompoundAction(Agent callback, LayerManager layerManager, Action[] actionSequence) {
-            super(callback, layerManager, actionSequence);
-        }
-
-        @Override
-        public LayerManager getLayerManager() {
-            return super.getLayerManager();
-        }
-
-        @Override
-        public void run(Coordinate caller) throws HaltCondition {
-            super.run(caller);
-        }
-
-        @Override
-        public Action[] getActionSequence() {
-            return super.getActionSequence();
-        }
-    }
+//
+//    private class ExposedCompoundAction extends CompoundAction {
+//        public ExposedCompoundAction(Agent callback, LayerManager layerManager, Action[] actionSequence) {
+//            super(callback, layerManager, actionSequence);
+//        }
+//
+//        @Override
+//        public LayerManager getLayerManager() {
+//            return super.getLayerManager();
+//        }
+//
+//        @Override
+//        public void run(Coordinate caller) throws HaltCondition {
+//            super.run(caller);
+//        }
+//
+//        @Override
+//        public Action[] getActionSequence() {
+//            return super.getActionSequence();
+//        }
+//    }
 }

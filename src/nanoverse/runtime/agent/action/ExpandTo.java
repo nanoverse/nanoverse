@@ -70,7 +70,7 @@ public class ExpandTo extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        Agent callerAgent = resolveCaller(caller);
+        Agent callerAgent = mapper.resolveCaller(caller);
         List<Coordinate> targets = targetRule.report(callerAgent);
         for (Coordinate target : targets) {
             preferentialExpand(target);
@@ -78,7 +78,7 @@ public class ExpandTo extends Action {
     }
 
     private void preferentialExpand(Coordinate target) throws HaltCondition {
-        Coordinate origin = getOwnLocation();
+        Coordinate origin = identity.getOwnLocation();
 
         // Find out the shortest shoving path available, given the specified
         // parent and its preferred progeny destination.
@@ -103,10 +103,10 @@ public class ExpandTo extends Action {
     }
 
     private void cloneToVacancy(Coordinate vacancy) throws HaltCondition {
-        AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
+        AgentUpdateManager u = mapper.getLayerManager().getAgentLayer().getUpdateManager();
 
         // Clone parent.
-        Agent child = getCallback().copy();
+        Agent child = identity.getSelf().copy();
 
         // Place child in parent location.
         u.place(child, vacancy);
@@ -124,7 +124,7 @@ public class ExpandTo extends Action {
      * preferred direction of expansion.
      */
     private DisplacementOption getShortestOption(Coordinate target) throws HaltCondition {
-        Coordinate origin = getOwnLocation();
+        Coordinate origin = identity.getOwnLocation();
 
         // Get option that starts with origin.
         DisplacementOption originOption = getOption(origin);
@@ -146,7 +146,7 @@ public class ExpandTo extends Action {
     }
 
     private DisplacementOption getOption(Coordinate start) throws HaltCondition {
-        Geometry geom = getLayerManager().getAgentLayer().getGeometry();
+        Geometry geom = mapper.getLayerManager().getAgentLayer().getGeometry();
         Coordinate end = shoveHelper.chooseVacancy(start);
         int distance = geom.getL1Distance(start, end, Geometry.APPLY_BOUNDARIES);
 
@@ -159,8 +159,8 @@ public class ExpandTo extends Action {
     }
 
     private void highlight(Coordinate target, Coordinate ownLocation) throws HaltCondition {
-        doHighlight(targetChannel, target);
-        doHighlight(selfChannel, ownLocation);
+        highlighter.doHighlight(targetChannel, target);
+        highlighter.doHighlight(selfChannel, ownLocation);
     }
 
 
@@ -173,9 +173,9 @@ public class ExpandTo extends Action {
     }
 
     @Override
-    public Action clone(Agent child) {
+    public Action copy(Agent child) {
         TargetRule clonedTargetRule = targetRule.clone(child);
-        return new ExpandTo(child, getLayerManager(), clonedTargetRule, selfChannel,
+        return new ExpandTo(child, mapper.getLayerManager(), clonedTargetRule, selfChannel,
             targetChannel, random);
     }
 
