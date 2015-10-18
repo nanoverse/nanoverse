@@ -25,6 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.helper.*;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -38,12 +39,12 @@ import java.util.List;
  */
 public class Trigger extends Action {
 
-    private String behaviorName;
-    private TargetRule targetRule;
+    private final String behaviorName;
+    private final TargetRule targetRule;
 
-    // Highlight channels for the targeting and targeted nanoverse.runtime.cells
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
+    // Highlight channels for the targeting and targeted agents
+    private final IntegerArgument selfChannel;
+    private final IntegerArgument targetChannel;
 
     /**
      * Trigger a predesignated behavior in a cell or set of nanoverse.runtime.cells designated by a
@@ -60,6 +61,24 @@ public class Trigger extends Action {
         this.targetRule = targetRule;
         this.selfChannel = selfChannel;
         this.targetChannel = targetChannel;
+    }
+
+    /**
+     * Testing constructor
+     */
+    public Trigger(ActionIdentityManager identity,
+                   CoordAgentMapper mapper,
+                   ActionHighlighter highlighter,
+                   String behaviorName,
+                   TargetRule targetRule,
+                   IntegerArgument selfChannel,
+                   IntegerArgument targetChannel) {
+
+        super(identity, mapper, highlighter);
+        this.targetRule = targetRule;
+        this.targetChannel = targetChannel;
+        this.selfChannel = selfChannel;
+        this.behaviorName = behaviorName;
     }
 
     @Override
@@ -85,32 +104,9 @@ public class Trigger extends Action {
                 continue;
             }
             targetAgent.trigger(behaviorName, self);
-            highlight(target, self);
+            highlighter.doHighlight(targetChannel, target);
         }
-    }
-
-    private void highlight(Coordinate target, Coordinate ownLocation) throws HaltCondition {
-        highlighter.doHighlight(targetChannel, target);
-        highlighter.doHighlight(selfChannel, ownLocation);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Trigger)) {
-            return false;
-        }
-
-        Trigger other = (Trigger) obj;
-
-        if (!other.behaviorName.equalsIgnoreCase(this.behaviorName)) {
-            return false;
-        }
-
-        if (!other.targetRule.equals(this.targetRule)) {
-            return false;
-        }
-
-        return true;
+        highlighter.doHighlight(selfChannel, self);
     }
 
     @Override

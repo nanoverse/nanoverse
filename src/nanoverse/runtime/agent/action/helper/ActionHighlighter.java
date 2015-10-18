@@ -27,6 +27,7 @@ public class ActionHighlighter {
         }
 
         Integer channel = channelArg.next();
+
         StepState stepState = layerManager.getStepState();
         stepState.highlight(toHighlight, channel);
     }
