@@ -105,6 +105,20 @@ public class CloneTo extends Action {
         highlighter.doHighlight(selfChannel, ownLocation);
     }
 
+    @Override
+    public Action copy(Agent child) {
+        TargetRule clonedTargeter = targetRule.copy(child);
+        return new CloneTo(child, mapper.getLayerManager(), clonedTargeter, noReplace,
+            selfChannel, targetChannel, random);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = targetRule != null ? targetRule.hashCode() : 0;
+        result = 31 * result + (selfChannel != null ? selfChannel.hashCode() : 0);
+        result = 31 * result + (targetChannel != null ? targetChannel.hashCode() : 0);
+        return result;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -117,20 +131,5 @@ public class CloneTo extends Action {
             return false;
 
         return true;
-    }
-
-    @Override
-    public Action copy(Agent child) {
-        TargetRule clonedTargeter = targetRule.clone(child);
-        return new CloneTo(child, mapper.getLayerManager(), clonedTargeter, noReplace,
-            selfChannel, targetChannel, random);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = targetRule != null ? targetRule.hashCode() : 0;
-        result = 31 * result + (selfChannel != null ? selfChannel.hashCode() : 0);
-        result = 31 * result + (targetChannel != null ? targetChannel.hashCode() : 0);
-        return result;
     }
 }
