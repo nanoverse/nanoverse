@@ -39,8 +39,8 @@ public class TargetCallerDescriptor extends TargetDescriptor<TargetCaller> {
     private final Function<Agent, TargetCaller> constructor;
 
     @FactoryTarget(displayName = "TargetCaller")
-    public TargetCallerDescriptor(LayerManager layerManager, Filter filter, int maximum, Random random) {
-        constructor = cell -> new TargetCaller(cell, layerManager, filter, maximum, random);
+    public TargetCallerDescriptor(LayerManager layerManager, Filter filter, Random random) {
+        constructor = cell -> new TargetCaller(cell, layerManager, filter, random);
     }
 
     @Override

@@ -41,8 +41,8 @@ import java.util.*;
  * Created by dbborens on 2/7/14.
  */
 public class TargetSelf extends TargetRule {
-    public TargetSelf(Agent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
-        super(callback, layerManager, filter, maximum, random);
+    public TargetSelf(Agent callback, LayerManager layerManager, Filter filter, Random random) {
+        super(callback, layerManager, filter, random);
     }
 
     @Override
@@ -55,6 +55,6 @@ public class TargetSelf extends TargetRule {
 
     @Override
     public TargetRule copy(Agent child) {
-        return new TargetSelf(child, layerManager, filter, maximum, random);
+        return new TargetSelf(child, layerManager, filter, random);
     }
 }

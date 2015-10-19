@@ -22,40 +22,39 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package nanoverse.compiler.pipeline.instantiate.loader.agent.targets;
+package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter;
 
-import nanoverse.compiler.pipeline.instantiate.factory.agent.targets.TargetFactory;
-import nanoverse.compiler.pipeline.instantiate.loader.Loader;
+import nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filter.SampleFilterFactory;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
-import nanoverse.runtime.agent.targets.TargetDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.discrete.filter.Filter;
+import nanoverse.runtime.processes.discrete.filter.SampleFilter;
 
 /**
- * Created by dbborens on 8/4/2015.
+ * Created by dbborens on 8/24/2015.
  */
-public abstract class TargetLoader<T extends TargetDescriptor> extends Loader<T> {
+public class SampleFilterLoader extends FilterLoader<SampleFilter> {
+    private final SampleFilterFactory factory;
+    private final SampleFilterInterpolator interpolator;
 
-    private final TargetFactory<T> factory;
-    private final TargetInterpolator interpolator;
+    public SampleFilterLoader() {
+        factory = new SampleFilterFactory();
+        interpolator = new SampleFilterInterpolator();
+    }
 
-    protected TargetLoader(TargetFactory<T> factory,
-                           TargetInterpolator interpolator) {
+    public SampleFilterLoader(SampleFilterFactory factory,
+                              SampleFilterInterpolator interpolator) {
 
         this.factory = factory;
         this.interpolator = interpolator;
     }
 
-    public T instantiate(MapObjectNode node,
-                         LayerManager lm,
-                         GeneralParameters p) {
-
-        factory.setLayerManager(lm);
+    @Override
+    public SampleFilter instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         factory.setRandom(p.getRandom());
 
-        Filter filter = interpolator.filter(node, lm, p);
-        factory.setFilter(filter);
+        int maximum = interpolator.maximum(node, p.getRandom());
+        factory.setMaximum(maximum);
 
         return factory.build();
     }

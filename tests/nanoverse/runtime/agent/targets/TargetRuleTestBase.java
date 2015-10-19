@@ -9,7 +9,7 @@ import test.LayerMocks;
 
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public abstract class TargetRuleTestBase extends LayerMocks {
@@ -17,7 +17,6 @@ public abstract class TargetRuleTestBase extends LayerMocks {
     protected Agent self;
     protected Agent caller;
     protected Filter filter;
-    protected int maximum = -1;
     protected Random random;
 
     // Create one coordinate for each type of coordinate considered under
@@ -64,21 +63,6 @@ public abstract class TargetRuleTestBase extends LayerMocks {
     }
 
     @Test
-    public void copy() throws Exception {
-        TargetRule query = resolveQuery();
-
-        Agent child = mock(Agent.class);
-        TargetRule copied = query.copy(child);
-
-        assertEquals(query, copied);
-        assertFalse(query == copied);
-
-        assertSame(child, copied.getCallback());
-    }
-
-    protected abstract TargetRule resolveQuery() throws Exception;
-
-    @Test
     public void selfAcceptance() throws Exception {
         Set<Coordinate> accepted = getAccepted();
         assertEquals(acceptsSelf(), accepted.contains(ownLocation));
@@ -90,6 +74,8 @@ public abstract class TargetRuleTestBase extends LayerMocks {
         List<Coordinate> acceptedList = query.report(caller);
         return new HashSet<>(acceptedList);
     }
+
+    protected abstract TargetRule resolveQuery() throws Exception;
 
     protected abstract boolean acceptsSelf();
 

@@ -60,4 +60,9 @@ public class FilterClassSymbolTableTest extends ClassSymbolTableTest {
     public void nullFilter() throws Exception {
         verifyReturnSymbol("Null", NullFilter.class);
     }
+
+    @Test
+    public void sampleFilter() throws Exception {
+        verifyReturnSymbol("Sample", SampleFilter.class);
+    }
 }

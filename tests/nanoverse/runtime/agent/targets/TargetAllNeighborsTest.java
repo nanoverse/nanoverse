@@ -7,7 +7,7 @@ public class TargetAllNeighborsTest extends TargetRuleTestBase {
 
     @Override
     protected TargetRule resolveQuery() throws Exception {
-        return new TargetAllNeighbors(self, layerManager, filter, maximum, random);
+        return new TargetAllNeighbors(self, layerManager, filter, random);
     }
 
     @Override
@@ -16,8 +16,8 @@ public class TargetAllNeighborsTest extends TargetRuleTestBase {
     }
 
     @Override
-    protected boolean acceptsVacantNeighbors() {
-        return true;
+    protected boolean acceptsCaller() {
+        return false;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class TargetAllNeighborsTest extends TargetRuleTestBase {
     }
 
     @Override
-    protected boolean acceptsCaller() {
-        return false;
+    protected boolean acceptsVacantNeighbors() {
+        return true;
     }
 }

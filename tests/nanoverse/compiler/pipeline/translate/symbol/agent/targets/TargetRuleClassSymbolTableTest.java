@@ -65,5 +65,4 @@ public class TargetRuleClassSymbolTableTest extends ClassSymbolTableTest {
     public void caller() throws Exception {
         verifyReturnSymbol("Caller", TargetCallerDescriptor.class);
     }
-
 }

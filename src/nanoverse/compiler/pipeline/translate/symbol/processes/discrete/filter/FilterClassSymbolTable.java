@@ -46,6 +46,7 @@ public class FilterClassSymbolTable extends ClassSymbolTable<Filter> {
         name(ret);
         composite(ret);
         depth(ret);
+        sample(ret);
         nullFilter(ret);
         return ret;
     }
@@ -63,6 +64,11 @@ public class FilterClassSymbolTable extends ClassSymbolTable<Filter> {
     private void depth(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> st = DepthFilterInstSymbolTable::new;
         ret.put("Depth", st);
+    }
+
+    private void sample(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = SampleFilterInstSymbolTable::new;
+        ret.put("Sample", st);
     }
 
     private void nullFilter(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {

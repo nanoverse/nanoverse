@@ -25,14 +25,10 @@
 package factories;
 
 import nanoverse.runtime.agent.action.stochastic.ContinuumProbabilitySupplierDescriptor;
-import nanoverse.runtime.geometry.set.CompleteSet;
-import nanoverse.runtime.geometry.set.CustomSet;
-import nanoverse.runtime.geometry.set.DiscSet;
-import nanoverse.runtime.geometry.set.HorizontalLineSet;
+import nanoverse.runtime.geometry.set.*;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 
 import java.lang.reflect.Constructor;
 import java.util.stream.Stream;
@@ -67,7 +63,7 @@ public class TargetFinder {
                     }
                 });
 
-        // For whatever reason, Reflections can't see these
+        // These classes don't show up using Reflections, probably due to some kind of generics issue
         Stream<Class> cloodge = Stream.of(
                 CompleteSet.class,
                 CustomSet.class,

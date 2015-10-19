@@ -21,18 +21,16 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package nanoverse.compiler.pipeline.instantiate.factory.agent.targets;
+package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filter;
 
-import nanoverse.runtime.agent.targets.TargetVacantNeighborsDescriptor;
-import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.discrete.filter.Filter;
+import nanoverse.runtime.processes.discrete.filter.SampleFilter;
 
 import java.util.Random;
 
 
-public class TargetVacantNeighborsFactoryHelper implements TargetFactoryHelper<TargetVacantNeighborsDescriptor> {
+public class SampleFilterFactoryHelper {
 
-    public TargetVacantNeighborsDescriptor build(LayerManager layerManager, Filter filter, Random random) {
-        return new TargetVacantNeighborsDescriptor(layerManager, filter, random);
+    public SampleFilter build(int maximum, Random random) {
+        return new SampleFilter(maximum, random);
     }
 }

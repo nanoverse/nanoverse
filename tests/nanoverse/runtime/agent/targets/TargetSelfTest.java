@@ -7,7 +7,7 @@ public class TargetSelfTest extends TargetRuleTestBase {
 
     @Override
     protected TargetRule resolveQuery() throws Exception {
-        return new TargetSelf(self, layerManager, filter, maximum, random);
+        return new TargetSelf(self, layerManager, filter, random);
     }
 
     @Override
@@ -16,7 +16,7 @@ public class TargetSelfTest extends TargetRuleTestBase {
     }
 
     @Override
-    protected boolean acceptsVacantNeighbors() {
+    protected boolean acceptsCaller() {
         return false;
     }
 
@@ -26,7 +26,7 @@ public class TargetSelfTest extends TargetRuleTestBase {
     }
 
     @Override
-    protected boolean acceptsCaller() {
+    protected boolean acceptsVacantNeighbors() {
         return false;
     }
 

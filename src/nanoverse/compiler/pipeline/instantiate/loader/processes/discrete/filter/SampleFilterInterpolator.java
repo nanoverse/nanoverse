@@ -21,18 +21,29 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package nanoverse.compiler.pipeline.instantiate.factory.agent.targets;
 
-import nanoverse.runtime.agent.targets.TargetVacantNeighborsDescriptor;
-import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.discrete.filter.Filter;
+package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.filter;
+
+import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
+import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 
 import java.util.Random;
 
+/**
+ * Created by dbborens on 8/24/2015.
+ */
+public class SampleFilterInterpolator {
+    private final LoadHelper load;
 
-public class TargetVacantNeighborsFactoryHelper implements TargetFactoryHelper<TargetVacantNeighborsDescriptor> {
+    public SampleFilterInterpolator() {
+        load = new LoadHelper();
+    }
 
-    public TargetVacantNeighborsDescriptor build(LayerManager layerManager, Filter filter, Random random) {
-        return new TargetVacantNeighborsDescriptor(layerManager, filter, random);
+    public SampleFilterInterpolator(LoadHelper load) {
+        this.load = load;
+    }
+
+    public int maximum(MapObjectNode node, Random random) {
+        return load.anInteger(node, "maximum", random);
     }
 }

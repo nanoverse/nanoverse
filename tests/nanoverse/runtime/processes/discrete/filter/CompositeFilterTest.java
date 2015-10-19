@@ -26,21 +26,12 @@ package nanoverse.runtime.processes.discrete.filter;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.stream.Stream;
-
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class CompositeFilterTest {
 
     @Test
     public void testApply() throws Exception {
-        Filter child1 = new MockFilter();
-        Filter child2 = new MockFilter();
-        Stream<Filter> children = Stream.of(child1, child2);
-        CompositeFilter query = new CompositeFilter(children);
-        query.apply(new ArrayList<>(0));
-        assertTrue(child1.isCalled());
-        assertTrue(child2.isCalled());
+        fail("Rewrite me");
     }
 }

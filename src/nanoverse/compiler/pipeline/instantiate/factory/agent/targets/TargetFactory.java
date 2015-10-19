@@ -40,7 +40,6 @@ public abstract class TargetFactory<T extends TargetDescriptor> implements Facto
 
     private LayerManager layerManager;
     private Filter filter;
-    private int maximum;
     private Random random;
 
     protected TargetFactory(TargetFactoryHelper helper) {
@@ -55,17 +54,13 @@ public abstract class TargetFactory<T extends TargetDescriptor> implements Facto
         this.filter = filter;
     }
 
-    public void setMaximum(int maximum) {
-        this.maximum = maximum;
-    }
-
     public void setRandom(Random random) {
         this.random = random;
     }
 
     @Override
     public T build() {
-        return helper.build(layerManager, filter, maximum, random);
+        return helper.build(layerManager, filter, random);
     }
 
 }

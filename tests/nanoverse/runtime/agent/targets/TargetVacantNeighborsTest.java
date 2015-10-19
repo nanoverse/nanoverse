@@ -6,7 +6,7 @@ package nanoverse.runtime.agent.targets;
 public class TargetVacantNeighborsTest extends TargetRuleTestBase {
     @Override
     protected TargetRule resolveQuery() throws Exception {
-        return new TargetVacantNeighbors(self, layerManager, filter, maximum, random);
+        return new TargetVacantNeighbors(self, layerManager, filter, random);
     }
 
     @Override
@@ -15,8 +15,8 @@ public class TargetVacantNeighborsTest extends TargetRuleTestBase {
     }
 
     @Override
-    protected boolean acceptsVacantNeighbors() {
-        return true;
+    protected boolean acceptsCaller() {
+        return false;
     }
 
     @Override
@@ -25,8 +25,8 @@ public class TargetVacantNeighborsTest extends TargetRuleTestBase {
     }
 
     @Override
-    protected boolean acceptsCaller() {
-        return false;
+    protected boolean acceptsVacantNeighbors() {
+        return true;
     }
 
 }

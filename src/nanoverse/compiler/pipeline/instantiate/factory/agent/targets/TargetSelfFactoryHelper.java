@@ -32,7 +32,7 @@ import java.util.Random;
 
 public class TargetSelfFactoryHelper implements TargetFactoryHelper<TargetSelfDescriptor> {
 
-    public TargetSelfDescriptor build(LayerManager layerManager, Filter filter, int maximum, Random random) {
-        return new TargetSelfDescriptor(layerManager, filter, maximum, random);
+    public TargetSelfDescriptor build(LayerManager layerManager, Filter filter, Random random) {
+        return new TargetSelfDescriptor(layerManager, filter, random);
     }
 }

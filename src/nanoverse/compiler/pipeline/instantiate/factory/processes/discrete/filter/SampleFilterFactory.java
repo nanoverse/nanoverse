@@ -21,18 +21,38 @@
  * Public License along with this program.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-package nanoverse.compiler.pipeline.instantiate.factory.agent.targets;
+package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filter;
 
-import nanoverse.runtime.agent.targets.TargetVacantNeighborsDescriptor;
-import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.discrete.filter.Filter;
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.processes.discrete.filter.SampleFilter;
 
 import java.util.Random;
 
+public class SampleFilterFactory implements Factory<SampleFilter> {
 
-public class TargetVacantNeighborsFactoryHelper implements TargetFactoryHelper<TargetVacantNeighborsDescriptor> {
+    private final SampleFilterFactoryHelper helper;
 
-    public TargetVacantNeighborsDescriptor build(LayerManager layerManager, Filter filter, Random random) {
-        return new TargetVacantNeighborsDescriptor(layerManager, filter, random);
+    private int maximum;
+    private Random random;
+
+    public SampleFilterFactory() {
+        helper = new SampleFilterFactoryHelper();
+    }
+
+    public SampleFilterFactory(SampleFilterFactoryHelper helper) {
+        this.helper = helper;
+    }
+
+    public void setMaximum(int maximum) {
+        this.maximum = maximum;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
+    @Override
+    public SampleFilter build() {
+        return helper.build(maximum, random);
     }
 }

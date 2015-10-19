@@ -39,8 +39,8 @@ import java.util.*;
  * Created by dbborens on 2/7/14.
  */
 public class TargetOccupiedNeighbors extends TargetRule {
-    public TargetOccupiedNeighbors(Agent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
-        super(callback, layerManager, filter, maximum, random);
+    public TargetOccupiedNeighbors(Agent callback, LayerManager layerManager, Filter filter, Random random) {
+        super(callback, layerManager, filter, random);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class TargetOccupiedNeighbors extends TargetRule {
 
     @Override
     public TargetRule copy(Agent child) {
-        return new TargetOccupiedNeighbors(child, layerManager, filter, maximum, random);
+        return new TargetOccupiedNeighbors(child, layerManager, filter, random);
     }
 
 }

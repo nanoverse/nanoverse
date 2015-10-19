@@ -39,8 +39,8 @@ import java.util.*;
  */
 public class TargetAllNeighbors extends TargetRule {
 
-    public TargetAllNeighbors(Agent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
-        super(callback, layerManager, filter, maximum, random);
+    public TargetAllNeighbors(Agent callback, LayerManager layerManager, Filter filter, Random random) {
+        super(callback, layerManager, filter, random);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class TargetAllNeighbors extends TargetRule {
 
     @Override
     public TargetRule copy(Agent child) {
-        return new TargetAllNeighbors(child, layerManager, filter, maximum, random);
+        return new TargetAllNeighbors(child, layerManager, filter, random);
     }
 
 }

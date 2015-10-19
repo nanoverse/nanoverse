@@ -34,5 +34,5 @@ import java.util.Random;
  * Created by dbborens on 8/24/2015.
  */
 public interface TargetFactoryHelper<T extends TargetDescriptor> {
-    T build(LayerManager layerManager, Filter filter, int maximum, Random random);
+    T build(LayerManager layerManager, Filter filter, Random random);
 }
