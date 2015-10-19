@@ -30,7 +30,7 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.AgentLayer;
 
 import java.util.*;
-import java.util.stream.IntStream;
+import java.util.stream.*;
 
 /**
  * Created by dbborens on 6/14/2015.
@@ -61,7 +61,7 @@ public abstract class ScatterClustersHelper {
         String name = toPlace.getName();
 
         // Get neighborhood state.
-        String[] neighborNames = layer.getLookupManager().getNeighborNames(current, false);
+        Stream<String> neighborNames = layer.getLookupManager().getNeighborNames(current, false);
 
         // Count self-similar neighbors.
         int numSelfSimilar = getMatchCount(neighborNames, name);
@@ -78,12 +78,12 @@ public abstract class ScatterClustersHelper {
         }
     }
 
-    protected int getMatchCount(String[] toMatch, String expected) {
-        return (int) IntStream
-            .range(0, toMatch.length)
-            .mapToObj(i -> toMatch[i])
-            .filter(neighborState -> neighborState.equals(expected))
+    protected int getMatchCount(Stream<String> toMatch, String expected) {
+        int ret = (int) toMatch
+            .filter(name -> name.equals(expected))
             .count();
+
+        return ret;
     }
 
     protected void placeAndColonize(Coordinate current, Agent toPlace, int needed) {
@@ -112,7 +112,7 @@ public abstract class ScatterClustersHelper {
         String name = toPlace.getName();
 
         // Get neighborhood state.
-        String[] neighborNames = layer.getLookupManager().getNeighborNames(candidate, false);
+        Stream<String> neighborNames = layer.getLookupManager().getNeighborNames(candidate, false);
 
         // Count self-similar neighbors.
         int numSelfSimilar = getMatchCount(neighborNames, name);

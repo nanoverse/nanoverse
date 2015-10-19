@@ -33,6 +33,7 @@ import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Causes nanoverse.runtime.cells within the active area to perform the specified behavior.
@@ -91,31 +92,17 @@ public class TriggerProcess extends AgentProcess {
      * occupied neighbors.
      */
     private Collection<? extends Object> respectNeighborhoodRequirements(Collection<? extends Object> unfiltered) {
-        ArrayList<Object> filtered = new ArrayList<>(unfiltered.size());
         if (!requireNeighbors) {
             return unfiltered;
         }
 
-        for (Object cObj : unfiltered) {
-            Coordinate candidate = (Coordinate) cObj;
-            String[] neighborStates = getLayer().getLookupManager().getNeighborNames(candidate, true);
-
-            // Count up the number of vacant neighbors.
-            int numVacantNeighbors = 0;
-            for (int i = 0; i < numVacantNeighbors; i++) {
-                if (neighborStates[i] == null) {
-                    numVacantNeighbors++;
-                }
-            }
-
-            // This cell has occupied neighbors only if the number of neighbors
-            // is greater than the number of vacant neighbors.
-            if (numVacantNeighbors < neighborStates.length) {
-                filtered.add(candidate);
-            }
-        }
-
-        return filtered;
+        return unfiltered.stream()
+            .map(obj -> (Coordinate) obj)
+            .filter(coord -> getLayer()
+                .getLookupManager()
+                .getNeighborNames(coord, true)
+                .count() > 0)
+            .collect(Collectors.toList());
     }
 
     /**

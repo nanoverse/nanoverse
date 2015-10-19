@@ -35,6 +35,7 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.io.BufferedWriter;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Writes out the number of each "name" as a function of time.
@@ -160,15 +161,8 @@ public class SurfaceCensusWriter extends Serializer {
     }
 
     private boolean isAtFront(Coordinate c, AgentLayer layer) {
-        String[] neighborNames = layer.getLookupManager().getNeighborNames(c, false);
-
-        // If any neighbor is 0 (vacant), the point is at the front
-        for (String neighborName : neighborNames) {
-            if (neighborName == null) {
-                return true;
-            }
-        }
-        // If none of the neighbors are vacant, the point is interior
-        return false;
+        Stream<String> neighborNames = layer.getLookupManager().getNeighborNames(c, false);
+        int vacantNeighbors = (int) neighborNames.filter(name -> name == null).count();
+        return vacantNeighbors > 0;
     }
 }

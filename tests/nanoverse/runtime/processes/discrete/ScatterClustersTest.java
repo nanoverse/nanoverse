@@ -32,6 +32,8 @@ import nanoverse.runtime.processes.discrete.cluster.*;
 import org.junit.*;
 import test.AgentProcessTestBase;
 
+import java.util.stream.Stream;
+
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
@@ -64,10 +66,10 @@ public class ScatterClustersTest extends AgentProcessTestBase {
     }
 
     private void doTest(String neighbor) throws Exception {
-        String[] neighborStates = new String[]{neighbor};
+        Stream<String> neighborNames = Stream.of(neighbor);
         makeActiveSites(a);
         when(lookup.getNeighborNames(a, false))
-            .thenReturn(neighborStates);
+            .thenReturn(neighborNames);
         query.target(null);
         query.fire(null);
     }

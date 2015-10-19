@@ -4,6 +4,8 @@ import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.AgentLayer;
 
+import java.util.stream.Stream;
+
 /**
  * Created by dbborens on 10/13/2015.
  */
@@ -22,8 +24,8 @@ public class NeighborhoodCountHelper {
                 .getLookupManager()
                 .getAgentLocation(agent);
 
-        String[] neighborNames = layer.getLookupManager().getNeighborNames(location, true);
-        double neighborCount = neighborNames.length;
+        Stream<String> neighborNames = layer.getLookupManager().getNeighborNames(location, true);
+        double neighborCount = neighborNames.count();
         return neighborCount;
     }
 

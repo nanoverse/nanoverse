@@ -32,6 +32,7 @@ import nanoverse.runtime.layers.SystemState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.awt.*;
+import java.util.stream.Stream;
 
 /**
  * Color manager that shows surface nanoverse.runtime.cells in a vibrant color, and interior
@@ -115,16 +116,17 @@ public class SurfaceGrowthColorManager extends ColorManager {
     }
 
     private boolean checkIsInterior(Coordinate c, SystemState systemState) {
-        String[] neighborStates = systemState.getLayerManager().getAgentLayer().getLookupManager().getNeighborNames(c, false);
+        Stream<String> neighborNames = systemState
+            .getLayerManager()
+            .getAgentLayer()
+            .getLookupManager()
+            .getNeighborNames(c, false);
 
-        // If any neighbor is 0 (vacant), the point is not interior
-        for (String neighborState : neighborStates) {
-            if (neighborState == null) {
-                return false;
-            }
-        }
-        // If none of the neighbors are vacant, the point is interior
-        return true;
+        int vacantNeighbors = (int) neighborNames
+            .filter(name -> name == null)
+            .count();
+
+        return vacantNeighbors == 0;
     }
 
     @Override

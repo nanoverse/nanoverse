@@ -32,6 +32,8 @@ import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
+import java.util.stream.Stream;
+
 /**
  * Created by dbborens on 6/14/2015.
  */
@@ -117,11 +119,11 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
 
     protected boolean hasAnyNeighbors(Coordinate candidate) {
         // Get neighborhood state.
-        String[] neighborNames = layer.getLookupManager().getNeighborNames(candidate, false);
+        Stream<String> neighborNames = layer.getLookupManager().getNeighborNames(candidate, false);
 
         // Count any non-vacant neighbors.
         int numVacant = getMatchCount(neighborNames, null);
 
-        return (numVacant < neighborNames.length);
+        return (numVacant < neighborNames.count());
     }
 }

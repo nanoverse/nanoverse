@@ -25,11 +25,14 @@
 package nanoverse.runtime.layers;
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.cells.*;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.cell.*;
 import org.junit.Test;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 
@@ -57,8 +60,13 @@ public class AgentLookupManagerTest {
         content.put(c[2], f2);
 
         AgentLookupManager lookup = new AgentLookupManager(geometry, content);
-        assertEquals(lookup.getNeighborNames(c[1], true).length, 2);
-        assertEquals(lookup.getNeighborNames(c[1], true)[0], "4");
-        assertEquals(lookup.getNeighborNames(c[1], true)[1], "6");
+
+        List<String> neighborNames = lookup
+            .getNeighborNames(c[1], true)
+            .collect(Collectors.toList());
+
+        assertEquals(neighborNames.size(), 2);
+        assertEquals(neighborNames.get(0), "4");
+        assertEquals(neighborNames.get(1), "6");
     }
 }

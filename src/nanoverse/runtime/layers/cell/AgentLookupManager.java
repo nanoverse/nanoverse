@@ -24,13 +24,12 @@
 
 package nanoverse.runtime.layers.cell;
 
-import com.google.common.collect.Lists;
-import nanoverse.runtime.agent.*;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author David Bruce Borenstein
@@ -51,20 +50,22 @@ public class AgentLookupManager {
      * @param coord
      * @return
      */
-    public String[] getNeighborNames(Coordinate coord, boolean ignoreVacancies) {
+    public Stream<String> getNeighborNames(Coordinate coord, boolean ignoreVacancies) {
         content.sanityCheck(coord);
 
         // Get set of neighbors
         Coordinate[] neighbors = geom.getNeighbors(coord, Geometry.APPLY_BOUNDARIES);
 
-        List<String> retStr = Arrays.stream(neighbors)
+        Stream<String> initial = Arrays.stream(neighbors)
             .filter(c -> c != null)
             .map(content::get)
-            .map(agent -> agent.getName())
-            .collect(Collectors.toList());
+            .map(agent -> agent.getName());
 
-        // TODO lambdify return type
-        return retStr.toArray(new String[retStr.size()]);
+        if (ignoreVacancies) {
+            return initial.filter(name -> name != null);
+        } else {
+            return initial;
+        }
     }
 
     /**

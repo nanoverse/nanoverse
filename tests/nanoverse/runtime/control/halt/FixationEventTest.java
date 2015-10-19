@@ -3,22 +3,27 @@ package nanoverse.runtime.control.halt;
 import org.junit.*;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class FixationEventTest {
 
+    private String agentClassName;
+    private FixationEvent query;
+
     @Before
     public void before() throws Exception {
-
+        agentClassName = "Test";
+        query = new FixationEvent(agentClassName);
     }
 
     @Test
-    public void getFixationClassName() throws Exception {
-        fail();
+    public void getAgentClassName() throws Exception {
+        assertSame(agentClassName, query.getFixationClassName());
     }
 
     @Test
     public void string() throws Exception {
-        fail();
+        String expected = "FixationEvent (Test)";
+        String actual = query.toString();
+        assertEquals(expected, actual);
     }
 }
