@@ -22,6 +22,7 @@ public class ActionTest extends LayerMocks {
     protected TargetRule targetRule;
 
     protected Agent callerAgent;
+    protected Agent selfAgent;
     protected Coordinate caller;
     protected Coordinate ownLocation;
 
@@ -38,6 +39,9 @@ public class ActionTest extends LayerMocks {
         caller = mock(Coordinate.class);
         callerAgent = mock(Agent.class);
         when(mapper.resolveCaller(caller)).thenReturn(callerAgent);
+
+        selfAgent = mock(Agent.class);
+        when(identity.getSelf()).thenReturn(selfAgent);
 
         ownLocation = mock(Coordinate.class);
         when(identity.getOwnLocation()).thenReturn(ownLocation);

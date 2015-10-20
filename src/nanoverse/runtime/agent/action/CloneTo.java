@@ -25,12 +25,12 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.helper.*;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.*;
 
 import java.util.*;
 
@@ -43,17 +43,13 @@ import java.util.*;
  */
 public class CloneTo extends Action {
 
-    private TargetRule targetRule;
+    private final TargetRule targetRule;
+    private final CloneToChildPlacer childPlacer;
+    private final Random random;
 
-    // Replace occupied sites?
-    private boolean noReplace;
-
-    // Highlight channels for the targeting and targeted nanoverse.runtime.cells
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
-
-    private Random random;
-
+    /**
+     * Main constructor
+     */
     public CloneTo(Agent agent, LayerManager layerManager,
                    TargetRule targetRule, boolean noReplace,
                    IntegerArgument selfChannel,
@@ -61,9 +57,19 @@ public class CloneTo extends Action {
 
         super(agent, layerManager);
         this.targetRule = targetRule;
-        this.selfChannel = selfChannel;
-        this.targetChannel = targetChannel;
-        this.noReplace = noReplace;
+        this.random = random;
+
+        SelfTargetHighlighter stHighlighter =
+            new SelfTargetHighlighter(highlighter, selfChannel, targetChannel);
+
+        childPlacer = new CloneToChildPlacer(stHighlighter,
+            mapper, noReplace);
+    }
+
+    public CloneTo(ActionIdentityManager identity, CoordAgentMapper mapper, ActionHighlighter highlighter, TargetRule targetRule, CloneToChildPlacer childPlacer, Random random) {
+        super(identity, mapper, highlighter);
+        this.targetRule = targetRule;
+        this.childPlacer = childPlacer;
         this.random = random;
     }
 
@@ -75,61 +81,23 @@ public class CloneTo extends Action {
 
         List<Coordinate> targets = targetRule.report(callerAgent);
 
-        AgentUpdateManager u = mapper.getLayerManager().getAgentLayer().getUpdateManager();
-        AgentLayerViewer v = mapper.getLayerManager().getAgentLayer().getViewer();
 
         for (Coordinate target : targets) {
-
-            // Make replicate
             Agent child = identity.getSelf().copy();
-
-            // Place replicate at target site
-            if (!v.isOccupied(target)) {
-                u.place(child, target);
-            } else if (noReplace) {
-                throw new IllegalStateException("In CloneTo: Attempted to " +
-                    "place child at occupied position (leading to " +
-                    "replacement), but <no-replacment /> flag is set.");
-            } else {
-                u.banish(target);
-                u.place(child, target);
-            }
-            // Highlight sites
-            highlight(target, self);
+            childPlacer.place(self, target, child);
         }
 
-    }
-
-    private void highlight(Coordinate target, Coordinate ownLocation) throws HaltCondition {
-        highlighter.doHighlight(targetChannel, target);
-        highlighter.doHighlight(selfChannel, ownLocation);
     }
 
     @Override
     public Action copy(Agent child) {
         TargetRule clonedTargeter = targetRule.copy(child);
+
+        IntegerArgument selfChannel = childPlacer.getSelfChannel();
+        IntegerArgument targetChannel = childPlacer.getTargetChannel();
+        boolean noReplace = childPlacer.isNoReplace();
+
         return new CloneTo(child, mapper.getLayerManager(), clonedTargeter, noReplace,
             selfChannel, targetChannel, random);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = targetRule != null ? targetRule.hashCode() : 0;
-        result = 31 * result + (selfChannel != null ? selfChannel.hashCode() : 0);
-        result = 31 * result + (targetChannel != null ? targetChannel.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CloneTo cloneTo = (CloneTo) o;
-
-        if (targetRule != null ? !targetRule.equals(cloneTo.targetRule) : cloneTo.targetRule != null)
-            return false;
-
-        return true;
     }
 }

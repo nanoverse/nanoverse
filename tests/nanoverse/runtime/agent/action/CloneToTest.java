@@ -25,144 +25,44 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.agent.targets.MockTargetRule;
-import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.geometry.boundaries.*;
-import nanoverse.runtime.geometry.lattice.*;
-import nanoverse.runtime.geometry.shape.*;
-import nanoverse.runtime.layers.cell.AgentLayer;
+import nanoverse.runtime.control.identifiers.Coordinate;
 import org.junit.*;
-import test.LegacyLatticeTest;
 
 import java.util.*;
-import java.util.function.Supplier;
+import java.util.stream.*;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-public class CloneToTest extends LegacyLatticeTest {
+public class CloneToTest extends ActionTest {
 
-    private static final String MOCK_PROGENY_NAME = "progeny";
-    private Agent original;
-    private MockTargetRule targetRule;
-    private CloneTo query;
+    private CloneToChildPlacer childPlacer;
     private Random random;
-    private Supplier<Agent> supplier;
+    private CloneTo query;
 
     @Override
     @Before
-    public void setUp() throws Exception {
-        fail("To be combined with other 'expand' processes");
-//        super.setUp();
-//
-//        // Create mock targeter that lists other two sites as targets.
-//        targetRule = new MockTargetRule();
-//        List<Coordinate> targets = new ArrayList<>(2);
-//        targets.add(x);
-//        targets.add(y);
-//        targetRule.setTargets(targets);
-//
-//        supplier = mock(Supplier.class);
-//        when(supplier.get()).thenReturn(new MockAgent(MOCK_PROGENY_NAME),
-//            new MockAgent(MOCK_PROGENY_NAME));
-//
-//        // Place a single cell at origin.
-//        original = new Agent(layerManager, 1, 1.0, 1.0, supplier);
-//        BehaviorDispatcher bd = new BehaviorDispatcher();
-//        original.setDispatcher(bd);
-//
-//        cellLayer.getUpdateManager().place(original, origin);
-//
-//        random = new Random(RANDOM_SEED);
-//        // Create query.
-//        query = new CloneTo(original, layerManager, targetRule, false, null,
-//            null, random);
-
+    public void before() throws Exception {
+        super.before();
+        childPlacer = mock(CloneToChildPlacer.class);
+        random = mock(Random.class);
+        query = new CloneTo(identity, mapper, highlighter, targetRule,
+            childPlacer, random);
     }
 
     @Test
-    public void testLifeCycle() throws Exception {
-        fail("Rewrite as a modern test");
-        // Trigger the replicate event.
-//        query.run(null);
-//
-//        // The other two sites should be occupied.
-//        assertTrue(cellLayer.getViewer().isOccupied(x));
-//        assertTrue(cellLayer.getViewer().isOccupied(y));
-//
-//        assertEquals(MOCK_PROGENY_NAME, cellLayer.getViewer().getAgent(x).getName());
-//        assertEquals(MOCK_PROGENY_NAME, cellLayer.getViewer().getAgent(y).getName());
+    public void run() throws Exception {
+        Coordinate a = mock(Coordinate.class);
+        Coordinate b = mock(Coordinate.class);
+        Agent aChild = mock(Agent.class);
+        Agent bChild = mock(Agent.class);
+
+        when(selfAgent.copy()).thenReturn(aChild, bChild);
+        List<Coordinate> targets = Stream.of(a, b).collect(Collectors.toList());
+
+        when(targetRule.report(callerAgent)).thenReturn(targets);
+        query.run(caller);
+
+        verify(childPlacer).place(ownLocation, a, aChild);
+        verify(childPlacer).place(ownLocation, b, bChild);
     }
-
-    /**
-     * Integration test using replacement process.
-     *
-     * @throws Exception
-     */
-    @Test
-    public void testReplacement() throws Exception {
-        fail("Rewrite as a modern test");
-//        AgentLayer layer = linearLayer(false);
-//        Agent agent = layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
-//
-//        // Divide agent at position 4 toward 5
-//        agent.trigger("replicate-self", null);
-//
-//        // New configuration: _123446_89
-//        assertEquals(4, layer.getViewer().getName(new Coordinate2D(4, 0, 0)));
-//        assertEquals(4, layer.getViewer().getName(new Coordinate2D(5, 0, 0)));
-//        assertEquals(6, layer.getViewer().getName(new Coordinate2D(6, 0, 0)));
-//        assertFalse(layer.getViewer().isOccupied(new Coordinate2D(7, 0, 0)));
-    }
-
-    /**
-     * _123456_89  Initial condition
-     * ^       (Agent to be divided)
-     */
-    private AgentLayer linearLayer(boolean shoving) throws Exception {
-        Lattice lattice = new RectangularLattice();
-        Shape shape = new Rectangle(lattice, 10, 1);
-        Boundary boundary = new Periodic(shape, lattice);
-        Geometry geom = new Geometry(lattice, shape, boundary);
-        AgentLayer layer = new AgentLayer(geom);
-        layerManager.setAgentLayer(layer);
-        placeAgents(layer, shoving);
-
-        return layer;
-    }
-
-    private void placeAgents(AgentLayer layer, boolean shoving) throws Exception {
-        for (int x = 1; x < 7; x++) {
-            placeNumberedAgent(x, layer, shoving);
-        }
-
-        for (int x = 8; x <= 9; x++) {
-            placeNumberedAgent(x, layer, shoving);
-        }
-    }
-
-    private void placeNumberedAgent(int x, AgentLayer layer, boolean shoving) throws Exception {
-//        Supplier<Agent> ncSupplier = mock(Supplier.class);
-//        Agent child = new MockAgent(x);
-//        when(ncSupplier.get()).thenReturn(child);
-//        Agent cell = new Agent(layerManager, x, x, x, ncSupplier);
-//        Coordinate coord = new Coordinate2D(x, 0, 0);
-//        layer.getUpdateManager().place(cell, coord);
-//        BehaviorDispatcher bd = new BehaviorDispatcher();
-//        cell.setDispatcher(bd);
-//
-//        MockTargetRule mtr = new MockTargetRule();
-//
-//        // Agents always divide to the right
-//        Coordinate target = new Coordinate2D(x + 1, 0, 0);
-//        List<Coordinate> targets = new ArrayList<>(1);
-//        targets.add(target);
-//        mtr.setTargets(targets);
-//
-//        CloneTo cloneTo = new CloneTo(cell, layerManager, mtr,
-//            shoving, null, null, random);
-//
-//        Action behavior = new CompoundAction(cell, layerManager, new Action[]{cloneTo});
-//        bd.map("replicate-self", behavior);
-    }
-
 }
