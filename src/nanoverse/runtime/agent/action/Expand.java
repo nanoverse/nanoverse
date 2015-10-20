@@ -25,12 +25,12 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.displacement.DisplacementManager;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.AgentUpdateManager;
-import nanoverse.runtime.processes.discrete.ShoveHelper;
 
 import java.util.Random;
 
@@ -50,7 +50,7 @@ public class Expand extends Action {
 
     // Displaces nanoverse.runtime.cells along a trajectory in the event that the cell is
     // divided into an occupied site and replace is disabled.
-    private ShoveHelper shoveHelper;
+    private DisplacementManager displacementManager;
 
     private Random random;
 
@@ -62,7 +62,7 @@ public class Expand extends Action {
         this.targetChannel = targetChannel;
         this.random = random;
 
-        shoveHelper = new ShoveHelper(layerManager, random);
+        displacementManager = new DisplacementManager(layerManager, random);
     }
 
     @Override
@@ -72,10 +72,10 @@ public class Expand extends Action {
         AgentUpdateManager u = mapper.getLayerManager().getAgentLayer().getUpdateManager();
 
         // Step 1: identify nearest vacant site.
-        Coordinate target = shoveHelper.chooseVacancy(parentLocation);
+        Coordinate target = displacementManager.chooseVacancy(parentLocation);
 
         // Step 2: shove parent toward nearest vacant site.
-        shoveHelper.shove(parentLocation, target);
+        displacementManager.shove(parentLocation, target);
 
         // Step 3: Clone parent.
         Agent child = identity.getSelf().copy();
@@ -84,7 +84,7 @@ public class Expand extends Action {
         u.place(child, parentLocation);
 
         // Step 5: Clean up out-of-bounds nanoverse.runtime.cells.
-        shoveHelper.removeImaginary();
+        displacementManager.removeImaginary();
 
         // Step 6: Highlight the parent and target locations.
         highlight(target, parentLocation);
@@ -95,6 +95,11 @@ public class Expand extends Action {
         highlighter.doHighlight(selfChannel, ownLocation);
     }
 
+    @Override
+    public Action copy(Agent child) {
+        return new Expand(child, mapper.getLayerManager(), selfChannel, targetChannel,
+            random);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -102,11 +107,5 @@ public class Expand extends Action {
         if (o == null || getClass() != o.getClass()) return false;
 
         return true;
-    }
-
-    @Override
-    public Action copy(Agent child) {
-        return new Expand(child, mapper.getLayerManager(), selfChannel, targetChannel,
-            random);
     }
 }

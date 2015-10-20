@@ -25,6 +25,7 @@
 package nanoverse.runtime.processes.discrete;
 
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.displacement.DisplacementManager;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.*;
@@ -36,7 +37,7 @@ public abstract class BulkDivisionProcess extends AgentProcess {
 
 
     protected Random random;
-    private ShoveHelper shoveHelper;
+    private DisplacementManager shoveHelper;
 
     public BulkDivisionProcess(BaseProcessArguments arguments, AgentProcessArguments cpArguments) {
         super(arguments, cpArguments);
@@ -45,7 +46,7 @@ public abstract class BulkDivisionProcess extends AgentProcess {
     @Override
     public void init() {
         random = getGeneralParameters().getRandom();
-        shoveHelper = new ShoveHelper(getLayerManager(), random);
+        shoveHelper = new DisplacementManager(getLayerManager(), random);
     }
 
     protected void execute(Coordinate[] candidates) throws HaltCondition {

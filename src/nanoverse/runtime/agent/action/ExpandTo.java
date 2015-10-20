@@ -25,6 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.displacement.DisplacementManager;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -32,7 +33,6 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.AgentUpdateManager;
-import nanoverse.runtime.processes.discrete.ShoveHelper;
 
 import java.util.*;
 
@@ -51,7 +51,7 @@ public class ExpandTo extends Action {
 
     // Displaces nanoverse.runtime.cells along a trajectory in the event that the cell is
     // divided into an occupied site and replace is disabled.
-    private ShoveHelper shoveHelper;
+    private DisplacementManager displacementManager;
 
     private Random random;
 
@@ -65,7 +65,7 @@ public class ExpandTo extends Action {
         this.random = random;
         this.targetRule = targetRule;
 
-        shoveHelper = new ShoveHelper(layerManager, random);
+        displacementManager = new DisplacementManager(layerManager, random);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class ExpandTo extends Action {
         cloneToVacancy(newlyVacant);
 
         // Clean up out-of-bounds nanoverse.runtime.cells.
-        shoveHelper.removeImaginary();
+        displacementManager.removeImaginary();
 
         // Highlight the parent and target locations.
         highlight(target, origin);
@@ -115,7 +115,7 @@ public class ExpandTo extends Action {
     private void doShove(DisplacementOption shortestOption) throws HaltCondition {
         Coordinate occupied = shortestOption.occupied;
         Coordinate vacant = shortestOption.vacant;
-        shoveHelper.shove(occupied, vacant);
+        displacementManager.shove(occupied, vacant);
     }
 
     /**
@@ -147,7 +147,7 @@ public class ExpandTo extends Action {
 
     private DisplacementOption getOption(Coordinate start) throws HaltCondition {
         Geometry geom = mapper.getLayerManager().getAgentLayer().getGeometry();
-        Coordinate end = shoveHelper.chooseVacancy(start);
+        Coordinate end = displacementManager.chooseVacancy(start);
         int distance = geom.getL1Distance(start, end, Geometry.APPLY_BOUNDARIES);
 
         DisplacementOption ret = new DisplacementOption();

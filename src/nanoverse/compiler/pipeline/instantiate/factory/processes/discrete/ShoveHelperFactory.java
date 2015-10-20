@@ -24,12 +24,12 @@
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.agent.action.displacement.DisplacementManager;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.discrete.ShoveHelper;
 
 import java.util.Random;
 
-public class ShoveHelperFactory implements Factory<ShoveHelper> {
+public class ShoveHelperFactory implements Factory<DisplacementManager> {
 
     private final ShoveHelperFactoryHelper helper;
 
@@ -53,7 +53,7 @@ public class ShoveHelperFactory implements Factory<ShoveHelper> {
     }
 
     @Override
-    public ShoveHelper build() {
+    public DisplacementManager build() {
         return helper.build(layerManager, random);
     }
 }

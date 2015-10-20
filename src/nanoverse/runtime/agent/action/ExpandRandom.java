@@ -25,12 +25,12 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.displacement.DisplacementManager;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.AgentUpdateManager;
-import nanoverse.runtime.processes.discrete.ShoveHelper;
 
 import java.util.*;
 
@@ -51,7 +51,7 @@ public class ExpandRandom extends Action {
 
     // Displaces nanoverse.runtime.cells along a trajectory in the event that the cell is
     // divided into an occupied site and replace is disabled.
-    private ShoveHelper shoveHelper;
+    private DisplacementManager displacementManager;
 
     private Random random;
 
@@ -63,7 +63,7 @@ public class ExpandRandom extends Action {
         this.targetChannel = targetChannel;
         this.random = random;
 
-        shoveHelper = new ShoveHelper(layerManager, random);
+        displacementManager = new DisplacementManager(layerManager, random);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class ExpandRandom extends Action {
         AgentUpdateManager u = mapper.getLayerManager().getAgentLayer().getUpdateManager();
 
         // Step 1: shove parent toward vacant site in a cardinal direction
-        HashSet<Coordinate> affectedSites = shoveHelper.shoveRandom(parentLocation);
+        HashSet<Coordinate> affectedSites = displacementManager.shoveRandom(parentLocation);
 
         // Step 2: Clone parent.
         Agent child = identity.getSelf().copy();
@@ -82,7 +82,7 @@ public class ExpandRandom extends Action {
         u.place(child, parentLocation);
 
         // Step 4: Clean up out-of-bounds nanoverse.runtime.cells.
-        shoveHelper.removeImaginary();
+        displacementManager.removeImaginary();
 
         // Step 5: Highlight the parent and target locations.
         //         Sort array of affected sites and take target from appropriate array end
@@ -102,6 +102,11 @@ public class ExpandRandom extends Action {
         highlighter.doHighlight(selfChannel, ownLocation);
     }
 
+    @Override
+    public Action copy(Agent child) {
+        return new ExpandRandom(child, mapper.getLayerManager(), selfChannel, targetChannel,
+            random);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -109,12 +114,6 @@ public class ExpandRandom extends Action {
         if (o == null || getClass() != o.getClass()) return false;
 
         return true;
-    }
-
-    @Override
-    public Action copy(Agent child) {
-        return new ExpandRandom(child, mapper.getLayerManager(), selfChannel, targetChannel,
-            random);
     }
 }
 
