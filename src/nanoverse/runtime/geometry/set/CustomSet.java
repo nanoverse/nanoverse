@@ -27,7 +27,6 @@ package nanoverse.runtime.geometry.set;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.util.*;
 import java.util.stream.*;
 
 /**
@@ -35,13 +34,21 @@ import java.util.stream.*;
  */
 public class CustomSet extends CoordinateSet {
 
-    public CustomSet() {
-        super();
-    }
-
     @FactoryTarget(displayName = "CustomCoordinateSet")
     public CustomSet(Stream<Coordinate> coordinates) {
         this();
         addAll(coordinates.collect(Collectors.toSet()));
+    }
+
+    public CustomSet() {
+        super();
+    }
+
+    public static CustomSet of(Coordinate... coordinates) {
+        CustomSet ret = new CustomSet();
+        for (Coordinate c : coordinates) {
+            ret.add(c);
+        }
+        return ret;
     }
 }

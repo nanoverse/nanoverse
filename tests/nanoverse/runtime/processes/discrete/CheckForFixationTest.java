@@ -24,6 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
@@ -31,6 +32,7 @@ import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.check.CheckForFixation;
+import nanoverse.runtime.processes.gillespie.GillespieState;
 import org.junit.Test;
 import test.LegacyTest;
 
@@ -51,9 +53,8 @@ public class CheckForFixationTest extends LegacyTest {
 
     @Test
     public void testTargetSimple() throws Exception {
-        fail("Rewrite all as modern tests");
-//        makeTwoCanonicalSites();
-//        query.target(null);
+        makeTwoCanonicalSites();
+        query.target(null);
     }
 
     private void makeTwoCanonicalSites() {
@@ -78,28 +79,26 @@ public class CheckForFixationTest extends LegacyTest {
 
     @Test
     public void testTargetGillespie() throws Exception {
-        fail("Rewrite all as modern tests");
-//        makeTwoCanonicalSites();
-//        Integer id = query.getID();
-//        Integer[] ids = new Integer[]{id};
-//        GillespieState gs = new GillespieState(ids);
-//        query.target(gs);
-//        gs.close();
-//        assertEquals(0.0, gs.getTotalWeight(), epsilon);
-//        assertEquals(1, gs.getTotalCount());
-//        assertEquals(1, gs.getEventCount(id));
+        makeTwoCanonicalSites();
+        Integer id = query.getID();
+        Integer[] ids = new Integer[]{id};
+        GillespieState gs = new GillespieState(ids);
+        query.target(gs);
+        gs.close();
+        assertEquals(0.0, gs.getTotalWeight(), epsilon);
+        assertEquals(1, gs.getTotalCount());
+        assertEquals(1, gs.getEventCount(id));
     }
 
     // There's only one site -- automatically fixed once filled
     @Test
     public void testFixationCaseSingle() throws Exception {
-        fail("Rewrite all as modern tests");
-//        makeTwoCanonicalSites();
-//        Coordinate coord = new Coordinate2D(0, 0, 1);
-//        MockAgent cell = new MockAgent();
-//        cell.setState(1);
-//        layer.getUpdateManager().place(cell, coord);
-//        doTest(true);
+        makeTwoCanonicalSites();
+        Coordinate coord = new Coordinate2D(0, 0, 1);
+        MockAgent cell = new MockAgent();
+        cell.setName("1");
+        layer.getUpdateManager().place(cell, coord);
+        doTest(true);
     }
 
     private void doTest(boolean expectFixation) {
@@ -123,49 +122,46 @@ public class CheckForFixationTest extends LegacyTest {
     // There are two sites, but they're both the same type
     @Test
     public void testFixationCaseMulti() throws Exception {
-        fail("Rewrite all as modern tests");
-//        makeTwoCanonicalSites();
-//        for (int i = 0; i < 2; i++) {
-//            Coordinate coord = new Coordinate2D(i, 0, 0);
-//            MockAgent cell = new MockAgent();
-//            cell.setState(1);
-//            layer.getUpdateManager().place(cell, coord);
-//        }
-//        doTest(true);
+        makeTwoCanonicalSites();
+        for (int i = 0; i < 2; i++) {
+            Coordinate coord = new Coordinate2D(i, 0, 0);
+            MockAgent cell = new MockAgent();
+            cell.setName("1");
+            layer.getUpdateManager().place(cell, coord);
+        }
+        doTest(true);
     }
 
     // The lattice is full, but there are at least two
     // kinds of agents -- should not result in a thrown HaltCondition
     @Test
     public void testFullNonFixationCase() throws Exception {
-        fail("Rewrite all as modern tests");
-//        setUpMixedCase();
-//        doTest(false);
+        setUpMixedCase();
+        doTest(false);
     }
 
     private void setUpMixedCase() throws Exception {
-//        makeTwoCanonicalSites();
-//        for (int i = 0; i < 2; i++) {
-//            Coordinate coord = new Coordinate2D(i, 0, 0);
-//            MockAgent cell = new MockAgent();
-//            // name 0 is reserved for death / nullity
-//            cell.setState(i + 1);
-//            layer.getUpdateManager().place(cell, coord);
-//        }
+        makeTwoCanonicalSites();
+        for (int i = 0; i < 2; i++) {
+            Coordinate coord = new Coordinate2D(i, 0, 0);
+            MockAgent cell = new MockAgent();
+            // name 0 is reserved for death / nullity
+            cell.setName(String.valueOf(i + 1));
+            layer.getUpdateManager().place(cell, coord);
+        }
     }
 
     // There's only one species, but there's still room
     // to grow -- should still be considered "fixation"
     @Test
     public void testOpenSpaceCase() throws Exception {
-        fail("Rewrite all as modern tests");
-//
-//        makeTwoCanonicalSites();
-//        Coordinate coord = new Coordinate2D(0, 0, 0);
-//        MockAgent cell = new MockAgent();
-//        cell.setState(1);
-//        layer.getUpdateManager().place(cell, coord);
-//        doTest(true);
+
+        makeTwoCanonicalSites();
+        Coordinate coord = new Coordinate2D(0, 0, 0);
+        MockAgent cell = new MockAgent();
+        cell.setName("1");
+        layer.getUpdateManager().place(cell, coord);
+        doTest(true);
     }
 
     /**
@@ -174,19 +170,18 @@ public class CheckForFixationTest extends LegacyTest {
      */
     @Test
     public void testTwoToOneStateRegression() throws Exception {
-        fail("Rewrite all as modern tests");
-//
-//        // This test should start with two agents, each of a different type.
-//        setUpMixedCase();
-//
-//        // We don't expect a fixation name exception.
-//        doTest(false);
-//
-//        // Remove one of the agents. Now there's only one cell type in the system.
-//        layer.getUpdateManager().banish(new Coordinate2D(0, 0, 0));
-//
-//        // The name should now reflect fixation.
-//        doTest(true);
+
+        // This test should start with two agents, each of a different type.
+        setUpMixedCase();
+
+        // We don't expect a fixation name exception.
+        doTest(false);
+
+        // Remove one of the agents. Now there's only one cell type in the system.
+        layer.getUpdateManager().banish(new Coordinate2D(0, 0, 0));
+
+        // The name should now reflect fixation.
+        doTest(true);
     }
 
 }

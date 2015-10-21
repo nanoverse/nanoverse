@@ -61,13 +61,15 @@ public abstract class ScatterClustersHelper {
         String name = toPlace.getName();
 
         // Get neighborhood state.
-        Stream<String> neighborNames = layer.getLookupManager().getNeighborNames(current, false);
+        List<String> neighborNames = layer.getLookupManager()
+            .getNeighborNames(current, false)
+            .collect(Collectors.toList());
 
         // Count self-similar neighbors.
-        int numSelfSimilar = getMatchCount(neighborNames, name);
+        int numSelfSimilar = getMatchCount(neighborNames.stream(), name);
 
         // Count adjacent vacancies
-        int numVacant = getMatchCount(neighborNames, null);
+        int numVacant = getMatchCount(neighborNames.stream(), null);
 
         if (numSelfSimilar + numVacant < m) {
             return -1;

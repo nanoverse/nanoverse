@@ -61,8 +61,7 @@ public abstract class AgentLayerContentTest extends LegacyTest {
     }
 
     private MockAgent makeMockAgent(String name) {
-        MockAgent cell = new MockAgent();
-
+        MockAgent cell = new MockAgent(name);
         return cell;
     }
 

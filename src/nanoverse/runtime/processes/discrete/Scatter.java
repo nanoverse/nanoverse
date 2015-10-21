@@ -48,13 +48,17 @@ public class Scatter extends AgentProcess {
             getGeneralParameters().getRandom());
     }
 
+    public Scatter(BaseProcessArguments arguments, AgentProcessArguments cpArguments, AgentDescriptor cellDescriptor, ScatterTargetManager targetManager) {
+        super(arguments, cpArguments);
+        this.cellDescriptor = cellDescriptor;
+        this.targetManager = targetManager;
+    }
+
     public void target(GillespieState gs) throws HaltCondition {
         targetManager.target(gs);
     }
 
     public void fire(StepState state) throws HaltCondition {
-        System.out.println("Executing Scatter.");
-
         int n = getMaxTargets().next();
 
         List<Coordinate> targets = targetManager.getTargets(n);

@@ -61,7 +61,7 @@ public class ScatterTargetManager {
     }
 
     public List<Coordinate> getTargets(int maxTargets) {
-        if (maxTargets < 0) {
+        if (maxTargets < 0 || candidates.size() <= maxTargets) {
             return candidates;
         }
 
