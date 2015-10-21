@@ -26,6 +26,7 @@ package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.displacement.DisplacementManager;
+import nanoverse.runtime.agent.action.helper.*;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -44,13 +45,8 @@ import java.util.Random;
  */
 public class Expand extends Action {
 
-    // Highlight channels for the targeting and targeted nanoverse.runtime.cells
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
-
-    // Displaces nanoverse.runtime.cells along a trajectory in the event that the cell is
-    // divided into an occupied site and replace is disabled.
     private DisplacementManager displacementManager;
+    private SelfTargetHighlighter stHighlighter;
 
     private Random random;
 
@@ -58,11 +54,17 @@ public class Expand extends Action {
                   IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
 
         super(callback, layerManager);
-        this.selfChannel = selfChannel;
-        this.targetChannel = targetChannel;
+        stHighlighter = new SelfTargetHighlighter(highlighter, selfChannel, targetChannel);
         this.random = random;
 
         displacementManager = new DisplacementManager(layerManager.getAgentLayer(), random);
+    }
+
+    public Expand(ActionIdentityManager identity, CoordAgentMapper mapper, ActionHighlighter highlighter, DisplacementManager displacementManager, SelfTargetHighlighter stHighlighter, Random random) {
+        super(identity, mapper, highlighter);
+        this.displacementManager = displacementManager;
+        this.stHighlighter = stHighlighter;
+        this.random = random;
     }
 
     @Override
@@ -87,25 +89,14 @@ public class Expand extends Action {
         displacementManager.removeImaginary();
 
         // Step 6: Highlight the parent and target locations.
-        highlight(target, parentLocation);
-    }
-
-    private void highlight(Coordinate target, Coordinate ownLocation) throws HaltCondition {
-        highlighter.doHighlight(targetChannel, target);
-        highlighter.doHighlight(selfChannel, ownLocation);
+        stHighlighter.highlight(target, parentLocation);
     }
 
     @Override
     public Action copy(Agent child) {
+        IntegerArgument selfChannel = stHighlighter.getSelfChannel();
+        IntegerArgument targetChannel = stHighlighter.getTargetChannel();
         return new Expand(child, mapper.getLayerManager(), selfChannel, targetChannel,
             random);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        return true;
     }
 }

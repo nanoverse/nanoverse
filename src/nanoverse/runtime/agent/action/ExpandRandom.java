@@ -26,13 +26,14 @@ package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.displacement.DisplacementManager;
+import nanoverse.runtime.agent.action.helper.*;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.AgentUpdateManager;
 
-import java.util.*;
+import java.util.Random;
 
 /**
  * Places a copy or copies of the current cell toward any vacant location
@@ -45,13 +46,8 @@ import java.util.*;
  */
 public class ExpandRandom extends Action {
 
-    // Highlight channels for the targeting and targeted nanoverse.runtime.cells
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
-
-    // Displaces nanoverse.runtime.cells along a trajectory in the event that the cell is
-    // divided into an occupied site and replace is disabled.
     private DisplacementManager displacementManager;
+    private SelfTargetHighlighter stHighlighter;
 
     private Random random;
 
@@ -59,11 +55,21 @@ public class ExpandRandom extends Action {
                         IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
 
         super(callback, layerManager);
-        this.selfChannel = selfChannel;
-        this.targetChannel = targetChannel;
         this.random = random;
-
+        stHighlighter = new SelfTargetHighlighter(highlighter, selfChannel, targetChannel);
         displacementManager = new DisplacementManager(layerManager.getAgentLayer(), random);
+    }
+
+    public ExpandRandom(ActionIdentityManager identity,
+                        CoordAgentMapper mapper,
+                        ActionHighlighter highlighter,
+                        SelfTargetHighlighter stHighlighter,
+                        DisplacementManager displacementManager,
+                        Random random) {
+        super(identity, mapper, highlighter);
+        this.displacementManager = displacementManager;
+        this.random = random;
+        this.stHighlighter = stHighlighter;
     }
 
     @Override
@@ -73,7 +79,7 @@ public class ExpandRandom extends Action {
         AgentUpdateManager u = mapper.getLayerManager().getAgentLayer().getUpdateManager();
 
         // Step 1: shove parent toward vacant site in a cardinal direction
-        HashSet<Coordinate> affectedSites = displacementManager.shoveRandom(parentLocation);
+        displacementManager.shoveRandom(parentLocation);
 
         // Step 2: Clone parent.
         Agent child = identity.getSelf().copy();
@@ -84,36 +90,17 @@ public class ExpandRandom extends Action {
         // Step 4: Clean up out-of-bounds nanoverse.runtime.cells.
         displacementManager.removeImaginary();
 
-        // Step 5: Highlight the parent and target locations.
-        //         Sort array of affected sites and take target from appropriate array end
-        Coordinate[] affectedArray = affectedSites.toArray(new Coordinate[0]);
-        Arrays.sort(affectedArray);
-        Coordinate target;
-        if (parentLocation.compareTo(affectedArray[0]) == -1) {
-            target = affectedArray[affectedArray.length - 1];
-        } else {
-            target = affectedArray[0];
-        }
-        highlight(target, parentLocation);
-    }
-
-    private void highlight(Coordinate target, Coordinate ownLocation) throws HaltCondition {
-        highlighter.doHighlight(targetChannel, target);
-        highlighter.doHighlight(selfChannel, ownLocation);
+        // Step 5: Highlight.
+        Coordinate target = identity.getOwnLocation();
+        stHighlighter.highlight(target, parentLocation);
     }
 
     @Override
     public Action copy(Agent child) {
+        IntegerArgument selfChannel = stHighlighter.getSelfChannel();
+        IntegerArgument targetChannel = stHighlighter.getTargetChannel();
         return new ExpandRandom(child, mapper.getLayerManager(), selfChannel, targetChannel,
             random);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        return true;
     }
 }
 
