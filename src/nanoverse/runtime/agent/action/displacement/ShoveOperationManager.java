@@ -2,23 +2,21 @@ package nanoverse.runtime.agent.action.displacement;
 
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.cell.AgentLayer;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.function.BiFunction;
 
 /**
  * Created by dbborens on 10/20/2015.
  */
-public abstract class Shover {
+public class ShoveOperationManager {
 
-    protected final ShoveHelper helper;
+    private final ShoveHelper helper;
+    private final BiFunction<Coordinate, Coordinate, Boolean> isBaseCase;
 
-    public Shover(AgentLayer layer, Random random) {
-        helper = new ShoveHelper(layer, random);
-    }
-
-    public Shover(ShoveHelper helper) {
+    public ShoveOperationManager(ShoveHelper helper, BiFunction<Coordinate, Coordinate, Boolean> isBaseCase) {
         this.helper = helper;
+        this.isBaseCase = isBaseCase;
     }
 
     /**
@@ -33,7 +31,7 @@ public abstract class Shover {
                         Coordinate d, HashSet<Coordinate> sites)
         throws HaltCondition {
 
-        if (isBaseCase(currentLocation, d)) {
+        if (isBaseCase.apply(currentLocation, d)) {
             return;
         }
 
@@ -47,6 +45,4 @@ public abstract class Shover {
 
         sites.add(nextLocation);
     }
-
-    protected abstract boolean isBaseCase(Coordinate currentLocation, Coordinate d);
 }

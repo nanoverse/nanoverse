@@ -6,6 +6,7 @@ import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.cell.AgentLayer;
 
 import java.util.*;
+import java.util.function.BiFunction;
 
 /**
  * ShortestPathShover pushes on a row of agents until the outermost agent has
@@ -13,22 +14,24 @@ import java.util.*;
  * <p>
  * Created by dbborens on 10/20/2015.
  */
-public class ShortestPathShover extends Shover {
+public class ShortestPathShover {
 
     private final AgentLayer layer;
 
+    private final ShoveHelper shoveHelper;
+    private final ShoveOperationManager operationManager;
+
     public ShortestPathShover(AgentLayer layer, Random random) {
-        super(layer, random);
         this.layer = layer;
+        shoveHelper = new ShoveHelper(layer, random);
+        operationManager = new ShoveOperationManager(shoveHelper, baseCaseFunction());
     }
 
-    public ShortestPathShover(ShoveHelper helper, AgentLayer layer) {
-        super(helper);
-        this.layer = layer;
+    private BiFunction<Coordinate, Coordinate, Boolean> baseCaseFunction() {
+        return (current, displacement) -> isBaseCase(displacement);
     }
 
-    @Override
-    protected boolean isBaseCase(Coordinate currentLocation, Coordinate d) {
+    private boolean isBaseCase(Coordinate d) {
         return (d.norm() == 0);
     }
 
@@ -50,7 +53,7 @@ public class ShortestPathShover extends Shover {
             getDisplacement(origin,
                 target, Geometry.APPLY_BOUNDARIES);
 
-        doShove(origin, displacement, affectedSites);
+        operationManager.doShove(origin, displacement, affectedSites);
         return affectedSites;
     }
 }

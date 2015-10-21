@@ -63,7 +63,7 @@ public class ExpandWeighted extends Action {
         this.targetChannel = targetChannel;
         this.random = random;
 
-        displacementManager = new DisplacementManager(layerManager, random);
+        displacementManager = new DisplacementManager(layerManager.getAgentLayer(), random);
     }
 
     @Override

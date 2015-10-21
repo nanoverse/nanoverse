@@ -4,7 +4,7 @@ import org.junit.*;
 
 import static org.junit.Assert.fail;
 
-public class ShortestPathShoverTest {
+public class ShoveManagerTest {
 
     @Before
     public void before() throws Exception {
@@ -13,6 +13,16 @@ public class ShortestPathShoverTest {
 
     @Test
     public void shove() throws Exception {
+        fail();
+    }
+
+    @Test
+    public void shoveRandom() throws Exception {
+        fail();
+    }
+
+    @Test
+    public void shoveWeighted() throws Exception {
         fail();
     }
 }

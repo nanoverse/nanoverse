@@ -65,7 +65,7 @@ public class ExpandTo extends Action {
         this.random = random;
         this.targetRule = targetRule;
 
-        displacementManager = new DisplacementManager(layerManager, random);
+        displacementManager = new DisplacementManager(layerManager.getAgentLayer(), random);
     }
 
     @Override

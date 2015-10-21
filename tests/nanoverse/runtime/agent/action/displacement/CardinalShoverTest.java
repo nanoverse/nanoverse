@@ -12,12 +12,12 @@ public class CardinalShoverTest {
     }
 
     @Test
-    public void baseCase() throws Exception {
+    public void shoveRandom() throws Exception {
         fail();
     }
 
     @Test
-    public void nonBaseCase() throws Exception {
+    public void doShove() throws Exception {
         fail();
     }
 }

@@ -25,7 +25,7 @@ package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.agent.action.displacement.DisplacementManager;
-import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.layers.cell.AgentLayer;
 
 import java.util.Random;
 
@@ -33,7 +33,7 @@ public class ShoveHelperFactory implements Factory<DisplacementManager> {
 
     private final ShoveHelperFactoryHelper helper;
 
-    private LayerManager layerManager;
+    private AgentLayer layer;
     private Random random;
 
     public ShoveHelperFactory() {
@@ -44,8 +44,8 @@ public class ShoveHelperFactory implements Factory<DisplacementManager> {
         this.helper = helper;
     }
 
-    public void setLayerManager(LayerManager layerManager) {
-        this.layerManager = layerManager;
+    public void setLayer(AgentLayer layer) {
+        this.layer = layer;
     }
 
     public void setRandom(Random random) {
@@ -54,6 +54,6 @@ public class ShoveHelperFactory implements Factory<DisplacementManager> {
 
     @Override
     public DisplacementManager build() {
-        return helper.build(layerManager, random);
+        return helper.build(layer, random);
     }
 }

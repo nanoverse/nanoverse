@@ -46,8 +46,6 @@ import java.util.ArrayList;
 public class RangeMap<T> {
 
 
-    //private HashMap<T, Double> weights;
-
     // We track the floor of each element. It might seem easier to use, eg,
     // a HashMap, but we want order to be preserved and for items to be
     // loaded sequentially.

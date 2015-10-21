@@ -4,7 +4,7 @@ import org.junit.*;
 
 import static org.junit.Assert.fail;
 
-public class VacancyChooserTest {
+public class WeightedShoveTargetChooserTest {
 
     @Before
     public void before() throws Exception {
@@ -12,7 +12,12 @@ public class VacancyChooserTest {
     }
 
     @Test
-    public void chooseVacancy() throws Exception {
+    public void buildRangeMap() throws Exception {
+        fail();
+    }
+
+    @Test
+    public void chooseTarget() throws Exception {
         fail();
     }
 }
