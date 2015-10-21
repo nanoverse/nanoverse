@@ -76,6 +76,11 @@ public class TriggerProcess extends AgentProcess {
             maxTargetsFilter);
     }
 
+    public TriggerProcess(BaseProcessArguments arguments, AgentProcessArguments cpArguments, String behaviorName, TriggerProcessTargetResolver targetResolver) {
+        super(arguments, cpArguments);
+        this.behaviorName = behaviorName;
+        this.targetResolver = targetResolver;
+    }
 
     @Override
     public void target(GillespieState gs) throws HaltCondition {

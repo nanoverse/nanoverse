@@ -72,10 +72,6 @@ public class NonNullStringMap extends HashMap<String, Integer> {
 
     @Override
     public Integer get(Object key) {
-        if (!(key instanceof Integer)) {
-            throw new IllegalStateException("Received unexpected key class.");
-        }
-
         if (!containsKey(key)) {
             return 0;
         }
