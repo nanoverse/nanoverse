@@ -39,7 +39,7 @@ import java.util.HashMap;
 public class PowerScatterInstSymbolTable extends DiscreteProcessInstSymbolTable<PowerScatter> {
     @Override
     public String getDescription() {
-        return "Scatter groups of nanoverse.runtime.cells in a distribution of cluster sizes " +
+        return "Scatter groups of agents in a distribution of cluster sizes " +
             "that may or may not follow a power law. (Check this before using)";
     }
 

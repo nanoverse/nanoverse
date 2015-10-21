@@ -47,7 +47,7 @@ public class Trigger extends Action {
     private final IntegerArgument targetChannel;
 
     /**
-     * Trigger a predesignated behavior in a cell or set of nanoverse.runtime.cells designated by a
+     * Trigger a predesignated behavior in a cell or set of agents designated by a
      * targeting rule.
      *
      * @param callback     The cell associated with this behavior

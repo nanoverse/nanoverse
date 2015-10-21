@@ -46,7 +46,7 @@ public abstract class ScatterClustersHelper {
 
     /**
      * Examines a coordinate to determine whether its neighborhood has room
-     * for m self-similar nanoverse.runtime.cells. If there is no room for enough self-similar
+     * for m self-similar agents. If there is no room for enough self-similar
      * neighbors to satisfy this requirement, returns -1. Otherwise, returns
      * the number of self-similar neighbors still needed to have m self-similar
      * neighbors.

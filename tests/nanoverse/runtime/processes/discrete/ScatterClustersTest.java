@@ -34,7 +34,6 @@ import test.AgentProcessTestBase;
 
 import java.util.stream.Stream;
 
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 public class ScatterClustersTest extends AgentProcessTestBase {
@@ -81,7 +80,6 @@ public class ScatterClustersTest extends AgentProcessTestBase {
         doTest("0");
         verify(update).place(any(), eq(a));
         verify(update).place(any(), eq(b));
-        fail("Make sure you understand what this test really does");
     }
 
     @Test
@@ -90,7 +88,6 @@ public class ScatterClustersTest extends AgentProcessTestBase {
         when(lookup.getNearestVacancies(a, 1)).thenReturn(vacancy);
         doTest("1");
         verify(update).place(any(), any());
-        fail("Make sure you understand what this test really does");
     }
 
     @Test(expected = LatticeFullEvent.class)
@@ -98,6 +95,5 @@ public class ScatterClustersTest extends AgentProcessTestBase {
         makeActiveSites();
         query.target(null);
         query.fire(null);
-        fail("Make sure you understand what this test really does");
     }
 }

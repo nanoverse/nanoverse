@@ -69,7 +69,7 @@ public class Integrator {
 
     /**
      * Run all iterations, including the initial condition (t=0),
-     * updating any solutes and nanoverse.runtime.cells, as well as advancing the clock,
+     * updating any solutes and agents, as well as advancing the clock,
      * according to the nanoverse.runtime.processes specified in the project file.
      *
      * @return

@@ -24,67 +24,58 @@
 
 package nanoverse.runtime.processes.discrete.filter;
 
-import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.cells.*;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.cell.AgentUpdateManager;
 import org.junit.*;
-import test.LegacyLatticeTest;
+import test.LayerMocks;
 
-import java.util.*;
+import java.util.List;
+import java.util.stream.*;
 
-import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
-public class AgentNameFilterTest extends LegacyLatticeTest {
-    private Agent yes, no;
+public class AgentNameFilterTest extends LayerMocks {
+
+    private String name;
     private AgentNameFilter query;
+    private Coordinate c;
+    private List<Coordinate> toFilter;
 
+    @Override
     @Before
-    public void setUp() throws Exception {
-        super.setUp();
-
-        yes = new MockAgent("a");
-        no = new MockAgent("b");
-
-        AgentUpdateManager u = cellLayer.getUpdateManager();
-
-        u.place(yes, x);
-        u.place(no, y);
-
-        query = new AgentNameFilter(cellLayer, "a");
+    public void before() throws Exception {
+        super.before();
+        name = "correct";
+        query = new AgentNameFilter(agentLayer, name);
+        c = mock(Coordinate.class);
+        toFilter = Stream.of(c).collect(Collectors.toList());
     }
 
     @Test
-    public void testLifeCycle() throws Exception {
-        List<Coordinate> cc = Arrays.asList(geom.getCanonicalSites());
-        List<Coordinate> ccCopy = new ArrayList<>(cc);
-
-        // Apply filter.
-        List<Coordinate> actual = query.apply(cc);
-
-        // Only "x" should be retained.
-        List<Coordinate> expected = Arrays.asList(x);
-        assertTrue(collectionsEqual(expected, actual));
-
-        // Original list should be unmodified
-        assertTrue(collectionsEqual(cc, ccCopy));
+    public void nullCoordinateExcluded() throws Exception {
+        when(viewer.isOccupied(c)).thenReturn(false);
+        checkResults(false);
     }
 
-    private boolean collectionsEqual(Collection<Coordinate> p, Collection<Coordinate> q) {
-        if (p.size() != q.size()) {
-            return false;
-        }
+    private void checkResults(boolean retained) {
+        Stream<Coordinate> expected = retained
+            ? toFilter.stream()
+            : Stream.empty();
 
-        Iterator<Coordinate> qIter = q.iterator();
+        Stream actual = query.apply(toFilter).stream();
+        assertStreamsEqual(expected, actual);
+    }
 
-        for (Coordinate pCoord : p) {
-            Coordinate qCoord = qIter.next();
+    @Test
+    public void wrongNameExcluded() throws Exception {
+        when(viewer.isOccupied(c)).thenReturn(true);
+        when(viewer.getName(c)).thenReturn("something unexpected");
+        checkResults(false);
+    }
 
-            if (pCoord != qCoord) {
-                return false;
-            }
-        }
-
-        return true;
+    @Test
+    public void rightNameIncluded() throws Exception {
+        when(viewer.isOccupied(c)).thenReturn(true);
+        when(viewer.getName(c)).thenReturn(name);
+        checkResults(true);
     }
 }

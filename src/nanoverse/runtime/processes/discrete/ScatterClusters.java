@@ -95,7 +95,7 @@ public class ScatterClusters extends AgentProcess {
             }
         }
 
-//        System.out.println("Total nanoverse.runtime.cells placed: " + placed);
+//        System.out.println("Total agents placed: " + placed);
 //        System.out.println("Total system population: " + getLayer().getViewer().getOccupiedSites().size());
 
     }

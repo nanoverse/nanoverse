@@ -24,7 +24,6 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
@@ -32,7 +31,6 @@ import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.check.CheckForFixation;
-import nanoverse.runtime.processes.gillespie.GillespieState;
 import org.junit.Test;
 import test.LegacyTest;
 
@@ -137,7 +135,7 @@ public class CheckForFixationTest extends LegacyTest {
     }
 
     // The lattice is full, but there are at least two
-    // kinds of nanoverse.runtime.cells -- should not result in a thrown HaltCondition
+    // kinds of agents -- should not result in a thrown HaltCondition
     @Test
     public void testFullNonFixationCase() throws Exception {
         fail("Rewrite all as modern tests");
@@ -178,13 +176,13 @@ public class CheckForFixationTest extends LegacyTest {
     public void testTwoToOneStateRegression() throws Exception {
         fail("Rewrite all as modern tests");
 //
-//        // This test should start with two nanoverse.runtime.cells, each of a different type.
+//        // This test should start with two agents, each of a different type.
 //        setUpMixedCase();
 //
 //        // We don't expect a fixation name exception.
 //        doTest(false);
 //
-//        // Remove one of the nanoverse.runtime.cells. Now there's only one cell type in the system.
+//        // Remove one of the agents. Now there's only one cell type in the system.
 //        layer.getUpdateManager().banish(new Coordinate2D(0, 0, 0));
 //
 //        // The name should now reflect fixation.

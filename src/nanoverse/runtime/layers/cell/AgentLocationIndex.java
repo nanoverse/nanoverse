@@ -30,8 +30,8 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import java.util.IdentityHashMap;
 
 /**
- * Class for associating nanoverse.runtime.cells to coordinates, with
- * nanoverse.runtime.cells identified by reference (==) rather than
+ * Class for associating agents to coordinates, with
+ * agents identified by reference (==) rather than
  * object equality.
  * <p>
  * Created by David B Borenstein on 2/5/14.

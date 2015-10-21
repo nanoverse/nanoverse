@@ -41,7 +41,7 @@ public class ContactClustersHelper extends ScatterClustersHelper {
 
     /**
      * Place a cell if the candidate site is a valid site for placement.
-     * Returns total number of nanoverse.runtime.cells placed.
+     * Returns total number of agents placed.
      *
      * @param candidate
      * @param toPlace

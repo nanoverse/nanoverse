@@ -47,7 +47,7 @@ public class AgentLayerIndices {
     // Occupied sites (non-vacant sites)
     protected AgentIndex occupiedSites;
 
-    // Map that tracks count of nanoverse.runtime.cells with each state
+    // Map that tracks count of agents with each state
     protected NonNullStringMap nameMap;
 
     protected AgentLocationIndex cellLocationIndex;

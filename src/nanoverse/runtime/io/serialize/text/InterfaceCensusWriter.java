@@ -178,7 +178,7 @@ public class InterfaceCensusWriter extends Serializer {
 //        AgentLayer layer = stepState.getRecordedAgentLayer();
 //        ArrayList<Coordinate> focalSites = new ArrayList<>();
 //
-//        // Find all nanoverse.runtime.cells of focal type.
+//        // Find all agents of focal type.
 //        HashSet<Coordinate> sites = layer.getViewer().getOccupiedSites();
 //
 //        for (Coordinate site : sites) {

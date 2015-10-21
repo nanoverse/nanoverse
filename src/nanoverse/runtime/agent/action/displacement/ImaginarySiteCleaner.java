@@ -18,7 +18,7 @@ public class ImaginarySiteCleaner {
     }
 
     /**
-     * Remove all out-of-bounds nanoverse.runtime.cells from the system. Useful after a shoving
+     * Remove all out-of-bounds agents from the system. Useful after a shoving
      * operation.
      */
     public void removeImaginary() {

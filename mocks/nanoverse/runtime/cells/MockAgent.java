@@ -27,7 +27,6 @@ package nanoverse.runtime.cells;
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.structural.utilities.EpsilonUtil;
 
 /**
  * LEGACY -- DO NOT USE
@@ -55,15 +54,6 @@ public class MockAgent extends Agent {
     }
 
     @Override
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
     public MockAgent copy() {
         return child;
     }
@@ -78,6 +68,15 @@ public class MockAgent extends Agent {
     @Override
     public void die() {
         died = true;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

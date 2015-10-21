@@ -47,7 +47,7 @@ public class ShortestPathShover {
      *
      * @param origin The site to become vacant.
      * @param target A currently unoccupied site that will become occupied at
-     *               the end of the shove process. The entire line of nanoverse.runtime.cells,
+     *               the end of the shove process. The entire line of agents,
      *               including the cell at the origin, will have been pushed
      *               in the direction of the target.
      * @return A set of coordinates that were affected by the shove operation.

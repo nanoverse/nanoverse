@@ -127,16 +127,6 @@ public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
     }
 
     @Test
-    public void generalNeighborSwap() {
-        verifyReturnSymbol("GeneralNeighborSwap", GeneralNeighborSwap.class);
-    }
-
-    @Test
-    public void occupiedNeighborSwap() {
-        verifyReturnSymbol("OccupiedNeighborSwap", OccupiedNeighborSwap.class);
-    }
-
-    @Test
     public void manualHalt() {
         verifyReturnSymbol("ManualHalt", ManualHalt.class);
     }

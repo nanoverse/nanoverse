@@ -32,7 +32,7 @@ import nanoverse.runtime.processes.discrete.filter.Filter;
 import java.util.*;
 
 /**
- * Targets specify which nanoverse.runtime.cells should receive the consequences
+ * Targets specify which agents should receive the consequences
  * of an Action.
  * <p>
  * NOTE: Do not confuse 'callback' and 'caller.' The callback

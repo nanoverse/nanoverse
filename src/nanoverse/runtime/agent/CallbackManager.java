@@ -24,13 +24,12 @@
 
 package nanoverse.runtime.agent;
 
-import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.*;
 
 /**
- * A helper class for nanoverse.runtime.cells that triggers
+ * A helper class for agents that triggers
  * update events related to the life cycle
  * of the agent, such as death or divisibility.
  * <p>
@@ -55,14 +54,14 @@ public class CallbackManager {
         layerManager.getAgentLayer().getUpdateManager().banish(coord);
     }
 
-    public LayerManager getLayerManager() {
-        return layerManager;
-    }
-
     public Coordinate getMyLocation() {
         AgentLayer layer = layerManager.getAgentLayer();
         AgentLookupManager lookupManager = layer.getLookupManager();
         Coordinate coord = lookupManager.getAgentLocation(agent);
         return coord;
+    }
+
+    public LayerManager getLayerManager() {
+        return layerManager;
     }
 }

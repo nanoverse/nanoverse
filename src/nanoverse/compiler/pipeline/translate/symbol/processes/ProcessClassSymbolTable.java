@@ -51,8 +51,6 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
     protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         tick(ret);
-        occupiedNeighborSwap(ret);
-        generalNeighborSwap(ret);
         scatter(ret);
         powerScatter(ret);
         scatterClusters(ret);
@@ -158,16 +156,6 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
     private void scatter(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> st = ScatterInstSymbolTable::new;
         ret.put("Scatter", st);
-    }
-
-    private void generalNeighborSwap(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> st = GeneralNeighborSwapInstSymbolTable::new;
-        ret.put("GeneralNeighborSwap", st);
-    }
-
-    private void occupiedNeighborSwap(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> st = OccupiedNeighborSwapInstSymbolTable::new;
-        ret.put("OccupiedNeighborSwap", st);
     }
 
     private void tick(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {

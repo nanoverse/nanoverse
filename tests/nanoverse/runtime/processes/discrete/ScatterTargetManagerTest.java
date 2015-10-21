@@ -4,7 +4,7 @@ import org.junit.*;
 
 import static org.junit.Assert.fail;
 
-public class TriggerProcessTest {
+public class ScatterTargetManagerTest {
 
     @Before
     public void before() throws Exception {
@@ -12,12 +12,12 @@ public class TriggerProcessTest {
     }
 
     @Test
-    public void testLifeCycle() throws Exception {
+    public void target() throws Exception {
         fail();
     }
 
     @Test
-    public void removedAgentExcluded() throws Exception {
+    public void getTargets() throws Exception {
         fail();
     }
 }

@@ -26,27 +26,25 @@ package nanoverse.runtime.processes.discrete;
 
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.*;
-import nanoverse.runtime.processes.discrete.filter.Filter;
+import nanoverse.runtime.processes.discrete.filter.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Causes nanoverse.runtime.cells within the active area to perform the specified behavior.
+ * Causes agents within the active area to perform the specified behavior.
  * Created by David B Borenstein on 2/15/14.
  */
 public class TriggerProcess extends AgentProcess {
-    private String behaviorName;
-    private boolean skipVacant;
-    private boolean requireNeighbors;
-    private Filter filter;
+    private final String behaviorName;
 
-    // We use a cell array because triggering may also move nanoverse.runtime.cells
-    private Agent[] targets;
+    private final TriggerProcessTargetResolver targetResolver;
+
+    // We use a cell array because triggering may move agents
+    private List<Agent> targets;
 
     @FactoryTarget
     public TriggerProcess(BaseProcessArguments arguments, AgentProcessArguments cpArguments,
@@ -56,85 +54,39 @@ public class TriggerProcess extends AgentProcess {
                           boolean requireNeighbors) {
         super(arguments, cpArguments);
         this.behaviorName = behaviorName;
-        this.skipVacant = skipVacant;
-        this.requireNeighbors = requireNeighbors;
-        this.filter = filter;
+        Filter userFilter = filter;
+
+        // Legacy logic -- delete when time
+        Filter skipVacancyFilter = skipVacant ? new VacancyFilter(getLayer()) : new NullFilter();
+        Filter hasNeighborsFilter = requireNeighbors ? new HasNeighborsFilter(getLayer()) : new NullFilter();
+
+        int maxTargets;
+        try {
+            maxTargets = getMaxTargets().next();
+        } catch (HaltCondition ex) {
+            throw new RuntimeException(ex);
+        }
+
+        Filter maxTargetsFilter = new SampleFilter(maxTargets, arguments.getGeneralParameters().getRandom());
+        targetResolver = new TriggerProcessTargetResolver(() -> getActiveSites(),
+            getLayer(),
+            userFilter,
+            skipVacancyFilter,
+            hasNeighborsFilter,
+            maxTargetsFilter);
     }
+
 
     @Override
     public void target(GillespieState gs) throws HaltCondition {
-        targets = resolveTargets();
-        // There may be a meaningful Gillespie implementation of this. If so,
-        // we can add it when needed.
+        targets = targetResolver
+            .resolveTargets()
+            .collect(Collectors.toList());
+
         if (gs != null) {
             gs.add(getID(), 1, 1D);
         }
 
-    }
-
-    private Agent[] resolveTargets() throws HaltCondition {
-        ArrayList<Coordinate> vacancyFiltered = respectVacancyRequirements(getActiveSites());
-        Collection<Coordinate> stateFiltered = filter.apply(vacancyFiltered);
-        Collection<? extends Object> neighborFiltered = respectNeighborhoodRequirements(stateFiltered);
-        Object[] selectedCoords = MaxTargetHelper.respectMaxTargets(neighborFiltered, getMaxTargets().next(), getGeneralParameters().getRandom());
-
-        Agent[] selectedAgents = new Agent[selectedCoords.length];
-        for (int i = 0; i < selectedAgents.length; i++) {
-            Coordinate coord = (Coordinate) selectedCoords[i];
-            selectedAgents[i] = getLayer().getViewer().getAgent(coord);
-        }
-
-        return selectedAgents;
-    }
-
-    /**
-     * If require-neighbors is set, removes any candidates that don't have any
-     * occupied neighbors.
-     */
-    private Collection<? extends Object> respectNeighborhoodRequirements(Collection<? extends Object> unfiltered) {
-        if (!requireNeighbors) {
-            return unfiltered;
-        }
-
-        return unfiltered.stream()
-            .map(obj -> (Coordinate) obj)
-            .filter(coord -> getLayer()
-                .getLookupManager()
-                .getNeighborNames(coord, true)
-                .count() > 0)
-            .collect(Collectors.toList());
-    }
-
-    /**
-     * If active sites are to be skipped, eliminates them from the candidate
-     * sites. If they are not to be skipped, blows up if it finds one.
-     *
-     * @param unfiltered
-     */
-    private ArrayList<Coordinate> respectVacancyRequirements(Set<Coordinate> unfiltered) {
-        ArrayList<Coordinate> candidates = new ArrayList<>(unfiltered.size());
-
-        for (Coordinate c : unfiltered) {
-
-            boolean vacant = !getLayer().getViewer().isOccupied(c);
-            // If it's vacant and we don't expect already-vacant nanoverse.runtime.cells, throw error
-            if (vacant && !skipVacant) {
-                String msg = "Attempted to queue triggering of behavior " +
-                    behaviorName + " in coordinate " + c.toString() +
-                    " but the site was dead or vacant. This is illegal unless" +
-                    " the <skip-vacant-sites> flag is set to true. Did you" +
-                    " mean to set it? (id=" + getID() + ")";
-
-                throw new IllegalStateException(msg);
-            } else if (!vacant) {
-
-                candidates.add(c);
-            } else {
-                // Do nothing if site is vacant and skipDead is true.
-            }
-        }
-
-        return candidates;
     }
 
     @Override
@@ -157,30 +109,5 @@ public class TriggerProcess extends AgentProcess {
     @Override
     public void init() {
         targets = null;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof TriggerProcess)) {
-            return false;
-        }
-
-        TriggerProcess other = (TriggerProcess) obj;
-
-        if (!this.behaviorName.equals(other.behaviorName)) {
-            return false;
-        }
-
-        if (skipVacant != other.skipVacant) {
-            return false;
-        }
-
-        if (getActiveSites() != null ? !getActiveSites().equals(other.getActiveSites()) : other.getActiveSites() != null)
-            return false;
-
-        if (getMaxTargets() != null ? !getMaxTargets().equals(other.getMaxTargets()) : other.getMaxTargets() != null)
-            return false;
-
-        return true;
     }
 }

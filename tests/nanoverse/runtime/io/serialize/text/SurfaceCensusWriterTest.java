@@ -28,15 +28,11 @@ import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.halt.ManualHaltEvent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.geometry.boundaries.*;
-import nanoverse.runtime.geometry.lattice.*;
-import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.layers.MockLayerManager;
 import nanoverse.runtime.layers.cell.*;
-import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.MockGeneralParameters;
 import org.junit.*;
-import test.*;
+import test.LegacyTest;
 
 import static org.junit.Assert.fail;
 
@@ -120,7 +116,7 @@ public class SurfaceCensusWriterTest extends LegacyTest {
         fail("Rewrite as a modern test");
 //        writer.init();
 //
-//        // Place nanoverse.runtime.cells in imaginary sites -- they should be treated normally
+//        // Place agents in imaginary sites -- they should be treated normally
 //        StepState state = new StepState(0.0, 0);
 //        put(-2, 2);
 //        put(-1, 1);

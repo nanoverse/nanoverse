@@ -26,15 +26,10 @@ package nanoverse.runtime.io.serialize.text;
 
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.halt.HaltCondition;
-import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.NotYetImplementedException;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
-
-import java.io.*;
 
 /**
  * Writes the state of the system to a file. To avoid lots of opening and
@@ -203,7 +198,7 @@ public class LegacyAgentClassWriter extends Serializer {
 //     * Blue  += 1
 //     * <p>
 //     * Hence, our visualization is limited to 8 cell
-//     * types, including null nanoverse.runtime.cells (which are black).
+//     * types, including null agents (which are black).
 //     *
 //     * @param v the verctor of values, in canonical site order.
 //     */

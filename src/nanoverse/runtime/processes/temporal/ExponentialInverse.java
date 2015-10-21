@@ -28,12 +28,12 @@ import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.processes.*;
 
 /**
- * Simple stochastic process for time scaling. Assumes all nanoverse.runtime.cells
+ * Simple stochastic process for time scaling. Assumes all agents
  * are growing at the same rate: 1 cell per arbitrary unit. So
  * choose an exponentially distributed random number whose lambda
- * is inversely proportional to the number of nanoverse.runtime.cells. This is
+ * is inversely proportional to the number of agents. This is
  * equivalent to a Gillespie process in the case where cell division
- * is the only process and where all nanoverse.runtime.cells have an equal
+ * is the only process and where all agents have an equal
  * probability of dividing.
  *
  * @author dbborens

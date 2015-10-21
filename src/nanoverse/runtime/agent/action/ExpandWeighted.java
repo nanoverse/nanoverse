@@ -45,11 +45,11 @@ import java.util.*;
  */
 public class ExpandWeighted extends Action {
 
-    // Highlight channels for the targeting and targeted nanoverse.runtime.cells
+    // Highlight channels for the targeting and targeted agents
     private IntegerArgument selfChannel;
     private IntegerArgument targetChannel;
 
-    // Displaces nanoverse.runtime.cells along a trajectory in the event that the cell is
+    // Displaces agents along a trajectory in the event that the cell is
     // divided into an occupied site and replace is disabled.
     private DisplacementManager displacementManager;
 
@@ -82,7 +82,7 @@ public class ExpandWeighted extends Action {
         // Step 3: Place child in parent location.
         u.place(child, parentLocation);
 
-        // Step 4: Clean up out-of-bounds nanoverse.runtime.cells.
+        // Step 4: Clean up out-of-bounds agents.
         displacementManager.removeImaginary();
 
         // Step 5: Highlight the parent and target locations.

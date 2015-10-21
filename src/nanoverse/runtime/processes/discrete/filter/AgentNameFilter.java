@@ -24,26 +24,21 @@
 
 package nanoverse.runtime.processes.discrete.filter;
 
-import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by dbborens on 5/5/14.
  */
 public class AgentNameFilter extends Filter {
 
-    private AgentLayer layer;
+    private final AgentLayer layer;
+    private final String toChoose;
 
-    private String toChoose;
-
-    /**
-     * @param toChoose The cell state to retain. If random, a value will be
-     *                 chosen each time the filter is applied.
-     */
     @FactoryTarget
     public AgentNameFilter(AgentLayer layer, String toChoose) {
         this.toChoose = toChoose;
@@ -51,46 +46,21 @@ public class AgentNameFilter extends Filter {
     }
 
     @Override
-    public int hashCode() {
-        int result = layer != null ? layer.hashCode() : 0;
-        result = 31 * result + (toChoose != null ? toChoose.hashCode() : 0);
-        return result;
-    }
-
-    @Override
     public List<Coordinate> apply(List<Coordinate> toFilter) {
-        ArrayList<Coordinate> toRetain = getRetained(toFilter);
-        return toRetain;
+
+        return toFilter.stream()
+            .filter(this::isOccupied)
+            .filter(this::hasExpectedName)
+            .collect(Collectors.toList());
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AgentNameFilter that = (AgentNameFilter) o;
-
-        if (toChoose != null ? !toChoose.equals(that.toChoose) : that.toChoose != null)
-            return false;
-
-        return true;
+    private boolean hasExpectedName(Coordinate coordinate) {
+        String name = layer.getViewer().getName(coordinate);
+        return name.equals(toChoose);
     }
 
-    private ArrayList<Coordinate> getRetained(Collection<Coordinate> toFilter) {
-        ArrayList<Coordinate> toRetain = new ArrayList<>();
+    private boolean isOccupied(Coordinate coordinate) {
         AgentLayerViewer viewer = layer.getViewer();
-        for (Coordinate c : toFilter) {
-            if (!viewer.isOccupied(c)) {
-                continue;
-            }
-
-            Agent agent = layer.getViewer().getAgent(c);
-
-            if (agent.getName().equals(toChoose)) {
-                toRetain.add(c);
-            }
-        }
-
-        return toRetain;
+        return viewer.isOccupied(coordinate);
     }
 }

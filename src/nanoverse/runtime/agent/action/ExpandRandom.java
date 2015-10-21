@@ -87,7 +87,7 @@ public class ExpandRandom extends Action {
         // Step 3: Place child in parent location.
         u.place(child, parentLocation);
 
-        // Step 4: Clean up out-of-bounds nanoverse.runtime.cells.
+        // Step 4: Clean up out-of-bounds agents.
         displacementManager.removeImaginary();
 
         // Step 5: Highlight.

@@ -35,8 +35,8 @@ import java.awt.*;
 import java.util.stream.Stream;
 
 /**
- * Color manager that shows surface nanoverse.runtime.cells in a vibrant color, and interior
- * nanoverse.runtime.cells in a dull color. This operates as an overlay on an existing color
+ * Color manager that shows surface agents in a vibrant color, and interior
+ * agents in a dull color. This operates as an overlay on an existing color
  * scheme.
  * <p>
  * Created by dbborens on 7/23/14.

@@ -45,7 +45,7 @@ public class NameMapViewer {
 
     public Integer getCount(String name) {
 
-        // If it doesn't have the key, there are no nanoverse.runtime.cells of that state
+        // If it doesn't have the key, there are no agents of that state
         if (!nameMap.containsKey(name)) {
             return 0;
         }

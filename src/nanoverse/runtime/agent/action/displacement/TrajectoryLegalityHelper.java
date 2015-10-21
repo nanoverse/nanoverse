@@ -13,7 +13,7 @@ public class TrajectoryLegalityHelper {
     public void handleIllegal(Coordinate nextLocation, Coordinate displacement) {
         int nv = displacement.norm();
         if (nextLocation.hasFlag(Flags.BEYOND_BOUNDS) && nv == 1) {
-            throw new IllegalStateException("There's only one place to push nanoverse.runtime.cells and it's illegal!");
+            throw new IllegalStateException("There's only one place to push agents and it's illegal!");
         }
     }
 }

@@ -85,7 +85,7 @@ public class Expand extends Action {
         // Step 4: Place child in parent location.
         u.place(child, parentLocation);
 
-        // Step 5: Clean up out-of-bounds nanoverse.runtime.cells.
+        // Step 5: Clean up out-of-bounds agents.
         displacementManager.removeImaginary();
 
         // Step 6: Highlight the parent and target locations.

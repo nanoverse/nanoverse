@@ -151,7 +151,7 @@ public class AgentUpdateManager {
     }
 
     /**
-     * Swap the nanoverse.runtime.cells at the specified locations.
+     * Swap the agents at the specified locations.
      *
      * @param pCoord
      * @param qCoord
@@ -161,7 +161,7 @@ public class AgentUpdateManager {
         content.sanityCheck(pCoord);
         content.sanityCheck(qCoord);
 
-        // Identify nanoverse.runtime.cells
+        // Identify agents
         Agent p = content.get(pCoord);
         Agent q = content.get(qCoord);
 

@@ -45,7 +45,7 @@ public class AgentLookupManager {
     }
 
     /**
-     * Get the state of neighboring nanoverse.runtime.cells. Vacant nanoverse.runtime.cells are returned as zero.
+     * Get the state of neighboring agents. Vacant agents are returned as zero.
      *
      * @param coord
      * @return

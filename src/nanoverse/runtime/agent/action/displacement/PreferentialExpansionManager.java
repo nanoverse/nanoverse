@@ -49,14 +49,14 @@ public class PreferentialExpansionManager {
         // which had a shorter shoving path.
         expansionManager.doShove(shortestOption);
 
-        // Now that the nanoverse.runtime.cells have been shoved toward the vacancy, the formerly
+        // Now that the agents have been shoved toward the vacancy, the formerly
         // occupied site is now vacant.
         Coordinate newlyVacant = shortestOption.getOccupied();
 
         // Place a cloned cell at the newly vacated position.
         vacancyHelper.cloneToVacancy(newlyVacant);
 
-        // Clean up out-of-bounds nanoverse.runtime.cells.
+        // Clean up out-of-bounds agents.
         displacementManager.removeImaginary();
 
         // Highlight the parent and target locations.

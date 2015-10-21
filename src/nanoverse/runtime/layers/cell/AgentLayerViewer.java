@@ -72,7 +72,7 @@ public class AgentLayerViewer {
     }
 
     /**
-     * Returns 0 for vacant nanoverse.runtime.cells; otherwise, returns the cell's state.
+     * Returns 0 for vacant agents; otherwise, returns the cell's state.
      *
      * @param coord
      * @return
