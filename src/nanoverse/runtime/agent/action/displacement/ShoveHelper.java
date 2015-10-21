@@ -12,11 +12,16 @@ import java.util.Random;
 public class ShoveHelper {
 
     private final AgentLayer layer;
-    private TrajectoryChooser chooser;
+    private final TrajectoryChooser chooser;
 
     public ShoveHelper(AgentLayer layer, Random random) {
         this.layer = layer;
         chooser = new TrajectoryChooser(layer, random);
+    }
+
+    public ShoveHelper(AgentLayer layer, TrajectoryChooser chooser) {
+        this.layer = layer;
+        this.chooser = chooser;
     }
 
     public boolean isOccupied(Coordinate c) {

@@ -33,6 +33,15 @@ public class CardinalShover {
         return (!shoveHelper.isOccupied(currentLocation));
     }
 
+    public CardinalShover(CardinalShoverTargetHelper targetHelper,
+                          ShoveHelper shoveHelper,
+                          ShoveOperationManager operationManager) {
+
+        this.targetHelper = targetHelper;
+        this.shoveHelper = shoveHelper;
+        this.operationManager = operationManager;
+    }
+
     /**
      * shoves starting at the origin in a randomly chosen cardinal direction until
      * a vacancy is reached or failure.

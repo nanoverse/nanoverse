@@ -4,7 +4,6 @@ import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.cell.AgentLayer;
-import nanoverse.runtime.structural.RangeMap;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -12,16 +11,14 @@ import java.util.function.BiFunction;
 /**
  * Created by dbborens on 10/20/2015.
  */
-public class WeightedShoveHelper {
+public class WeightedShover {
 
     private final AgentLayer layer;
-    private final Random random;
     private final ShoveOperationManager operationManager;
     private final ShoveHelper shoveHelper;
     private final WeightedShoveTargetChooser chooser;
 
-    public WeightedShoveHelper(AgentLayer layer, Random random) {
-        this.random = random;
+    public WeightedShover(AgentLayer layer, Random random) {
         this.layer = layer;
 
         shoveHelper = new ShoveHelper(layer, random);
@@ -43,6 +40,13 @@ public class WeightedShoveHelper {
         return (!shoveHelper.isOccupied(currentLocation));
     }
 
+    public WeightedShover(AgentLayer layer, ShoveOperationManager operationManager, ShoveHelper shoveHelper, WeightedShoveTargetChooser chooser) {
+        this.layer = layer;
+        this.operationManager = operationManager;
+        this.shoveHelper = shoveHelper;
+        this.chooser = chooser;
+    }
+
     /**
      * shoves starting at the origin in a cardinal direction chosen by weight to nearest
      * vacancy along that direction. shoves until a vacancy is reached or failure.
@@ -52,10 +56,8 @@ public class WeightedShoveHelper {
      * @throws HaltCondition
      */
     public HashSet<Coordinate> shoveWeighted(Coordinate origin) throws HaltCondition {
-        RangeMap<Coordinate> rangeMap = chooser.buildRangeMap(origin);
-        Coordinate chosenTarget = chooser.chooseTarget(rangeMap);
+        Coordinate chosenTarget = chooser.choose(origin);
         return doShove(origin, chosenTarget);
-
     }
 
     private HashSet<Coordinate> doShove(Coordinate origin, Coordinate chosenTarget) throws HaltCondition {

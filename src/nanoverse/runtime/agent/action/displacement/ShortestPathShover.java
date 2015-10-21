@@ -35,6 +35,12 @@ public class ShortestPathShover {
         return (d.norm() == 0);
     }
 
+    public ShortestPathShover(AgentLayer layer, ShoveHelper shoveHelper, ShoveOperationManager operationManager) {
+        this.layer = layer;
+        this.shoveHelper = shoveHelper;
+        this.operationManager = operationManager;
+    }
+
     /**
      * Push the row of agents at origin toward target, such that origin
      * winds up vacant. Return a list of affected agents.

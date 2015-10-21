@@ -36,19 +36,23 @@ import java.util.*;
  */
 public class DisplacementManager {
 
-    private final AgentLayer layer;
-    private final Random random;
     private final ImaginarySiteCleaner cleaner;
     private final ShoveManager shoveManager;
     private final VacancyChooser vacancyChooser;
 
     @FactoryTarget
     public DisplacementManager(AgentLayer layer, Random random) {
-        this.layer = layer;
-        this.random = random;
         cleaner = new ImaginarySiteCleaner(layer);
         shoveManager = new ShoveManager(layer, random);
         vacancyChooser = new VacancyChooser(layer, random);
+    }
+
+    public DisplacementManager(ImaginarySiteCleaner cleaner,
+                               ShoveManager shoveManager,
+                               VacancyChooser vacancyChooser) {
+        this.cleaner = cleaner;
+        this.shoveManager = shoveManager;
+        this.vacancyChooser = vacancyChooser;
     }
 
     /**

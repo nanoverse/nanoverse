@@ -12,15 +12,20 @@ import java.util.*;
 public class ShoveManager {
 
 
-    // TODO Redesign so that one shover is supplied
     private final CardinalShover cardinalShover;
     private final ShortestPathShover shortestPathShover;
-    private final WeightedShoveHelper weightedShoveHelper;
+    private final WeightedShover weightedShover;
 
     public ShoveManager(AgentLayer layer, Random random) {
         cardinalShover = new CardinalShover(layer, random);
         shortestPathShover = new ShortestPathShover(layer, random);
-        weightedShoveHelper = new WeightedShoveHelper(layer, random);
+        weightedShover = new WeightedShover(layer, random);
+    }
+
+    public ShoveManager(CardinalShover cardinalShover, ShortestPathShover shortestPathShover, WeightedShover weightedShover) {
+        this.cardinalShover = cardinalShover;
+        this.shortestPathShover = shortestPathShover;
+        this.weightedShover = weightedShover;
     }
 
     /**
@@ -59,6 +64,6 @@ public class ShoveManager {
      * @throws HaltCondition
      */
     public HashSet<Coordinate> shoveWeighted(Coordinate origin) throws HaltCondition {
-        return weightedShoveHelper.shoveWeighted(origin);
+        return weightedShover.shoveWeighted(origin);
     }
 }

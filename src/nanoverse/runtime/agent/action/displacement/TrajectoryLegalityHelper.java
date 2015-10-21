@@ -10,8 +10,8 @@ public class TrajectoryLegalityHelper {
         return (c != null && !c.hasFlag(Flags.BEYOND_BOUNDS));
     }
 
-    public void handleIllegal(Coordinate nextLocation, Coordinate d) {
-        int nv = d.norm();
+    public void handleIllegal(Coordinate nextLocation, Coordinate displacement) {
+        int nv = displacement.norm();
         if (nextLocation.hasFlag(Flags.BEYOND_BOUNDS) && nv == 1) {
             throw new IllegalStateException("There's only one place to push nanoverse.runtime.cells and it's illegal!");
         }

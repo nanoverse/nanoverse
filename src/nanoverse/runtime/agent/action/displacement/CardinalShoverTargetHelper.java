@@ -19,6 +19,11 @@ public class CardinalShoverTargetHelper {
         neighborChooser = new RandomNeighborChooser(layer.getGeometry(), random);
     }
 
+    public CardinalShoverTargetHelper(AgentLayer layer, RandomNeighborChooser neighborChooser) {
+        this.layer = layer;
+        this.neighborChooser = neighborChooser;
+    }
+
     public Coordinate getDisplacementToRandomTarget(Coordinate origin) {
         Coordinate target = neighborChooser.chooseRandomNeighbor(origin);
         Coordinate displacement = layer.getGeometry().

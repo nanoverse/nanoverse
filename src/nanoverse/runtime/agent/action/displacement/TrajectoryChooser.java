@@ -18,6 +18,11 @@ public class TrajectoryChooser {
         legalityHelper = new TrajectoryLegalityHelper();
     }
 
+    public TrajectoryChooser(TrajectoryCandidateChooser candidateChooser, TrajectoryLegalityHelper legalityHelper) {
+        this.candidateChooser = candidateChooser;
+        this.legalityHelper = legalityHelper;
+    }
+
     public Coordinate getNextLocation(Coordinate currentLocation, Coordinate d) {
         Coordinate nextLocation;
         do {

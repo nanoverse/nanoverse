@@ -20,12 +20,17 @@ public class TrajectoryCandidateChooser {
         this.calculator = new TrajectoryDisplacementCalculator();
     }
 
+    public TrajectoryCandidateChooser(AgentLayer layer, Random random, TrajectoryDisplacementCalculator calculator) {
+        this.layer = layer;
+        this.random = random;
+        this.calculator = calculator;
+    }
+
     public Coordinate getNextCandidate(Coordinate curLoc, Coordinate d) {
-        Coordinate nextLoc;
         int nv = d.norm();
         int o = random.nextInt(nv);
         Coordinate disp = calculator.calcDisp(d, o);
-        nextLoc = layer.getGeometry().rel2abs(curLoc,
+        Coordinate nextLoc = layer.getGeometry().rel2abs(curLoc,
             disp, Geometry.APPLY_BOUNDARIES);
         return nextLoc;
     }

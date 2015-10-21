@@ -6,9 +6,9 @@ import nanoverse.runtime.control.identifiers.*;
  * Created by dbborens on 10/20/2015.
  */
 public class TrajectoryDisplacementCalculator {
-    public Coordinate calcDisp(Coordinate d, int o) {
-        int[] dNext = asArray(d);
 
+    // Effing legacy code
+    public Coordinate calcDisp(Coordinate d, int o) {
         int[] rel = new int[3];
         for (int i = 0; i < 3; i++) {
             rel[i] = 0;
@@ -17,24 +17,23 @@ public class TrajectoryDisplacementCalculator {
         // Decrement the displacement vector by one unit in a randomly chosen
         // direction, weighted so that the path is, on average, straight.
         if (o < Math.abs(d.x())) {
-            dNext[0] -= (int) Math.signum(d.x());
             rel[0] += (int) Math.signum(d.x());
         } else if (o < (Math.abs(d.x()) + Math.abs(d.y()))) {
-            dNext[1] -= (int) Math.signum(d.y());
             rel[1] += (int) Math.signum(d.y());
         } else {
-            dNext[2] -= (int) Math.signum(d.z());
             rel[2] += (int) Math.signum(d.z());
         }
 
-        return new Coordinate2D(rel, d.flags());
+        // TODO this is awful
+        if (d instanceof Coordinate1D) {
+            return new Coordinate1D(rel, d.flags());
+        } else if (d instanceof Coordinate2D) {
+            return new Coordinate2D(rel, d.flags());
+        } else if (d instanceof Coordinate3D) {
+            return new Coordinate3D(rel, d.flags());
+        }
+
+        throw new IllegalStateException();
     }
 
-    private int[] asArray(Coordinate d) {
-        int[] arr = new int[3];
-        arr[0] = d.x();
-        arr[1] = d.y();
-        arr[2] = d.z();
-        return arr;
-    }
 }

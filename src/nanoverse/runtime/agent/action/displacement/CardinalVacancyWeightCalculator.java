@@ -21,6 +21,11 @@ public class CardinalVacancyWeightCalculator {
         calculator = new CardinalVacancyDistanceCalculator(shoveHelper, baseCaseFunction);
     }
 
+    public CardinalVacancyWeightCalculator(CardinalVacancyDistanceCalculator calculator, AgentLayer layer) {
+        this.calculator = calculator;
+        this.layer = layer;
+    }
+
     /**
      * Calculate the weight to be given to a particular cardinal direction,
      * based on the distance from the origin to the nearest vacancy in that

@@ -1,47 +1,43 @@
 package nanoverse.runtime.agent.action.displacement;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.geometry.Geometry;
 import org.junit.*;
-import test.TestBase;
+import test.LayerMocks;
 
 import java.util.*;
 import java.util.stream.*;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
-public class CardinalShoverTest extends TestBase {
+public class WeightedShoverTest extends LayerMocks {
 
-    private CardinalShoverTargetHelper targetHelper;
-    private ShoveHelper shoveHelper;
     private ShoveOperationManager operationManager;
-    private Coordinate origin, displacement;
+    private ShoveHelper shoveHelper;
+    private WeightedShoveTargetChooser chooser;
+    private WeightedShover query;
 
-    private CardinalShover query;
-
+    @Override
     @Before
     public void before() throws Exception {
-        targetHelper = mock(CardinalShoverTargetHelper.class);
-        shoveHelper = mock(ShoveHelper.class);
+        super.before();
         operationManager = mock(ShoveOperationManager.class);
-        query = new CardinalShover(targetHelper, shoveHelper, operationManager);
-
-        origin = mock(Coordinate.class);
-        displacement = mock(Coordinate.class);
+        shoveHelper = mock(ShoveHelper.class);
+        chooser = mock(WeightedShoveTargetChooser.class);
+        query = new WeightedShover(agentLayer, operationManager, shoveHelper, chooser);
     }
 
     @Test
-    public void shoveRandom() throws Exception {
-        when(targetHelper.getDisplacementToRandomTarget(origin))
+    public void shoveWeighted() throws Exception {
+        Coordinate origin, target, displacement;
+        origin = mock(Coordinate.class);
+        target = mock(Coordinate.class);
+        displacement = mock(Coordinate.class);
+
+        when(geometry.getDisplacement(origin, target, Geometry.APPLY_BOUNDARIES))
             .thenReturn(displacement);
 
-        query.shoveRandom(origin);
-        verify(operationManager).doShove(eq(origin), eq(displacement), any());
-    }
-
-    @Test
-    public void doShove() throws Exception {
+        when(chooser.choose(origin)).thenReturn(target);
         doAnswer(invocation -> {
             HashSet<Coordinate> affectedSites = (HashSet<Coordinate>) invocation.getArguments()[2];
             affectedSites.add(origin);
@@ -49,7 +45,7 @@ public class CardinalShoverTest extends TestBase {
         }).when(operationManager).doShove(eq(origin), eq(displacement), any(HashSet.class));
 
         Set<Coordinate> expected = Stream.of(origin).collect(Collectors.toSet());
-        HashSet<Coordinate> actual = query.doShove(origin, displacement);
+        HashSet<Coordinate> actual = query.shoveWeighted(origin);
         assertSetsEqual(expected, actual);
     }
 }
