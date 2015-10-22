@@ -29,7 +29,7 @@ import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.processes.discrete.cluster.*;
 import org.junit.Test;
 
-public class ScatterClustersHelperClassSymbolTableTest extends ClassSymbolTableTest {
+public class SeparationStrategyManagerClassSymbolTableTest extends ClassSymbolTableTest {
 
     @Override
     protected ClassSymbolTable getQuery() {
@@ -38,7 +38,7 @@ public class ScatterClustersHelperClassSymbolTableTest extends ClassSymbolTableT
 
     @Override
     protected Class getExpectedClass() {
-        return ScatterClustersHelper.class;
+        return SeparationStrategyManager.class;
     }
 
     @Test

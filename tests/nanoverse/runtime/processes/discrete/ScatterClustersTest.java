@@ -24,76 +24,66 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.control.arguments.*;
-import nanoverse.runtime.control.halt.LatticeFullEvent;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.processes.discrete.cluster.*;
+import nanoverse.runtime.geometry.set.CoordinateSet;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.discrete.filter.Filter;
 import org.junit.*;
-import test.AgentProcessTestBase;
+import org.mockito.InOrder;
+import test.LayerMocks;
 
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static org.mockito.Mockito.*;
 
-public class ScatterClustersTest extends AgentProcessTestBase {
+public class ScatterClustersTest extends LayerMocks {
 
-    private IntegerArgument neighborCount;
-    private AgentDescriptor cellDescriptor;
+    private BaseProcessArguments arguments;
+    private AgentProcessArguments cpArguments;
+    private Filter targetFilter;
+    private ScatterClustersCountHelper ceilingHelper;
+    private ScatterClustersPlacementHelper placementHelper;
+    private Consumer<List<Coordinate>> shuffler;
     private ScatterClusters query;
-    private ScatterClustersHelper helper;
 
+    @Override
     @Before
     public void before() throws Exception {
-        setup();
-        helper = new ContactClustersHelper(layer);
-        neighborCount = new ConstantInteger(1);
-        cellDescriptor = mock(AgentDescriptor.class);
-        when(cellDescriptor.next()).thenAnswer(invocation -> {
-            Agent ret = mock(Agent.class);
-            when(ret.getName()).thenReturn("test");
-            return ret;
-        });
-        ConstantInteger maxTargets = new ConstantInteger(1);
-        when(cpArguments.getMaxTargets()).thenReturn(maxTargets);
-        query = new ScatterClusters(arguments, cpArguments, neighborCount, cellDescriptor, helper);
-    }
-
-    @Test(expected = LatticeFullEvent.class)
-    public void insufficientVacancies() throws Exception {
-        doTest("3");
-    }
-
-    private void doTest(String neighbor) throws Exception {
-        Stream<String> neighborNames = Stream.of(neighbor);
-        makeActiveSites(a);
-        when(lookup.getNeighborNames(a, false))
-            .thenReturn(neighborNames);
-        query.target(null);
-        query.fire(null);
+        super.before();
+        arguments = mock(BaseProcessArguments.class);
+        cpArguments = mock(AgentProcessArguments.class);
+        targetFilter = mock(Filter.class);
+        ceilingHelper = mock(ScatterClustersCountHelper.class);
+        placementHelper = mock(ScatterClustersPlacementHelper.class);
+        shuffler = mock(Consumer.class);
+        query = new ScatterClusters(arguments, cpArguments, targetFilter, ceilingHelper, placementHelper, shuffler);
     }
 
     @Test
-    public void sufficientVacancies() throws Exception {
-        Coordinate[] vacancy = new Coordinate[]{b};
-        when(lookup.getNearestVacancies(a, 1)).thenReturn(vacancy);
-        doTest("0");
-        verify(update).place(any(), eq(a));
-        verify(update).place(any(), eq(b));
-    }
+    public void lifeCycle() throws Exception {
+        CoordinateSet cc = mock(CoordinateSet.class);
+        when(cc.stream()).thenReturn(Stream.empty());
 
-    @Test
-    public void alreadyHasEnoughNeighbors() throws Exception {
-        Coordinate[] vacancy = new Coordinate[]{b};
-        when(lookup.getNearestVacancies(a, 1)).thenReturn(vacancy);
-        doTest("1");
-        verify(update).place(any(), any());
-    }
+        when(cpArguments.getActiveSites()).thenReturn(cc);
+        List<Coordinate> candidates = mock(List.class);
+        when(targetFilter.apply(any())).thenReturn(candidates);
 
-    @Test(expected = LatticeFullEvent.class)
-    public void noMoreCandidatesHalts() throws Exception {
-        makeActiveSites();
+        int n = 1;
+        when(ceilingHelper.getCeiling()).thenReturn(n);
+
+        int m = 2;
+        when(ceilingHelper.getNeighborCount()).thenReturn(m);
+
+        Iterator<Coordinate> cIter = mock(Iterator.class);
+        when(candidates.iterator()).thenReturn(cIter);
+
         query.target(null);
         query.fire(null);
+
+        InOrder inOrder = inOrder(shuffler, placementHelper);
+        inOrder.verify(shuffler).accept(candidates);
+        inOrder.verify(placementHelper).doPlacement(n, m, cIter);
     }
 }

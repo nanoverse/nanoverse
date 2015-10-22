@@ -32,7 +32,7 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
 /**
  * Created by dbborens on 6/13/2015.
  */
-public class ContactClustersHelper extends ScatterClustersHelper {
+public class ContactClustersHelper extends SeparationStrategyManager {
 
     @FactoryTarget
     public ContactClustersHelper(AgentLayer layer) {

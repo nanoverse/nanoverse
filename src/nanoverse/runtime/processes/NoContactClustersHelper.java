@@ -27,12 +27,12 @@ package nanoverse.runtime.processes;
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.AgentLayer;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import nanoverse.runtime.processes.discrete.cluster.SeparationStrategyManager;
 
 /**
  * Created by dbborens on 6/14/2015.
  */
-public class NoContactClustersHelper extends ScatterClustersHelper {
+public class NoContactClustersHelper extends SeparationStrategyManager {
     public NoContactClustersHelper(AgentLayer layer) {
         super(layer);
     }

@@ -27,7 +27,7 @@ import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.*;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import nanoverse.runtime.processes.discrete.cluster.SeparationStrategyManager;
 
 public class PowerScatterFactory implements Factory<PowerScatter> {
 
@@ -36,7 +36,7 @@ public class PowerScatterFactory implements Factory<PowerScatter> {
     private BaseProcessArguments arguments;
     private AgentProcessArguments cpArguments;
     private AgentDescriptor cellDescriptor;
-    private ScatterClustersHelper clustersHelper;
+    private SeparationStrategyManager clustersHelper;
 
     public PowerScatterFactory() {
         helper = new PowerScatterFactoryHelper();
@@ -58,7 +58,7 @@ public class PowerScatterFactory implements Factory<PowerScatter> {
         this.cellDescriptor = cellDescriptor;
     }
 
-    public void setClustersHelper(ScatterClustersHelper clustersHelper) {
+    public void setClustersHelper(SeparationStrategyManager clustersHelper) {
         this.clustersHelper = clustersHelper;
     }
 

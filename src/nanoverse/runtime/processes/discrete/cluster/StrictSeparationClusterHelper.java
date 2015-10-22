@@ -33,7 +33,7 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
 /**
  * Created by dbborens on 6/14/2015.
  */
-public class StrictSeparationClusterHelper extends ScatterClustersHelper {
+public class StrictSeparationClusterHelper extends SeparationStrategyManager {
 
     @FactoryTarget
     public StrictSeparationClusterHelper(AgentLayer layer) {

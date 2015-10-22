@@ -37,7 +37,7 @@ import java.util.stream.Stream;
 /**
  * Created by dbborens on 6/14/2015.
  */
-public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
+public class CompactSeparatedClustersHelper extends SeparationStrategyManager {
 
     private final GeneralParameters p;
 

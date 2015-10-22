@@ -32,7 +32,7 @@ import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import nanoverse.runtime.processes.discrete.cluster.SeparationStrategyManager;
 
 /**
  * Created by dbborens on 8/26/2015.
@@ -53,7 +53,7 @@ public class PowerScatterInterpolator extends DiscreteProcessInterpolator {
         this.defaults = defaults;
     }
 
-    public ScatterClustersHelper helper(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    public SeparationStrategyManager helper(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         ScatterClustersHelperLoader loader = (ScatterClustersHelperLoader) load.getLoader(node, "separation", false);
 
         if (loader == null) {

@@ -35,10 +35,10 @@ import java.util.stream.*;
 /**
  * Created by dbborens on 6/14/2015.
  */
-public abstract class ScatterClustersHelper {
+public abstract class SeparationStrategyManager {
     protected final AgentLayer layer;
 
-    public ScatterClustersHelper(AgentLayer layer) {
+    public SeparationStrategyManager(AgentLayer layer) {
         this.layer = layer;
     }
 
