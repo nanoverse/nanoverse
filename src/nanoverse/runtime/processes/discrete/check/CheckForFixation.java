@@ -54,10 +54,10 @@ public class CheckForFixation extends AgentProcess {
     @Override
     public void fire(StepState state) throws HaltCondition {
 //        System.out.println("Executing check for fixation.");
-        NameMapViewer smv = getLayer().getViewer().getStateMapViewer();
+        NameMapViewer smv = getLayer().getViewer().getNameMapViewer();
 
         for (String s : smv.getNames()) {
-            if (smv.getCount(s) == getLayer().getViewer().getOccupiedSites().size()) {
+            if (smv.getCount(s) == getLayer().getViewer().getOccupiedSites().count()) {
                 throw new FixationEvent(s);
             }
         }

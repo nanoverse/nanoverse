@@ -70,7 +70,7 @@ public class AgentLayerIndicesTest extends LegacyTest {
         assertTrue(query.isIndexed(cell));
         assertEquals(c, query.locate(cell));
         assertTrue(query.isOccupied(c));
-        assertEquals((Integer) 1, query.getNameMap().get("test"));
+        assertEquals((Integer) 1, query.getNameMap().getCount("test"));
     }
 
     @Test
@@ -84,14 +84,14 @@ public class AgentLayerIndicesTest extends LegacyTest {
         query.refresh(c, null, nAgent);
         assertTrue(query.isIndexed(nAgent));
         assertFalse(query.isIndexed(dAgent));
-        assertEquals((Integer) 0, query.getNameMap().get("5"));
-        assertEquals((Integer) 1, query.getNameMap().get("2"));
+        assertEquals((Integer) 0, query.getNameMap().getCount("5"));
+        assertEquals((Integer) 1, query.getNameMap().getCount("2"));
 
         query.refresh(c, nAgent, dAgent);
         assertFalse(query.isIndexed(nAgent));
         assertTrue(query.isIndexed(dAgent));
-        assertEquals((Integer) 1, query.getNameMap().get("5"));
-        assertEquals((Integer) 0, query.getNameMap().get("2"));
+        assertEquals((Integer) 1, query.getNameMap().getCount("5"));
+        assertEquals((Integer) 0, query.getNameMap().getCount("2"));
     }
 
     @Test

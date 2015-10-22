@@ -90,13 +90,13 @@ public class AgentLayerTest extends LegacyTest {
         }
 
         // Verify that the lattice is filled up.
-        assertEquals(geom.getCanonicalSites().length, query.getViewer().getOccupiedSites().size());
+        assertEquals(geom.getCanonicalSites().length, query.getViewer().getOccupiedSites().count());
 
         // Reset the lattice.
         query.reset();
 
         // Make sure that the lattice is reset to square one.
-        assertEquals(0, query.getViewer().getOccupiedSites().size());
+        assertEquals(0, query.getViewer().getOccupiedSites().count());
         for (Coordinate c : geom.getCanonicalSites()) {
             assertFalse(query.getViewer().isOccupied(c));
         }

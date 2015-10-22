@@ -74,7 +74,7 @@ public class FillTest extends LegacyTest {
         query.init();
         query.iterate();
 
-        assertEquals(10, lm.getAgentLayer().getViewer().getOccupiedSites().size());
+        assertEquals(10, lm.getAgentLayer().getViewer().getOccupiedSites().count());
     }
 
     @Test

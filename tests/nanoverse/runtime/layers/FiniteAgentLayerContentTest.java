@@ -48,7 +48,7 @@ public class FiniteAgentLayerContentTest extends AgentLayerContentTest {
         assertTrue(thrown);
 
         assertNotNull(query.getImaginarySites());
-        assertEquals(0, query.getImaginarySites().size());
+        assertEquals(0, query.getImaginarySites().count());
     }
 
     @Override

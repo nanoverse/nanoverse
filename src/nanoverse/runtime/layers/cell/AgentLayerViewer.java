@@ -27,7 +27,7 @@ package nanoverse.runtime.layers.cell;
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
-import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author David Bruce Borenstein
@@ -35,7 +35,7 @@ import java.util.*;
  */
 public class AgentLayerViewer {
 
-    private AgentLayerContent content;
+    private final AgentLayerContent content;
 
     public AgentLayerViewer(AgentLayerContent content) {
         this.content = content;
@@ -47,32 +47,24 @@ public class AgentLayerViewer {
      *
      * @return
      */
-    public HashSet<Coordinate> getOccupiedSites() {
-        // Construct a copy of internal state
-        HashSet<Coordinate> res = new HashSet<>(content.getOccupiedSites());
-
-        // Return it
-        return res;
+    public Stream<Coordinate> getOccupiedSites() {
+        return content.getOccupiedSites().stream();
     }
 
-    public String[] getNames() {
-        return content.getNames();
-    }
-
-    public NameMapViewer getStateMapViewer() {
-        return new NameMapViewer(content.getNameMap());
+    public NameMapViewer getNameMapViewer() {
+        return content.getNameMap();
     }
 
     public boolean exists(Agent agent) {
         return content.isIndexed(agent);
     }
 
-    public Set<Coordinate> getImaginarySites() {
+    public Stream<Coordinate> getImaginarySites() {
         return content.getImaginarySites();
     }
 
     /**
-     * Returns 0 for vacant agents; otherwise, returns the cell's state.
+     * Returns null for vacant agents; otherwise, returns the cell's name.
      *
      * @param coord
      * @return
@@ -90,6 +82,6 @@ public class AgentLayerViewer {
     }
 
     public boolean isOccupied(Coordinate c) {
-        return content.getOccupiedSites().contains(c);
+        return content.isOccupied(c);
     }
 }

@@ -28,7 +28,8 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.structural.CanonicalAgentMap;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.stream.Stream;
 
 /**
  * Created by David B Borenstein on 4/10/14.
@@ -44,15 +45,9 @@ public class InfiniteAgentLayerContent extends AgentLayerContent {
     }
 
     @Override
-    public Set<Coordinate> getImaginarySites() {
-        HashSet<Coordinate> ret = new HashSet<>(getOccupiedSites().size());
-
-        for (Coordinate c : getOccupiedSites()) {
-            if (!hasCanonicalForm(c)) {
-                ret.add(c);
-            }
-        }
-        return ret;
+    public Stream<Coordinate> getImaginarySites() {
+        return getOccupiedSites().stream()
+            .filter(c -> !hasCanonicalForm(c));
     }
 
     @Override

@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete.check;
 
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.Argument;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.*;
@@ -76,7 +76,7 @@ public class CheckForDomination extends AgentProcess {
     }
 
     private void checkAllStates() throws HaltCondition {
-        String[] names = getLayer().getViewer().getStateMapViewer().getNames();
+        String[] names = getLayer().getViewer().getNameMapViewer().getNames();
 
         for (String name : names) {
             // The dead state cannot "dominate" the system (that's extinction)
@@ -89,8 +89,8 @@ public class CheckForDomination extends AgentProcess {
     }
 
     private void doCheck(String target) throws HaltCondition {
-        double numTargetAgents = getLayer().getViewer().getStateMapViewer().getCount(target);
-        double numAgents = getLayer().getViewer().getOccupiedSites().size();
+        double numTargetAgents = getLayer().getViewer().getNameMapViewer().getCount(target);
+        double numAgents = getLayer().getViewer().getOccupiedSites().count();
 
         double fraction = numTargetAgents / numAgents;
 

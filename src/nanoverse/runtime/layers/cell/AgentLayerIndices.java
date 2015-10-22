@@ -159,8 +159,8 @@ public class AgentLayerIndices {
         return ret;
     }
 
-    public NonNullStringMap getNameMap() {
-        return nameMap;
+    public NameMapViewer getNameMap() {
+        return new NameMapViewer(nameMap);
     }
 
     @Override

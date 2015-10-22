@@ -60,13 +60,13 @@ public class CheckForExtinction extends AgentProcess {
     public void fire(StepState state) throws HaltCondition {
         // Handle true extinction exactly
         boolean thresholdIsZero = EpsilonUtil.epsilonEquals(threshold, 0.0);
-        boolean noOccupiedSites = getLayer().getViewer().getOccupiedSites().size() == 0;
+        boolean noOccupiedSites = getLayer().getViewer().getOccupiedSites().count() == 0;
         if (thresholdIsZero && noOccupiedSites) {
             throw new ExtinctionEvent();
         }
 
         double totalSites = getLayer().getGeometry().getCanonicalSites().length * 1.0;
-        double sitesOccupied = getLayer().getViewer().getOccupiedSites().size() * 1.0;
+        double sitesOccupied = getLayer().getViewer().getOccupiedSites().count() * 1.0;
 
         double occupancy = sitesOccupied / totalSites;
 

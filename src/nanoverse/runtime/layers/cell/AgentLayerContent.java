@@ -31,6 +31,7 @@ import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.structural.CanonicalAgentMap;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author David Bruce Borenstein
@@ -71,6 +72,9 @@ public abstract class AgentLayerContent {
         return indices.getOccupiedSites();
     }
 
+    public boolean isOccupied(Coordinate c) {
+        return indices.getOccupiedSites().contains(c);
+    }
     public boolean has(Coordinate coord) {
         return (get(coord) != null);
     }
@@ -138,13 +142,13 @@ public abstract class AgentLayerContent {
 
     public abstract void sanityCheck(Coordinate coord);
 
-    public abstract Set<Coordinate> getImaginarySites();
+    public abstract Stream<Coordinate> getImaginarySites();
 
     public Coordinate locate(Agent agent) {
         return indices.locate(agent);
     }
 
-    public Map<String, Integer> getNameMap() {
+    public NameMapViewer getNameMap() {
         return indices.getNameMap();
     }
 

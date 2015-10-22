@@ -28,13 +28,8 @@ import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.*;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.NotYetImplementedException;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
-
-import java.io.BufferedWriter;
-import java.util.*;
 
 /**
  * Writes out the number of each "state" as a function of time.
@@ -164,7 +159,7 @@ public class CensusWriter extends Serializer {
 //        histo.put(t, observations);
 //
 //        // Iterate over all observed states for this frame.
-//        NameMapViewer smv = layer.getViewer().getStateMapViewer();
+//        NameMapViewer smv = layer.getViewer().getNameMapViewer();
 //        for (Integer state : smv.getNames()) {
 //            Integer count = smv.getCount(state);
 //            observations.put(state, count);

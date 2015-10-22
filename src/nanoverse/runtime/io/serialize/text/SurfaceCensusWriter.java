@@ -141,13 +141,13 @@ public class SurfaceCensusWriter extends Serializer {
         histo.put(stepName.getFrame(), observations);
 
         // Iterate over all occupied sites.
-        for (Coordinate c : layer.getViewer().getOccupiedSites()) {
-            // Is it at the front? If so, count it.
-            if (isAtFront(c, layer)) {
+        layer.getViewer()
+            .getOccupiedSites()
+            .filter(c -> isAtFront(c, layer))
+            .forEach(c -> {
                 String name = layer.getViewer().getName(c);
                 increment(observations, name);
-            }
-        }
+            });
     }
 
     private void increment(HashMap<String, Integer> observations, String name) {

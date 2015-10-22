@@ -55,7 +55,7 @@ public class CheckForThresholdOccupancy extends AgentProcess {
 
     @Override
     public void fire(StepState state) throws HaltCondition {
-        int numOccupied = getLayer().getViewer().getOccupiedSites().size();
+        int numOccupied = (int) getLayer().getViewer().getOccupiedSites().count();
 
         if (numOccupied >= thresholdCount) {
             throw new ThresholdOccupancyReachedEvent();
