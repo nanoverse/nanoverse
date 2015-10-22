@@ -25,11 +25,13 @@
 package test;
 
 import com.google.common.collect.Sets;
+import com.google.common.io.Files;
 import nanoverse.runtime.structural.utilities.EpsilonUtil;
 import no.uib.cipr.matrix.*;
 import no.uib.cipr.matrix.Vector;
 import org.junit.Before;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.*;
 
@@ -58,7 +60,7 @@ public abstract class TestBase {
         IntStream.range(0, p.numRows())
                 .forEach(i -> IntStream.range(0, p.numColumns())
                         .forEach(j ->
-                                assertEquals(p.get(i, j), q.get(i, j), tolerance)));
+                            assertEquals(p.get(i, j), q.get(i, j), tolerance)));
     }
 
     protected static void assertMapsEqual(Map p, Map q) {
@@ -93,5 +95,11 @@ public abstract class TestBase {
     public void calcEpsilon() {
         epsilon = EpsilonUtil.epsilon();
         floatEpsilon = EpsilonUtil.floatEpsilon();
+    }
+
+    public void assertFilesEqual(String expectedFn, String actualFn) throws Exception {
+        File expected = new File(expectedFn);
+        File actual = new File(actualFn);
+        assertTrue(Files.equal(expected, actual));
     }
 }
