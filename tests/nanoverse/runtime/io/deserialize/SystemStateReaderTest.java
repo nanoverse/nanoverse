@@ -27,18 +27,15 @@ package nanoverse.runtime.io.deserialize;
 import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.io.serialize.Serializer;
-import nanoverse.runtime.io.serialize.binary.*;
-import nanoverse.runtime.io.serialize.text.*;
 import nanoverse.runtime.layers.LightweightSystemState;
 import nanoverse.runtime.processes.MockStepState;
-import nanoverse.runtime.structural.MockGeneralParameters;
 import org.junit.*;
 import test.LegacyLatticeTest;
 
 import java.util.Iterator;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 //import nanoverse.runtime.layers.MockSoluteLayer;
 
@@ -62,13 +59,13 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
 
     @Before
     public void setUp() throws Exception {
-        super.setUp();
-        String path = fixturePath + "SystemStateReader/";
-
-        soluteIds = new String[]{"0"};
-        channelIds = new int[]{0};
-        SystemStateReader parent = new SystemStateReader(soluteIds, channelIds, path, geom);
-        query = parent.iterator();
+//        super.setUp();
+//        String path = fixturePath + "SystemStateReader/";
+//
+//        soluteIds = new String[]{"0"};
+//        channelIds = new int[]{0};
+//        SystemStateReader parent = new SystemStateReader(soluteIds, channelIds, path, geom);
+//        query = parent.iterator();
     }
 
     /**
@@ -79,35 +76,36 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
      */
     @Test
     public void testHasNext() throws Exception {
+        fail("Rewrite me");
         // There are two frames specified in the time fixture, so we expect
         // that hasNext() will return true twice, and then return false the
         // third time.
-        assertTrue(query.hasNext());
-
-        query.next();
-        assertTrue(query.hasNext());
-
-        query.next();
-        assertFalse(query.hasNext());
+//        assertTrue(query.hasNext());
+//        query.next();
+//        assertTrue(query.hasNext());
+//
+//        query.next();
+//        assertFalse(query.hasNext());
     }
 
     @Test
     public void testNext() throws Exception {
-        LightweightSystemState state = query.next();
-
-        // Check cell name
-        assertEquals(5, state.getLayerManager().getAgentLayer().getViewer().getName(x));
-
-        // Origin is vacant
-        assertEquals(0, state.getLayerManager().getAgentLayer().getViewer().getName(origin));
-
-        // Check time and frame
-        assertEquals(2, state.getFrame());
-        assertEquals(1.7, state.getTime(), epsilon);
-
-        // Check highlighting
-        assertTrue(state.isHighlighted(0, x));
-        assertFalse(state.isHighlighted(0, y));
+        fail("Rewrite me");
+//        LightweightSystemState state = query.next();
+//
+//        // Check cell name
+//        assertEquals(5, state.getLayerManager().getAgentLayer().getViewer().getName(x));
+//
+//        // Origin is vacant
+//        assertEquals(0, state.getLayerManager().getAgentLayer().getViewer().getName(origin));
+//
+//        // Check time and frame
+//        assertEquals(2, state.getFrame());
+//        assertEquals(1.7, state.getTime(), epsilon);
+//
+//        // Check highlighting
+//        assertTrue(state.isHighlighted(0, x));
+//        assertFalse(state.isHighlighted(0, y));
     }
 
     /**
@@ -149,17 +147,18 @@ public class SystemStateReaderTest extends LegacyLatticeTest {
     }
 
     private Serializer[] makeSerializerArray() {
-        MockGeneralParameters p = makeMockGeneralParameters();
-        p.setIsFrameValue(true);
-        Serializer[] ret = new Serializer[]{
-            new CoordinateIndexer(p, layerManager),
-            new TimeWriter(p, layerManager),
-            new ContinuumStateWriter(p, layerManager),
-            new LegacyAgentClassWriter(p, layerManager),
-            new HighlightWriter(p, Stream.<Integer>empty(), layerManager)
-        };
-
-        return ret;
+//        MockGeneralParameters p = makeMockGeneralParameters();
+//        p.setIsFrameValue(true);
+//        Serializer[] ret = new Serializer[]{
+//            new CoordinateIndexer(p, layerManager),
+//            new TimeWriter(p, layerManager),
+//            new ContinuumStateWriter(p, layerManager),
+//            new LegacyAgentClassWriter(p, layerManager),
+//            new HighlightWriter(p, Stream.<Integer>empty(), layerManager)
+//        };
+//
+//        return ret;
+        return null;
     }
 
     private MockAgent placeAgent(Coordinate coord, double health, String name) throws Exception {

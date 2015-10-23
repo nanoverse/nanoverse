@@ -45,6 +45,14 @@ public class BinaryOutputHandle {
         }
     }
 
+    public void writeShort(short toWrite) {
+        try {
+            stream.writeShort(toWrite);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void flush() {
         try {
             stream.flush();

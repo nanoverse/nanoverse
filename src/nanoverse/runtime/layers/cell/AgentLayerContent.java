@@ -102,6 +102,7 @@ public abstract class AgentLayerContent {
     public String[] getNames() {
         Coordinate[] cArr = getCanonicalSites();
 
+
         String[] nArr = new String[cArr.length];
 
         for (int i = 0; i < cArr.length; i++) {

@@ -45,11 +45,6 @@ public class OutputClassSymbolTableTest extends ClassSymbolTableTest {
     }
 
     @Test
-    public void cellStateWriter() throws Exception {
-        verifyReturnSymbol("AgentClassWriter", LegacyAgentClassWriter.class);
-    }
-
-    @Test
     public void haltTimeWriter() throws Exception {
         verifyReturnSymbol("HaltTimeWriter", HaltTimeWriter.class);
     }

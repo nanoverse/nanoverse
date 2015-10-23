@@ -95,4 +95,9 @@ public class AgentLayerViewerTest extends TestBase {
         when(content.isOccupied(c)).thenReturn(true);
         assertTrue(query.isOccupied(c));
     }
+
+    @Test
+    public void getNames() throws Exception {
+        fail();
+    }
 }

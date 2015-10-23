@@ -43,7 +43,6 @@ public class OutputClassSymbolTable extends ClassSymbolTable<Serializer> {
     @Override
     protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
-        cellStateWriter(ret);
         haltTimeWriter(ret);
         progressReporter(ret);
         censusWriter(ret);
@@ -60,11 +59,6 @@ public class OutputClassSymbolTable extends ClassSymbolTable<Serializer> {
         visualizationSerializer(ret);
         correlationWriter(ret);
         return ret;
-    }
-
-    public void cellStateWriter(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = AgentClassWriterInstSymbolTable::new;
-        ret.put("AgentClassWriter", supplier);
     }
 
     public void haltTimeWriter(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {

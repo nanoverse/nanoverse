@@ -27,6 +27,7 @@ package nanoverse.runtime.layers.cell;
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
@@ -83,5 +84,10 @@ public class AgentLayerViewer {
 
     public boolean isOccupied(Coordinate c) {
         return content.isOccupied(c);
+    }
+
+    public Stream<String> getNames() {
+        String[] nameArr = content.getNames();
+        return Arrays.asList(nameArr).stream();
     }
 }

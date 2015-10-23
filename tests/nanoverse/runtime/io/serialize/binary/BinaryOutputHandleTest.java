@@ -11,6 +11,7 @@ import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyDouble;
 import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.anyShort;
 import static org.mockito.Mockito.*;
 import static org.powermock.api.mockito.PowerMockito.mock;
 
@@ -77,6 +78,19 @@ public class BinaryOutputHandleTest {
         query.writeBoolean(true);
     }
 
+    @Test
+    public void writeShort() throws Exception {
+        short value = (short) 1;
+        query.writeShort(value);
+        verify(stream).writeShort(value);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void writeShortIOExceptionCaught() throws Exception {
+        short value = (short) 1;
+        doThrow(IOException.class).when(stream).writeShort(anyShort());
+        query.writeShort(value);
+    }
 
     @Test
     public void flush() throws Exception {

@@ -24,6 +24,8 @@
 
 package nanoverse.runtime.structural.utilities;
 
+import nanoverse.runtime.io.serialize.binary.BinaryOutputHandle;
+
 import java.io.*;
 
 /**
@@ -40,12 +42,24 @@ public class ParityIO {
         stream.writeShort(start);
     }
 
+    public void writeStart(BinaryOutputHandle stream) {
+        stream.writeShort(start);
+    }
+
     public void writeEnd(DataOutputStream stream) throws IOException {
         stream.writeShort(end);
 
     }
 
+    public void writeEnd(BinaryOutputHandle stream) {
+        stream.writeShort(end);
+    }
+
     public void writeEOF(DataOutputStream stream) throws IOException {
+        stream.writeShort(eof);
+    }
+
+    public void writeEOF(BinaryOutputHandle stream) {
         stream.writeShort(eof);
     }
 
