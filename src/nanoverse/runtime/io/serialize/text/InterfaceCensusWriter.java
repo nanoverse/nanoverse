@@ -44,17 +44,17 @@ public class InterfaceCensusWriter extends Serializer {
 
     @Override
     public void dispatchHalt(HaltCondition ex) {
-        throw new NotYetImplementedException();
+        throw new NotYetImplementedException("Rewrite me using logic from CensusWriter");
     }
 
     @Override
     public void close() {
-        throw new NotYetImplementedException();
+        throw new NotYetImplementedException("Rewrite me using logic from CensusWriter");
     }
 
     @Override
     public void flush(StepState stepState) {
-        throw new NotYetImplementedException();
+        throw new NotYetImplementedException("Rewrite me using logic from CensusWriter");
     }
 
 //    private Integer focalState;

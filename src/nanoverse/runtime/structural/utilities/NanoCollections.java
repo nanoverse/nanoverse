@@ -27,4 +27,8 @@ public class NanoCollections {
     public <T> Stream<T> stream(T[] toStream) {
         return Arrays.asList(toStream).stream();
     }
+
+    public void sort(List toSort) {
+        Collections.sort(toSort);
+    }
 }

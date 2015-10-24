@@ -39,10 +39,8 @@ import java.util.function.Function;
  * Created by dbborens on 12/11/13.
  * <p>
  * ContinuumStateWriter encodes a binary file containing the
- * state of the model at specified time points.
- */
+ * state of the model at specified time points. */
 public class ContinuumStateWriter extends Serializer {
-
     private CSWExtremaHelper extremaHelper;
     private CSWFileHelper fileHelper;
 
