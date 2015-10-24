@@ -98,6 +98,11 @@ public class AgentLayerViewerTest extends TestBase {
 
     @Test
     public void getNames() throws Exception {
-        fail();
+        String[] namesArr = new String[] {"a", "b"};
+        when(content.getNames()).thenReturn(namesArr);
+
+        Stream<String> expected = Stream.of("a", "b");
+        Stream<String> actual = query.getNames();
+        assertStreamsEqual(expected, actual);
     }
 }

@@ -23,7 +23,7 @@ public class DiskOutputManagerTest extends TestBase {
 
     @Test
     public void binaryHandleIntegrationTest() throws Exception {
-        String base = "DiskOutputManagerTest.bin";
+        String base = "DiskManagerTest.bin";
         String actualFn = OUTPUT_PATH + base;
         createBinaryOutputFile(actualFn);
 
@@ -39,7 +39,7 @@ public class DiskOutputManagerTest extends TestBase {
 
     @Test
     public void textHandleIntegrationTest() throws Exception {
-        String base = "DiskOutputManagerTest.txt";
+        String base = "DiskManagerTest.txt";
         String actualFn = OUTPUT_PATH + base;
         createTextOutputFile(actualFn);
 

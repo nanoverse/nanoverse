@@ -1,6 +1,7 @@
 package nanoverse.runtime.io;
 
 import nanoverse.runtime.control.GeneralParameters;
+import nanoverse.runtime.io.deserialize.*;
 import nanoverse.runtime.io.serialize.binary.BinaryOutputHandle;
 import nanoverse.runtime.io.serialize.text.TextOutputHandle;
 
@@ -9,26 +10,22 @@ import nanoverse.runtime.io.serialize.text.TextOutputHandle;
  */
 public class FileSystemManager {
 
-    private final GeneralParameters p;
-    private final DirectoryMaker directoryMaker;
-    private final DiskOutputManager diskOutputManager;
+    private final FileSystemOutputManager outputManager;
+    private final FileSystemInputManager inputManager;
 
     /**
      * Main constructor
      */
     public FileSystemManager(GeneralParameters p) {
-        this.p = p;
-        directoryMaker = new DirectoryMaker();
-        diskOutputManager = new DiskOutputManager();
+        outputManager = new FileSystemOutputManager(p);
+        inputManager = new FileSystemInputManager(p);
     }
 
-    /**
-     * Testing constructor
-     */
-    public FileSystemManager(GeneralParameters p, DirectoryMaker directoryMaker, DiskOutputManager diskOutputManager) {
-        this.p = p;
-        this.directoryMaker = directoryMaker;
-        this.diskOutputManager = diskOutputManager;
+    public FileSystemManager(FileSystemOutputManager outputManager,
+                             FileSystemInputManager inputManager) {
+
+        this.outputManager = outputManager;
+        this.inputManager = inputManager;
     }
 
     /**
@@ -36,14 +33,7 @@ public class FileSystemManager {
      * creating subdirectories if needed.
      */
     public BinaryOutputHandle makeProjectBinaryFile(String filename) {
-        String path = p.getPath();
-        return doMakeBinaryFile(path, filename);
-    }
-
-    private BinaryOutputHandle doMakeBinaryFile(String path, String filename) {
-        directoryMaker.makeDirectory(path);
-        String filePath = path + "/" + filename;
-        return diskOutputManager.getBinaryHandle(filePath);
+        return outputManager.makeProjectBinaryFile(filename);
     }
 
     /**
@@ -51,8 +41,7 @@ public class FileSystemManager {
      * creating subdirectories if needed.
      */
     public BinaryOutputHandle makeInstanceBinaryFile(String filename) {
-        String path = p.getInstancePath();
-        return doMakeBinaryFile(path, filename);
+        return outputManager.makeInstanceBinaryFile(filename);
     }
 
     /**
@@ -60,14 +49,7 @@ public class FileSystemManager {
      * creating subdirectories if needed.
      */
     public TextOutputHandle makeProjectTextFile(String filename) {
-        String path = p.getPath();
-        return doMakeTextFile(path, filename);
-    }
-
-    private TextOutputHandle doMakeTextFile(String path, String filename) {
-        directoryMaker.makeDirectory(path);
-        String filePath = path + "/" + filename;
-        return diskOutputManager.getTextHandle(filePath);
+        return outputManager.makeProjectTextFile(filename);
     }
 
     /**
@@ -75,8 +57,35 @@ public class FileSystemManager {
      * creating subdirectories if needed.
      */
     public TextOutputHandle makeInstanceTextFile(String filename) {
-        String path = p.getInstancePath();
-        return doMakeTextFile(path, filename);
+        return outputManager.makeInstanceTextFile(filename);
+    }
+
+    /**
+     * Read a binary file in the project's base directory.
+     */
+    public BinaryInputHandle readProjectBinaryFile(String filename) {
+        return inputManager.readProjectBinaryFile(filename);
+    }
+
+    /**
+     * Read a binary file in the project's base directory.
+     */
+    public BinaryInputHandle readInstanceBinaryFile(String filename) {
+        return inputManager.readInstanceBinaryFile(filename);
+    }
+
+    /**
+     * Read a text file in the project's base directory.
+     */
+    public TextInputHandle readProjectTextFile(String filename) {
+        return inputManager.readProjectTextFile(filename);
+    }
+
+    /**
+     * Read a text file in the project's base directory.
+     */
+    public TextInputHandle readInstanceTextFile(String filename) {
+        return inputManager.readInstanceTextFile(filename);
     }
 
 }
