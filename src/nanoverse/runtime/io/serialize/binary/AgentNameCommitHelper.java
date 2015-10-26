@@ -36,7 +36,7 @@ public class AgentNameCommitHelper {
         parity.writeStart(file);
         file.writeDouble(time);
         file.writeInt(frame);
-
+        file.writeInt(indexedNameVector.size());
         indexedNameVector.stream()
             .forEach(file::writeInt);
 

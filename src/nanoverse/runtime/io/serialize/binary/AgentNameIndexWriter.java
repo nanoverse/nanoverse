@@ -21,6 +21,7 @@ public class AgentNameIndexWriter {
     public void writeNameIndex() {
         TextOutputHandle handle = fsManager.makeInstanceTextFile(INDEX_FILENAME);
         indexManager.getNameStream()
+            .filter(name -> name != null)
             .forEach(name -> writeLine(name, handle));
         handle.close();
     }

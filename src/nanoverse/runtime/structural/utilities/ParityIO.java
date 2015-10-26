@@ -24,6 +24,7 @@
 
 package nanoverse.runtime.structural.utilities;
 
+import nanoverse.runtime.io.deserialize.BinaryInputHandle;
 import nanoverse.runtime.io.serialize.binary.BinaryOutputHandle;
 
 import java.io.*;
@@ -77,12 +78,6 @@ public class ParityIO {
             return true;
         } else if (sequence == eof) {
             return false;
-        } else if (sequence == end) {
-            System.out.println(sequence);
-            while (true) {
-                System.out.println(stream.readShort());
-            }
-
         }
 
         throw new IOException("Start sequence parity error");
@@ -92,6 +87,24 @@ public class ParityIO {
         short sequence = stream.readShort();
         if (sequence != end) {
             throw new IOException("End sequence parity error");
+        }
+    }
+
+    public boolean readStartOrEOF(BinaryInputHandle vectorHandle) {
+        short sequence = vectorHandle.readShort();
+        if (sequence == start) {
+            return true;
+        } else if (sequence == eof) {
+            return false;
+        }
+
+        throw new RuntimeException("Start sequence parity error");
+    }
+
+    public void readEnd(BinaryInputHandle vectorHandle) {
+        short sequence = vectorHandle.readShort();
+        if (sequence != end) {
+            throw new RuntimeException("End sequence parity error");
         }
     }
 }

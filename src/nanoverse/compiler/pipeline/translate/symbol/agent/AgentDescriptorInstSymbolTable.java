@@ -40,6 +40,7 @@ import java.util.HashMap;
  * Created by dbborens on 7/22/2015.
  */
 public class AgentDescriptorInstSymbolTable extends MapSymbolTable<AgentDescriptor> {
+
     @Override
     public String getDescription() {
         return "AgentDescriptor describes the properties of a class of agents," +

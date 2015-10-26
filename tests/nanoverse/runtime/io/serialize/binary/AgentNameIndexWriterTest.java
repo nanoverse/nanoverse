@@ -7,6 +7,7 @@ import org.mockito.InOrder;
 
 import java.util.stream.Stream;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 public class AgentNameIndexWriterTest {
@@ -19,6 +20,11 @@ public class AgentNameIndexWriterTest {
         fsManager = mock(FileSystemManager.class);
         indexManager = mock(AgentNameIndexManager.class);
         query = new AgentNameIndexWriter(fsManager, indexManager);
+    }
+
+    @Test
+    public void nullNameExcluded() throws Exception {
+        fail();
     }
 
     @Test

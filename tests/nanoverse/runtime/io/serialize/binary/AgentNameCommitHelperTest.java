@@ -18,7 +18,6 @@ public class AgentNameCommitHelperTest extends LayerMocks {
     private StepState state;
     private double time;
     private int frame;
-    private Stream<Integer> stream;
 
     @Override
     @Before
@@ -37,8 +36,7 @@ public class AgentNameCommitHelperTest extends LayerMocks {
         frame = 3;
         when(state.getFrame()).thenReturn(frame);
 
-        Stream<Integer> stream = IntStream.range(0, 3).boxed();
-        when(indexManager.getIndexStream(viewer)).thenReturn(stream);
+        when(indexManager.getIndexStream(viewer)).thenAnswer(invocation -> IntStream.range(0, 3).boxed());
     }
 
     @Test
@@ -51,6 +49,7 @@ public class AgentNameCommitHelperTest extends LayerMocks {
         inOrder.verify(parity).writeStart(file);
         inOrder.verify(file).writeDouble(time);
         inOrder.verify(file).writeInt(frame);
+        inOrder.verify(file).writeInt(3);
         IntStream.range(0, 3)
             .forEach(i ->
                 inOrder.verify(file).writeInt(i));
