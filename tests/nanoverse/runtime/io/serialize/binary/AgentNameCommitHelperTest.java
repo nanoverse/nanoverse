@@ -33,7 +33,7 @@ public class AgentNameCommitHelperTest extends LayerMocks {
         time = 1.0;
         when(state.getTime()).thenReturn(time);
 
-        frame = 3;
+        frame = 2;
         when(state.getFrame()).thenReturn(frame);
 
         when(indexManager.getIndexStream(viewer)).thenAnswer(invocation -> IntStream.range(0, 3).boxed());

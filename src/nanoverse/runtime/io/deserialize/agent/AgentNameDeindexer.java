@@ -16,30 +16,15 @@ public class AgentNameDeindexer {
     private final Map<Integer, String> reverseIndex;
 
     public AgentNameDeindexer(GeneralParameters p) {
-        this(new FileSystemManager(p));
+        this(new FileSystemManager(p), new NameIndexReader());
     }
 
-    public AgentNameDeindexer(FileSystemManager fsManager) {
+    public AgentNameDeindexer(FileSystemManager fsManager, NameIndexReader reader) {
         String filename = AgentNameIndexWriter.INDEX_FILENAME;
         TextInputHandle indexFile = fsManager.readInstanceTextFile(filename);
-        reverseIndex = readReverseIndex(indexFile);
+        reverseIndex = reader.readReverseIndex(indexFile);
     }
 
-    private Map<Integer, String> readReverseIndex(TextInputHandle indexFile) {
-        return indexFile.lines()
-                .map(String::trim)
-                .map(trimmed -> trimmed.split("\t"))
-                .collect(Collectors.toMap(this::getKey, this::getValue));
-    }
-
-    private Integer getKey(String[] fields) {
-        String keyElem = fields[0];
-        return Integer.valueOf(keyElem);
-    }
-
-    private String getValue(String[] fields) {
-        return fields[1];
-    }
 
     public String deindex(Integer index) {
         if (index == 0) {

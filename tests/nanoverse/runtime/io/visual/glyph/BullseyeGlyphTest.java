@@ -84,29 +84,30 @@ public class BullseyeGlyphTest extends LegacyTest {
     }
 
     private LightweightSystemState makeSystemState() {
-        MockCoordinateDeindexer deindexer = new MockCoordinateDeindexer();
-        deindexer.setUnderlying(geometry.getCanonicalSites());
-
-        int n = makeGeometry().getCanonicalSites().length;
-
-        String[] state = new String[n];
-
-        for (int i = 0; i < n; i++) {
-            state[i] = "test";
-        }
-
-        LightweightSystemState ret = new LightweightSystemState(geometry);
-        ret.initAgentLayer(state);
-
-        Set<Coordinate> highlights = new HashSet<>();
-        for (Coordinate c : geometry.getCanonicalSites()) {
-            highlights.add(c);
-        }
-        ret.setHighlights(0, highlights);
-        ret.setTime(0.0);
-        ret.setFrame(0);
-
-        return ret;
+//        MockCoordinateDeindexer deindexer = new MockCoordinateDeindexer();
+//        deindexer.setUnderlying(geometry.getCanonicalSites());
+//
+//        int n = makeGeometry().getCanonicalSites().length;
+//
+//        String[] state = new String[n];
+//
+//        for (int i = 0; i < n; i++) {
+//            state[i] = "test";
+//        }
+//
+//        LightweightSystemState ret = new LightweightSystemState(geometry);
+//        ret.setAgentNames(state);
+//
+//        Set<Coordinate> highlights = new HashSet<>();
+//        for (Coordinate c : geometry.getCanonicalSites()) {
+//            highlights.add(c);
+//        }
+//        ret.setHighlights(0, highlights);
+//        ret.setTime(0.0);
+//        ret.setFrame(0);
+//
+//        return ret;
+        return null;
     }
 
     private Geometry makeGeometry() {

@@ -52,8 +52,6 @@ public class LayerManager {
         this.continuumLayers = continuumLayers;
     }
 
-    // TODO: Remove deprecated methods after deploying nanoverse.compiler
-    @Deprecated
     public LayerManager() {
         continuumLayers = new HashMap<>();
     }
@@ -62,7 +60,6 @@ public class LayerManager {
         return cellLayer;
     }
 
-    @Deprecated
     public void setAgentLayer(AgentLayer cellLayer) {
         this.cellLayer = cellLayer;
     }

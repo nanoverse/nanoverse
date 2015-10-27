@@ -79,8 +79,8 @@ public class VisualizationSerializer extends Serializer {
         int[] highlightChannels = visualization.getHighlightChannels();
 
         // Create a SystemStateReader.
-        SystemStateReader reader = new SystemStateReader(soluteIds,
-            highlightChannels, p.getInstancePath(), geometry);
+
+        SystemStateReader reader = new SystemStateReader(highlightChannels, p, geometry);
         // Initialize the visualization to this simulation.
         visualization.init(geometry, reader.getTimes(), reader.getFrames());
 

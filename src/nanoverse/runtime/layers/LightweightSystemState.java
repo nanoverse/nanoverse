@@ -32,6 +32,9 @@ import nanoverse.runtime.io.deserialize.continuum.ContinuumLayerViewer;
 import nanoverse.runtime.layers.cell.AgentLayer;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 3/26/14.
@@ -101,39 +104,33 @@ public class LightweightSystemState extends SystemState {
         return highlightedSites.contains(coord);
     }
 
-    //    public void initAgentLayer(int[] stateVector, double[] healthVector) {
-    public void initAgentLayer(String[] nameArr) {
-        if (nameArr.length != geometry.getCanonicalSites().length) {
+    public void setAgentNames(Stream<String> nameStream) {
+        List<String> names = nameStream.collect(Collectors.toList());
+
+        if (names.size() != geometry.getCanonicalSites().length) {
             throw new IllegalStateException("Actual number of data points not equal to expected number");
         }
-        // Build cell layer.
-        AgentLayer cellLayer = new AgentLayer(geometry);
-        layerManager.setAgentLayer(cellLayer);
 
-        // Iterate over state vector.
-        for (int i = 0; i < nameArr.length; i++) {
+        // Build agent layer.
+        AgentLayer agentLayer = new AgentLayer(geometry);
+        layerManager.setAgentLayer(agentLayer);
 
-            // Convert index to coordinate.
-            Coordinate coord = geometry.getCanonicalSites()[i];
-
-            // If site is vacant, don't place anything
-            String state = nameArr[i];
-            if (state == null) {
-                continue;
-            }
-            loadAgent(cellLayer, coord, state);
-        }
-
+        IntStream.range(0, names.size())
+                .forEach(i -> {
+                    Coordinate coord = geometry.getCanonicalSites()[i];
+                    String name = names.get(i);
+                    loadAgent(agentLayer, coord, name);
+                });
     }
 
-    //    private void loadAgent(AgentLayer cellLayer, Coordinate coord, double health, int state) {
-    private void loadAgent(AgentLayer cellLayer, Coordinate coord, String name) {
+    //    private void loadAgent(AgentLayer agentLayer, Coordinate coord, double health, int state) {
+    private void loadAgent(AgentLayer agentLayer, Coordinate coord, String name) {
         try {
             // Build a dummy agent with the correct state and health.
             Agent agent = new Agent(layerManager, name, null);
 
             // Place it in the agent layer.
-            cellLayer.getUpdateManager().place(agent, coord);
+            agentLayer.getUpdateManager().place(agent, coord);
         } catch (HaltCondition hc) {
             StringBuilder message = new StringBuilder();
             message.append("Consistency failure: simulation halt event thrown while reconstructing state.\n");

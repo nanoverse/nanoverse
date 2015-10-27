@@ -43,6 +43,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Test to make sure that multi-channel highlighting works as expected.
@@ -118,12 +120,8 @@ public class MultiChannelHighlightTest extends LegacyTest {
 
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
         int n = geom.getCanonicalSites().length;
-        String[] state = new String[n];
-
-        for (int i = 0; i < n; i++) {
-            state[i] = "test";
-        }
-        systemState.initAgentLayer(state);
+        Stream<String> names = IntStream.range(0, n).mapToObj(i -> "test");
+        systemState.setAgentNames(names);
 
     }
 
