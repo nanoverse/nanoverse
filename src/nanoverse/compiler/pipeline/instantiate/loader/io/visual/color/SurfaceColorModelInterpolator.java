@@ -51,11 +51,13 @@ public class SurfaceColorModelInterpolator {
     }
 
 
-    public DoubleArgument luminance(MapObjectNode node, Random random) {
-        return load.aDoubleArgument(node, "luminance", random, defaults::luminance);
+    public float luminance(MapObjectNode node, Random random) {
+        double value = load.aDouble(node, "luminance", random, defaults::luminance);
+        return (float) value;
     }
 
-    public DoubleArgument saturation(MapObjectNode node, Random random) {
-        return load.aDoubleArgument(node, "saturation", random, defaults::saturation);
+    public float saturation(MapObjectNode node, Random random) {
+        double value = load.aDouble(node, "saturation", random, defaults::saturation);
+        return (float) value;
     }
 }

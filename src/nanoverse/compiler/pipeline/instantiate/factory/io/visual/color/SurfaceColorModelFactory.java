@@ -24,16 +24,15 @@
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
-import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.io.visual.color.*;
 
-public class SurfaceColorModelFactory implements Factory<SurfaceGrowthColorManager> {
+public class SurfaceColorModelFactory implements Factory<SurfaceColorModel> {
 
     private final SurfaceColorModelFactoryHelper helper;
 
     private ColorManager base;
-    private DoubleArgument luminanceScale;
-    private DoubleArgument saturationScale;
+    private float luminanceScale;
+    private float saturationScale;
 
     public SurfaceColorModelFactory() {
         helper = new SurfaceColorModelFactoryHelper();
@@ -47,16 +46,16 @@ public class SurfaceColorModelFactory implements Factory<SurfaceGrowthColorManag
         this.base = base;
     }
 
-    public void setLuminanceScale(DoubleArgument luminanceScale) {
+    public void setLuminanceScale(float luminanceScale) {
         this.luminanceScale = luminanceScale;
     }
 
-    public void setSaturationScale(DoubleArgument saturationScale) {
+    public void setSaturationScale(float saturationScale) {
         this.saturationScale = saturationScale;
     }
 
     @Override
-    public SurfaceGrowthColorManager build() {
+    public SurfaceColorModel build() {
         return helper.build(base, luminanceScale, saturationScale);
     }
 }

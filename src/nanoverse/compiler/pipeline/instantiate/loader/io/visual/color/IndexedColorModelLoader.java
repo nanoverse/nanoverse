@@ -32,7 +32,7 @@ import nanoverse.runtime.io.visual.color.*;
 /**
  * Created by dbborens on 8/10/2015.
  */
-public class IndexedColorModelLoader extends ColorModelLoader<DefaultColorManager> {
+public class IndexedColorModelLoader extends ColorModelLoader<IndexedColorModel> {
     private final IndexedColorModelFactory factory;
 
     public IndexedColorModelLoader() {

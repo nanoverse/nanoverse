@@ -33,7 +33,7 @@ import nanoverse.runtime.io.visual.color.*;
 /**
  * Created by dbborens on 8/10/2015.
  */
-public class SurfaceColorModelLoader extends ColorModelLoader<SurfaceGrowthColorManager> {
+public class SurfaceColorModelLoader extends ColorModelLoader<SurfaceColorModel> {
     private final SurfaceColorModelFactory factory;
     private final SurfaceColorModelInterpolator interpolator;
 
@@ -51,10 +51,10 @@ public class SurfaceColorModelLoader extends ColorModelLoader<SurfaceGrowthColor
 
     @Override
     public ColorManager instantiate(MapObjectNode node, GeneralParameters p) {
-        DoubleArgument luminance = interpolator.luminance(node, p.getRandom());
+        float luminance = interpolator.luminance(node, p.getRandom());
         factory.setLuminanceScale(luminance);
 
-        DoubleArgument saturation = interpolator.saturation(node, p.getRandom());
+        float saturation = interpolator.saturation(node, p.getRandom());
         factory.setSaturationScale(saturation);
 
         return factory.build();

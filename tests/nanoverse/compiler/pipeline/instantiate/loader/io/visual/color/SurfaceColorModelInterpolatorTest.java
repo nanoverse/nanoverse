@@ -46,29 +46,29 @@ public class SurfaceColorModelInterpolatorTest extends InterpolatorTest {
 
     @Test
     public void luminance() throws Exception {
-        Supplier<DoubleArgument> trigger = () -> query.luminance(node, random);
-        verifyDoubleArgument("luminance", trigger);
+        Supplier<Double> trigger = () -> (double) query.luminance(node, random);
+        verifyDouble("luminance", trigger);
     }
 
     @Test
     public void luminanceDefault() throws Exception {
-        DoubleArgument expected = mock(DoubleArgument.class);
+        double expected = 0.5;
         when(defaults.luminance()).thenReturn(expected);
         Runnable trigger = () -> query.luminance(node, random);
-        verifyDoubleArgumentDefault("luminance", expected, trigger);
+        verifyDoubleDefault("luminance", expected, trigger);
     }
 
     @Test
     public void saturation() throws Exception {
-        Supplier<DoubleArgument> trigger = () -> query.saturation(node, random);
-        verifyDoubleArgument("saturation", trigger);
+        Supplier<Double> trigger = () -> (double) query.saturation(node, random);
+        verifyDouble("saturation", trigger);
     }
 
     @Test
     public void saturationDefault() throws Exception {
-        DoubleArgument expected = mock(DoubleArgument.class);
+        double expected = 0.5;
         when(defaults.saturation()).thenReturn(expected);
         Runnable trigger = () -> query.saturation(node, random);
-        verifyDoubleArgumentDefault("saturation", expected, trigger);
+        verifyDoubleDefault("saturation", expected, trigger);
     }
 }

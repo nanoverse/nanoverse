@@ -39,7 +39,7 @@ public class SurfaceColorModelInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
     protected Class getExpectedClass() {
-        return SurfaceGrowthColorManager.class;
+        return SurfaceColorModel.class;
     }
 
     @Test

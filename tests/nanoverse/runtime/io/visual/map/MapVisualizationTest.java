@@ -24,12 +24,10 @@
 
 package nanoverse.runtime.io.visual.map;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
-import nanoverse.runtime.io.deserialize.MockCoordinateDeindexer;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.color.*;
 import nanoverse.runtime.io.visual.glyph.*;
@@ -79,7 +77,7 @@ public class MapVisualizationTest extends GlyphTest {
             Shape shape = new Hexagon(lattice, 10);
             Boundary boundary = new Arena(shape, lattice);
             Geometry geom = new Geometry(lattice, shape, boundary);
-            ColorManager colorManager = new DefaultColorManager();
+            ColorManager colorManager = new IndexedColorModel();
             VisualizationProperties mapState = new VisualizationProperties(colorManager, r, 1);
             HighlightManager highlightManager = new HighlightManager();
             mapState.setHighlightManager(highlightManager);
@@ -103,7 +101,7 @@ public class MapVisualizationTest extends GlyphTest {
             Shape shape = new Hexagon(lattice, 10);
             Boundary boundary = new Arena(shape, lattice);
             Geometry geom = new Geometry(lattice, shape, boundary);
-            ColorManager colorManager = new DefaultColorManager();
+            ColorManager colorManager = new IndexedColorModel();
             VisualizationProperties mapState = new VisualizationProperties(colorManager, r, 0);
             HighlightManager highlightManager = new HighlightManager();
             mapState.setHighlightManager(highlightManager);
@@ -129,7 +127,7 @@ public class MapVisualizationTest extends GlyphTest {
         Shape shape = new Rectangle(lattice, 5, 5);
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        ColorManager colorManager = new DefaultColorManager();
+        ColorManager colorManager = new IndexedColorModel();
         VisualizationProperties mapState = new VisualizationProperties(colorManager, 25, outline);
         HighlightManager highlightManager = new HighlightManager();
         mapState.setHighlightManager(highlightManager);
@@ -162,7 +160,7 @@ public class MapVisualizationTest extends GlyphTest {
         Shape shape = new Cuboid(lattice, 5, 5, 5);
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        ColorManager colorManager = new DefaultColorManager();
+        ColorManager colorManager = new IndexedColorModel();
         VisualizationProperties mapState = new VisualizationProperties(colorManager, 25, 1);
         HighlightManager highlightManager = new HighlightManager();
         mapState.setHighlightManager(highlightManager);

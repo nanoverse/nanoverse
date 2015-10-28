@@ -30,11 +30,11 @@ import nanoverse.runtime.control.arguments.DoubleArgument;
  * Created by dbborens on 8/24/2015.
  */
 public class SurfaceColorModelDefaults {
-    public DoubleArgument luminance() {
-        return null;
+    public double luminance() {
+        return 0.5;
     }
 
-    public DoubleArgument saturation() {
-        return null;
+    public double saturation() {
+        return 0.5;
     }
 }

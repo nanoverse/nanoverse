@@ -57,7 +57,7 @@ public class KymographTest extends LegacyTest {
         Shape shape = new Line(lattice, 5);
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        ColorManager colorManager = new DefaultColorManager();
+        ColorManager colorManager = new IndexedColorModel();
         VisualizationProperties mapState = new VisualizationProperties(colorManager, 25, outline);
         HighlightManager highlightManager = new HighlightManager();
         mapState.setHighlightManager(highlightManager);

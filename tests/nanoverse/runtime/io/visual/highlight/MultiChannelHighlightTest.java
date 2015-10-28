@@ -62,7 +62,7 @@ public class MultiChannelHighlightTest extends LegacyTest {
         geometry = makeGeometry();
 
         // Create 10x10 triangular lattice.
-        ColorManager colorManager = new DefaultColorManager();
+        ColorManager colorManager = new IndexedColorModel();
 
         // Create a 10 x 10 hexagonal map.
         VisualizationProperties mapState = new VisualizationProperties(colorManager, 50, 1);

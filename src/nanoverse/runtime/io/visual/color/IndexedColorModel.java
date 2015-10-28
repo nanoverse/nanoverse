@@ -25,46 +25,51 @@
 package nanoverse.runtime.io.visual.color;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.io.visual.color.palettes.RainbowColorPalette;
 import nanoverse.runtime.layers.SystemState;
-import nanoverse.runtime.structural.NotYetImplementedException;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.function.Supplier;
 
 /**
  * Created by dbborens on 4/1/14.
  */
-public class DefaultColorManager extends ColorManager {
+public class IndexedColorModel extends ColorManager {
+    public static final Color BORDER_COLOR = Color.DARK_GRAY;
 
-    @FactoryTarget(displayName = "IndexedColorModel")
-    public DefaultColorManager() {
+    private final HashMap<String, Color> colorsByName;
+    private final Supplier<Color> palette;
+
+    public IndexedColorModel() {
+        colorsByName = new HashMap<>();
+        palette = new RainbowColorPalette();
+    }
+
+    public IndexedColorModel(HashMap<String, Color> colorsByName,
+                             Supplier<Color> palette) {
+
+        this.colorsByName = colorsByName;
+        this.palette = palette;
     }
 
     @Override
     public Color getColor(Coordinate c, SystemState systemState) {
-        String state = systemState.getLayerManager().getAgentLayer().getViewer().getName(c);
-        throw new NotYetImplementedException();
-//        switch (state) {
-//            case 0:
-//                return Color.BLACK;
-//            case 1:
-//                return Color.BLUE;
-//            case 2:
-//                return Color.RED;
-//            case 3:
-//                return Color.YELLOW;
-//            default:
-//                throw new UnsupportedOperationException("Default color manager supports only states 1 and 2, or dead.");
-//        }
+        String name = systemState.getLayerManager().getAgentLayer().getViewer().getName(c);
+        createColorIfNew(name);
+        return colorsByName.get(name);
+    }
+
+    private void createColorIfNew(String name) {
+        if (!colorsByName.containsKey(name)) {
+            Color value = palette.get();
+            colorsByName.put(name, value);
+        }
     }
 
     @Override
     public Color getBorderColor() {
-        return Color.DARK_GRAY;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return (obj instanceof DefaultColorManager);
+        return BORDER_COLOR;
     }
 }

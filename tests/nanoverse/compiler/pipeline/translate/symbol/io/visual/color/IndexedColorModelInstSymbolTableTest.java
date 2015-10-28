@@ -26,7 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol.io.visual.color;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
-import nanoverse.runtime.io.visual.color.DefaultColorManager;
+import nanoverse.runtime.io.visual.color.IndexedColorModel;
 
 public class IndexedColorModelInstSymbolTableTest extends MapSymbolTableTest {
 
@@ -37,7 +37,7 @@ public class IndexedColorModelInstSymbolTableTest extends MapSymbolTableTest {
 
     @Override
     protected Class getExpectedClass() {
-        return DefaultColorManager.class;
+        return IndexedColorModel.class;
     }
 
 }

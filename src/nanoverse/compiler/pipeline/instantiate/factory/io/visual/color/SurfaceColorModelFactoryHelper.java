@@ -29,7 +29,7 @@ import nanoverse.runtime.io.visual.color.*;
 
 public class SurfaceColorModelFactoryHelper {
 
-    public SurfaceGrowthColorManager build(ColorManager base, DoubleArgument luminanceScale, DoubleArgument saturationScale) {
-        return new SurfaceGrowthColorManager(base, luminanceScale, saturationScale);
+    public SurfaceColorModel build(ColorManager base, float luminanceScale, float saturationScale) {
+        return new SurfaceColorModel(base, luminanceScale, saturationScale);
     }
 }

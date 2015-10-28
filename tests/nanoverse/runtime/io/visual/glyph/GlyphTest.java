@@ -42,6 +42,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.fail;
 
@@ -63,7 +65,7 @@ public abstract class GlyphTest extends LegacyTest {
         geometry = makeGeometry();
 
         // Create 10x10 triangular lattice.
-        ColorManager colorManager = new DefaultColorManager();
+        ColorManager colorManager = new IndexedColorModel();
 
         // Create a 10 x 10 hexagonal map.
         mapState = new VisualizationProperties(colorManager, 50, 1);
@@ -106,14 +108,9 @@ public abstract class GlyphTest extends LegacyTest {
     }
 
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
-        fail("Rewrite me");
-//        int n = geom.getCanonicalSites().length;
-//        int[] state = new int[n];
-//
-//        for (int i = 0; i < n; i++) {
-//            state[i] = 0;
-//        }
-//        systemState.initAgentLayer(state);
+        int n = geom.getCanonicalSites().length;
+        Stream<String> agentNames = IntStream.range(0, n).mapToObj(i -> "test");
+        systemState.setAgentNames(agentNames);
     }
 
     protected Geometry makeGeometry() {
