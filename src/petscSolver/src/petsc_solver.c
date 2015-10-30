@@ -1,4 +1,4 @@
-#include "EquilibriumPetscSolver.h"
+#include "nanoverse_runtime_layers_continuum_solvers_EquilibriumPetscSolver.h"
 #include <jni.h>
 #include <petscksp.h>
 #include <sys/ipc.h>
@@ -252,10 +252,9 @@ PetscErrorCode _solve_routine(JNIEnv *env, jint n, jintArray *index,
  * @param rhs the vector b (right-hand side of Ax = b)
  * @return 0 on success, PetscErrorCode error code on failute
  */
-JNIEXPORT int JNICALL
-  Java_layers_continuum_solvers_EquilibriumPetscSolver_solve(
+JNIEXPORT jint JNICALL Java_nanoverse_runtime_layers_continuum_solvers_EquilibriumPetscSolver_solve(
         JNIEnv *env, jobject obj, jint n, jintArray index,
-	jobjectArray diagonals, jdoubleArray solution, jdoubleArray rhs) {
+	    jobjectArray diagonals, jdoubleArray solution, jdoubleArray rhs) {
     
     // Throw a tantrum if PetscScalar and jdouble aren't the same size
     if (sizeof(PetscScalar) != sizeof(jdouble)) {
