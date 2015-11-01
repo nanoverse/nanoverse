@@ -41,6 +41,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.fail;
 
@@ -48,8 +50,7 @@ public class KymographTest extends LegacyTest {
 
     @Test
     public void testWithOutline() throws Exception {
-        fail("Rewrite as modern test");
-//        doTest(1, "KymographOutline.png");
+        doTest(1, "KymographOutline.png");
     }
 
     private void doTest(int outline, String filename) throws Exception {
@@ -96,19 +97,16 @@ public class KymographTest extends LegacyTest {
     }
 
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
-//        int n = geom.getCanonicalSites().length;
-//        int[] state = new int[n];
-//
-//        for (int i = 0; i < n; i++) {
-//            state[i] = i % 3;
-//        }
-//        systemState.initAgentLayer(state);
-
+        int n = geom.getCanonicalSites().length;
+        Stream<String> nameStream = IntStream.range(0, n)
+                .map(i -> i % 3)
+                .mapToObj(String::valueOf);
+        systemState.setAgentNames(nameStream);
     }
 
     @Test
     public void testNoOutline() throws Exception {
-        fail("Rewrite as modern test");
-//        doTest(0, "KymographNoOutline.png");
+//        fail("Rewrite as modern test");
+        doTest(0, "KymographNoOutline.png");
     }
 }

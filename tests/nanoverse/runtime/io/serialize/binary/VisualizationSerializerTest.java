@@ -1,83 +1,59 @@
-/*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
- *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
- *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
- *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
- */
-
 package nanoverse.runtime.io.serialize.binary;
 
-import nanoverse.runtime.geometry.MockGeometry;
-import nanoverse.runtime.io.visual.MockVisualization;
-import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.AgentLayer;
-import nanoverse.runtime.structural.MockGeneralParameters;
-import org.junit.*;
-import test.LegacyTest;
+import nanoverse.runtime.control.GeneralParameters;
+import nanoverse.runtime.io.visual.Visualization;
+import org.junit.Before;
+import org.junit.Test;
+import test.LayerMocks;
 
-import java.io.File;
-
-import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 /**
- * As a graphics I/O class, this seemed better suited to an integration
- * test than to a system of unit tests. The fixtures are based on those
- * of the SystemStateReader class, and the output utilizes a base version
- * of the MapVisualization class.
- * <p>
- * Created by dbborens on 4/2/14.
+ * Created by dbborens on 10/28/2015.
  */
-public class VisualizationSerializerTest extends LegacyTest {
-    private MockVisualization visualization;
+public class VisualizationSerializerTest extends LayerMocks {
+
+    private GeneralParameters p;
+    private VisualizationFrameRenderer renderer;
     private VisualizationSerializer query;
+    private Visualization visualization;
 
-    @Before
-    public void setUp() throws Exception {
-        MockLayerManager lm = new MockLayerManager();
-        MockGeometry geom = buildMockGeometry();
-        AgentLayer layer = new AgentLayer(geom);
-        lm.setAgentLayer(layer);
-        visualization = new MockVisualization();
-        MockGeneralParameters p = new MockGeneralParameters();
+    @Override @Before
+    public void before() throws Exception {
+        super.before();
+        p = mock(GeneralParameters.class);
+        renderer = mock(VisualizationFrameRenderer.class);
+        visualization = mock(Visualization.class);
+        query = new VisualizationSerializer(p, layerManager, visualization, renderer);
+    }
 
-        // The class attempts to slurp in data from a simulation, and throws an
-        // exception if it isn't there. We use the SystemStateReader data
-        // because it exists.
-        p.setInstancePath(fixturePath + "SystemStateReader/");
-        String prefix = "../../output/test";
-        query = new VisualizationSerializer(p, visualization, prefix, lm);
-        query.init();
+    @Override
+    public void verifyNothingHappened() throws Exception {
+        super.verifyNothingHappened();
+        verifyNoMoreInteractions(p, renderer, visualization);
     }
 
     @Test
-    public void testLifeCycle() {
-        query.dispatchHalt(null);
-        assertTrue(visualization.isInit());
-        assertTrue(visualization.isRender());
-        assertTrue(visualization.isConclude());
-        checkFileExists("test1.7.png");
-        checkFileExists("test4.8.png");
+    public void init() throws Exception {
+        verifyNothingHappened();
     }
 
-    private void checkFileExists(String fn) {
-        File file = new File(outputPath + fn);
-        assertTrue(file.exists());
+    @Test
+    public void dispatchHalt() throws Exception {
+        int[] channels = new int[0];
+        when(visualization.getHighlightChannels()).thenReturn(channels);
+        query.dispatchHalt(null);
+        verify(renderer).renderAll(channels);
     }
+
+    @Test
+    public void close() throws Exception {
+        verifyNothingHappened();
+    }
+
+    @Test
+    public void flush() throws Exception {
+        verifyNothingHappened();
+    }
+
 }

@@ -44,30 +44,33 @@ import java.io.*;
 public class VisualizationSerializer extends Serializer {
 
     // The visualization to render
-    private Visualization visualization;
+    private final Visualization visualization;
 
     // Leading part of the file name (after the instance path)
-    private String prefix;
-
-    private Geometry geometry;
-
-    private PngEncoder pngEncoder;
+    private final VisualizationFrameRenderer renderer;
 
     @FactoryTarget
     public VisualizationSerializer(GeneralParameters p,
                                    Visualization visualization,
                                    String prefix, LayerManager lm) {
         super(p, lm);
-        geometry = lm.getAgentLayer().getGeometry();
+        Geometry geometry = lm.getAgentLayer().getGeometry();
         this.visualization = visualization;
-        this.prefix = prefix;
+        renderer = new VisualizationFrameRenderer(visualization, geometry, p, prefix);
+    }
+
+    public VisualizationSerializer(GeneralParameters p,
+                                   LayerManager lm,
+                                   Visualization visualization,
+                                   VisualizationFrameRenderer renderer) {
+        super(p, lm);
+        this.renderer = renderer;
+        this.visualization = visualization;
     }
 
     @Override
     public void init() {
-        super.init();
-
-        pngEncoder = new PngEncoder();
+        // Doesn't do anything
     }
 
 
@@ -75,52 +78,11 @@ public class VisualizationSerializer extends Serializer {
     public void dispatchHalt(HaltCondition ex) {
 
         // Get expected fields.
-        String[] soluteIds = visualization.getSoluteIds();
         int[] highlightChannels = visualization.getHighlightChannels();
 
         // Create a SystemStateReader.
 
-        SystemStateReader reader = new SystemStateReader(highlightChannels, p, geometry);
-        // Initialize the visualization to this simulation.
-        visualization.init(geometry, reader.getTimes(), reader.getFrames());
-
-        // Scan through the frames...
-        for (SystemState systemState : reader) {
-            // Render the frame.
-            Image image = visualization.render(systemState);
-
-            // Image can be null if the visualization only outputs at
-            // certain frames (eg kymograph, only returns image at end)
-            if (image != null) {
-                // Export the frame to the disk.
-                generateFile(systemState, image);
-            }
-        }
-
-        visualization.conclude();
-    }
-
-    private void generateFile(SystemState systemState, Image image) {
-        String fileName = buildFileName(systemState.getTime());
-        File file = new File(fileName);
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            pngEncoder.setImage(image);
-            fos.write(pngEncoder.pngEncode());
-            fos.close();
-//            ImageIO.write(image, mode, file);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    private String buildFileName(double time) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(p.getInstancePath());
-        builder.append(prefix);
-        builder.append(time);
-        builder.append(".png");
-        return builder.toString();
+        renderer.renderAll(highlightChannels);
     }
 
     @Override
@@ -130,6 +92,6 @@ public class VisualizationSerializer extends Serializer {
 
     @Override
     public void flush(StepState stepState) {
-
+        // Doesn't do anything
     }
 }

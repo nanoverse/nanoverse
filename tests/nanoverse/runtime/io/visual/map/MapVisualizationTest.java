@@ -24,10 +24,12 @@
 
 package nanoverse.runtime.io.visual.map;
 
+import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
+import nanoverse.runtime.io.deserialize.MockCoordinateDeindexer;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.color.*;
 import nanoverse.runtime.io.visual.glyph.*;
@@ -39,6 +41,8 @@ import test.FileAssertions;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.fail;
 
@@ -53,14 +57,17 @@ public class MapVisualizationTest extends GlyphTest {
 
     @Override
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
-        fail("Rewrite me");
-//        int n = geom.getCanonicalSites().length;
-//        int[] state = new int[n];
-//
-//        for (int i = 0; i < n; i++) {
-//            state[i] = ((i + 1) % 2) + 1;
-//        }
-//        systemState.initAgentLayer(state);
+//        fail("Rewrite me");
+        int n = geom.getCanonicalSites().length;
+        Stream<String> nameStream = IntStream.range(0, n)
+                .map(this::alternate)
+                .mapToObj(String::valueOf);
+
+        systemState.setAgentNames(nameStream);
+    }
+
+    private Integer alternate(int i) {
+        return ((i + 1) % 2) + 1;
     }
 
     @Override
@@ -175,21 +182,20 @@ public class MapVisualizationTest extends GlyphTest {
     }
 
     private void remakeStatesForCube(Geometry geom) {
-        fail("rewrite me");
-//        MockCoordinateDeindexer deindexer = new MockCoordinateDeindexer();
-//        deindexer.setUnderlying(geom.getCanonicalSites());
-//        int n = geom.getCanonicalSites().length;
-//        double[] health = new double[n];
-//        int[] state = new int[n];
-//        for (int i = 0; i < n; i++) {
-//            health[i] = (i % 2) + 1;
-//            Coordinate c = deindexer.getCoordinate(i);
-//            if (c.z() == 2) {
-//                state[i] = 3;
-//            } else {
-//                state[i] = ((i + 1) % 2) + 1;
-//            }
-//        }
-//        ((LightweightSystemState) systemState).initAgentLayer(state);
+//        fail("rewrite me");
+        MockCoordinateDeindexer deindexer = new MockCoordinateDeindexer();
+        deindexer.setUnderlying(geom.getCanonicalSites());
+        int n = geom.getCanonicalSites().length;
+
+        Stream<String> nameStream = IntStream.range(0, n).map(i -> {
+            Coordinate c = deindexer.getCoordinate(i);
+            if (c.z() == 2) {
+                return 3;
+            } else {
+                return alternate(i);
+            }
+        }).mapToObj(String::valueOf);
+
+        ((LightweightSystemState) systemState).setAgentNames(nameStream);
     }
 }

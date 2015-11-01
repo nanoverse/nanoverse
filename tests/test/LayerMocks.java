@@ -19,6 +19,11 @@ public abstract class LayerMocks extends TestBase {
     protected AgentLayerViewer viewer;
     protected Geometry geometry;
 
+    public void verifyNothingHappened() throws Exception {
+        verifyNoMoreInteractions(layerManager, agentLayer, lookup,
+                update, viewer, geometry);
+    }
+
     @Before
     public void before() throws Exception {
         layerManager = mock(LayerManager.class);
