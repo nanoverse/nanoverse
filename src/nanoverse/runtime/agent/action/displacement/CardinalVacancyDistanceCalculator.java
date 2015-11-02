@@ -2,6 +2,7 @@ package nanoverse.runtime.agent.action.displacement;
 
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.geometry.Geometry;
 
 import java.util.HashSet;
 import java.util.function.BiFunction;
@@ -24,8 +25,11 @@ public class CardinalVacancyDistanceCalculator {
             return;
         }
 
-        Coordinate nextLocation = shoveHelper.getNextLocation(currentLocation, d);
-        calculateDistToVacancy(nextLocation, d, sites);
+        CoordinateTuple tuple = shoveHelper.getNextTuple(currentLocation, d);
+        Coordinate nextLocation = tuple.getOrigin();
+        Coordinate nextDisplacement = tuple.getDisplacement();
+
+        calculateDistToVacancy(nextLocation, nextDisplacement, sites);
         sites.add(nextLocation);
     }
 }

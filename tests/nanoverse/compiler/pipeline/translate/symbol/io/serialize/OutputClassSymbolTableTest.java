@@ -100,6 +100,11 @@ public class OutputClassSymbolTableTest extends ClassSymbolTableTest {
     }
 
     @Test
+    public void agentNameWriter() throws Exception {
+        verifyReturnSymbol("AgentNameWriter", AgentNameWriter.class);
+    }
+
+    @Test
     public void timeWriter() throws Exception {
         verifyReturnSymbol("TimeWriter", TimeWriter.class);
     }

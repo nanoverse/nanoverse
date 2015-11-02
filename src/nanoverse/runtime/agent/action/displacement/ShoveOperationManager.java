@@ -2,6 +2,8 @@ package nanoverse.runtime.agent.action.displacement;
 
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.geometry.Geometry;
+import org.slf4j.*;
 
 import java.util.HashSet;
 import java.util.function.BiFunction;
@@ -10,11 +12,12 @@ import java.util.function.BiFunction;
  * Created by dbborens on 10/20/2015.
  */
 public class ShoveOperationManager {
-
+    private final Logger logger;
     private final ShoveHelper helper;
     private final BiFunction<Coordinate, Coordinate, Boolean> isBaseCase;
 
     public ShoveOperationManager(ShoveHelper helper, BiFunction<Coordinate, Coordinate, Boolean> isBaseCase) {
+        logger = LoggerFactory.getLogger(ShoveOperationManager.class);
         this.helper = helper;
         this.isBaseCase = isBaseCase;
     }
@@ -22,26 +25,27 @@ public class ShoveOperationManager {
     /**
      * @param currentLocation: starting location. the child will be placed in this
      *                         position after the parent is shoved.
-     * @param d:               displacement vector to target, in natural basis of lattice.
+     * @param displacement:    displacement vector to target, in natural basis of lattice.
      *                         this will be the same for each shove.
      * @param sites:           list of affected sites (for highlighting)
      *                         <p>
      */
-    public void doShove(Coordinate currentLocation,
-                        Coordinate d, HashSet<Coordinate> sites)
-        throws HaltCondition {
+    public void doShove(Coordinate currentLocation, Coordinate displacement, HashSet<Coordinate> sites) throws HaltCondition {
 
-        if (isBaseCase.apply(currentLocation, d)) {
+        logger.debug("Shoving. Origin: " + currentLocation + ". Displacement: " + displacement + ".");
+
+        if (isBaseCase.apply(currentLocation, displacement)) {
             return;
         }
 
-        Coordinate nextLocation = helper.getNextLocation(currentLocation, d);
+        CoordinateTuple tuple = helper.getNextTuple(currentLocation, displacement);
+        Coordinate nextDisplacement = tuple.getDisplacement();
+        Coordinate nextLocation = tuple.getOrigin();
 
         // use the same displacement vector d each time
-        doShove(nextLocation, d, sites);
+        doShove(nextLocation, nextDisplacement, sites);
 
-        helper.swap(currentLocation,
-            nextLocation);
+        helper.swap(currentLocation, nextLocation);
 
         sites.add(nextLocation);
     }

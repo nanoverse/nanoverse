@@ -42,4 +42,8 @@ public class AgentNameCommitHelper {
 
         parity.writeEnd(file);
     }
+
+    public void close(BinaryOutputHandle handle) {
+        parity.writeEOF(handle);
+    }
 }

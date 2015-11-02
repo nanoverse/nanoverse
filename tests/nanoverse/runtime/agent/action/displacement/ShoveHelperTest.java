@@ -38,11 +38,11 @@ public class ShoveHelperTest extends LayerMocks {
     @Test
     public void getNextLocation() throws Exception {
         Coordinate currentLocation = mock(Coordinate.class);
-        Coordinate d = mock(Coordinate.class);
-        Coordinate expected = mock(Coordinate.class);
-        when(chooser.getNextLocation(currentLocation, d)).thenReturn(expected);
+        Coordinate currentDisplacement = mock(Coordinate.class);
+        CoordinateTuple expected = mock(CoordinateTuple.class);
+        when(chooser.getNextTuple(currentLocation, currentDisplacement)).thenReturn(expected);
 
-        Coordinate actual = query.getNextLocation(currentLocation, d);
+        CoordinateTuple actual = query.getNextTuple(currentLocation, currentDisplacement);
         assertSame(expected, actual);
     }
 }

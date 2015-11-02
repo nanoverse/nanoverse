@@ -1,4 +1,4 @@
-version: "1.0.0-a2";
+version: "1.0.0-a4";
 
 parameters: Parameters {
     date: True;
@@ -11,8 +11,9 @@ processes {
     Scatter { 
         maxTargets: 1;
         period: 0;
-        description: Agent: behaviors {
-            reproduce: Expand;
+        description: Agent {
+            name: "growAgent";
+            behaviors: reproduce: Expand;
         };
     };
     Trigger {
@@ -24,7 +25,7 @@ processes {
 output {
     ProgressReporter;
     CoordinateIndexer;
-    AgentClassWriter;
+    AgentNameWriter;
     TimeWriter;
     VisualizationSerializer;
 };

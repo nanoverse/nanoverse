@@ -40,6 +40,7 @@ public class AgentNameIOHelper {
     }
 
     public void conclude() {
+        commitHelper.close(nameVectorFile);
         nameVectorFile.close();
         indexWriter.writeNameIndex();
     }

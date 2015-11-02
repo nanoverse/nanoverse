@@ -1,6 +1,10 @@
 package nanoverse.runtime.agent.action.displacement;
 
+import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.cell.AgentLayer;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Removes out-of-bound coordinates.
@@ -19,8 +23,8 @@ public class ImaginarySiteCleaner {
      * operation.
      */
     public void removeImaginary() {
-        layer.getViewer()
-            .getImaginarySites()
-            .forEach(c -> layer.getUpdateManager().banish(c));
+        // Collect to a new list to avoid concurrent modification
+        List<Coordinate> sites = layer.getViewer().getImaginarySites().collect(Collectors.toList());
+        sites.stream().forEach(c -> layer.getUpdateManager().banish(c));
     }
 }

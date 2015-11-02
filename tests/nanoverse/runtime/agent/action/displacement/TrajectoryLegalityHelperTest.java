@@ -20,20 +20,20 @@ public class TrajectoryLegalityHelperTest {
 
     @Test
     public void isLegalNull() throws Exception {
-        boolean actual = query.isLegal(null);
+        boolean actual = query.isDefinedAndInBounds(null);
         assertFalse(actual);
     }
 
     @Test
     public void isLegalBeyondBounds() throws Exception {
         when(c.hasFlag(Flags.BEYOND_BOUNDS)).thenReturn(true);
-        boolean actual = query.isLegal(c);
+        boolean actual = query.isDefinedAndInBounds(c);
         assertFalse(actual);
     }
 
     @Test
     public void isLegalInBounds() throws Exception {
-        boolean actual = query.isLegal(c);
+        boolean actual = query.isDefinedAndInBounds(c);
         assertTrue(actual);
     }
 
@@ -41,7 +41,7 @@ public class TrajectoryLegalityHelperTest {
     public void handleIllegalPushToBoundaryThrows() throws Exception {
         when(c.hasFlag(Flags.BEYOND_BOUNDS)).thenReturn(true);
         when(d.norm()).thenReturn(1);
-        query.handleIllegal(c, d);
+        query.doSanityCheck(c, d);
     }
 
 }

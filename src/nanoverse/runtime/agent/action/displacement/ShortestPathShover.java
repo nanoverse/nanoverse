@@ -4,6 +4,7 @@ import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.cell.AgentLayer;
+import org.slf4j.*;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -15,6 +16,7 @@ import java.util.function.BiFunction;
  * Created by dbborens on 10/20/2015.
  */
 public class ShortestPathShover {
+    private final Logger logger;
 
     private final AgentLayer layer;
 
@@ -25,20 +27,22 @@ public class ShortestPathShover {
         this.layer = layer;
         shoveHelper = new ShoveHelper(layer, random);
         operationManager = new ShoveOperationManager(shoveHelper, baseCaseFunction());
-    }
-
-    private BiFunction<Coordinate, Coordinate, Boolean> baseCaseFunction() {
-        return (current, displacement) -> isBaseCase(displacement);
-    }
-
-    private boolean isBaseCase(Coordinate d) {
-        return (d.norm() == 0);
+        logger = LoggerFactory.getLogger(ShortestPathShover.class);
     }
 
     public ShortestPathShover(AgentLayer layer, ShoveHelper shoveHelper, ShoveOperationManager operationManager) {
         this.layer = layer;
         this.shoveHelper = shoveHelper;
         this.operationManager = operationManager;
+        logger = LoggerFactory.getLogger(ShortestPathShover.class);
+    }
+
+    private BiFunction<Coordinate, Coordinate, Boolean> baseCaseFunction() {
+        return (current, displacement) -> isBaseCase(displacement);
+    }
+
+    private boolean isBaseCase(Coordinate displacement) {
+        return (displacement.norm() == 0);
     }
 
     /**
@@ -56,8 +60,9 @@ public class ShortestPathShover {
         HashSet<Coordinate> affectedSites = new HashSet<>();
 
         Coordinate displacement = layer.getGeometry().
-            getDisplacement(origin,
-                target, Geometry.APPLY_BOUNDARIES);
+            getDisplacement(origin, target, Geometry.APPLY_BOUNDARIES);
+
+        logger.debug("Preparing to shove {} toward {}. Displacement: {}.", origin, target, displacement);
 
         operationManager.doShove(origin, displacement, affectedSites);
         return affectedSites;

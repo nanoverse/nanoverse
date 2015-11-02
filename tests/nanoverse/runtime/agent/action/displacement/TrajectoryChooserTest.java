@@ -3,42 +3,39 @@ package nanoverse.runtime.agent.action.displacement;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import org.junit.*;
 
+import java.util.Random;
+import java.util.function.BiFunction;
+
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 
 public class TrajectoryChooserTest {
-
-    private TrajectoryCandidateChooser candidateChooser;
-    private TrajectoryLegalityHelper legalityHelper;
+    private Random random;
+    private BiFunction<Coordinate, Coordinate, CoordinateTupleOptionMap> mapMaker;
     private TrajectoryChooser query;
-    private Coordinate w, x, y, z;
 
-    @Before
-    public void before() throws Exception {
-        candidateChooser = mock(TrajectoryCandidateChooser.class);
-        legalityHelper = mock(TrajectoryLegalityHelper.class);
-        query = new TrajectoryChooser(candidateChooser, legalityHelper);
-        w = mock(Coordinate.class);
-        x = mock(Coordinate.class);
-        y = mock(Coordinate.class);
-        z = mock(Coordinate.class);
-        when(candidateChooser.getNextCandidate(w, x)).thenReturn(y, z);
+    public TrajectoryChooserTest() {
+        random = mock(Random.class);
+        mapMaker = mock(BiFunction.class);
+        query = new TrajectoryChooser(random, mapMaker);
     }
-
     @Test
-    public void partialPassCase() throws Exception {
-        when(legalityHelper.isLegal(y)).thenReturn(true);
-        Coordinate actual = query.getNextLocation(w, x);
-        assertSame(y, actual);
-        verify(legalityHelper, never()).handleIllegal(any(), any());
-    }
+    public void testLifeCycle() throws Exception {
+        Coordinate currentLocation = mock(Coordinate.class);
+        Coordinate currentDisplacement = mock(Coordinate.class);
+        CoordinateTupleOptionMap map = mock(CoordinateTupleOptionMap.class);
+        when(mapMaker.apply(currentLocation, currentDisplacement))
+            .thenReturn(map);
 
-    @Test
-    public void fullPassCase() throws Exception {
-        when(legalityHelper.isLegal(y)).thenReturn(false);
-        when(legalityHelper.isLegal(z)).thenReturn(true);
-        Coordinate actual = query.getNextLocation(w, x);
-        assertSame(z, actual);
-        verify(legalityHelper, times(1)).handleIllegal(any(), any());
+        when(map.getTotalWeight()).thenReturn(10.0);
+        when(random.nextDouble()).thenReturn(2.0);
+
+        CoordinateTuple expected = mock(CoordinateTuple.class);
+        when(map.selectTarget(20.0)).thenReturn(expected);
+
+        CoordinateTuple actual = query.getNextTuple(currentLocation, currentDisplacement);
+
+        assertSame(expected, actual);
     }
 }

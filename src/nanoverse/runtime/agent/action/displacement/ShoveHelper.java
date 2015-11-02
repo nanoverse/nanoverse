@@ -16,7 +16,7 @@ public class ShoveHelper {
 
     public ShoveHelper(AgentLayer layer, Random random) {
         this.layer = layer;
-        chooser = new TrajectoryChooser(layer, random);
+        chooser = new TrajectoryChooser(random);
     }
 
     public ShoveHelper(AgentLayer layer, TrajectoryChooser chooser) {
@@ -32,8 +32,8 @@ public class ShoveHelper {
         layer.getUpdateManager().swap(p, q);
     }
 
-    public Coordinate getNextLocation(Coordinate currentLocation, Coordinate d) {
-        return chooser.getNextLocation(currentLocation, d);
+    public CoordinateTuple getNextTuple(Coordinate currentLocation, Coordinate d) {
+        return chooser.getNextTuple(currentLocation, d);
     }
 
 }

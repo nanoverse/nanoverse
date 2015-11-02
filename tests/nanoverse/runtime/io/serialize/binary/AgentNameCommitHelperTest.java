@@ -55,6 +55,12 @@ public class AgentNameCommitHelperTest extends LayerMocks {
                 inOrder.verify(file).writeInt(i));
         inOrder.verify(parity).writeEnd(file);
         inOrder.verifyNoMoreInteractions();
+    }
 
+    @Test
+    public void close() throws Exception {
+        BinaryOutputHandle file = mock(BinaryOutputHandle.class);
+        query.close(file);
+        verify(parity).writeEOF(file);
     }
 }

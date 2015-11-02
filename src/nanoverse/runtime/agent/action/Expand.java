@@ -32,6 +32,7 @@ import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.AgentUpdateManager;
+import org.slf4j.*;
 
 import java.util.Random;
 
@@ -45,10 +46,11 @@ import java.util.Random;
  */
 public class Expand extends Action {
 
-    private DisplacementManager displacementManager;
-    private SelfTargetHighlighter stHighlighter;
+    private final DisplacementManager displacementManager;
+    private final SelfTargetHighlighter stHighlighter;
+    private final Logger logger;
 
-    private Random random;
+    private final Random random;
 
     public Expand(Agent callback, LayerManager layerManager,
                   IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
@@ -58,6 +60,7 @@ public class Expand extends Action {
         this.random = random;
 
         displacementManager = new DisplacementManager(layerManager.getAgentLayer(), random);
+        logger = LoggerFactory.getLogger(Expand.class);
     }
 
     public Expand(ActionIdentityManager identity, CoordAgentMapper mapper, ActionHighlighter highlighter, DisplacementManager displacementManager, SelfTargetHighlighter stHighlighter, Random random) {
@@ -65,6 +68,7 @@ public class Expand extends Action {
         this.displacementManager = displacementManager;
         this.stHighlighter = stHighlighter;
         this.random = random;
+        logger = LoggerFactory.getLogger(Expand.class);
     }
 
     @Override
@@ -76,12 +80,15 @@ public class Expand extends Action {
         // Step 1: identify nearest vacant site.
         Coordinate target = displacementManager.chooseVacancy(parentLocation);
 
+        logger.debug("Origin {}. Nearest vacancy is {}.", parentLocation, target);
+
         // Step 2: shove parent toward nearest vacant site.
         displacementManager.shove(parentLocation, target);
 
         // Step 3: Clone parent.
         Agent child = identity.getSelf().copy();
 
+        logger.debug("Attempting to place child in parent location {}.", parentLocation);
         // Step 4: Place child in parent location.
         u.place(child, parentLocation);
 

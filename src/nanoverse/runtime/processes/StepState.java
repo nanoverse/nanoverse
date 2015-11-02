@@ -79,7 +79,6 @@ public class StepState {
 
     public void advanceClock(double time) {
         dt += time;
-        System.out.println(frame + "\t" + startTime + "\t" + dt + "\t" + getTime());
     }
 
     public double getTime() {

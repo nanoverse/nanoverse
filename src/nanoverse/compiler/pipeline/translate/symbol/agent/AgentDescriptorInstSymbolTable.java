@@ -32,6 +32,7 @@ import nanoverse.compiler.pipeline.translate.symbol.agent.action.ActionClassSymb
 import nanoverse.compiler.pipeline.translate.symbol.layers.continuum.ReactionClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import nanoverse.runtime.control.arguments.AgentDescriptor;
 
 import java.util.HashMap;
@@ -50,7 +51,7 @@ public class AgentDescriptorInstSymbolTable extends MapSymbolTable<AgentDescript
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        cellState(ret);
+        name(ret);
         threshold(ret);
         initialHealth(ret);
         reactions(ret);
@@ -88,11 +89,11 @@ public class AgentDescriptorInstSymbolTable extends MapSymbolTable<AgentDescript
         ret.put("threshold", ms);
     }
 
-    private void cellState(HashMap<String, MemberSymbol> ret) {
-        ClassSymbolTable cst = new IntegerClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(cst, "A numerical ID for the " +
-            "category of nanoverse.runtime.agent being described. Soon to be replaced...");
-        ret.put("class", ms);
+    private void name(HashMap<String, MemberSymbol> ret) {
+        ClassSymbolTable cst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(cst, "A textual name or " +
+            "description for the agent being described.");
+        ret.put("name", ms);
     }
 
     @Override

@@ -65,6 +65,6 @@ public class AgentDescriptorInstSymbolTableTest extends MapSymbolTableTest {
 
     @Test
     public void cellState() throws Exception {
-        verifyReturnSymbol("class", IntegerArgument.class);
+        verifyReturnSymbol("name", StringArgument.class);
     }
 }
