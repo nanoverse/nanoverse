@@ -27,22 +27,22 @@ package nanoverse.runtime.control.halt;
 
 public class FixationEvent extends HaltCondition {
 
-    private int fixationState;
+    private String fixationClassName;
 
-    public FixationEvent(int fixationState) {
+    public FixationEvent(String fixationClassName) {
         super();
-        this.fixationState = fixationState;
+        this.fixationClassName = fixationClassName;
     }
 
-    public int getFixationState() {
-        return fixationState;
+    public String getFixationClassName() {
+        return fixationClassName;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("FixationEvent (");
-        sb.append(fixationState);
+        sb.append(fixationClassName);
         sb.append(")");
         return sb.toString();
     }

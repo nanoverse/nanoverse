@@ -61,7 +61,7 @@ public class CheckForDominationInterpolatorTest extends InterpolatorTest {
 
     @Test
     public void target() throws Exception {
-        Supplier<IntegerArgument> trigger = () -> query.target(node, random);
-        verifyIntegerArgument("target", trigger);
+        Supplier<String> trigger = () -> query.target(node);
+        verifyString("target", trigger);
     }
 }

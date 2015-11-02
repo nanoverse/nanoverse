@@ -24,8 +24,9 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.helper.*;
+import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -39,9 +40,9 @@ import java.util.List;
  * Created by dbborens on 5/26/14.
  */
 public class Swap extends Action {
-    private TargetRule targetRule;
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
+    private final TargetRule targetRule;
+    private final IntegerArgument selfChannel;
+    private final IntegerArgument targetChannel;
 
     public Swap(Agent callback, LayerManager layerManager,
                 TargetRule targetRule, IntegerArgument selfChannel,
@@ -52,10 +53,26 @@ public class Swap extends Action {
         this.targetChannel = targetChannel;
     }
 
+    /**
+     * Testing constructor
+     */
+    public Swap(ActionIdentityManager identity,
+                CoordAgentMapper mapper,
+                ActionHighlighter highlighter,
+                TargetRule targetRule,
+                IntegerArgument selfChannel,
+                IntegerArgument targetChannel) {
+
+        super(identity, mapper, highlighter);
+        this.targetRule = targetRule;
+        this.targetChannel = targetChannel;
+        this.selfChannel = selfChannel;
+    }
+
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        Agent callerAgent = resolveCaller(caller);
-        Coordinate self = getOwnLocation();
+        Agent callerAgent = mapper.resolveCaller(caller);
+        Coordinate self = identity.getOwnLocation();
         List<Coordinate> targets = targetRule.report(callerAgent);
 
         if (targets.size() != 1) {
@@ -65,12 +82,17 @@ public class Swap extends Action {
 
         Coordinate target = targets.get(0);
 
-        getLayerManager().getAgentLayer().getUpdateManager().swap(self, target);
+        mapper.getLayerManager().getAgentLayer().getUpdateManager().swap(self, target);
 
-        doHighlight(selfChannel, self);
-        doHighlight(targetChannel, target);
+        highlighter.doHighlight(selfChannel, self);
+        highlighter.doHighlight(targetChannel, target);
     }
 
+    @Override
+    public Action copy(Agent child) {
+        TargetRule clonedTargetRule = targetRule.copy(child);
+        return new Swap(child, mapper.getLayerManager(), clonedTargetRule, selfChannel, targetChannel);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -82,11 +104,5 @@ public class Swap extends Action {
         if (!targetRule.equals(swap.targetRule)) return false;
 
         return true;
-    }
-
-    @Override
-    public Action clone(Agent child) {
-        TargetRule clonedTargetRule = targetRule.clone(child);
-        return new Swap(child, getLayerManager(), clonedTargetRule, selfChannel, targetChannel);
     }
 }

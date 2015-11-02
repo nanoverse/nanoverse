@@ -24,18 +24,22 @@
 
 package nanoverse.runtime.layers;
 
-import junit.framework.TestCase;
-import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.cells.*;
+import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
 import nanoverse.runtime.layers.cell.*;
 import org.junit.Test;
 
-public class AgentLookupManagerTest extends TestCase {
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
+
+public class AgentLookupManagerTest {
 
     @Test
-    public void testGetNeighborStates() throws Exception {
+    public void testGetNeighborNames() throws Exception {
         MockGeometry geometry = new MockGeometry();
         MockAgentLayerIndices indices = new MockAgentLayerIndices();
         Coordinate[] c = new Coordinate[3];
@@ -49,15 +53,20 @@ public class AgentLookupManagerTest extends TestCase {
         Coordinate[] neighborhood = new Coordinate[]{c[0], c[2]};
         geometry.setAgentNeighbors(c[1], neighborhood);
 
-        AbstractAgent f0 = new MockAgent(4);
-        AbstractAgent f2 = new MockAgent(6);
+        Agent f0 = new MockAgent("4");
+        Agent f2 = new MockAgent("6");
 
         content.put(c[0], f0);
         content.put(c[2], f2);
 
         AgentLookupManager lookup = new AgentLookupManager(geometry, content);
-        assertEquals(lookup.getNeighborStates(c[1], true).length, 2);
-        assertEquals(lookup.getNeighborStates(c[1], true)[0], 4);
-        assertEquals(lookup.getNeighborStates(c[1], true)[1], 6);
+
+        List<String> neighborNames = lookup
+            .getNeighborNames(c[1], true)
+            .collect(Collectors.toList());
+
+        assertEquals(neighborNames.size(), 2);
+        assertEquals(neighborNames.get(0), "4");
+        assertEquals(neighborNames.get(1), "6");
     }
 }

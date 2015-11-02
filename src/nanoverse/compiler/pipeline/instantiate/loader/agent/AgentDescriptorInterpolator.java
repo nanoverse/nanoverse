@@ -71,18 +71,6 @@ public class AgentDescriptorInterpolator {
         return loader.instantiate(cNode, lm, p);
     }
 
-    public IntegerArgument clazz(MapObjectNode node, Random random) {
-        return load.anIntegerArgument(node, "class", random, defaults::clazz);
-    }
-
-    public DoubleArgument initialHealth(MapObjectNode node, Random random) {
-        return load.aDoubleArgument(node, "initialHealth", random, defaults::initialHealth);
-    }
-
-    public DoubleArgument threshold(MapObjectNode node, Random random) {
-        return load.aDoubleArgument(node, "threshold", random, defaults::threshold);
-    }
-
     public Stream<Reaction> reactions(MapObjectNode node, Random random) {
         if (node == null) {
             return defaults.reactions();
@@ -97,5 +85,9 @@ public class AgentDescriptorInterpolator {
         ListObjectNode cNode = (ListObjectNode) node.getMember("reactions");
 
         return loader.instantiate(cNode, random);
+    }
+
+    public String name(MapObjectNode node) {
+        return load.aString(node, "name");
     }
 }

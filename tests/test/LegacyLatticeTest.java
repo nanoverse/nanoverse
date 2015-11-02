@@ -33,7 +33,7 @@ import org.junit.Before;
 /**
  * Convenience class providing automatic mock infrastructure
  * for tests that require a cell layer. This includes all
- * nanoverse.runtime.cells and cell nanoverse.runtime.processes, for example.
+ * agents and cell nanoverse.runtime.processes, for example.
  * <p>
  * Created by dbborens on 2/21/14.
  */

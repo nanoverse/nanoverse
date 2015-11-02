@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -34,7 +34,7 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 /**
  * Fills in all sites in the active site set
- * with nanoverse.runtime.cells of the type specified by the
+ * with agents of the type specified by the
  * process' cell descriptor. Does not throw
  * LatticeFullExceptions.
  *
@@ -65,7 +65,7 @@ public class Fill extends AgentProcess {
     }
 
     public void target(GillespieState gs) throws HaltCondition {
-        // This process only has one event: it affects all relevant nanoverse.runtime.cells.
+        // This process only has one event: it affects all relevant agents.
         if (gs != null) {
             gs.add(getID(), 1, 1D);
         }
@@ -84,7 +84,7 @@ public class Fill extends AgentProcess {
 
                 throw new IllegalStateException(msg);
             } else if (!filled) {
-                AbstractAgent agent = cellDescriptor.next();
+                Agent agent = cellDescriptor.next();
                 getLayer().getUpdateManager().place(agent, c);
             } else {
                 // Do nothing if site is filled and skipFilled is true.

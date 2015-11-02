@@ -24,23 +24,26 @@
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.*;
-import nanoverse.runtime.control.halt.*;
+import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.*;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import nanoverse.runtime.processes.discrete.cluster.SeparationStrategyManager;
+import nanoverse.runtime.processes.discrete.filter.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.util.*;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class ScatterClusters extends AgentProcess {
 
-    private final IntegerArgument neighborCount;
-    private final AgentDescriptor cellDescriptor;
-    private final ScatterClustersHelper clustersHelper;
+    private final Filter targetFilter;
+
+    private final Consumer<List<Coordinate>> shuffler;
+    private final ScatterClustersCountHelper ceilingHelper;
+    private final ScatterClustersPlacementHelper placementHelper;
     private List<Coordinate> candidates;
 
     @FactoryTarget
@@ -48,111 +51,45 @@ public class ScatterClusters extends AgentProcess {
                            AgentProcessArguments cpArguments,
                            IntegerArgument neighborCount,
                            AgentDescriptor cellDescriptor,
-                           ScatterClustersHelper clustersHelper) {
+                           SeparationStrategyManager strategy) {
 
         super(arguments, cpArguments);
-        this.cellDescriptor = cellDescriptor;
-        this.neighborCount = neighborCount;
-        this.clustersHelper = clustersHelper;
+        this.ceilingHelper =
+            new ScatterClustersCountHelper(getMaxTargets(), neighborCount);
+        this.placementHelper = new ScatterClustersPlacementHelper(strategy, cellDescriptor);
+        Filter vacancy = new VacancyFilter(getLayer());
+        targetFilter = new NotFilter(vacancy);
+        shuffler = list -> Collections.shuffle(list, arguments.getGeneralParameters().getRandom());
+    }
+
+    public ScatterClusters(BaseProcessArguments arguments, AgentProcessArguments cpArguments, Filter targetFilter, ScatterClustersCountHelper ceilingHelper, ScatterClustersPlacementHelper placementHelper, Consumer<List<Coordinate>> shuffler) {
+        super(arguments, cpArguments);
+        this.targetFilter = targetFilter;
+        this.ceilingHelper = ceilingHelper;
+        this.placementHelper = placementHelper;
+        this.shuffler = shuffler;
     }
 
     public void target(GillespieState gs) throws HaltCondition {
         // Construct initial set of candidates
 
-        candidates = getActiveSites().stream()
-            .filter(c -> !getLayer()
-                .getViewer()
-                .isOccupied(c))
+        List<Coordinate> preCandidates = getActiveSites().stream()
             .collect(Collectors.toList());
 
-        if (gs != null) {
-            gs.add(this.getID(), candidates.size(), candidates.size() * 1.0D);
-        }
+        candidates = targetFilter.apply(preCandidates);
     }
 
     public void fire(StepState state) throws HaltCondition {
-        Collections.shuffle(candidates);
-        int placed = 0;
-        int n = getCeiling();
-        int m = getNeighborCount();
-
+        shuffler.accept(candidates);
+        int n = ceilingHelper.getCeiling();
+        int m = ceilingHelper.getNeighborCount();
         Iterator<Coordinate> cIter = candidates.iterator();
-        Agent toPlace = cellDescriptor.next();
-
-        while (placed < n) {
-            if (!cIter.hasNext()) {
-                throw new LatticeFullEvent();
-            }
-
-            // Get next candidate coordinate.
-            Coordinate current = cIter.next();
-
-            // Place cell at this site, if it is acceptable
-            int curPlaced = clustersHelper.attemptPlacement(current, toPlace, m);
-            if (curPlaced > 0) {
-                placed += curPlaced;
-                toPlace = cellDescriptor.next();
-            }
-        }
-
-//        System.out.println("Total nanoverse.runtime.cells placed: " + placed);
-//        System.out.println("Total system population: " + getLayer().getViewer().getOccupiedSites().size());
-
+        placementHelper.doPlacement(n, m, cIter);
     }
+
 
     @Override
     public void init() {
         candidates = null;
-    }
-
-    private int getCeiling() {
-        int n;
-
-        try {
-            n = getMaxTargets().next();
-            if (n < 0) {
-                throw new IllegalArgumentException("Scatter cluster process requires >= 0 max targets.");
-            }
-
-            return n;
-        } catch (HaltCondition ex) {
-            throw new RuntimeException("Unexpected halt condition", ex);
-        }
-    }
-
-    public int getNeighborCount() {
-        int m;
-
-        try {
-            m = neighborCount.next();
-        } catch (HaltCondition ex) {
-            throw new RuntimeException("Unexpected halt condition", ex);
-        }
-
-        return m;
-    }
-
-    @Override
-    public int hashCode() {
-        return cellDescriptor != null ? cellDescriptor.hashCode() : 0;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ScatterClusters scatter = (ScatterClusters) o;
-
-        if (cellDescriptor != null ? !cellDescriptor.equals(scatter.cellDescriptor) : scatter.cellDescriptor != null)
-            return false;
-
-        if (getActiveSites() != null ? !getActiveSites().equals(scatter.getActiveSites()) : scatter.getActiveSites() != null)
-            return false;
-
-        if (getMaxTargets() != null ? !getMaxTargets().equals(scatter.getMaxTargets()) : scatter.getMaxTargets() != null)
-            return false;
-
-        return true;
     }
 }

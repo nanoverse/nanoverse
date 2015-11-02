@@ -33,29 +33,29 @@ import java.util.HashSet;
 public class ConditionViewer {
 
     //    private VectorViewer f;
-    private int[] states;
+    private String[] names;
     private double gCurrent;
     private int frame;
     private HashSet<Coordinate> highlights;
     private CoordinateDeindexer deindexer;
 
-    //    public ConditionViewer(VectorViewer f, int[] states, HashSet<Coordinate> highlights,
+    //    public ConditionViewer(VectorViewer f, int[] names, HashSet<Coordinate> highlights,
 //                           int frame, double gCurrent, CoordinateDeindexer deindexer) {
-    public ConditionViewer(int[] states, HashSet<Coordinate> highlights,
+    public ConditionViewer(String[] names, HashSet<Coordinate> highlights,
                            int frame, double gCurrent, CoordinateDeindexer deindexer) {
 
 //        this.f = f;
-        this.states = states;
+        this.names = names;
         this.gCurrent = gCurrent;
         this.deindexer = deindexer;
         this.frame = frame;
         this.highlights = highlights;
     }
 
-    public int getState(Coordinate c) {
+    public String getState(Coordinate c) {
         int i = deindexer.getIndex(c);
 
-        return states[i];
+        return names[i];
     }
 
     public double getHealth(Coordinate c) {
@@ -71,7 +71,7 @@ public class ConditionViewer {
     public boolean isVacant(Coordinate c) {
         int i = deindexer.getIndex(c);
 
-        return (states[i] == 0);
+        return (names[i] == null);
     }
 
     public double getGillespie() {
@@ -82,11 +82,7 @@ public class ConditionViewer {
         return frame;
     }
 
-    public int[] getStateVector() {
-        return states;
+    public String[] getStateVector() {
+        return names;
     }
-
-//    public double[] getHealthVector() {
-//        return f.getData();
-//    }
 }

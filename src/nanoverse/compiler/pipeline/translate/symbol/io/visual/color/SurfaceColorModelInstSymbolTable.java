@@ -28,14 +28,14 @@ import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.io.visual.color.SurfaceColorModelLoader;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
-import nanoverse.runtime.io.visual.color.SurfaceGrowthColorManager;
+import nanoverse.runtime.io.visual.color.SurfaceColorModel;
 
 import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/27/2015.
  */
-public class SurfaceColorModelInstSymbolTable extends MapSymbolTable<SurfaceGrowthColorManager> {
+public class SurfaceColorModelInstSymbolTable extends MapSymbolTable<SurfaceColorModel> {
     @Override
     public String getDescription() {
         return "The surface growth color model is an overlay on another " +

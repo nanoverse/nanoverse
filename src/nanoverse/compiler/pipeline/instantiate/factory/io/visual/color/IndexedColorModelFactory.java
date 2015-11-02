@@ -24,9 +24,9 @@
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
-import nanoverse.runtime.io.visual.color.DefaultColorManager;
+import nanoverse.runtime.io.visual.color.IndexedColorModel;
 
-public class IndexedColorModelFactory implements Factory<DefaultColorManager> {
+public class IndexedColorModelFactory implements Factory<IndexedColorModel> {
 
     private final IndexedColorModelFactoryHelper helper;
 
@@ -41,7 +41,7 @@ public class IndexedColorModelFactory implements Factory<DefaultColorManager> {
 
 
     @Override
-    public DefaultColorManager build() {
+    public IndexedColorModel build() {
         return helper.build();
     }
 }

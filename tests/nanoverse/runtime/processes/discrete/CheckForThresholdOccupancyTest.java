@@ -90,7 +90,8 @@ public class CheckForThresholdOccupancyTest extends LegacyTest {
     }
 
     private void placeNumberedAgent(int x) throws HaltCondition {
-        Agent cell = new Agent(layerManager, x, x, x, null);
+        String name = String.valueOf(x);
+        Agent cell = new Agent(layerManager, name, null);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
     }

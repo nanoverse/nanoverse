@@ -27,75 +27,50 @@ package nanoverse.runtime.agent;
 import nanoverse.runtime.cells.MockAgent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.MockGeometry;
-import nanoverse.runtime.layers.MockLayerManager;
+import nanoverse.runtime.layers.*;
 import nanoverse.runtime.layers.cell.*;
 import org.junit.*;
+import test.LayerMocks;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by dbborens on 2/21/14.
  */
-public class CallbackManagerTest {
+public class CallbackManagerTest extends LayerMocks {
+
+    private Agent agent;
     private CallbackManager query;
-    private AgentLayer layer;
-    private Coordinate c;
-    private Agent cell;
 
     @Before
-    public void setUp() throws Exception {
-        MockGeometry geom = new MockGeometry();
-        c = new Coordinate2D(0, 0, 0);
-        Coordinate[] cc = new Coordinate[]{c};
-        geom.setCanonicalSites(cc);
-        layer = new AgentLayer(geom);
-        MockLayerManager layerManager = new MockLayerManager();
-        layerManager.setAgentLayer(layer);
-
-        cell = new MockAgent();
-        layer.getUpdateManager().place(cell, c);
-        query = new CallbackManager(cell, layerManager);
-    }
-
-
-    @Test
-    public void refreshDivisibility() throws Exception {
-        /*
-          On the face of it, this looks nearly identical to a test
-          in BehaviorAgentTest. However, since MockAgent does automatically
-          update the layer indices as BehaviorAgent does, this actually
-          verifies the functionality of refreshDivisibility directly.
-          It would be better to have a true mock cell layer that could
-          confirm the appropriate calls were made and nothing more.
-         */
-
-        cell.setDivisible(false);
-        query.refreshDivisibility();
-        assertDivisibilityStatus(false);
-
-        // Adjust above threshold.
-        cell.setDivisible(true);
-        query.refreshDivisibility();
-        assertDivisibilityStatus(true);
-
-        // Adjust below threshold again.
-        cell.setDivisible(false);
-        query.refreshDivisibility();
-        assertDivisibilityStatus(false);
-    }
-
-    private void assertDivisibilityStatus(boolean expected) {
-        boolean actual = layer.getViewer().isDivisible(c);
-        assertEquals(expected, actual);
+    @Override
+    public void before() throws Exception {
+        super.before();
+        agent = mock(Agent.class);
+        query = new CallbackManager(agent, layerManager);
     }
 
     @Test
-    public void die() {
-        // Perform the test
-        AgentLayerViewer viewer = layer.getViewer();
-        boolean isOccupied = viewer.isOccupied(c);
-        assertTrue(isOccupied);
+    public void die() throws Exception {
+        Coordinate coord = mock(Coordinate.class);
+        when(lookup.getAgentLocation(agent)).thenReturn(coord);
         query.die();
-        assertFalse(layer.getViewer().isOccupied(c));
+        verify(update).banish(coord);
+    }
+
+    @Test
+    public void getLayerManager() throws Exception {
+        LayerManager actual = query.getLayerManager();
+        assertSame(layerManager, actual);
+    }
+
+    @Test
+    public void getMyLocation() throws Exception {
+        Coordinate expected = mock(Coordinate.class);
+        when(lookup.getAgentLocation(agent)).thenReturn(expected);
+
+        Coordinate actual = query.getMyLocation();
+        assertSame(expected, actual);
     }
 }

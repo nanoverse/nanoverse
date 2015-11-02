@@ -24,13 +24,11 @@
 
 package nanoverse.runtime.io.visual.glyph;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.Rectangle;
 import nanoverse.runtime.geometry.shape.Shape;
-import nanoverse.runtime.io.deserialize.MockCoordinateDeindexer;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.color.*;
 import nanoverse.runtime.io.visual.highlight.*;
@@ -43,7 +41,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.*;
 
 /**
  * Created by dbborens on 4/4/14.
@@ -60,7 +57,7 @@ public class BullseyeGlyphTest extends LegacyTest {
         geometry = makeGeometry();
 
         // Create 10x10 triangular lattice.
-        ColorManager colorManager = new DefaultColorManager();
+        ColorManager colorManager = new IndexedColorModel();
 
         // Create a 10 x 10 hexagonal map.
         VisualizationProperties mapState = new VisualizationProperties(colorManager, 50, 1);
@@ -78,37 +75,36 @@ public class BullseyeGlyphTest extends LegacyTest {
         map = new MapVisualization(mapState);
         map.init(geometry, null, null);
 
-        // Create system state
+        // Create system name
         systemState = makeSystemState();
 
     }
 
     private LightweightSystemState makeSystemState() {
-        MockCoordinateDeindexer deindexer = new MockCoordinateDeindexer();
-        deindexer.setUnderlying(geometry.getCanonicalSites());
-
-        int n = makeGeometry().getCanonicalSites().length;
-
-        double[] health = new double[n];
-        int[] state = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            health[i] = 0;
-            state[i] = 0;
-        }
-
-        LightweightSystemState ret = new LightweightSystemState(geometry);
-        ret.initAgentLayer(state);
-
-        Set<Coordinate> highlights = new HashSet<>();
-        for (Coordinate c : geometry.getCanonicalSites()) {
-            highlights.add(c);
-        }
-        ret.setHighlights(0, highlights);
-        ret.setTime(0.0);
-        ret.setFrame(0);
-
-        return ret;
+//        MockCoordinateDeindexer deindexer = new MockCoordinateDeindexer();
+//        deindexer.setUnderlying(geometry.getCanonicalSites());
+//
+//        int n = makeGeometry().getCanonicalSites().length;
+//
+//        String[] state = new String[n];
+//
+//        for (int i = 0; i < n; i++) {
+//            state[i] = "test";
+//        }
+//
+//        LightweightSystemState ret = new LightweightSystemState(geometry);
+//        ret.setAgentNames(state);
+//
+//        Set<Coordinate> highlights = new HashSet<>();
+//        for (Coordinate c : geometry.getCanonicalSites()) {
+//            highlights.add(c);
+//        }
+//        ret.setHighlights(0, highlights);
+//        ret.setTime(0.0);
+//        ret.setFrame(0);
+//
+//        return ret;
+        return null;
     }
 
     private Geometry makeGeometry() {

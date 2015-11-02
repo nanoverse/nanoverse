@@ -27,11 +27,13 @@ import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.io.serialize.text.CorrelationWriter;
 import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.structural.NotYetImplementedException;
 
 
 public class CorrelationWriterFactoryHelper {
 
     public CorrelationWriter build(GeneralParameters p, String filename, DoubleArgument triggerTimeArg, LayerManager lm) {
-        return new CorrelationWriter(p, filename, triggerTimeArg, lm);
+        throw new NotYetImplementedException();
+//        return new CorrelationWriter(p, filename, triggerTimeArg, lm);
     }
 }

@@ -1,237 +1,77 @@
-/*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
- *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
- *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
- *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
- */
-
 package nanoverse.runtime.agent.targets;
 
-import nanoverse.runtime.cells.MockAgent;
-import nanoverse.runtime.control.arguments.ConstantInteger;
-import nanoverse.runtime.control.identifiers.*;
-import nanoverse.runtime.geometry.MockGeometry;
-import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.AgentLayer;
-import nanoverse.runtime.processes.discrete.filter.*;
+import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.processes.discrete.filter.Filter;
 import org.junit.*;
-import test.LegacyTest;
+import test.LayerMocks;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.*;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-/**
- * Created by dbborens on 2/10/14.
- */
-public class TargetRuleTest extends LegacyTest {
-
-    private MockGeometry geom;
-    private MockLayerManager layerManager;
-    private AgentLayer cellLayer;
-    private MockAgent self, occupiedNeighbor;
-    private Coordinate[] cc, neighbors;
-    private Coordinate left, right, center;
+public class TargetRuleTest extends LayerMocks {
     private Random random;
+    private Agent callback;
     private Filter filter;
 
+    private TargetRule query;
+    private List<Coordinate> baseCandidates;
+    private Agent caller;
+
     @Before
-    public void setUp() throws Exception {
-        // Restart RN generator
-        random = new Random(RANDOM_SEED);
-
-        geom = new MockGeometry();
-
-        center = new Coordinate2D(1, 0, 0);
-        left = new Coordinate2D(0, 0, 0);
-        right = new Coordinate2D(2, 0, 0);
-
-        cc = new Coordinate[]{center, left, right};
-
-        geom.setCanonicalSites(cc);
-
-        layerManager = new MockLayerManager();
-        cellLayer = new AgentLayer(geom);
-        layerManager.setAgentLayer(cellLayer);
-
-        occupiedNeighbor = new MockAgent(1);
-        self = new MockAgent(2);
-
-        // Only one neighbor is occupied; the other is not.
-        cellLayer.getUpdateManager().place(self, center);
-        cellLayer.getUpdateManager().place(occupiedNeighbor, left);
-
-        // Associate the neighborhood with the coordinate
-        neighbors = new Coordinate[]{left, right};
-        geom.setAgentNeighbors(center, neighbors);
-
-        filter = new NullFilter();
+    public void before() throws Exception {
+        random = mock(Random.class);
+        callback = mock(Agent.class);
+        filter = mock(Filter.class);
+        baseCandidates = makeBaseCandidates(3);
+        caller = mock(Agent.class);
+        query = makeQuery(agent -> baseCandidates);
     }
 
-    @Test
-    public void testTargetAllNeighbors() {
-        TargetRule query = new TargetAllNeighbors(self, layerManager, filter, -1, random);
-
-        // Get target list
-        List<Coordinate> actual = query.report(null);
-        List<Coordinate> expected = Arrays.asList(neighbors);
-
-        // Should contain all neighbors
-        assertEquals(expected, actual);
+    private List<Coordinate> makeBaseCandidates(int i) {
+        return IntStream.range(0, i - 1)
+            .mapToObj(k -> mock(Coordinate.class))
+            .collect(Collectors.toList());
     }
 
-    @Test
-    public void testTargetVacantNeighbors() {
-        TargetRule query = new TargetVacantNeighbors(self, layerManager, filter, -1, random);
+    private TargetRule makeQuery(Function<Agent, List<Coordinate>> getCandidates) {
+        return new TargetRule(callback, layerManager, filter, random) {
+            @Override
+            protected List<Coordinate> getCandidates(Agent caller) {
+                return getCandidates.apply(caller);
+            }
 
-        // Get target list
-        List<Coordinate> actual = query.report(null);
-        List<Coordinate> expected = new ArrayList<>(1);
-        expected.add(right);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testTargetOccupiedNeighbors() {
-        TargetRule query = new TargetOccupiedNeighbors(self, layerManager, filter, -1, random);
-
-        // Get target list
-        List<Coordinate> actual = query.report(null);
-        List<Coordinate> expected = new ArrayList<>(1);
-        expected.add(left);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testTargetSelf() {
-        TargetRule query = new TargetSelf(self, layerManager, filter, -1, random);
-
-        // Get target list
-        List<Coordinate> actual = query.report(null);
-        List<Coordinate> expected = new ArrayList<>(1);
-        expected.add(center);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testTargetCaller() {
-        // Left caller
-        TargetRule query = new TargetCaller(self, layerManager, filter, -1, random);
-        List<Coordinate> actual = query.report(occupiedNeighbor);
-        List<Coordinate> expected = new ArrayList<>(1);
-        expected.add(left);
-        assertEquals(expected, actual);
-
-    }
-
-    // Null caller: should blow up
-    @Test
-    public void testTargetCallerNull() {
-        TargetRule query = new TargetCaller(self, layerManager, filter, -1, random);
-        boolean thrown = false;
-        try {
-            query.report(null);
-        } catch (IllegalStateException ex) {
-            thrown = true;
-        } catch (NullPointerException ex) {
-            fail();
-        }
-
-        assertTrue(thrown);
-    }
-
-    @Test
-    public void testEquality() {
-        // Equality is defined at the superclass level, so one test is sufficient.
-
-        TargetRule p, q, r;
-
-        // Make two targeters of the same class, but with different callbacks
-        p = new TargetSelf(new MockAgent(), layerManager, filter, -1, random);
-        q = new TargetSelf(new MockAgent(), layerManager, filter, -1, random);
-
-        // Make one targeter of a different class
-        r = new TargetCaller(new MockAgent(), layerManager, filter, -1, random);
-
-        // Test that the two of the same class are equal
-        assertEquals(p, q);
-
-        // Test that the two of different classes are not equal
-        assertNotEquals(p, r);
-    }
-
-    @Test
-    public void testClone() {
-        MockAgent parent = new MockAgent();
-        TargetRule[] rules = new TargetRule[]{
-            new TargetAllNeighbors(parent, layerManager, filter, -1, random),
-            new TargetCaller(parent, layerManager, filter, -1, random),
-            new TargetOccupiedNeighbors(parent, layerManager, filter, -1, random),
-            new TargetSelf(parent, layerManager, filter, -1, random),
-            new TargetVacantNeighbors(parent, layerManager, filter, -1, random)
+            @Override
+            public TargetRule copy(Agent child) {
+                return null;
+            }
         };
-
-        for (TargetRule rule : rules) {
-            doCloneTest(rule, parent);
-        }
     }
 
-    private void doCloneTest(TargetRule original, MockAgent parent) {
-        MockAgent child = new MockAgent();
-        TargetRule cloned = original.clone(child);
-        assertEquals(original, cloned);
-        assertEquals(parent, original.getCallback());
-        assertEquals(child, cloned.getCallback());
-    }
-
-    /*
-      All other tests are based on a no-maximum scheme, so an additional
-      testNoMaximum method is not necessary.
-     */
     @Test
-    public void testMaximum() {
-        TargetRule query = new TargetAllNeighbors(self, layerManager, filter, 1, random);
-
-        // Get target list
-        List<Coordinate> actual = query.report(null);
-        List<Coordinate> expected = new ArrayList<>(1);
-        expected.add(left);
-
+    public void report() throws Exception {
+        when(filter.apply(any())).thenAnswer(invocation -> {
+            List<Coordinate> input = (List<Coordinate>) invocation.getArguments()[0];
+            return input;
+        });
+        List<Coordinate> expected = baseCandidates;
+        List<Coordinate> actual = query.report(caller);
+        assertEquals(expected, actual);
+    }
+    @Test
+    public void reportRespectsFilter() throws Exception {
+        when(filter.apply(any())).thenReturn(new ArrayList<>(0));
+        List<Coordinate> expected = new ArrayList<>(0);
+        List<Coordinate> actual = query.report(caller);
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testFilterApplied() throws Exception {
-        MockAgent anotherNeighbor = new MockAgent(3);
-        cellLayer.getUpdateManager().place(anotherNeighbor, right);
-
-        filter = new AgentClassFilter(cellLayer, new ConstantInteger(1));
-        TargetRule query = new TargetAllNeighbors(self, layerManager, filter, -1, random);
-
-        List<Coordinate> actual = query.report(null);
-        List<Coordinate> expected = new ArrayList<>(1);
-        expected.add(left);
-
-        assertEquals(expected, actual);
+    public void getCallback() throws Exception {
+        assertSame(callback, query.getCallback());
     }
 }

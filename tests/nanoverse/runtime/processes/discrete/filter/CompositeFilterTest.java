@@ -24,23 +24,24 @@
 
 package nanoverse.runtime.processes.discrete.filter;
 
+import nanoverse.runtime.control.identifiers.Coordinate;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 public class CompositeFilterTest {
 
     @Test
     public void testApply() throws Exception {
-        Filter child1 = new MockFilter();
-        Filter child2 = new MockFilter();
-        Stream<Filter> children = Stream.of(child1, child2);
+        Filter child = mock(Filter.class);
+        Stream<Filter> children = Stream.of(child);
         CompositeFilter query = new CompositeFilter(children);
-        query.apply(new ArrayList<>(0));
-        assertTrue(child1.isCalled());
-        assertTrue(child2.isCalled());
+
+        List<Coordinate> toFilter = mock(List.class);
+        query.apply(toFilter);
+        verify(child).apply(toFilter);
     }
 }

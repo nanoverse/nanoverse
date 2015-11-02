@@ -51,16 +51,12 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
     protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         tick(ret);
-        divide(ret);
-        occupiedNeighborSwap(ret);
-        generalNeighborSwap(ret);
         scatter(ret);
         powerScatter(ret);
         scatterClusters(ret);
         fill(ret);
         mockProcess(ret);
         trigger(ret);
-        cull(ret);
         checkForFixation(ret);
         checkThresholdOccupancy(ret);
         checkForDomination(ret);
@@ -132,11 +128,6 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
         ret.put("CheckForFixation", st);
     }
 
-    private void cull(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> st = CullInstSymbolTable::new;
-        ret.put("Cull", st);
-    }
-
     private void trigger(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> st = TriggerProcessInstSymbolTable::new;
         ret.put("Trigger", st);
@@ -165,21 +156,6 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
     private void scatter(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> st = ScatterInstSymbolTable::new;
         ret.put("Scatter", st);
-    }
-
-    private void generalNeighborSwap(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> st = GeneralNeighborSwapInstSymbolTable::new;
-        ret.put("GeneralNeighborSwap", st);
-    }
-
-    private void occupiedNeighborSwap(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> st = OccupiedNeighborSwapInstSymbolTable::new;
-        ret.put("OccupiedNeighborSwap", st);
-    }
-
-    private void divide(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> st = DivideInstSymbolTable::new;
-        ret.put("Divide", st);
     }
 
     private void tick(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {

@@ -64,8 +64,8 @@ public class CheckForDominationLoader extends ProcessLoader<CheckForDomination> 
         DoubleArgument threshold = interpolator.threshold(node, p.getRandom());
         factory.setTargetFractionArg(threshold);
 
-        IntegerArgument target = interpolator.target(node, p.getRandom());
-        factory.setTargetStateArg(target);
+        String target = interpolator.target(node);
+        factory.setTarget(target);
 
         return factory.build();
     }

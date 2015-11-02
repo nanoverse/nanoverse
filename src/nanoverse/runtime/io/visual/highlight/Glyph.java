@@ -61,7 +61,7 @@ public abstract class Glyph {
     /**
      * Draw the glyph at the specified site.
      *
-     * @param c Coordinate (in units of nanoverse.runtime.cells) of the site to be overlaid
+     * @param c Coordinate (in units of agents) of the site to be overlaid
      *          with the image.
      */
     public abstract void overlay(Coordinate c, int frame, double time);

@@ -32,8 +32,8 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
 /**
  * A boundary condition that returns null for any overbound
  * position. Since Geometry removes null values, the result
- * is that nanoverse.runtime.cells adjacent to the boundary have fewer neighbors
- * than nanoverse.runtime.cells at the interior.
+ * is that agents adjacent to the boundary have fewer neighbors
+ * than agents at the interior.
  * <p>
  * Created by David B Borenstein on 12/22/13.
  */

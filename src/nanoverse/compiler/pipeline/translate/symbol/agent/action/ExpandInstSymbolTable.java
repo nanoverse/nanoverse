@@ -40,7 +40,7 @@ public class ExpandInstSymbolTable extends ActionInstSymbolTable<ExpandDescripto
     public String getDescription() {
         return "Causes the nanoverse.runtime.agent to expand toward the nearest vacant site. " +
             "If there are no adjacent vacancies, the nanoverse.runtime.agent will push a " +
-            "line of nanoverse.runtime.cells toward the nearest vacancy, then place a " +
+            "line of agents toward the nearest vacancy, then place a " +
             "copy of itself in an adjacent site.";
     }
 

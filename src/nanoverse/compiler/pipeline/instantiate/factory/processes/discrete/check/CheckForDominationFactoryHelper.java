@@ -31,7 +31,7 @@ import nanoverse.runtime.processes.discrete.check.CheckForDomination;
 
 public class CheckForDominationFactoryHelper {
 
-    public CheckForDomination build(BaseProcessArguments arguments, AgentProcessArguments cpArguments, IntegerArgument targetStateArg, DoubleArgument targetFractionArg) {
-        return new CheckForDomination(arguments, cpArguments, targetStateArg, targetFractionArg);
+    public CheckForDomination build(BaseProcessArguments arguments, AgentProcessArguments cpArguments, String name, DoubleArgument targetFractionArg) {
+        return new CheckForDomination(arguments, cpArguments, name, targetFractionArg);
     }
 }

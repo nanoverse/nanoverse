@@ -97,11 +97,6 @@ public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
     }
 
     @Test
-    public void cull() {
-        verifyReturnSymbol("Cull", Cull.class);
-    }
-
-    @Test
     public void trigger() {
         verifyReturnSymbol("Trigger", TriggerProcess.class);
     }
@@ -129,21 +124,6 @@ public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
     @Test
     public void scatterClusters() {
         verifyReturnSymbol("ScatterClusters", ScatterClusters.class);
-    }
-
-    @Test
-    public void generalNeighborSwap() {
-        verifyReturnSymbol("GeneralNeighborSwap", GeneralNeighborSwap.class);
-    }
-
-    @Test
-    public void occupiedNeighborSwap() {
-        verifyReturnSymbol("OccupiedNeighborSwap", OccupiedNeighborSwap.class);
-    }
-
-    @Test
-    public void divide() {
-        verifyReturnSymbol("Divide", Divide.class);
     }
 
     @Test

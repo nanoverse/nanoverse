@@ -32,7 +32,7 @@ import nanoverse.runtime.processes.discrete.filter.Filter;
 import java.util.*;
 
 /**
- * Targets specify which nanoverse.runtime.cells should receive the consequences
+ * Targets specify which agents should receive the consequences
  * of an Action.
  * <p>
  * The TargetSelf object always returns the cell that is performing
@@ -41,8 +41,8 @@ import java.util.*;
  * Created by dbborens on 2/7/14.
  */
 public class TargetSelf extends TargetRule {
-    public TargetSelf(Agent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
-        super(callback, layerManager, filter, maximum, random);
+    public TargetSelf(Agent callback, LayerManager layerManager, Filter filter, Random random) {
+        super(callback, layerManager, filter, random);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class TargetSelf extends TargetRule {
     }
 
     @Override
-    public TargetRule clone(Agent child) {
-        return new TargetSelf(child, layerManager, filter, maximum, random);
+    public TargetRule copy(Agent child) {
+        return new TargetSelf(child, layerManager, filter, random);
     }
 }

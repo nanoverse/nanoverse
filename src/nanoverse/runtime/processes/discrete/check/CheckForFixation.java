@@ -25,7 +25,7 @@
 package nanoverse.runtime.processes.discrete.check;
 
 import nanoverse.runtime.control.halt.*;
-import nanoverse.runtime.layers.cell.StateMapViewer;
+import nanoverse.runtime.layers.cell.NameMapViewer;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
@@ -54,10 +54,10 @@ public class CheckForFixation extends AgentProcess {
     @Override
     public void fire(StepState state) throws HaltCondition {
 //        System.out.println("Executing check for fixation.");
-        StateMapViewer smv = getLayer().getViewer().getStateMapViewer();
+        NameMapViewer smv = getLayer().getViewer().getNameMapViewer();
 
-        for (Integer s : smv.getStates()) {
-            if (smv.getCount(s) == getLayer().getViewer().getOccupiedSites().size()) {
+        for (String s : smv.getNames()) {
+            if (smv.getCount(s) == getLayer().getViewer().getOccupiedSites().count()) {
                 throw new FixationEvent(s);
             }
         }

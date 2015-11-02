@@ -29,6 +29,7 @@ import nanoverse.runtime.layers.cell.*;
 import org.junit.Test;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -57,7 +58,7 @@ public class InfiniteAgentLayerContentTest extends AgentLayerContentTest {
         indices.setOccupied(imaginary, true);
         indices.setOccupied(real, true);
 
-        Set<Coordinate> result = query.getImaginarySites();
+        Set<Coordinate> result = query.getImaginarySites().collect(Collectors.toSet());
 
         assertEquals(1, result.size());
         assertTrue(result.contains(imaginary));

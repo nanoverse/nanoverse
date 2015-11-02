@@ -29,7 +29,7 @@ import nanoverse.compiler.pipeline.instantiate.loader.agent.AgentDescriptorLoade
 import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.cluster.ScatterClustersHelperLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.arguments.AgentDescriptor;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import nanoverse.runtime.processes.discrete.cluster.SeparationStrategyManager;
 import org.junit.*;
 
 import static org.junit.Assert.assertSame;
@@ -55,19 +55,19 @@ public class PowerScatterInterpolatorTest extends InterpolatorTest {
         ScatterClustersHelperLoader loader = mock(ScatterClustersHelperLoader.class);
         when(load.getLoader(eq(node), eq("separation"), anyBoolean())).thenReturn(loader);
 
-        ScatterClustersHelper expected = mock(ScatterClustersHelper.class);
+        SeparationStrategyManager expected = mock(SeparationStrategyManager.class);
         when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
 
-        ScatterClustersHelper actual = query.helper(node, lm, p);
+        SeparationStrategyManager actual = query.helper(node, lm, p);
         assertSame(expected, actual);
     }
 
     @Test
     public void helperDefault() throws Exception {
-        ScatterClustersHelper expected = mock(ScatterClustersHelper.class);
+        SeparationStrategyManager expected = mock(SeparationStrategyManager.class);
         when(defaults.helper(lm, p)).thenReturn(expected);
 
-        ScatterClustersHelper actual = query.helper(node, lm, p);
+        SeparationStrategyManager actual = query.helper(node, lm, p);
         assertSame(expected, actual);
     }
 

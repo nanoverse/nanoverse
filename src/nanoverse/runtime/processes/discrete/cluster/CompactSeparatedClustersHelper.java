@@ -32,10 +32,12 @@ import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
+import java.util.stream.Stream;
+
 /**
  * Created by dbborens on 6/14/2015.
  */
-public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
+public class CompactSeparatedClustersHelper extends SeparationStrategyManager {
 
     private final GeneralParameters p;
 
@@ -86,11 +88,10 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
 
             int iWrapped = (i + start) % vacancies.length;
             Coordinate c = vacancies[iWrapped];
-            int state = toPlace.getState();
             Agent clone;
 
             try {
-                clone = toPlace.clone(state);
+                clone = toPlace.copy();
                 layer.getUpdateManager().place(clone, c);
             } catch (HaltCondition ex) {
                 throw new RuntimeException("Unexpected halt condition", ex);
@@ -118,11 +119,11 @@ public class CompactSeparatedClustersHelper extends ScatterClustersHelper {
 
     protected boolean hasAnyNeighbors(Coordinate candidate) {
         // Get neighborhood state.
-        int[] neighborStates = layer.getLookupManager().getNeighborStates(candidate, false);
+        Stream<String> neighborNames = layer.getLookupManager().getNeighborNames(candidate, false);
 
         // Count any non-vacant neighbors.
-        int numVacant = getMatchCount(neighborStates, 0);
+        int numVacant = getMatchCount(neighborNames, null);
 
-        return (numVacant < neighborStates.length);
+        return (numVacant < neighborNames.count());
     }
 }

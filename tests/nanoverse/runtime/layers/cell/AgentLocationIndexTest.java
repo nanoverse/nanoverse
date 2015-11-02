@@ -59,7 +59,7 @@ public class AgentLocationIndexTest {
         // Place a cell
         locationIndex.add(o1, c1);
 
-        // AbstractAgent should index to placed coordinate
+        // Agent should index to placed coordinate
         assertEquals(1, locationIndex.keySet().size());
         assertEquals(c1, locationIndex.get(o1));
     }

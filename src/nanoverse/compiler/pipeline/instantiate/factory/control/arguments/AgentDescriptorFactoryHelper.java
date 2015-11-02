@@ -34,7 +34,7 @@ import java.util.stream.Stream;
 
 public class AgentDescriptorFactoryHelper {
 
-    public AgentDescriptor build(LayerManager layerManager, IntegerArgument cellState, DoubleArgument threshold, DoubleArgument initialHealth, Stream<Reaction> reactions, Map<String, ActionDescriptor> behaviorDescriptors) {
-        return new AgentDescriptor(layerManager, cellState, threshold, initialHealth, reactions, behaviorDescriptors);
+    public AgentDescriptor build(LayerManager layerManager, String name, Stream<Reaction> reactions, Map<String, ActionDescriptor> behaviorDescriptors) {
+        return new AgentDescriptor(layerManager, name, reactions, behaviorDescriptors);
     }
 }

@@ -39,18 +39,13 @@ public class ActionRangeMap extends RangeMap<Action> {
         super();
     }
 
-    @Override
-    public RangeMap<Action> clone() {
-        throw new UnsupportedOperationException("Clone using the replicate(BehaviorAgent child) method.");
-    }
-
-    public ActionRangeMap clone(Agent child) {
+    public ActionRangeMap copy(Agent child) {
         int n = keys.size();
         ActionRangeMap cloned = new ActionRangeMap(n);
 
         for (int i = 1; i < floors.size(); i++) {
             Action key = keys.get(i - 1);
-            Action clonedKey = key.clone(child);
+            Action clonedKey = key.copy(child);
             Double weight = floors.get(i) - floors.get(i - 1);
 
             cloned.add(clonedKey, weight);

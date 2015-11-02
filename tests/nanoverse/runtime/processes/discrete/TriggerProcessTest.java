@@ -1,162 +1,58 @@
-/*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
- *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
- *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
- *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
- *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
- */
-
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.cells.MockAgent;
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.geometry.MockGeometry;
-import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.AgentLayer;
-import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.discrete.filter.NullFilter;
-import nanoverse.runtime.processes.gillespie.GillespieState;
-import nanoverse.runtime.structural.MockGeneralParameters;
+import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.processes.*;
 import org.junit.*;
-import test.LegacyTest;
+import test.LayerMocks;
 
-import static org.junit.Assert.*;
+import java.util.stream.Stream;
 
-/**
- * This is a test for the TriggerProcess object, which is a discrete process
- * that triggers behaviors in nanoverse.runtime.cells. It should not be confused with the Trigger
- * action, which is an action that individual nanoverse.runtime.cells can execute as part of a
- * behavior.
- * <p>
- * Created by David B Borenstein on 2/18/14.
- */
-public class TriggerProcessTest extends LegacyTest {
+import static org.mockito.Mockito.*;
 
-    private TriggerProcess trigger;
-    private AgentLayer layer;
-    private MockLayerManager layerManager;
-    private MockGeneralParameters p;
-    private MockGeometry geom;
+public class TriggerProcessTest extends LayerMocks {
 
+    private BaseProcessArguments arguments;
+    private AgentProcessArguments cpArguments;
+    private String behaviorName;
+    private TriggerProcessTargetResolver targetResolver;
+    private Agent target;
+    private TriggerProcess query;
+    private StepState state;
+
+    @Override
     @Before
-    public void setUp() throws Exception {
-        geom = buildMockGeometry();
+    public void before() throws Exception {
+        super.before();
+        arguments = mock(BaseProcessArguments.class);
+        cpArguments = mock(AgentProcessArguments.class);
+        behaviorName = "test";
+        targetResolver = mock(TriggerProcessTargetResolver.class);
 
-        p = new MockGeneralParameters();
-        p.initializeRandom(0);
-        layer = new AgentLayer(geom);
-        layerManager = new MockLayerManager();
-        layerManager.setAgentLayer(layer);
+        when(arguments.getLayerManager()).thenReturn(layerManager);
+        target = mock(Agent.class);
+        Stream<Agent> stream = Stream.of(target);
+        when(targetResolver.resolveTargets()).thenReturn(stream);
 
-//        trigger = new TriggerProcess(layerManager, 0, "test", p, true, false, -1, false);
-        BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
-        AgentProcessArguments cpArguments = makeAgentProcessArguments(geom);
+        state = mock(StepState.class);
 
-        trigger = new TriggerProcess(arguments, cpArguments, "test", new NullFilter(), true, false);
-    }
-
-    /**
-     * Make sure that the "target" method works as expected when
-     * using Gillespie mode.
-     */
-    @Test
-    public void testTargetGillespie() throws Exception {
-        Integer[] keys = new Integer[]{0};
-        GillespieState state = new GillespieState(keys);
-
-        // Gillespie state should be updated by target
-
-        trigger.target(state);
-        state.close();
-        assertEquals(1, state.getTotalCount());
-        assertEquals(1.0, state.getTotalWeight(), epsilon);
+        query = new TriggerProcess(arguments, cpArguments, behaviorName, targetResolver);
     }
 
     @Test
     public void testLifeCycle() throws Exception {
-        MockAgent cell = new MockAgent();
-        Coordinate c = layer.getGeometry().getCanonicalSites()[0];
-        layer.getUpdateManager().place(cell, c);
-        assertTrue(layer.getViewer().isOccupied(c));
-        trigger.target(null);
-        trigger.fire(null);
-        assertEquals("test", cell.getLastTriggeredBehaviorName());
-        assertNull(cell.getLastTriggeredCaller());
+        when(viewer.exists(target)).thenReturn(true);
+
+        query.target(null);
+        query.fire(state);
+        verify(target).trigger(behaviorName, null);
     }
 
-    /**
-     * Make sure that, if nanoverse.runtime.cells are required to have occupied neigbhors in order
-     * to be triggered, that the requirement is honored.
-     *
-     * @throws Exception
-     */
     @Test
-    public void testRequireNeighborsFlag() throws Exception {
-        // Unlike the other tests, we want a trigger process that requires
-        // nanoverse.runtime.cells to have at least one occupied neighbor in order to be
-        // triggered.
-//        trigger = new TriggerProcess(layerManager, 0, "test", p, true, true, -1, false);
-        BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
-        AgentProcessArguments cpArguments = makeAgentProcessArguments(geom);
+    public void removedAgentExcluded() throws Exception {
+        when(viewer.exists(target)).thenReturn(false);
 
-        trigger = new TriggerProcess(arguments, cpArguments, "test", new NullFilter(), true, true);
-
-        // Set up two neighboring nanoverse.runtime.cells and one isolated cell.
-        MockAgent neighbor1 = new MockAgent();
-        MockAgent neighbor2 = new MockAgent();
-        MockAgent isolated = new MockAgent();
-        setUpNeighborhoodTestCase(neighbor1, neighbor2, isolated);
-
-
-        // Execute the trigger event.
-        trigger.target(null);
-        trigger.fire(null);
-
-        // Only the neighboring nanoverse.runtime.cells should be triggered.
-        assertEquals(1, neighbor1.getTriggerCount());
-        assertEquals(1, neighbor2.getTriggerCount());
-        assertEquals(0, isolated.getTriggerCount());
+        query.target(null);
+        query.fire(state);
+        verify(target, never()).trigger(behaviorName, null);
     }
-
-    //    public void testRecordAfterTargeting() throws Exception {
-//        fail("Not yet implemented");
-//    }
-    private void setUpNeighborhoodTestCase(MockAgent neighbor1, MockAgent neighbor2, MockAgent isolated) throws Exception {
-        MockGeometry geom = (MockGeometry) layer.getGeometry();
-        // 0, 0, 0
-        Coordinate nc1 = geom.getCanonicalSites()[0];
-        layer.getUpdateManager().place(neighbor1, nc1);
-
-        // 0, 0, 1
-        Coordinate nc2 = geom.getCanonicalSites()[1];
-        layer.getUpdateManager().place(neighbor2, nc2);
-
-        // 0, 1, 1
-        Coordinate ni = geom.getCanonicalSites()[3];
-        layer.getUpdateManager().place(isolated, ni);
-
-        // Since we're using a mock nanoverse.runtime.geometry, we have to manually define
-        // the neighborhoods.
-        geom.setAgentNeighbors(nc1, new Coordinate[]{nc2});
-        geom.setAgentNeighbors(nc2, new Coordinate[]{nc1});
-        geom.setAgentNeighbors(ni, new Coordinate[]{});
-
-    }
-
 }

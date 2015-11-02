@@ -43,7 +43,7 @@ public class Geometry {
     // boundary conditions existed.
     public static final int IGNORE_BOUNDARIES = 1;
 
-    // Remove any nanoverse.runtime.cells that are beyond boundaries from results.
+    // Remove any agents that are beyond boundaries from results.
     public static final int EXCLUDE_BOUNDARIES = 2;
 
     // Ignore boundary conditions, but indicate that they would have

@@ -54,9 +54,6 @@ public abstract class TargetLoader<T extends TargetDescriptor> extends Loader<T>
         factory.setLayerManager(lm);
         factory.setRandom(p.getRandom());
 
-        int maximum = interpolator.maximum(node, p.getRandom());
-        factory.setMaximum(maximum);
-
         Filter filter = interpolator.filter(node, lm, p);
         factory.setFilter(filter);
 

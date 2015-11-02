@@ -44,9 +44,7 @@ import static org.mockito.Mockito.*;
  */
 public class AgentDescriptorTest extends TestBase {
 
-    private DoubleArgument threshold;
-    private DoubleArgument initialHealth;
-    private IntegerArgument cellState;
+    private String name;
     private Reaction reaction1, reaction2;
     private ActionDescriptor behaviorDescriptor;
     private Action behavior;
@@ -60,9 +58,7 @@ public class AgentDescriptorTest extends TestBase {
     }
 
     private void initEverythingButReactions() {
-        threshold = new ConstantDouble(0.5);
-        initialHealth = new ConstantDouble(0.75);
-        cellState = new ConstantInteger(1);
+        name = "test";
 
 
         // TODO Instantiation of behaviors from descriptors should be handled by a helper
@@ -93,9 +89,7 @@ public class AgentDescriptorTest extends TestBase {
         when(layerManager.getContinuumLayer(any())).thenReturn(continuumLayer);
 
         query = new AgentDescriptor(layerManager);
-        query.setAgentClass(cellState);
-        query.setInitialHealth(initialHealth);
-        query.setThreshold(threshold);
+        query.setName(name);
         query.setBehaviorDescriptors(behaviorDescriptors);
     }
 
@@ -113,19 +107,7 @@ public class AgentDescriptorTest extends TestBase {
     @Test
     public void cellState() throws Exception {
         Agent result = query.next();
-        assertEquals((int) cellState.next(), result.getState());
-    }
-
-    @Test
-    public void threshold() throws Exception {
-        Agent result = query.next();
-        assertEquals(threshold.next(), result.getThreshold(), epsilon);
-    }
-
-    @Test
-    public void initialHealth() throws Exception {
-        Agent result = query.next();
-        assertEquals(initialHealth.next(), result.getHealth(), epsilon);
+        assertEquals(name, result.getName());
     }
 
     // TODO this should be tested directly

@@ -25,7 +25,6 @@ package nanoverse.compiler.pipeline.instantiate.factory.io.serialize.text;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.io.serialize.text.InterfaceCensusWriter;
 import nanoverse.runtime.layers.LayerManager;
 
@@ -34,7 +33,7 @@ public class InterfaceCensusWriterFactory implements Factory<InterfaceCensusWrit
     private final InterfaceCensusWriterFactoryHelper helper;
 
     private GeneralParameters p;
-    private IntegerArgument focalStateArg;
+    private String focus;
     private LayerManager lm;
 
     public InterfaceCensusWriterFactory() {
@@ -49,8 +48,8 @@ public class InterfaceCensusWriterFactory implements Factory<InterfaceCensusWrit
         this.p = p;
     }
 
-    public void setFocalStateArg(IntegerArgument focalStateArg) {
-        this.focalStateArg = focalStateArg;
+    public void setFocus(String focus) {
+        this.focus = focus;
     }
 
     public void setLm(LayerManager lm) {
@@ -59,6 +58,6 @@ public class InterfaceCensusWriterFactory implements Factory<InterfaceCensusWrit
 
     @Override
     public InterfaceCensusWriter build() {
-        return helper.build(p, focalStateArg, lm);
+        return helper.build(p, focus, lm);
     }
 }

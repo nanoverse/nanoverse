@@ -32,7 +32,7 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
 /**
  * Created by dbborens on 6/13/2015.
  */
-public class ContactClustersHelper extends ScatterClustersHelper {
+public class ContactClustersHelper extends SeparationStrategyManager {
 
     @FactoryTarget
     public ContactClustersHelper(AgentLayer layer) {
@@ -41,7 +41,7 @@ public class ContactClustersHelper extends ScatterClustersHelper {
 
     /**
      * Place a cell if the candidate site is a valid site for placement.
-     * Returns total number of nanoverse.runtime.cells placed.
+     * Returns total number of agents placed.
      *
      * @param candidate
      * @param toPlace

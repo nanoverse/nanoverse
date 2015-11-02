@@ -57,8 +57,8 @@ public class InterfaceCensusWriterLoader extends OutputLoader<InterfaceCensusWri
         factory.setP(p);
         factory.setLm(layerManager);
 
-        IntegerArgument focalStateArg = interpolator.focalState(node, p.getRandom());
-        factory.setFocalStateArg(focalStateArg);
+        String focus = interpolator.focus(node);
+        factory.setFocus(focus);
 
         return factory.build();
     }

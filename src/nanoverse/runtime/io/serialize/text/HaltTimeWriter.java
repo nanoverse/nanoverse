@@ -77,7 +77,7 @@ public class HaltTimeWriter extends Serializer {
         StringBuilder sb = new StringBuilder();
         sb.append(fix.getGillespie());
         sb.append("\t");
-        sb.append(fix.getFixationState());
+        sb.append(fix.getFixationClassName());
         sb.append("\n");
         return sb;
     }

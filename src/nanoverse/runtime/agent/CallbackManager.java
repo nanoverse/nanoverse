@@ -24,13 +24,12 @@
 
 package nanoverse.runtime.agent;
 
-import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.*;
 
 /**
- * A helper class for nanoverse.runtime.cells that triggers
+ * A helper class for agents that triggers
  * update events related to the life cycle
  * of the agent, such as death or divisibility.
  * <p>
@@ -38,10 +37,10 @@ import nanoverse.runtime.layers.cell.*;
  */
 public class CallbackManager {
 
-    private AbstractAgent agent;
-    private LayerManager layerManager;
+    private final Agent agent;
+    private final LayerManager layerManager;
 
-    public CallbackManager(AbstractAgent agent, LayerManager layerManager) {
+    public CallbackManager(Agent agent, LayerManager layerManager) {
         this.agent = agent;
         this.layerManager = layerManager;
     }
@@ -51,27 +50,8 @@ public class CallbackManager {
      * and should be removed from the simulation.
      */
     public void die() {
-        AgentLayer layer = layerManager.getAgentLayer();
-        Coordinate coord = layer.getLookupManager().getAgentLocation(agent);
-        layer.getUpdateManager().banish(coord);
-    }
-
-    /**
-     * Signals to the LayerManager that the callback agent may have
-     * changed its divisibility status and should be checked.
-     */
-    public void refreshDivisibility() throws HaltCondition {
-        AgentLayer layer = layerManager.getAgentLayer();
-
-        if (layer.getViewer().exists(agent)) {
-            Coordinate coord = layer.getLookupManager().getAgentLocation(agent);
-            layer.getUpdateManager().banish(coord);
-            layer.getUpdateManager().place(agent, coord);
-        }
-    }
-
-    public LayerManager getLayerManager() {
-        return layerManager;
+        Coordinate coord = getMyLocation();
+        layerManager.getAgentLayer().getUpdateManager().banish(coord);
     }
 
     public Coordinate getMyLocation() {
@@ -79,5 +59,9 @@ public class CallbackManager {
         AgentLookupManager lookupManager = layer.getLookupManager();
         Coordinate coord = lookupManager.getAgentLocation(agent);
         return coord;
+    }
+
+    public LayerManager getLayerManager() {
+        return layerManager;
     }
 }

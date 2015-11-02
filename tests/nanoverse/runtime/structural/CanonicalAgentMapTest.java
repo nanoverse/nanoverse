@@ -46,7 +46,7 @@ public class CanonicalAgentMapTest extends LegacyTest {
         nc = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
         d = new Coordinate3D(0, 0, 0, 0);
 
-        cell = new MockAgent(1);
+        cell = new MockAgent();
     }
 
     @Test

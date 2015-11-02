@@ -41,6 +41,10 @@ import test.FileAssertions;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static org.junit.Assert.fail;
 
 /**
  * Created by dbborens on 4/1/14.
@@ -53,13 +57,17 @@ public class MapVisualizationTest extends GlyphTest {
 
     @Override
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
+//        fail("Rewrite me");
         int n = geom.getCanonicalSites().length;
-        int[] state = new int[n];
+        Stream<String> nameStream = IntStream.range(0, n)
+                .map(this::alternate)
+                .mapToObj(String::valueOf);
 
-        for (int i = 0; i < n; i++) {
-            state[i] = ((i + 1) % 2) + 1;
-        }
-        systemState.initAgentLayer(state);
+        systemState.setAgentNames(nameStream);
+    }
+
+    private Integer alternate(int i) {
+        return ((i + 1) % 2) + 1;
     }
 
     @Override
@@ -76,7 +84,7 @@ public class MapVisualizationTest extends GlyphTest {
             Shape shape = new Hexagon(lattice, 10);
             Boundary boundary = new Arena(shape, lattice);
             Geometry geom = new Geometry(lattice, shape, boundary);
-            ColorManager colorManager = new DefaultColorManager();
+            ColorManager colorManager = new IndexedColorModel();
             VisualizationProperties mapState = new VisualizationProperties(colorManager, r, 1);
             HighlightManager highlightManager = new HighlightManager();
             mapState.setHighlightManager(highlightManager);
@@ -100,7 +108,7 @@ public class MapVisualizationTest extends GlyphTest {
             Shape shape = new Hexagon(lattice, 10);
             Boundary boundary = new Arena(shape, lattice);
             Geometry geom = new Geometry(lattice, shape, boundary);
-            ColorManager colorManager = new DefaultColorManager();
+            ColorManager colorManager = new IndexedColorModel();
             VisualizationProperties mapState = new VisualizationProperties(colorManager, r, 0);
             HighlightManager highlightManager = new HighlightManager();
             mapState.setHighlightManager(highlightManager);
@@ -126,7 +134,7 @@ public class MapVisualizationTest extends GlyphTest {
         Shape shape = new Rectangle(lattice, 5, 5);
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        ColorManager colorManager = new DefaultColorManager();
+        ColorManager colorManager = new IndexedColorModel();
         VisualizationProperties mapState = new VisualizationProperties(colorManager, 25, outline);
         HighlightManager highlightManager = new HighlightManager();
         mapState.setHighlightManager(highlightManager);
@@ -159,7 +167,7 @@ public class MapVisualizationTest extends GlyphTest {
         Shape shape = new Cuboid(lattice, 5, 5, 5);
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        ColorManager colorManager = new DefaultColorManager();
+        ColorManager colorManager = new IndexedColorModel();
         VisualizationProperties mapState = new VisualizationProperties(colorManager, 25, 1);
         HighlightManager highlightManager = new HighlightManager();
         mapState.setHighlightManager(highlightManager);
@@ -174,20 +182,20 @@ public class MapVisualizationTest extends GlyphTest {
     }
 
     private void remakeStatesForCube(Geometry geom) {
+//        fail("rewrite me");
         MockCoordinateDeindexer deindexer = new MockCoordinateDeindexer();
         deindexer.setUnderlying(geom.getCanonicalSites());
         int n = geom.getCanonicalSites().length;
-        double[] health = new double[n];
-        int[] state = new int[n];
-        for (int i = 0; i < n; i++) {
-            health[i] = (i % 2) + 1;
+
+        Stream<String> nameStream = IntStream.range(0, n).map(i -> {
             Coordinate c = deindexer.getCoordinate(i);
             if (c.z() == 2) {
-                state[i] = 3;
+                return 3;
             } else {
-                state[i] = ((i + 1) % 2) + 1;
+                return alternate(i);
             }
-        }
-        ((LightweightSystemState) systemState).initAgentLayer(state);
+        }).mapToObj(String::valueOf);
+
+        ((LightweightSystemState) systemState).setAgentNames(nameStream);
     }
 }

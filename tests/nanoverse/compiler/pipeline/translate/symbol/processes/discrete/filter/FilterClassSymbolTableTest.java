@@ -43,7 +43,7 @@ public class FilterClassSymbolTableTest extends ClassSymbolTableTest {
 
     @Test
     public void cellState() throws Exception {
-        verifyReturnSymbol("AgentClass", AgentClassFilter.class);
+        verifyReturnSymbol("Name", AgentNameFilter.class);
     }
 
     @Test
@@ -59,5 +59,10 @@ public class FilterClassSymbolTableTest extends ClassSymbolTableTest {
     @Test
     public void nullFilter() throws Exception {
         verifyReturnSymbol("Null", NullFilter.class);
+    }
+
+    @Test
+    public void sampleFilter() throws Exception {
+        verifyReturnSymbol("Sample", SampleFilter.class);
     }
 }

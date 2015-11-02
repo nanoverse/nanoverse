@@ -23,15 +23,15 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 
-import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.discrete.ShoveHelper;
+import nanoverse.runtime.agent.action.displacement.DisplacementManager;
+import nanoverse.runtime.layers.cell.AgentLayer;
 
 import java.util.Random;
 
 
 public class ShoveHelperFactoryHelper {
 
-    public ShoveHelper build(LayerManager layerManager, Random random) {
-        return new ShoveHelper(layerManager, random);
+    public DisplacementManager build(AgentLayer layer, Random random) {
+        return new DisplacementManager(layer, random);
     }
 }

@@ -43,6 +43,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Test to make sure that multi-channel highlighting works as expected.
@@ -60,7 +62,7 @@ public class MultiChannelHighlightTest extends LegacyTest {
         geometry = makeGeometry();
 
         // Create 10x10 triangular lattice.
-        ColorManager colorManager = new DefaultColorManager();
+        ColorManager colorManager = new IndexedColorModel();
 
         // Create a 10 x 10 hexagonal map.
         VisualizationProperties mapState = new VisualizationProperties(colorManager, 50, 1);
@@ -80,7 +82,7 @@ public class MultiChannelHighlightTest extends LegacyTest {
         map = new MapVisualization(mapState);
         map.init(geometry, null, null);
 
-        // Create system state
+        // Create system name
         systemState = makeSystemState(geometry);
 
     }
@@ -118,14 +120,8 @@ public class MultiChannelHighlightTest extends LegacyTest {
 
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
         int n = geom.getCanonicalSites().length;
-        double[] health = new double[n];
-        int[] state = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            health[i] = 0;
-            state[i] = 0;
-        }
-        systemState.initAgentLayer(state);
+        Stream<String> names = IntStream.range(0, n).mapToObj(i -> "test");
+        systemState.setAgentNames(names);
 
     }
 

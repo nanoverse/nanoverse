@@ -38,7 +38,7 @@ public class MockTargetRule extends TargetRule {
     private Agent lastCaller;
 
     public MockTargetRule() {
-        super(null, null, new NullFilter(), -1, null);
+        super(null, null, new NullFilter(), null);
     }
 
     public void setTargets(List<Coordinate> targets) {
@@ -56,7 +56,7 @@ public class MockTargetRule extends TargetRule {
     }
 
     @Override
-    public TargetRule clone(Agent child) {
+    public TargetRule copy(Agent child) {
         return new MockTargetRule();
     }
 }

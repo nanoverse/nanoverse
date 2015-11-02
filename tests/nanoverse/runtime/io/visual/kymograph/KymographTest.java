@@ -41,6 +41,10 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static org.junit.Assert.fail;
 
 public class KymographTest extends LegacyTest {
 
@@ -54,7 +58,7 @@ public class KymographTest extends LegacyTest {
         Shape shape = new Line(lattice, 5);
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        ColorManager colorManager = new DefaultColorManager();
+        ColorManager colorManager = new IndexedColorModel();
         VisualizationProperties mapState = new VisualizationProperties(colorManager, 25, outline);
         HighlightManager highlightManager = new HighlightManager();
         mapState.setHighlightManager(highlightManager);
@@ -94,19 +98,15 @@ public class KymographTest extends LegacyTest {
 
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
         int n = geom.getCanonicalSites().length;
-        double[] health = new double[n];
-        int[] state = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            health[i] = 0.0;
-            state[i] = i % 3;
-        }
-        systemState.initAgentLayer(state);
-
+        Stream<String> nameStream = IntStream.range(0, n)
+                .map(i -> i % 3)
+                .mapToObj(String::valueOf);
+        systemState.setAgentNames(nameStream);
     }
 
     @Test
     public void testNoOutline() throws Exception {
+//        fail("Rewrite as modern test");
         doTest(0, "KymographNoOutline.png");
     }
 }

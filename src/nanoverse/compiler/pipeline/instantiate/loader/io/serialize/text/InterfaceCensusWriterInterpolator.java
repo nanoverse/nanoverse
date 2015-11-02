@@ -45,7 +45,7 @@ public class InterfaceCensusWriterInterpolator {
         this.load = load;
     }
 
-    public IntegerArgument focalState(MapObjectNode node, Random random) {
-        return load.anIntegerArgument(node, "focalState", random);
+    public String focus(MapObjectNode node) {
+        return load.aString(node, "focus");
     }
 }

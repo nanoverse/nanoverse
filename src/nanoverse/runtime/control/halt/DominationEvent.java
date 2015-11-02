@@ -29,22 +29,22 @@ package nanoverse.runtime.control.halt;
  */
 public class DominationEvent extends HaltCondition {
 
-    private Integer cellState;
+    private String agentClassName;
 
-    public DominationEvent(Integer cellState) {
+    public DominationEvent(String agentClassName) {
         super();
-        this.cellState = cellState;
+        this.agentClassName = agentClassName;
     }
 
-    public Integer getAgentClass() {
-        return cellState;
+    public String getAgentClassName() {
+        return agentClassName;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("DominationEvent (");
-        sb.append(cellState);
+        sb.append(agentClassName);
         sb.append(")");
         return sb.toString();
     }

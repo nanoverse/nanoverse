@@ -2,13 +2,13 @@ package nanoverse.runtime.agent.action.stochastic;
 
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.cell.AgentLayer;
-import nanoverse.runtime.layers.cell.AgentLookupManager;
-import org.junit.Before;
-import org.junit.Test;
+import nanoverse.runtime.layers.cell.*;
+import org.junit.*;
 import test.TestBase;
 
-import static org.junit.Assert.*;
+import java.util.stream.Stream;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 /**
@@ -36,9 +36,9 @@ public class NeighborhoodCountHelperTest extends TestBase {
         Coordinate c = mock(Coordinate.class);
         when(lm.getAgentLocation(agent)).thenReturn(c);
 
-        int[] neighborStates = new int[3];
-        when(layer.getLookupManager().getNeighborStates(c, true))
-                .thenReturn(neighborStates);
+        Stream<String> neighborNames = Stream.of("a", "b", "c");
+        when(layer.getLookupManager().getNeighborNames(c, true))
+                .thenReturn(neighborNames);
 
         double actual = query.getNeighborCount();
         assertEquals(3.0, actual, epsilon);

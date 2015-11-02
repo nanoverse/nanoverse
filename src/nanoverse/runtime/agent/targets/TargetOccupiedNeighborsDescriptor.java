@@ -39,8 +39,8 @@ public class TargetOccupiedNeighborsDescriptor extends TargetDescriptor<TargetOc
     private final Function<Agent, TargetOccupiedNeighbors> constructor;
 
     @FactoryTarget(displayName = "TargetOccupiedNeighbors")
-    public TargetOccupiedNeighborsDescriptor(LayerManager layerManager, Filter filter, int maximum, Random random) {
-        constructor = cell -> new TargetOccupiedNeighbors(cell, layerManager, filter, maximum, random);
+    public TargetOccupiedNeighborsDescriptor(LayerManager layerManager, Filter filter, Random random) {
+        constructor = cell -> new TargetOccupiedNeighbors(cell, layerManager, filter, random);
     }
 
     @Override

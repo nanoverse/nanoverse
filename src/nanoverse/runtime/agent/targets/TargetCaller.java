@@ -32,18 +32,13 @@ import nanoverse.runtime.processes.discrete.filter.Filter;
 import java.util.*;
 
 /**
- * Targets specify which nanoverse.runtime.cells should receive the consequences
+ * Targets specify which agents should receive the consequences
  * of an Action.
  * Created by dbborens on 2/7/14.
  */
 public class TargetCaller extends TargetRule {
-    public TargetCaller(Agent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
-        super(callback, layerManager, filter, maximum, random);
-    }
-
-    @Override
-    public TargetRule clone(Agent child) {
-        return new TargetCaller(child, layerManager, filter, maximum, random);
+    public TargetCaller(Agent callback, LayerManager layerManager, Filter filter, Random random) {
+        super(callback, layerManager, filter, random);
     }
 
     @Override
@@ -53,5 +48,10 @@ public class TargetCaller extends TargetRule {
         ArrayList<Coordinate> ret = new ArrayList<>(1);
         ret.add(coord);
         return ret;
+    }
+
+    @Override
+    public TargetRule copy(Agent child) {
+        return new TargetCaller(child, layerManager, filter, random);
     }
 }

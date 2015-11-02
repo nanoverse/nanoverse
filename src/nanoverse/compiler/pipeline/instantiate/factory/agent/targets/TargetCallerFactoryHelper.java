@@ -32,7 +32,7 @@ import java.util.Random;
 
 public class TargetCallerFactoryHelper implements TargetFactoryHelper<TargetCallerDescriptor> {
 
-    public TargetCallerDescriptor build(LayerManager layerManager, Filter filter, int maximum, Random random) {
-        return new TargetCallerDescriptor(layerManager, filter, maximum, random);
+    public TargetCallerDescriptor build(LayerManager layerManager, Filter filter, Random random) {
+        return new TargetCallerDescriptor(layerManager, filter, random);
     }
 }

@@ -24,16 +24,14 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.displacement.*;
+import nanoverse.runtime.agent.action.helper.*;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.AgentUpdateManager;
-import nanoverse.runtime.processes.discrete.ShoveHelper;
 
 import java.util.*;
 
@@ -46,150 +44,47 @@ import java.util.*;
  */
 public class ExpandTo extends Action {
 
-    // Highlight channels for the targeting and targeted nanoverse.runtime.cells
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
-
-    // Displaces nanoverse.runtime.cells along a trajectory in the event that the cell is
-    // divided into an occupied site and replace is disabled.
-    private ShoveHelper shoveHelper;
-
-    private Random random;
-
-    private TargetRule targetRule;
+    private final DisplacementManager displacementManager;
+    private final SelfTargetHighlighter stHighlighter;
+    private final PreferentialExpansionManager expansionManager;
+    private final Random random;
+    private final TargetRule targetRule;
 
     public ExpandTo(Agent callback, LayerManager layerManager, TargetRule targetRule,
                     IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
         super(callback, layerManager);
-        this.selfChannel = selfChannel;
-        this.targetChannel = targetChannel;
         this.random = random;
         this.targetRule = targetRule;
+        stHighlighter = new SelfTargetHighlighter(highlighter, selfChannel, targetChannel);
+        displacementManager = new DisplacementManager(layerManager.getAgentLayer(), random);
+        expansionManager = new PreferentialExpansionManager(identity, stHighlighter, mapper, random, displacementManager);
+    }
 
-        shoveHelper = new ShoveHelper(layerManager, random);
+    public ExpandTo(ActionIdentityManager identity, CoordAgentMapper mapper, ActionHighlighter highlighter, DisplacementManager displacementManager, SelfTargetHighlighter stHighlighter, Random random, TargetRule targetRule, PreferentialExpansionManager expansionManager) {
+        super(identity, mapper, highlighter);
+        this.displacementManager = displacementManager;
+        this.stHighlighter = stHighlighter;
+        this.random = random;
+        this.targetRule = targetRule;
+        this.expansionManager = expansionManager;
     }
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        Agent callerAgent = resolveCaller(caller);
+        Agent callerAgent = mapper.resolveCaller(caller);
         List<Coordinate> targets = targetRule.report(callerAgent);
         for (Coordinate target : targets) {
-            preferentialExpand(target);
+            expansionManager.preferentialExpand(target);
         }
     }
 
-    private void preferentialExpand(Coordinate target) throws HaltCondition {
-        Coordinate origin = getOwnLocation();
-
-        // Find out the shortest shoving path available, given the specified
-        // parent and its preferred progeny destination.
-        DisplacementOption shortestOption = getShortestOption(target);
-
-        // Create a vacancy either at the parent or child site, depending on
-        // which had a shorter shoving path.
-        doShove(shortestOption);
-
-        // Now that the nanoverse.runtime.cells have been shoved toward the vacancy, the formerly
-        // occupied site is now vacant.
-        Coordinate newlyVacant = shortestOption.occupied;
-
-        // Place a cloned cell at the newly vacated position.
-        cloneToVacancy(newlyVacant);
-
-        // Clean up out-of-bounds nanoverse.runtime.cells.
-        shoveHelper.removeImaginary();
-
-        // Highlight the parent and target locations.
-        highlight(target, origin);
-    }
-
-    private void cloneToVacancy(Coordinate vacancy) throws HaltCondition {
-        AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
-
-        // Clone parent.
-        AbstractAgent child = getCallback().replicate();
-
-        // Place child in parent location.
-        u.place(child, vacancy);
-    }
-
-    private void doShove(DisplacementOption shortestOption) throws HaltCondition {
-        Coordinate occupied = shortestOption.occupied;
-        Coordinate vacant = shortestOption.vacant;
-        shoveHelper.shove(occupied, vacant);
-    }
-
-    /**
-     * Compare the distance between the origin and its nearest vacancy,
-     * and the target and its nearest vacancy. Report the closer one as the
-     * preferred direction of expansion.
-     */
-    private DisplacementOption getShortestOption(Coordinate target) throws HaltCondition {
-        Coordinate origin = getOwnLocation();
-
-        // Get option that starts with origin.
-        DisplacementOption originOption = getOption(origin);
-
-        // Get option that starts with target.
-        DisplacementOption targetOption = getOption(target);
-
-        // Origin closer to vacancy?
-        if (originOption.distance < targetOption.distance) {
-            return originOption;
-            // Target closer to vacancy?
-        } else if (originOption.distance > targetOption.distance) {
-            return targetOption;
-            // Same?
-        } else {
-            // The coin toss arbitrarily favors shoving parent on true.
-            return (random.nextBoolean() ? originOption : targetOption);
-        }
-    }
-
-    private DisplacementOption getOption(Coordinate start) throws HaltCondition {
-        Geometry geom = getLayerManager().getAgentLayer().getGeometry();
-        Coordinate end = shoveHelper.chooseVacancy(start);
-        int distance = geom.getL1Distance(start, end, Geometry.APPLY_BOUNDARIES);
-
-        DisplacementOption ret = new DisplacementOption();
-        ret.occupied = start;
-        ret.vacant = end;
-        ret.distance = distance;
-
-        return ret;
-    }
-
-    private void highlight(Coordinate target, Coordinate ownLocation) throws HaltCondition {
-        doHighlight(targetChannel, target);
-        doHighlight(selfChannel, ownLocation);
-    }
-
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public Action copy(Agent child) {
+        IntegerArgument selfChannel = stHighlighter.getSelfChannel();
+        IntegerArgument targetChannel = stHighlighter.getTargetChannel();
 
-        return true;
-    }
-
-    @Override
-    public Action clone(Agent child) {
-        TargetRule clonedTargetRule = targetRule.clone(child);
-        return new ExpandTo(child, getLayerManager(), clonedTargetRule, selfChannel,
+        TargetRule clonedTargetRule = targetRule.copy(child);
+        return new ExpandTo(child, mapper.getLayerManager(), clonedTargetRule, selfChannel,
             targetChannel, random);
-    }
-
-    private class DisplacementOption {
-        // This is the site that would start out occupied and end up vacant
-        // (unless occupied == vacant).
-        public Coordinate occupied;
-
-        // This is the site that would start out vacant and end up occupied
-        // (unless occupied == vacant).
-        public Coordinate vacant;
-
-        // L1 distance between origin and vacancy.
-        public int distance;
     }
 }

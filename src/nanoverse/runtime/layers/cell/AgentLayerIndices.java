@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.structural.*;
 
@@ -47,53 +47,28 @@ public class AgentLayerIndices {
     // Occupied sites (non-vacant sites)
     protected AgentIndex occupiedSites;
 
-    // Divisible sites
-    protected AgentIndex divisibleSites;
-
-    // Map that tracks count of nanoverse.runtime.cells with each state
-    protected NonNullIntegerMap stateMap;
-
-//    public AgentLocationIndex getAgentLocationIndex() {
-//        return cellLocationIndex;
-//    }
+    // Map that tracks count of agents with each state
+    protected NonNullStringMap nameMap;
 
     protected AgentLocationIndex cellLocationIndex;
 
-    //protected AgentLayerContent callback;
-
-    // IdentityHashMap resolves the actual memory address of the
-    // key, ie, using == instead of equals(...). This way, no matter
-    // how equality is defined for nanoverse.runtime.cells, the cell-->coordinate map
-    // will uniquely map nanoverse.runtime.cells to a location.
-//    protected IdentityHashMap<AbstractAgent, Coordinate> cellToCoord;
-
     public AgentLayerIndices() {
         occupiedSites = new AgentIndex();
-        divisibleSites = new AgentIndex();
-        stateMap = new NonNullIntegerMap();
+        nameMap = new NonNullStringMap();
         cellLocationIndex = new AgentLocationIndex();
     }
 
-    public Coordinate locate(AbstractAgent agent) {
+    public Coordinate locate(Agent agent) {
         return cellLocationIndex.locate(agent);
     }
 
-    public boolean isIndexed(AbstractAgent agent) {
+    public boolean isIndexed(Agent agent) {
         return cellLocationIndex.isIndexed(agent);
     }
 
     public boolean isOccupied(Coordinate cell) {
         Coordinate c = cell.canonicalize();
         if (occupiedSites.contains(c)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isDivisible(Coordinate cell) {
-        Coordinate c = cell.canonicalize();
-        if (divisibleSites.contains(c)) {
             return true;
         } else {
             return false;
@@ -110,16 +85,7 @@ public class AgentLayerIndices {
         return occupiedSites.set();
     }
 
-    /**
-     * Returns a list of divisible sites on the lattice.
-     *
-     * @return
-     */
-    public Set<Coordinate> getDivisibleSites() {
-        return divisibleSites.set();
-    }
-
-    public void refresh(Coordinate coord, AbstractAgent previous, AbstractAgent current) {
+    public void refresh(Coordinate coord, Agent previous, Agent current) {
         if (previous != null) {
             remove(coord, previous);
         }
@@ -129,20 +95,10 @@ public class AgentLayerIndices {
         }
     }
 
-    private void remove(Coordinate coord, AbstractAgent agent) {
+    private void remove(Coordinate coord, Agent agent) {
         cellLocationIndex.remove(agent);
         decrStateCount(agent);
         setOccupied(coord, false);
-        setDivisible(coord, false);
-    }
-
-    private void setDivisible(Coordinate coord, boolean isDivisible) {
-        if (isDivisible) {
-            divisibleSites.add(coord);
-        } else {
-            divisibleSites.remove(coord);
-        }
-
     }
 
     private void setOccupied(Coordinate coord, boolean isOccupied) {
@@ -153,51 +109,48 @@ public class AgentLayerIndices {
         }
     }
 
-    private void decrStateCount(AbstractAgent agent) {
-        Integer currentState = agent.getState();
-        Integer currentCount = stateMap.get(currentState);
+    private void decrStateCount(Agent agent) {
+        String name = agent.getName();
+        Integer currentCount = nameMap.get(name);
         if (currentCount == 1) {
-            stateMap.remove(currentState);
+            nameMap.remove(name);
         } else {
-            stateMap.put(currentState, currentCount - 1);
+            nameMap.put(name, currentCount - 1);
         }
     }
 
-    private void add(Coordinate coord, AbstractAgent agent) {
+    private void add(Coordinate coord, Agent agent) {
         cellLocationIndex.add(agent, coord);
         incrStateCount(agent);
         setOccupied(coord, true);
-        setDivisible(coord, agent.isDivisible());
     }
 
-    private void incrStateCount(AbstractAgent agent) {
-        Integer currentState = agent.getState();
+    private void incrStateCount(Agent agent) {
+        String name = agent.getName();
 
-        if (!stateMap.containsKey(currentState)) {
-            stateMap.put(currentState, 0);
+        if (!nameMap.containsKey(name)) {
+            nameMap.put(name, 0);
         }
 
-        Integer currentCount = stateMap.get(currentState);
-        stateMap.put(currentState, currentCount + 1);
+        Integer currentCount = nameMap.get(name);
+        nameMap.put(name, currentCount + 1);
     }
 
     public AgentLayerIndices clone(CanonicalAgentMap cellMap) {
         AgentIndex clonedOccupied = new AgentIndex(occupiedSites);
-        AgentIndex clonedDivisible = new AgentIndex(divisibleSites);
-        NonNullIntegerMap clonedStateMap = new NonNullIntegerMap(stateMap);
+        NonNullStringMap clonedStateMap = new NonNullStringMap(nameMap);
         AgentLayerIndices clone = new AgentLayerIndices();
         AgentLocationIndex clonedLocIndex = buildLocationIndex(cellMap);
         clone.cellLocationIndex = clonedLocIndex;
         clone.occupiedSites = clonedOccupied;
-        clone.divisibleSites = clonedDivisible;
-        clone.stateMap = clonedStateMap;
+        clone.nameMap = clonedStateMap;
         return clone;
     }
 
     private AgentLocationIndex buildLocationIndex(CanonicalAgentMap cellMap) {
         AgentLocationIndex ret = new AgentLocationIndex();
         for (Coordinate key : cellMap.keySet()) {
-            AbstractAgent value = cellMap.get(key);
+            Agent value = cellMap.get(key);
             if (value != null) {
                 ret.add(value, key);
             }
@@ -206,15 +159,14 @@ public class AgentLayerIndices {
         return ret;
     }
 
-    public NonNullIntegerMap getStateMap() {
-        return stateMap;
+    public NameMapViewer getNameMap() {
+        return new NameMapViewer(nameMap);
     }
 
     @Override
     public int hashCode() {
         int result = occupiedSites != null ? occupiedSites.hashCode() : 0;
-        result = 31 * result + (divisibleSites != null ? divisibleSites.hashCode() : 0);
-        result = 31 * result + (stateMap != null ? stateMap.hashCode() : 0);
+        result = 31 * result + (nameMap != null ? nameMap.hashCode() : 0);
         result = 31 * result + (cellLocationIndex != null ? cellLocationIndex.hashCode() : 0);
         return result;
     }
@@ -225,12 +177,9 @@ public class AgentLayerIndices {
         if (o == null || getClass() != o.getClass()) return false;
 
         AgentLayerIndices indices = (AgentLayerIndices) o;
-
-        if (divisibleSites != null ? !divisibleSites.equals(indices.divisibleSites) : indices.divisibleSites != null)
-            return false;
         if (occupiedSites != null ? !occupiedSites.equals(indices.occupiedSites) : indices.occupiedSites != null)
             return false;
-        if (stateMap != null ? !stateMap.equals(indices.stateMap) : indices.stateMap != null)
+        if (nameMap != null ? !nameMap.equals(indices.nameMap) : indices.nameMap != null)
             return false;
 
         // We don't want true equality of the cell location index, because we

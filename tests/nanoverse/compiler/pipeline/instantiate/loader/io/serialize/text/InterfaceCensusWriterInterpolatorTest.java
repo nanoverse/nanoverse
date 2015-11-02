@@ -43,9 +43,9 @@ public class InterfaceCensusWriterInterpolatorTest extends InterpolatorTest {
 
     @Test
     public void focalState() throws Exception {
-        IntegerArgument expected = mock(IntegerArgument.class);
-        when(load.anIntegerArgument(node, "focalState", random)).thenReturn(expected);
-        IntegerArgument actual = query.focalState(node, random);
+        String expected = "test";
+        when(load.aString(node, "focus")).thenReturn(expected);
+        String actual = query.focus(node);
         assertSame(expected, actual);
     }
 }

@@ -46,7 +46,6 @@ public class ActionClassSymbolTable extends ClassSymbolTable<ActionDescriptor> {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         mock(ret);
         die(ret);
-        adjustHealth(ret);
         trigger(ret);
         cloneTo(ret);
         expand(ret);
@@ -114,11 +113,6 @@ public class ActionClassSymbolTable extends ClassSymbolTable<ActionDescriptor> {
     private void trigger(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> supplier = TriggerActionInstSymbolTable::new;
         ret.put("Trigger", supplier);
-    }
-
-    private void adjustHealth(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
-        Supplier<InstantiableSymbolTable> supplier = AdjustHealthInstSymbolTable::new;
-        ret.put("AdjustHealth", supplier);
     }
 
     private void die(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {

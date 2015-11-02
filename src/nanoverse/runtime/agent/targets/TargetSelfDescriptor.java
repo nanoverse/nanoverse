@@ -39,8 +39,8 @@ public class TargetSelfDescriptor extends TargetDescriptor<TargetSelf> {
     private final Function<Agent, TargetSelf> constructor;
 
     @FactoryTarget(displayName = "TargetSelf")
-    public TargetSelfDescriptor(LayerManager layerManager, Filter filter, int maximum, Random random) {
-        constructor = cell -> new TargetSelf(cell, layerManager, filter, maximum, random);
+    public TargetSelfDescriptor(LayerManager layerManager, Filter filter, Random random) {
+        constructor = cell -> new TargetSelf(cell, layerManager, filter, random);
     }
 
     @Override

@@ -25,6 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.helper.*;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
@@ -35,29 +36,40 @@ import nanoverse.runtime.layers.LayerManager;
  */
 public class Die extends Action {
 
-    private IntegerArgument channel;
+    private final IntegerArgument channel;
 
+    /**
+     * Main constructor
+     */
     public Die(Agent callback, LayerManager layerManager, IntegerArgument channel) {
         super(callback, layerManager);
         this.channel = channel;
     }
 
+    /**
+     * Testing constructor
+     */
+    public Die(ActionIdentityManager identityManager,
+               CoordAgentMapper mapper,
+               ActionHighlighter highlighter,
+               IntegerArgument channel) {
+
+        super(identityManager, mapper, highlighter);
+        this.channel = channel;
+    }
+
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        doHighlight(channel, getOwnLocation());
-        getCallback().die();
+        Coordinate location = identity.getOwnLocation();
+        highlighter.doHighlight(channel, location);
+
+        Agent self = identity.getSelf();
+        self.die();
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Die) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public Action clone(Agent child) {
-        return new Die(child, getLayerManager(), channel);
+    public Action copy(Agent child) {
+        LayerManager lm = mapper.getLayerManager();
+        return new Die(child, lm, channel);
     }
 }

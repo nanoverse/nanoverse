@@ -48,11 +48,11 @@ public class ColorModelClassSymbolTableTest extends ClassSymbolTableTest {
 
     @Test
     public void surfaceGrowth() throws Exception {
-        verifyReturnSymbol("SurfaceGrowth", SurfaceGrowthColorManager.class);
+        verifyReturnSymbol("SurfaceGrowth", SurfaceColorModel.class);
     }
 
     @Test
     public void indexed() throws Exception {
-        verifyReturnSymbol("Indexed", DefaultColorManager.class);
+        verifyReturnSymbol("Indexed", IndexedColorModel.class);
     }
 }

@@ -65,15 +65,8 @@ public class AgentDescriptorLoader extends Loader<AgentDescriptor> {
         Map<String, ActionDescriptor> behaviors = interpolator.behaviors(node, lm, p);
         factory.setBehaviorDescriptors(behaviors);
 
-        IntegerArgument clazz = interpolator.clazz(node, p.getRandom());
-        factory.setAgentClass(clazz);
-
-        DoubleArgument initialHealth = interpolator.initialHealth(node, p.getRandom());
-        factory.setInitialHealth(initialHealth);
-
-        DoubleArgument threshold = interpolator.threshold(node, p.getRandom());
-        factory.setThreshold(threshold);
-
+        String name = interpolator.name(node);
+        factory.setName(name);
         Stream<Reaction> reactions = interpolator.reactions(node, p.getRandom());
         factory.setReactions(reactions);
 

@@ -24,10 +24,11 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 /**
  * @author David Bruce Borenstein
@@ -35,7 +36,7 @@ import java.util.*;
  */
 public class AgentLayerViewer {
 
-    private AgentLayerContent content;
+    private final AgentLayerContent content;
 
     public AgentLayerViewer(AgentLayerContent content) {
         this.content = content;
@@ -47,75 +48,46 @@ public class AgentLayerViewer {
      *
      * @return
      */
-    public HashSet<Coordinate> getOccupiedSites() {
-        // Construct a copy of internal state
-        HashSet<Coordinate> res = new HashSet<>(content.getOccupiedSites());
-
-        // Return it
-        return res;
+    public Stream<Coordinate> getOccupiedSites() {
+        return content.getOccupiedSites().stream();
     }
 
-    /**
-     * Returns a list of divisible sites on the lattice.
-     *
-     * @return
-     */
-    public HashSet<Coordinate> getDivisibleSites() {
-        // Construct a copy of internal state
-        HashSet<Coordinate> res = new HashSet<>(content.getDivisibleSites());
-
-        // Return it
-        return res;
+    public NameMapViewer getNameMapViewer() {
+        return content.getNameMap();
     }
 
-    public int[] getStateVector() {
-        return content.getStateVector();
-    }
-
-    /**
-     * Returns a vector of health values, in canonical site order.
-     *
-     * @return
-     */
-    public double[] getHealthVector() {
-        return content.getHealthVector();
-    }
-
-    public StateMapViewer getStateMapViewer() {
-        return new StateMapViewer(content.getStateMap());
-    }
-
-    public boolean isDivisible(Coordinate c) {
-        return content.getDivisibleSites().contains(c);
-    }
-
-    public boolean exists(AbstractAgent agent) {
+    public boolean exists(Agent agent) {
         return content.isIndexed(agent);
     }
 
-    public Set<Coordinate> getImaginarySites() {
+    public Stream<Coordinate> getImaginarySites() {
         return content.getImaginarySites();
     }
 
     /**
-     * Returns 0 for vacant nanoverse.runtime.cells; otherwise, returns the cell's state.
+     * Returns null for vacant agents; otherwise, returns the cell's name.
      *
      * @param coord
      * @return
      */
-    public int getState(Coordinate coord) {
+    public String getName(Coordinate coord) {
         if (!isOccupied(coord)) {
-            return 0;
+            return null;
         }
 
-        return getAgent(coord).getState();
+        return getAgent(coord).getName();
     }
 
-    public AbstractAgent getAgent(Coordinate coord) {
+    public Agent getAgent(Coordinate coord) {
         return content.get(coord);
     }
 
     public boolean isOccupied(Coordinate c) {
-        return content.getOccupiedSites().contains(c);
+        return content.isOccupied(c);
+    }
+
+    public Stream<String> getNames() {
+        String[] nameArr = content.getNames();
+        return Arrays.asList(nameArr).stream();
     }
 }

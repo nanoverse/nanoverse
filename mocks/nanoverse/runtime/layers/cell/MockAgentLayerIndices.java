@@ -24,7 +24,7 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 public class MockAgentLayerIndices extends AgentLayerIndices {
@@ -32,8 +32,8 @@ public class MockAgentLayerIndices extends AgentLayerIndices {
     private AgentIndex occupied = new AgentIndex();
     private AgentIndex divisible = new AgentIndex();
     private Coordinate lastCoord;
-    private AbstractAgent lastPrevious;
-    private AbstractAgent lastCurrent;
+    private Agent lastPrevious;
+    private Agent lastCurrent;
 
     public void setOccupied(Coordinate k, Boolean v) {
         if (v)
@@ -74,7 +74,7 @@ public class MockAgentLayerIndices extends AgentLayerIndices {
     }
 
     @Override
-    public void refresh(Coordinate coord, AbstractAgent previous, AbstractAgent current) {
+    public void refresh(Coordinate coord, Agent previous, Agent current) {
         super.refresh(coord, previous, current);
         lastPrevious = previous;
         lastCurrent = current;
@@ -85,11 +85,11 @@ public class MockAgentLayerIndices extends AgentLayerIndices {
         return lastCoord;
     }
 
-    public AbstractAgent getLastPrevious() {
+    public Agent getLastPrevious() {
         return lastPrevious;
     }
 
-    public AbstractAgent getLastCurrent() {
+    public Agent getLastCurrent() {
         return lastCurrent;
     }
 }

@@ -59,13 +59,13 @@ public class ThresholdDo extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        if (!callbackExists()) {
+        if (!identity.selfExists()) {
             return;
         }
-        Coordinate c = getOwnLocation().canonicalize();
+        Coordinate c = identity.getOwnLocation().canonicalize();
         double minimum = minimumArg.next();
         double maximum = maximumArg.next();
-        double value = getLayerManager()
+        double value = mapper.getLayerManager()
             .getContinuumLayer(layerId)
             .getValueAt(c);
 
@@ -94,9 +94,9 @@ public class ThresholdDo extends Action {
     }
 
     @Override
-    public Action clone(Agent clonedAgent) {
-        Action clonedAction = child.clone(clonedAgent);
-        return new ThresholdDo(clonedAgent, getLayerManager(), layerId, minimumArg, maximumArg, clonedAction);
+    public Action copy(Agent clonedAgent) {
+        Action clonedAction = child.copy(clonedAgent);
+        return new ThresholdDo(clonedAgent, mapper.getLayerManager(), layerId, minimumArg, maximumArg, clonedAction);
     }
 
     @Override

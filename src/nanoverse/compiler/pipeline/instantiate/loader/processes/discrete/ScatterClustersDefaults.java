@@ -29,7 +29,7 @@ import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.cluster
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import nanoverse.runtime.processes.discrete.cluster.SeparationStrategyManager;
 
 /**
  * Created by dbborens on 8/27/2015.
@@ -40,7 +40,7 @@ public class ScatterClustersDefaults {
         return loader.instantiate(lm, p);
     }
 
-    public ScatterClustersHelper helper(LayerManager lm, GeneralParameters p) {
+    public SeparationStrategyManager helper(LayerManager lm, GeneralParameters p) {
         StrictSeparationClusterHelperLoader loader = new StrictSeparationClusterHelperLoader();
         return loader.instantiate(lm, p);
     }

@@ -26,12 +26,12 @@ package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete;
 import nanoverse.runtime.control.arguments.*;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.*;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import nanoverse.runtime.processes.discrete.cluster.SeparationStrategyManager;
 
 
 public class ScatterClustersFactoryHelper {
 
-    public ScatterClusters build(BaseProcessArguments arguments, AgentProcessArguments cpArguments, IntegerArgument neighborCount, AgentDescriptor cellDescriptor, ScatterClustersHelper clustersHelper) {
+    public ScatterClusters build(BaseProcessArguments arguments, AgentProcessArguments cpArguments, IntegerArgument neighborCount, AgentDescriptor cellDescriptor, SeparationStrategyManager clustersHelper) {
         return new ScatterClusters(arguments, cpArguments, neighborCount, cellDescriptor, clustersHelper);
     }
 }

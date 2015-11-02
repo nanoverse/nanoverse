@@ -25,7 +25,7 @@
 package nanoverse.compiler.pipeline.translate.symbol.processes.discrete.cluster;
 
 import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import nanoverse.runtime.processes.discrete.cluster.SeparationStrategyManager;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -33,7 +33,7 @@ import java.util.function.Supplier;
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class ScatterClustersHelperClassSymbolTable extends ClassSymbolTable<ScatterClustersHelper> {
+public class ScatterClustersHelperClassSymbolTable extends ClassSymbolTable<SeparationStrategyManager> {
     @Override
     public String getDescription() {
         return "Defines the manner in which cell clusters should " +

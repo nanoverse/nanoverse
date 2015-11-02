@@ -24,66 +24,57 @@
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 
-import java.util.*;
+import java.util.List;
+import java.util.stream.*;
 
 public class MockAgentLayerContent extends AgentLayerContent {
 
-    private Set<Coordinate> imaginarySites;
-    private int[] stateVector;
+    private List<Coordinate> imaginarySites;
+    private String[] stateVector;
     private double[] healthVector;
 
     public MockAgentLayerContent(Geometry geom, AgentLayerIndices indices) {
         super(geom, indices);
     }
 
-    public AbstractAgent get(Coordinate coord) {
+    public Agent get(Coordinate coord) {
         // Mock getter doesn't do any validation
         return map.get(coord);
     }
 
-    @Override
-    public int[] getStateVector() {
-        return stateVector;
-    }
-
 	/* stateVector */
-
-    public void setStateVector(int[] stateVector) {
-        this.stateVector = stateVector;
-    }
-
-    @Override
-    public double[] getHealthVector() {
-        return healthVector;
-    }
 
     @Override
     public void sanityCheck(Coordinate coord) {
 
     }
 
-	/* healthVector */
-
     @Override
-    public Set<Coordinate> getImaginarySites() {
-        return imaginarySites;
+    public Stream<Coordinate> getImaginarySites() {
+        return imaginarySites.stream();
     }
 
-    private void setImaginarySites(Set<Coordinate> imaginarySites) {
-        this.imaginarySites = imaginarySites;
+	/* healthVector */
+
+    private void setImaginarySites(Stream<Coordinate> imaginarySites) {
+        this.imaginarySites = imaginarySites.collect(Collectors.toList());
     }
 
     @Override
     public AgentLayerContent clone() {
         MockAgentLayerContent clone = new MockAgentLayerContent(geom, indices);
-        clone.imaginarySites = new HashSet<>(imaginarySites);
+        clone.imaginarySites = imaginarySites.stream().collect(Collectors.toList());
         clone.stateVector = stateVector.clone();
         clone.healthVector = healthVector.clone();
         return clone;
+    }
+
+    public void setStateVector(String[] stateVector) {
+        this.stateVector = stateVector;
     }
 
     public void setHealthVector(double[] healthVector) {

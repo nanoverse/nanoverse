@@ -26,14 +26,14 @@ package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filte
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.layers.cell.AgentLayer;
-import nanoverse.runtime.processes.discrete.filter.AgentClassFilter;
+import nanoverse.runtime.processes.discrete.filter.AgentNameFilter;
 
-public class AgentClassFilterFactory implements Factory<AgentClassFilter> {
+public class AgentClassFilterFactory implements Factory<AgentNameFilter> {
 
     private final AgentClassFilterFactoryHelper helper;
 
     private AgentLayer layer;
-    private IntegerArgument toChoose;
+    private String toChoose;
 
     public AgentClassFilterFactory() {
         helper = new AgentClassFilterFactoryHelper();
@@ -47,12 +47,12 @@ public class AgentClassFilterFactory implements Factory<AgentClassFilter> {
         this.layer = layer;
     }
 
-    public void setToChoose(IntegerArgument toChoose) {
+    public void setToChoose(String toChoose) {
         this.toChoose = toChoose;
     }
 
     @Override
-    public AgentClassFilter build() {
+    public AgentNameFilter build() {
         return helper.build(layer, toChoose);
     }
 }

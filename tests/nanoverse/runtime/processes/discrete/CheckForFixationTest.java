@@ -96,7 +96,7 @@ public class CheckForFixationTest extends LegacyTest {
         makeTwoCanonicalSites();
         Coordinate coord = new Coordinate2D(0, 0, 1);
         MockAgent cell = new MockAgent();
-        cell.setState(1);
+        cell.setName("1");
         layer.getUpdateManager().place(cell, coord);
         doTest(true);
     }
@@ -126,14 +126,14 @@ public class CheckForFixationTest extends LegacyTest {
         for (int i = 0; i < 2; i++) {
             Coordinate coord = new Coordinate2D(i, 0, 0);
             MockAgent cell = new MockAgent();
-            cell.setState(1);
+            cell.setName("1");
             layer.getUpdateManager().place(cell, coord);
         }
         doTest(true);
     }
 
     // The lattice is full, but there are at least two
-    // kinds of nanoverse.runtime.cells -- should not result in a thrown HaltCondition
+    // kinds of agents -- should not result in a thrown HaltCondition
     @Test
     public void testFullNonFixationCase() throws Exception {
         setUpMixedCase();
@@ -145,8 +145,8 @@ public class CheckForFixationTest extends LegacyTest {
         for (int i = 0; i < 2; i++) {
             Coordinate coord = new Coordinate2D(i, 0, 0);
             MockAgent cell = new MockAgent();
-            // state 0 is reserved for death / nullity
-            cell.setState(i + 1);
+            // name 0 is reserved for death / nullity
+            cell.setName(String.valueOf(i + 1));
             layer.getUpdateManager().place(cell, coord);
         }
     }
@@ -155,10 +155,11 @@ public class CheckForFixationTest extends LegacyTest {
     // to grow -- should still be considered "fixation"
     @Test
     public void testOpenSpaceCase() throws Exception {
+
         makeTwoCanonicalSites();
         Coordinate coord = new Coordinate2D(0, 0, 0);
         MockAgent cell = new MockAgent();
-        cell.setState(1);
+        cell.setName("1");
         layer.getUpdateManager().place(cell, coord);
         doTest(true);
     }
@@ -169,16 +170,17 @@ public class CheckForFixationTest extends LegacyTest {
      */
     @Test
     public void testTwoToOneStateRegression() throws Exception {
-        // This test should start with two nanoverse.runtime.cells, each of a different type.
+
+        // This test should start with two agents, each of a different type.
         setUpMixedCase();
 
-        // We don't expect a fixation state exception.
+        // We don't expect a fixation name exception.
         doTest(false);
 
-        // Remove one of the nanoverse.runtime.cells. Now there's only one cell type in the system.
+        // Remove one of the agents. Now there's only one cell type in the system.
         layer.getUpdateManager().banish(new Coordinate2D(0, 0, 0));
 
-        // The state should now reflect fixation.
+        // The name should now reflect fixation.
         doTest(true);
     }
 

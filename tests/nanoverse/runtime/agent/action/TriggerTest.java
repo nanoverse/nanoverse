@@ -24,209 +24,91 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.targets.*;
-import nanoverse.runtime.cells.MockAgent;
-import nanoverse.runtime.control.arguments.ConstantInteger;
+import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.geometry.MockGeometry;
-import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.*;
-import nanoverse.runtime.processes.StepState;
-import nanoverse.runtime.processes.discrete.filter.*;
 import org.junit.*;
-import test.LegacyTest;
 
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.stream.*;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by dbborens on 2/11/14.
  */
-public class TriggerTest extends LegacyTest {
+public class TriggerTest extends ActionTest {
 
-    private Action query;
-    private MockAgent causeAgent, effectAgent;
-    private MockLayerManager layerManager;
-    private String effectName;
-    private MockTargetRule targetRule;
-    private AgentLayer cellLayer;
-    private MockGeometry geom;
-    private Coordinate o, p, q;
-    private Random random;
-//    private ConstantInteger selfChannel, targetChannel;
+    private String behaviorName = "test";
 
+    private IntegerArgument selfChannel;
+    private IntegerArgument targetChannel;
+
+    private Agent aAgent, bAgent;
+    private Coordinate aCoord, bCoord;
+    private List<Coordinate> targets;
+
+    private Trigger query;
+
+    @Override
     @Before
-    public void setUp() throws Exception {
-        // Restart "random" number generator with fixed seed
-        random = new Random(RANDOM_SEED);
+    public void before() throws Exception {
+        super.before();
+        selfChannel = mock(IntegerArgument.class);
+        targetChannel = mock(IntegerArgument.class);
 
-        // Construct base supporting objects.
-        causeAgent = new MockAgent();
-        effectAgent = new MockAgent();
-        targetRule = new MockTargetRule();
-        layerManager = new MockLayerManager();
-        effectName = "effect";
+        query = new Trigger(identity, mapper, highlighter, behaviorName,
+            targetRule, selfChannel, targetChannel);
 
-        // Configure geometric state.
-        geom = buildMockGeometry();
-        o = geom.getCanonicalSites()[0];
-        p = geom.getCanonicalSites()[1];
-        q = geom.getCanonicalSites()[2];
-        cellLayer = new AgentLayer(geom);
-        cellLayer.getUpdateManager().place(effectAgent, o);
-        cellLayer.getUpdateManager().place(causeAgent, q);
-        layerManager.setAgentLayer(cellLayer);
-        List<Coordinate> targets = new ArrayList<>(1);
-        targets.add(o);
-        targetRule.setTargets(targets);
+        configureTargets();
+        when(targetRule.report(callerAgent)).thenReturn(targets);
+    }
 
-        query = new Trigger(causeAgent, layerManager, effectName, targetRule, null, null);
+    private void configureTargets() {
+        aAgent = mock(Agent.class);
+        aCoord = mock(Coordinate.class);
+        when(mapper.resolveAgent(aCoord)).thenReturn(aAgent);
+
+        bAgent = mock(Agent.class);
+        bCoord = mock(Coordinate.class);
+        when(mapper.resolveAgent(bCoord)).thenReturn(bAgent);
+
+        targets = Stream.of(aCoord, bCoord).collect(Collectors.toList());
     }
 
     @Test
-    public void testRun() throws Exception {
-        /*
-          A note on "callers" in this test: the trigger action causes
-          some named behavior to take place in the target cell(s). The
-          cause of the trigger action is therefore distinct from the
-          cause of the behavior that it triggers. Agents can of course
-          trigger their own behaviors, depending on the specified target.
-        */
-
-        // Set up a calling cell at some site.
-        MockAgent dummy = new MockAgent();
-
-        AgentUpdateManager updateManager = cellLayer.getUpdateManager();
-        updateManager.place(dummy, p);
-
-        // Run the proces originating at the dummy calling cell.
-        query.run(p);
-
-        // "dummy" should be the caller of the trigger() event.
-        // (The caller of the targeter is the cause of the Trigger event.)
-        assertEquals(dummy, targetRule.getLastCaller());
-
-        // The target cell's "effect" behavior should have fired.
-        assertEquals(effectName, effectAgent.getLastTriggeredBehaviorName());
-
-        // "causeAgent", which causes the target cell to execute the effect
-        // behavior, should be the caller of the effect behavior.
-        assertEquals(q, effectAgent.getLastTriggeredCaller());
+    public void runTriggersAllTargets() throws Exception {
+        query.run(caller);
+        verify(aAgent).trigger(behaviorName, ownLocation);
+        verify(bAgent).trigger(behaviorName, ownLocation);
     }
 
     @Test
-    public void testEquals() throws Exception {
-        /*
-         Trigger actions
-         */
-        Action identical, differentBehavior, differentTargeter;
+    public void missingSelfLocationSkips() throws Exception {
+        when(identity.getOwnLocation()).thenReturn(null);
+        query.run(caller);
 
-        MockAgent dummyAgent1 = new MockAgent();
-        MockAgent dummyAgent2 = new MockAgent();
-
-        Filter filter = new NullFilter();
-        TargetRule sameTargetRule = new TargetOccupiedNeighbors(dummyAgent1, layerManager, filter, -1, random);
-        TargetRule differentTargetRule = new TargetOccupiedNeighbors(dummyAgent2, layerManager, filter, -1, random);
-        String differentEffectName = "not the same as effectName";
-
-        identical = new Trigger(dummyAgent1, layerManager, effectName, targetRule, null, null);
-        differentBehavior = new Trigger(dummyAgent1, layerManager, differentEffectName, sameTargetRule, null, null);
-        differentTargeter = new Trigger(dummyAgent2, layerManager, effectName, differentTargetRule, null, null);
-
-        assertEquals(query, identical);
-        assertNotEquals(query, differentBehavior);
-        assertNotEquals(query, differentTargeter);
+        verifyNoMoreInteractions(aAgent, bAgent);
     }
 
     @Test
-    public void testClone() throws Exception {
-        MockAgent cloneAgent = new MockAgent();
-        Action cloned = query.clone(cloneAgent);
-        assert (cloned != query);
-        assertEquals(query, cloned);
-        assertEquals(cloneAgent, cloned.getCallback());
-        assertEquals(causeAgent, query.getCallback());
+    public void runHighlightsAllTargets() throws Exception {
+        query.run(caller);
+        verify(highlighter).doHighlight(targetChannel, aCoord);
+        verify(highlighter).doHighlight(targetChannel, bCoord);
     }
 
     @Test
-    public void testHighlighting() throws Exception {
-        StepState stepState = new StepState(0.0, 0);
-        layerManager.setStepState(stepState);
-        ConstantInteger selfChannel = new ConstantInteger(2);
-        ConstantInteger targetChannel = new ConstantInteger(4);
-        query = new Trigger(causeAgent, layerManager, effectName, targetRule, selfChannel, targetChannel);
-        query.run(null);
-
-        Stream<Coordinate> expected, actual;
-
-        // Check target highlights
-//        expected = new Coordinate[]{q};
-        expected = Stream.of(q);
-        actual = stepState.getHighlights(2);
-        assertStreamsEqual(expected, actual);
-
-        // Check cause highlights
-//        expected = new Coordinate[]{o};
-        expected = Stream.of(o);
-        actual = stepState.getHighlights(4);
-        assertStreamsEqual(expected, actual);
+    public void runHighlightsSelf() throws Exception {
+        query.run(caller);
+        verify(highlighter).doHighlight(selfChannel, ownLocation);
     }
 
-    /**
-     * If a location was chosen as a target, and it is subsequently
-     * vacated, do nothing.
-     * <p>
-     * Regression test for ticket #83330824.
-     *
-     * @throws Exception
-     */
     @Test
-    public void testSkipNewlyVacant() throws Exception {
-        // Begin as with testRun() above.
-        MockAgent dummy = new MockAgent();
-        AgentUpdateManager updateManager = cellLayer.getUpdateManager();
-        updateManager.place(dummy, p);
-
-        // Remove the target.
-        updateManager.banish(o);
-
-        // Run the action.
-        query.run(p);
-
-        // The action should still report that it was called.
-        assertEquals(dummy, targetRule.getLastCaller());
-
-        // ...however, the target was not on the lattice, and should not
-        // have been affected.
-        assertNull(effectAgent.getLastTriggeredBehaviorName());
-    }
-
-    /**
-     * If a cell is set to trigger something after it's dead, it skips
-     * that action instead. Regression test for issue #83973358.
-     */
-    @Test
-    public void testDeadCannotTrigger() throws Exception {
-        // Begin as with testRun() above.
-        MockAgent dummy = new MockAgent();
-        AgentUpdateManager updateManager = cellLayer.getUpdateManager();
-        updateManager.place(dummy, p);
-
-        // Remove the target.
-        updateManager.banish(q);
-
-        // Run the action.
-        query.run(p);
-
-        // The entire action was aborted, so the target rule should
-        // never have been called.
-        // The action should still report that it was called.
-        assertNull(targetRule.getLastCaller());
-
-        // The target should not have been affected.
-        assertNull(effectAgent.getLastTriggeredBehaviorName());
-
+    public void missingTargetOK() throws Exception {
+        when(mapper.resolveAgent(aCoord)).thenReturn(null);
+        query.run(caller);
+        verifyNoMoreInteractions(aAgent);
+        verify(bAgent).trigger(behaviorName, ownLocation);
     }
 }

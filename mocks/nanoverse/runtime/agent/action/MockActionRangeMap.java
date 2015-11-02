@@ -38,7 +38,7 @@ public class MockActionRangeMap extends ActionRangeMap {
     }
 
     @Override
-    public MockActionRangeMap clone(Agent child) {
+    public MockActionRangeMap copy(Agent child) {
         timesCloned++;
 
         MockActionRangeMap ret = new MockActionRangeMap();

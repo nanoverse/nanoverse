@@ -28,6 +28,7 @@ import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 /**
  * Created by David B Borenstein on 1/21/14.
@@ -72,12 +73,12 @@ public class MockBehavior extends CompoundAction {
         return obj instanceof MockBehavior;
     }
 
-    protected Action[] getActionSequence() {
-        return new Action[0];
+    public Stream<Action> getActionSequence() {
+        return Stream.empty();
     }
 
     @Override
-    public MockBehavior clone(Agent child) {
+    public MockBehavior copy(Agent child) {
         return new MockBehavior(child);
     }
 

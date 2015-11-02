@@ -32,22 +32,21 @@ import nanoverse.runtime.layers.cell.AgentLayer;
 import org.junit.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 
 /**
  * Created by dbborens on 3/26/14.
  * <p>
- * TODO This class should be totally rewritten now that LSS has been refactored
  */
 public class LightweightSystemStateTest extends SystemStateTest {
 
     private LightweightSystemState query;
     private Coordinate[] canonicals;
-    private int[] stateVector = new int[]{1, 0, 2, 3, 2};
-    private double[] healthVector = new double[]{1.0, 0.0, -0.1, 2.0, 1};
     private Geometry g;
-
+    private List<String> nameVector;
     @Before
     public void setUp() throws Exception {
         MockCoordinateDeindexer deindexer = new MockCoordinateDeindexer();
@@ -55,7 +54,8 @@ public class LightweightSystemStateTest extends SystemStateTest {
         canonicals = g.getCanonicalSites();
         deindexer.setUnderlying(canonicals);
         query = new LightweightSystemState(g);
-        query.initAgentLayer(stateVector);
+        nameVector = Stream.of("1", "0", "2", "3", "2").collect(Collectors.toList());
+        query.setAgentNames(nameVector.stream());
 
     }
 
@@ -64,8 +64,8 @@ public class LightweightSystemStateTest extends SystemStateTest {
     public void testGetState() throws Exception {
         for (int i = 0; i < 4; i++) {
             Coordinate coord = canonicals[i];
-            int expected = stateVector[i];
-            int actual = query.getLayerManager().getAgentLayer().getViewer().getState(coord);
+            String expected = nameVector.get(i);
+            String actual = query.getLayerManager().getAgentLayer().getViewer().getName(coord);
             assertEquals(expected, actual);
         }
     }
@@ -105,20 +105,16 @@ public class LightweightSystemStateTest extends SystemStateTest {
         MockLayerManager expected = new MockLayerManager();
 
         AgentLayer cellLayer = new AgentLayer(g);
-//        LightweightSoluteLayer soluteLayer = new LightweightSoluteLayer(g, expected, id);
         expected.setAgentLayer(cellLayer);
-//        expected.addSoluteLayer(id, soluteLayer);
 
         for (int i = 0; i < g.getCanonicalSites().length; i++) {
             Coordinate c = g.getCanonicalSites()[i];
-            int state = stateVector[i];
-            double health = healthVector[i];
+            String name = nameVector.get(i);
 
-            if (state != 0) {
-                Agent cell = new Agent(expected, state, health, 0.0, null);
+            if (name != null) {
+                Agent cell = new Agent(expected, name, null);
                 cellLayer.getUpdateManager().place(cell, c);
             }
-//            soluteLayer.set(c, health);
         }
 
         LayerManager actual = query.getLayerManager();

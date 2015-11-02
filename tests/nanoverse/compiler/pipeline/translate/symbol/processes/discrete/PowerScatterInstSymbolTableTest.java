@@ -27,7 +27,7 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.discrete;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.processes.discrete.PowerScatter;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import nanoverse.runtime.processes.discrete.cluster.SeparationStrategyManager;
 import org.junit.Test;
 
 public class PowerScatterInstSymbolTableTest extends DiscreteProcessInstSymbolTableTest {
@@ -49,6 +49,6 @@ public class PowerScatterInstSymbolTableTest extends DiscreteProcessInstSymbolTa
 
     @Test
     public void separation() throws Exception {
-        verifyReturnSymbol("separation", ScatterClustersHelper.class);
+        verifyReturnSymbol("separation", SeparationStrategyManager.class);
     }
 }

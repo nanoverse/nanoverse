@@ -29,7 +29,7 @@ import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.*;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import nanoverse.runtime.processes.discrete.cluster.SeparationStrategyManager;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.RangeMap;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -40,7 +40,7 @@ import java.util.stream.*;
 public class PowerScatter extends AgentProcess {
 
     private final AgentDescriptor cellDescriptor;
-    private final ScatterClustersHelper clustersHelper;
+    private final SeparationStrategyManager clustersHelper;
     private final RangeMap<Integer> neighborChooser;
     private List<Coordinate> candidates;
 
@@ -48,7 +48,7 @@ public class PowerScatter extends AgentProcess {
     public PowerScatter(BaseProcessArguments arguments,
                         AgentProcessArguments cpArguments,
                         AgentDescriptor cellDescriptor,
-                        ScatterClustersHelper clustersHelper) {
+                        SeparationStrategyManager clustersHelper) {
 
         super(arguments, cpArguments);
         this.cellDescriptor = cellDescriptor;

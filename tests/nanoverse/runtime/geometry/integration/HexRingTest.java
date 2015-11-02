@@ -318,11 +318,11 @@ public class HexRingTest extends LegacyTest {
         // visualizing the smaller circles, so check this functionally as well.
         result = hr.getAnnulus(coord, 2, Geometry.EXCLUDE_BOUNDARIES);
 
-        // Top and bottom are truncated, and wrapped nanoverse.runtime.cells that circumnavigate
+        // Top and bottom are truncated, and wrapped agents that circumnavigate
         // are rejected, so 6:
         // (2, 4); (2, 3); (2, 2); (1, 1); (0, 0); (3, 2)
         //
-        // Rejected circumanvigators are all double counts of existing nanoverse.runtime.cells.
+        // Rejected circumanvigators are all double counts of existing agents.
 
         assertEquals(5, result.length);
 

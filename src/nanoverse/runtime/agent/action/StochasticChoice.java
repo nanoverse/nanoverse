@@ -25,6 +25,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.helper.*;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
@@ -39,13 +40,30 @@ import java.util.Random;
  * Created by dbborens on 3/6/14.
  */
 public class StochasticChoice extends Action {
-    private DynamicActionRangeMap chooser;
-    private Random random;
+    private final DynamicActionRangeMap chooser;
+    private final Random random;
 
+    /**
+     * Main constructor
+     */
     public StochasticChoice(Agent callback, LayerManager layerManager,
                             DynamicActionRangeMap chooser, Random random) {
 
         super(callback, layerManager);
+        this.chooser = chooser;
+        this.random = random;
+    }
+
+    /**
+     * Testing constructor
+     */
+    public StochasticChoice(ActionIdentityManager identity,
+               CoordAgentMapper mapper,
+               ActionHighlighter highlighter,
+               DynamicActionRangeMap chooser, Random random) {
+
+        super(identity, mapper, highlighter);
+
         this.chooser = chooser;
         this.random = random;
     }
@@ -80,9 +98,9 @@ public class StochasticChoice extends Action {
     }
 
     @Override
-    public Action clone(Agent child) {
+    public Action copy(Agent child) {
         DynamicActionRangeMap clonedChooser = chooser.clone(child);
-        StochasticChoice cloned = new StochasticChoice(child, getLayerManager(), clonedChooser, random);
+        StochasticChoice cloned = new StochasticChoice(child, mapper.getLayerManager(), clonedChooser, random);
         return cloned;
     }
 }

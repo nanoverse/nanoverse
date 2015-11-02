@@ -68,7 +68,7 @@ public class DepthFilter extends Filter {
 
             // Find the nearest vacancies within a radius up to and including
             // the maximum permissible. If a cell has vacant neighbors, it is at
-            // the surface (depth = 0), and if it is next to nanoverse.runtime.cells with vacant
+            // the surface (depth = 0), and if it is next to agents with vacant
             // neigbhors, it is at depth 1. But the argument for getNearestVacancies
             // is an exclusive boundary, so add 1 to the argument.
             Coordinate[] vacancies = layer.getLookupManager().getNearestVacancies(c, depth + 1);
@@ -85,6 +85,11 @@ public class DepthFilter extends Filter {
     }
 
     @Override
+    public int hashCode() {
+        return maxDepth.hashCode();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof DepthFilter)) return false;
@@ -94,10 +99,5 @@ public class DepthFilter extends Filter {
         if (!maxDepth.equals(that.maxDepth)) return false;
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return maxDepth.hashCode();
     }
 }

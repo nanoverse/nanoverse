@@ -46,13 +46,13 @@ public class Inject extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        if (!callbackExists()) {
+        if (!identity.selfExists()) {
             return;
         }
 
-        Coordinate destination = getOwnLocation();
+        Coordinate destination = identity.getOwnLocation();
         double delta = deltaArg.next();
-        getLayerManager()
+        mapper.getLayerManager()
             .getContinuumLayer(layerId)
             .getScheduler()
             .inject(destination, delta);
@@ -72,8 +72,8 @@ public class Inject extends Action {
     }
 
     @Override
-    public Action clone(Agent child) {
-        return new Inject(child, getLayerManager(), layerId, deltaArg);
+    public Action copy(Agent child) {
+        return new Inject(child, mapper.getLayerManager(), layerId, deltaArg);
     }
 
     @Override

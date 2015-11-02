@@ -49,7 +49,7 @@ public class NullAction extends Action {
     }
 
     @Override
-    public Action clone(Agent child) {
+    public Action copy(Agent child) {
         return new NullAction();
     }
 }

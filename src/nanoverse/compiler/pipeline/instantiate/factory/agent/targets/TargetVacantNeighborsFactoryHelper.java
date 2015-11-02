@@ -32,7 +32,7 @@ import java.util.Random;
 
 public class TargetVacantNeighborsFactoryHelper implements TargetFactoryHelper<TargetVacantNeighborsDescriptor> {
 
-    public TargetVacantNeighborsDescriptor build(LayerManager layerManager, Filter filter, int maximum, Random random) {
-        return new TargetVacantNeighborsDescriptor(layerManager, filter, maximum, random);
+    public TargetVacantNeighborsDescriptor build(LayerManager layerManager, Filter filter, Random random) {
+        return new TargetVacantNeighborsDescriptor(layerManager, filter, random);
     }
 }

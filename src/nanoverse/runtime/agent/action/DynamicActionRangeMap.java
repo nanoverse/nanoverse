@@ -72,7 +72,7 @@ public class DynamicActionRangeMap {
         DynamicActionRangeMap cloned = new DynamicActionRangeMap(layerManager);
 
         functionMap.forEach((action, supplier) -> {
-            Action clonedKey = action.clone(child);
+            Action clonedKey = action.copy(child);
             ProbabilitySupplier clonedValue = supplier.clone(child);
             cloned.add(clonedKey, clonedValue);
         });

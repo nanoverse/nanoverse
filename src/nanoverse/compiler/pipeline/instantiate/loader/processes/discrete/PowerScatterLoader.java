@@ -32,7 +32,7 @@ import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.BaseProcessArguments;
 import nanoverse.runtime.processes.discrete.*;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import nanoverse.runtime.processes.discrete.cluster.SeparationStrategyManager;
 
 /**
  * Created by dbborens on 8/3/2015.
@@ -63,7 +63,7 @@ public class PowerScatterLoader extends ProcessLoader<PowerScatter> {
         AgentDescriptor description = interpolator.description(node, lm, p);
         factory.setAgentDescriptor(description);
 
-        ScatterClustersHelper helper = interpolator.helper(node, lm, p);
+        SeparationStrategyManager helper = interpolator.helper(node, lm, p);
         factory.setClustersHelper(helper);
 
         return factory.build();

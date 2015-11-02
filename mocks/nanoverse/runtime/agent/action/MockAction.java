@@ -86,7 +86,7 @@ public class MockAction extends Action {
     }
 
     @Override
-    public Action clone(Agent child) {
+    public Action copy(Agent child) {
         MockAction clone = new MockAction();
         clone.setCallback(child);
         clone.setIdentifier(identifier);

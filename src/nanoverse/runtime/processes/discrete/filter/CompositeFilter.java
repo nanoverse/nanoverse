@@ -34,7 +34,7 @@ import java.util.stream.*;
  * Created by dbborens on 5/5/14.
  */
 public class CompositeFilter extends Filter {
-    private List<Filter> childList;
+    private final List<Filter> childList;
 
     @FactoryTarget
     public CompositeFilter(Stream<Filter> children) {
@@ -48,17 +48,5 @@ public class CompositeFilter extends Filter {
         }
 
         return toFilter;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        CompositeFilter that = (CompositeFilter) o;
-
-        if (!childList.equals(that.childList)) return false;
-
-        return true;
     }
 }

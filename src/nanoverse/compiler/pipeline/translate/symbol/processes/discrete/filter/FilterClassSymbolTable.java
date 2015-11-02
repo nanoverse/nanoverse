@@ -43,16 +43,17 @@ public class FilterClassSymbolTable extends ClassSymbolTable<Filter> {
     @Override
     protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
-        cellState(ret);
+        name(ret);
         composite(ret);
         depth(ret);
+        sample(ret);
         nullFilter(ret);
         return ret;
     }
 
-    private void cellState(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+    private void name(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> st = AgentClassFilterInstSymbolTable::new;
-        ret.put("AgentClass", st);
+        ret.put("Name", st);
     }
 
     private void composite(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
@@ -63,6 +64,11 @@ public class FilterClassSymbolTable extends ClassSymbolTable<Filter> {
     private void depth(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> st = DepthFilterInstSymbolTable::new;
         ret.put("Depth", st);
+    }
+
+    private void sample(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = SampleFilterInstSymbolTable::new;
+        ret.put("Sample", st);
     }
 
     private void nullFilter(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {

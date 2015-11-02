@@ -27,26 +27,20 @@ package nanoverse.runtime.cells;
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.structural.utilities.EpsilonUtil;
 
 /**
- * Mock cell class used for testing. We make it extend from BehaviorAgent
- * for compatibility with BehaviorAgent-only classes. (BehaviorAgent is a
- * subclass of AbstractAgent which is capable of engaging in arbitrary behaviors,
- * which can then be used for nanoverse.runtime.agent-based modeling.)
- * <p>
+ * LEGACY -- DO NOT USE
+ *
+ * Mock cell class used for testing.
+ *
  * Created by dbborens on 1/13/14.
  */
 public class MockAgent extends Agent {
 
-    private int considerCount;
     private MockAgent child;
-    private int state = 1;
-    private double health = 0.0;
-    private double production;
+    private String name = "mock";
     private String lastTriggeredBehaviorName;
     private Coordinate lastTriggeredCaller;
-    private boolean divisible;
     private boolean died;
     private int triggerCount = 0;
 
@@ -54,68 +48,14 @@ public class MockAgent extends Agent {
         super();
     }
 
-    public MockAgent(int state) {
+    public MockAgent(String name) {
         super();
-        this.state = state;
+        this.name = name;
     }
 
     @Override
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    @Override
-    public double getHealth() {
-        return health;
-    }
-
-    public void setHealth(double health) {
-        this.health = health;
-    }
-
-    @Override
-    public boolean isDivisible() {
-        return divisible;
-    }
-
-    @Override
-    public void setDivisible(boolean divisible) {
-        this.divisible = divisible;
-    }
-
-    @Override
-    public int consider() {
-        considerCount++;
-        return considerCount;
-    }
-
-    @Override
-    public void apply() {
-        considerCount = 0;
-    }
-
-    @Override
-    public MockAgent divide() {
+    public MockAgent copy() {
         return child;
-    }
-
-    @Override
-    public MockAgent clone(int state) {
-        return child;
-    }
-
-    @Override
-    public double getProduction(String solute) {
-        return production;
-    }
-
-    @Override
-    public void adjustHealth(double delta) {
-
     }
 
     @Override
@@ -131,6 +71,15 @@ public class MockAgent extends Agent {
     }
 
     @Override
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof MockAgent)) {
             return false;
@@ -138,19 +87,11 @@ public class MockAgent extends Agent {
 
         MockAgent other = (MockAgent) obj;
 
-        if (other.state != this.state) {
-            return false;
-        }
-
-        if (!EpsilonUtil.epsilonEquals(other.health, health)) {
+        if (!other.name.equals(name)) {
             return false;
         }
 
         return true;
-    }
-
-    public void setProduction(double production) {
-        this.production = production;
     }
 
     public void setChild(MockAgent child) {
@@ -167,9 +108,5 @@ public class MockAgent extends Agent {
 
     public int getTriggerCount() {
         return triggerCount;
-    }
-
-    public boolean died() {
-        return died;
     }
 }

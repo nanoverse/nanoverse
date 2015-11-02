@@ -25,9 +25,9 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.control.identifiers.Coordinate;
 import org.junit.*;
 import org.mockito.InOrder;
-import test.LinearMocks;
 
 import java.util.Random;
 
@@ -36,15 +36,17 @@ import static org.mockito.Mockito.*;
 /**
  * Created by dbborens on 3/6/14.
  */
-public class StochasticChoiceTest extends LinearMocks {
+public class StochasticChoiceTest extends ActionTest {
 
     private DynamicActionRangeMap chooser;
     private Random random;
     private Action action;
     private StochasticChoice query;
+    private Coordinate coord;
 
     @Before
     public void init() throws Exception {
+        coord = mock(Coordinate.class);
         action = mock(Action.class);
 
         random = mock(Random.class);
@@ -54,19 +56,19 @@ public class StochasticChoiceTest extends LinearMocks {
         when(chooser.getTotalWeight()).thenReturn(5.0);
         when(chooser.selectTarget(2.5)).thenReturn(action);
         when(chooser.clone(any())).thenReturn(chooser);
-        query = new StochasticChoice(null, null, chooser, random);
+        query = new StochasticChoice(identity, mapper, highlighter, chooser, random);
     }
 
     @Test
     public void runCalculatesCorrectValue() throws Exception {
-        query.run(a);
+        query.run(coord);
         verify(chooser).selectTarget(2.5);
     }
 
     @Test
     public void runRefreshesChooserBeforeUsing() throws Exception {
         InOrder inOrder = inOrder(chooser);
-        query.run(a);
+        query.run(coord);
         inOrder.verify(chooser).refresh();
         inOrder.verify(chooser).getTotalWeight();
     }
@@ -77,14 +79,14 @@ public class StochasticChoiceTest extends LinearMocks {
     }
 
     private void doTriggerTest(Action target) throws Exception {
-        target.run(a);
-        verify(action).run(a);
+        target.run(coord);
+        verify(action).run(coord);
     }
 
     @Test
     public void cloneBehavesAsExpected() throws Exception {
         Agent child = mock(Agent.class);
-        Action clone = query.clone(child);
+        Action clone = query.copy(child);
         verify(chooser).clone(child);
         doTriggerTest(clone);
     }

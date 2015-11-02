@@ -24,121 +24,68 @@
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.AbstractAgent;
-import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.agent.control.BehaviorDispatcher;
-import nanoverse.runtime.agent.targets.MockTargetRule;
-import nanoverse.runtime.control.identifiers.*;
-import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.geometry.boundaries.*;
-import nanoverse.runtime.geometry.lattice.*;
-import nanoverse.runtime.geometry.shape.*;
-import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.AgentLayer;
+import nanoverse.runtime.control.arguments.IntegerArgument;
+import nanoverse.runtime.control.identifiers.Coordinate;
 import org.junit.*;
-import test.LegacyTest;
 
-import java.util.*;
+import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-public class SwapTest extends LegacyTest {
+public class SwapTest extends ActionTest {
 
-    private MockLayerManager layerManager;
-    private Agent parent;
-    private AgentLayer layer;
-    private MockTargetRule parentTargetRule;
+    private IntegerArgument selfChannel;
+    private IntegerArgument targetChannel;
+    private Swap query;
+    private List<Coordinate> targets;
 
     @Before
-    public void setUp() throws Exception {
+    @Override
+    public void before() throws Exception {
+        super.before();
+        selfChannel = mock(IntegerArgument.class);
+        targetChannel = mock(IntegerArgument.class);
+        targets = makeTargets();
 
-        Lattice lattice = new RectangularLattice();
-        layerManager = new MockLayerManager();
-        Shape shape = new Rectangle(lattice, 10, 1);
-        Boundary boundary = new Periodic(shape, lattice);
-        Geometry geom = new Geometry(lattice, shape, boundary);
-        layer = new AgentLayer(geom);
-        layerManager.setAgentLayer(layer);
-
-        // Place the parent at site 4 and get its target rule
-        parentTargetRule = placeNumberedAgent(4);
-        parent = (Agent) layer.getViewer().getAgent(new Coordinate2D(4, 0, 0));
+        query = new Swap(identity, mapper, highlighter, targetRule,
+            selfChannel, targetChannel);
 
     }
 
-    private MockTargetRule placeNumberedAgent(int x) throws Exception {
-        Agent cell = new Agent(layerManager, x, x, x, null);
-        Coordinate coord = new Coordinate2D(x, 0, 0);
-        layer.getUpdateManager().place(cell, coord);
-        BehaviorDispatcher bd = new BehaviorDispatcher();
-        cell.setDispatcher(bd);
-
-        MockTargetRule targetRule = new MockTargetRule();
-
-        // Agents always divide to the right
-        List<Coordinate> targets = new ArrayList<>(1);
-        Coordinate target = new Coordinate2D(x + 1, 0, 0);
-        targets.add(target);
-        targetRule.setTargets(targets);
-
-        Action action = new Swap(cell, layerManager, targetRule, null, null);
-
-        Action behavior = new CompoundAction(cell, layerManager, new Action[]{action});
-        bd.map("swap", behavior);
-
-        return targetRule;
+    private List<Coordinate> makeTargets() {
+        Coordinate c = mock(Coordinate.class);
+        List<Coordinate> targets = mock(List.class);
+        when(targets.size()).thenReturn(1);
+        when(targets.get(0)).thenReturn(c);
+        when(targetRule.report(callerAgent)).thenReturn(targets);
+        return targets;
     }
 
-    /**
-     * 0123456789
-     * ____45____  Initial condition
-     * ^^
-     * 0123456789
-     * ____54____  Resulting condition
-     */
     @Test
-    public void testTwoOccupied() throws Exception {
-        placeNumberedAgent(5);
-        Coordinate target = new Coordinate2D(5, 0, 0);
-        List<Coordinate> targets = new ArrayList<>(1);
-        targets.add(target);
-        parent.trigger("swap", null);
-
-        checkIsVacant(3);
-        checkPosition(4, 5);
-        checkPosition(5, 4);
-        checkIsVacant(6);
+    public void runCallsSwap() throws Exception {
+        Coordinate other = targets.get(0);
+        query.run(caller);
+        verify(update).swap(ownLocation, other);
     }
 
-    private void checkPosition(int x, int state) {
-        Coordinate c = new Coordinate2D(x, 0, 0);
-        AbstractAgent agent = layer.getViewer().getAgent(c);
-        assertEquals(state, agent.getState());
+    @Test(expected = IllegalStateException.class)
+    public void multipleTargetsThrows() throws Exception {
+        when(targets.size()).thenReturn(4);
+        query.run(caller);
     }
 
-    private void checkIsVacant(int x) {
-        Coordinate c = new Coordinate2D(x, 0, 0);
-        assertFalse(layer.getViewer().isOccupied(c));
+    @Test(expected = IllegalStateException.class)
+    public void zeroTargetsThrows() throws Exception {
+        when(targets.size()).thenReturn(0);
+        query.run(caller);
     }
 
-    /**
-     * 0123456789
-     * ____4_____  Initial condition
-     * ^^
-     * 0123456789
-     * _____4____  Resulting condition
-     */
     @Test
-    public void testOneVacant() throws Exception {
-        Coordinate target = new Coordinate2D(5, 0, 0);
-        List<Coordinate> targets = new ArrayList<>(1);
-        targets.add(target);
-        parentTargetRule.setTargets(targets);
-        parent.trigger("swap", null);
+    public void runDoesHighlight() throws Exception {
+        Coordinate other = targets.get(0);
 
-        checkIsVacant(3);
-        checkIsVacant(4);
-        checkPosition(5, 4);
+        query.run(caller);
+        verify(highlighter).doHighlight(selfChannel, ownLocation);
+        verify(highlighter).doHighlight(targetChannel, other);
     }
-
 }

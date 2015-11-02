@@ -28,12 +28,12 @@ import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import nanoverse.runtime.processes.discrete.cluster.SeparationStrategyManager;
 
 /**
  * Created by dbborens on 8/27/2015.
  */
-public abstract class ScatterClustersHelperLoader<T extends ScatterClustersHelper> extends Loader<T> {
+public abstract class ScatterClustersHelperLoader<T extends SeparationStrategyManager> extends Loader<T> {
 
     public abstract T instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p);
 }

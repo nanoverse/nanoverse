@@ -43,10 +43,8 @@ public class CompoundActionDescriptor extends ActionDescriptor<CompoundAction> {
     public CompoundActionDescriptor(LayerManager layerManager, Stream<ActionDescriptor> children) {
         childList = children.collect(Collectors.toList());
         constructor = cell -> {
-            Action[] instanceChildren = childList.stream()
-                .map(descriptor -> descriptor.instantiate(cell))
-                .collect(Collectors.toList())
-                .toArray(new Action[0]);
+            Stream<Action> instanceChildren = childList.stream()
+                .map(descriptor -> descriptor.instantiate(cell));
             return new CompoundAction(cell, layerManager, instanceChildren);
         };
     }

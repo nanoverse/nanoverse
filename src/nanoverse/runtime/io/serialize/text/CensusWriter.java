@@ -28,11 +28,9 @@ import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.io.serialize.Serializer;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.*;
+import nanoverse.runtime.layers.cell.AgentLayer;
 import nanoverse.runtime.processes.StepState;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.io.BufferedWriter;
 import java.util.*;
 
 /**
@@ -42,115 +40,51 @@ import java.util.*;
  */
 public class CensusWriter extends Serializer {
 
-    private static final String FILENAME = "census.txt";
+    private final CensusFlushHelper flushHelper;
+    private final CensusWriteHelper writeHelper;
 
-    // It is necessary to flush all data at the end of each iteration, rather
-    // than after each flush event, because a state may appear for the first
-    // time in the middle of the simulation, and we want an accurate column
-    // for every observed state in the census table.
-
-//    ArrayList<Integer> frames = new ArrayList<>();
-
-    ArrayList<Integer> frames;
-    // The keys to this map are FRAMES. The values are a mapping from STATE
-    // number to count. If a state number does not appear, that means the
-    // count was zero at that time.
-    HashMap<Integer, HashMap<Integer, Integer>> histo;
-    //    HashSet<Integer> observedStates = new HashSet<>();
-    HashSet<Integer> observedStates;
-
-    private BufferedWriter bw;
-
-    @FactoryTarget
     public CensusWriter(GeneralParameters p, LayerManager lm) {
         super(p, lm);
+
+        HashMap<Integer, HashMap<String, Integer>> histo = new HashMap<>();
+        ArrayList<Integer> frames = new ArrayList<>();
+        HashSet<String> observedNames = new HashSet<>();
+
+        flushHelper = new CensusFlushHelper(observedNames, frames, histo);
+        writeHelper = new CensusWriteHelper(observedNames, histo, p);
+    }
+
+    public CensusWriter(GeneralParameters p,
+                        LayerManager lm,
+                        CensusFlushHelper flushHelper,
+                        CensusWriteHelper writeHelper) {
+        super(p, lm);
+        this.flushHelper = flushHelper;
+        this.writeHelper = writeHelper;
     }
 
     @Override
     public void init() {
-        super.init();
-        histo = new HashMap<>();
-        frames = new ArrayList<>();
-        observedStates = new HashSet<>();
-
-        String filename = p.getInstancePath() + '/' + FILENAME;
-        mkDir(p.getInstancePath(), true);
-        bw = makeBufferedWriter(filename);
+        flushHelper.init();
     }
 
+    @Override
     public void dispatchHalt(HaltCondition ex) {
         int t = (int) Math.round(ex.getGillespie());
-        doFlush(lm.getAgentLayer(), t);
-        conclude();
-        closed = true;
+
+        // For the final flush, we use the real (non-recorded) state of the
+        // simulation.
+        flushHelper.doFlush(lm.getAgentLayer(), t);
+        writeHelper.commit();
     }
 
-    private void conclude() {
-        // Sort the states numerically
-        TreeSet<Integer> sortedStates = new TreeSet<>(observedStates);
-
-        // Write out the header
-        StringBuilder line = new StringBuilder();
-        line.append("frame");
-
-        for (Integer state : sortedStates) {
-            line.append("\t");
-            line.append(state);
-        }
-
-        line.append("\n");
-
-        hAppend(bw, line);
-
-        TreeSet<Integer> sortedFrames = new TreeSet<>(histo.keySet());
-        for (Integer frame : sortedFrames) {
-            HashMap<Integer, Integer> observations = histo.get(frame);
-
-            line = new StringBuilder();
-            line.append(frame);
-
-            for (Integer state : sortedStates) {
-                line.append("\t");
-
-                if (observations.containsKey(state)) {
-                    line.append(observations.get(state));
-                } else {
-                    line.append("0");
-                }
-            }
-
-            line.append("\n");
-            hAppend(bw, line);
-
-        }
-        hClose(bw);
-
-    }
-
+    @Override
     public void close() {
-        // Doesn't do anything.
     }
 
     @Override
     public void flush(StepState stepState) {
         AgentLayer layer = stepState.getRecordedAgentLayer();
-        doFlush(layer, stepState.getFrame());
-    }
-
-    private void doFlush(AgentLayer layer, int t) {
-        frames.add(t);
-
-        // Create a bucket for this frame.
-        HashMap<Integer, Integer> observations = new HashMap<>();
-        histo.put(t, observations);
-
-        // Iterate over all observed states for this frame.
-        StateMapViewer smv = layer.getViewer().getStateMapViewer();
-        for (Integer state : smv.getStates()) {
-            Integer count = smv.getCount(state);
-            observations.put(state, count);
-            observedStates.add(state);
-        }
-
+        flushHelper.doFlush(layer, stepState.getFrame());
     }
 }

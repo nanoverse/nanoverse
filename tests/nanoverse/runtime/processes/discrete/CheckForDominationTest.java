@@ -58,13 +58,13 @@ public class CheckForDominationTest extends LegacyTest {
         layerManager.setAgentLayer(layer);
         MockGeneralParameters p = makeMockGeneralParameters();
         DoubleArgument thresholdArg = new ConstantDouble(0.2);
-        IntegerArgument stateArg = new ConstantInteger(1);
+        String nameArg = "1";
 
         // Create a 1D lattice of length 10.
         // Create an occupancy test that checks for 30% occupancy.
         BaseProcessArguments arguments = makeBaseProcessArguments(layerManager, p);
         AgentProcessArguments cpArguments = makeAgentProcessArguments(geom);
-        query = new CheckForDomination(arguments, cpArguments, stateArg, thresholdArg);
+        query = new CheckForDomination(arguments, cpArguments, nameArg, thresholdArg);
         query.init();
     }
 
@@ -94,7 +94,8 @@ public class CheckForDominationTest extends LegacyTest {
     }
 
     private void populate(int x, int state) throws Exception {
-        Agent cell = new Agent(layerManager, state, state, state, null);
+        String name = String.valueOf(state);
+        Agent cell = new Agent(layerManager, name, null);
         Coordinate coord = new Coordinate2D(x, 0, 0);
         layer.getUpdateManager().place(cell, coord);
     }
