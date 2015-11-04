@@ -1,4 +1,4 @@
-CFLAGS=-Wall $(INC) -std=c99
+CFLAGS= -Wall $(INC) -std=c99
 SRCDIR = src
 VPATH = $(SRCDIR)
 .SILENT:
@@ -11,8 +11,10 @@ include ${PETSC_DIR}/lib/petsc/conf/variables
 include ${PETSC_DIR}/lib/petsc/conf/rules
 
 # Define platform-specific stuff, not worth using autoconf yet...
+
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
+CC = clang
 JAVA_HOME=$(shell /usr/libexec/java_home)
 INC = -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/darwin \
 	-I$(JAVA_HOME)/include/linux -I include
@@ -21,13 +23,14 @@ LIB_SUFFIX = dylib
 endif
 
 ifeq ($(UNAME), Linux)
+cc = gcc
 INC = -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux -I include
 CFLAGS += -fpic
 LIB_COMPILE = -${CLINKER} -shared
 LIB_SUFFIX = so
 endif
 
-## Builds the JNI library and runs tests
+# Builds the JNI library and runs tests
 test: build/petscArch petsc_solver.o test_petsc_solver.o \
 		../../lib/libpetscsolver.dylib chkopts
 	mkdir -p bin
@@ -37,6 +40,7 @@ test: build/petscArch petsc_solver.o test_petsc_solver.o \
 	./bin/test_petsc_solver
 	${RM} petsc_solver.o test_petsc_solver.o
 
+# Builds JNI library
 ../../lib/libpetscsolver.dylib: petsc_solver.o chkopts
 	mkdir -p ../../lib
 	${LIB_COMPILE} -o ../../lib/libpetscsolver.${LIB_SUFFIX} petsc_solver.o \

@@ -26,9 +26,9 @@ int _get_length(int n, int diagonal) {
  */
 int _get_row(int diagonal, int index) {
     if (diagonal > 0) {
-	return index;
+        return index;
     } else {
-	return index - diagonal;
+        return index - diagonal;
     }
 }
 
@@ -41,9 +41,9 @@ int _get_row(int diagonal, int index) {
  */
 int _get_col(int diagonal, int index) {
     if (diagonal > 0) {
-	return index + diagonal;
+        return index + diagonal;
     } else {
-	return index;
+        return index;
     }
 }
 
@@ -70,22 +70,21 @@ PetscErrorCode _fill_matrix(JNIEnv *env, Mat *A, jintArray *index,
 
     // Loop through the array of diagonals
     for (int i = 0; i < index_length; i++) {
-	
-	// Get the current diagonal, its size and its base pointer
-	jdoubleArray diag = (jdoubleArray) (*env) -> GetObjectArrayElement(
-	    env, *diagonals, i);
-	jsize diag_length = (*env) -> GetArrayLength(env, diag);
-	jdouble *diag_array = (*env) -> GetDoubleArrayElements(env, diag, 0);
+        // Get the current diagonal, its size and its base pointer
+        jdoubleArray diag = (jdoubleArray) (*env) -> GetObjectArrayElement(
+            env, *diagonals, i);
+        jsize diag_length = (*env) -> GetArrayLength(env, diag);
+        jdouble *diag_array = (*env) -> GetDoubleArrayElements(env, diag, 0);
 
-	// Loop through current diagonal
-	for (int j = 0; j < diag_length; j++) {
-	    int row = _get_row(index_array[i], j);
-	    int col = _get_col(index_array[i], j);
-	    ierr = MatSetValue(*A, row, col, diag_array[j], INSERT_VALUES);
-	    CHKERRQ(ierr);    
-	}
-	
-	(*env) -> ReleaseDoubleArrayElements(env, diag, diag_array, 0);
+        // Loop through current diagonal
+        for (int j = 0; j < diag_length; j++) {
+            int row = _get_row(index_array[i], j);
+            int col = _get_col(index_array[i], j);
+            ierr = MatSetValue(*A, row, col, diag_array[j], INSERT_VALUES);
+            CHKERRQ(ierr);
+        }
+
+        (*env) -> ReleaseDoubleArrayElements(env, diag, diag_array, 0);
     }
     
     (*env) -> ReleaseIntArrayElements(env, *index, index_array, 0);
@@ -105,7 +104,8 @@ PetscErrorCode _fill_vector(JNIEnv *env, Vec *b, jdoubleArray *values) {
 
     // Get size and base pointer for array of values
     jsize value_length = (*env) -> GetArrayLength(env, *values);
-    PetscScalar *value_array = (*env) -> GetDoubleArrayElements(env, *values, 0);
+    PetscScalar *value_array = (*env) -> GetDoubleArrayElements(env,
+        *values, 0);
   
     // Make array of indices
     int indices[value_length];
@@ -188,8 +188,8 @@ PetscErrorCode _solve_routine(JNIEnv *env, jint n, jintArray *index,
     
     // Set up matrix A in Ax = b
     int num_diags = (*env) -> GetArrayLength(env, *index);
-    ierr = MatCreateSeqAIJ(PETSC_COMM_WORLD, n, n, num_diags,
-			   NULL, &A); CHKERRQ(ierr);
+    ierr = MatCreateSeqAIJ(PETSC_COMM_WORLD, n, n, num_diags, NULL,
+        &A); CHKERRQ(ierr);
     ierr = MatSetUp(A); CHKERRQ(ierr);
     ierr = _fill_matrix(env, &A, index, diagonals);
     CHKERRQ(ierr);
@@ -220,15 +220,9 @@ PetscErrorCode _solve_routine(JNIEnv *env, jint n, jintArray *index,
     PetscOptionsSetValue("-pc_gamg_agg_nsmooths", "1");
     KSPSetFromOptions(ksp);
 
-    clock_t begin, end;
-    double time_spent;
-
-    begin = clock();
+    // Solve
     ierr = KSPSolve(ksp, b, x); CHKERRQ(ierr);
-    end = clock();
-    time_spent = 1000 * (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("Solver time: %f ms\n", time_spent);
-    
+
     // Copy solution into JNI allocated memory
     ierr = _pvec_to_array(&x, solution); CHKERRQ(ierr);
     
@@ -255,14 +249,13 @@ PetscErrorCode _solve_routine(JNIEnv *env, jint n, jintArray *index,
 JNIEXPORT jint JNICALL Java_nanoverse_runtime_layers_continuum_solvers_EquilibriumPetscSolver_solve(
         JNIEnv *env, jobject obj, jint n, jintArray index,
 	    jobjectArray diagonals, jdoubleArray solution, jdoubleArray rhs) {
-    
+
     // Throw a tantrum if PetscScalar and jdouble aren't the same size
     if (sizeof(PetscScalar) != sizeof(jdouble)) {
-	fprintf(stderr,
-		"Type conversion error. Is PetscScalar double precison?\n");
-	exit(1);
+        fprintf(stderr,
+            "PETSc: type conversion error. Is PetscScalar double precison?\n");
+        exit(1);
     }
-    PetscErrorCode ierr;
 
     /* 
      * We need to solve our system in a new process so that we can
@@ -278,24 +271,26 @@ JNIEXPORT jint JNICALL Java_nanoverse_runtime_layers_continuum_solvers_Equilibri
     // Make new process
     pid_t child;
     child = fork();
+
     if (child == 0) {  // Fork succeeded
-	// Solve in child process
-	ierr = _solve_routine(env, n, &index, &diagonals, solution_array, &rhs);
-	exit(ierr);
+        // Solve in child process
+        PetscErrorCode ierr;
+        ierr = _solve_routine(env, n, &index, &diagonals, solution_array, &rhs);
+        exit(ierr);
     } else if (child < 0) { // Fork failed
-	printf("OH SHIT\n");
-	return 1;
+        fprintf(stderr, "PETSc: process fork failed");
+        return 1;
     } else {  // Parent process
-	// Wait for child process to solve the system
-	int status;
-	waitpid(child, &status, 0);
+        // Wait for child process to solve the system
+        int status;
+        waitpid(child, &status, 0);
 
-	// Transfer the solution from shared memory to the Java heap
-	_array_to_jarray(env, solution_array, &solution);
+        // Transfer the solution from shared memory to the Java heap
+        _array_to_jarray(env, solution_array, &solution);
 
-	// Clean up and return
-	shmctl(memid, IPC_RMID, NULL);
-	shmdt(solution_array);
-	return status;
+        // Clean up and return
+        shmctl(memid, IPC_RMID, NULL);
+        shmdt(solution_array);
+        return status;
     }
 }
