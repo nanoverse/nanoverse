@@ -56,6 +56,14 @@ public abstract class MapSymbolTable<T> implements InstantiableSymbolTable {
         return requiredMembers.keySet().stream();
     }
 
+    public String getMemberDescription(String identifier) {
+        if (requiredMembers.containsKey(identifier))
+            return requiredMembers.get(identifier).getDescription();
+
+        throw new UnrecognizedIdentifierError(identifier,
+                getInstanceClass());
+    }
+
     public ResolvingSymbolTable getSymbolTable(String identifier) {
         logger.debug("Resolving {}::{}",
             getInstanceClass().getSimpleName(), identifier);
