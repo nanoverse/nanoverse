@@ -26,6 +26,7 @@ import org.slf4j.*;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 3/3/15.
@@ -43,6 +44,10 @@ public abstract class ClassSymbolTable<T> implements ResolvingSymbolTable {
     }
 
     protected abstract HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses();
+
+    public Stream<String> getMemberNames() {
+        return members.keySet().stream();
+    }
 
     @Override
     public InstantiableSymbolTable getSymbolTable(String identifier) {
