@@ -41,7 +41,7 @@ test: build/petscArch petsc_solver.o test_petsc_solver.o \
 	${RM} petsc_solver.o test_petsc_solver.o
 
 # Builds JNI library
-../../lib/libpetscsolver.dylib: petsc_solver.o chkopts
+libpetscsolver: petsc_solver.o chkopts
 	mkdir -p ../../lib
 	${LIB_COMPILE} -o ../../lib/libpetscsolver.${LIB_SUFFIX} petsc_solver.o \
 		${PETSC_KSP_LIB}
