@@ -10,10 +10,10 @@ extern "C" {
 /*
  * Class:     nanoverse_runtime_layers_continuum_solvers_EquilibriumPetscSolver
  * Method:    solve
- * Signature: (I[I[[D[D[D)I
+ * Signature: (I[I[[D[[Ljava/lang/String;[D[D)I
  */
 JNIEXPORT jint JNICALL Java_nanoverse_runtime_layers_continuum_solvers_EquilibriumPetscSolver_solve
-  (JNIEnv *, jobject, jint, jintArray, jobjectArray, jdoubleArray, jdoubleArray);
+  (JNIEnv *, jobject, jint, jintArray, jobjectArray, jobjectArray, jdoubleArray, jdoubleArray);
 
 #ifdef __cplusplus
 }

@@ -51,11 +51,13 @@ public class EquilibriumMatrixSolverTest extends TestBase {
     @Parameterized.Parameters
     public static Collection solvers() {
         // Array containing all the solvers the test will run with
-        EquilibriumMatrixSolver[] solvers = new EquilibriumMatrixSolver[]{
-            new EquilibriumKrylovSolver(true),
-            new EquilibriumBandSolver(true),
-            new EquilibriumPetscSolver(true)};
-        return Arrays.asList(solvers);
+        ArrayList<EquilibriumMatrixSolver> solvers = new ArrayList<>();
+        solvers.add(new EquilibriumKrylovSolver(true));
+        solvers.add(new EquilibriumBandSolver(true));
+        if (!System.getProperty("os.name").equals("Windows")) {
+            solvers.add(new EquilibriumPetscSolver(true));
+        }
+        return solvers;
     }
 
     /**
