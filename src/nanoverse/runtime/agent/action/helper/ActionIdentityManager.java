@@ -22,6 +22,7 @@ package nanoverse.runtime.agent.action.helper;
 
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.*;
 
 /**
@@ -31,11 +32,11 @@ import nanoverse.runtime.layers.cell.*;
  */
 public class ActionIdentityManager {
     private final Agent self;
-    private final AgentLayer layer;
+    private final LayerManager layerManager;
 
-    public ActionIdentityManager(Agent self, AgentLayer layer) {
+    public ActionIdentityManager(Agent self, LayerManager layerManager) {
         this.self = self;
-        this.layer = layer;
+        this.layerManager = layerManager;
     }
 
     /**
@@ -44,6 +45,7 @@ public class ActionIdentityManager {
      * @return
      */
     public Coordinate getOwnLocation() {
+        AgentLayer layer = layerManager.getAgentLayer();
         AgentLookupManager lookup = layer.getLookupManager();
 
         // If the acting cell has been removed from the lattice, return no coordinate.
@@ -61,6 +63,7 @@ public class ActionIdentityManager {
     }
 
     public boolean selfExists() {
+        AgentLayer layer = layerManager.getAgentLayer();
         return layer.getViewer().exists(self);
     }
 

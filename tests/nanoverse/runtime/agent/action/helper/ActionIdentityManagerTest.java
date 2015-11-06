@@ -37,7 +37,7 @@ public class ActionIdentityManagerTest extends LayerMocks {
     public void before() throws Exception {
         super.before();
         self = mock(Agent.class);
-        query = new ActionIdentityManager(self, agentLayer);
+        query = new ActionIdentityManager(self, layerManager);
     }
 
     @Test
