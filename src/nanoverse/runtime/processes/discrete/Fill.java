@@ -27,6 +27,8 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Fills in all sites in the active site set
@@ -38,19 +40,20 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
  */
 public class Fill extends AgentProcess {
 
-    private AgentDescriptor cellDescriptor;
+    private final AgentDescriptor cellDescriptor;
+    private final Logger logger;
 
     // If true, the process will skip over any already-filled sites. If
     // false, it will blow up if it encounters an already-filled site
     // that it expected to fill.
-    private boolean skipFilled;
+    private final boolean skipFilled;
 
     @FactoryTarget
     public Fill(BaseProcessArguments arguments, AgentProcessArguments cpArguments, boolean skipFilled, AgentDescriptor cellDescriptor) {
         super(arguments, cpArguments);
         this.skipFilled = skipFilled;
         this.cellDescriptor = cellDescriptor;
-
+        logger = LoggerFactory.getLogger(Fill.class);
         try {
             if (cpArguments.getMaxTargets().next() >= 0) {
                 throw new IllegalArgumentException("Cannot specify maximum targets on fill operation. (Did you mean to limit active sites?)");
@@ -80,6 +83,7 @@ public class Fill extends AgentProcess {
 
                 throw new IllegalStateException(msg);
             } else if (!filled) {
+                logger.debug("Getting next agent from descriptor");
                 Agent agent = cellDescriptor.next();
                 getLayer().getUpdateManager().place(agent, c);
             } else {

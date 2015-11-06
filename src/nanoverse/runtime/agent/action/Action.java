@@ -49,7 +49,7 @@ public abstract class Action {
      * Main constructor
      */
     public Action(Agent callback, LayerManager layerManager) {
-        identity = new ActionIdentityManager(callback, layerManager.getAgentLayer());
+        identity = new ActionIdentityManager(callback, layerManager);
         mapper = new CoordAgentMapper(layerManager);
         highlighter = new ActionHighlighter(layerManager);
     }
