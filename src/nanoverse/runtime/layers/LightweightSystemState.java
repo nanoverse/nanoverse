@@ -1,31 +1,26 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.layers;
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
@@ -33,6 +28,9 @@ import nanoverse.runtime.io.deserialize.continuum.ContinuumLayerViewer;
 import nanoverse.runtime.layers.cell.AgentLayer;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Created by dbborens on 3/26/14.
@@ -102,46 +100,33 @@ public class LightweightSystemState extends SystemState {
         return highlightedSites.contains(coord);
     }
 
-    //    public void initAgentLayer(int[] stateVector, double[] healthVector) {
-    public void initAgentLayer(int[] stateVector) {
-        if (stateVector.length != geometry.getCanonicalSites().length) {
+    public void setAgentNames(Stream<String> nameStream) {
+        List<String> names = nameStream.collect(Collectors.toList());
+
+        if (names.size() != geometry.getCanonicalSites().length) {
             throw new IllegalStateException("Actual number of data points not equal to expected number");
         }
-//        if (healthVector.length != nanoverse.runtime.geometry.getCanonicalSites().length) {
-//            throw new IllegalStateException("Actual number of data points not equal to expected number");
-//        }
-        // Build cell layer.
-        AgentLayer cellLayer = new AgentLayer(geometry);
-        layerManager.setAgentLayer(cellLayer);
 
-        // Iterate over state vector.
-        for (int i = 0; i < stateVector.length; i++) {
+        // Build agent layer.
+        AgentLayer agentLayer = new AgentLayer(geometry);
+        layerManager.setAgentLayer(agentLayer);
 
-            // Convert index to coordinate.
-            Coordinate coord = geometry.getCanonicalSites()[i];
-
-//            double health = healthVector[i];
-
-            // If site is vacant, don't place anything
-            int state = stateVector[i];
-            if (state == 0) {
-                continue;
-            }
-            loadAgent(cellLayer, coord, state);
-
-//            loadAgent(cellLayer, coord, health, state);
-        }
-
+        IntStream.range(0, names.size())
+                .forEach(i -> {
+                    Coordinate coord = geometry.getCanonicalSites()[i];
+                    String name = names.get(i);
+                    loadAgent(agentLayer, coord, name);
+                });
     }
 
-    //    private void loadAgent(AgentLayer cellLayer, Coordinate coord, double health, int state) {
-    private void loadAgent(AgentLayer cellLayer, Coordinate coord, int state) {
+    //    private void loadAgent(AgentLayer agentLayer, Coordinate coord, double health, int state) {
+    private void loadAgent(AgentLayer agentLayer, Coordinate coord, String name) {
         try {
             // Build a dummy agent with the correct state and health.
-            AbstractAgent agent = new Agent(layerManager, state, 0.0, 0.0, null);
+            Agent agent = new Agent(layerManager, name, null);
 
             // Place it in the agent layer.
-            cellLayer.getUpdateManager().place(agent, coord);
+            agentLayer.getUpdateManager().place(agent, coord);
         } catch (HaltCondition hc) {
             StringBuilder message = new StringBuilder();
             message.append("Consistency failure: simulation halt event thrown while reconstructing state.\n");
@@ -158,18 +143,4 @@ public class LightweightSystemState extends SystemState {
     public void setExtremaMap(Map<String, Extrema> extremaMap) {
         this.extremaMap = extremaMap;
     }
-
-//    public void initSoluteLayer(String id, double[] soluteVector) {
-//        if (soluteVector.length != nanoverse.runtime.geometry.getCanonicalSites().length) {
-//            throw new IllegalStateException("Actual number of data points not equal to expected number");
-//        }
-//        LightweightSoluteLayer soluteLayer = new LightweightSoluteLayer(nanoverse.runtime.geometry, layerManager, id);
-//        for (int i = 0; i < soluteVector.length; i++) {
-//            Coordinate coord = nanoverse.runtime.geometry.getCanonicalSites()[i];
-//            double value = soluteVector[i];
-//            soluteLayer.set(coord, value);
-//        }
-//
-//        layerManager.addSoluteLayer(id, soluteLayer);
-//    }
 }

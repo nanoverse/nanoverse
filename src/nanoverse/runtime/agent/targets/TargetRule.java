@@ -1,25 +1,21 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.agent.targets;
@@ -32,7 +28,7 @@ import nanoverse.runtime.processes.discrete.filter.Filter;
 import java.util.*;
 
 /**
- * Targets specify which nanoverse.runtime.cells should receive the consequences
+ * Targets specify which agents should receive the consequences
  * of an Action.
  * <p>
  * NOTE: Do not confuse 'callback' and 'caller.' The callback
@@ -44,26 +40,20 @@ import java.util.*;
  */
 public abstract class TargetRule {
 
-    protected Random random;
-    protected int maximum;
-    protected Agent callback;
-    protected LayerManager layerManager;
-    protected Filter filter;
+    protected final Random random;
+    protected final Agent callback;
+    protected final LayerManager layerManager;
+    protected final Filter filter;
 
     /**
      * @param callback     The cell whose behavior is being described
      * @param layerManager
      */
-    public TargetRule(Agent callback, LayerManager layerManager, Filter filter, int maximum, Random random) {
+    public TargetRule(Agent callback, LayerManager layerManager, Filter filter, Random random) {
         this.callback = callback;
         this.layerManager = layerManager;
-        this.maximum = maximum;
         this.random = random;
         this.filter = filter;
-    }
-
-    public int getMaximum() {
-        return maximum;
     }
 
     /**
@@ -74,59 +64,12 @@ public abstract class TargetRule {
      */
     public List<Coordinate> report(Agent caller) {
         List<Coordinate> candidates = getCandidates(caller);
-        List<Coordinate> filtered = filter.apply(candidates);
-        List<Coordinate> targets = respectMaximum(filtered);
+        List<Coordinate> targets = filter.apply(candidates);
         return targets;
     }
-
-    private List<Coordinate> respectMaximum(List<Coordinate> candidates) {
-        // If maximum is < 0, it means that there is no maximum; return all.
-        if (maximum < 0) {
-            return candidates;
-        }
-        // If there the number of candidates does not exceed the max, return.
-        if (candidates.size() <= maximum) {
-            return candidates;
-        }
-
-        // Otherwise, permute and choose the first n, where n = maximum.
-        Collections.shuffle(candidates, random);
-
-        List<Coordinate> reduced = candidates.subList(0, maximum);
-
-        return reduced;
-    }
-
     protected abstract List<Coordinate> getCandidates(Agent caller);
 
-    @Override
-    /**
-     * Targeting rules are equal if and only if they are of the
-     * same class.
-     */
-    public boolean equals(Object obj) {
-        Class objClass = obj.getClass();
-        Class myClass = getClass();
-
-        // Must be same class of targeting rule.
-        if (!objClass.equals(myClass)) {
-            return false;
-        }
-
-        // Other targeting rule must have same maximum.
-        TargetRule other = (TargetRule) obj;
-        if (other.maximum != this.maximum) {
-            return false;
-        }
-
-        if (!this.filter.equals(other.filter)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public abstract TargetRule clone(Agent child);
+    public abstract TargetRule copy(Agent child);
 
     public Agent getCallback() {
         return callback;

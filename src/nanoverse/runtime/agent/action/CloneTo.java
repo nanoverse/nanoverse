@@ -1,37 +1,32 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.action.helper.*;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.*;
 
 import java.util.*;
 
@@ -44,17 +39,13 @@ import java.util.*;
  */
 public class CloneTo extends Action {
 
-    private TargetRule targetRule;
+    private final TargetRule targetRule;
+    private final CloneToChildPlacer childPlacer;
+    private final Random random;
 
-    // Replace occupied sites?
-    private boolean noReplace;
-
-    // Highlight channels for the targeting and targeted nanoverse.runtime.cells
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
-
-    private Random random;
-
+    /**
+     * Main constructor
+     */
     public CloneTo(Agent agent, LayerManager layerManager,
                    TargetRule targetRule, boolean noReplace,
                    IntegerArgument selfChannel,
@@ -62,76 +53,47 @@ public class CloneTo extends Action {
 
         super(agent, layerManager);
         this.targetRule = targetRule;
-        this.selfChannel = selfChannel;
-        this.targetChannel = targetChannel;
-        this.noReplace = noReplace;
+        this.random = random;
+
+        SelfTargetHighlighter stHighlighter =
+            new SelfTargetHighlighter(highlighter, selfChannel, targetChannel);
+
+        childPlacer = new CloneToChildPlacer(stHighlighter,
+            mapper, noReplace);
+    }
+
+    public CloneTo(ActionIdentityManager identity, CoordAgentMapper mapper, ActionHighlighter highlighter, TargetRule targetRule, CloneToChildPlacer childPlacer, Random random) {
+        super(identity, mapper, highlighter);
+        this.targetRule = targetRule;
+        this.childPlacer = childPlacer;
         this.random = random;
     }
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        Agent callerAgent = resolveCaller(caller);
+        Agent callerAgent = mapper.resolveCaller(caller);
 
-        Coordinate self = getOwnLocation();
+        Coordinate self = identity.getOwnLocation();
 
         List<Coordinate> targets = targetRule.report(callerAgent);
 
-        AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
-        AgentLayerViewer v = getLayerManager().getAgentLayer().getViewer();
 
         for (Coordinate target : targets) {
-
-            // Make replicate
-            AbstractAgent child = getCallback().replicate();
-
-            // Place replicate at target site
-            if (!v.isOccupied(target)) {
-                u.place(child, target);
-            } else if (noReplace) {
-                throw new IllegalStateException("In CloneTo: Attempted to " +
-                    "place child at occupied position (leading to " +
-                    "replacement), but <no-replacment /> flag is set.");
-            } else {
-                u.banish(target);
-                u.place(child, target);
-            }
-            // Highlight sites
-            highlight(target, self);
+            Agent child = identity.getSelf().copy();
+            childPlacer.place(self, target, child);
         }
 
     }
 
-    private void highlight(Coordinate target, Coordinate ownLocation) throws HaltCondition {
-        doHighlight(targetChannel, target);
-        doHighlight(selfChannel, ownLocation);
-    }
-
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public Action copy(Agent child) {
+        TargetRule clonedTargeter = targetRule.copy(child);
 
-        CloneTo cloneTo = (CloneTo) o;
+        IntegerArgument selfChannel = childPlacer.getSelfChannel();
+        IntegerArgument targetChannel = childPlacer.getTargetChannel();
+        boolean noReplace = childPlacer.isNoReplace();
 
-        if (targetRule != null ? !targetRule.equals(cloneTo.targetRule) : cloneTo.targetRule != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
-    public Action clone(Agent child) {
-        TargetRule clonedTargeter = targetRule.clone(child);
-        return new CloneTo(child, getLayerManager(), clonedTargeter, noReplace,
+        return new CloneTo(child, mapper.getLayerManager(), clonedTargeter, noReplace,
             selfChannel, targetChannel, random);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = targetRule != null ? targetRule.hashCode() : 0;
-        result = 31 * result + (selfChannel != null ? selfChannel.hashCode() : 0);
-        result = 31 * result + (targetChannel != null ? targetChannel.hashCode() : 0);
-        return result;
     }
 }

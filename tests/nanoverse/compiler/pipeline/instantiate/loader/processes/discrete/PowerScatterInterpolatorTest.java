@@ -1,25 +1,21 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.compiler.pipeline.instantiate.loader.processes.discrete;
@@ -29,7 +25,7 @@ import nanoverse.compiler.pipeline.instantiate.loader.agent.AgentDescriptorLoade
 import nanoverse.compiler.pipeline.instantiate.loader.processes.discrete.cluster.ScatterClustersHelperLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.arguments.AgentDescriptor;
-import nanoverse.runtime.processes.discrete.cluster.ScatterClustersHelper;
+import nanoverse.runtime.processes.discrete.cluster.SeparationStrategyManager;
 import org.junit.*;
 
 import static org.junit.Assert.assertSame;
@@ -55,19 +51,19 @@ public class PowerScatterInterpolatorTest extends InterpolatorTest {
         ScatterClustersHelperLoader loader = mock(ScatterClustersHelperLoader.class);
         when(load.getLoader(eq(node), eq("separation"), anyBoolean())).thenReturn(loader);
 
-        ScatterClustersHelper expected = mock(ScatterClustersHelper.class);
+        SeparationStrategyManager expected = mock(SeparationStrategyManager.class);
         when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
 
-        ScatterClustersHelper actual = query.helper(node, lm, p);
+        SeparationStrategyManager actual = query.helper(node, lm, p);
         assertSame(expected, actual);
     }
 
     @Test
     public void helperDefault() throws Exception {
-        ScatterClustersHelper expected = mock(ScatterClustersHelper.class);
+        SeparationStrategyManager expected = mock(SeparationStrategyManager.class);
         when(defaults.helper(lm, p)).thenReturn(expected);
 
-        ScatterClustersHelper actual = query.helper(node, lm, p);
+        SeparationStrategyManager actual = query.helper(node, lm, p);
         assertSame(expected, actual);
     }
 

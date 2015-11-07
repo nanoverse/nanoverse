@@ -1,30 +1,25 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.control.arguments;
 
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.agent.control.BehaviorDispatcher;
@@ -40,30 +35,23 @@ import java.util.stream.*;
 /**
  * Created by dbborens on 11/23/14.
  */
-public class AgentDescriptor implements Argument<AbstractAgent> {
+public class AgentDescriptor implements Argument<Agent> {
 
     private LayerManager layerManager;
 
-    private Argument<Integer> cellState;
-
-    private Argument<Double> threshold;
-    private Argument<Double> initialHealth;
+    private String name;
 
     private List<Reaction> reactions;
     private Map<String, ActionDescriptor> behaviorDescriptors;
 
     @FactoryTarget(displayName = "AgentDescriptor")
     public AgentDescriptor(LayerManager layerManager,
-                          Argument<Integer> cellState,
-                          Argument<Double> threshold,
-                          Argument<Double> initialHealth,
-                          Stream<Reaction> reactions,
-                          Map<String, ActionDescriptor> behaviorDescriptors) {
+                           String name,
+                           Stream<Reaction> reactions,
+                           Map<String, ActionDescriptor> behaviorDescriptors) {
 
         this.layerManager = layerManager;
-        this.cellState = cellState;
-        this.threshold = threshold;
-        this.initialHealth = initialHealth;
+        this.name = name;
         this.reactions = reactions.collect(Collectors.toList());
         this.behaviorDescriptors = behaviorDescriptors;
     }
@@ -81,9 +69,7 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
         AgentDescriptor that = (AgentDescriptor) o;
 
         //if (!behaviorRoot.equals(that.behaviorRoot)) return false;
-        if (!cellState.equals(that.cellState)) return false;
-        if (!initialHealth.equals(that.initialHealth)) return false;
-        if (!threshold.equals(that.threshold)) return false;
+        if (!name.equals(that.name)) return false;
 
         return true;
     }
@@ -91,11 +77,7 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
     @Override
     public Agent next() throws HaltCondition {
         // Load cell properties
-        double initialHealthValue = initialHealth.next();
-        double thresholdValue = threshold.next();
-        int stateValue = cellState.next();
-
-        Supplier<Agent> supplier = () -> {
+        Supplier<Agent> nextFromDescriptor = () -> {
             try {
                 return next();
             } catch (HaltCondition ex) {
@@ -104,7 +86,7 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
         };
 
         // Construct cell
-        Agent cell = new Agent(layerManager, stateValue, initialHealthValue, thresholdValue, supplier);
+        Agent cell = new Agent(layerManager, name, nextFromDescriptor);
 
         loadReactions(cell);
         loadBehaviors(cell);
@@ -112,16 +94,8 @@ public class AgentDescriptor implements Argument<AbstractAgent> {
         return cell;
     }
 
-    public void setAgentClass(Argument<Integer> cellState) {
-        this.cellState = cellState;
-    }
-
-    public void setThreshold(Argument<Double> threshold) {
-        this.threshold = threshold;
-    }
-
-    public void setInitialHealth(Argument<Double> initialHealth) {
-        this.initialHealth = initialHealth;
+    public void setName(String name) {
+        this.name = name;
     }
 
     private void loadReactions(Agent cell) {

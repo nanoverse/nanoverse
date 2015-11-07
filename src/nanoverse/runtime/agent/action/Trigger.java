@@ -1,30 +1,27 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.helper.*;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
@@ -38,15 +35,15 @@ import java.util.List;
  */
 public class Trigger extends Action {
 
-    private String behaviorName;
-    private TargetRule targetRule;
+    private final String behaviorName;
+    private final TargetRule targetRule;
 
-    // Highlight channels for the targeting and targeted nanoverse.runtime.cells
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
+    // Highlight channels for the targeting and targeted agents
+    private final IntegerArgument selfChannel;
+    private final IntegerArgument targetChannel;
 
     /**
-     * Trigger a predesignated behavior in a cell or set of nanoverse.runtime.cells designated by a
+     * Trigger a predesignated behavior in a cell or set of agents designated by a
      * targeting rule.
      *
      * @param callback     The cell associated with this behavior
@@ -62,13 +59,31 @@ public class Trigger extends Action {
         this.targetChannel = targetChannel;
     }
 
+    /**
+     * Testing constructor
+     */
+    public Trigger(ActionIdentityManager identity,
+                   CoordAgentMapper mapper,
+                   ActionHighlighter highlighter,
+                   String behaviorName,
+                   TargetRule targetRule,
+                   IntegerArgument selfChannel,
+                   IntegerArgument targetChannel) {
+
+        super(identity, mapper, highlighter);
+        this.targetRule = targetRule;
+        this.targetChannel = targetChannel;
+        this.selfChannel = selfChannel;
+        this.behaviorName = behaviorName;
+    }
+
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        Agent callerAgent = resolveCaller(caller);
+        Agent callerAgent = mapper.resolveCaller(caller);
 
         // Since the Trigger behavior is the cause of the triggered behaviors,
         // the caller for the triggered behaviors is this cell.
-        Coordinate self = getOwnLocation();
+        Coordinate self = identity.getOwnLocation();
 
         // If this cell is no longer on the lattice, then it can no longer act,
         // so skip the action.
@@ -80,43 +95,20 @@ public class Trigger extends Action {
 
         for (Coordinate target : targets) {
             // We require an occupied cell for the target of trigger actions.
-            Agent targetAgent = getWithCast(target);
+            Agent targetAgent = mapper.resolveAgent(target);
             if (targetAgent == null) {
                 continue;
             }
             targetAgent.trigger(behaviorName, self);
-            highlight(target, self);
+            highlighter.doHighlight(targetChannel, target);
         }
-    }
-
-    private void highlight(Coordinate target, Coordinate ownLocation) throws HaltCondition {
-        doHighlight(targetChannel, target);
-        doHighlight(selfChannel, ownLocation);
+        highlighter.doHighlight(selfChannel, self);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Trigger)) {
-            return false;
-        }
-
-        Trigger other = (Trigger) obj;
-
-        if (!other.behaviorName.equalsIgnoreCase(this.behaviorName)) {
-            return false;
-        }
-
-        if (!other.targetRule.equals(this.targetRule)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public Action clone(Agent child) {
-        TargetRule clonedTargeter = targetRule.clone(child);
-        Trigger cloned = new Trigger(child, getLayerManager(), behaviorName, clonedTargeter, selfChannel, targetChannel);
+    public Action copy(Agent child) {
+        TargetRule clonedTargeter = targetRule.copy(child);
+        Trigger cloned = new Trigger(child, mapper.getLayerManager(), behaviorName, clonedTargeter, selfChannel, targetChannel);
         return cloned;
     }
 }

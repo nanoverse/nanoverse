@@ -1,25 +1,21 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.control.arguments;
@@ -44,9 +40,7 @@ import static org.mockito.Mockito.*;
  */
 public class AgentDescriptorTest extends TestBase {
 
-    private DoubleArgument threshold;
-    private DoubleArgument initialHealth;
-    private IntegerArgument cellState;
+    private String name;
     private Reaction reaction1, reaction2;
     private ActionDescriptor behaviorDescriptor;
     private Action behavior;
@@ -60,9 +54,7 @@ public class AgentDescriptorTest extends TestBase {
     }
 
     private void initEverythingButReactions() {
-        threshold = new ConstantDouble(0.5);
-        initialHealth = new ConstantDouble(0.75);
-        cellState = new ConstantInteger(1);
+        name = "test";
 
 
         // TODO Instantiation of behaviors from descriptors should be handled by a helper
@@ -93,9 +85,7 @@ public class AgentDescriptorTest extends TestBase {
         when(layerManager.getContinuumLayer(any())).thenReturn(continuumLayer);
 
         query = new AgentDescriptor(layerManager);
-        query.setAgentClass(cellState);
-        query.setInitialHealth(initialHealth);
-        query.setThreshold(threshold);
+        query.setName(name);
         query.setBehaviorDescriptors(behaviorDescriptors);
     }
 
@@ -113,19 +103,7 @@ public class AgentDescriptorTest extends TestBase {
     @Test
     public void cellState() throws Exception {
         Agent result = query.next();
-        assertEquals((int) cellState.next(), result.getState());
-    }
-
-    @Test
-    public void threshold() throws Exception {
-        Agent result = query.next();
-        assertEquals(threshold.next(), result.getThreshold(), epsilon);
-    }
-
-    @Test
-    public void initialHealth() throws Exception {
-        Agent result = query.next();
-        assertEquals(initialHealth.next(), result.getHealth(), epsilon);
+        assertEquals(name, result.getName());
     }
 
     // TODO this should be tested directly

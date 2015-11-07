@@ -1,4 +1,4 @@
-version: "1.0.0-a2";
+version: "1.0.0-a5";
 
 parameters: Parameters {
     date: True;
@@ -23,6 +23,7 @@ processes {
         maxTargets: 1;
         period: 0;
         description: Agent {
+            name: "cell";
             behaviors {
                 reproduce: 
                     ExpandTo:
@@ -52,7 +53,7 @@ processes {
 output {
     ProgressReporter;
     CoordinateIndexer;
-    AgentClassWriter;
+    AgentNameWriter;
     TimeWriter;
     ContinuumStateWriter;
     VisualizationSerializer {

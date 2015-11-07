@@ -1,25 +1,21 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.io.visual.kymograph;
@@ -41,6 +37,10 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static org.junit.Assert.fail;
 
 public class KymographTest extends LegacyTest {
 
@@ -54,7 +54,7 @@ public class KymographTest extends LegacyTest {
         Shape shape = new Line(lattice, 5);
         Boundary boundary = new Arena(shape, lattice);
         Geometry geom = new Geometry(lattice, shape, boundary);
-        ColorManager colorManager = new DefaultColorManager();
+        ColorManager colorManager = new IndexedColorModel();
         VisualizationProperties mapState = new VisualizationProperties(colorManager, 25, outline);
         HighlightManager highlightManager = new HighlightManager();
         mapState.setHighlightManager(highlightManager);
@@ -94,19 +94,15 @@ public class KymographTest extends LegacyTest {
 
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
         int n = geom.getCanonicalSites().length;
-        double[] health = new double[n];
-        int[] state = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            health[i] = 0.0;
-            state[i] = i % 3;
-        }
-        systemState.initAgentLayer(state);
-
+        Stream<String> nameStream = IntStream.range(0, n)
+                .map(i -> i % 3)
+                .mapToObj(String::valueOf);
+        systemState.setAgentNames(nameStream);
     }
 
     @Test
     public void testNoOutline() throws Exception {
+//        fail("Rewrite as modern test");
         doTest(0, "KymographNoOutline.png");
     }
 }

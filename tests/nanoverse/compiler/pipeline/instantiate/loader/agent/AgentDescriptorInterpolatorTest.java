@@ -1,25 +1,21 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent;
@@ -74,46 +70,11 @@ public class AgentDescriptorInterpolatorTest extends InterpolatorTest {
     }
 
     @Test
-    public void clazz() throws Exception {
-        Supplier<IntegerArgument> trigger = () -> query.clazz(node, random);
-        verifyIntegerArgument("class", trigger);
+    public void name() throws Exception {
+        Supplier<String> trigger = () -> query.name(node);
+        verifyString("name", trigger);
     }
 
-    @Test
-    public void clazzDefault() throws Exception {
-        IntegerArgument expected = mock(IntegerArgument.class);
-        when(defaults.clazz()).thenReturn(expected);
-        Runnable trigger = () -> query.clazz(node, random);
-        verifyIntegerArgumentDefault("class", expected, trigger);
-    }
-
-    @Test
-    public void initialHealth() throws Exception {
-        Supplier<DoubleArgument> trigger = () -> query.initialHealth(node, random);
-        verifyDoubleArgument("initialHealth", trigger);
-    }
-
-    @Test
-    public void initialHealthDefault() throws Exception {
-        DoubleArgument expected = mock(DoubleArgument.class);
-        when(defaults.initialHealth()).thenReturn(expected);
-        Runnable trigger = () -> query.initialHealth(node, random);
-        verifyDoubleArgumentDefault("initialHealth", expected, trigger);
-    }
-
-    @Test
-    public void threshold() throws Exception {
-        Supplier<DoubleArgument> trigger = () -> query.threshold(node, random);
-        verifyDoubleArgument("threshold", trigger);
-    }
-
-    @Test
-    public void thresholdDefault() throws Exception {
-        DoubleArgument expected = mock(DoubleArgument.class);
-        when(defaults.threshold()).thenReturn(expected);
-        Runnable trigger = () -> query.threshold(node, random);
-        verifyDoubleArgumentDefault("threshold", expected, trigger);
-    }
 
     @Test
     public void reactions() throws Exception {

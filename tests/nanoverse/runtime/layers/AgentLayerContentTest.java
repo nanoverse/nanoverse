@@ -1,25 +1,21 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.layers;
@@ -55,16 +51,13 @@ public abstract class AgentLayerContentTest extends LegacyTest {
 
         query = makeQuery();
 
-        f0 = makeMockAgent(1, 0.5);
-        f1 = makeMockAgent(1, 0.5);
-        f2 = makeMockAgent(2, 0.7);
+        f0 = makeMockAgent("1");
+        f1 = makeMockAgent("1");
+        f2 = makeMockAgent("2");
     }
 
-    private MockAgent makeMockAgent(int state, double health) {
-        MockAgent cell = new MockAgent();
-        cell.setState(state);
-        cell.setHealth(health);
-
+    private MockAgent makeMockAgent(String name) {
+        MockAgent cell = new MockAgent(name);
         return cell;
     }
 
@@ -75,7 +68,7 @@ public abstract class AgentLayerContentTest extends LegacyTest {
     @Test
     public void testPutHasGetRemove() throws Exception {
 
-        // Test before and after state
+        // Test before and after name
         assertFalse(query.has(c[0]));
         query.put(c[0], f0);
         assertTrue(query.has(c[0]));
@@ -102,27 +95,15 @@ public abstract class AgentLayerContentTest extends LegacyTest {
     }
 
     @Test
-    public void testGetStateVector() throws Exception {
+    public void testGetNameVector() throws Exception {
         query.put(c[0], f0);
         query.put(c[1], f1);
         query.put(c[2], f2);
 
         // Health vector goes in order of canonical sites array
-        assertEquals(query.getStateVector()[0], 1);
-        assertEquals(query.getStateVector()[1], 1);
-        assertEquals(query.getStateVector()[2], 2);
-    }
-
-    @Test
-    public void testGetHealthVector() throws Exception {
-        query.put(c[0], f0);
-        query.put(c[1], f1);
-        query.put(c[2], f2);
-
-        // Health vector goes in order of canonical sites array
-        assertEquals(query.getHealthVector()[0], 0.5, epsilon);
-        assertEquals(query.getHealthVector()[1], 0.5, epsilon);
-        assertEquals(query.getHealthVector()[2], 0.7, epsilon);
+        assertEquals(query.getNames()[0], "1");
+        assertEquals(query.getNames()[1], "1");
+        assertEquals(query.getNames()[2], "2");
     }
 
     @Test

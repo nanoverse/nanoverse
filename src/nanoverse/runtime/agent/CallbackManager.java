@@ -1,36 +1,31 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.agent;
 
-import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.cell.*;
 
 /**
- * A helper class for nanoverse.runtime.cells that triggers
+ * A helper class for agents that triggers
  * update events related to the life cycle
  * of the agent, such as death or divisibility.
  * <p>
@@ -38,10 +33,10 @@ import nanoverse.runtime.layers.cell.*;
  */
 public class CallbackManager {
 
-    private AbstractAgent agent;
-    private LayerManager layerManager;
+    private final Agent agent;
+    private final LayerManager layerManager;
 
-    public CallbackManager(AbstractAgent agent, LayerManager layerManager) {
+    public CallbackManager(Agent agent, LayerManager layerManager) {
         this.agent = agent;
         this.layerManager = layerManager;
     }
@@ -51,27 +46,8 @@ public class CallbackManager {
      * and should be removed from the simulation.
      */
     public void die() {
-        AgentLayer layer = layerManager.getAgentLayer();
-        Coordinate coord = layer.getLookupManager().getAgentLocation(agent);
-        layer.getUpdateManager().banish(coord);
-    }
-
-    /**
-     * Signals to the LayerManager that the callback agent may have
-     * changed its divisibility status and should be checked.
-     */
-    public void refreshDivisibility() throws HaltCondition {
-        AgentLayer layer = layerManager.getAgentLayer();
-
-        if (layer.getViewer().exists(agent)) {
-            Coordinate coord = layer.getLookupManager().getAgentLocation(agent);
-            layer.getUpdateManager().banish(coord);
-            layer.getUpdateManager().place(agent, coord);
-        }
-    }
-
-    public LayerManager getLayerManager() {
-        return layerManager;
+        Coordinate coord = getMyLocation();
+        layerManager.getAgentLayer().getUpdateManager().banish(coord);
     }
 
     public Coordinate getMyLocation() {
@@ -79,5 +55,9 @@ public class CallbackManager {
         AgentLookupManager lookupManager = layer.getLookupManager();
         Coordinate coord = lookupManager.getAgentLocation(agent);
         return coord;
+    }
+
+    public LayerManager getLayerManager() {
+        return layerManager;
     }
 }

@@ -1,25 +1,21 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent;
@@ -71,18 +67,6 @@ public class AgentDescriptorInterpolator {
         return loader.instantiate(cNode, lm, p);
     }
 
-    public IntegerArgument clazz(MapObjectNode node, Random random) {
-        return load.anIntegerArgument(node, "class", random, defaults::clazz);
-    }
-
-    public DoubleArgument initialHealth(MapObjectNode node, Random random) {
-        return load.aDoubleArgument(node, "initialHealth", random, defaults::initialHealth);
-    }
-
-    public DoubleArgument threshold(MapObjectNode node, Random random) {
-        return load.aDoubleArgument(node, "threshold", random, defaults::threshold);
-    }
-
     public Stream<Reaction> reactions(MapObjectNode node, Random random) {
         if (node == null) {
             return defaults.reactions();
@@ -97,5 +81,9 @@ public class AgentDescriptorInterpolator {
         ListObjectNode cNode = (ListObjectNode) node.getMember("reactions");
 
         return loader.instantiate(cNode, random);
+    }
+
+    public String name(MapObjectNode node) {
+        return load.aString(node, "name");
     }
 }

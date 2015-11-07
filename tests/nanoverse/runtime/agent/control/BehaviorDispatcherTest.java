@@ -1,127 +1,98 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.agent.control;
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.agent.MockBehavior;
 import nanoverse.runtime.agent.action.Action;
-import nanoverse.runtime.control.identifiers.*;
+import nanoverse.runtime.control.identifiers.Coordinate;
 import org.junit.*;
+import test.TestBase;
+
+import java.util.HashMap;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by David B Borenstein on 1/21/14.
  */
-public class BehaviorDispatcherTest {
+public class BehaviorDispatcherTest extends TestBase {
+
+    private HashMap<String, Action> behaviors;
+    private Action action;
+    private Coordinate caller;
 
     private BehaviorDispatcher query;
-    private Coordinate caller1, caller2;
-    private MockBehavior behavior1, behavior2;
 
     @Before
-    public void setUp() throws Exception {
-        query = new BehaviorDispatcher();
-        caller1 = new Coordinate2D(0, 0, 0);
-        caller2 = new Coordinate2D(1, 0, 0);
-        behavior1 = new MockBehavior();
-        behavior2 = new MockBehavior();
+    public void before() throws Exception {
+        behaviors = new HashMap<>();
+
+        action = mock(Action.class);
+        behaviors.put("test", action);
+
+        query = new BehaviorDispatcher(behaviors);
+
+        caller = mock(Coordinate.class);
     }
 
     @Test
-    public void testLifeCycle() throws Exception {
-        String name = "testBehavior";
+    public void triggerRunsBehavior() throws Exception {
+        query.trigger("test", caller);
+        verify(action).run(caller);
+    }
 
-        // Neither behavior has occurred.
-        assertEquals(0, behavior1.getTimesRun());
-        assertEquals(0, behavior2.getTimesRun());
-
-        // Map first behavior.
-        query.map(name, behavior1);
-
-        // Trigger behavior.
-        query.trigger(name, null);
-
-        // Only the first behavior should have occured.
-        assertEquals(1, behavior1.getTimesRun());
-        assertEquals(0, behavior2.getTimesRun());
-
-        // Remap to second behavior.
-        query.map(name, behavior2);
-
-        // Trigger behavior.
-        query.trigger(name, null);
-
-        // Each behavior should have happened once.
-        assertEquals(1, behavior1.getTimesRun());
-        assertEquals(1, behavior2.getTimesRun());
+    @Test(expected = IllegalStateException.class)
+    public void triggerMissingThrows() throws Exception {
+        query.trigger("undefined", caller);
     }
 
     @Test
-    public void testTriggerWithCallback() throws Exception {
-        // Set up
-        String name = "testBehavior";
-        query.map(name, behavior1);
+    public void copyIsDeep() throws Exception {
+        Action actionCopy = mock(Action.class);
+        Agent child = mock(Agent.class);
+        when(action.copy(child)).thenReturn(actionCopy);
 
-        // Nobody's been the caller yet
-        assertEquals(0, behavior1.timesCaller(caller1));
-        assertEquals(0, behavior1.timesCaller(caller2));
+        BehaviorDispatcher copy = query.copy(child);
 
-        // Trigger with first caller
-        query.trigger(name, caller1);
-
-        // First caller has been caller once
-        assertEquals(1, behavior1.timesCaller(caller1));
-        assertEquals(0, behavior1.timesCaller(caller2));
-
-        // Trigger with second caller
-        query.trigger(name, caller2);
-
-        // Each caller has called once
-        assertEquals(1, behavior1.timesCaller(caller1));
-        assertEquals(1, behavior1.timesCaller(caller2));
+        // Check content is a deep copy of query
+        long count = copy.getBehaviorNames().count();
+        assertEquals(1, count);
+        assertSame(actionCopy, copy.getMappedBehavior("test"));
     }
 
     @Test
-    public void testClone() throws Exception {
-        String name = "testBehavior";
-        query.map(name, behavior1);
+    public void mapGetMapped() throws Exception {
+        Action expected = mock(Action.class);
+        query.map("expected", expected);
 
-        Agent alternate = new Agent();
-        BehaviorDispatcher clone = query.clone(alternate);
-
-        // The objects should be equal in that their behavior lists are equal.
-        assertEquals(query, clone);
-
-        // The objects should not be the same object.
-        assertFalse(query == clone);
-
-        // The new object should have the alternate as a callback.
-        // TODO Rewrite me as a modern test
-        Action clonedBehavior = clone.getMappedBehavior(name);
-        assertEquals(alternate, clonedBehavior.getCallback());
+        Action actual = query.getMappedBehavior("expected");
+        assertSame(expected, actual);
     }
 
+    @Test
+    public void getBehaviorNames() throws Exception {
+        Stream<String> expected = Stream.of("test");
+        Stream<String> actual = query.getBehaviorNames();
+        assertStreamsEqual(expected, actual);
+    }
 }

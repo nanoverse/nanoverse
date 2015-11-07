@@ -1,14 +1,34 @@
+/*
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
+ *
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+
 package nanoverse.runtime.agent.action.stochastic;
 
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.cell.AgentLayer;
-import nanoverse.runtime.layers.cell.AgentLookupManager;
-import org.junit.Before;
-import org.junit.Test;
+import nanoverse.runtime.layers.cell.*;
+import org.junit.*;
 import test.TestBase;
 
-import static org.junit.Assert.*;
+import java.util.stream.Stream;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 /**
@@ -36,9 +56,9 @@ public class NeighborhoodCountHelperTest extends TestBase {
         Coordinate c = mock(Coordinate.class);
         when(lm.getAgentLocation(agent)).thenReturn(c);
 
-        int[] neighborStates = new int[3];
-        when(layer.getLookupManager().getNeighborStates(c, true))
-                .thenReturn(neighborStates);
+        Stream<String> neighborNames = Stream.of("a", "b", "c");
+        when(layer.getLookupManager().getNeighborNames(c, true))
+                .thenReturn(neighborNames);
 
         double actual = query.getNeighborCount();
         assertEquals(3.0, actual, epsilon);

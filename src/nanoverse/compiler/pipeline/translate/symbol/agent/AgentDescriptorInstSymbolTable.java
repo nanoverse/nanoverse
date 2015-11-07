@@ -1,25 +1,21 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.compiler.pipeline.translate.symbol.agent;
@@ -32,6 +28,7 @@ import nanoverse.compiler.pipeline.translate.symbol.agent.action.ActionClassSymb
 import nanoverse.compiler.pipeline.translate.symbol.layers.continuum.ReactionClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import nanoverse.runtime.control.arguments.AgentDescriptor;
 
 import java.util.HashMap;
@@ -40,6 +37,7 @@ import java.util.HashMap;
  * Created by dbborens on 7/22/2015.
  */
 public class AgentDescriptorInstSymbolTable extends MapSymbolTable<AgentDescriptor> {
+
     @Override
     public String getDescription() {
         return "AgentDescriptor describes the properties of a class of agents," +
@@ -49,7 +47,7 @@ public class AgentDescriptorInstSymbolTable extends MapSymbolTable<AgentDescript
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        cellState(ret);
+        name(ret);
         threshold(ret);
         initialHealth(ret);
         reactions(ret);
@@ -87,11 +85,11 @@ public class AgentDescriptorInstSymbolTable extends MapSymbolTable<AgentDescript
         ret.put("threshold", ms);
     }
 
-    private void cellState(HashMap<String, MemberSymbol> ret) {
-        ClassSymbolTable cst = new IntegerClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(cst, "A numerical ID for the " +
-            "category of nanoverse.runtime.agent being described. Soon to be replaced...");
-        ret.put("class", ms);
+    private void name(HashMap<String, MemberSymbol> ret) {
+        ClassSymbolTable cst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(cst, "A textual name or " +
+            "description for the agent being described.");
+        ret.put("name", ms);
     }
 
     @Override

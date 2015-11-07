@@ -1,40 +1,38 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.processes.discrete;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.arguments.AgentDescriptor;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.gillespie.GillespieState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Fills in all sites in the active site set
- * with nanoverse.runtime.cells of the type specified by the
+ * with agents of the type specified by the
  * process' cell descriptor. Does not throw
  * LatticeFullExceptions.
  *
@@ -42,19 +40,20 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
  */
 public class Fill extends AgentProcess {
 
-    private AgentDescriptor cellDescriptor;
+    private final AgentDescriptor cellDescriptor;
+    private final Logger logger;
 
     // If true, the process will skip over any already-filled sites. If
     // false, it will blow up if it encounters an already-filled site
     // that it expected to fill.
-    private boolean skipFilled;
+    private final boolean skipFilled;
 
     @FactoryTarget
     public Fill(BaseProcessArguments arguments, AgentProcessArguments cpArguments, boolean skipFilled, AgentDescriptor cellDescriptor) {
         super(arguments, cpArguments);
         this.skipFilled = skipFilled;
         this.cellDescriptor = cellDescriptor;
-
+        logger = LoggerFactory.getLogger(Fill.class);
         try {
             if (cpArguments.getMaxTargets().next() >= 0) {
                 throw new IllegalArgumentException("Cannot specify maximum targets on fill operation. (Did you mean to limit active sites?)");
@@ -65,7 +64,7 @@ public class Fill extends AgentProcess {
     }
 
     public void target(GillespieState gs) throws HaltCondition {
-        // This process only has one event: it affects all relevant nanoverse.runtime.cells.
+        // This process only has one event: it affects all relevant agents.
         if (gs != null) {
             gs.add(getID(), 1, 1D);
         }
@@ -84,7 +83,8 @@ public class Fill extends AgentProcess {
 
                 throw new IllegalStateException(msg);
             } else if (!filled) {
-                AbstractAgent agent = cellDescriptor.next();
+                logger.debug("Getting next agent from descriptor");
+                Agent agent = cellDescriptor.next();
                 getLayer().getUpdateManager().place(agent, c);
             } else {
                 // Do nothing if site is filled and skipFilled is true.

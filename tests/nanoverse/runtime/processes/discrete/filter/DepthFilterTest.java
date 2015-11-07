@@ -1,104 +1,80 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.processes.discrete.filter;
 
-import nanoverse.runtime.cells.MockAgent;
-import nanoverse.runtime.control.arguments.ConstantInteger;
+import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.identifiers.*;
-import nanoverse.runtime.geometry.Geometry;
-import nanoverse.runtime.layers.MockLayerManager;
-import nanoverse.runtime.layers.cell.AgentLayer;
 import org.junit.*;
-import test.LegacyTest;
+import test.LayerMocks;
 
 import java.util.*;
+import java.util.stream.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
-public class DepthFilterTest extends LegacyTest {
+public class DepthFilterTest extends LayerMocks {
 
+    private static final int DEPTH = 2;
 
-    private Geometry geom;
-    private MockLayerManager layerManager;
-    private AgentLayer layer;
-    private List<Coordinate> initial;
+    private IntegerArgument depthArg;
+    private DepthFilter query;
+    private Coordinate c;
 
+    @Override
     @Before
-    public void setUp() throws Exception {
-        geom = makeLinearGeometry(10);
-        layer = new AgentLayer(geom);
-        layerManager = new MockLayerManager();
-        layerManager.setAgentLayer(layer);
-        placeAgents();
-    }
+    public void before() throws Exception {
+        super.before();
+        depthArg = mock(IntegerArgument.class);
+        when(depthArg.next()).thenReturn(DEPTH);
+        c = mock(Coordinate.class);
 
-    // Position  0 1 2 3 4 5 6 7 8 9
-    // AbstractAgent          2 3 4 5 6
-    // Depth     0 0 0 1 2 1 0 0 0 0
-    private void placeAgents() throws Exception {
-        initial = new ArrayList<>();
-        for (int y = 2; y < 7; y++) {
-            Coordinate c = new Coordinate2D(0, y, 0);
-            MockAgent cell = new MockAgent(y);
-            layerManager.getAgentLayer().getUpdateManager().place(cell, c);
-            initial.add(c);
-        }
+        query = new DepthFilter(agentLayer, depthArg);
+
     }
 
     @Test
-    public void testSurfaceCase() {
-        DepthFilter query = new DepthFilter(layer, new ConstantInteger(0));
-        List<Coordinate> actual = query.apply(initial);
-
-        List<Coordinate> expected = new ArrayList<>();
-        expected.add(new Coordinate2D(0, 2, 0));
-        expected.add(new Coordinate2D(0, 6, 0));
-
+    public void hasVacanciesPasses() throws Exception {
+        configureVacancies(true);
+        List<Coordinate> input = Stream.of(c).collect(Collectors.toList());
+        List<Coordinate> expected = input;
+        List<Coordinate> actual = query.apply(input);
         assertEquals(expected, actual);
+    }
+
+    private void configureVacancies(boolean hasVacancies) {
+        Coordinate[] vacancies = hasVacancies ?
+            new Coordinate[]{new Coordinate1D(0, 0)} :
+            new Coordinate[0];
+
+        when(lookup.getNearestVacancies(c, DEPTH + 1))
+            .thenReturn(vacancies);
     }
 
     @Test
-    public void testDepth1Case() {
-        DepthFilter query = new DepthFilter(layer, new ConstantInteger(1));
-        List<Coordinate> actual = query.apply(initial);
-
-        List<Coordinate> expected = new ArrayList<>();
-        expected.add(new Coordinate2D(0, 2, 0));
-        expected.add(new Coordinate2D(0, 3, 0));
-        expected.add(new Coordinate2D(0, 5, 0));
-        expected.add(new Coordinate2D(0, 6, 0));
-
-        assertEquals(expected, actual);
-    }
-
-    public void testOriginalNotMutated() {
-        DepthFilter query = new DepthFilter(layer, new ConstantInteger(0));
-        List<Coordinate> expected = new ArrayList<>(initial);
-        query.apply(initial);
-        List<Coordinate> actual = initial;
-        assertFalse(expected == actual);
+    public void noVacanciesFiltered() throws Exception {
+        configureVacancies(false);
+        List<Coordinate> input = Stream.of(c).collect(Collectors.toList());
+        List<Coordinate> expected = new ArrayList<>(0);
+        List<Coordinate> actual = query.apply(input);
         assertEquals(expected, actual);
     }
 }

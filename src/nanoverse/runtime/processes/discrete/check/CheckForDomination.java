@@ -1,30 +1,26 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.processes.discrete.check;
 
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.Argument;
 import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.processes.*;
 import nanoverse.runtime.processes.discrete.*;
@@ -40,17 +36,18 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
  * Created by dbborens on 1/13/14.
  */
 public class CheckForDomination extends AgentProcess {
-    private DoubleArgument targetFractionArg;
-    private IntegerArgument targetStateArg;
-    private double targetFraction;
-    private int targetState;
+    private final double targetFraction;
+    private final String targetName;
 
     @FactoryTarget
-    public CheckForDomination(BaseProcessArguments arguments, AgentProcessArguments cpArguments, IntegerArgument targetStateArg, DoubleArgument targetFractionArg) {
+    public CheckForDomination(BaseProcessArguments arguments, AgentProcessArguments cpArguments, String targetName, Argument<Double> targetFractionArg) {
         super(arguments, cpArguments);
-
-        this.targetFractionArg = targetFractionArg;
-        this.targetStateArg = targetStateArg;
+        this.targetName = targetName;
+        try {
+            targetFraction = targetFractionArg.next();
+        } catch (HaltCondition haltCondition) {
+            throw new RuntimeException();
+        }
     }
 
     @Override
@@ -63,42 +60,33 @@ public class CheckForDomination extends AgentProcess {
 
     @Override
     public void fire(StepState stepState) throws HaltCondition {
-        if (targetState == -1) {
-            checkAllStates(stepState);
+        if (targetName.equals("")) {
+            checkAllStates();
         } else {
-            doCheck(targetState, stepState);
+            doCheck(targetName);
         }
     }
 
     @Override
     public void init() {
-        try {
-            targetFraction = targetFractionArg.next();
-            targetState = targetStateArg.next();
-            if (targetState == 0) {
-                throw new IllegalArgumentException("Dead state (0) set as domination target. Use CheckForExtinction instead.");
-            }
-        } catch (HaltCondition ex) {
-            throw new IllegalStateException(ex);
-        }
     }
 
-    private void checkAllStates(StepState stepState) throws HaltCondition {
-        Integer[] states = getLayer().getViewer().getStateMapViewer().getStates();
+    private void checkAllStates() throws HaltCondition {
+        String[] names = getLayer().getViewer().getNameMapViewer().getNames();
 
-        for (Integer targetState : states) {
+        for (String name : names) {
             // The dead state cannot "dominate" the system (that's extinction)
-            if (targetState == 0) {
+            if (name == null) {
                 continue;
             }
-            doCheck(targetState, stepState);
+            doCheck(name);
         }
 
     }
 
-    private void doCheck(int target, StepState stepState) throws HaltCondition {
-        double numTargetAgents = getLayer().getViewer().getStateMapViewer().getCount(target);
-        double numAgents = getLayer().getViewer().getOccupiedSites().size();
+    private void doCheck(String target) throws HaltCondition {
+        double numTargetAgents = getLayer().getViewer().getNameMapViewer().getCount(target);
+        double numAgents = getLayer().getViewer().getOccupiedSites().count();
 
         double fraction = numTargetAgents / numAgents;
 

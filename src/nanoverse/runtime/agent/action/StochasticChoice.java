@@ -1,33 +1,32 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.helper.*;
+import nanoverse.runtime.agent.action.stochastic.DynamicActionRangeMap;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
+import org.slf4j.*;
 
 import java.util.Random;
 
@@ -39,13 +38,30 @@ import java.util.Random;
  * Created by dbborens on 3/6/14.
  */
 public class StochasticChoice extends Action {
-    private DynamicActionRangeMap chooser;
-    private Random random;
-
+    private final DynamicActionRangeMap chooser;
+    private final Random random;
+    private final Logger logger = LoggerFactory.getLogger(StochasticChoice.class);
+    /**
+     * Main constructor
+     */
     public StochasticChoice(Agent callback, LayerManager layerManager,
                             DynamicActionRangeMap chooser, Random random) {
 
         super(callback, layerManager);
+        this.chooser = chooser;
+        this.random = random;
+    }
+
+    /**
+     * Testing constructor
+     */
+    public StochasticChoice(ActionIdentityManager identity,
+               CoordAgentMapper mapper,
+               ActionHighlighter highlighter,
+               DynamicActionRangeMap chooser, Random random) {
+
+        super(identity, mapper, highlighter);
+
         this.chooser = chooser;
         this.random = random;
     }
@@ -56,6 +72,7 @@ public class StochasticChoice extends Action {
         double range = chooser.getTotalWeight();
         double x = random.nextDouble() * range;
         Action choice = chooser.selectTarget(x);
+        logger.debug("Selecting value {} on interval [0, {}). Event chosen is {}.", x, range, choice.getClass().getSimpleName());
         choice.run(caller);
     }
 
@@ -80,9 +97,9 @@ public class StochasticChoice extends Action {
     }
 
     @Override
-    public Action clone(Agent child) {
+    public Action copy(Agent child) {
         DynamicActionRangeMap clonedChooser = chooser.clone(child);
-        StochasticChoice cloned = new StochasticChoice(child, getLayerManager(), clonedChooser, random);
+        StochasticChoice cloned = new StochasticChoice(child, mapper.getLayerManager(), clonedChooser, random);
         return cloned;
     }
 }

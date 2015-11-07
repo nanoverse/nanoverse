@@ -1,30 +1,27 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.structural;
 
 import nanoverse.runtime.structural.utilities.EpsilonUtil;
+import org.slf4j.*;
 
 import java.util.ArrayList;
 
@@ -45,8 +42,7 @@ import java.util.ArrayList;
  */
 public class RangeMap<T> {
 
-
-    //private HashMap<T, Double> weights;
+    private final Logger logger = LoggerFactory.getLogger(RangeMap.class);
 
     // We track the floor of each element. It might seem easier to use, eg,
     // a HashMap, but we want order to be preserved and for items to be
@@ -203,8 +199,7 @@ public class RangeMap<T> {
     public void add(T token, double weight) {
         keys.add(token);
         appendBin(weight);
-//        weights.put(token, weight);
-
+        logger.debug("Appending key {} with weight {}.", token, weight);
     }
 
     private void appendBin(double weight) {

@@ -1,30 +1,26 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
@@ -36,37 +32,6 @@ public class AgentUpdateManager {
 
     public AgentUpdateManager(AgentLayerContent content) {
         this.content = content;
-    }
-
-    /**
-     * Instructs the specified cell to calculate its next state. Returns number
-     * of calls to consider since last call to apply (including this one). This
-     * should not change the apparent state of the cell. Therefore no indices
-     * are updated.
-     *
-     * @param coord
-     * @return
-     */
-    public int consider(Coordinate coord) {
-        AbstractAgent agent = content.get(coord);
-        int res = agent.consider();
-        return res;
-    }
-
-    /**
-     * Instructs the specified cell to update its state. Should blow up if
-     * the cell has not called consider since last apply call. You should
-     * USE THIS METHOD for updating nanoverse.runtime.cells, rather than doing so directly.
-     *
-     * @param coord
-     */
-    public void apply(Coordinate coord) throws HaltCondition {
-        content.sanityCheck(coord);
-        AbstractAgent agent = content.get(coord);
-        content.remove(coord);
-
-        agent.apply();
-        content.put(coord, agent);
     }
 
     /**
@@ -91,7 +56,7 @@ public class AgentUpdateManager {
         content.sanityCheck(cCoord);
 
         // Note: divide(...) updates state index for parent
-        AbstractAgent child = divide(pCoord);
+        Agent child = divide(pCoord);
 
         // Attempt to place child
         // Note: place(...) updates state index for child
@@ -102,11 +67,11 @@ public class AgentUpdateManager {
     // TODO: The exposure of this method is a bit of cloodge for the shoving
     // method. There's no obvious way around it as things stand, but it does
     // suggest that a refactor may soon be necessary.
-    public AbstractAgent divide(Coordinate pCoord) throws HaltCondition {
+    public Agent divide(Coordinate pCoord) throws HaltCondition {
         content.sanityCheck(pCoord);
 
         // Divide parent
-        AbstractAgent parent = content.get(pCoord);
+        Agent parent = content.get(pCoord);
 
         if (parent == null) {
             throw new IllegalStateException("Coordinate " + pCoord + " is null");
@@ -117,7 +82,7 @@ public class AgentUpdateManager {
         content.remove(pCoord);
 
         // Perform the division.
-        AbstractAgent child = parent.divide();
+        Agent child = parent.copy();
 
         // Place the parent, whose state may have changed as a result of the
         // division event.
@@ -133,7 +98,7 @@ public class AgentUpdateManager {
      * @param agent
      * @param coord
      */
-    public void place(AbstractAgent agent, Coordinate coord) throws HaltCondition {
+    public void place(Agent agent, Coordinate coord) throws HaltCondition {
         content.sanityCheck(coord);
 
         if (content.has(coord)) {
@@ -175,14 +140,14 @@ public class AgentUpdateManager {
         content.sanityCheck(pCoord);
         content.sanityCheck(qCoord);
 
-        AbstractAgent agent = content.get(pCoord);
+        Agent agent = content.get(pCoord);
 
         content.remove(pCoord);
         content.put(qCoord, agent);
     }
 
     /**
-     * Swap the nanoverse.runtime.cells at the specified locations.
+     * Swap the agents at the specified locations.
      *
      * @param pCoord
      * @param qCoord
@@ -192,9 +157,9 @@ public class AgentUpdateManager {
         content.sanityCheck(pCoord);
         content.sanityCheck(qCoord);
 
-        // Identify nanoverse.runtime.cells
-        AbstractAgent p = content.get(pCoord);
-        AbstractAgent q = content.get(qCoord);
+        // Identify agents
+        Agent p = content.get(pCoord);
+        Agent q = content.get(qCoord);
 
         // Clear both sites
         content.remove(pCoord);

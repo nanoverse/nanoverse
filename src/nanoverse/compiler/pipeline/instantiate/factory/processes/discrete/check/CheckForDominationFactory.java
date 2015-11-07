@@ -1,25 +1,21 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.check;
 
@@ -35,7 +31,7 @@ public class CheckForDominationFactory implements Factory<CheckForDomination> {
 
     private BaseProcessArguments arguments;
     private AgentProcessArguments cpArguments;
-    private IntegerArgument targetStateArg;
+    private String target;
     private DoubleArgument targetFractionArg;
 
     public CheckForDominationFactory() {
@@ -54,8 +50,8 @@ public class CheckForDominationFactory implements Factory<CheckForDomination> {
         this.cpArguments = cpArguments;
     }
 
-    public void setTargetStateArg(IntegerArgument targetStateArg) {
-        this.targetStateArg = targetStateArg;
+    public void setTarget(String target) {
+        this.target = target;
     }
 
     public void setTargetFractionArg(DoubleArgument targetFractionArg) {
@@ -64,6 +60,6 @@ public class CheckForDominationFactory implements Factory<CheckForDomination> {
 
     @Override
     public CheckForDomination build() {
-        return helper.build(arguments, cpArguments, targetStateArg, targetFractionArg);
+        return helper.build(arguments, cpArguments, target, targetFractionArg);
     }
 }

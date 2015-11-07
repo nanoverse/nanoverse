@@ -1,25 +1,21 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 package nanoverse.compiler.pipeline.instantiate.factory.control.arguments;
 
@@ -37,9 +33,7 @@ public class AgentDescriptorFactory implements Factory<AgentDescriptor> {
     private final AgentDescriptorFactoryHelper helper;
 
     private LayerManager layerManager;
-    private IntegerArgument cellState;
-    private DoubleArgument threshold;
-    private DoubleArgument initialHealth;
+    private String name;
     private Stream<Reaction> reactions;
     private Map<String, ActionDescriptor> behaviorDescriptors;
 
@@ -55,16 +49,8 @@ public class AgentDescriptorFactory implements Factory<AgentDescriptor> {
         this.layerManager = layerManager;
     }
 
-    public void setAgentClass(IntegerArgument cellState) {
-        this.cellState = cellState;
-    }
-
-    public void setThreshold(DoubleArgument threshold) {
-        this.threshold = threshold;
-    }
-
-    public void setInitialHealth(DoubleArgument initialHealth) {
-        this.initialHealth = initialHealth;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setReactions(Stream<Reaction> reactions) {
@@ -77,6 +63,6 @@ public class AgentDescriptorFactory implements Factory<AgentDescriptor> {
 
     @Override
     public AgentDescriptor build() {
-        return helper.build(layerManager, cellState, threshold, initialHealth, reactions, behaviorDescriptors);
+        return helper.build(layerManager, name, reactions, behaviorDescriptors);
     }
 }

@@ -1,25 +1,21 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.layers.continuum;
@@ -159,7 +155,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
 
     /**
      * If the matrix is not the identity, but every row and column sums to one,
-     * then there is no steady state solution -- we expect an error.
+     * then there is no steady name solution -- we expect an error.
      */
     @Test(expected = IllegalStateException.class)
     public void noSteadyStateThrows() {
@@ -170,7 +166,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
 
     /**
      * Advection with periodic boundary conditions. No steady
-     * state.
+     * name.
      *
      * @return
      */
@@ -201,7 +197,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
 
     /**
      * If there is no source and the matrix is non-identical and has a steady
-     * state solution, that steady state solution must be zero.
+     * name solution, that steady name solution must be zero.
      */
     @Test
     public void decayGoesToZero() {

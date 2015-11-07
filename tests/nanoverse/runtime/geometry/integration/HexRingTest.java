@@ -1,25 +1,21 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.geometry.integration;
@@ -318,11 +314,11 @@ public class HexRingTest extends LegacyTest {
         // visualizing the smaller circles, so check this functionally as well.
         result = hr.getAnnulus(coord, 2, Geometry.EXCLUDE_BOUNDARIES);
 
-        // Top and bottom are truncated, and wrapped nanoverse.runtime.cells that circumnavigate
+        // Top and bottom are truncated, and wrapped agents that circumnavigate
         // are rejected, so 6:
         // (2, 4); (2, 3); (2, 2); (1, 1); (0, 0); (3, 2)
         //
-        // Rejected circumanvigators are all double counts of existing nanoverse.runtime.cells.
+        // Rejected circumanvigators are all double counts of existing agents.
 
         assertEquals(5, result.length);
 

@@ -1,31 +1,27 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.agent.control;
 
-import nanoverse.runtime.agent.action.Action;
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.Action;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
@@ -40,10 +36,14 @@ import java.util.stream.Stream;
  * Created by David B Borenstein on 1/21/14.
  */
 public class BehaviorDispatcher {
-    private HashMap<String, Action> behaviors;
+    private final HashMap<String, Action> behaviors;
 
     public BehaviorDispatcher() {
         behaviors = new HashMap<>();
+    }
+
+    public BehaviorDispatcher(HashMap<String, Action> behaviors) {
+        this.behaviors = behaviors;
     }
 
     /**
@@ -56,20 +56,20 @@ public class BehaviorDispatcher {
      */
     public void trigger(String behaviorName, Coordinate caller) throws HaltCondition {
         if (!behaviors.containsKey(behaviorName)) {
-            throw new IllegalArgumentException("Action '" + behaviorName + "' not found.");
+            throw new IllegalStateException("Action '" + behaviorName + "' not found.");
         }
 
         Action behavior = behaviors.get(behaviorName);
         behavior.run(caller);
     }
 
-    public BehaviorDispatcher clone(Agent child) {
+    public BehaviorDispatcher copy(Agent child) {
         BehaviorDispatcher clone = new BehaviorDispatcher();
 
         // Clone the behavior catalog item for item.
         for (String behaviorName : behaviors.keySet()) {
             Action b = behaviors.get(behaviorName);
-            Action bc = b.clone(child);
+            Action bc = b.copy(child);
             clone.map(behaviorName, bc);
         }
 
@@ -78,44 +78,6 @@ public class BehaviorDispatcher {
 
     public void map(String name, Action behavior) {
         behaviors.put(name, behavior);
-    }
-
-    /**
-     * A BehaviorDispatcher is equal to another object only if:
-     * (1) The other Object is a BehaviorDispatcher.
-     * (2) Each Action in the other BehaviorDispatcher
-     * has an equivalent Action mapped to the same name
-     * as this BehaviorDispatcher.
-     *
-     * @param obj
-     * @return
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof BehaviorDispatcher)) {
-            return false;
-        }
-
-        BehaviorDispatcher other = (BehaviorDispatcher) obj;
-
-        if (other.behaviors.size() != this.behaviors.size()) {
-            return false;
-        }
-
-        for (String behaviorName : behaviors.keySet()) {
-            if (!other.behaviors.containsKey(behaviorName)) {
-                return false;
-            }
-
-            Action otherBehavior = other.behaviors.get(behaviorName);
-            Action thisBehavior = this.behaviors.get(behaviorName);
-
-            if (!thisBehavior.equals(otherBehavior)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public Action getMappedBehavior(String behaviorName) {

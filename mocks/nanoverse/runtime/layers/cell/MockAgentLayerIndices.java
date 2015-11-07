@@ -1,30 +1,26 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 
 public class MockAgentLayerIndices extends AgentLayerIndices {
@@ -32,8 +28,8 @@ public class MockAgentLayerIndices extends AgentLayerIndices {
     private AgentIndex occupied = new AgentIndex();
     private AgentIndex divisible = new AgentIndex();
     private Coordinate lastCoord;
-    private AbstractAgent lastPrevious;
-    private AbstractAgent lastCurrent;
+    private Agent lastPrevious;
+    private Agent lastCurrent;
 
     public void setOccupied(Coordinate k, Boolean v) {
         if (v)
@@ -74,7 +70,7 @@ public class MockAgentLayerIndices extends AgentLayerIndices {
     }
 
     @Override
-    public void refresh(Coordinate coord, AbstractAgent previous, AbstractAgent current) {
+    public void refresh(Coordinate coord, Agent previous, Agent current) {
         super.refresh(coord, previous, current);
         lastPrevious = previous;
         lastCurrent = current;
@@ -85,11 +81,11 @@ public class MockAgentLayerIndices extends AgentLayerIndices {
         return lastCoord;
     }
 
-    public AbstractAgent getLastPrevious() {
+    public Agent getLastPrevious() {
         return lastPrevious;
     }
 
-    public AbstractAgent getLastCurrent() {
+    public Agent getLastCurrent() {
         return lastCurrent;
     }
 }

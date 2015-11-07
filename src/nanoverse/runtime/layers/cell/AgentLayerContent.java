@@ -1,36 +1,33 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.layers.cell;
 
-import nanoverse.runtime.agent.AbstractAgent;
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.halt.BoundaryReachedEvent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.structural.CanonicalAgentMap;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author David Bruce Borenstein
@@ -71,49 +68,49 @@ public abstract class AgentLayerContent {
         return indices.getOccupiedSites();
     }
 
-    public Set<Coordinate> getDivisibleSites() {
-        return indices.getDivisibleSites();
+    public boolean isOccupied(Coordinate c) {
+        return indices.getOccupiedSites().contains(c);
     }
-
     public boolean has(Coordinate coord) {
         return (get(coord) != null);
     }
 
-    public AbstractAgent get(Coordinate coord) {
+    public Agent get(Coordinate coord) {
 
         // Get pointer to cell and return it
-        AbstractAgent res = map.get(coord);
+        Agent res = map.get(coord);
 
         return res;
     }
 
-    public void put(Coordinate coord, AbstractAgent current) throws BoundaryReachedEvent {
-        AbstractAgent previous = map.get(coord);
+    public void put(Coordinate coord, Agent current) throws BoundaryReachedEvent {
+        Agent previous = map.get(coord);
         indices.refresh(coord, previous, current);
         map.put(coord, current);
     }
 
     public void remove(Coordinate coord) {
-        AbstractAgent previous = map.get(coord);
+        Agent previous = map.get(coord);
         indices.refresh(coord, previous, null);
         map.put(coord, null);
     }
 
-    public int[] getStateVector() {
+    public String[] getNames() {
         Coordinate[] cArr = getCanonicalSites();
 
-        int[] sArr = new int[cArr.length];
+
+        String[] nArr = new String[cArr.length];
 
         for (int i = 0; i < cArr.length; i++) {
-            AbstractAgent c = map.get(cArr[i]);
+            Agent c = map.get(cArr[i]);
             if (c == null) {
-                sArr[i] = 0;
+                nArr[i] = null;
             } else {
-                sArr[i] = map.get(cArr[i]).getState();
+                nArr[i] = map.get(cArr[i]).getName();
             }
         }
 
-        return sArr;
+        return nArr;
     }
 
     /**
@@ -140,39 +137,19 @@ public abstract class AgentLayerContent {
         return has;
     }
 
-    /**
-     * Returns the health vector, in canonical site order.
-     */
-    public double[] getHealthVector() {
-        Coordinate[] cArr = getCanonicalSites();
-
-        double[] fArr = new double[cArr.length];
-
-        for (int i = 0; i < cArr.length; i++) {
-            AbstractAgent c = map.get(cArr[i]);
-            if (c == null) {
-                fArr[i] = 0D;
-            } else {
-                fArr[i] = map.get(cArr[i]).getHealth();
-            }
-        }
-
-        return fArr;
-    }
-
     public abstract void sanityCheck(Coordinate coord);
 
-    public abstract Set<Coordinate> getImaginarySites();
+    public abstract Stream<Coordinate> getImaginarySites();
 
-    public Coordinate locate(AbstractAgent agent) {
+    public Coordinate locate(Agent agent) {
         return indices.locate(agent);
     }
 
-    public Map<Integer, Integer> getStateMap() {
-        return indices.getStateMap();
+    public NameMapViewer getNameMap() {
+        return indices.getNameMap();
     }
 
-    public boolean isIndexed(AbstractAgent agent) {
+    public boolean isIndexed(Agent agent) {
         return indices.isIndexed(agent);
     }
 

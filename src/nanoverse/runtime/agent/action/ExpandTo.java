@@ -1,41 +1,42 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.agent.action;
 
-import nanoverse.runtime.agent.AbstractAgent;
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.displacement.DisplacementManager;
+import nanoverse.runtime.agent.action.displacement.PreferentialExpansionManager;
+import nanoverse.runtime.agent.action.helper.ActionHighlighter;
+import nanoverse.runtime.agent.action.helper.ActionIdentityManager;
+import nanoverse.runtime.agent.action.helper.CoordAgentMapper;
+import nanoverse.runtime.agent.action.helper.SelfTargetHighlighter;
 import nanoverse.runtime.agent.targets.TargetRule;
 import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.layers.cell.AgentUpdateManager;
-import nanoverse.runtime.processes.discrete.ShoveHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Places a copy or copies of the current cell at the target site(s).
@@ -46,150 +47,49 @@ import java.util.*;
  */
 public class ExpandTo extends Action {
 
-    // Highlight channels for the targeting and targeted nanoverse.runtime.cells
-    private IntegerArgument selfChannel;
-    private IntegerArgument targetChannel;
-
-    // Displaces nanoverse.runtime.cells along a trajectory in the event that the cell is
-    // divided into an occupied site and replace is disabled.
-    private ShoveHelper shoveHelper;
-
-    private Random random;
-
-    private TargetRule targetRule;
+    private final DisplacementManager displacementManager;
+    private final SelfTargetHighlighter stHighlighter;
+    private final PreferentialExpansionManager expansionManager;
+    private final Random random;
+    private final TargetRule targetRule;
+    private final Logger logger = LoggerFactory.getLogger(ExpandTo.class);
 
     public ExpandTo(Agent callback, LayerManager layerManager, TargetRule targetRule,
                     IntegerArgument selfChannel, IntegerArgument targetChannel, Random random) {
         super(callback, layerManager);
-        this.selfChannel = selfChannel;
-        this.targetChannel = targetChannel;
         this.random = random;
         this.targetRule = targetRule;
+        stHighlighter = new SelfTargetHighlighter(highlighter, selfChannel, targetChannel);
+        displacementManager = new DisplacementManager(layerManager.getAgentLayer(), random);
+        expansionManager = new PreferentialExpansionManager(identity, stHighlighter, mapper, random, displacementManager);
+    }
 
-        shoveHelper = new ShoveHelper(layerManager, random);
+    public ExpandTo(ActionIdentityManager identity, CoordAgentMapper mapper, ActionHighlighter highlighter, DisplacementManager displacementManager, SelfTargetHighlighter stHighlighter, Random random, TargetRule targetRule, PreferentialExpansionManager expansionManager) {
+        super(identity, mapper, highlighter);
+        this.displacementManager = displacementManager;
+        this.stHighlighter = stHighlighter;
+        this.random = random;
+        this.targetRule = targetRule;
+        this.expansionManager = expansionManager;
     }
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
-        Agent callerAgent = resolveCaller(caller);
+        logger.debug("Expanding agent.");
+        Agent callerAgent = mapper.resolveCaller(caller);
         List<Coordinate> targets = targetRule.report(callerAgent);
         for (Coordinate target : targets) {
-            preferentialExpand(target);
+            expansionManager.preferentialExpand(target);
         }
     }
 
-    private void preferentialExpand(Coordinate target) throws HaltCondition {
-        Coordinate origin = getOwnLocation();
-
-        // Find out the shortest shoving path available, given the specified
-        // parent and its preferred progeny destination.
-        DisplacementOption shortestOption = getShortestOption(target);
-
-        // Create a vacancy either at the parent or child site, depending on
-        // which had a shorter shoving path.
-        doShove(shortestOption);
-
-        // Now that the nanoverse.runtime.cells have been shoved toward the vacancy, the formerly
-        // occupied site is now vacant.
-        Coordinate newlyVacant = shortestOption.occupied;
-
-        // Place a cloned cell at the newly vacated position.
-        cloneToVacancy(newlyVacant);
-
-        // Clean up out-of-bounds nanoverse.runtime.cells.
-        shoveHelper.removeImaginary();
-
-        // Highlight the parent and target locations.
-        highlight(target, origin);
-    }
-
-    private void cloneToVacancy(Coordinate vacancy) throws HaltCondition {
-        AgentUpdateManager u = getLayerManager().getAgentLayer().getUpdateManager();
-
-        // Clone parent.
-        AbstractAgent child = getCallback().replicate();
-
-        // Place child in parent location.
-        u.place(child, vacancy);
-    }
-
-    private void doShove(DisplacementOption shortestOption) throws HaltCondition {
-        Coordinate occupied = shortestOption.occupied;
-        Coordinate vacant = shortestOption.vacant;
-        shoveHelper.shove(occupied, vacant);
-    }
-
-    /**
-     * Compare the distance between the origin and its nearest vacancy,
-     * and the target and its nearest vacancy. Report the closer one as the
-     * preferred direction of expansion.
-     */
-    private DisplacementOption getShortestOption(Coordinate target) throws HaltCondition {
-        Coordinate origin = getOwnLocation();
-
-        // Get option that starts with origin.
-        DisplacementOption originOption = getOption(origin);
-
-        // Get option that starts with target.
-        DisplacementOption targetOption = getOption(target);
-
-        // Origin closer to vacancy?
-        if (originOption.distance < targetOption.distance) {
-            return originOption;
-            // Target closer to vacancy?
-        } else if (originOption.distance > targetOption.distance) {
-            return targetOption;
-            // Same?
-        } else {
-            // The coin toss arbitrarily favors shoving parent on true.
-            return (random.nextBoolean() ? originOption : targetOption);
-        }
-    }
-
-    private DisplacementOption getOption(Coordinate start) throws HaltCondition {
-        Geometry geom = getLayerManager().getAgentLayer().getGeometry();
-        Coordinate end = shoveHelper.chooseVacancy(start);
-        int distance = geom.getL1Distance(start, end, Geometry.APPLY_BOUNDARIES);
-
-        DisplacementOption ret = new DisplacementOption();
-        ret.occupied = start;
-        ret.vacant = end;
-        ret.distance = distance;
-
-        return ret;
-    }
-
-    private void highlight(Coordinate target, Coordinate ownLocation) throws HaltCondition {
-        doHighlight(targetChannel, target);
-        doHighlight(selfChannel, ownLocation);
-    }
-
-
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public Action copy(Agent child) {
+        IntegerArgument selfChannel = stHighlighter.getSelfChannel();
+        IntegerArgument targetChannel = stHighlighter.getTargetChannel();
 
-        return true;
-    }
-
-    @Override
-    public Action clone(Agent child) {
-        TargetRule clonedTargetRule = targetRule.clone(child);
-        return new ExpandTo(child, getLayerManager(), clonedTargetRule, selfChannel,
+        TargetRule clonedTargetRule = targetRule.copy(child);
+        return new ExpandTo(child, mapper.getLayerManager(), clonedTargetRule, selfChannel,
             targetChannel, random);
-    }
-
-    private class DisplacementOption {
-        // This is the site that would start out occupied and end up vacant
-        // (unless occupied == vacant).
-        public Coordinate occupied;
-
-        // This is the site that would start out vacant and end up occupied
-        // (unless occupied == vacant).
-        public Coordinate vacant;
-
-        // L1 distance between origin and vacancy.
-        public int distance;
     }
 }

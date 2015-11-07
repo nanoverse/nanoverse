@@ -1,25 +1,21 @@
 /*
- * Copyright (c) 2014, 2015 David Bruce Borenstein and the
- * Trustees of Princeton University.
+ * Nanoverse: a declarative agent-based modeling language for natural and
+ * social science.
  *
- * This file is part of the Nanoverse simulation framework
- * (patent pending).
+ * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
  *
- * This program is free software: you can redistribute it
- * and/or modify it under the terms of the GNU Affero General
- * Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your
- * option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
- * PURPOSE.  See the GNU Affero General Public License for
- * more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
  *
- * You should have received a copy of the GNU Affero General
- * Public License along with this program.  If not, see
- * <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
 package nanoverse.runtime.io.visual.glyph;
@@ -42,6 +38,10 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static org.junit.Assert.fail;
 
 /**
  * Integration test for glyphs.
@@ -61,7 +61,7 @@ public abstract class GlyphTest extends LegacyTest {
         geometry = makeGeometry();
 
         // Create 10x10 triangular lattice.
-        ColorManager colorManager = new DefaultColorManager();
+        ColorManager colorManager = new IndexedColorModel();
 
         // Create a 10 x 10 hexagonal map.
         mapState = new VisualizationProperties(colorManager, 50, 1);
@@ -78,7 +78,7 @@ public abstract class GlyphTest extends LegacyTest {
         map = new MapVisualization(mapState);
         map.init(geometry, null, null);
 
-        // Create system state
+        // Create system name
         systemState = makeSystemState(geometry);
 
     }
@@ -105,13 +105,8 @@ public abstract class GlyphTest extends LegacyTest {
 
     protected void populateStateAndHealth(Geometry geom, LightweightSystemState systemState) {
         int n = geom.getCanonicalSites().length;
-        int[] state = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            state[i] = 0;
-        }
-        systemState.initAgentLayer(state);
-
+        Stream<String> agentNames = IntStream.range(0, n).mapToObj(i -> "test");
+        systemState.setAgentNames(agentNames);
     }
 
     protected Geometry makeGeometry() {
