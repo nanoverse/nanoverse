@@ -1,11 +1,17 @@
 package nanoverse.runtime.agent.action.stochastic;
 
-import nanoverse.runtime.agent.action.*;
+import nanoverse.runtime.agent.action.Action;
+import nanoverse.runtime.agent.action.NullAction;
 import nanoverse.runtime.layers.LayerManager;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 import test.TestBase;
 
-import static org.junit.Assert.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -15,19 +21,20 @@ public class NormalizedDynamicActionRangeMapTest extends TestBase {
     private Action a1, a2;
     private ProbabilitySupplier p1, p2;
 
-    private DynamicActionRangeMap query;
-
+    private NormalizedDynamicActionRangeMap query;
+    private Map<Action, ProbabilitySupplier> functionMap;
     @Before
     public void init() throws Exception {
         layerManager = mock(LayerManager.class);
-        query = new NormalizedDynamicActionRangeMap(layerManager);
 
         a1 = mock(Action.class);
         p1 = mockProbabilitySupplier(0.5);
-        query.add(a1, p1);
 
         a2 = mock(Action.class);
         p2 = mockProbabilitySupplier(0.3);
+        functionMap = new LinkedHashMap<>();
+        query = new NormalizedDynamicActionRangeMap(functionMap, layerManager);
+        query.add(a1, p1);
         query.add(a2, p2);
     }
 

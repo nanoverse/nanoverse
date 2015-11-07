@@ -21,10 +21,12 @@
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action;
 
 import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
-import nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic.*;
-import nanoverse.compiler.pipeline.translate.nodes.*;
-import nanoverse.runtime.agent.action.StochasticChoice;
-import nanoverse.runtime.agent.action.stochastic.*;
+import nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic.DynamicActionRangeMapLoader;
+import nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic.NormalizedDynamicActionRangeMapLoader;
+import nanoverse.compiler.pipeline.translate.nodes.ListObjectNode;
+import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
+import nanoverse.runtime.agent.action.stochastic.DynamicActionRangeMapDescriptor;
+import nanoverse.runtime.agent.action.stochastic.NormalizedDynamicActionRangeMapDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
 
@@ -69,6 +71,6 @@ public class StochasticChoiceInterpolator {
     }
 
     public Boolean normalized(MapObjectNode node, Random random) {
-        return load.aBoolean(node, "normalized", random, defaults.normalized());
+        return load.aBoolean(node, "normalized", random, defaults::normalized);
     }
 }
