@@ -24,15 +24,17 @@ import nanoverse.runtime.control.arguments.ConstantDouble;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.io.visual.HSLColor;
 import nanoverse.runtime.layers.SystemState;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 import test.TestBase;
 
 import java.awt.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-public class NormalizedContinuumColorManagerTest extends TestBase {
+public class ContinuumColorModelTest extends TestBase {
 
     private ConstantDouble minHueArg = new ConstantDouble(0.5);
     private ConstantDouble maxHueArg = new ConstantDouble(1.0);
@@ -43,7 +45,7 @@ public class NormalizedContinuumColorManagerTest extends TestBase {
     private ContinuumNormalizationHelper normalizer;
     private Coordinate c;
     private SystemState systemState;
-    private NormalizedContinuumColorManager query;
+    private ContinuumColorModel query;
 
     @Before
     public void before() throws Exception {
@@ -51,7 +53,7 @@ public class NormalizedContinuumColorManagerTest extends TestBase {
         c = mock(Coordinate.class);
         systemState = mock(SystemState.class);
         normalizer = mock(ContinuumNormalizationHelper.class);
-        query = new NormalizedContinuumColorManager(minHueArg,
+        query = new ContinuumColorModel(minHueArg,
             maxHueArg,
             minSaturationArg,
             maxSaturationArg,

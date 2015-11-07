@@ -24,12 +24,13 @@ import nanoverse.compiler.pipeline.instantiate.factory.io.visual.color.Continuum
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.DoubleArgument;
-import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.io.visual.color.ColorManager;
+import nanoverse.runtime.io.visual.color.ContinuumColorModel;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
-public class ContinuumColorModelLoader extends ColorModelLoader<NormalizedContinuumColorManager> {
+public class ContinuumColorModelLoader extends ColorModelLoader<ContinuumColorModel> {
     private final ContinuumColorModelFactory factory;
     private final ContinuumColorModelInterpolator interpolator;
 

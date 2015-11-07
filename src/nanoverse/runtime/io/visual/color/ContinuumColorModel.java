@@ -35,7 +35,7 @@ import java.awt.*;
  * <p>
  * Created by dbborens on 5/31/2015.
  */
-public class NormalizedContinuumColorManager extends ColorManager {
+public class ContinuumColorModel extends ColorManager {
 
 
     private final float minHue;
@@ -49,15 +49,15 @@ public class NormalizedContinuumColorManager extends ColorManager {
     private final boolean averageLuminance;
 
     @FactoryTarget(displayName = "ContinuumColorModel")
-    public NormalizedContinuumColorManager(DoubleArgument minHueArg,
-                                           DoubleArgument maxHueArg,
-                                           DoubleArgument minSaturationArg,
-                                           DoubleArgument maxSaturationArg,
-                                           DoubleArgument minLuminanceArg,
-                                           DoubleArgument maxLuminanceArg,
-                                           String continuumId,
-                                           boolean averageLuminance,
-                                           ColorManager base) {
+    public ContinuumColorModel(DoubleArgument minHueArg,
+                               DoubleArgument maxHueArg,
+                               DoubleArgument minSaturationArg,
+                               DoubleArgument maxSaturationArg,
+                               DoubleArgument minLuminanceArg,
+                               DoubleArgument maxLuminanceArg,
+                               String continuumId,
+                               boolean averageLuminance,
+                               ColorManager base) {
 
         this.base = base;
         this.averageLuminance = averageLuminance;
@@ -75,15 +75,15 @@ public class NormalizedContinuumColorManager extends ColorManager {
         }
     }
 
-    public NormalizedContinuumColorManager(DoubleArgument minHueArg,
-                                           DoubleArgument maxHueArg,
-                                           DoubleArgument minSaturationArg,
-                                           DoubleArgument maxSaturationArg,
-                                           DoubleArgument minLuminanceArg,
-                                           DoubleArgument maxLuminanceArg,
-                                           ContinuumNormalizationHelper normalizer,
-                                           boolean averageLuminance,
-                                           ColorManager base) {
+    public ContinuumColorModel(DoubleArgument minHueArg,
+                               DoubleArgument maxHueArg,
+                               DoubleArgument minSaturationArg,
+                               DoubleArgument maxSaturationArg,
+                               DoubleArgument minLuminanceArg,
+                               DoubleArgument maxLuminanceArg,
+                               ContinuumNormalizationHelper normalizer,
+                               boolean averageLuminance,
+                               ColorManager base) {
 
         this.base = base;
         this.normalizer = normalizer;
@@ -180,7 +180,7 @@ public class NormalizedContinuumColorManager extends ColorManager {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        NormalizedContinuumColorManager that = (NormalizedContinuumColorManager) o;
+        ContinuumColorModel that = (ContinuumColorModel) o;
 
         if (Float.compare(that.minHue, minHue) != 0) return false;
         if (Float.compare(that.maxHue, maxHue) != 0) return false;

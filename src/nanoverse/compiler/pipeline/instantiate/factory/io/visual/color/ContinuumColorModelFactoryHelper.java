@@ -20,12 +20,13 @@
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color;
 
 import nanoverse.runtime.control.arguments.DoubleArgument;
-import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.io.visual.color.ColorManager;
+import nanoverse.runtime.io.visual.color.ContinuumColorModel;
 
 
 public class ContinuumColorModelFactoryHelper {
 
-    public NormalizedContinuumColorManager build(DoubleArgument minHueArg, DoubleArgument maxHueArg, DoubleArgument minSaturationArg, DoubleArgument maxSaturationArg, DoubleArgument minLuminanceArg, DoubleArgument maxLuminanceArg, String continuumId, boolean averageLuminance, ColorManager base) {
-        return new NormalizedContinuumColorManager(minHueArg, maxHueArg, minSaturationArg, maxSaturationArg, minLuminanceArg, maxLuminanceArg, continuumId, averageLuminance, base);
+    public ContinuumColorModel build(DoubleArgument minHueArg, DoubleArgument maxHueArg, DoubleArgument minSaturationArg, DoubleArgument maxSaturationArg, DoubleArgument minLuminanceArg, DoubleArgument maxLuminanceArg, String continuumId, boolean averageLuminance, ColorManager base) {
+        return new ContinuumColorModel(minHueArg, maxHueArg, minSaturationArg, maxSaturationArg, minLuminanceArg, maxLuminanceArg, continuumId, averageLuminance, base);
     }
 }

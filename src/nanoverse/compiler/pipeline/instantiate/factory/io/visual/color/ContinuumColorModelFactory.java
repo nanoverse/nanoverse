@@ -21,9 +21,10 @@ package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.control.arguments.DoubleArgument;
-import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.io.visual.color.ColorManager;
+import nanoverse.runtime.io.visual.color.ContinuumColorModel;
 
-public class ContinuumColorModelFactory implements Factory<NormalizedContinuumColorManager> {
+public class ContinuumColorModelFactory implements Factory<ContinuumColorModel> {
 
     private final ContinuumColorModelFactoryHelper helper;
 
@@ -82,7 +83,7 @@ public class ContinuumColorModelFactory implements Factory<NormalizedContinuumCo
     }
 
     @Override
-    public NormalizedContinuumColorManager build() {
+    public ContinuumColorModel build() {
         return helper.build(minHueArg, maxHueArg, minSaturationArg, maxSaturationArg, minLuminanceArg, maxLuminanceArg, continuumId, averageLuminance, base);
     }
 }

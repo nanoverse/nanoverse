@@ -22,18 +22,20 @@ package nanoverse.compiler.pipeline.translate.symbol.io.visual.color;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.io.visual.color.ContinuumColorModelLoader;
-import nanoverse.compiler.pipeline.translate.symbol.*;
+import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
+import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.booleans.BooleanClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
-import nanoverse.runtime.io.visual.color.NormalizedContinuumColorManager;
+import nanoverse.runtime.io.visual.color.ContinuumColorModel;
 
 import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/27/2015.
  */
-public class ContinuumColorModelInstSymbolTable extends MapSymbolTable<NormalizedContinuumColorManager> {
+public class ContinuumColorModelInstSymbolTable extends MapSymbolTable<ContinuumColorModel> {
 
     @Override
     public String getDescription() {

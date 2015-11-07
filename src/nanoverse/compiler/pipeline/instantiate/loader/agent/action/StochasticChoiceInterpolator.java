@@ -59,7 +59,18 @@ public class StochasticChoiceInterpolator {
     }
 
     private NormalizedDynamicActionRangeMapDescriptor normalizedCase(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        NormalizedDynamicActionRangeMapLoader loader = (NormalizedDynamicActionRangeMapLoader) load.getLoader(node, "options", true);
+        // TODO
+        // The loader is supposed to be specified by the symbol table. If this code runs into
+        // trouble, the first thing to do is:
+        //
+        // (1) Create a DynamicActionRangeMapLoadAdapter class, which resolves which loader to use and
+        //     delegates to that, based on the value of the "normalized" parameter.
+        //
+        // (2) Set the Loader property of the "options" argument on StochasticChoice's IST to this
+        //     new adapter.
+        //
+        // (3) Replace the normalizedCase and weightedCase here with a call to the adapter.
+        NormalizedDynamicActionRangeMapLoader loader = new NormalizedDynamicActionRangeMapLoader();
         ListObjectNode cNode = (ListObjectNode) node.getMember("options");
         return loader.instantiate(cNode, lm, p);
     }
