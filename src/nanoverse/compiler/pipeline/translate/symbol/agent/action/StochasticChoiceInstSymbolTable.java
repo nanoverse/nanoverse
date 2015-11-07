@@ -25,6 +25,7 @@ import nanoverse.compiler.pipeline.instantiate.loader.agent.action.StochasticCho
 import nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic.DynamicActionRangeMapLoader;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.agent.action.stochastic.WeightedOptionClassSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.primitive.booleans.BooleanClassSymbolTable;
 import nanoverse.runtime.agent.action.StochasticChoiceDescriptor;
 
 import java.util.HashMap;
@@ -43,7 +44,17 @@ public class StochasticChoiceInstSymbolTable extends ActionInstSymbolTable<Stoch
     protected HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         options(ret);
+        normalized(ret);
         return ret;
+    }
+
+    private void normalized(HashMap<String, MemberSymbol> ret) {
+        ClassSymbolTable cst = new BooleanClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(cst, "If true, requires that the " +
+            "total probability of all events is <= 1. Creates a null event " +
+            "whose probability is 1 - total probability of all other events. " +
+            "If false, the probability of any given event x is p(x) / sum(p).");
+        ret.put("normalized", ms);
     }
 
     private void options(HashMap<String, MemberSymbol> ret) {

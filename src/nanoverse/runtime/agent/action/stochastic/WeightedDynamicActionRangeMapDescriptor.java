@@ -18,11 +18,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.runtime.control.arguments;
+package nanoverse.runtime.agent.action.stochastic;
 
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.*;
-import nanoverse.runtime.agent.action.stochastic.*;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
@@ -33,12 +32,12 @@ import java.util.stream.*;
 /**
  * Created by dbborens on 1/26/15.
  */
-public class DynamicActionRangeMapDescriptor {
+public class WeightedDynamicActionRangeMapDescriptor implements DynamicActionRangeMapDescriptor {
 
     private final Function<Agent, DynamicActionRangeMap> constructor;
 
     @FactoryTarget(displayName = "DynamicActionRangeMap")
-    public DynamicActionRangeMapDescriptor(Stream<WeightedOption> options, LayerManager layerManager) {
+    public WeightedDynamicActionRangeMapDescriptor(Stream<WeightedOption> options, LayerManager layerManager) {
         List<WeightedOption> optionList = options.collect(Collectors.toList());
 
         Function<Agent, DynamicActionRangeMap> constructor = cell -> {
@@ -54,10 +53,11 @@ public class DynamicActionRangeMapDescriptor {
         this.constructor = constructor;
     }
 
-    public DynamicActionRangeMapDescriptor(Function<Agent, DynamicActionRangeMap> constructor) {
+    public WeightedDynamicActionRangeMapDescriptor(Function<Agent, DynamicActionRangeMap> constructor) {
         this.constructor = constructor;
     }
 
+    @Override
     public DynamicActionRangeMap instantiate(Agent cell) {
         return constructor.apply(cell);
     }

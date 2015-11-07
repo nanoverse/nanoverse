@@ -22,9 +22,11 @@ package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.helper.*;
+import nanoverse.runtime.agent.action.stochastic.DynamicActionRangeMap;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
+import org.slf4j.*;
 
 import java.util.Random;
 
@@ -38,7 +40,7 @@ import java.util.Random;
 public class StochasticChoice extends Action {
     private final DynamicActionRangeMap chooser;
     private final Random random;
-
+    private final Logger logger = LoggerFactory.getLogger(StochasticChoice.class);
     /**
      * Main constructor
      */
@@ -70,6 +72,7 @@ public class StochasticChoice extends Action {
         double range = chooser.getTotalWeight();
         double x = random.nextDouble() * range;
         Action choice = chooser.selectTarget(x);
+        logger.debug("Selecting value {} on interval [0, {}). Event chosen is {}.", x, range, choice.getClass().getSimpleName());
         choice.run(caller);
     }
 

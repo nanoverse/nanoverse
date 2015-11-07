@@ -21,11 +21,9 @@
 package nanoverse.runtime.agent.action.stochastic;
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.LayerManager;
+import org.slf4j.*;
 
-import java.util.function.*;
-
+import java.util.function.Function;
 /**
  * This is part of a cloodge to make it so that StochasticChoice can read the state
  * of solute fields. As such, it is not very carefully written. This will be replaced
@@ -35,10 +33,11 @@ import java.util.function.*;
  */
 public class ContinuumProbabilitySupplier extends ProbabilitySupplier {
 
-    private double coefficient;
-    private double offset;
-    private Agent cell;
-    private Function<Agent, Double> valueLookup;
+    private final double coefficient;
+    private final double offset;
+    private final Agent cell;
+    private final Function<Agent, Double> valueLookup;
+    private final Logger logger = LoggerFactory.getLogger(ContinuumProbabilitySupplier.class);
 
     public ContinuumProbabilitySupplier(Function<Agent, Double> valueLookup, Agent cell, double coefficient, double offset) {
         this.coefficient = coefficient;
@@ -55,6 +54,8 @@ public class ContinuumProbabilitySupplier extends ProbabilitySupplier {
     @Override
     public Double get() {
         double value = valueLookup.apply(cell);
-        return (coefficient * value) + offset;
+        double probability = (coefficient * value) + offset;
+        logger.debug("p(x) = {}", probability);
+        return probability;
     }
 }

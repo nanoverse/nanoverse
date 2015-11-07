@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.runtime.agent.action.StochasticChoiceDescriptor;
 import nanoverse.runtime.agent.action.stochastic.WeightedOption;
+import nanoverse.runtime.control.arguments.BooleanArgument;
 import org.junit.Test;
 
 public class StochasticChoiceInstSymbolTableTest extends ActionInstSymbolTableTest {
@@ -40,5 +41,10 @@ public class StochasticChoiceInstSymbolTableTest extends ActionInstSymbolTableTe
     @Test
     public void options() throws Exception {
         verifyReturnSymbol("options", WeightedOption.class);
+    }
+
+    @Test
+    public void normalized() throws Exception {
+        verifyReturnSymbol("normalized", BooleanArgument.class);
     }
 }

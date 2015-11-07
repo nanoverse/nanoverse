@@ -18,11 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.runtime.agent.action;
+package nanoverse.runtime.agent.action.stochastic;
 
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.agent.action.stochastic.ProbabilitySupplier;
+import nanoverse.runtime.agent.action.Action;
+import nanoverse.runtime.agent.action.stochastic.*;
 import nanoverse.runtime.layers.LayerManager;
 import org.junit.*;
 import test.TestBase;

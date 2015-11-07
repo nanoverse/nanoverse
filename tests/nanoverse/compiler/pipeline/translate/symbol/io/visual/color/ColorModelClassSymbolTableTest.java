@@ -22,7 +22,10 @@ package nanoverse.compiler.pipeline.translate.symbol.io.visual.color;
 
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
-import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.io.visual.color.ColorManager;
+import nanoverse.runtime.io.visual.color.ContinuumColorModel;
+import nanoverse.runtime.io.visual.color.IndexedColorModel;
+import nanoverse.runtime.io.visual.color.SurfaceColorModel;
 import org.junit.Test;
 
 public class ColorModelClassSymbolTableTest extends ClassSymbolTableTest {
@@ -39,7 +42,7 @@ public class ColorModelClassSymbolTableTest extends ClassSymbolTableTest {
 
     @Test
     public void continuum() throws Exception {
-        verifyReturnSymbol("Continuum", NormalizedContinuumColorManager.class);
+        verifyReturnSymbol("Continuum", ContinuumColorModel.class);
     }
 
     @Test

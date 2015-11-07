@@ -21,6 +21,7 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
+import nanoverse.runtime.agent.action.stochastic.DynamicActionRangeMap;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import org.junit.*;
 import org.mockito.InOrder;

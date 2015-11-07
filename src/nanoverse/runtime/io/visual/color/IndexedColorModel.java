@@ -23,7 +23,6 @@ package nanoverse.runtime.io.visual.color;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.io.visual.color.palettes.RainbowColorPalette;
 import nanoverse.runtime.layers.SystemState;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -53,6 +52,9 @@ public class IndexedColorModel extends ColorManager {
     @Override
     public Color getColor(Coordinate c, SystemState systemState) {
         String name = systemState.getLayerManager().getAgentLayer().getViewer().getName(c);
+        if (name == null) {
+            return Color.BLACK;
+        }
         createColorIfNew(name);
         return colorsByName.get(name);
     }
