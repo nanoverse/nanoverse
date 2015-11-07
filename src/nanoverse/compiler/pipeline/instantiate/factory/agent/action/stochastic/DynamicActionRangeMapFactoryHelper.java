@@ -19,7 +19,7 @@
  */
 package nanoverse.compiler.pipeline.instantiate.factory.agent.action.stochastic;
 
-import nanoverse.runtime.control.arguments.DynamicActionRangeMapDescriptor;
+import nanoverse.runtime.agent.action.stochastic.*;
 import nanoverse.runtime.layers.LayerManager;
 
 import java.util.stream.Stream;
@@ -28,6 +28,6 @@ import java.util.stream.Stream;
 public class DynamicActionRangeMapFactoryHelper {
 
     public DynamicActionRangeMapDescriptor build(Stream options, LayerManager layerManager) {
-        return new DynamicActionRangeMapDescriptor(options, layerManager);
+        return new WeightedDynamicActionRangeMapDescriptor(options, layerManager);
     }
 }

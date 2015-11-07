@@ -21,7 +21,8 @@
 package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.control.arguments.DynamicActionRangeMapDescriptor;
+import nanoverse.runtime.agent.action.stochastic.DynamicActionRangeMap;
+import nanoverse.runtime.agent.action.stochastic.DynamicActionRangeMapDescriptor;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 

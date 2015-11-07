@@ -21,6 +21,7 @@
 package nanoverse.runtime.structural;
 
 import nanoverse.runtime.structural.utilities.EpsilonUtil;
+import org.slf4j.*;
 
 import java.util.ArrayList;
 
@@ -41,6 +42,7 @@ import java.util.ArrayList;
  */
 public class RangeMap<T> {
 
+    private final Logger logger = LoggerFactory.getLogger(RangeMap.class);
 
     // We track the floor of each element. It might seem easier to use, eg,
     // a HashMap, but we want order to be preserved and for items to be
@@ -197,8 +199,7 @@ public class RangeMap<T> {
     public void add(T token, double weight) {
         keys.add(token);
         appendBin(weight);
-//        weights.put(token, weight);
-
+        logger.debug("Appending key {} with weight {}.", token, weight);
     }
 
     private void appendBin(double weight) {

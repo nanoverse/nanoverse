@@ -20,12 +20,11 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
-import nanoverse.compiler.pipeline.instantiate.factory.agent.action.stochastic.DynamicActionRangeMapFactory;
+import nanoverse.compiler.pipeline.instantiate.factory.agent.action.stochastic.*;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.translate.nodes.*;
-import nanoverse.runtime.agent.action.stochastic.WeightedOption;
+import nanoverse.runtime.agent.action.stochastic.*;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.agent.action.stochastic.DynamicActionRangeMapDescriptor;
 import nanoverse.runtime.layers.LayerManager;
 
 import java.util.stream.Stream;
@@ -33,24 +32,24 @@ import java.util.stream.Stream;
 /**
  * Created by dbborens on 8/25/2015.
  */
-public class DynamicActionRangeMapLoader extends Loader<DynamicActionRangeMapDescriptor> {
+public class NormalizedDynamicActionRangeMapLoader extends Loader<DynamicActionRangeMapDescriptor> {
 
-    private final DynamicActionRangeMapFactory factory;
+    private final NormalizedDynamicActionRangeMapFactory factory;
     private final DynamicActionRangeMapChildLoader interpolator;
 
-    public DynamicActionRangeMapLoader() {
-        factory = new DynamicActionRangeMapFactory();
+    public NormalizedDynamicActionRangeMapLoader() {
+        factory = new NormalizedDynamicActionRangeMapFactory();
         interpolator = new DynamicActionRangeMapChildLoader();
     }
 
-    public DynamicActionRangeMapLoader(DynamicActionRangeMapFactory factory,
-                                       DynamicActionRangeMapChildLoader interpolator) {
+    public NormalizedDynamicActionRangeMapLoader(NormalizedDynamicActionRangeMapFactory factory,
+                                                 DynamicActionRangeMapChildLoader interpolator) {
 
         this.factory = factory;
         this.interpolator = interpolator;
     }
 
-    public DynamicActionRangeMapDescriptor instantiate(ListObjectNode node,
+    public NormalizedDynamicActionRangeMapDescriptor instantiate(ListObjectNode node,
                                                        LayerManager lm,
                                                        GeneralParameters p) {
 

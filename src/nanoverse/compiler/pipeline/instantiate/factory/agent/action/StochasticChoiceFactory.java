@@ -21,7 +21,7 @@ package nanoverse.compiler.pipeline.instantiate.factory.agent.action;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.agent.action.StochasticChoiceDescriptor;
-import nanoverse.runtime.control.arguments.DynamicActionRangeMapDescriptor;
+import nanoverse.runtime.agent.action.stochastic.DynamicActionRangeMapDescriptor;
 import nanoverse.runtime.layers.LayerManager;
 
 import java.util.Random;

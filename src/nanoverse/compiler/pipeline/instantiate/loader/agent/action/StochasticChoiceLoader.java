@@ -24,7 +24,7 @@ import nanoverse.compiler.pipeline.instantiate.factory.agent.action.StochasticCh
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.agent.action.StochasticChoiceDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.control.arguments.DynamicActionRangeMapDescriptor;
+import nanoverse.runtime.agent.action.stochastic.DynamicActionRangeMapDescriptor;
 import nanoverse.runtime.layers.LayerManager;
 
 /**
@@ -51,8 +51,10 @@ public class StochasticChoiceLoader extends ActionLoader<StochasticChoiceDescrip
         factory.setLayerManager(lm);
         factory.setRandom(p.getRandom());
 
-        DynamicActionRangeMapDescriptor chooser = interpolator.options(node, lm, p);
+        Boolean normalized = interpolator.normalized(node, p.getRandom());
+        DynamicActionRangeMapDescriptor chooser = interpolator.options(node, lm, p, normalized);
         factory.setChooser(chooser);
+
         return factory.build();
     }
 }

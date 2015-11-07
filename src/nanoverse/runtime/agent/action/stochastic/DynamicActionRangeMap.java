@@ -18,10 +18,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.runtime.agent.action;
+package nanoverse.runtime.agent.action.stochastic;
 
 import nanoverse.runtime.agent.Agent;
-import nanoverse.runtime.agent.action.stochastic.ProbabilitySupplier;
+import nanoverse.runtime.agent.action.*;
 import nanoverse.runtime.layers.LayerManager;
 
 import java.util.*;
@@ -34,7 +34,7 @@ public class DynamicActionRangeMap {
     private final Map<Action, ProbabilitySupplier> functionMap;
     private final LayerManager layerManager;
 
-    private ActionRangeMap valueMap;
+    protected ActionRangeMap valueMap;
 
     public DynamicActionRangeMap(Map<Action, ProbabilitySupplier> functionMap,
                                  LayerManager layerManager) {

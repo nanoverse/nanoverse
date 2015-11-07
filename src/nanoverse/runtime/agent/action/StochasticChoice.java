@@ -22,6 +22,7 @@ package nanoverse.runtime.agent.action;
 
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.helper.*;
+import nanoverse.runtime.agent.action.stochastic.DynamicActionRangeMap;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
