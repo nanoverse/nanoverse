@@ -44,7 +44,7 @@ public class EquilibriumPetscSolver extends EquilibriumMatrixSolver {
      */
     public EquilibriumPetscSolver(boolean operators) throws RuntimeException {
         super(operators);
-        if (System.getProperty("os.name").equals("Windows")) {
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
             throw new RuntimeException("PETSc solver not supported on Windows");
         }
     }

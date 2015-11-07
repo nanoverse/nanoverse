@@ -54,7 +54,7 @@ public class EquilibriumMatrixSolverTest extends TestBase {
         ArrayList<EquilibriumMatrixSolver> solvers = new ArrayList<>();
         solvers.add(new EquilibriumKrylovSolver(true));
         solvers.add(new EquilibriumBandSolver(true));
-        if (!System.getProperty("os.name").equals("Windows")) {
+        if (!System.getProperty("os.name").toLowerCase().contains("windows")) {
             solvers.add(new EquilibriumPetscSolver(true));
         }
         return solvers;
