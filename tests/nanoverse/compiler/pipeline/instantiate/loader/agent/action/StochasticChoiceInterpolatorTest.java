@@ -2,7 +2,6 @@ package nanoverse.compiler.pipeline.instantiate.loader.agent.action;
 
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic.DynamicActionRangeMapLoader;
-import nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic.NormalizedDynamicActionRangeMapLoader;
 import nanoverse.compiler.pipeline.translate.nodes.ListObjectNode;
 import nanoverse.runtime.agent.action.stochastic.DynamicActionRangeMapDescriptor;
 import nanoverse.runtime.agent.action.stochastic.NormalizedDynamicActionRangeMapDescriptor;
@@ -25,21 +24,6 @@ public class StochasticChoiceInterpolatorTest extends InterpolatorTest {
         super.before();
         defaults = mock(StochasticChoiceDefaults.class);
         query = new StochasticChoiceInterpolator(load, defaults);
-    }
-
-    @Test
-    public void optionsNormalized() throws Exception {
-        ListObjectNode cNode = mock(ListObjectNode.class);
-        when(node.getMember("options")).thenReturn(cNode);
-
-        NormalizedDynamicActionRangeMapLoader loader = mock(NormalizedDynamicActionRangeMapLoader.class);
-        when(load.getLoader(eq(node), eq("options"), anyBoolean())).thenReturn(loader);
-
-        NormalizedDynamicActionRangeMapDescriptor expected = mock(NormalizedDynamicActionRangeMapDescriptor.class);
-        when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
-
-        DynamicActionRangeMapDescriptor actual = query.options(node, lm, p, true);
-        assertSame(expected, actual);
     }
 
     @Test

@@ -31,9 +31,10 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by dbborens on 4/2/14.
@@ -58,6 +59,14 @@ public class IndexedColorModelTest extends LayerMocks {
         systemState = mock(SystemState.class);
         when(systemState.getLayerManager()).thenReturn(layerManager);
         when(viewer.getName(c)).thenReturn(NAME);
+    }
+
+    @Test
+    public void vacantColorSpecial() throws Exception {
+        Color expected = Color.BLACK;
+        when(viewer.getName(c)).thenReturn(null);
+        Color actual = query.getColor(c, systemState);
+        assertEquals(expected, actual);
     }
 
     @Test
