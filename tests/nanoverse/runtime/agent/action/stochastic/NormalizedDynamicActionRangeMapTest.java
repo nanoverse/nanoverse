@@ -1,5 +1,6 @@
 package nanoverse.runtime.agent.action.stochastic;
 
+import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.Action;
 import nanoverse.runtime.agent.action.NullAction;
 import nanoverse.runtime.layers.LayerManager;
@@ -65,6 +66,21 @@ public class NormalizedDynamicActionRangeMapTest extends TestBase {
         query.refresh();
         query.selectTarget(1.1);
     }
+
+    @Test
+    public void cloneReturnsExpectedClass() throws Exception {
+        Agent child = mock(Agent.class);
+        DynamicActionRangeMap cloned = query.clone(child);
+        assertEquals(NormalizedDynamicActionRangeMap.class, cloned.getClass());
+    }
+
+//    @Test
+//    public void cloneHasExpectedMembers() throws Exception {
+//        Agent child = mock(Agent.class);
+//        DynamicActionRangeMap cloned = query.clone(child);
+//        cloned.refresh();
+//        assertEquals(3, cloned.getTargetCount());
+//    }
 
     private ProbabilitySupplier mockProbabilitySupplier(double p) {
         ProbabilitySupplier ret = mock(ProbabilitySupplier.class);

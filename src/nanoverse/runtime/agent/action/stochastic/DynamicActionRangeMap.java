@@ -32,7 +32,7 @@ import java.util.*;
 public class DynamicActionRangeMap {
 
     private final Map<Action, ProbabilitySupplier> functionMap;
-    private final LayerManager layerManager;
+    protected final LayerManager layerManager;
 
     protected ActionRangeMap valueMap;
 
@@ -66,17 +66,23 @@ public class DynamicActionRangeMap {
 
     public DynamicActionRangeMap clone(Agent child) {
         DynamicActionRangeMap cloned = new DynamicActionRangeMap(layerManager);
-
-        functionMap.forEach((action, supplier) -> {
-            Action clonedKey = action.copy(child);
-            ProbabilitySupplier clonedValue = supplier.clone(child);
-            cloned.add(clonedKey, clonedValue);
-        });
-
+        cloneFunctionMap(cloned, child);
         return cloned;
     }
 
     public void add(Action action, ProbabilitySupplier supplier) {
         functionMap.put(action, supplier);
+    }
+
+    protected void cloneFunctionMap(DynamicActionRangeMap cloned, Agent child) {
+        functionMap.forEach((action, supplier) -> {
+            Action clonedKey = action.copy(child);
+            ProbabilitySupplier clonedValue = supplier.clone(child);
+            cloned.add(clonedKey, clonedValue);
+        });
+    }
+
+    public int getTargetCount() {
+        return valueMap.getNumBins();
     }
 }

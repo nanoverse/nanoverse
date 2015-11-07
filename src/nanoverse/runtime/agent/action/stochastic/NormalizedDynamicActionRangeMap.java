@@ -40,6 +40,13 @@ public class NormalizedDynamicActionRangeMap extends DynamicActionRangeMap {
     }
 
     @Override
+    public NormalizedDynamicActionRangeMap clone(Agent child) {
+        NormalizedDynamicActionRangeMap cloned = new NormalizedDynamicActionRangeMap(layerManager);
+        cloneFunctionMap(cloned, child);
+        return cloned;
+    }
+
+    @Override
     public Action selectTarget(double x) {
         if (x > 1.0) {
             throw new IllegalStateException("System error: attempted to " +

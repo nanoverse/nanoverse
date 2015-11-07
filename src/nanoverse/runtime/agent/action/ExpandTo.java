@@ -75,6 +75,7 @@ public class ExpandTo extends Action {
 
     @Override
     public void run(Coordinate caller) throws HaltCondition {
+        logger.debug("Expanding agent.");
         Agent callerAgent = mapper.resolveCaller(caller);
         List<Coordinate> targets = targetRule.report(callerAgent);
         for (Coordinate target : targets) {

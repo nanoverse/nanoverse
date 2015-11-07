@@ -21,6 +21,7 @@
 package nanoverse.runtime.agent.action.stochastic;
 
 import nanoverse.runtime.agent.Agent;
+import org.slf4j.*;
 
 import java.util.function.Function;
 /**
@@ -36,6 +37,7 @@ public class ContinuumProbabilitySupplier extends ProbabilitySupplier {
     private final double offset;
     private final Agent cell;
     private final Function<Agent, Double> valueLookup;
+    private final Logger logger = LoggerFactory.getLogger(ContinuumProbabilitySupplier.class);
 
     public ContinuumProbabilitySupplier(Function<Agent, Double> valueLookup, Agent cell, double coefficient, double offset) {
         this.coefficient = coefficient;
@@ -53,6 +55,7 @@ public class ContinuumProbabilitySupplier extends ProbabilitySupplier {
     public Double get() {
         double value = valueLookup.apply(cell);
         double probability = (coefficient * value) + offset;
+        logger.debug("p(x) = {}", probability);
         return probability;
     }
 }
