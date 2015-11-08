@@ -37,16 +37,30 @@ public class EquilibriumPetscSolver extends EquilibriumMatrixSolver {
     /**
      * {@inheritDoc}
      */
-    public EquilibriumPetscSolver(boolean operators) {
+    public EquilibriumPetscSolver(boolean operators) throws RuntimeException {
         super(operators);
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            throw new RuntimeException("PETSc solver not supported on Windows");
+        }
     }
 
     @Override
     DenseVector ssSolve(Vector source, CompDiagMatrix operator, Vector initial) {
         steadyState(operator);
         double[] solution = new double[source.size()];
+
+        // See Chapter 4 of the PETSc manual for available solver options
+        String[][] options = {
+                {"-ksp_type", "bcgs"},
+                {"-ksp_initial_guess_nonzero", "true"},
+                {"-pc_type", "gamg"},
+                {"-pc_mg_cycle", "w"},
+                {"-pc_mg_type", "additive"},
+                {"-pc_gamg_type", "agg"},
+                {"-pc_gamg_agg_nsmooths", "1"}};
+
         solve(operator.numRows(), operator.getIndex(),
-            operator.getDiagonals(), solution,
+            operator.getDiagonals(), options, solution,
             ((DenseVector) source).getData());
         DenseVector sol = new DenseVector(solution);
         return sol;
@@ -61,7 +75,8 @@ public class EquilibriumPetscSolver extends EquilibriumMatrixSolver {
      * @param rhs       the right-hand side of Ax=b
      */
     private native int solve(int n, int[] indices, double[][] diagonals,
-                             double[] solution, double[] rhs);
+                             String[][] options, double[] solution,
+                             double[] rhs);
 
     /**
      * Modifies an operator Q in place to I - Q.

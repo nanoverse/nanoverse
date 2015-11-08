@@ -133,7 +133,7 @@ task buildPetscSolver(type:Exec, dependsOn:['makePetscDebug', 'makePetscOpt']) {
     } else {
         environment('PETSC_ARCH', 'petsc-opt')
     }
-    commandLine 'make', '../../lib/libpetscsolver.dylib'
+    commandLine 'make', 'libpetscsolver'
 }
 
 task standaloneJar(type: Jar) {
