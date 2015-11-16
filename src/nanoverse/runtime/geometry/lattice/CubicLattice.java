@@ -30,14 +30,6 @@ public class CubicLattice extends Lattice {
         super();
     }
 
-    protected void defineBasis() {
-        Coordinate i = new Coordinate3D(1, 0, 0, 0);
-        Coordinate j = new Coordinate3D(0, 1, 0, 0);
-        Coordinate k = new Coordinate3D(0, 0, 1, 0);
-
-        basis = new Coordinate[]{i, j, k};
-    }
-
     @Override
     public int getConnectivity() {
         return 3;

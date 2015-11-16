@@ -29,12 +29,6 @@ public class MockLattice extends Lattice {
     private int dimensionality;
 
     @Override
-    protected void defineBasis() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public int getConnectivity() {
         return connectivity;
     }

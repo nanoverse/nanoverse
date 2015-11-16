@@ -32,14 +32,6 @@ public class TriangularLattice extends Lattice {
         super();
     }
 
-    protected void defineBasis() {
-        Coordinate southeast = new Coordinate2D(1, 0, 0);
-        Coordinate northeast = new Coordinate2D(1, 1, 0);
-        Coordinate north = new Coordinate2D(0, 1, 0);
-
-        basis = new Coordinate[]{southeast, northeast, north};
-    }
-
     @Override
     public int getConnectivity() {
         return 3;

@@ -24,18 +24,6 @@ import nanoverse.runtime.control.identifiers.*;
 
 public abstract class Lattice {
 
-    protected Coordinate[] basis;
-
-    public Lattice() {
-        defineBasis();
-    }
-
-    /**
-     * Populate the array of basis coordinates that is supplied
-     * on calls to getBasisNeighbors().
-     */
-    protected abstract void defineBasis();
-
     /**
      * The number of spatial dimensions of the basis vector for the lattice.
      * Not all geometries use orthogonal bases; for example, a triangular

@@ -30,14 +30,6 @@ public class RectangularLattice extends Lattice {
         super();
     }
 
-    protected void defineBasis() {
-
-        Coordinate east = new Coordinate2D(1, 0, 0);
-        Coordinate north = new Coordinate2D(0, 1, 0);
-
-        basis = new Coordinate[]{east, north};
-    }
-
     @Override
     public int getConnectivity() {
         return 2;

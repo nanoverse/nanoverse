@@ -30,12 +30,6 @@ public class LinearLattice extends Lattice {
         super();
     }
 
-    protected void defineBasis() {
-
-        Coordinate north = new Coordinate1D(1, 0);
-
-        basis = new Coordinate[]{north};
-    }
 
     @Override
     public int getConnectivity() {
