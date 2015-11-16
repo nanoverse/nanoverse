@@ -65,47 +65,6 @@ public class TriangularLatticeTest extends LegacyTest {
     }
 
     @Test
-    public void testAdjust() {
-        Coordinate initial, actual, expected;
-
-        // The origin should be unaffected
-        initial = new Coordinate2D(0, 0, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate2D(0, 0, 0);
-        assertEquals(actual, expected);
-
-        // Y offset should be unaffected
-        initial = new Coordinate2D(0, 8, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate2D(0, 8, 0);
-        assertEquals(actual, expected);
-
-        // X-offset should get an adjustment to Y
-        initial = new Coordinate2D(8, 0, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate2D(8, 4, 0);
-        assertEquals(actual, expected);
-
-        // (-1, 0) --> (-1, -1)
-        initial = new Coordinate2D(-1, 0, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate2D(-1, -1, 0);
-        assertEquals(expected, actual);
-
-        // (-2, 0) --> (-2, -1)
-        initial = new Coordinate2D(-2, 0, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate2D(-2, -1, 0);
-        assertEquals(expected, actual);
-
-        // (-3, 0) --> (-3, -2)
-        initial = new Coordinate2D(-3, 0, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate2D(-3, -2, 0);
-        assertEquals(expected, actual);
-    }
-
-    @Test
     public void testGetAnnulus() {
         Coordinate[] actual, expected;
         Coordinate origin = new Coordinate2D(0, 0, 0);
@@ -285,47 +244,6 @@ public class TriangularLatticeTest extends LegacyTest {
         // +u +v -w
         actual = lattice.getOrthoDisplacement(o, t);
         expected = new Coordinate3D(6, 0, 6, Flags.VECTOR);
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testInvAdjust() {
-        Coordinate initial, actual, expected;
-
-        // The origin should be unaffected
-        initial = new Coordinate2D(0, 0, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate2D(0, 0, 0);
-        assertEquals(actual, expected);
-
-        // Y offset should be unaffected
-        initial = new Coordinate2D(0, 8, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate2D(0, 8, 0);
-        assertEquals(actual, expected);
-
-        // X-offset should get an adjustment to Y
-        initial = new Coordinate2D(8, 4, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate2D(8, 0, 0);
-        assertEquals(actual, expected);
-
-        // (-1, 0) <-- (-1, -1)
-        initial = new Coordinate2D(-1, -1, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate2D(-1, 0, 0);
-        assertEquals(expected, actual);
-
-        // (-2, 0) <-- (-2, -1)
-        initial = new Coordinate2D(-2, -1, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate2D(-2, 0, 0);
-        assertEquals(expected, actual);
-
-        // (-3, 0) <-- (-3, -2)
-        initial = new Coordinate2D(-3, -2, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate2D(-3, 0, 0);
         assertEquals(expected, actual);
     }
 

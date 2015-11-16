@@ -80,7 +80,6 @@ public class HorizontalLineSet extends CoordinateSet {
     }
 
     private Coordinate dxTri(Geometry geom, Coordinate start, int dx) {
-        // I really need to refactor the whole nanoverse.runtime.geometry hierarchy.
         int yAdj = (start.x() + dx) / 2;
         Coordinate disp = new Coordinate3D(dx, 0, yAdj, 0);
         return geom.rel2abs(start, disp, Geometry.APPLY_BOUNDARIES);

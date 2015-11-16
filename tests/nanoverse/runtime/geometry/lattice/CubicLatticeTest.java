@@ -44,34 +44,34 @@ public class CubicLatticeTest extends LegacyTest {
         assertEquals(3, lattice.getConnectivity());
     }
 
-    @Test
-    public void testAdjust() {
-        Coordinate initial, actual, expected;
-
-        // The origin should be unaffected
-        initial = new Coordinate3D(0, 0, 0, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate3D(0, 0, 0, 0);
-        assertEquals(actual, expected);
-
-        // X offset should be unaffected
-        initial = new Coordinate3D(8, 0, 0, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate3D(8, 0, 0, 0);
-        assertEquals(actual, expected);
-
-        // Y offset should be unaffected
-        initial = new Coordinate3D(0, 8, 0, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate3D(0, 8, 0, 0);
-        assertEquals(actual, expected);
-
-        // Z offset should be unaffected
-        initial = new Coordinate3D(0, 0, 8, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate3D(0, 0, 8, 0);
-        assertEquals(actual, expected);
-    }
+//    @Test
+//    public void testAdjust() {
+//        Coordinate initial, actual, expected;
+//
+//        // The origin should be unaffected
+//        initial = new Coordinate3D(0, 0, 0, 0);
+//        actual = lattice.adjust(initial);
+//        expected = new Coordinate3D(0, 0, 0, 0);
+//        assertEquals(actual, expected);
+//
+//        // X offset should be unaffected
+//        initial = new Coordinate3D(8, 0, 0, 0);
+//        actual = lattice.adjust(initial);
+//        expected = new Coordinate3D(8, 0, 0, 0);
+//        assertEquals(actual, expected);
+//
+//        // Y offset should be unaffected
+//        initial = new Coordinate3D(0, 8, 0, 0);
+//        actual = lattice.adjust(initial);
+//        expected = new Coordinate3D(0, 8, 0, 0);
+//        assertEquals(actual, expected);
+//
+//        // Z offset should be unaffected
+//        initial = new Coordinate3D(0, 0, 8, 0);
+//        actual = lattice.adjust(initial);
+//        expected = new Coordinate3D(0, 0, 8, 0);
+//        assertEquals(actual, expected);
+//    }
 
     @Test
     public void testGetAnnulus() {
@@ -267,34 +267,34 @@ public class CubicLatticeTest extends LegacyTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    public void testInvAdjust() {
-        Coordinate initial, actual, expected;
-
-        // The origin should be unaffected
-        initial = new Coordinate3D(0, 0, 0, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate3D(0, 0, 0, 0);
-        assertEquals(actual, expected);
-
-        // X offset should be unaffected
-        initial = new Coordinate3D(8, 0, 0, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate3D(8, 0, 0, 0);
-        assertEquals(actual, expected);
-
-        // Y offset should be unaffected
-        initial = new Coordinate3D(0, 8, 0, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate3D(0, 8, 0, 0);
-        assertEquals(actual, expected);
-
-        // Z offset should be unaffected
-        initial = new Coordinate3D(0, 0, 8, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate3D(0, 0, 8, 0);
-        assertEquals(actual, expected);
-    }
+//    @Test
+//    public void testInvAdjust() {
+//        Coordinate initial, actual, expected;
+//
+//        // The origin should be unaffected
+//        initial = new Coordinate3D(0, 0, 0, 0);
+//        actual = lattice.invAdjust(initial);
+//        expected = new Coordinate3D(0, 0, 0, 0);
+//        assertEquals(actual, expected);
+//
+//        // X offset should be unaffected
+//        initial = new Coordinate3D(8, 0, 0, 0);
+//        actual = lattice.invAdjust(initial);
+//        expected = new Coordinate3D(8, 0, 0, 0);
+//        assertEquals(actual, expected);
+//
+//        // Y offset should be unaffected
+//        initial = new Coordinate3D(0, 8, 0, 0);
+//        actual = lattice.invAdjust(initial);
+//        expected = new Coordinate3D(0, 8, 0, 0);
+//        assertEquals(actual, expected);
+//
+//        // Z offset should be unaffected
+//        initial = new Coordinate3D(0, 0, 8, 0);
+//        actual = lattice.invAdjust(initial);
+//        expected = new Coordinate3D(0, 0, 8, 0);
+//        assertEquals(actual, expected);
+//    }
 
     @Test
     public void testClone() {

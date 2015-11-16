@@ -40,19 +40,19 @@ public class CubicLattice extends Lattice {
         return 3;
     }
 
-    @Override
-    public Coordinate adjust(Coordinate i) {
-        if (i.hasFlag(Flags.PLANAR)) {
-            throw new IllegalArgumentException("Cubic lattice is a 3D nanoverse.runtime.geometry.");
-        }
-
-        return i;
-    }
-
-    @Override
-    public Coordinate invAdjust(Coordinate toAdjust) {
-        return toAdjust;
-    }
+//    @Override
+//    public Coordinate adjust(Coordinate i) {
+//        if (i.hasFlag(Flags.PLANAR)) {
+//            throw new IllegalArgumentException("Cubic lattice is a 3D nanoverse.runtime.geometry.");
+//        }
+//
+//        return i;
+//    }
+//
+//    @Override
+//    public Coordinate invAdjust(Coordinate toAdjust) {
+//        return toAdjust;
+//    }
 
 //    private int getOffsetForSlices(int rShell, int dz) {
 //        // The radius of the 2D annulus decreases with dz.

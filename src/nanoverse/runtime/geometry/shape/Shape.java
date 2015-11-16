@@ -60,21 +60,13 @@ public abstract class Shape {
 
     private void buildCoordMap() {
 
-        coordMap = new HashMap<Coordinate, Integer>();
+        coordMap = new HashMap<>();
         for (Integer i = 0; i < canonicalSites.length; i++) {
             coordMap.put(canonicalSites[i], i);
         }
     }
 
-    public Integer coordToIndex(Coordinate coord) {
-        if (!coordMap.containsKey(coord)) {
-            throw new IllegalArgumentException("Attempted to index non-canonical coordinate " + coord);
-        }
-
-        return coordMap.get(coord);
-    }
-
-    // Get a complete list of sites for this nanoverse.runtime.geometry.
+    // Get a complete list of sites for this geometry.
     public Coordinate[] getCanonicalSites() {
         return canonicalSites.clone();
     }
@@ -98,13 +90,6 @@ public abstract class Shape {
      * @return
      */
     public abstract Coordinate getOverbounds(Coordinate coord);
-
-	/* PRIVATE METHODS */
-
-    protected void include(Collection<Coordinate> list, Coordinate coordinate) {
-        Coordinate adjusted = lattice.adjust(coordinate);
-        list.add(adjusted);
-    }
 
     public abstract int[] getDimensions();
 

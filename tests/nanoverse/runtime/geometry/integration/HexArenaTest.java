@@ -41,12 +41,6 @@ import static org.junit.Assert.*;
  */
 public class HexArenaTest extends LegacyTest {
 
-    // Test indexing and de-indexing behavior in 2D and 3D.
-    //
-    // Note that indexing works whether or not the coordinates are
-    // valid for the specified nanoverse.runtime.geometry. Indexing should ultimately
-    // be offloaded to an indexer object.
-    //
     // Also note that calling the z coordinate of a 2D point will,
     // by design, return 0.
     @Test
@@ -88,7 +82,7 @@ public class HexArenaTest extends LegacyTest {
         Geometry hr = new Geometry(lattice, shape, boundary);
 
         // Create unordered set of all expected coordinates
-        HashSet<Coordinate> s = new HashSet<Coordinate>();
+        HashSet<Coordinate> s = new HashSet<>();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 int yAdj = y + (x / 2);

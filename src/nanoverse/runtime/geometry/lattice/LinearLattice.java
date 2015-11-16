@@ -42,23 +42,6 @@ public class LinearLattice extends Lattice {
     }
 
     @Override
-    public Coordinate adjust(Coordinate toAdjust) {
-        if (!toAdjust.hasFlag(Flags.PLANAR)) {
-            throw new IllegalArgumentException("Linear lattice (unfortunately) " +
-                "expects planar coordinates. I'm working on it.");
-        }
-
-        // A rectangular lattice requires no offset adjustment to be consistent
-        // with Cartesian coordinates.
-        return toAdjust;
-    }
-
-    @Override
-    public Coordinate invAdjust(Coordinate toAdjust) {
-        return toAdjust;
-    }
-
-    @Override
     public Coordinate[] getAnnulus(Coordinate coord, int r) {
         // De-index coordinate.
         int x0 = coord.x();
@@ -87,17 +70,12 @@ public class LinearLattice extends Lattice {
 
     @Override
     public Coordinate rel2abs(Coordinate coord, Coordinate displacement) {
-        int x = coord.x();
 
         if (coord.x() != 0 || coord.z() != 0) {
             throw new IllegalStateException("Expect strictly 0 x and z " +
                 "coordinates for linear lattice.");
         }
         int y = coord.y();
-
-        // Apply x component
-        x += displacement.x();
-
 
         // Apply y component
         y += displacement.y();

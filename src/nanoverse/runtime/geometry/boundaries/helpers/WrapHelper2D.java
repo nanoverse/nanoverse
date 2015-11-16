@@ -21,6 +21,7 @@
 package nanoverse.runtime.geometry.boundaries.helpers;
 
 import nanoverse.runtime.control.identifiers.*;
+import nanoverse.runtime.geometry.basis.BasisHelper2D;
 import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.*;
 
@@ -30,6 +31,7 @@ import nanoverse.runtime.geometry.shape.*;
 public class WrapHelper2D extends WrapHelper {
 
     private final int width, height;
+    private final BasisHelper2D basisHelper;
 
     public WrapHelper2D(Shape shape, Lattice lattice) {
         super(shape, lattice);
@@ -43,6 +45,7 @@ public class WrapHelper2D extends WrapHelper {
         width = rect.getDimensions()[0];
         height = rect.getDimensions()[1];
 
+        basisHelper = rect.getBasisHelper();
         if (lattice instanceof TriangularLattice && width % 2 != 0) {
             throw new IllegalArgumentException("Periodic behavior on triangular lattice requires even width");
         }
@@ -58,7 +61,7 @@ public class WrapHelper2D extends WrapHelper {
     public Coordinate xWrap(Coordinate toWrap) {
         checkValid(toWrap);
         // Remove any x-adjustment from y.
-        Coordinate ret = lattice.invAdjust(toWrap);
+        Coordinate ret = basisHelper.invAdjust(toWrap);
 
         // Wrap x.
         int over = shape.getOverbounds(ret).x();
@@ -76,7 +79,7 @@ public class WrapHelper2D extends WrapHelper {
         }
 
         // Apply x-adjustment to y.
-        ret = lattice.adjust(ret);
+        ret = basisHelper.adjust(ret);
 
         // Return new coordinate.
         return ret;

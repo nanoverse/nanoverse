@@ -21,6 +21,7 @@
 package nanoverse.runtime.geometry.boundaries;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.geometry.basis.BasisHelper2D;
 import nanoverse.runtime.geometry.boundaries.helpers.PlaneRingHelper;
 import nanoverse.runtime.geometry.lattice.Lattice;
 import nanoverse.runtime.geometry.shape.*;
@@ -33,7 +34,8 @@ public class PlaneRingReflecting extends Boundary {
     @FactoryTarget
     public PlaneRingReflecting(Shape shape, Lattice lattice) {
         super(shape, lattice);
-        helper = new PlaneRingHelper(lattice, shape.getDimensions());
+        BasisHelper2D basisHelper = ((Rectangle) shape).getBasisHelper();
+        helper = new PlaneRingHelper(basisHelper, shape.getDimensions());
     }
 
     @Override

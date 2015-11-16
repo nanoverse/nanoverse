@@ -39,32 +39,6 @@ public abstract class Lattice {
     public abstract int getDimensionality();
 
     /**
-     * The native coordinate system for eSLIME is Cartesian. That is,
-     * if we specify a rectangular nanoverse.runtime.geometry with width 10 and height 5,
-     * we expect this to be reflected as (roughly) a rectangle-shaped
-     * lattice, regardless of the lattice connectivity.
-     * <p>
-     * However, some
-     * lattices do not have orthogonal bases. To make them consistent
-     * with a Cartesian coordinate system, it is necessary to adjust an
-     * incoming Cartesian coordinate to reflect their native coordinate
-     * system. That adjustment is supplied in the adjust(...) method.
-     *
-     * @param toAdjust -- a Cartesian coordinate.
-     * @return -- a coordinate in the native coordinate system.
-     */
-    public abstract Coordinate adjust(Coordinate toAdjust);
-
-    /**
-     * invAdjust -- inverse operation to Adjust.
-     *
-     * @param toAdjust
-     * @return
-     */
-    public abstract Coordinate invAdjust(Coordinate toAdjust);
-
-
-    /**
      * Returns the neighbors around the specified coordinate, assuming
      * infinite boundary conditions.
      *

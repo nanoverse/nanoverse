@@ -21,8 +21,10 @@
 package nanoverse.runtime.geometry.boundary;
 
 import nanoverse.runtime.control.identifiers.*;
+import nanoverse.runtime.geometry.basis.BasisHelper2D;
 import nanoverse.runtime.geometry.boundaries.helpers.PlaneRingHelper;
 import nanoverse.runtime.geometry.lattice.*;
+import nanoverse.runtime.geometry.shape.*;
 import org.junit.*;
 import test.LegacyTest;
 
@@ -35,8 +37,10 @@ public class PlaneRingHelperTest extends LegacyTest {
     @Before
     public void setUp() {
         Lattice lattice = new RectangularLattice();
-        int[] dims = new int[]{4, 4};
-        helper = new PlaneRingHelper(lattice, dims);
+        Rectangle shape = new Rectangle(lattice, 4, 4);
+        BasisHelper2D basisHelper = shape.getBasisHelper();
+        int[] dims = shape.getDimensions();
+        helper = new PlaneRingHelper(basisHelper, dims);
     }
 
     @Test

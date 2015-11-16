@@ -40,21 +40,21 @@ public class RectangularLattice extends Lattice {
         return 2;
     }
 
-    @Override
-    public Coordinate adjust(Coordinate toAdjust) {
-        if (!toAdjust.hasFlag(Flags.PLANAR)) {
-            throw new IllegalArgumentException("Rectangular lattice is a planar nanoverse.runtime.geometry.");
-        }
-
-        // A rectangular lattice requires no offset adjustment to be consistent
-        // with Cartesian coordinates.
-        return toAdjust;
-    }
-
-    @Override
-    public Coordinate invAdjust(Coordinate toAdjust) {
-        return toAdjust;
-    }
+//    @Override
+//    public Coordinate adjust(Coordinate toAdjust) {
+//        if (!toAdjust.hasFlag(Flags.PLANAR)) {
+//            throw new IllegalArgumentException("Rectangular lattice is a planar nanoverse.runtime.geometry.");
+//        }
+//
+//        // A rectangular lattice requires no offset adjustment to be consistent
+//        // with Cartesian coordinates.
+//        return toAdjust;
+//    }
+//
+//    @Override
+//    public Coordinate invAdjust(Coordinate toAdjust) {
+//        return toAdjust;
+//    }
 
     @Override
     public Coordinate[] getAnnulus(Coordinate coord, int r) {

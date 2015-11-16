@@ -21,11 +21,13 @@
 package nanoverse.runtime.geometry.shape;
 
 import nanoverse.runtime.control.identifiers.*;
+import nanoverse.runtime.geometry.basis.*;
 import nanoverse.runtime.geometry.lattice.*;
 import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class RectangleTest extends LegacyTest {
 
@@ -213,5 +215,25 @@ public class RectangleTest extends LegacyTest {
         assertEquals(even.getClass(), cloned.getClass());
         assertEquals(8, even.getCanonicalSites().length);
         assertEquals(32, cloned.getCanonicalSites().length);
+    }
+
+    @Test
+    public void basisHelperRectangle() throws Exception {
+        RectangularLattice lattice = new RectangularLattice();
+        Rectangle shape = new Rectangle(lattice, 3, 3);
+
+        Class expected = RectangularBasisHelper.class;
+        Class actual = shape.getBasisHelper().getClass();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void basisHelperTriangle() throws Exception {
+        TriangularLattice lattice = new TriangularLattice();
+        Rectangle shape = new Rectangle(lattice, 3, 3);
+
+        Class expected = TriangularBasisHelper.class;
+        Class actual = shape.getBasisHelper().getClass();
+        assertEquals(expected, actual);
     }
 }

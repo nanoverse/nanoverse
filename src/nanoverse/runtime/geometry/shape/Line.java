@@ -61,10 +61,10 @@ public class Line extends Shape {
         int y = (length - 1) / 2;
 
         Coordinate center = new Coordinate1D(y, 0);
+//
+//        Coordinate adjusted = lattice.adjust(center);
 
-        Coordinate adjusted = lattice.adjust(center);
-
-        return adjusted;
+        return center;
     }
 
     @Override

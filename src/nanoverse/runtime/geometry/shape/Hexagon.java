@@ -155,11 +155,6 @@ public class Hexagon extends Shape {
     }
 
     @Override
-    protected void include(Collection<Coordinate> list, Coordinate coordinate) {
-        list.add(coordinate);
-    }
-
-    @Override
     public int[] getDimensions() {
         int d = (2 * radius) + 1;
 
@@ -242,7 +237,7 @@ public class Hexagon extends Shape {
 
     private void ring(ArrayList<Coordinate> coords, int r) {
         if (r == 0) {
-            include(coords, getCenter());
+            coords.add(getCenter());
             return;
         }
 
@@ -250,22 +245,22 @@ public class Hexagon extends Shape {
         int y0 = getCenter().y();
         for (int k = 1; k <= r; k++) {
             // Right side
-            include(coords, new Coordinate2D(x0 + r, y0 + k - 1, 0));
+            coords.add(new Coordinate2D(x0 + r, y0 + k - 1, 0));
 
             // Lower right side
-            include(coords, new Coordinate2D(x0 + r - k, y0 - k, 0));
+            coords.add(new Coordinate2D(x0 + r - k, y0 - k, 0));
 
             // Lower left side
-            include(coords, new Coordinate2D(x0 - k, y0 - r, 0));
+            coords.add(new Coordinate2D(x0 - k, y0 - r, 0));
 
             // Left side
-            include(coords, new Coordinate2D(x0 - r, y0 - r + k, 0));
+            coords.add(new Coordinate2D(x0 - r, y0 - r + k, 0));
 
             // Upper left side
-            include(coords, new Coordinate2D(x0 - r + k, y0 + k, 0));
+            coords.add(new Coordinate2D(x0 - r + k, y0 + k, 0));
 
             // Upper right side
-            include(coords, new Coordinate2D(x0 + k, y0 + r, 0));
+            coords.add(new Coordinate2D(x0 + k, y0 + r, 0));
         }
     }
 

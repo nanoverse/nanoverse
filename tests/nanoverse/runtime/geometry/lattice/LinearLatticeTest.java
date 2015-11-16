@@ -44,23 +44,23 @@ public class LinearLatticeTest extends LegacyTest {
         assertEquals(1, lattice.getConnectivity());
     }
 
-    @Test
-    public void testAdjust() {
-        Coordinate initial, actual, expected;
-
-        // The origin should be unaffected
-        initial = new Coordinate1D(0, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate1D(0, 0);
-        assertEquals(actual, expected);
-
-        // Y offset should be unaffected
-        initial = new Coordinate1D(8, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate1D(8, 0);
-        assertEquals(actual, expected);
-
-    }
+//    @Test
+//    public void testAdjust() {
+//        Coordinate initial, actual, expected;
+//
+//        // The origin should be unaffected
+//        initial = new Coordinate1D(0, 0);
+//        actual = lattice.adjust(initial);
+//        expected = new Coordinate1D(0, 0);
+//        assertEquals(actual, expected);
+//
+//        // Y offset should be unaffected
+//        initial = new Coordinate1D(8, 0);
+//        actual = lattice.adjust(initial);
+//        expected = new Coordinate1D(8, 0);
+//        assertEquals(actual, expected);
+//
+//    }
 
     @Test
     public void testGetAnnulus() {
@@ -168,22 +168,22 @@ public class LinearLatticeTest extends LegacyTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    public void testInvAdjust() {
-        Coordinate initial, actual, expected;
-
-        // The origin should be unaffected
-        initial = new Coordinate1D(0, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate1D(0, 0);
-        assertEquals(actual, expected);
-
-        // Y offset should be unaffected
-        initial = new Coordinate1D(8, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate1D(8, 0);
-        assertEquals(actual, expected);
-    }
+//    @Test
+//    public void testInvAdjust() {
+//        Coordinate initial, actual, expected;
+//
+//        // The origin should be unaffected
+//        initial = new Coordinate1D(0, 0);
+//        actual = lattice.invAdjust(initial);
+//        expected = new Coordinate1D(0, 0);
+//        assertEquals(actual, expected);
+//
+//        // Y offset should be unaffected
+//        initial = new Coordinate1D(8, 0);
+//        actual = lattice.invAdjust(initial);
+//        expected = new Coordinate1D(8, 0);
+//        assertEquals(actual, expected);
+//    }
 
     @Test
     public void testClone() {

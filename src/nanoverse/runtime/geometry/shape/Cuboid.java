@@ -54,7 +54,7 @@ public class Cuboid extends Shape {
         for (int z = 0; z < depth; z++) {
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
-                    include(coords, new Coordinate3D(x, y, z, 0));
+                    coords.add(new Coordinate3D(x, y, z, 0));
                 }
             }
         }
@@ -86,24 +86,24 @@ public class Cuboid extends Shape {
         // Front and back
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                include(coords, new Coordinate3D(x, y, 0, 0));
-                include(coords, new Coordinate3D(x, y, depth - 1, 0));
+                coords.add(new Coordinate3D(x, y, 0, 0));
+                coords.add(new Coordinate3D(x, y, depth - 1, 0));
             }
         }
 
         // Left and right
         for (int z = 0; z < depth; z++) {
             for (int y = 0; y < height; y++) {
-                include(coords, new Coordinate3D(0, y, z, 0));
-                include(coords, new Coordinate3D(width - 1, y, z, 0));
+                coords.add(new Coordinate3D(0, y, z, 0));
+                coords.add(new Coordinate3D(width - 1, y, z, 0));
             }
         }
 
         // Top and bottom
         for (int z = 0; z < depth; z++) {
             for (int x = 0; x < width; x++) {
-                include(coords, new Coordinate3D(x, 0, z, 0));
-                include(coords, new Coordinate3D(x, height - 1, z, 0));
+                coords.add(new Coordinate3D(x, 0, z, 0));
+                coords.add(new Coordinate3D(x, height - 1, z, 0));
             }
         }
 
