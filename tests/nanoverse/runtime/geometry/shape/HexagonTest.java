@@ -24,10 +24,13 @@ import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
+import nanoverse.runtime.structural.NotYetImplementedException;
 import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 
 public class HexagonTest extends LegacyTest {
 
@@ -119,22 +122,22 @@ public class HexagonTest extends LegacyTest {
         c = new Coordinate2D(2, 0, 0);
         d = new Coordinate2D(4, 2, 0);
 
-        Coordinate actual, expected;
+        int actual, expected;
 
-        expected = new Coordinate3D(0, 0, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(a);
+        expected = 0;
+        actual = hex.getDistanceOverBoundary(a);
         assertEquals(expected, actual);
 
-        expected = new Coordinate3D(0, 0, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(b);
+        expected = 0;
+        actual = hex.getDistanceOverBoundary(b);
         assertEquals(expected, actual);
 
-        expected = new Coordinate3D(0, 0, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(c);
+        expected = 0;
+        actual = hex.getDistanceOverBoundary(c);
         assertEquals(expected, actual);
 
-        expected = new Coordinate3D(0, 0, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(d);
+        expected = 0;
+        actual = hex.getDistanceOverBoundary(d);
         assertEquals(expected, actual);
     }
 
@@ -151,62 +154,62 @@ public class HexagonTest extends LegacyTest {
         u = new Coordinate2D(2, -1, 0); // -3w
 
 
-        Coordinate actual, expected;
+        int actual, expected;
 
-        expected = new Coordinate3D(1, 0, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(p);
+        expected = 1;
+        actual = hex.getDistanceOverBoundary(p);
         assertEquals(expected, actual);
 
-        expected = new Coordinate3D(0, 1, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(q);
+        expected = 1;
+        actual = hex.getDistanceOverBoundary(q);
         assertEquals(expected, actual);
 
-        expected = new Coordinate3D(0, 0, 1, Flags.VECTOR);
-        actual = hex.getOverbounds(r);
+        expected = 1;
+        actual = hex.getDistanceOverBoundary(r);
         assertEquals(expected, actual);
 
-        expected = new Coordinate3D(-1, 0, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(s);
+        expected = 1;
+        actual = hex.getDistanceOverBoundary(s);
         assertEquals(expected, actual);
 
-        expected = new Coordinate3D(0, -1, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(t);
+        expected = 1;
+        actual = hex.getDistanceOverBoundary(t);
         assertEquals(expected, actual);
 
-        expected = new Coordinate3D(0, 0, -1, Flags.VECTOR);
-        actual = hex.getOverbounds(u);
+        expected = 1;
+        actual = hex.getDistanceOverBoundary(u);
         assertEquals(expected, actual);
     }
 
     @Test
     public void testOverboundsOffCorners() {
         Coordinate p, q, r, s, t;
+
+        int actual, expected;
+
         p = new Coordinate2D(-1, 0, 0); // Expect -u
+        expected = 1;
+        actual = hex.getDistanceOverBoundary(p);
+        assertEquals(expected, actual);
+
         q = new Coordinate2D(-1, 1, 0); // Expect -v
+        expected = 1;
+        actual = hex.getDistanceOverBoundary(q);
+        assertEquals(expected, actual);
+
         r = new Coordinate2D(1, 4, 0);  // Expect -u
+        expected = 1;
+        actual = hex.getDistanceOverBoundary(r);
+        assertEquals(expected, actual);
+
         s = new Coordinate2D(5, 4, 0);  // Expect +u
+        expected = 1;
+        actual = hex.getDistanceOverBoundary(s);
+        assertEquals(expected, actual);
+
         t = new Coordinate2D(5, 3, 0);  // Expect +v
-
-        Coordinate actual, expected;
-
-        expected = new Coordinate3D(-1, 0, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(p);
-        assertEquals(expected, actual);
-
-        expected = new Coordinate3D(0, -1, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(q);
-        assertEquals(expected, actual);
-
-        expected = new Coordinate3D(-1, 0, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(r);
-        assertEquals(expected, actual);
-
-        expected = new Coordinate3D(1, 0, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(s);
-        assertEquals(expected, actual);
-
-        expected = new Coordinate3D(0, 1, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(t);
+        expected = 1;
+        actual = hex.getDistanceOverBoundary(t);
         assertEquals(expected, actual);
     }
 
@@ -217,19 +220,19 @@ public class HexagonTest extends LegacyTest {
         q = new Coordinate2D(0, 4, 0);  // Expect -2u (because we prefer u over w).
         r = new Coordinate2D(4, 6, 0);  // Expect +2w (because we never break a tie in favor of v).
 
-        Coordinate actual, expected;
+        int actual, expected;
 
 
-        expected = new Coordinate3D(-1, 0, 1, Flags.VECTOR);
-        actual = hex.getOverbounds(p);
+        expected = 2;
+        actual = hex.getDistanceOverBoundary(p);
         assertEquals(expected, actual);
 
-        expected = new Coordinate3D(-2, 0, 0, Flags.VECTOR);
-        actual = hex.getOverbounds(q);
+        expected = 2;
+        actual = hex.getDistanceOverBoundary(q);
         assertEquals(expected, actual);
 
-        expected = new Coordinate3D(0, 0, 2, Flags.VECTOR);
-        actual = hex.getOverbounds(r);
+        expected = 2;
+        actual = hex.getDistanceOverBoundary(r);
         assertEquals(expected, actual);
     }
 
@@ -284,5 +287,11 @@ public class HexagonTest extends LegacyTest {
         assertEquals(hex.getClass(), cloned.getClass());
         assertEquals(19, hex.getCanonicalSites().length);
         assertEquals(61, cloned.getCanonicalSites().length);
+    }
+
+    @Test(expected = NotYetImplementedException.class)
+    public void testGetOverboundsThrows() {
+        Coordinate c = mock(Coordinate.class);
+        hex.getOverbounds(c);
     }
 }

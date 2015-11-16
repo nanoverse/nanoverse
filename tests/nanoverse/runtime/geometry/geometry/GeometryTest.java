@@ -311,27 +311,27 @@ public class GeometryTest extends LegacyTest {
         int actual, expected;
 
         // p->p
-        actual = geom.getL1Distance(p, p, Geometry.APPLY_BOUNDARIES);
+        actual = geom.getNeighborhoodDistance(p, p, Geometry.APPLY_BOUNDARIES);
         expected = 0;
         assertEquals(actual, expected);
 
         // p->q
-        actual = geom.getL1Distance(p, q, Geometry.APPLY_BOUNDARIES);
+        actual = geom.getNeighborhoodDistance(p, q, Geometry.APPLY_BOUNDARIES);
         expected = 2;
         assertEquals(actual, expected);
 
         // p->r
-        actual = geom.getL1Distance(p, r, Geometry.APPLY_BOUNDARIES);
+        actual = geom.getNeighborhoodDistance(p, r, Geometry.APPLY_BOUNDARIES);
         expected = 1;
         assertEquals(actual, expected);
 
         // r->p
-        actual = geom.getL1Distance(r, p, Geometry.APPLY_BOUNDARIES);
+        actual = geom.getNeighborhoodDistance(r, p, Geometry.APPLY_BOUNDARIES);
         expected = 1;
         assertEquals(actual, expected);
 
         // r->r
-        actual = geom.getL1Distance(r, r, Geometry.APPLY_BOUNDARIES);
+        actual = geom.getNeighborhoodDistance(r, r, Geometry.APPLY_BOUNDARIES);
         expected = 0;
         assertEquals(actual, expected);
     }
@@ -341,51 +341,29 @@ public class GeometryTest extends LegacyTest {
         int actual, expected;
 
         // p->p
-        actual = geom.getL1Distance(p, p, Geometry.IGNORE_BOUNDARIES);
+        actual = geom.getNeighborhoodDistance(p, p, Geometry.IGNORE_BOUNDARIES);
         expected = 0;
         assertEquals(actual, expected);
 
         // p->q
-        actual = geom.getL1Distance(p, q, Geometry.IGNORE_BOUNDARIES);
+        actual = geom.getNeighborhoodDistance(p, q, Geometry.IGNORE_BOUNDARIES);
         expected = 2;
         assertEquals(actual, expected);
 
         // p->r
-        actual = geom.getL1Distance(p, r, Geometry.IGNORE_BOUNDARIES);
+        actual = geom.getNeighborhoodDistance(p, r, Geometry.IGNORE_BOUNDARIES);
         expected = 3;
         assertEquals(actual, expected);
 
         // r->p
-        actual = geom.getL1Distance(r, p, Geometry.IGNORE_BOUNDARIES);
+        actual = geom.getNeighborhoodDistance(r, p, Geometry.IGNORE_BOUNDARIES);
         expected = 3;
         assertEquals(actual, expected);
 
         // r->r
-        actual = geom.getL1Distance(r, r, Geometry.IGNORE_BOUNDARIES);
+        actual = geom.getNeighborhoodDistance(r, r, Geometry.IGNORE_BOUNDARIES);
         expected = 0;
         assertEquals(actual, expected);
-    }
-
-    @Test
-    public void testL1DistanceExclude() {
-        boolean threw = false;
-        try {
-            geom.getL1Distance(p, q, Geometry.EXCLUDE_BOUNDARIES);
-        } catch (Exception ex) {
-            threw = true;
-        }
-        assertTrue(threw);
-    }
-
-    @Test
-    public void testL1DistanceFlag() {
-        boolean threw = false;
-        try {
-            geom.getL1Distance(p, q, Geometry.FLAG_BOUNDARIES);
-        } catch (Exception ex) {
-            threw = true;
-        }
-        assertTrue(threw);
     }
 
     @Test

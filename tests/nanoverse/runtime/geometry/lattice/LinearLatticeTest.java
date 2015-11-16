@@ -140,7 +140,7 @@ public class LinearLatticeTest extends LegacyTest {
     }
 
     @Test
-    public void testGetL1Distance() {
+    public void testGetNeighborhoodDistance() {
         Coordinate o, q;
         int expected, actual;
 
@@ -149,7 +149,7 @@ public class LinearLatticeTest extends LegacyTest {
 
 
         // Vertical
-        actual = lattice.getL1Distance(o, q);
+        actual = lattice.getNeighborhoodDistance(o, q);
         expected = 3;
         assertEquals(expected, actual);
     }
@@ -198,4 +198,5 @@ public class LinearLatticeTest extends LegacyTest {
         Coordinate actual = lattice.getZeroVector();
         assertEquals(expected, actual);
     }
+
 }

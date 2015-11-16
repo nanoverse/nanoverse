@@ -23,6 +23,8 @@ package nanoverse.runtime.geometry.lattice;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
+import static java.lang.Math.abs;
+
 public class LinearLattice extends Lattice {
 
     @FactoryTarget
@@ -100,6 +102,12 @@ public class LinearLattice extends Lattice {
         int dy = qCoord.y() - pCoord.y();
 
         return new Coordinate1D(dy, Flags.VECTOR);
+    }
+
+    @Override
+    public int getNeighborhoodDistance(Coordinate p, Coordinate q) {
+        Coordinate d = getDisplacement(p, q);
+        return abs(d.y());
     }
 
     @Override

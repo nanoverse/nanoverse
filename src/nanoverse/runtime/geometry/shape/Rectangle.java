@@ -39,20 +39,11 @@ public class Rectangle extends Shape {
         this.height = height;
         this.width = width;
 
-        basisHelper = resolveBasisHelper(lattice);
+        basisHelper = BasisHelperSupplier2D.resolveBasisHelper(lattice);
+
         init();
     }
 
-    private BasisHelper2D resolveBasisHelper(Lattice lattice) {
-        if (lattice instanceof RectangularLattice) {
-            return new RectangularBasisHelper();
-        } else if (lattice instanceof TriangularLattice) {
-            return new TriangularBasisHelper();
-        } else {
-            throw new IllegalStateException("Unrecognized 2D lattice \"" +
-                lattice.getClass().getSimpleName() + ".\"");
-        }
-    }
 
     @Override
     protected void verify(Lattice lattice) {
@@ -212,6 +203,12 @@ public class Rectangle extends Shape {
 
     public BasisHelper2D getBasisHelper() {
         return basisHelper;
+    }
+
+    @Override
+    public int getDistanceOverBoundary(Coordinate coord) {
+        Coordinate ob = getOverbounds(coord);
+        return ob.norm();
     }
 
 }

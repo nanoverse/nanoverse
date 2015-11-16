@@ -168,7 +168,7 @@ public class RectangularLatticeTest extends LegacyTest {
     }
 
     @Test
-    public void testGetL1Distance() {
+    public void testGetNeighborhoodDistance() {
         Coordinate o, p, q, r;
         int expected, actual;
 
@@ -178,17 +178,17 @@ public class RectangularLatticeTest extends LegacyTest {
         r = new Coordinate2D(-3, 3, 0);
 
         // Horizontal
-        actual = lattice.getL1Distance(o, p);
+        actual = lattice.getNeighborhoodDistance(o, p);
         expected = 3;
         assertEquals(expected, actual);
 
         // Vertical
-        actual = lattice.getL1Distance(o, q);
+        actual = lattice.getNeighborhoodDistance(o, q);
         expected = 3;
         assertEquals(expected, actual);
 
         // Both horizontal and vertical
-        actual = lattice.getL1Distance(o, r);
+        actual = lattice.getNeighborhoodDistance(o, r);
         expected = 6;
         assertEquals(expected, actual);
     }
@@ -218,29 +218,6 @@ public class RectangularLatticeTest extends LegacyTest {
         expected = new Coordinate2D(3, 3, Flags.VECTOR);
         assertEquals(expected, actual);
     }
-
-//    @Test
-//    public void testInvAdjust() {
-//        Coordinate initial, actual, expected;
-//
-//        // The origin should be unaffected
-//        initial = new Coordinate2D(0, 0, 0);
-//        actual = lattice.invAdjust(initial);
-//        expected = new Coordinate2D(0, 0, 0);
-//        assertEquals(actual, expected);
-//
-//        // Y offset should be unaffected
-//        initial = new Coordinate2D(0, 8, 0);
-//        actual = lattice.invAdjust(initial);
-//        expected = new Coordinate2D(0, 8, 0);
-//        assertEquals(actual, expected);
-//
-//        // X offset should be unaffected
-//        initial = new Coordinate2D(8, 0, 0);
-//        actual = lattice.invAdjust(initial);
-//        expected = new Coordinate2D(8, 0, 0);
-//        assertEquals(actual, expected);
-//    }
 
     @Test
     public void testClone() {

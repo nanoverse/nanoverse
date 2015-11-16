@@ -59,6 +59,11 @@ public class MockLattice extends Lattice {
     }
 
     @Override
+    public int getNeighborhoodDistance(Coordinate p, Coordinate q) {
+        return 0;
+    }
+
+    @Override
     public Coordinate getOrthoDisplacement(Coordinate pCoord, Coordinate qCoord) {
         // TODO Auto-generated method stub
         return null;

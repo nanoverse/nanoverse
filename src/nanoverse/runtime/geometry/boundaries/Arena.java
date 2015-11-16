@@ -49,18 +49,12 @@ public class Arena extends Boundary {
 
     @Override
     public Coordinate apply(Coordinate c) {
-        Coordinate ob = shape.getOverbounds(c);
-
-        Coordinate ret;
-        // Is any component overbound?
-        if (ob.x() != 0 || ob.y() != 0 || ob.z() != 0) {
-            // If yes, set the appropriate flags
-            ret = c.addFlags(Flags.END_OF_WORLD | Flags.BOUNDARY_APPLIED);
+        int ob = shape.getDistanceOverBoundary(c);
+        if (ob > 0) {
+            return c.addFlags(Flags.END_OF_WORLD | Flags.BOUNDARY_APPLIED);
         } else {
-            ret = c;
+            return c;
         }
-
-        return ret;
     }
 
     @Override

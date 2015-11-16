@@ -65,6 +65,7 @@ public abstract class Lattice {
      * @param qCoord
      * @return
      */
+    // TODO DELETE ME ****
     public abstract Coordinate getOrthoDisplacement(Coordinate pCoord,
                                                     Coordinate qCoord);
 
@@ -75,6 +76,7 @@ public abstract class Lattice {
     public abstract Coordinate rel2abs(Coordinate coord, Coordinate displacement);
 
     // Get the L1 distance between the specified sites.
+    // TODO DELETE ME ****
     public int getL1Distance(Coordinate p, Coordinate q) {
 
         // Get displacement vector
@@ -117,6 +119,8 @@ public abstract class Lattice {
 
         return true;
     }
+
+    public abstract int getNeighborhoodDistance(Coordinate p, Coordinate q);
 
     @Override
     public abstract Lattice clone();

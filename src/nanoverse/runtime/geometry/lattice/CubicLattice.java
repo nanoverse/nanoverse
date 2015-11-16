@@ -23,6 +23,8 @@ package nanoverse.runtime.geometry.lattice;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
+import static java.lang.Math.abs;
+
 public class CubicLattice extends Lattice {
 
     @FactoryTarget
@@ -40,34 +42,6 @@ public class CubicLattice extends Lattice {
         return 3;
     }
 
-//    @Override
-//    public Coordinate adjust(Coordinate i) {
-//        if (i.hasFlag(Flags.PLANAR)) {
-//            throw new IllegalArgumentException("Cubic lattice is a 3D nanoverse.runtime.geometry.");
-//        }
-//
-//        return i;
-//    }
-//
-//    @Override
-//    public Coordinate invAdjust(Coordinate toAdjust) {
-//        return toAdjust;
-//    }
-
-//    private int getOffsetForSlices(int rShell, int dz) {
-//        // The radius of the 2D annulus decreases with dz.
-//        int r = rShell - dz;
-//
-//        // A 2D annulus has circumfrence 4r.
-//        int circumfrence = 4*r;
-//
-//        // The middle slice is counted once; all others have a top and bottom.
-//        if (dz == 0) {
-//            return circumfrence;
-//        } else {
-//            return 2 * circumfrence;
-//        }
-//    }
 
     @Override
     public Coordinate[] getAnnulus(Coordinate coord, int r) {
@@ -153,7 +127,7 @@ public class CubicLattice extends Lattice {
 
         // The middle slice (dz=0) has the radius of the shell. The top and bottom
         // slices (dz = +/- rShell) have a radius 0.
-        int r = rShell - Math.abs(dz);
+        int r = rShell - abs(dz);
 
         // r=0 case (a point)
         if (r == 0) {
@@ -186,6 +160,12 @@ public class CubicLattice extends Lattice {
         int dz = qCoord.z() - pCoord.z();
 
         return new Coordinate3D(dx, dy, dz, Flags.VECTOR);
+    }
+
+    @Override
+    public int getNeighborhoodDistance(Coordinate p, Coordinate q) {
+        Coordinate d = getDisplacement(p, q);
+        return d.norm();
     }
 
     @Override

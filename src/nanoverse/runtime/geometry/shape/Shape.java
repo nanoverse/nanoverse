@@ -83,13 +83,15 @@ public abstract class Shape {
     public abstract Coordinate[] getBoundaries();
 
     /**
-     * Returns a coordinate vector, in the basis of the nanoverse.runtime.geometry, of how far
-     * over the boundary a particular point is.
+     * Returns a coordinate vector, in the basis of the geometry, of how far
+     * over the boundary a particular point is. Not defined for every shape.
      *
      * @param coord
      * @return
      */
     public abstract Coordinate getOverbounds(Coordinate coord);
+
+    public abstract int getDistanceOverBoundary(Coordinate coord);
 
     public abstract int[] getDimensions();
 

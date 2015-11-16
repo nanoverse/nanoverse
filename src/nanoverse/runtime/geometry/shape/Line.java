@@ -95,6 +95,12 @@ public class Line extends Shape {
     }
 
     @Override
+    public int getDistanceOverBoundary(Coordinate coord) {
+        Coordinate ob = getOverbounds(coord);
+        return ob.norm();
+    }
+
+    @Override
     public int[] getDimensions() {
         return new int[]{length};
     }
@@ -118,7 +124,7 @@ public class Line extends Shape {
 
     @Override
     public Shape cloneAtScale(Lattice clonedLattice, double rangeScale) {
-        int scaledWidth, scaledLength;
+        int scaledLength;
         scaledLength = (int) Math.round(length * rangeScale);
         return new Line(clonedLattice, scaledLength);
     }

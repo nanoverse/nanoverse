@@ -58,7 +58,7 @@ public class TriangularLattice extends Lattice {
         }
 
         // All other cases
-        ArrayList<Coordinate> ring = new ArrayList<Coordinate>(n);
+        ArrayList<Coordinate> ring = new ArrayList<>(n);
 
         for (int k = 1; k <= r; k++) {
             // Right side
@@ -103,42 +103,20 @@ public class TriangularLattice extends Lattice {
 
     @Override
     public Coordinate getOrthoDisplacement(Coordinate p, Coordinate q) {
-        // The 'u' and 'w' components are linearly independent. (Not
-        // exactly 'orthogonal,' but oh well.)
-
-        // Extract p coordinate
-        int xp = p.x();
-        int yp = p.y();
-
-        // Extract q coordinate
-        int xq = q.x();
-        int yq = q.y();
-
-        int du = xq - xp;
-        int dv = 0;
-        int dw = yq - yp;
-
-        return new Coordinate3D(du, dv, dw, Flags.VECTOR);
+        return getDisplacement(p, q);
     }
 
     @Override
     public Coordinate rel2abs(Coordinate coord, Coordinate displacement) {
-        if (displacement.hasFlag(Flags.PLANAR)) {
-            throw new IllegalArgumentException("Expected three-component coordinate.");
+        if (!displacement.hasFlag(Flags.PLANAR)) {
+            throw new IllegalArgumentException("Expected 2D coordinate.");
         }
 
         int x = coord.x();
         int y = coord.y();
 
-        // Apply u component
         x += displacement.x();
-
-        // Apply v component
-        x += displacement.y();
         y += displacement.y();
-
-        // Apply w component
-        y += displacement.z();
 
         Coordinate target = new Coordinate2D(x, y, 0);
 
@@ -147,40 +125,37 @@ public class TriangularLattice extends Lattice {
 
     @Override
     public Coordinate getDisplacement(Coordinate p, Coordinate q) {
-        // Extract p coordinate
         int xp = p.x();
         int yp = p.y();
 
-        // Extract q coordinate
         int xq = q.x();
         int yq = q.y();
 
         int dx = xq - xp;
         int dy = yq - yp;
 
-        // A triangular lattice is formed by a non-orthogonal basis:
-        //    u = [1, 0] --> southeast
-        //    v = [1, 1] --> northeast
-        //    w = [0, 1] --> north
-
-        // Step 1: get v component.
-        int dv = 0;
-        if (dx < 0 && dy < 0) {
-            dv = Math.max(dx, dy);
-        }
-
-        if (dx > 0 && dy > 0) {
-            dv = Math.min(dx, dy);
-        }
-
-        // Step 2: subtracting du from dx and dy, we get dw and du respectively.
-        int du = dx - dv;
-        int dw = dy - dv;
-
-        // Populate the vector in the new basis -- done!
-        return new Coordinate3D(du, dv, dw, Flags.VECTOR);
+        return new Coordinate2D(dx, dy, Flags.VECTOR);
     }
 
+    @Override
+    public int getNeighborhoodDistance(Coordinate p, Coordinate q) {
+        Coordinate d = getDisplacement(p, q);
+        int aX = Math.abs(d.x());
+        int aY = Math.abs(d.y());
+
+        if (signum(d.x()) == signum(d.y())) {
+            return aX + aY - Math.min(aX, aY);
+        } else {
+            return aX + aY;
+        }
+    }
+
+    public int signum(int x) {
+        if (x == 0) {
+            return 0;
+        }
+        return Math.abs(x) / x;
+    }
     @Override
     public Lattice clone() {
         return new TriangularLattice();
@@ -188,6 +163,6 @@ public class TriangularLattice extends Lattice {
 
     @Override
     public Coordinate getZeroVector() {
-        return new Coordinate3D(0, 0, 0, 0);
+        return new Coordinate2D(0, 0, 0);
     }
 }

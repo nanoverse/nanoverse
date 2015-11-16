@@ -183,7 +183,7 @@ public class CorrelationWriter extends Serializer {
 //    private void recordObservation(Coordinate i, Coordinate j, AgentLayer l) {
 //
 //        // Calculate L1 distance r.
-//        int r = l.getGeometry().getL1Distance(i, j, Geometry.IGNORE_BOUNDARIES);
+//        int r = l.getGeometry().getNeighborhoodDistance(i, j, Geometry.IGNORE_BOUNDARIES);
 //
 //        String iName = l.getViewer().getName(i);
 //        String jName = l.getViewer().getName(j);

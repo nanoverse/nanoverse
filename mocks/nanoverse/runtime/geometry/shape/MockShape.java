@@ -63,6 +63,11 @@ public class MockShape extends Shape {
     }
 
     @Override
+    public int getDistanceOverBoundary(Coordinate coord) {
+        return 0;
+    }
+
+    @Override
     public int[] getDimensions() {
         return null;
     }

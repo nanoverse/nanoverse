@@ -68,7 +68,7 @@ public class DiscSetTest extends LegacyTest {
         expected.add(new Coordinate2D(0, 1, 0));
         expected.add(new Coordinate2D(1, 1, 0));
         IntegerArgument radiusArg = new ConstantInteger(1);
-        Coordinate offset = new Coordinate3D(0, -1, 0, 0);
+        Coordinate offset = new Coordinate2D(-1, -1, 0);
         DiscSet actual = new DiscSet(geom, radiusArg, offset);
         assertEquals(expected, actual);
     }

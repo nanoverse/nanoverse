@@ -23,6 +23,7 @@ package nanoverse.runtime.geometry.shape;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.lattice.Lattice;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
+import org.junit.Test;
 
 import java.util.*;
 
@@ -153,6 +154,12 @@ public class Cuboid extends Shape {
     }
 
     @Override
+    public int getDistanceOverBoundary(Coordinate coord) {
+        Coordinate ob = getOverbounds(coord);
+        return ob.norm();
+    }
+
+    @Override
     public int[] getDimensions() {
         return new int[]{width, height, depth};
     }
@@ -191,4 +198,5 @@ public class Cuboid extends Shape {
         scaledDepth = (int) Math.round(depth * rangeScale);
         return new Cuboid(clonedLattice, scaledHeight, scaledWidth, scaledDepth);
     }
+
 }

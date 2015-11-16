@@ -217,19 +217,16 @@ public class Geometry {
         }
     }
 
-    public int getL1Distance(Coordinate p, Coordinate q, int mode) {
-//        long start = System.currentTimeMillis();
-        Coordinate vec = getDisplacement(p, q, mode);
-        // Calculate L1 norm. If basis is only 2D, third component will be zero
-        int res = Math.abs(vec.x()) + Math.abs(vec.y());
-
-        if (!vec.hasFlag(Flags.PLANAR)) {
-            res += Math.abs(vec.z());
+    public int getNeighborhoodDistance(Coordinate p, Coordinate q, int mode) {
+        if (mode == APPLY_BOUNDARIES) {
+            Coordinate pw = boundary.apply(p);
+            Coordinate qw = boundary.apply(q);
+            return lattice.getNeighborhoodDistance(pw, qw);
+        } else if (mode == IGNORE_BOUNDARIES) {
+            return lattice.getNeighborhoodDistance(p, q);
+        } else {
+            throw new IllegalArgumentException("Unrecognized mode " + mode + ".");
         }
-
-//        long total = System.currentTimeMillis() - start;
-//        System.out.println("   Calculate L1 distance: " + total + " ms");
-        return (res);
     }
 
     public Coordinate getDisplacement(Coordinate pCoord, Coordinate qCoord, int mode) {

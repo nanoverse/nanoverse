@@ -23,6 +23,8 @@ package nanoverse.runtime.geometry.lattice;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
+import static java.lang.Math.abs;
+
 public class RectangularLattice extends Lattice {
 
     @FactoryTarget
@@ -120,6 +122,12 @@ public class RectangularLattice extends Lattice {
         int dy = qCoord.y() - pCoord.y();
 
         return new Coordinate2D(dx, dy, Flags.VECTOR);
+    }
+
+    @Override
+    public int getNeighborhoodDistance(Coordinate p, Coordinate q) {
+        Coordinate d = getDisplacement(p, q);
+        return abs(d.x()) + abs(d.y());
     }
 
     @Override

@@ -41,7 +41,7 @@ public class DisplacementOptionResolver {
     public DisplacementOption getOption(Coordinate start) throws HaltCondition {
         Geometry geom = mapper.getLayerManager().getAgentLayer().getGeometry();
         Coordinate end = displacementManager.chooseVacancy(start);
-        int distance = geom.getL1Distance(start, end, Geometry.APPLY_BOUNDARIES);
+        int distance = geom.getNeighborhoodDistance(start, end, Geometry.APPLY_BOUNDARIES);
 
         DisplacementOption ret = new DisplacementOption(start, end, distance);
 

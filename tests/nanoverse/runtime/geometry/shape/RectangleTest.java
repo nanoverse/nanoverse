@@ -193,6 +193,83 @@ public class RectangleTest extends LegacyTest {
     }
 
     @Test
+    public void getDistanceOverBoundary() {
+        int actual, expected;
+
+        // Test coordinates -- in bounds
+        Coordinate a, b, c;
+
+        a = new Coordinate2D(0, 0, 0);
+        b = new Coordinate2D(0, 2, 0);
+        c = new Coordinate2D(1, 1, 0);
+
+        // Test coordinates -- out of bounds
+        Coordinate p, q, r, s;
+        p = new Coordinate2D(3, 0, 0);
+        q = new Coordinate2D(0, 6, 0);
+        r = new Coordinate2D(-3, 0, 0);
+        s = new Coordinate2D(-1, 5, 0);
+
+        // Even
+        expected = 0;
+        actual = even.getDistanceOverBoundary(a);
+        assertEquals(actual, expected);
+
+        expected = 0;
+        actual = even.getDistanceOverBoundary(b);
+        assertEquals(actual, expected);
+
+        expected = 0;
+        actual = even.getDistanceOverBoundary(c);
+        assertEquals(actual, expected);
+
+        expected = 2;
+        actual = even.getDistanceOverBoundary(p);
+        assertEquals(actual, expected);
+
+        expected = 3;
+        actual = even.getDistanceOverBoundary(q);
+        assertEquals(actual, expected);
+
+        expected = 3;
+        actual = even.getDistanceOverBoundary(r);
+        assertEquals(actual, expected);
+
+        expected = 3;
+        actual = even.getDistanceOverBoundary(s);
+        assertEquals(actual, expected);
+
+        // Odd
+        expected = 0;
+        actual = odd.getDistanceOverBoundary(a);
+        assertEquals(actual, expected);
+
+        expected = 0;
+        actual = odd.getDistanceOverBoundary(b);
+        assertEquals(actual, expected);
+
+        expected = 0;
+        actual = odd.getDistanceOverBoundary(c);
+        assertEquals(actual, expected);
+
+        expected = 1;
+        actual = odd.getDistanceOverBoundary(p);
+        assertEquals(actual, expected);
+
+        expected = 2;
+        actual = odd.getDistanceOverBoundary(q);
+        assertEquals(actual, expected);
+
+        expected = 3;
+        actual = odd.getDistanceOverBoundary(r);
+        assertEquals(actual, expected);
+
+        expected = 2;
+        actual = odd.getDistanceOverBoundary(s);
+        assertEquals(actual, expected);
+    }
+
+    @Test
     public void testDimensions() {
         int[] actual, expected;
 
@@ -215,25 +292,5 @@ public class RectangleTest extends LegacyTest {
         assertEquals(even.getClass(), cloned.getClass());
         assertEquals(8, even.getCanonicalSites().length);
         assertEquals(32, cloned.getCanonicalSites().length);
-    }
-
-    @Test
-    public void basisHelperRectangle() throws Exception {
-        RectangularLattice lattice = new RectangularLattice();
-        Rectangle shape = new Rectangle(lattice, 3, 3);
-
-        Class expected = RectangularBasisHelper.class;
-        Class actual = shape.getBasisHelper().getClass();
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void basisHelperTriangle() throws Exception {
-        TriangularLattice lattice = new TriangularLattice();
-        Rectangle shape = new Rectangle(lattice, 3, 3);
-
-        Class expected = TriangularBasisHelper.class;
-        Class actual = shape.getBasisHelper().getClass();
-        assertEquals(expected, actual);
     }
 }
