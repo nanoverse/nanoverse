@@ -87,11 +87,6 @@ public class RectangularLattice extends Lattice {
     }
 
     @Override
-    public Coordinate getOrthoDisplacement(Coordinate pCoord, Coordinate qCoord) {
-        return getDisplacement(pCoord, qCoord);
-    }
-
-    @Override
     public Coordinate rel2abs(Coordinate coord, Coordinate displacement) {
         if (!displacement.hasFlag(Flags.PLANAR)) {
             throw new IllegalArgumentException("Expected two arguments to rectangular lattice rel2abs.");

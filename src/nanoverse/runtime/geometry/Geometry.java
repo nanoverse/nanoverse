@@ -204,7 +204,6 @@ public class Geometry {
         Coordinate naive = lattice.rel2abs(coord, displacement);
 
         if (mode == APPLY_BOUNDARIES) {
-            // TODO: In functional test, important to make sure that out of bounds + displacement = correct wrap.
             return applyBoundaries(naive);
         } else if (mode == FLAG_BOUNDARIES) {
             return setBoundaryFlag(naive);

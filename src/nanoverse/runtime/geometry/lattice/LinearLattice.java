@@ -66,11 +66,6 @@ public class LinearLattice extends Lattice {
     }
 
     @Override
-    public Coordinate getOrthoDisplacement(Coordinate pCoord, Coordinate qCoord) {
-        return getDisplacement(pCoord, qCoord);
-    }
-
-    @Override
     public Coordinate rel2abs(Coordinate coord, Coordinate displacement) {
 
         if (coord.x() != 0 || coord.z() != 0) {

@@ -155,37 +155,6 @@ public class LinearLatticeTest extends LegacyTest {
     }
 
     @Test
-    public void testOrthoDisplacement() {
-        Coordinate o, q;
-        Coordinate expected, actual;
-
-        o = new Coordinate1D(0, 0);
-        q = new Coordinate1D(3, 0);
-
-        // Vertical
-        actual = lattice.getOrthoDisplacement(o, q);
-        expected = new Coordinate1D(3, Flags.VECTOR);
-        assertEquals(expected, actual);
-    }
-
-//    @Test
-//    public void testInvAdjust() {
-//        Coordinate initial, actual, expected;
-//
-//        // The origin should be unaffected
-//        initial = new Coordinate1D(0, 0);
-//        actual = lattice.invAdjust(initial);
-//        expected = new Coordinate1D(0, 0);
-//        assertEquals(actual, expected);
-//
-//        // Y offset should be unaffected
-//        initial = new Coordinate1D(8, 0);
-//        actual = lattice.invAdjust(initial);
-//        expected = new Coordinate1D(8, 0);
-//        assertEquals(actual, expected);
-//    }
-
-    @Test
     public void testClone() {
         Object cloned = lattice.clone();
         assertEquals(lattice.getClass(), cloned.getClass());

@@ -113,10 +113,9 @@ public class Cuboid extends Shape {
 
     @Override
     public Coordinate getOverbounds(Coordinate coord) {
-        // Get orthogonal distance from (0, 0, 0) to this point.
         Coordinate origin = new Coordinate3D(0, 0, 0, 0);
 
-        Coordinate d = lattice.getOrthoDisplacement(origin, coord);
+        Coordinate d = lattice.getDisplacement(origin, coord);
 
         int dx, dy, dz;
 

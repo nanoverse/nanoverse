@@ -194,32 +194,6 @@ public class RectangularLatticeTest extends LegacyTest {
     }
 
     @Test
-    public void testOrthoDisplacement() {
-        Coordinate o, p, q, r;
-        Coordinate expected, actual;
-
-        o = new Coordinate2D(0, 0, 0);
-        p = new Coordinate2D(3, 0, 0);
-        q = new Coordinate2D(0, 3, 0);
-        r = new Coordinate2D(3, 3, 0);
-
-        // Horizontal
-        actual = lattice.getOrthoDisplacement(o, p);
-        expected = new Coordinate2D(3, 0, Flags.VECTOR);
-        assertEquals(expected, actual);
-
-        // Vertical
-        actual = lattice.getOrthoDisplacement(o, q);
-        expected = new Coordinate2D(0, 3, Flags.VECTOR);
-        assertEquals(expected, actual);
-
-        // Both horizontal and vertical
-        actual = lattice.getOrthoDisplacement(o, r);
-        expected = new Coordinate2D(3, 3, Flags.VECTOR);
-        assertEquals(expected, actual);
-    }
-
-    @Test
     public void testClone() {
         Object cloned = lattice.clone();
         assertEquals(lattice.getClass(), cloned.getClass());

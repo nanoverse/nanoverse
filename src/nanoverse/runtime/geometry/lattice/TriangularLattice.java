@@ -102,11 +102,6 @@ public class TriangularLattice extends Lattice {
     }
 
     @Override
-    public Coordinate getOrthoDisplacement(Coordinate p, Coordinate q) {
-        return getDisplacement(p, q);
-    }
-
-    @Override
     public Coordinate rel2abs(Coordinate coord, Coordinate displacement) {
         if (!displacement.hasFlag(Flags.PLANAR)) {
             throw new IllegalArgumentException("Expected 2D coordinate.");

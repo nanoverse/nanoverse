@@ -207,37 +207,6 @@ public class CubicLatticeTest extends LegacyTest {
     }
 
     @Test
-    public void testOrthoDisplacement() {
-        Coordinate o, p, q, r, s;
-        Coordinate expected, actual;
-
-        o = new Coordinate3D(0, 0, 0, 0);
-        p = new Coordinate3D(3, 0, 0, 0);
-        q = new Coordinate3D(0, 3, 0, 0);
-        r = new Coordinate3D(0, 0, 3, 0);
-        s = new Coordinate3D(3, 3, 3, 0);
-
-        // +i
-        actual = lattice.getOrthoDisplacement(o, p);
-        expected = new Coordinate3D(3, 0, 0, Flags.VECTOR);
-        assertEquals(expected, actual);
-
-        // +j
-        actual = lattice.getOrthoDisplacement(o, q);
-        expected = new Coordinate3D(0, 3, 0, Flags.VECTOR);
-        assertEquals(expected, actual);
-
-        // +k
-        actual = lattice.getOrthoDisplacement(o, r);
-        expected = new Coordinate3D(0, 0, 3, Flags.VECTOR);
-        assertEquals(expected, actual);
-
-        // +ijk
-        actual = lattice.getOrthoDisplacement(o, s);
-        expected = new Coordinate3D(3, 3, 3, Flags.VECTOR);
-        assertEquals(expected, actual);
-    }
-    @Test
     public void testClone() {
         Object cloned = lattice.clone();
         assertEquals(lattice.getClass(), cloned.getClass());

@@ -56,41 +56,10 @@ public abstract class Lattice {
     public abstract Coordinate[] getAnnulus(Coordinate coord, int r);
 
     /**
-     * Get a displacement vector for the specified coordinates. If basis vectors
-     * are non-orthogonal, getOrthoIDisplacement() returns a displacement
-     * vector such that all non-zero components are orthogonal. For many
-     * geometries, this is identical to getDisplacement().
-     *
-     * @param pCoord
-     * @param qCoord
-     * @return
-     */
-    // TODO DELETE ME ****
-    public abstract Coordinate getOrthoDisplacement(Coordinate pCoord,
-                                                    Coordinate qCoord);
-
-    /**
      * Traverses the specified displacement from a given coordinate, and
      * gives the resulting location back as a new coordinate.
      */
     public abstract Coordinate rel2abs(Coordinate coord, Coordinate displacement);
-
-    // Get the L1 distance between the specified sites.
-    // TODO DELETE ME ****
-    public int getL1Distance(Coordinate p, Coordinate q) {
-
-        // Get displacement vector
-        Coordinate vec = getDisplacement(p, q);
-
-        // Calculate L1 norm. If basis is only 2D, third component will be zero
-        int res = Math.abs(vec.x()) + Math.abs(vec.y());
-
-        if (!vec.hasFlag(Flags.PLANAR)) {
-            res += Math.abs(vec.z());
-        }
-
-        return (res);
-    }
 
     /**
      * Get the displacement vector between the specified coordinates. The

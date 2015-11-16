@@ -169,11 +169,6 @@ public class CubicLattice extends Lattice {
     }
 
     @Override
-    public Coordinate getOrthoDisplacement(Coordinate pCoord, Coordinate qCoord) {
-        return getDisplacement(pCoord, qCoord);
-    }
-
-    @Override
     public Coordinate rel2abs(Coordinate coord, Coordinate displacement) {
         if (displacement.hasFlag(Flags.PLANAR)) {
             throw new IllegalArgumentException("Expected three arguments to cubic lattice rel2abs.");
