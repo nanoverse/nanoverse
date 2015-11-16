@@ -69,19 +69,6 @@ public class RectangularLatticeTest extends LegacyTest {
     }
 
     @Test
-    public void testBasis() {
-        Coordinate[] basis = lattice.getBasis();
-
-        assertEquals(basis.length, 2);
-
-        Coordinate east = new Coordinate2D(1, 0, 0);
-        Coordinate north = new Coordinate2D(0, 1, 0);
-
-        assertEquals(basis[0], east);
-        assertEquals(basis[1], north);
-    }
-
-    @Test
     public void testGetAnnulus() {
         Coordinate[] actual, expected;
         Coordinate origin = new Coordinate2D(0, 0, 0);

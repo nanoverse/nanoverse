@@ -63,17 +63,6 @@ public class LinearLatticeTest extends LegacyTest {
     }
 
     @Test
-    public void testBasis() {
-        Coordinate[] basis = lattice.getBasis();
-
-        assertEquals(basis.length, 1);
-
-        Coordinate north = new Coordinate1D(1, 0);
-
-        assertEquals(basis[0], north);
-    }
-
-    @Test
     public void testGetAnnulus() {
         Coordinate[] actual, expected;
         Coordinate origin = new Coordinate1D(0, 0);

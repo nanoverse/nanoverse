@@ -74,21 +74,6 @@ public class CubicLatticeTest extends LegacyTest {
     }
 
     @Test
-    public void testBasis() {
-        Coordinate[] basis = lattice.getBasis();
-
-        assertEquals(basis.length, 3);
-
-        Coordinate i = new Coordinate3D(1, 0, 0, 0);
-        Coordinate j = new Coordinate3D(0, 1, 0, 0);
-        Coordinate k = new Coordinate3D(0, 0, 1, 0);
-
-        assertEquals(basis[0], i);
-        assertEquals(basis[1], j);
-        assertEquals(basis[2], k);
-    }
-
-    @Test
     public void testGetAnnulus() {
         Coordinate[] actual, expected;
         Coordinate origin = new Coordinate3D(0, 0, 0, 0);

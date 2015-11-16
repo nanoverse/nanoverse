@@ -75,16 +75,6 @@ public abstract class Lattice {
      */
     public abstract Coordinate invAdjust(Coordinate toAdjust);
 
-    /**
-     * Returns coordinates representing the neighbor offset by +1 in
-     * each basis direction. The number of basis neighbors is equal
-     * to the connectivity, not the dimensionality, of the nanoverse.runtime.geometry.
-     *
-     * @return
-     */
-    public Coordinate[] getBasis() {
-        return basis;
-    }
 
     /**
      * Returns the neighbors around the specified coordinate, assuming
