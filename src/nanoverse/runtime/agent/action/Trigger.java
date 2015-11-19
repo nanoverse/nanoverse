@@ -27,6 +27,7 @@ import nanoverse.runtime.control.arguments.IntegerArgument;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
+import org.slf4j.*;
 
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class Trigger extends Action {
 
     private final String behaviorName;
     private final TargetRule targetRule;
+    private final Logger logger = LoggerFactory.getLogger(Trigger.class);
 
     // Highlight channels for the targeting and targeted agents
     private final IntegerArgument selfChannel;
@@ -92,7 +94,7 @@ public class Trigger extends Action {
         }
 
         List<Coordinate> targets = targetRule.report(callerAgent);
-
+        logger.info("Triggering behavior \"{}\" with {} targets.", behaviorName, targets.size());
         for (Coordinate target : targets) {
             // We require an occupied cell for the target of trigger actions.
             Agent targetAgent = mapper.resolveAgent(target);

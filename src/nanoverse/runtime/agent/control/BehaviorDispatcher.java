@@ -60,7 +60,6 @@ public class BehaviorDispatcher {
             throw new IllegalStateException("Action \"" + behaviorName + "\" not found on agent named \"" + name + ".\"");
         }
 
-        logger.info("Triggering behavior \"{}\" in agent \"{}\"", behaviorName, name);
 
         Action behavior = behaviors.get(behaviorName);
         behavior.run(caller);

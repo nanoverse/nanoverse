@@ -1,0 +1,233 @@
+// Hawk-Dove-Retaliator game
+//
+// Based on eSLIME "Hawk-Pacifist-Retaliator" model 
+// by Annie Maslan
+//
+// Translated to Nanoverse by DAvid Bruce Borenstein
+
+version: "1.0.0-a7";
+
+parameters: Parameters {
+    date: True;
+    instances: 1;
+    project: "hawk_dove_retaliator";
+    maxStep: 1001;
+};
+
+geometry: Geometry {
+   shape: Rectangle {
+       height: 4;
+       width: 4;
+   };
+   lattice: Triangular;
+};
+
+layers {
+    AgentLayer {
+        id: "Agents";
+        boundary: Halt;
+    };
+};
+
+processes {
+
+    // Dove
+    Scatter {
+        maxTargets: 5;
+
+        period: 0;
+        start: 0;
+        
+        description: Agent {
+            name: "Dove";
+
+            behaviors {
+                Attack: Null;
+
+                ReplaceCaller: CloneTo: target: Caller;
+
+                BeReplacedByHawk: Trigger {
+                    target: OccupiedNeighbors: maximum: 1;
+                    behavior: "ReplaceCaller";
+                };
+
+                BeReplacedByRetaliator: Null;
+
+                ConsiderDying: StochasticChoice {
+                    normalized: True;
+                    options: Option {
+                        weight: Constant: value: 1.0;
+                        action: Trigger {
+                            target: OccupiedNeighbors: maximum: 1;
+                            behavior: "ReplaceCaller";
+                        };
+                    };
+                };
+            };
+        };
+
+    };
+
+    // Hawk 
+    Scatter {
+        maxTargets: 5;
+
+        period: 0;
+        start: 0;
+
+        description: Agent {
+            name: "Hawk";
+
+            behaviors {
+                Attack: StochasticChoice {
+                    normalized: True;
+                    options: Option {
+                        weight: Constant: value: 1.0;
+                        action {
+                            Trigger {
+                                target: AllNeighbors: maximum: 1;
+                                behavior: "BeReplacedByHawk";
+                            };
+                            Trigger {
+                                target: Self;
+                                behavior: "ConsiderMarginalCost";
+                            };
+                        };
+                    };
+                };
+                
+                ConsiderMarginalCost: StochasticChoice {
+                    normalized: True;
+                    options: Option {
+                        weight: Constant: value: 1.0;
+                        action: Trigger {
+                            target: OccupiedNeighbors: maximum: 1;
+                            behavior: "ReplaceCaller";
+                        };
+                    };
+                };
+
+                ReplaceCaller: CloneTo: target: Caller;
+
+                BeReplacedByRetaliator: Trigger {
+                    target: OccupiedNeighbors: maximum: 1;
+                    behavior: "ReplaceCaller";
+                };
+
+                BeReplacedByHawk: Null;
+
+                ConsiderDying: StochasticChoice {
+                    normalized: True;
+                    options: Option {
+                        weight: Constant: value: 0.001;
+                        action: Trigger {
+                            target: OccupiedNeighbors: maximum: 1;
+                            behavior: "ReplaceCaller";
+                        };
+                    };
+                };
+
+                KillRetaliatorThenDie: CompoundAction {
+                    Trigger {
+                        target: Caller;
+                        behavior: "DieBeforeAttacker";
+                    };
+                    Trigger {
+                        target: OccupiedNeighbors: maximum: 1;
+                        behavior: "ReplaceCaller";
+                    };
+                };
+            };
+        };
+    };
+
+    // Retaliator
+    Fill {
+        skipFilled: True;
+        period: 0;
+        start: 0;
+
+        description: Agent {
+            name: "Retaliator";
+
+            behaviors {
+                Attack: Null;
+
+                ReplaceCaller: CloneTo: target: Caller;
+
+                BeReplacedByRetaliator: Null;
+
+                BeReplacedByHawk: StochasticChoice {
+                    normalized: True;
+                    options {
+                        Option {
+                            weight: Constant: value: 0.5;
+                            action {
+                                Trigger {
+                                    target: Caller;
+                                    behavior: "BeReplacedByRetaliator";
+                                };
+                                Trigger {
+                                    target: OccupiedNeighbors: maximum: 1;
+                                    behavior: "ReplaceCaller";
+                                };
+                            };
+                        };
+                        Option {
+                            weight: Constant: value: 0.5;
+                            action: Trigger {
+                                target: Caller;
+                                behavior: "KillRetaliatorThenDie";
+                            };
+                        };
+                    };
+                };
+
+                DieBeforeAttacker {
+                    Trigger {
+                        target: OccupiedNeighbors: maximum: 1;
+                        behavior: "ReplaceCaller";
+                    };
+                };
+
+                ConsiderDying: StochasticChoice {
+                    normalized: True;
+                    options: Option {
+                        weight: Constant: value: 0.001;
+                        action: Trigger {
+                            target: OccupiedNeighbors: maximum: 1;
+                            behavior: "ReplaceCaller";
+                        };
+                    };
+                };
+            };
+        };
+    };
+
+    Record: period: 25;
+
+    Trigger {
+        behavior: "Attack";
+        skipVacantSites: True;
+    };
+
+    Trigger {
+        behavior: "ConsiderDying";
+        skipVacantSites: True;
+    };
+
+    CheckForExtinction;
+};
+
+output {
+    ProgressReporter;
+    CoordinateIndexer;
+    AgentNameWriter;
+    TimeWriter;
+    VisualizationSerializer {
+        visualization: Map;
+    };
+    CensusWriter;
+    RunningTimeWriter;
+    RandomSeedWriter;
+};

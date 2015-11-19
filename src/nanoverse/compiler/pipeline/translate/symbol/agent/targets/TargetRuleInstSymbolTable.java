@@ -43,7 +43,7 @@ public abstract class TargetRuleInstSymbolTable<T extends TargetDescriptor> exte
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        maximum(ret);
+//        maximum(ret);
         filter(ret);
         return ret;
     }
@@ -54,10 +54,10 @@ public abstract class TargetRuleInstSymbolTable<T extends TargetDescriptor> exte
         ret.put("filters", ms);
     }
 
-    private void maximum(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "Maximum number of targets " +
-            "to select. If maximum is set to -1, no maximum will be used.");
-        ret.put("maximum", ms);
-    }
+//    private void maximum(HashMap<String, MemberSymbol> ret) {
+//        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+//        MemberSymbol ms = new MemberSymbol(rst, "Maximum number of targets " +
+//            "to select. If maximum is set to -1, no maximum will be used.");
+//        ret.put("maximum", ms);
+//    }
 }
