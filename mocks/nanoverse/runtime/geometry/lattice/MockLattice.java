@@ -29,12 +29,6 @@ public class MockLattice extends Lattice {
     private int dimensionality;
 
     @Override
-    protected void defineBasis() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public int getConnectivity() {
         return connectivity;
     }
@@ -53,38 +47,22 @@ public class MockLattice extends Lattice {
     }
 
     @Override
-    public Coordinate adjust(Coordinate toAdjust) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Coordinate invAdjust(Coordinate toAdjust) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public Coordinate[] getAnnulus(Coordinate coord, int r) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Coordinate getDisplacement(Coordinate pCoord, Coordinate qCoord) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public Coordinate getOrthoDisplacement(Coordinate pCoord, Coordinate qCoord) {
-        // TODO Auto-generated method stub
-        return null;
+    public int getNeighborhoodDistance(Coordinate p, Coordinate q) {
+        return 0;
     }
 
     @Override
     public Coordinate rel2abs(Coordinate coord, Coordinate displacement) {
-        // TODO Auto-generated method stub
         return null;
     }
 

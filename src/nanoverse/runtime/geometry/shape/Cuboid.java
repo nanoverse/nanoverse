@@ -23,6 +23,7 @@ package nanoverse.runtime.geometry.shape;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.lattice.Lattice;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
+import org.junit.Test;
 
 import java.util.*;
 
@@ -54,7 +55,7 @@ public class Cuboid extends Shape {
         for (int z = 0; z < depth; z++) {
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
-                    include(coords, new Coordinate3D(x, y, z, 0));
+                    coords.add(new Coordinate3D(x, y, z, 0));
                 }
             }
         }
@@ -86,24 +87,24 @@ public class Cuboid extends Shape {
         // Front and back
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                include(coords, new Coordinate3D(x, y, 0, 0));
-                include(coords, new Coordinate3D(x, y, depth - 1, 0));
+                coords.add(new Coordinate3D(x, y, 0, 0));
+                coords.add(new Coordinate3D(x, y, depth - 1, 0));
             }
         }
 
         // Left and right
         for (int z = 0; z < depth; z++) {
             for (int y = 0; y < height; y++) {
-                include(coords, new Coordinate3D(0, y, z, 0));
-                include(coords, new Coordinate3D(width - 1, y, z, 0));
+                coords.add(new Coordinate3D(0, y, z, 0));
+                coords.add(new Coordinate3D(width - 1, y, z, 0));
             }
         }
 
         // Top and bottom
         for (int z = 0; z < depth; z++) {
             for (int x = 0; x < width; x++) {
-                include(coords, new Coordinate3D(x, 0, z, 0));
-                include(coords, new Coordinate3D(x, height - 1, z, 0));
+                coords.add(new Coordinate3D(x, 0, z, 0));
+                coords.add(new Coordinate3D(x, height - 1, z, 0));
             }
         }
 
@@ -112,10 +113,9 @@ public class Cuboid extends Shape {
 
     @Override
     public Coordinate getOverbounds(Coordinate coord) {
-        // Get orthogonal distance from (0, 0, 0) to this point.
         Coordinate origin = new Coordinate3D(0, 0, 0, 0);
 
-        Coordinate d = lattice.getOrthoDisplacement(origin, coord);
+        Coordinate d = lattice.getDisplacement(origin, coord);
 
         int dx, dy, dz;
 
@@ -150,6 +150,12 @@ public class Cuboid extends Shape {
         }
 
         return new Coordinate3D(dx, dy, dz, Flags.VECTOR);
+    }
+
+    @Override
+    public int getDistanceOverBoundary(Coordinate coord) {
+        Coordinate ob = getOverbounds(coord);
+        return ob.norm();
     }
 
     @Override
@@ -191,4 +197,5 @@ public class Cuboid extends Shape {
         scaledDepth = (int) Math.round(depth * rangeScale);
         return new Cuboid(clonedLattice, scaledHeight, scaledWidth, scaledDepth);
     }
+
 }

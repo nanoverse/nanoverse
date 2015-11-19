@@ -21,14 +21,16 @@
 package nanoverse.runtime.geometry.shape;
 
 import nanoverse.runtime.control.identifiers.*;
-import nanoverse.runtime.geometry.lattice.Lattice;
+import nanoverse.runtime.geometry.basis.*;
+import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.util.ArrayList;
 
 public class Rectangle extends Shape {
 
-    private int height, width;
+    private final int height, width;
+    private final BasisHelper2D basisHelper;
 
     @FactoryTarget
     public Rectangle(Lattice lattice, int width, int height) {
@@ -37,8 +39,11 @@ public class Rectangle extends Shape {
         this.height = height;
         this.width = width;
 
+        basisHelper = BasisHelperSupplier2D.resolveBasisHelper(lattice);
+
         init();
     }
+
 
     @Override
     protected void verify(Lattice lattice) {
@@ -49,7 +54,7 @@ public class Rectangle extends Shape {
 
     @Override
     protected Coordinate[] calcSites() {
-        ArrayList<Coordinate> coords = new ArrayList<Coordinate>(width * height);
+        ArrayList<Coordinate> coords = new ArrayList<>(width * height);
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -68,7 +73,7 @@ public class Rectangle extends Shape {
 
         Coordinate center = new Coordinate2D(x, y, 0);
 
-        Coordinate adjusted = lattice.adjust(center);
+        Coordinate adjusted = basisHelper.adjust(center);
 
         return adjusted;
     }
@@ -77,7 +82,7 @@ public class Rectangle extends Shape {
     public Coordinate[] getBoundaries() {
 
         // This is off by a couple, but it will get shortened
-        ArrayList<Coordinate> coords = new ArrayList<Coordinate>(2 * (width + height));
+        ArrayList<Coordinate> coords = new ArrayList<>(2 * (width + height));
 
         // North and south
         for (int x = 0; x < width; x++) {
@@ -95,11 +100,15 @@ public class Rectangle extends Shape {
         return coords.toArray(new Coordinate[0]);
     }
 
+    private void include(ArrayList<Coordinate> coords, Coordinate2D coordinate2D) {
+        Coordinate adjusted = basisHelper.adjust(coordinate2D);
+        coords.add(adjusted);
+    }
+
     @Override
     public Coordinate getOverbounds(Coordinate coord) {
-        // Get orthogonal distance from (0, 0) to this point.
         Coordinate origin = new Coordinate2D(0, 0, 0);
-        Coordinate d = lattice.getOrthoDisplacement(origin, coord);
+        Coordinate d = lattice.getDisplacement(origin, coord);
 
 
         // The following are both cloodge and I hate them.
@@ -108,7 +117,7 @@ public class Rectangle extends Shape {
         d = dimensionReduce(d);
 
         // Get rid of coordinate adjustment, when applicable
-        d = lattice.invAdjust(d);
+        d = basisHelper.invAdjust(d);
         int dx, dy;
 
 
@@ -190,4 +199,15 @@ public class Rectangle extends Shape {
         scaledHeight = (int) Math.round(height * rangeScale);
         return new Rectangle(clonedLattice, scaledHeight, scaledWidth);
     }
+
+    public BasisHelper2D getBasisHelper() {
+        return basisHelper;
+    }
+
+    @Override
+    public int getDistanceOverBoundary(Coordinate coord) {
+        Coordinate ob = getOverbounds(coord);
+        return ob.norm();
+    }
+
 }

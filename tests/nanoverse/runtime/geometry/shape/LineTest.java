@@ -26,6 +26,7 @@ import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class LineTest extends LegacyTest {
 
@@ -146,6 +147,57 @@ public class LineTest extends LegacyTest {
     }
 
     @Test
+    public void testGetDistanceOverBoundary() {
+        int expected, actual;
+
+        // Test coordinates -- in bounds
+        Coordinate a, b;
+
+        a = new Coordinate2D(0, 0, 0);
+        b = new Coordinate2D(0, 2, 0);
+
+        // Test coordinates -- out of bounds
+        Coordinate q, r;
+        q = new Coordinate2D(0, 6, 0);
+        r = new Coordinate2D(0, -1, 0);
+
+        // Even
+        expected = 0;
+        actual = even.getDistanceOverBoundary(a);
+        assertEquals(expected, actual);
+
+        expected = 0;
+        actual = even.getDistanceOverBoundary(b);
+        assertEquals(expected, actual);
+
+
+        expected = 3;
+        actual = even.getDistanceOverBoundary(q);
+        assertEquals(expected, actual);
+
+        expected = 1;
+        actual = even.getDistanceOverBoundary(r);
+        assertEquals(expected, actual);
+
+        // Odd
+        expected = 0;
+        actual = odd.getDistanceOverBoundary(a);
+        assertEquals(expected, actual);
+
+        expected = 0;
+        actual = odd.getDistanceOverBoundary(b);
+        assertEquals(expected, actual);
+
+        expected = 2;
+        actual = odd.getDistanceOverBoundary(q);
+        assertEquals(expected, actual);
+
+        expected = 1;
+        actual = odd.getDistanceOverBoundary(r);
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void testDimensions() {
         int[] expected, actual;
 
@@ -169,4 +221,5 @@ public class LineTest extends LegacyTest {
         assertEquals(4, even.getCanonicalSites().length);
         assertEquals(8, cloned.getCanonicalSites().length);
     }
+
 }

@@ -69,7 +69,7 @@ public class MockBehaviorDispatcher extends BehaviorDispatcher {
     }
 
     @Override
-    public void trigger(String behaviorName, Coordinate caller) {
+    public void trigger(String behaviorName, Coordinate caller, String name) {
         lastTriggeredName = behaviorName;
         lastTriggeredCaller = caller;
     }

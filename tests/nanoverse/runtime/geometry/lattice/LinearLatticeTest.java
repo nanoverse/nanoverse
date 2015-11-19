@@ -44,34 +44,23 @@ public class LinearLatticeTest extends LegacyTest {
         assertEquals(1, lattice.getConnectivity());
     }
 
-    @Test
-    public void testAdjust() {
-        Coordinate initial, actual, expected;
-
-        // The origin should be unaffected
-        initial = new Coordinate1D(0, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate1D(0, 0);
-        assertEquals(actual, expected);
-
-        // Y offset should be unaffected
-        initial = new Coordinate1D(8, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate1D(8, 0);
-        assertEquals(actual, expected);
-
-    }
-
-    @Test
-    public void testBasis() {
-        Coordinate[] basis = lattice.getBasis();
-
-        assertEquals(basis.length, 1);
-
-        Coordinate north = new Coordinate1D(1, 0);
-
-        assertEquals(basis[0], north);
-    }
+//    @Test
+//    public void testAdjust() {
+//        Coordinate initial, actual, expected;
+//
+//        // The origin should be unaffected
+//        initial = new Coordinate1D(0, 0);
+//        actual = lattice.adjust(initial);
+//        expected = new Coordinate1D(0, 0);
+//        assertEquals(actual, expected);
+//
+//        // Y offset should be unaffected
+//        initial = new Coordinate1D(8, 0);
+//        actual = lattice.adjust(initial);
+//        expected = new Coordinate1D(8, 0);
+//        assertEquals(actual, expected);
+//
+//    }
 
     @Test
     public void testGetAnnulus() {
@@ -151,7 +140,7 @@ public class LinearLatticeTest extends LegacyTest {
     }
 
     @Test
-    public void testGetL1Distance() {
+    public void testGetNeighborhoodDistance() {
         Coordinate o, q;
         int expected, actual;
 
@@ -160,40 +149,9 @@ public class LinearLatticeTest extends LegacyTest {
 
 
         // Vertical
-        actual = lattice.getL1Distance(o, q);
+        actual = lattice.getNeighborhoodDistance(o, q);
         expected = 3;
         assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testOrthoDisplacement() {
-        Coordinate o, q;
-        Coordinate expected, actual;
-
-        o = new Coordinate1D(0, 0);
-        q = new Coordinate1D(3, 0);
-
-        // Vertical
-        actual = lattice.getOrthoDisplacement(o, q);
-        expected = new Coordinate1D(3, Flags.VECTOR);
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testInvAdjust() {
-        Coordinate initial, actual, expected;
-
-        // The origin should be unaffected
-        initial = new Coordinate1D(0, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate1D(0, 0);
-        assertEquals(actual, expected);
-
-        // Y offset should be unaffected
-        initial = new Coordinate1D(8, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate1D(8, 0);
-        assertEquals(actual, expected);
     }
 
     @Test
@@ -209,4 +167,5 @@ public class LinearLatticeTest extends LegacyTest {
         Coordinate actual = lattice.getZeroVector();
         assertEquals(expected, actual);
     }
+
 }

@@ -22,8 +22,6 @@ package nanoverse.compiler.pipeline.translate.symbol.agent.targets;
 
 import com.google.common.reflect.TypeToken;
 import nanoverse.compiler.pipeline.translate.symbol.*;
-import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.processes.discrete.filter.FilterClassSymbolTable;
 import nanoverse.runtime.agent.targets.TargetDescriptor;
 
@@ -43,21 +41,21 @@ public abstract class TargetRuleInstSymbolTable<T extends TargetDescriptor> exte
     @Override
     protected HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        maximum(ret);
+//        maximum(ret);
         filter(ret);
         return ret;
     }
 
     private void filter(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new FilterClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "Filters to apply to the base target rule.");
-        ret.put("filters", ms);
+        MemberSymbol ms = new MemberSymbol(rst, "Filter to apply to the base target rule.");
+        ret.put("filter", ms);
     }
 
-    private void maximum(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "Maximum number of targets " +
-            "to select. If maximum is set to -1, no maximum will be used.");
-        ret.put("maximum", ms);
-    }
+//    private void maximum(HashMap<String, MemberSymbol> ret) {
+//        ResolvingSymbolTable rst = new IntegerClassSymbolTable();
+//        MemberSymbol ms = new MemberSymbol(rst, "Maximum number of targets " +
+//            "to select. If maximum is set to -1, no maximum will be used.");
+//        ret.put("maximum", ms);
+//    }
 }

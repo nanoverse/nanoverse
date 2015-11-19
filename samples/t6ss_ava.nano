@@ -1,0 +1,133 @@
+version: "1.0.0-a7";
+
+parameters: Parameters {
+    date: True;
+    instances: 1;
+    project: "t6ss_AvA";
+    maxStep: 1001;
+};
+
+geometry: Geometry {
+   shape: Hexagon: radius: 65;
+   lattice: Triangular;
+};
+
+layers {
+    AgentLayer {
+        id: "Agents";
+        boundary: Halt;
+    };
+};
+
+processes {
+    Tick: dt: 1.0;
+    
+    Scatter {
+        maxTargets: 118;
+        activeSites: Disc: radius: 12;
+
+        period: 0;
+        start: 0;
+
+        description: Agent {
+            name: "Yellow";
+            behaviors {
+                Attack: StochasticChoice {
+                    normalized: True;
+                    options: Option {
+                        weight: Constant: value: 0.000155388081734;
+                        action: Trigger {
+                            target: OccupiedNeighbors;
+                            behavior: "BeAttackedByYellow";
+                        };
+                    };
+                };
+               
+                BeAttackedByYellow: Null;
+
+                BeAttackedByRed: Die;
+
+                Reproduce: StochasticChoice {
+                    normalized: True;
+                    options: Option {
+                        weight: Constant: value: 0.0000776940408671;
+                        action: 
+                            ExpandTo: 
+                            target: 
+                            AllNeighbors: 
+                            maximum: 1;
+                    };
+                };
+            };
+        };
+    };
+
+    Fill {
+        skipFilled: True;
+        activeSites: Disc: radius: 12;
+
+        period: 0;
+        start: 0;
+
+        description: Agent {
+            name: "Red";
+            behaviors {
+                Attack: StochasticChoice {
+                    normalized: True;
+                    options: Option {
+                        weight: Constant: value: 0.000155388081734;
+                        action: Trigger {
+                            target: OccupiedNeighbors;
+                            behavior: "BeAttackedByRed";
+                        };
+                    };
+                };
+               
+                BeAttackedByYellow: Die;
+
+                BeAttackedByRed: Null;
+
+                Reproduce: StochasticChoice {
+                    normalized: True;
+                    options: Option {
+                        weight: Constant: value: 0.0000776940408671;
+                        action: 
+                            ExpandTo: 
+                            target: 
+                            AllNeighbors: 
+                            maximum: 1;
+                    };
+                };
+            };
+        };
+    };
+
+    Record: period: 10;
+
+    Trigger {
+        behavior: "Attack";
+        skipVacantSites: True;
+    };
+
+    Trigger {
+        behavior: "Reproduce";
+        skipVacantSites: True;
+    };
+
+    CheckForExtinction;
+
+    CheckForThresholdOccupancy: threshold: 0.4;
+};
+
+output {
+    ProgressReporter;
+    CoordinateIndexer;
+    AgentNameWriter;
+    TimeWriter;
+    VisualizationSerializer {
+        visualization: Map;
+    };
+    CensusWriter;
+    RunningTimeWriter;
+    RandomSeedWriter;
+};

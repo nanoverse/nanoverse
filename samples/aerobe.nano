@@ -1,0 +1,111 @@
+version: "1.0.0-a7";
+
+parameters: Parameters {
+    date: True;
+    project: "normalized";
+    maxStep: 10001;
+};
+
+geometry: Geometry {
+    shape: Rectangle {
+        width: 128;
+        height: 128;
+    };
+};
+
+layers {
+    ContinuumLayer {
+        id: "oxygen";
+        boundary: TetrisReflecting;
+    };
+    AgentLayer {
+        id: "agents";
+        boundary: Tetris;
+    };
+};
+
+processes {
+    Tick;
+
+    // Create first group of aerobes -- growth is proportional to oxygen, and
+    // they deplete it
+    Fill {
+        period: 0;
+        description: Agent {
+            name: "Aerobe";
+            behaviors: reproduce: StochasticChoice {
+                normalized: True;
+                options {
+                    Option {
+                        weight: Continuum {
+                            offset: 0.0;
+                            coefficient: 1.0;
+                            layer: "oxygen";
+                        };
+                        action: ExpandTo: target: VacantNeighbors;
+                    };
+                };
+            };
+            reactions {
+                Reaction {
+                    exp: -0.01;
+                    layer: "oxygen";
+                };
+            };
+        };
+        activeSites: HLine {
+            origin: Coordinate {
+                x: 0;
+                y: 0;
+            };
+            length: 128;
+        };
+    };
+
+    Trigger {
+        behavior: "reproduce";
+    };
+    Hold: layer: "oxygen";
+
+    Diffuse {
+        layer: "oxygen";
+        constant: 0.001;
+    };
+
+    DirichletBoundaryEnforcer {
+        layer: "oxygen";
+        value: 1.00;
+        activeSites: HLine {
+            origin: Coordinate {
+                x: 0;
+                y: 127;
+            };
+            length: 128;
+        };
+    };
+
+    Release: layer: "oxygen";
+    Record {
+        period: 10;
+    };
+};
+
+output {
+    ProgressReporter;
+    CoordinateIndexer;
+    AgentNameWriter;
+    TimeWriter;
+    ContinuumStateWriter;
+    VisualizationSerializer {
+        visualization: Map: color: Continuum {
+                        id: "oxygen";
+                        base: Indexed;
+                        minSat: 0.0;
+                        maxSat: 0.0;
+                        minLum: 0.1;
+                        maxLum: 0.9;
+                        useLuminanceAverage: True;
+        };
+        prefix: "oxygen";
+    };
+};

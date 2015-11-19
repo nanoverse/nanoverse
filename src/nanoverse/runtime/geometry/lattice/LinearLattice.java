@@ -23,6 +23,8 @@ package nanoverse.runtime.geometry.lattice;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
+import static java.lang.Math.abs;
+
 public class LinearLattice extends Lattice {
 
     @FactoryTarget
@@ -30,12 +32,6 @@ public class LinearLattice extends Lattice {
         super();
     }
 
-    protected void defineBasis() {
-
-        Coordinate north = new Coordinate1D(1, 0);
-
-        basis = new Coordinate[]{north};
-    }
 
     @Override
     public int getConnectivity() {
@@ -45,23 +41,6 @@ public class LinearLattice extends Lattice {
     @Override
     public int getDimensionality() {
         return 1;
-    }
-
-    @Override
-    public Coordinate adjust(Coordinate toAdjust) {
-        if (!toAdjust.hasFlag(Flags.PLANAR)) {
-            throw new IllegalArgumentException("Linear lattice (unfortunately) " +
-                "expects planar coordinates. I'm working on it.");
-        }
-
-        // A rectangular lattice requires no offset adjustment to be consistent
-        // with Cartesian coordinates.
-        return toAdjust;
-    }
-
-    @Override
-    public Coordinate invAdjust(Coordinate toAdjust) {
-        return toAdjust;
     }
 
     @Override
@@ -87,23 +66,13 @@ public class LinearLattice extends Lattice {
     }
 
     @Override
-    public Coordinate getOrthoDisplacement(Coordinate pCoord, Coordinate qCoord) {
-        return getDisplacement(pCoord, qCoord);
-    }
-
-    @Override
     public Coordinate rel2abs(Coordinate coord, Coordinate displacement) {
-        int x = coord.x();
 
         if (coord.x() != 0 || coord.z() != 0) {
             throw new IllegalStateException("Expect strictly 0 x and z " +
                 "coordinates for linear lattice.");
         }
         int y = coord.y();
-
-        // Apply x component
-        x += displacement.x();
-
 
         // Apply y component
         y += displacement.y();
@@ -128,6 +97,12 @@ public class LinearLattice extends Lattice {
         int dy = qCoord.y() - pCoord.y();
 
         return new Coordinate1D(dy, Flags.VECTOR);
+    }
+
+    @Override
+    public int getNeighborhoodDistance(Coordinate p, Coordinate q) {
+        Coordinate d = getDisplacement(p, q);
+        return abs(d.y());
     }
 
     @Override

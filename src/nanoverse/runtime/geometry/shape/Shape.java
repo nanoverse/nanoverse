@@ -60,21 +60,13 @@ public abstract class Shape {
 
     private void buildCoordMap() {
 
-        coordMap = new HashMap<Coordinate, Integer>();
+        coordMap = new HashMap<>();
         for (Integer i = 0; i < canonicalSites.length; i++) {
             coordMap.put(canonicalSites[i], i);
         }
     }
 
-    public Integer coordToIndex(Coordinate coord) {
-        if (!coordMap.containsKey(coord)) {
-            throw new IllegalArgumentException("Attempted to index non-canonical coordinate " + coord);
-        }
-
-        return coordMap.get(coord);
-    }
-
-    // Get a complete list of sites for this nanoverse.runtime.geometry.
+    // Get a complete list of sites for this geometry.
     public Coordinate[] getCanonicalSites() {
         return canonicalSites.clone();
     }
@@ -91,20 +83,15 @@ public abstract class Shape {
     public abstract Coordinate[] getBoundaries();
 
     /**
-     * Returns a coordinate vector, in the basis of the nanoverse.runtime.geometry, of how far
-     * over the boundary a particular point is.
+     * Returns a coordinate vector, in the basis of the geometry, of how far
+     * over the boundary a particular point is. Not defined for every shape.
      *
      * @param coord
      * @return
      */
     public abstract Coordinate getOverbounds(Coordinate coord);
 
-	/* PRIVATE METHODS */
-
-    protected void include(Collection<Coordinate> list, Coordinate coordinate) {
-        Coordinate adjusted = lattice.adjust(coordinate);
-        list.add(adjusted);
-    }
+    public abstract int getDistanceOverBoundary(Coordinate coord);
 
     public abstract int[] getDimensions();
 

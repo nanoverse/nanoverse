@@ -21,24 +21,24 @@
 package nanoverse.runtime.geometry.boundaries.helpers;
 
 import nanoverse.runtime.control.identifiers.*;
+import nanoverse.runtime.geometry.basis.BasisHelper2D;
 import nanoverse.runtime.geometry.lattice.Lattice;
 
 /**
  * Wraps coordinates in the X direction, honoring any features of the
  * lattice.
  * <p>
- * TODO: Generalize this cloodgy class to make it more reusable.
  *
  * @author dbborens
  */
 public class PlaneRingHelper {
 
-    private Lattice lattice;
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
+    private final BasisHelper2D basisHelper;
 
-    public PlaneRingHelper(Lattice lattice, int[] dims) {
-        this.lattice = lattice;
+    public PlaneRingHelper(BasisHelper2D basisHelper, int[] dims) {
+        this.basisHelper = basisHelper;
         this.width = dims[0];
         this.height = dims[1];
     }
@@ -51,26 +51,13 @@ public class PlaneRingHelper {
      * @return
      */
     public Coordinate wrap(Coordinate c) {
-        // We have to do a lot of work because the coordinate could be
-        // in any basis. That might not be true; I'm having a bad day
-        // and it seems like it's true right now.
-
-        // TODO: Use the basis vectors to get rid of the adjust(...)
-        // method and greatly shorten this code.
-
-        //System.out.println("Trying to wrap " + c + ".");
-
-        //System.out.println("   1. Reversing adjustments.");
         // Calculate old x and y adjustment.
-        Coordinate invAdj = lattice.invAdjust(c);
-        //System.out.println("      Inverse adjustment: " + invAdj);
+        Coordinate invAdj = basisHelper.invAdjust(c);
 
         // Calculate adjustment delta.
         int dx = c.x() - invAdj.x();
         int dy = c.y() - invAdj.y();
         Coordinate delta = new Coordinate2D(dx, dy, Flags.VECTOR);
-
-        //System.out.println("      Adjustment delta: " + delta);
 
         // Subtract old adjustments from coordinate.
         int x, y;
@@ -79,9 +66,7 @@ public class PlaneRingHelper {
         y = c.y() - delta.y();
 
         Coordinate ua = new Coordinate2D(x, y, c.flags());
-        //System.out.println("      Coordinate without adjustment: " + ua);
 
-        //System.out.println("   2. Wrapping.");
         // Wrap.
         int xw = ua.x();
         while (xw >= width) {
@@ -92,48 +77,40 @@ public class PlaneRingHelper {
             xw += width;
         }
 
-        ////System.out.println("      Adjusted x to " + xw);
-
         // Apply adjustment again.
         Coordinate wrapped = new Coordinate2D(xw, y, c.flags());
-        //System.out.println("   3. Wrapped coordinate: " + wrapped);
 
-        Coordinate adjusted = lattice.adjust(wrapped);
-        //System.out.println("   4. Adjusted, wrapped coordinate: " + adjusted);
+        Coordinate adjusted = basisHelper.adjust(wrapped);
 
         // Calculate new adjustment deltas.
         return adjusted.addFlags(Flags.BOUNDARY_APPLIED);
     }
 
     public Coordinate reflect(Coordinate c) {
-        Coordinate ua = lattice.invAdjust(c);
+        Coordinate ua = basisHelper.invAdjust(c);
         Coordinate refl = doReflection(ua);
-        Coordinate adj = lattice.adjust(refl);
+        Coordinate adj = basisHelper.adjust(refl);
         return adj;
     }
 
     private Coordinate doReflection(Coordinate c) {
-        //System.out.print(c);
         int x = c.x();
         int y = c.y();
         int flags = c.flags() | Flags.BOUNDARY_APPLIED;
 
         // Coordinate is above: reflect down.
         if (y >= height) {
-            ////System.out.println(" A");
             int y1 = (2 * height) - y - 1;
             return doReflection(new Coordinate2D(x, y1, flags));
         }
 
         // Coordinate is below: reflect up.
         if (y < 0) {
-            ////System.out.println(" B");
             int y1 = -1 * (y + 1);
             return doReflection(new Coordinate2D(x, y1, flags));
         }
 
         // Base case: coordinate is not above or below, so return it.
-        ////System.out.println(" C");
         return c;
     }
 }

@@ -25,6 +25,7 @@ import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.continuum.*;
+import org.slf4j.*;
 
 import java.util.function.*;
 import java.util.stream.Stream;
@@ -41,7 +42,7 @@ public class Agent {
     private final CallbackManager callbackManager;
     private final AgentContinuumManager reactionManager;
     private final Supplier<Agent> supplier;
-
+    private final Logger logger = LoggerFactory.getLogger(Agent.class);
     private BehaviorDispatcher dispatcher;
     private String name;
 
@@ -93,7 +94,9 @@ public class Agent {
     }
 
     public void trigger(String behaviorName, Coordinate caller) throws HaltCondition {
-        dispatcher.trigger(behaviorName, caller);
+        logger.debug("Triggering behavior \"{}\" in agent \"{}\" at location {}. Caller location: {}",
+            behaviorName, name, callbackManager.getMyLocation(), caller);
+        dispatcher.trigger(behaviorName, caller, name);
     }
 
     public void die() {

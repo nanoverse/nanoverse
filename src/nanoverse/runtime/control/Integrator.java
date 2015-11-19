@@ -24,6 +24,7 @@ import nanoverse.runtime.control.halt.*;
 import nanoverse.runtime.io.serialize.SerializationManager;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
+import org.slf4j.*;
 
 public class Integrator {
 
@@ -31,6 +32,7 @@ public class Integrator {
     protected double time = 0.0D;
     private GeneralParameters p;
     private SerializationManager serializationManager;
+    private final Logger logger = LoggerFactory.getLogger(Integrator.class);
 
     @FactoryTarget
     public Integrator(GeneralParameters p, ProcessManager processManager,
@@ -72,6 +74,7 @@ public class Integrator {
      */
     private HaltCondition go() {
         for (int n = 0; n < p.T(); n++) {
+            logger.debug("Starting cycle {}.", n);
             StepState state = new StepState(time, n);
             try {
                 state = processManager.doTriggeredProcesses(state);

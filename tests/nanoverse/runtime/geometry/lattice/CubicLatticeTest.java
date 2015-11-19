@@ -45,50 +45,6 @@ public class CubicLatticeTest extends LegacyTest {
     }
 
     @Test
-    public void testAdjust() {
-        Coordinate initial, actual, expected;
-
-        // The origin should be unaffected
-        initial = new Coordinate3D(0, 0, 0, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate3D(0, 0, 0, 0);
-        assertEquals(actual, expected);
-
-        // X offset should be unaffected
-        initial = new Coordinate3D(8, 0, 0, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate3D(8, 0, 0, 0);
-        assertEquals(actual, expected);
-
-        // Y offset should be unaffected
-        initial = new Coordinate3D(0, 8, 0, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate3D(0, 8, 0, 0);
-        assertEquals(actual, expected);
-
-        // Z offset should be unaffected
-        initial = new Coordinate3D(0, 0, 8, 0);
-        actual = lattice.adjust(initial);
-        expected = new Coordinate3D(0, 0, 8, 0);
-        assertEquals(actual, expected);
-    }
-
-    @Test
-    public void testBasis() {
-        Coordinate[] basis = lattice.getBasis();
-
-        assertEquals(basis.length, 3);
-
-        Coordinate i = new Coordinate3D(1, 0, 0, 0);
-        Coordinate j = new Coordinate3D(0, 1, 0, 0);
-        Coordinate k = new Coordinate3D(0, 0, 1, 0);
-
-        assertEquals(basis[0], i);
-        assertEquals(basis[1], j);
-        assertEquals(basis[2], k);
-    }
-
-    @Test
     public void testGetAnnulus() {
         Coordinate[] actual, expected;
         Coordinate origin = new Coordinate3D(0, 0, 0, 0);
@@ -187,7 +143,7 @@ public class CubicLatticeTest extends LegacyTest {
     }
 
     @Test
-    public void testGetL1Distance() {
+    public void testGetNeighborhoodDistance() {
         Coordinate o, p, q, r, s;
         int expected, actual;
 
@@ -198,22 +154,22 @@ public class CubicLatticeTest extends LegacyTest {
         s = new Coordinate3D(3, 3, 3, 0);
 
         // +i
-        actual = lattice.getL1Distance(o, p);
+        actual = lattice.getNeighborhoodDistance(o, p);
         expected = 3;
         assertEquals(expected, actual);
 
         // +j
-        actual = lattice.getL1Distance(o, q);
+        actual = lattice.getNeighborhoodDistance(o, q);
         expected = 3;
         assertEquals(expected, actual);
 
         // +k
-        actual = lattice.getL1Distance(o, r);
+        actual = lattice.getNeighborhoodDistance(o, r);
         expected = 3;
         assertEquals(expected, actual);
 
         // +ijk
-        actual = lattice.getL1Distance(o, s);
+        actual = lattice.getNeighborhoodDistance(o, s);
         expected = 9;
         assertEquals(expected, actual);
     }
@@ -248,67 +204,6 @@ public class CubicLatticeTest extends LegacyTest {
         actual = lattice.rel2abs(o, or);
         expected = r;
         assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testOrthoDisplacement() {
-        Coordinate o, p, q, r, s;
-        Coordinate expected, actual;
-
-        o = new Coordinate3D(0, 0, 0, 0);
-        p = new Coordinate3D(3, 0, 0, 0);
-        q = new Coordinate3D(0, 3, 0, 0);
-        r = new Coordinate3D(0, 0, 3, 0);
-        s = new Coordinate3D(3, 3, 3, 0);
-
-        // +i
-        actual = lattice.getOrthoDisplacement(o, p);
-        expected = new Coordinate3D(3, 0, 0, Flags.VECTOR);
-        assertEquals(expected, actual);
-
-        // +j
-        actual = lattice.getOrthoDisplacement(o, q);
-        expected = new Coordinate3D(0, 3, 0, Flags.VECTOR);
-        assertEquals(expected, actual);
-
-        // +k
-        actual = lattice.getOrthoDisplacement(o, r);
-        expected = new Coordinate3D(0, 0, 3, Flags.VECTOR);
-        assertEquals(expected, actual);
-
-        // +ijk
-        actual = lattice.getOrthoDisplacement(o, s);
-        expected = new Coordinate3D(3, 3, 3, Flags.VECTOR);
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testInvAdjust() {
-        Coordinate initial, actual, expected;
-
-        // The origin should be unaffected
-        initial = new Coordinate3D(0, 0, 0, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate3D(0, 0, 0, 0);
-        assertEquals(actual, expected);
-
-        // X offset should be unaffected
-        initial = new Coordinate3D(8, 0, 0, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate3D(8, 0, 0, 0);
-        assertEquals(actual, expected);
-
-        // Y offset should be unaffected
-        initial = new Coordinate3D(0, 8, 0, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate3D(0, 8, 0, 0);
-        assertEquals(actual, expected);
-
-        // Z offset should be unaffected
-        initial = new Coordinate3D(0, 0, 8, 0);
-        actual = lattice.invAdjust(initial);
-        expected = new Coordinate3D(0, 0, 8, 0);
-        assertEquals(actual, expected);
     }
 
     @Test

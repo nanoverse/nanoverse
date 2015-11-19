@@ -24,6 +24,7 @@ import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.agent.action.Action;
 import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.control.identifiers.Coordinate;
+import org.slf4j.*;
 
 import java.util.HashMap;
 import java.util.stream.Stream;
@@ -37,7 +38,7 @@ import java.util.stream.Stream;
  */
 public class BehaviorDispatcher {
     private final HashMap<String, Action> behaviors;
-
+    private final Logger logger = LoggerFactory.getLogger(BehaviorDispatcher.class);
     public BehaviorDispatcher() {
         behaviors = new HashMap<>();
     }
@@ -54,10 +55,11 @@ public class BehaviorDispatcher {
      *                     the call originated with a top-down process, the
      *                     caller will be null.
      */
-    public void trigger(String behaviorName, Coordinate caller) throws HaltCondition {
+    public void trigger(String behaviorName, Coordinate caller, String name) throws HaltCondition {
         if (!behaviors.containsKey(behaviorName)) {
-            throw new IllegalStateException("Action '" + behaviorName + "' not found.");
+            throw new IllegalStateException("Action \"" + behaviorName + "\" not found on agent named \"" + name + ".\"");
         }
+
 
         Action behavior = behaviors.get(behaviorName);
         behavior.run(caller);

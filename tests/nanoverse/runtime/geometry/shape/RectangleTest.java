@@ -21,11 +21,13 @@
 package nanoverse.runtime.geometry.shape;
 
 import nanoverse.runtime.control.identifiers.*;
+import nanoverse.runtime.geometry.basis.*;
 import nanoverse.runtime.geometry.lattice.*;
 import org.junit.*;
 import test.LegacyTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class RectangleTest extends LegacyTest {
 
@@ -187,6 +189,83 @@ public class RectangleTest extends LegacyTest {
 
         expected = new Coordinate2D(-1, 1, Flags.VECTOR);
         actual = odd.getOverbounds(s);
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    public void getDistanceOverBoundary() {
+        int actual, expected;
+
+        // Test coordinates -- in bounds
+        Coordinate a, b, c;
+
+        a = new Coordinate2D(0, 0, 0);
+        b = new Coordinate2D(0, 2, 0);
+        c = new Coordinate2D(1, 1, 0);
+
+        // Test coordinates -- out of bounds
+        Coordinate p, q, r, s;
+        p = new Coordinate2D(3, 0, 0);
+        q = new Coordinate2D(0, 6, 0);
+        r = new Coordinate2D(-3, 0, 0);
+        s = new Coordinate2D(-1, 5, 0);
+
+        // Even
+        expected = 0;
+        actual = even.getDistanceOverBoundary(a);
+        assertEquals(actual, expected);
+
+        expected = 0;
+        actual = even.getDistanceOverBoundary(b);
+        assertEquals(actual, expected);
+
+        expected = 0;
+        actual = even.getDistanceOverBoundary(c);
+        assertEquals(actual, expected);
+
+        expected = 2;
+        actual = even.getDistanceOverBoundary(p);
+        assertEquals(actual, expected);
+
+        expected = 3;
+        actual = even.getDistanceOverBoundary(q);
+        assertEquals(actual, expected);
+
+        expected = 3;
+        actual = even.getDistanceOverBoundary(r);
+        assertEquals(actual, expected);
+
+        expected = 3;
+        actual = even.getDistanceOverBoundary(s);
+        assertEquals(actual, expected);
+
+        // Odd
+        expected = 0;
+        actual = odd.getDistanceOverBoundary(a);
+        assertEquals(actual, expected);
+
+        expected = 0;
+        actual = odd.getDistanceOverBoundary(b);
+        assertEquals(actual, expected);
+
+        expected = 0;
+        actual = odd.getDistanceOverBoundary(c);
+        assertEquals(actual, expected);
+
+        expected = 1;
+        actual = odd.getDistanceOverBoundary(p);
+        assertEquals(actual, expected);
+
+        expected = 2;
+        actual = odd.getDistanceOverBoundary(q);
+        assertEquals(actual, expected);
+
+        expected = 3;
+        actual = odd.getDistanceOverBoundary(r);
+        assertEquals(actual, expected);
+
+        expected = 2;
+        actual = odd.getDistanceOverBoundary(s);
         assertEquals(actual, expected);
     }
 

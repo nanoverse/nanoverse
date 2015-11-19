@@ -99,6 +99,11 @@ public class ActionClassSymbolTableTest extends ClassSymbolTableTest {
     }
 
     @Test
+    public void compoundAction() throws Exception {
+        verifyLSTBroadClass("CompoundAction", ActionDescriptor.class);
+    }
+
+    @Test
     public void mock() throws Exception {
         verifyReturnSymbol("Mock", MockActionDescriptor.class);
     }

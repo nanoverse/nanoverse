@@ -21,8 +21,8 @@
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
 import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
-import nanoverse.compiler.pipeline.instantiate.loader.agent.action.ActionLoader;
-import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
+import nanoverse.compiler.pipeline.instantiate.loader.agent.action.*;
+import nanoverse.compiler.pipeline.translate.nodes.*;
 import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.ProbabilitySupplierDescriptor;
@@ -34,20 +34,21 @@ import nanoverse.runtime.layers.LayerManager;
 public class WeightedOptionInterpolator {
 
     private final LoadHelper load;
+    private final FlexibleActionLoader actionLoader;
 
     public WeightedOptionInterpolator() {
         load = new LoadHelper();
+        actionLoader = new FlexibleActionLoader();
     }
 
-    public WeightedOptionInterpolator(LoadHelper load) {
+    public WeightedOptionInterpolator(LoadHelper load, FlexibleActionLoader actionLoader) {
         this.load = load;
+        this.actionLoader = actionLoader;
     }
 
     public ActionDescriptor action(MapObjectNode node, LayerManager lm, GeneralParameters p) {
-        ActionLoader loader = (ActionLoader) load.getLoader(node, "action", true);
-        MapObjectNode cNode = (MapObjectNode) node.getMember("action");
-
-        return loader.instantiate(cNode, lm, p);
+        ObjectNode cNode = node.getMember("action");
+        return actionLoader.load(cNode, lm, p);
     }
 
     public ProbabilitySupplierDescriptor weight(MapObjectNode node, LayerManager lm, GeneralParameters p) {

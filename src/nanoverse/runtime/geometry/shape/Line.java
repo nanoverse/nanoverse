@@ -61,10 +61,10 @@ public class Line extends Shape {
         int y = (length - 1) / 2;
 
         Coordinate center = new Coordinate1D(y, 0);
+//
+//        Coordinate adjusted = lattice.adjust(center);
 
-        Coordinate adjusted = lattice.adjust(center);
-
-        return adjusted;
+        return center;
     }
 
     @Override
@@ -78,9 +78,8 @@ public class Line extends Shape {
 
     @Override
     public Coordinate getOverbounds(Coordinate coord) {
-        // Get orthogonal distance from (0, 0) to this point.
         Coordinate origin = new Coordinate1D(0, 0);
-        Coordinate d = lattice.getOrthoDisplacement(origin, coord);
+        Coordinate d = lattice.getDisplacement(origin, coord);
 
         int ob;
         if (d.y() >= length) {
@@ -92,6 +91,12 @@ public class Line extends Shape {
         }
 
         return new Coordinate1D(ob, Flags.VECTOR);
+    }
+
+    @Override
+    public int getDistanceOverBoundary(Coordinate coord) {
+        Coordinate ob = getOverbounds(coord);
+        return ob.norm();
     }
 
     @Override
@@ -118,7 +123,7 @@ public class Line extends Shape {
 
     @Override
     public Shape cloneAtScale(Lattice clonedLattice, double rangeScale) {
-        int scaledWidth, scaledLength;
+        int scaledLength;
         scaledLength = (int) Math.round(length * rangeScale);
         return new Line(clonedLattice, scaledLength);
     }

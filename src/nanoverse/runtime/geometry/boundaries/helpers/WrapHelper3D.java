@@ -56,8 +56,8 @@ public class WrapHelper3D extends WrapHelper {
     public Coordinate xWrap(Coordinate toWrap) {
         checkValid(toWrap);
         // Remove any x-adjustment from y.
-        Coordinate ret = lattice.invAdjust(toWrap);
-
+//        Coordinate ret = lattice.invAdjust(toWrap);
+        Coordinate ret = toWrap;
         // Wrap x.
         int over = shape.getOverbounds(ret).x();
 
@@ -74,7 +74,7 @@ public class WrapHelper3D extends WrapHelper {
         }
 
         // Apply x-adjustment to y.
-        ret = lattice.adjust(ret);
+//        ret = lattice.adjust(ret);
 
         // Return new coordinate.
         return ret;

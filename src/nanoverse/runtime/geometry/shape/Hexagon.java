@@ -21,10 +21,14 @@
 package nanoverse.runtime.geometry.shape;
 
 import nanoverse.runtime.control.identifiers.*;
+import nanoverse.runtime.geometry.basis.*;
 import nanoverse.runtime.geometry.lattice.*;
+import nanoverse.runtime.structural.NotYetImplementedException;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.util.*;
+
+import static java.lang.Math.abs;
 
 /**
  * A hexagon-shaped arena. This is a strange nanoverse.runtime.geometry,
@@ -38,7 +42,7 @@ import java.util.*;
  */
 public class Hexagon extends Shape {
 
-    private int radius;
+    private final int radius;
 
     @FactoryTarget
     public Hexagon(Lattice lattice, int radius) {
@@ -56,7 +60,7 @@ public class Hexagon extends Shape {
 
     @Override
     protected Coordinate[] calcSites() {
-        ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+        ArrayList<Coordinate> coords = new ArrayList<>();
         for (int r = 0; r <= radius; r++) {
             ring(coords, r);
         }
@@ -74,7 +78,7 @@ public class Hexagon extends Shape {
 
     @Override
     public Coordinate[] getBoundaries() {
-        ArrayList<Coordinate> coords = new ArrayList<Coordinate>();
+        ArrayList<Coordinate> coords = new ArrayList<>();
         ring(coords, radius);
 
         return coords.toArray(new Coordinate[0]);
@@ -91,72 +95,20 @@ public class Hexagon extends Shape {
      * of the "true" basis vector <u, w> and therefore prefer the latter.
      *
      */
-    public Coordinate getOverbounds(Coordinate coord) {
-        // Get natural-basis displacement from center
-        Coordinate origin = getCenter();
-        Coordinate d = lattice.getDisplacement(origin, coord);
-
-        // Remember that diameter of Hexagon nanoverse.runtime.geometry is 2r + 1,
-        // so out of bounds is r > R (strictly greater)
-
-        int[] overages = new int[]{0, 0, 0};
-        // Turn original displacement vector into an array.
-        int[] dArr = new int[]{d.x(), d.y(), d.z()};
-
-        // Step 1: Look for simple overages.
-        for (int i = 0; i < 3; i++) {
-            int overage = getOverage(dArr[i]);
-            overages[i] = overage;
-            dArr[i] -= overage;
-        }
-
-        // Step 2: While |d| exceeds the radius, eliminate the shortest
-        // vector components.
-        while (norm(dArr) > radius) {
-
-            // Find minimum non-zero magnitude (mnz) of the remaining offsets.
-            int mnz = mnz(dArr);
-
-            // If there's a tie, it has to be between an true basis
-            // direction (u or w) and the degenerate "basis" v. Therefore,
-            // in case of tie, consider only u or w, with u preferred.
-
-            // If u == w, then something went wrong, because this is the
-            // definition of v.
-            if (dArr[0] == dArr[2]) {
-                throw new IllegalStateException("Geometry expectation violated in Hexagon::getOverbounds.");
-            }
-
-            // Case 1. |du| > 0 and mnz(d) = |du|.
-            if (dArr[0] != 0 && a(dArr[0]) == mnz) {
-                overages[0] += dArr[0];
-                dArr[0] = 0;
-                continue;
-
-                // Case 2. |dw| > 0 and min(d) = dw.
-            } else if (dArr[2] != 0 && a(dArr[2]) == mnz) {
-                overages[2] += dArr[2];
-                dArr[2] = 0;
-                continue;
-
-                // Case 3. |dv| > 0 and min(d) = dv.
-            } else if (dArr[1] != 0 && a(dArr[1]) == mnz) {
-                overages[1] += dArr[1];
-                dArr[1] = 0;
-                continue;
-            }
-
-            // Else, something went wrong.
-            throw new IllegalStateException("Undefined state in Hexagon::getOverbounds.");
-        }
-
-        return new Coordinate2D(overages, Flags.VECTOR);
-
+    public Coordinate getOverbounds(Coordinate target) {
+        throw new NotYetImplementedException();
     }
 
     @Override
-    protected void include(Collection<Coordinate> list, Coordinate coordinate) {
-        list.add(coordinate);
+    public int getDistanceOverBoundary(Coordinate target) {
+        Coordinate origin = getCenter();
+        int r = lattice.getNeighborhoodDistance(origin, target);
+
+        if (r < radius) {
+            return 0;
+        }
+
+        return r - radius;
     }
 
     @Override
@@ -197,8 +149,8 @@ public class Hexagon extends Shape {
         for (int x : dArr) {
             if (x == 0) {
                 continue;
-            } else if (Math.abs(x) < mnz) {
-                mnz = Math.abs(x);
+            } else if (abs(x) < mnz) {
+                mnz = abs(x);
             }
         }
 
@@ -211,7 +163,7 @@ public class Hexagon extends Shape {
      * to read (= Laziness.)
      */
     private int a(int i) {
-        return Math.abs(i);
+        return abs(i);
     }
 
     /**
@@ -221,7 +173,7 @@ public class Hexagon extends Shape {
         int sum = 0;
 
         for (int elem : arr) {
-            sum += Math.abs(elem);
+            sum += abs(elem);
         }
 
         return sum;
@@ -267,6 +219,10 @@ public class Hexagon extends Shape {
             // Upper right side
             include(coords, new Coordinate2D(x0 + k, y0 + r, 0));
         }
+    }
+
+    private void include(ArrayList<Coordinate> list, Coordinate c) {
+        list.add(c);
     }
 
 }

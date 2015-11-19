@@ -23,19 +23,13 @@ package nanoverse.runtime.geometry.lattice;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
+import static java.lang.Math.abs;
+
 public class RectangularLattice extends Lattice {
 
     @FactoryTarget
     public RectangularLattice() {
         super();
-    }
-
-    protected void defineBasis() {
-
-        Coordinate east = new Coordinate2D(1, 0, 0);
-        Coordinate north = new Coordinate2D(0, 1, 0);
-
-        basis = new Coordinate[]{east, north};
     }
 
     @Override
@@ -48,21 +42,21 @@ public class RectangularLattice extends Lattice {
         return 2;
     }
 
-    @Override
-    public Coordinate adjust(Coordinate toAdjust) {
-        if (!toAdjust.hasFlag(Flags.PLANAR)) {
-            throw new IllegalArgumentException("Rectangular lattice is a planar nanoverse.runtime.geometry.");
-        }
-
-        // A rectangular lattice requires no offset adjustment to be consistent
-        // with Cartesian coordinates.
-        return toAdjust;
-    }
-
-    @Override
-    public Coordinate invAdjust(Coordinate toAdjust) {
-        return toAdjust;
-    }
+//    @Override
+//    public Coordinate adjust(Coordinate toAdjust) {
+//        if (!toAdjust.hasFlag(Flags.PLANAR)) {
+//            throw new IllegalArgumentException("Rectangular lattice is a planar nanoverse.runtime.geometry.");
+//        }
+//
+//        // A rectangular lattice requires no offset adjustment to be consistent
+//        // with Cartesian coordinates.
+//        return toAdjust;
+//    }
+//
+//    @Override
+//    public Coordinate invAdjust(Coordinate toAdjust) {
+//        return toAdjust;
+//    }
 
     @Override
     public Coordinate[] getAnnulus(Coordinate coord, int r) {
@@ -90,11 +84,6 @@ public class RectangularLattice extends Lattice {
         }
 
         return ret;
-    }
-
-    @Override
-    public Coordinate getOrthoDisplacement(Coordinate pCoord, Coordinate qCoord) {
-        return getDisplacement(pCoord, qCoord);
     }
 
     @Override
@@ -128,6 +117,12 @@ public class RectangularLattice extends Lattice {
         int dy = qCoord.y() - pCoord.y();
 
         return new Coordinate2D(dx, dy, Flags.VECTOR);
+    }
+
+    @Override
+    public int getNeighborhoodDistance(Coordinate p, Coordinate q) {
+        Coordinate d = getDisplacement(p, q);
+        return abs(d.x()) + abs(d.y());
     }
 
     @Override

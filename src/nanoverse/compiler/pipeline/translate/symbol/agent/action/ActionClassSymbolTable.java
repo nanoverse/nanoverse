@@ -20,6 +20,7 @@
 
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
+import nanoverse.compiler.pipeline.instantiate.loader.agent.action.CompoundActionLoader;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.runtime.agent.action.ActionDescriptor;
 
@@ -44,6 +45,7 @@ public class ActionClassSymbolTable extends ClassSymbolTable<ActionDescriptor> {
         die(ret);
         trigger(ret);
         cloneTo(ret);
+        compoundAction(ret);
         expand(ret);
         expandTo(ret);
         expandRandom(ret);
@@ -54,6 +56,15 @@ public class ActionClassSymbolTable extends ClassSymbolTable<ActionDescriptor> {
         thresholdDo(ret);
         nullAction(ret);
         return ret;
+    }
+
+    private void compoundAction(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+
+        Supplier<InstantiableSymbolTable> supplier = () ->
+            new ListSymbolTable(this, CompoundActionLoader::new);
+
+        ret.put("CompoundAction", supplier);
+
     }
 
     private void nullAction(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
