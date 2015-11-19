@@ -31,6 +31,8 @@ layers {
 
 processes {
 
+    Tick;
+
     // Dove
     Scatter {
         maxTargets: 1365;
@@ -47,7 +49,7 @@ processes {
                 ReplaceCaller: CloneTo: target: Caller;
 
                 BeReplacedByHawk: Trigger {
-                    target: OccupiedNeighbors: maximum: 1;
+                    target: OccupiedNeighbors: filter: Sample: maximum: 1;
                     behavior: "ReplaceCaller";
                 };
 
@@ -58,7 +60,7 @@ processes {
                     options: Option {
                         weight: Constant: value: 0.001;
                         action: Trigger {
-                            target: OccupiedNeighbors: maximum: 1;
+                            target: OccupiedNeighbors: filter: Sample: maximum: 1;
                             behavior: "ReplaceCaller";
                         };
                     };
@@ -85,7 +87,7 @@ processes {
                         weight: Constant: value: 0.001;
                         action {
                             Trigger {
-                                target: OccupiedNeighbors: maximum: 1;
+                                target: OccupiedNeighbors: filter: Sample: maximum: 1;
                                 behavior: "BeReplacedByHawk";
                             };
                             Trigger {
@@ -101,7 +103,7 @@ processes {
                     options: Option {
                         weight: Constant: value: 0.1;
                         action: Trigger {
-                            target: OccupiedNeighbors: maximum: 1;
+                            target: OccupiedNeighbors: filter: Sample: maximum: 1;
                             behavior: "ReplaceCaller";
                         };
                     };
@@ -110,7 +112,7 @@ processes {
                 ReplaceCaller: CloneTo: target: Caller;
 
                 BeReplacedByRetaliator: Trigger {
-                    target: OccupiedNeighbors: maximum: 1;
+                    target: OccupiedNeighbors: filter: Sample: maximum: 1;
                     behavior: "ReplaceCaller";
                 };
 
@@ -121,7 +123,7 @@ processes {
                     options: Option {
                         weight: Constant: value: 0.001;
                         action: Trigger {
-                            target: OccupiedNeighbors: maximum: 1;
+                            target: OccupiedNeighbors: filter: Sample: maximum: 1;
                             behavior: "ReplaceCaller";
                         };
                     };
@@ -133,7 +135,7 @@ processes {
                         behavior: "DieBeforeAttacker";
                     };
                     Trigger {
-                        target: OccupiedNeighbors: maximum: 1;
+                        target: OccupiedNeighbors: filter: Sample: maximum: 1;
                         behavior: "ReplaceCaller";
                     };
                 };
@@ -168,7 +170,7 @@ processes {
                                     behavior: "BeReplacedByRetaliator";
                                 };
                                 Trigger {
-                                    target: OccupiedNeighbors: maximum: 1;
+                                    target: OccupiedNeighbors: filter: Sample: maximum: 1;
                                     behavior: "ReplaceCaller";
                                 };
                             };
@@ -185,7 +187,7 @@ processes {
 
                 DieBeforeAttacker {
                     Trigger {
-                        target: OccupiedNeighbors: maximum: 1;
+                        target: OccupiedNeighbors: filter: Sample: maximum: 1;
                         behavior: "ReplaceCaller";
                     };
                 };
@@ -195,7 +197,7 @@ processes {
                     options: Option {
                         weight: Constant: value: 0.001;
                         action: Trigger {
-                            target: OccupiedNeighbors: maximum: 1;
+                            target: OccupiedNeighbors: filter: Sample: maximum: 1;
                             behavior: "ReplaceCaller";
                         };
                     };

@@ -21,10 +21,9 @@
 package nanoverse.compiler.pipeline.translate.symbol.agent.targets;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.agent.targets.TargetVacantNeighborsDescriptor;
 
-public class TargetVacantNeighborsInstSymbolTableTest extends MapSymbolTableTest {
+public class TargetVacantNeighborsInstSymbolTableTest extends TargetRuleInstSymbolTableTest {
 
     @Override
     protected MapSymbolTable getQuery() {

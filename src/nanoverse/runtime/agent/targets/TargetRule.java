@@ -24,6 +24,7 @@ import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.discrete.filter.Filter;
+import org.slf4j.*;
 
 import java.util.*;
 
@@ -44,6 +45,7 @@ public abstract class TargetRule {
     protected final Agent callback;
     protected final LayerManager layerManager;
     protected final Filter filter;
+    private final Logger logger = LoggerFactory.getLogger(TargetRule.class);
 
     /**
      * @param callback     The cell whose behavior is being described
@@ -65,6 +67,7 @@ public abstract class TargetRule {
     public List<Coordinate> report(Agent caller) {
         List<Coordinate> candidates = getCandidates(caller);
         List<Coordinate> targets = filter.apply(candidates);
+        logger.debug("Reporting {} targets from an original set of {} candidates.", targets.size(), candidates.size());
         return targets;
     }
     protected abstract List<Coordinate> getCandidates(Agent caller);

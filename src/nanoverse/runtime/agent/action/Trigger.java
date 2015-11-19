@@ -94,7 +94,7 @@ public class Trigger extends Action {
         }
 
         List<Coordinate> targets = targetRule.report(callerAgent);
-        logger.info("Triggering behavior \"{}\" with {} targets.", behaviorName, targets.size());
+        logger.debug("Triggering behavior \"{}\" with {} targets.", behaviorName, targets.size());
         for (Coordinate target : targets) {
             // We require an occupied cell for the target of trigger actions.
             Agent targetAgent = mapper.resolveAgent(target);
