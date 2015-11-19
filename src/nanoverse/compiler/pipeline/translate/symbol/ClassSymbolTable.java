@@ -46,7 +46,7 @@ public abstract class ClassSymbolTable<T> implements ResolvingSymbolTable {
     protected abstract HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses();
 
     public Stream<String> getMemberNames() {
-        return members.keySet().stream();
+        return resolveSubclasses().keySet().stream();
     }
 
     @Override

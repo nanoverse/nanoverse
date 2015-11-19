@@ -49,12 +49,13 @@ public abstract class MapSymbolTable<T> implements InstantiableSymbolTable {
     }
 
     public Stream<String> getMemberNames() {
-        return requiredMembers.keySet().stream();
+        return resolveMembers().keySet().stream();
     }
 
     public String getMemberDescription(String identifier) {
-        if (requiredMembers.containsKey(identifier))
-            return requiredMembers.get(identifier).getDescription();
+        HashMap<String, MemberSymbol> members = resolveMembers();
+        if (members.containsKey(identifier))
+            return members.get(identifier).getDescription();
 
         throw new UnrecognizedIdentifierError(identifier,
                 getInstanceClass());

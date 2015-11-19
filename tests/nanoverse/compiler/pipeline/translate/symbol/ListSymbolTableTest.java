@@ -5,7 +5,6 @@ import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import org.junit.Test;
 import test.TestBase;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -22,11 +21,7 @@ public class ListSymbolTableTest extends TestBase {
         members.put("c", null);
 
         ClassSymbolTable cst = mock(ClassSymbolTable.class);
-        when(cst.getMemberNames()).thenCallRealMethod();
-
-        Field f = ClassSymbolTable.class.getDeclaredField("members");
-        f.setAccessible(true);
-        f.set(cst, members);
+        when(cst.resolveSubclasses()).thenReturn(members);
 
         Supplier<Loader> loaderSupplier = mock(Supplier.class);
 
