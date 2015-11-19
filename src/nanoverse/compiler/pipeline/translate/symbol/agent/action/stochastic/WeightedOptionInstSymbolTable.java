@@ -21,6 +21,7 @@
 package nanoverse.compiler.pipeline.translate.symbol.agent.action.stochastic;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
+import nanoverse.compiler.pipeline.instantiate.loader.agent.action.CompoundActionLoader;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic.WeightedOptionLoader;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.agent.action.ActionClassSymbolTable;
@@ -47,8 +48,9 @@ public class WeightedOptionInstSymbolTable extends MapSymbolTable<WeightedOption
     }
 
     private void action(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new ActionClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "The action to perform if this option is selected.");
+        ClassSymbolTable cst = new ActionClassSymbolTable();
+        ListSymbolTable lst = new ListSymbolTable(cst, () -> new CompoundActionLoader());
+        MemberSymbol ms = new MemberSymbol(lst, "The action(s) to perform if this option is selected.");
         ret.put("action", ms);
     }
 

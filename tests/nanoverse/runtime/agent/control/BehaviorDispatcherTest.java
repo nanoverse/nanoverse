@@ -37,6 +37,8 @@ import static org.mockito.Mockito.*;
  */
 public class BehaviorDispatcherTest extends TestBase {
 
+    private static final String NAME = "name";
+
     private HashMap<String, Action> behaviors;
     private Action action;
     private Coordinate caller;
@@ -57,13 +59,13 @@ public class BehaviorDispatcherTest extends TestBase {
 
     @Test
     public void triggerRunsBehavior() throws Exception {
-        query.trigger("test", caller);
+        query.trigger("test", caller, NAME);
         verify(action).run(caller);
     }
 
     @Test(expected = IllegalStateException.class)
     public void triggerMissingThrows() throws Exception {
-        query.trigger("undefined", caller);
+        query.trigger("undefined", caller, NAME);
     }
 
     @Test

@@ -20,6 +20,7 @@
 
 package nanoverse.compiler.pipeline.translate.nodes;
 
+import nanoverse.compiler.error.UserError;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 
 import java.util.stream.Stream;
@@ -55,6 +56,11 @@ public class MapObjectNode implements ObjectNode {
     }
 
     public ObjectNode getMember(String identifier) {
+        if (!(local.hasMember(identifier))) {
+            throw new UserError("Missing argument \"" + identifier + "\" in object " +
+                symbolTable.getInstanceClass().getSimpleName());
+        }
+
         return local.getMember(identifier);
     }
 

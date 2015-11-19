@@ -21,7 +21,7 @@
 package nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic;
 
 import nanoverse.compiler.pipeline.instantiate.loader.InterpolatorTest;
-import nanoverse.compiler.pipeline.instantiate.loader.agent.action.ActionLoader;
+import nanoverse.compiler.pipeline.instantiate.loader.agent.action.*;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.control.arguments.ProbabilitySupplierDescriptor;
@@ -33,11 +33,13 @@ import static org.mockito.Mockito.*;
 public class WeightedOptionInterpolatorTest extends InterpolatorTest {
 
     private WeightedOptionInterpolator query;
+    private FlexibleActionLoader flexibleActionLoader;
 
     @Before
     public void before() throws Exception {
         super.before();
-        query = new WeightedOptionInterpolator(load);
+        flexibleActionLoader = mock(FlexibleActionLoader.class);
+        query = new WeightedOptionInterpolator(load, flexibleActionLoader);
     }
 
     @Test
@@ -45,11 +47,8 @@ public class WeightedOptionInterpolatorTest extends InterpolatorTest {
         MapObjectNode cNode = mock(MapObjectNode.class);
         when(node.getMember("action")).thenReturn(cNode);
 
-        ActionLoader loader = mock(ActionLoader.class);
-        when(load.getLoader(eq(node), eq("action"), anyBoolean())).thenReturn(loader);
-
         ActionDescriptor expected = mock(ActionDescriptor.class);
-        when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
+        when(flexibleActionLoader.load(cNode, lm, p)).thenReturn(expected);
 
         ActionDescriptor actual = query.action(node, lm, p);
         assertSame(expected, actual);

@@ -36,7 +36,7 @@ import static org.mockito.Mockito.*;
  * Created by David B Borenstein on 1/25/14.
  */
 public class AgentTest extends TestBase {
-    private final String name = "test";
+    private static final String NAME = "test";
 
     private CallbackManager callbackManager;
     private AgentContinuumManager reactionManager;
@@ -52,7 +52,7 @@ public class AgentTest extends TestBase {
         supplier = mock(Supplier.class);
         dispatcher = mock(BehaviorDispatcher.class);
 
-        query = new Agent(name, callbackManager, reactionManager, supplier);
+        query = new Agent(NAME, callbackManager, reactionManager, supplier);
         query.setDispatcher(dispatcher);
     }
 
@@ -66,7 +66,7 @@ public class AgentTest extends TestBase {
 
         Agent actual = query.copy();
         assertSame(child, actual);
-        verify(child).setName(name);
+        verify(child).setName(NAME);
         verify(child).setDispatcher(childDispatcher);
     }
 
@@ -75,7 +75,7 @@ public class AgentTest extends TestBase {
         String behaviorName = "bn";
         Coordinate caller = mock(Coordinate.class);
         query.trigger(behaviorName, caller);
-        verify(dispatcher).trigger(behaviorName, caller);
+        verify(dispatcher).trigger(behaviorName, caller, NAME);
     }
 
     @Test

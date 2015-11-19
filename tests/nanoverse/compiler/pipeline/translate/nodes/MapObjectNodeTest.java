@@ -68,6 +68,7 @@ public class MapObjectNodeTest {
     @Test
     public void getMember() throws Exception {
         ObjectNode expected = mock(ObjectNode.class);
+        when(local.hasMember("test")).thenReturn(true);
         when(local.getMember("test")).thenReturn(expected);
         ObjectNode actual = query.getMember("test");
         assertSame(expected, actual);

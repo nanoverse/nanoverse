@@ -21,6 +21,7 @@
 package nanoverse.compiler.pipeline.instantiate.loader.agent;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
+import nanoverse.compiler.pipeline.instantiate.loader.agent.action.FlexibleActionLoader;
 import nanoverse.compiler.pipeline.translate.nodes.DictionaryObjectNode;
 import nanoverse.runtime.agent.action.ActionDescriptor;
 import nanoverse.runtime.control.GeneralParameters;
@@ -34,14 +35,14 @@ import java.util.stream.Collectors;
  */
 public class BehaviorMapLoader extends Loader<Map<String, ActionDescriptor>> {
 
-    private final BehaviorMapChildLoader childLoader;
+    private final BehaviorMapInterpolator interpolator;
 
     public BehaviorMapLoader() {
-        childLoader = new BehaviorMapChildLoader();
+        interpolator = new BehaviorMapInterpolator();
     }
 
-    public BehaviorMapLoader(BehaviorMapChildLoader childLoader) {
-        this.childLoader = childLoader;
+    public BehaviorMapLoader(BehaviorMapInterpolator interpolator) {
+        this.interpolator = interpolator;
     }
 
     public Map<String, ActionDescriptor> instantiate(DictionaryObjectNode node,
@@ -52,7 +53,7 @@ public class BehaviorMapLoader extends Loader<Map<String, ActionDescriptor>> {
             .getMemberIdentifiers()
             .collect(Collectors.toMap(
                 id -> id,
-                id -> childLoader.load(id, node, lm, p)
+                id -> interpolator.load(id, node, lm, p)
             ));
 
         return ret;

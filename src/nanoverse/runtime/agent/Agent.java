@@ -93,7 +93,7 @@ public class Agent {
     }
 
     public void trigger(String behaviorName, Coordinate caller) throws HaltCondition {
-        dispatcher.trigger(behaviorName, caller);
+        dispatcher.trigger(behaviorName, caller, name);
     }
 
     public void die() {
