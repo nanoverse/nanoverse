@@ -43,11 +43,7 @@ public abstract class ClassSymbolTable<T> implements ResolvingSymbolTable {
         logger = LoggerFactory.getLogger(ClassSymbolTable.class);
     }
 
-    protected abstract HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses();
-
-    public Stream<String> getMemberNames() {
-        return resolveSubclasses().keySet().stream();
-    }
+    public abstract HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses();
 
     @Override
     public InstantiableSymbolTable getSymbolTable(String identifier) {

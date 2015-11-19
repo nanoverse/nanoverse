@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.translate.symbol;
 import com.google.common.reflect.TypeToken;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -42,8 +43,8 @@ public class ListSymbolTable<T> implements InstantiableSymbolTable, ResolvingSym
         this.loaderSupplier = loaderSupplier;
     }
 
-    public Stream getMemberNames(){
-        return  classSymbolTable.getMemberNames();
+    public Set getMemberNames(){
+        return  classSymbolTable.resolveSubclasses().keySet();
     }
 
     @Override

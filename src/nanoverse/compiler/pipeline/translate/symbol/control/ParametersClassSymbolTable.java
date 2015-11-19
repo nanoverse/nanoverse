@@ -37,7 +37,7 @@ public class ParametersClassSymbolTable extends ClassSymbolTable<GeneralParamete
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         parameters(ret);
         return ret;

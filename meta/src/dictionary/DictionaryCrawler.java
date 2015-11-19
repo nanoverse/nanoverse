@@ -1,3 +1,27 @@
+/*
+ * Copyright (c) 2014, 2015 David Bruce Borenstein and the
+ * Trustees of Princeton University.
+ *
+ * This file is part of the Nanoverse simulation framework
+ * (patent pending).
+ *
+ * This program is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU Affero General
+ * Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be
+ * useful, but WITHOUT ANY WARRANTY; without even the implied
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ * PURPOSE.  See the GNU Affero General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU Affero General
+ * Public License along with this program.  If not, see
+ * <http://www.gnu.org/licenses/>.
+ */
+
 package dictionary;
 
 import nanoverse.compiler.pipeline.translate.symbol.*;
@@ -10,39 +34,39 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class DictionaryCrawler {
 
     File dir;
 
     private void handleMapST(MapSymbolTable st, String filename, String fileDescription) {
-        BufferedWriter bw = createNewFile(filename, fileDescription, st.getMemberNames().count());
+        HashMap<String, MemberSymbol> members = st.resolveMembers();
+        BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
 
-        st.getMemberNames().forEach(mn -> {
-            String mn_name = (String) mn;
-            String type = truncateType(st.getSymbolTable(mn_name).getClass().getSimpleName());
-            String description = st.getMemberDescription(mn_name);
+        members.keySet().forEach(memberName -> {
+            String type = truncateType(st.getSymbolTable(memberName).getClass().getSimpleName());
+            String description = members.get(memberName).getDescription();
 
-            writeTableRow(bw, mn_name, type, description);
+            writeTableRow(bw, memberName, type, description);
 
-            handleMember(st.getSymbolTable(mn_name), mn_name, description);
-
+            handleMember(st.getSymbolTable(memberName), memberName, description);
         });
 
         endFile(bw);
     }
 
     private void handleClassST(ClassSymbolTable st, String filename, String fileDescription) {
-        BufferedWriter bw = createNewFile(filename, fileDescription, st.getMemberNames().count());
+        HashMap<String, MemberSymbol> members = st.resolveSubclasses();
+        BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
 
-        st.getMemberNames().forEach(mn -> {
-            String mn_name = (String) mn;
-            String type = truncateType(st.getSymbolTable(mn_name).getClass().getSimpleName());
-            String description = st.getSymbolTable(mn_name).getDescription();
+        members.keySet().forEach(memberName -> {
+            String type = truncateType(st.getSymbolTable(memberName).getClass().getSimpleName());
+            String description = st.getSymbolTable(memberName).getDescription();
 
-            writeTableRow(bw, mn_name, type, description);
+            writeTableRow(bw, memberName, type, description);
 
-            handleMember(st.getSymbolTable(mn_name), mn_name, description);
+            handleMember(st.getSymbolTable(memberName), memberName, description);
         });
 
         endFile(bw);
@@ -50,48 +74,48 @@ public class DictionaryCrawler {
 
     private void handleDiscreteProcessST(DiscreteProcessInstSymbolTable st, String filename,
                                          String fileDescription) {
-        BufferedWriter bw = createNewFile(filename, fileDescription, st.getMemberNames().count());
+        HashMap<String, MemberSymbol> members = st.resolveMembers();
+        BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
 
-        st.getMemberNames().forEach(mn -> {
-            String mn_name = (String) mn;
-            String type = truncateType(st.getSymbolTable(mn_name).getClass().getSimpleName());
-            String description = st.getMemberDescription(mn_name);
+        members.keySet().forEach(memberName -> {
+            String type = truncateType(st.getSymbolTable(memberName).getClass().getSimpleName());
+            String description = members.get(memberName).getDescription();
 
-            writeTableRow(bw, mn_name, type, description);
+            writeTableRow(bw, memberName, type, description);
 
-            handleMember(st.getSymbolTable(mn_name), mn_name, description);
+            handleMember(st.getSymbolTable(memberName), memberName, description);
         });
 
         endFile(bw);
     }
 
     private void handleLayerInstST(LayerInstSymbolTable st, String filename, String fileDescription) {
-        BufferedWriter bw = createNewFile(filename, fileDescription, st.getMemberNames().count());
+        HashMap<String, MemberSymbol> members = st.resolveMembers();
+        BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
 
-        st.getMemberNames().forEach(mn -> {
-            String mn_name = (String) mn;
-            String type = truncateType(st.getSymbolTable(mn_name).getClass().getSimpleName());
-            String description = st.getMemberDescription(mn_name);
+        members.keySet().forEach(memberName -> {
+            String type = truncateType(st.getSymbolTable(memberName).getClass().getSimpleName());
+            String description = members.get(memberName).getDescription();
 
-            writeTableRow(bw, mn_name, type, description);
+            writeTableRow(bw, memberName, type, description);
 
-            handleMember(st.getSymbolTable(mn_name), mn_name, description);
+            handleMember(st.getSymbolTable(memberName), memberName, description);
         });
 
         endFile(bw);
     }
 
     private void handleListST(ListSymbolTable st, String filename, String fileDescription) {
-        BufferedWriter bw = createNewFile(filename, fileDescription, st.getMemberNames().count());
+        BufferedWriter bw = createNewFile(filename, fileDescription, st.getMemberNames().size());
 
         st.getMemberNames().forEach(mn -> {
-            String mn_name = (String) mn;
-            String type = truncateType(st.getSymbolTable(mn_name).getClass().getSimpleName());
-            String description = st.getSymbolTable(mn_name).getDescription();
+            String memberName = (String) mn;
+            String type = truncateType(st.getSymbolTable(memberName).getClass().getSimpleName());
+            String description = st.getSymbolTable(memberName).getDescription();
 
-            writeTableRow(bw, mn_name, type, description);
+            writeTableRow(bw, memberName, type, description);
 
-            handleMember(st.getSymbolTable(mn_name), mn_name, description);
+            handleMember(st.getSymbolTable(memberName), memberName, description);
         });
 
         endFile(bw);
@@ -99,15 +123,16 @@ public class DictionaryCrawler {
 
     private void beginCrawl() throws IOException{
         ProjectSymbolTable st = new ProjectSymbolTable();
-        BufferedWriter bw = createNewFile("Main", "", st.getMemberNames().count());
+        HashMap<String, MemberSymbol> members = st.resolveMembers();
+        BufferedWriter bw = createNewFile("Main", "", members.size());
 
-        st.getMemberNames().forEach(mn -> {
-            String type = truncateType(st.getSymbolTable(mn).getClass().getSimpleName());
-            String description = st.getMemberDescription(mn);
+        members.keySet().forEach(memberName -> {
+            String type = truncateType(st.getSymbolTable(memberName).getClass().getSimpleName());
+            String description = st.resolveMembers().get(memberName).getDescription();
 
-            writeTableRow(bw, mn, type, description);
+            writeTableRow(bw, memberName, type, description);
 
-            handleMember(st.getSymbolTable(mn), mn, description);
+            handleMember(st.getSymbolTable(memberName), memberName, description);
         });
 
         endFile(bw);

@@ -42,7 +42,7 @@ public class ParametersInstSymbolTable extends MapSymbolTable<GeneralParameters>
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         maxStep(ret);
         instances(ret);

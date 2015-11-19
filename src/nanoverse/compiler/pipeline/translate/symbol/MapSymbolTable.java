@@ -44,21 +44,12 @@ public abstract class MapSymbolTable<T> implements InstantiableSymbolTable {
         logger = LoggerFactory.getLogger(MapSymbolTable.class);
     }
 
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         return new HashMap<>();
     }
 
     public Stream<String> getMemberNames() {
-        return resolveMembers().keySet().stream();
-    }
-
-    public String getMemberDescription(String identifier) {
-        HashMap<String, MemberSymbol> members = resolveMembers();
-        if (members.containsKey(identifier))
-            return members.get(identifier).getDescription();
-
-        throw new UnrecognizedIdentifierError(identifier,
-                getInstanceClass());
+        return requiredMembers.keySet().stream();
     }
 
     public ResolvingSymbolTable getSymbolTable(String identifier) {

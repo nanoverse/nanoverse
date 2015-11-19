@@ -58,7 +58,7 @@ public class DirichletBoundaryEnforcerInstSymbolTable extends ContinuumProcessIn
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         activeSites(ret);
         layer(ret);

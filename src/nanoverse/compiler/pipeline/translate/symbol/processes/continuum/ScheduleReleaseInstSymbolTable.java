@@ -39,7 +39,7 @@ public class ScheduleReleaseInstSymbolTable extends ContinuumProcessInstSymbolTa
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         layer(ret);
         return ret;

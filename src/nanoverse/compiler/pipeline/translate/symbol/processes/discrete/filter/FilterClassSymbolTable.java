@@ -37,7 +37,7 @@ public class FilterClassSymbolTable extends ClassSymbolTable<Filter> {
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         name(ret);
         composite(ret);

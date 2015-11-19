@@ -39,7 +39,7 @@ public class HexagonInstSymbolTable extends ShapeInstSymbolTable<Hexagon> {
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         radius(ret);
         return (ret);

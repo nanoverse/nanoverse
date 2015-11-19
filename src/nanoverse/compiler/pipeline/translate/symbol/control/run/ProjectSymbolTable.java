@@ -52,7 +52,7 @@ public class ProjectSymbolTable extends MapSymbolTable<Runner> {
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = new HashMap<>(5);
 
         layerManager(ret);

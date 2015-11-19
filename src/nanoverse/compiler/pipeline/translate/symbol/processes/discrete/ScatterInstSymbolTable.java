@@ -38,7 +38,7 @@ public class ScatterInstSymbolTable extends DiscreteProcessInstSymbolTable<Scatt
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         agentDescriptor(ret);
         return ret;

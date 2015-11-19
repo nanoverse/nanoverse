@@ -37,7 +37,7 @@ public class OutputClassSymbolTable extends ClassSymbolTable<Serializer> {
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         haltTimeWriter(ret);
         progressReporter(ret);

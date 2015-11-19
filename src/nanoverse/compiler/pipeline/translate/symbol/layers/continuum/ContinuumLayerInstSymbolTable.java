@@ -41,7 +41,7 @@ public class ContinuumLayerInstSymbolTable extends LayerInstSymbolTable<Continuu
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         disableOperators(ret);
         solver(ret);

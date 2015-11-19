@@ -39,7 +39,7 @@ public class LatticeClassSymbolTable extends ClassSymbolTable<Lattice> {
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         linear(ret);
         rectangular(ret);

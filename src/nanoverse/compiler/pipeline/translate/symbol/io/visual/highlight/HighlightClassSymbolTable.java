@@ -39,7 +39,7 @@ public class HighlightClassSymbolTable extends ClassSymbolTable<Highlight> {
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         highlight(ret);
         return ret;

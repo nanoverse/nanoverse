@@ -45,7 +45,7 @@ public class LayerClassSymbolTable extends ClassSymbolTable<Layer> {
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         continuumLayer(ret);
         agentLayer(ret);

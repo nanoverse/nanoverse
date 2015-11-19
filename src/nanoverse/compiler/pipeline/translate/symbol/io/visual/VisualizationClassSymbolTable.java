@@ -40,7 +40,7 @@ public class VisualizationClassSymbolTable extends ClassSymbolTable<Visualizatio
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         map(ret);
         kymograph(ret);

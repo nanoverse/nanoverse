@@ -39,7 +39,7 @@ public class BullseyeGlyphInstSymbolTable extends MapSymbolTable<BullseyeGlyph> 
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         primaryColor(ret);
         secondaryColor(ret);

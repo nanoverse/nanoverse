@@ -40,7 +40,7 @@ public class DiffusionProcessInstSymbolTable extends ContinuumProcessInstSymbolT
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         constant(ret);
         layer(ret);

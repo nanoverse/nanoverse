@@ -39,7 +39,7 @@ public class SwapInstSymbolTable extends ActionInstSymbolTable<SwapDescriptor> {
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         targetHighlight(ret);
         selfHighlight(ret);

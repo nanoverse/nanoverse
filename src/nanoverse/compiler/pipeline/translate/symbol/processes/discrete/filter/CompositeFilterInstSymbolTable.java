@@ -45,7 +45,7 @@ public class CompositeFilterInstSymbolTable extends MapSymbolTable<CompositeFilt
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         including(ret);
         return ret;

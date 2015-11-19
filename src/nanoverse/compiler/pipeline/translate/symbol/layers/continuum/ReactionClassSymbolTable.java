@@ -32,7 +32,7 @@ import java.util.function.Supplier;
 public class ReactionClassSymbolTable extends ClassSymbolTable<Reaction> {
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         reaction(ret);
         return ret;

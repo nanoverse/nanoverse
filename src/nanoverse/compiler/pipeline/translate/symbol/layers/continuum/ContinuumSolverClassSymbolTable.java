@@ -38,7 +38,7 @@ public class ContinuumSolverClassSymbolTable extends ClassSymbolTable<ContinuumS
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         equilibrium(ret);
         nonEquilibrium(ret);

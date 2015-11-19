@@ -49,7 +49,7 @@ public class ReactionInstSymbolTable extends MapSymbolTable<Reaction> {
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         inj(ret);
         exp(ret);

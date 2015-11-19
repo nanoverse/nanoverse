@@ -32,7 +32,7 @@ import java.util.HashMap;
  */
 public abstract class LayerInstSymbolTable<T extends Layer> extends MapSymbolTable<T> {
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         boundary(ret);
         id(ret);

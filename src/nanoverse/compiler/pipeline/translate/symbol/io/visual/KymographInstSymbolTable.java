@@ -43,7 +43,7 @@ public class KymographInstSymbolTable extends MapSymbolTable<Kymograph> {
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         edge(ret);
         outline(ret);

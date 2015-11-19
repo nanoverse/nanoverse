@@ -40,7 +40,7 @@ public class CoordinateSetClassSymbolTable extends ClassSymbolTable<CoordinateSe
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         all(ret);
         disc(ret);
