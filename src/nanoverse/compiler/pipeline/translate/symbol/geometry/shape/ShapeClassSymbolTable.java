@@ -37,7 +37,7 @@ public class ShapeClassSymbolTable extends ClassSymbolTable<Shape> {
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         line(ret);
         rectangle(ret);

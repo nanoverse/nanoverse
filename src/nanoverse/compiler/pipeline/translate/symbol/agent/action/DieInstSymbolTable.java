@@ -38,7 +38,7 @@ public class DieInstSymbolTable extends ActionInstSymbolTable<DieDescriptor> {
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         highlight(ret);
         return (ret);

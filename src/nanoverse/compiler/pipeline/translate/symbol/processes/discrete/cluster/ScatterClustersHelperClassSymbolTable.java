@@ -37,7 +37,7 @@ public class ScatterClustersHelperClassSymbolTable extends ClassSymbolTable<Sepa
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         strict(ret);
         compact(ret);

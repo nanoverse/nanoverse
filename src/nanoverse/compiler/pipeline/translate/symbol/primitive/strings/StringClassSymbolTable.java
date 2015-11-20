@@ -37,7 +37,7 @@ public class StringClassSymbolTable extends ClassSymbolTable<StringArgument> {
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>(1);
         primitive(ret);
         return ret;

@@ -37,7 +37,7 @@ public class BoundaryClassSymbolTable extends ClassSymbolTable<Boundary> {
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         arena(ret);
         planeRingHard(ret);

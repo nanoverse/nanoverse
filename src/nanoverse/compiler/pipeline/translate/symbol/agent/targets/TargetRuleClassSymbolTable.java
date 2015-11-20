@@ -38,7 +38,7 @@ public class TargetRuleClassSymbolTable extends ClassSymbolTable<TargetDescripto
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         allNeighbors(ret);
         occupiedNeighbors(ret);

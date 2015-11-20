@@ -32,7 +32,7 @@ import java.util.function.Supplier;
 public class ProbabilitySupplierClassSymbolTable extends ClassSymbolTable<ProbabilitySupplierDescriptor> {
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         constant(ret);
         continuum(ret);

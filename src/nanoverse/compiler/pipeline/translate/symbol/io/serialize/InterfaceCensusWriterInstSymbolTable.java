@@ -45,7 +45,7 @@ public class InterfaceCensusWriterInstSymbolTable extends MapSymbolTable<Interfa
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         focus(ret);
         return ret;

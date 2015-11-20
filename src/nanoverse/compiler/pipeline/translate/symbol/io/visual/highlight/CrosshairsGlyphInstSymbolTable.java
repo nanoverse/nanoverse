@@ -39,7 +39,7 @@ public class CrosshairsGlyphInstSymbolTable extends MapSymbolTable<CrosshairsGly
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         circle(ret);
         cross(ret);

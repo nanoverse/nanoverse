@@ -49,7 +49,7 @@ public class ContinuumProbabilitySupplierInstSymbolTable
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         offset(ret);
         coefficient(ret);

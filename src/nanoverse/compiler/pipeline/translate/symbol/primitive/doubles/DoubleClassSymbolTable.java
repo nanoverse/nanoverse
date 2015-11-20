@@ -40,7 +40,7 @@ public class DoubleClassSymbolTable extends ClassSymbolTable<DoubleArgument> {
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>(1);
         primitive(ret);
         return ret;

@@ -40,7 +40,7 @@ public class GlyphClassSymbolTable extends ClassSymbolTable<Glyph> {
     }
 
     @Override
-    protected HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
+    public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         dot(ret);
         bullseye(ret);

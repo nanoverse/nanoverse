@@ -46,7 +46,7 @@ public class ContinuumColorModelInstSymbolTable extends MapSymbolTable<Continuum
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         id(ret);
         base(ret);

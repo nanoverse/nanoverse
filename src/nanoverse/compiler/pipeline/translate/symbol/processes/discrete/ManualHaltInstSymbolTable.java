@@ -37,7 +37,7 @@ public class ManualHaltInstSymbolTable extends DiscreteProcessInstSymbolTable<Ma
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         return super.resolveMembers();
     }
 

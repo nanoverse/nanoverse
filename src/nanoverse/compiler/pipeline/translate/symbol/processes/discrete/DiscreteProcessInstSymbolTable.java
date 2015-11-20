@@ -35,7 +35,7 @@ public abstract class DiscreteProcessInstSymbolTable<T extends AgentProcess>
     extends ProcessInstSymbolTable<T> {
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         activeSites(ret);
         maxTargets(ret);

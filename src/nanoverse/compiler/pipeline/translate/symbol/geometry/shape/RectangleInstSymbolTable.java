@@ -37,7 +37,7 @@ public class RectangleInstSymbolTable extends ShapeInstSymbolTable<Rectangle> {
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         height(ret);
         width(ret);

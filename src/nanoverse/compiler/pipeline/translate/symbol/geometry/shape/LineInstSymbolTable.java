@@ -37,7 +37,7 @@ public class LineInstSymbolTable extends ShapeInstSymbolTable<Line> {
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         length(ret);
         return (ret);
