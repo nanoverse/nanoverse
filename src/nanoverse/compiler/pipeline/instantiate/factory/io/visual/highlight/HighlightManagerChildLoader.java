@@ -54,7 +54,7 @@ public class HighlightManagerChildLoader {
 
         if (glyphMap.containsKey(channel)) {
             throw new IllegalAssignmentError("Double assignment to highlight " +
-                "channel " + channel + " in highlight renderer specification");
+                "channel " + channel + " in highlight renderer specification", node.lineNumber());
         }
 
         glyphMap.put(channel, glyph);

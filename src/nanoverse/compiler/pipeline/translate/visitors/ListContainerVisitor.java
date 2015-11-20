@@ -51,7 +51,7 @@ public class ListContainerVisitor {
         logger.debug("Translating {} using LST for class {}", toTranslate.getIdentifier(),
             symbolTable.getBroadClass().getSimpleName());
 
-        ListObjectNode node = new ListObjectNode(symbolTable);
+        ListObjectNode node = new ListObjectNode(symbolTable, toTranslate.lineNumber());
 
         // Visit each child.
         toTranslate.getChildren()

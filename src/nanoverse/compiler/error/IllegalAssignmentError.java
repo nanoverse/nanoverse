@@ -29,7 +29,7 @@ public class IllegalAssignmentError extends UserError {
         super();
     }
 
-    public IllegalAssignmentError(String message) {
-        super(message);
+    public IllegalAssignmentError(String message, int lineNumber) {
+        super(message, lineNumber);
     }
 }

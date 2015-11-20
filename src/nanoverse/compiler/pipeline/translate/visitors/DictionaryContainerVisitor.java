@@ -49,7 +49,7 @@ public class DictionaryContainerVisitor {
             toTranslate.getIdentifier(), symbolTable.getBroadClass()
                 .getSimpleName());
 
-        DictionaryObjectNode node = new DictionaryObjectNode(symbolTable);
+        DictionaryObjectNode node = new DictionaryObjectNode(symbolTable, toTranslate.lineNumber());
 
         // Visit each child.
         toTranslate.getChildren()

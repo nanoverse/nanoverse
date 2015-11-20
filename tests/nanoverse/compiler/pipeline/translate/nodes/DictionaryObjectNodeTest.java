@@ -35,11 +35,13 @@ public class DictionaryObjectNodeTest {
 
     private DictionaryObjectNode query;
 
+    private int LINE = 1;
+
     @Before
     public void before() throws Exception {
         symbolTable = mock(DictionarySymbolTable.class);
         local = mock(LocalContextMap.class);
-        query = new DictionaryObjectNode(symbolTable, local);
+        query = new DictionaryObjectNode(symbolTable, local, LINE);
     }
 
     @Test

@@ -22,23 +22,34 @@ package nanoverse.compiler.pipeline.translate.nodes;
 
 import nanoverse.compiler.pipeline.translate.symbol.InstantiableSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by dbborens on 4/26/15.
  */
 public class PrimitiveObjectNode<T> implements ObjectNode {
+    private final Logger logger;
 
     private final ConstantPrimitiveSymbolTable symbolTable;
     private final T value;
+    private final int lineNumber;
 
-    public PrimitiveObjectNode(ConstantPrimitiveSymbolTable symbolTable, T value) {
+    public PrimitiveObjectNode(ConstantPrimitiveSymbolTable symbolTable, T value, int lineNumber) {
+        logger = LoggerFactory.getLogger(PrimitiveObjectNode.class);
+
         this.symbolTable = symbolTable;
         this.value = value;
+        this.lineNumber = lineNumber;
+
+        logger.debug("Primitive object {} on line number {}", value, lineNumber);
     }
 
     public T getValue() {
         return value;
     }
+
+    public int lineNumber() { return lineNumber; }
 
     @Override
     public Class getInstantiatingClass() {

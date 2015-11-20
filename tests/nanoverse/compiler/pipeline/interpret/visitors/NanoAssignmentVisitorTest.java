@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.interpret.visitors;
 import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.*;
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import org.antlr.v4.runtime.CommonToken;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.*;
 
@@ -71,8 +72,11 @@ public class NanoAssignmentVisitorTest {
         ASTNode value = mock(ASTNode.class);
         when(child2.accept(singletonVisitor)).thenReturn(value);
 
+        Token token = ctx.getStart();
+        int lineNumber = token.getLine();
+
         ASTNode expected = new ASTNode(identifier,
-            Stream.of(value));
+            Stream.of(value), lineNumber);
         ASTNode actual = query.visitAssignment(ctx);
         assertEquals(expected, actual);
     }
@@ -83,8 +87,12 @@ public class NanoAssignmentVisitorTest {
         ASTNode dummy = mock(ASTNode.class);
         when(blockVisitor.getChildrenAsNodes(child1))
             .thenReturn(Stream.of(dummy));
+
+        Token token = ctx.getStart();
+        int lineNumber = token.getLine();
+
         ASTNode expected = new ASTNode(identifier,
-            Stream.of(dummy));
+            Stream.of(dummy), lineNumber);
         ASTNode actual = query.visitAssignment(ctx);
         assertEquals(expected, actual);
     }

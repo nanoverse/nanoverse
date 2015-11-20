@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.interpret.visitors;
 import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser;
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import nanoverse.compiler.pipeline.interpret.visitors.helpers.NanoBlockHelper;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.slf4j.*;
 
@@ -48,9 +49,12 @@ public class NanoRootVisitor extends AbstractNanoNodeVisitor {
     }
 
     public ASTNode visitRoot(@NotNull NanosyntaxParser.RootContext ctx) {
-        logger.debug("Visiting root with {} children", ctx.getChildCount());
+        Token token = ctx.getStart();
+        int lineNumber = token.getLine();
+        logger.debug("Visiting root with {} children. Text is \"{}\" and line number is {}.",
+                ctx.getChildCount(), token.getText(), lineNumber);
         Stream<ASTNode> children = helper.doVisit(ctx, 0, ctx.getChildCount());
-        ASTNode ret = new ASTNode(IDENTIFIER, children);
+        ASTNode ret = new ASTNode(IDENTIFIER, children, lineNumber);
         return ret;
     }
 }

@@ -21,6 +21,8 @@
 package nanoverse.compiler.pipeline.translate.nodes;
 
 import nanoverse.compiler.pipeline.translate.symbol.DictionarySymbolTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.stream.Stream;
 
@@ -28,17 +30,24 @@ import java.util.stream.Stream;
  * Created by dbborens on 2/22/15.
  */
 public class DictionaryObjectNode implements ObjectNode {
+    private final Logger logger;
 
     private final DictionarySymbolTable symbolTable;
     private final LocalContextMap local;
+    private final int lineNumber;
 
-    public DictionaryObjectNode(DictionarySymbolTable symbolTable) {
-        this(symbolTable, new LocalContextMap());
+    public DictionaryObjectNode(DictionarySymbolTable symbolTable, int lineNumber) {
+        this(symbolTable, new LocalContextMap(), lineNumber);
     }
 
-    public DictionaryObjectNode(DictionarySymbolTable symbolTable, LocalContextMap local) {
+    public DictionaryObjectNode(DictionarySymbolTable symbolTable, LocalContextMap local, int lineNumber) {
+        logger = LoggerFactory.getLogger(DictionaryObjectNode.class);
+
         this.symbolTable = symbolTable;
         this.local = local;
+        this.lineNumber = lineNumber;
+
+        logger.debug("Dictionary object on line number {}", lineNumber);
     }
 
     public Stream<String> getMemberIdentifiers() {
@@ -69,6 +78,8 @@ public class DictionaryObjectNode implements ObjectNode {
 
         return true;
     }
+
+    public int lineNumber() { return lineNumber; }
 
     @Override
     public Class getInstantiatingClass() {

@@ -26,6 +26,7 @@ import nanoverse.compiler.pipeline.translate.nodes.*;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 import org.junit.*;
 
+import static junit.framework.TestCase.fail;
 import static org.mockito.Mockito.*;
 
 public class ListChildLoaderTest {
@@ -33,10 +34,17 @@ public class ListChildLoaderTest {
     private TranslationCallback walker;
     private ListChildLoader query;
 
+    private int LINE = 0;
+
     @Before
     public void before() throws Exception {
         walker = mock(TranslationCallback.class);
         query = new ListChildLoader(walker);
+    }
+
+    @Test
+    public void lineNumberForError() throws Exception {
+        fail();
     }
 
     @Test
@@ -48,7 +56,7 @@ public class ListChildLoaderTest {
         ListSymbolTable lst = mock(ListSymbolTable.class);
         when(lst.getBroadClass()).thenReturn(Object.class);
         InstantiableSymbolTable ist = mock(InstantiableSymbolTable.class);
-        when(lst.getSymbolTable(id)).thenReturn(ist);
+        when(lst.getSymbolTable(id, LINE)).thenReturn(ist);
 
         ObjectNode childNode = mock(ObjectNode.class);
         when(childNode.getInstantiatingClass()).thenReturn(Object.class);

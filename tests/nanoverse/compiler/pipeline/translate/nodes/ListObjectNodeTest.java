@@ -35,11 +35,13 @@ public class ListObjectNodeTest {
 
     private ListObjectNode query;
 
+    private int LINE = 1;
+
     @Before
     public void before() throws Exception {
         symbolTable = mock(ListSymbolTable.class);
         local = mock(LocalContextList.class);
-        query = new ListObjectNode(symbolTable, local);
+        query = new ListObjectNode(symbolTable, local, LINE);
     }
 
     @Test

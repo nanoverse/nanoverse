@@ -35,11 +35,13 @@ public class MapObjectNodeTest {
 
     private MapObjectNode query;
 
+    private int LINE = 0;
+
     @Before
     public void before() throws Exception {
         local = mock(LocalContextMap.class);
         symbolTable = mock(MapSymbolTable.class);
-        query = new MapObjectNode(symbolTable, local);
+        query = new MapObjectNode(symbolTable, local, LINE);
     }
 
     @Test
@@ -82,7 +84,7 @@ public class MapObjectNodeTest {
     @Test
     public void getSymbolTableFor() throws Exception {
         ResolvingSymbolTable expected = mock(ResolvingSymbolTable.class);
-        when(symbolTable.getSymbolTable("test")).thenReturn(expected);
+        when(symbolTable.getSymbolTable("test", LINE)).thenReturn(expected);
         ResolvingSymbolTable actual = query.getSymbolTableFor("test");
         assertSame(expected, actual);
     }

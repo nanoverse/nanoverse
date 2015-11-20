@@ -32,6 +32,8 @@ public class MapChildLoaderTest {
     private MapChildTranslator translator;
     private MapChildLoader query;
 
+    private int LINE = 0;
+
     @Before
     public void before() throws Exception {
         translator = mock(MapChildTranslator.class);
@@ -47,7 +49,7 @@ public class MapChildLoaderTest {
 
         MapSymbolTable mst = mock(MapSymbolTable.class);
         ResolvingSymbolTable rst = mock(ResolvingSymbolTable.class);
-        when(mst.getSymbolTable(id)).thenReturn(rst);
+        when(mst.getSymbolTable(id, LINE)).thenReturn(rst);
 
         ObjectNode oNode = mock(ObjectNode.class);
         when(oNode.getInstantiatingClass()).thenReturn(Object.class);

@@ -56,8 +56,8 @@ public class DictionarySymbolTable<T> implements InstantiableSymbolTable, Resolv
     }
 
     @Override
-    public InstantiableSymbolTable getSymbolTable(String identifier) {
-        return classSymbolTable.getSymbolTable(identifier);
+    public InstantiableSymbolTable getSymbolTable(String identifier, int lineNumber) {
+        return classSymbolTable.getSymbolTable(identifier, lineNumber);
     }
 
     @Override

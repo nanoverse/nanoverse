@@ -35,6 +35,8 @@ public class MapGrandchildVisitorTest {
     private GrandchildResolver gcResolver;
     private MapGrandchildVisitor query;
 
+    private int LINE = 0;
+
     @Before
     public void before() throws Exception {
         walker = mock(TranslationCallback.class);
@@ -53,7 +55,7 @@ public class MapGrandchildVisitorTest {
 
         ResolvingSymbolTable rst = mock(ResolvingSymbolTable.class);
         InstantiableSymbolTable ist = mock(InstantiableSymbolTable.class);
-        when(rst.getSymbolTable(id)).thenReturn(ist);
+        when(rst.getSymbolTable(id, LINE)).thenReturn(ist);
 
         ObjectNode expected = mock(ObjectNode.class);
         when(walker.walk(grandchild, ist)).thenReturn(expected);

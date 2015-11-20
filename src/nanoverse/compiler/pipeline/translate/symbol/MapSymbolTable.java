@@ -52,7 +52,7 @@ public abstract class MapSymbolTable<T> implements InstantiableSymbolTable {
         return requiredMembers.keySet().stream();
     }
 
-    public ResolvingSymbolTable getSymbolTable(String identifier) {
+    public ResolvingSymbolTable getSymbolTable(String identifier, int lineNumber) {
         logger.debug("Resolving {}::{}",
             getInstanceClass().getSimpleName(), identifier);
 
@@ -61,7 +61,7 @@ public abstract class MapSymbolTable<T> implements InstantiableSymbolTable {
         }
 
         throw new UnrecognizedIdentifierError(identifier,
-            getInstanceClass());
+            getInstanceClass(), lineNumber);
     }
 
     @Override

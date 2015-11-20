@@ -46,9 +46,11 @@ public class PrimitiveVisitor {
             .findFirst()
             .get();
 
+        int lineNumber = valueNode.lineNumber();
+
         String valueStr = valueNode.getIdentifier();
 
         Object value = symbolTable.getValue(valueStr);
-        return new PrimitiveObjectNode<>(symbolTable, value);
+        return new PrimitiveObjectNode<>(symbolTable, value, lineNumber);
     }
 }
