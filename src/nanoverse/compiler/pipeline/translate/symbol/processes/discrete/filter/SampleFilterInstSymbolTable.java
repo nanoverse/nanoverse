@@ -46,7 +46,7 @@ public class SampleFilterInstSymbolTable extends MapSymbolTable<SampleFilter> {
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         maximum(ret);
         return ret;

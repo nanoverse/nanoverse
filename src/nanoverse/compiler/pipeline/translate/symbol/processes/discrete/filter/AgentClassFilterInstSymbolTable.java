@@ -43,7 +43,7 @@ public class AgentClassFilterInstSymbolTable extends MapSymbolTable<AgentNameFil
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         name(ret);
         return ret;

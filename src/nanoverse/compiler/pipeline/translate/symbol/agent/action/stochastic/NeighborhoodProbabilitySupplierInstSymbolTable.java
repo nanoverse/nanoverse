@@ -22,11 +22,8 @@ package nanoverse.compiler.pipeline.translate.symbol.agent.action.stochastic;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.agent.action.stochastic.NeighborhoodProbabilitySupplierLoader;
-import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
-import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
 import nanoverse.runtime.agent.action.stochastic.NeighborhoodProbabilitySupplierDescriptor;
 
 import java.util.HashMap;
@@ -50,7 +47,7 @@ public class NeighborhoodProbabilitySupplierInstSymbolTable
     }
 
     @Override
-    protected HashMap<String, MemberSymbol> resolveMembers() {
+    public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         offset(ret);
         coefficient(ret);
