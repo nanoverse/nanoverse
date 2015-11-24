@@ -34,7 +34,7 @@ public class ListChildLoaderTest {
     private TranslationCallback walker;
     private ListChildLoader query;
 
-    private int LINE = 0;
+    private int lineNumber = 1;
 
     @Before
     public void before() throws Exception {
@@ -43,20 +43,16 @@ public class ListChildLoaderTest {
     }
 
     @Test
-    public void lineNumberForError() throws Exception {
-        fail();
-    }
-
-    @Test
     public void loadChild() throws Exception {
         ASTNode child = mock(ASTNode.class);
         String id = "test";
         when(child.getIdentifier()).thenReturn(id);
+        when(child.lineNumber()).thenReturn(lineNumber);
 
         ListSymbolTable lst = mock(ListSymbolTable.class);
         when(lst.getBroadClass()).thenReturn(Object.class);
         InstantiableSymbolTable ist = mock(InstantiableSymbolTable.class);
-        when(lst.getSymbolTable(id, LINE)).thenReturn(ist);
+        when(lst.getSymbolTable(id, child.lineNumber())).thenReturn(ist);
 
         ObjectNode childNode = mock(ObjectNode.class);
         when(childNode.getInstantiatingClass()).thenReturn(Object.class);

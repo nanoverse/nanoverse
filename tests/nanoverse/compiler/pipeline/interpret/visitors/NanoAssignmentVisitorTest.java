@@ -43,13 +43,19 @@ public class NanoAssignmentVisitorTest {
     private AssignmentContext ctx;
     private CommonToken idPayload;
     private NanoAssignmentVisitor query;
+    private Token token;
+    private int lineNumber = 1;
 
     @Before
     public void init() throws Exception {
         singletonVisitor = mock(NanoSingletonVisitor.class);
         blockVisitor = mock(NanoBlockVisitor.class);
 
+        token = mock(Token.class);
+        when(token.getLine()).thenReturn(lineNumber);
+
         ctx = mock(AssignmentContext.class);
+        when(ctx.getStart()).thenReturn(token);
         grandchild = mock(ParseTree.class);
         child0 = mock(ParseTree.class);
         child1 = mock(BlockContext.class);
@@ -72,9 +78,6 @@ public class NanoAssignmentVisitorTest {
         ASTNode value = mock(ASTNode.class);
         when(child2.accept(singletonVisitor)).thenReturn(value);
 
-        Token token = ctx.getStart();
-        int lineNumber = token.getLine();
-
         ASTNode expected = new ASTNode(identifier,
             Stream.of(value), lineNumber);
         ASTNode actual = query.visitAssignment(ctx);
@@ -87,9 +90,6 @@ public class NanoAssignmentVisitorTest {
         ASTNode dummy = mock(ASTNode.class);
         when(blockVisitor.getChildrenAsNodes(child1))
             .thenReturn(Stream.of(dummy));
-
-        Token token = ctx.getStart();
-        int lineNumber = token.getLine();
 
         ASTNode expected = new ASTNode(identifier,
             Stream.of(dummy), lineNumber);

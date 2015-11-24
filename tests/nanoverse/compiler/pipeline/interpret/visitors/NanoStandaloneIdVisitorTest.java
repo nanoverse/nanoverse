@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.interpret.visitors;
 import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.IdContext;
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import org.antlr.v4.runtime.CommonToken;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.*;
 import test.TestBase;
@@ -39,10 +40,17 @@ public class NanoStandaloneIdVisitorTest extends TestBase {
     private NanoStandaloneIdVisitor query;
     private IdContext ctx;
 
+    private int lineNumber = 1;
+    private Token token;
+
     @Before
     public void before() throws Exception {
         query = new NanoStandaloneIdVisitor();
         ctx = mock(IdContext.class);
+
+        token = mock(Token.class);
+        when(ctx.getStart()).thenReturn(token);
+        when(token.getLine()).thenReturn(lineNumber);
     }
 
     @Test
@@ -62,7 +70,14 @@ public class NanoStandaloneIdVisitorTest extends TestBase {
     private void verifyResult(ASTNode result) {
         verifyId(result);
         verifyChildren(result);
+        verifyLine(result);
+    }
 
+    private void verifyLine(ASTNode result) {
+        int expected = lineNumber;
+        int actual = result.lineNumber();
+
+        assertEquals(expected, actual);
     }
 
     private void verifyId(ASTNode result) {

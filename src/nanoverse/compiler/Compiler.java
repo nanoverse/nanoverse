@@ -90,8 +90,6 @@ public class Compiler {
         MapObjectNode rootObjNode = (MapObjectNode) translator
             .translate(rootASTNode, rootIST);
 
-        System.exit(0);
-
         logger.info("Instantiating Java objects");
         Runner runner = instantiator.instantiate(rootObjNode);
 

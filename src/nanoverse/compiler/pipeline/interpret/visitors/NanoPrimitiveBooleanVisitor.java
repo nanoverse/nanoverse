@@ -45,7 +45,10 @@ public class NanoPrimitiveBooleanVisitor extends AbstractNanoNodeVisitor {
         }
 
         Token token = ctx.getStart();
-        int lineNumber = token.getLine();
+
+        int lineNumber;
+        if (token != null) lineNumber = token.getLine();
+        else lineNumber = -1;
 
         ParseTree child = ctx.getChild(0);
         verifyPayload(child, CommonToken.class);

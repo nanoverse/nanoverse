@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.interpret.visitors;
 import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.RootContext;
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import nanoverse.compiler.pipeline.interpret.visitors.helpers.NanoBlockHelper;
+import org.antlr.v4.runtime.Token;
 import org.junit.*;
 import test.TestBase;
 
@@ -38,10 +39,17 @@ public class NanoRootVisitorTest extends TestBase {
 
     private ASTNode child;
 
+    private int lineNumber = 1;
+    private Token token;
+
+
     @Before
     public void before() throws Exception {
         helper = mock(NanoBlockHelper.class);
         query = new NanoRootVisitor(helper);
+
+        token = mock(Token.class);
+        when(token.getLine()).thenReturn(lineNumber);
 
         child = mock(ASTNode.class);
     }
@@ -50,6 +58,7 @@ public class NanoRootVisitorTest extends TestBase {
     public void visitRoot() throws Exception {
         RootContext ctx = mock(RootContext.class);
         when(ctx.getChildCount()).thenReturn(1);
+        when(ctx.getStart()).thenReturn(token);
 
         Stream<ASTNode> children = Stream.of(child);
         when(helper.doVisit(ctx, 0, 1)).thenReturn(children);
@@ -61,6 +70,14 @@ public class NanoRootVisitorTest extends TestBase {
     private void verifyContent(ASTNode result) {
         verifyName(result);
         verifyValue(result);
+        verifyLine(result);
+    }
+
+    private void verifyLine(ASTNode result) {
+        int expected = lineNumber;
+        int actual = result.lineNumber();
+
+        assertEquals(expected, actual);
     }
 
     private void verifyName(ASTNode result) {

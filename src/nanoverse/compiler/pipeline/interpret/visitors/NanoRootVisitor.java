@@ -51,8 +51,8 @@ public class NanoRootVisitor extends AbstractNanoNodeVisitor {
     public ASTNode visitRoot(@NotNull NanosyntaxParser.RootContext ctx) {
         Token token = ctx.getStart();
         int lineNumber = token.getLine();
-        logger.debug("Visiting root with {} children. Text is \"{}\" and line number is {}.",
-                ctx.getChildCount(), token.getText(), lineNumber);
+        logger.debug("Visiting root with {} children. Line number {}",
+                ctx.getChildCount(), lineNumber);
         Stream<ASTNode> children = helper.doVisit(ctx, 0, ctx.getChildCount());
         ASTNode ret = new ASTNode(IDENTIFIER, children, lineNumber);
         return ret;

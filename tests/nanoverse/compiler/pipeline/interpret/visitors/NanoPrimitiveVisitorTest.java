@@ -51,8 +51,6 @@ public class NanoPrimitiveVisitorTest {
             intVisitor, stringVisitor, booleanVisitor);
 
         expected = mock(ASTNode.class);
-
-
     }
 
     @Test
