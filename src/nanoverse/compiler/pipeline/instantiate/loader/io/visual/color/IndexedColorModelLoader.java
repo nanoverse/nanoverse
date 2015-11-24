@@ -20,31 +20,35 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.io.visual.color;
 
-import nanoverse.compiler.pipeline.instantiate.factory.io.visual.color.IndexedColorModelFactory;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.structural.NotYetImplementedException;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
 public class IndexedColorModelLoader extends ColorModelLoader<IndexedColorModel> {
-    private final IndexedColorModelFactory factory;
-
-    public IndexedColorModelLoader() {
-        factory = new IndexedColorModelFactory();
-    }
-
-    public IndexedColorModelLoader(IndexedColorModelFactory factory) {
-        this.factory = factory;
-    }
-
-    public ColorManager instantiate(GeneralParameters p) {
-        return instantiate(null, p);
-    }
-
     @Override
-    public ColorManager instantiate(MapObjectNode cNode, GeneralParameters p) {
-        return factory.build();
+    public ColorManager instantiate(MapObjectNode node, GeneralParameters p) {
+        throw new NotYetImplementedException();
     }
+//    private final IndexedColorModelFactory factory;
+//
+//    public IndexedColorModelLoader() {
+//        factory = new IndexedColorModelFactory();
+//    }
+//
+//    public IndexedColorModelLoader(IndexedColorModelFactory factory) {
+//        this.factory = factory;
+//    }
+//
+//    public ColorManager instantiate(GeneralParameters p) {
+//        return instantiate(null, p);
+//    }
+//
+//    @Override
+//    public ColorManager instantiate(MapObjectNode cNode, GeneralParameters p) {
+//        return factory.build();
+//    }
 }

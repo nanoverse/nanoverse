@@ -17,14 +17,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
-package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color;
 
-import nanoverse.runtime.io.visual.color.IndexedColorModel;
+package nanoverse.runtime.io.visual.color.palettes;
 
+import java.awt.*;
+import java.util.function.Function;
 
-public class IndexedColorModelFactoryHelper {
+/**
+ * Created by dbborens on 11/23/2015.
+ */
+public abstract class Palette<T> implements Function<T, Color> {
 
-    public IndexedColorModel build() {
-        return new IndexedColorModel();
+    protected final Color nullValueColor;
+    protected final Color borderColor;
+
+    public Palette(Color nullValueColor,
+                   Color borderColor) {
+
+        this.nullValueColor = nullValueColor;
+        this.borderColor = borderColor;
+    }
+
+    public Color getBorderColor() {
+        return borderColor;
+    }
+
+    public Color getNullValueColor() {
+        return nullValueColor;
     }
 }

@@ -27,6 +27,7 @@ import nanoverse.runtime.geometry.shape.Rectangle;
 import nanoverse.runtime.geometry.shape.Shape;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.io.visual.color.palettes.*;
 import nanoverse.runtime.io.visual.highlight.*;
 import nanoverse.runtime.io.visual.map.MapVisualization;
 import nanoverse.runtime.layers.*;
@@ -53,7 +54,8 @@ public class BullseyeGlyphTest extends LegacyTest {
         geometry = makeGeometry();
 
         // Create 10x10 triangular lattice.
-        ColorManager colorManager = new IndexedColorModel();
+        Palette palette = new RainbowColorPalette<>(Color.BLACK, Color.DARK_GRAY);
+        ColorManager colorManager = new IndexedColorModel(palette);
 
         // Create a 10 x 10 hexagonal map.
         VisualizationProperties mapState = new VisualizationProperties(colorManager, 50, 1);

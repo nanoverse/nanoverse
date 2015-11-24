@@ -21,31 +21,45 @@
 package nanoverse.runtime.io.visual.color.palettes;
 
 import java.awt.*;
+import java.util.*;
 import java.util.List;
-import java.util.stream.*;
 
 /**
- * Created by dbborens on 10/27/2015.
+ * Created by dbborens on 11/23/2015.
  */
-public class RainbowColorPalette<T> extends SequentialPalette<T> {
+public abstract class SequentialPalette<T> extends Palette<T> {
 
-    public static final List<Color> elements = Stream.of(
-            Color.RED,
-            Color.PINK,
-            Color.ORANGE,
-            Color.YELLOW,
-            Color.GREEN,
-            Color.BLUE,
-            Color.MAGENTA
-    ).collect(Collectors.toList());
+    private final List<Color> elements;
+    private final HashMap<T, Color> colorsByName;
+    private int index = 0;
 
-    public RainbowColorPalette(Color nullValueColor,
-                               Color borderColor) {
+    public SequentialPalette(Color nullValueColor, Color borderColor) {
         super(nullValueColor, borderColor);
+        elements = resolveElements();
+        colorsByName = new HashMap<>();
     }
 
+    protected abstract List<Color> resolveElements();
+
     @Override
-    protected List<Color> resolveElements() {
-        return elements;
+    public Color apply(T value) {
+        if (value == null) {
+            return nullValueColor;
+        }
+        createColorIfNew(value);
+        return colorsByName.get(value);
+    }
+
+    private void createColorIfNew(T value) {
+        if (!colorsByName.containsKey(value)) {
+            Color color = getNextColor();
+            colorsByName.put(value, color);
+        }
+    }
+
+    private Color getNextColor() {
+        Color ret = elements.get(index);
+        index = (index + 1) % elements.size();
+        return ret;
     }
 }

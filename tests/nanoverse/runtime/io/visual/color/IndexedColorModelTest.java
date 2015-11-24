@@ -23,18 +23,14 @@ package nanoverse.runtime.io.visual.color;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.layers.SystemState;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import test.LayerMocks;
 
 import java.awt.*;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.fail;
 
 /**
  * Created by dbborens on 4/2/14.
@@ -50,43 +46,47 @@ public class IndexedColorModelTest extends LayerMocks {
 
     @Override @Before
     public void before() throws Exception {
-        super.before();
-        colorsByName = new HashMap<>();
-        palette = mock(Supplier.class);
-        query = new IndexedColorModel(colorsByName, palette);
-
-        c = mock(Coordinate.class);
-        systemState = mock(SystemState.class);
-        when(systemState.getLayerManager()).thenReturn(layerManager);
-        when(viewer.getName(c)).thenReturn(NAME);
+//        super.before();
+//        colorsByName = new HashMap<>();
+//        palette = mock(Supplier.class);
+//        query = new IndexedColorModel(colorsByName, palette);
+//
+//        c = mock(Coordinate.class);
+//        systemState = mock(SystemState.class);
+//        when(systemState.getLayerManager()).thenReturn(layerManager);
+//        when(viewer.getName(c)).thenReturn(NAME);
     }
 
     @Test
     public void vacantColorSpecial() throws Exception {
-        Color expected = Color.BLACK;
-        when(viewer.getName(c)).thenReturn(null);
-        Color actual = query.getColor(c, systemState);
-        assertEquals(expected, actual);
+        fail();
+//        Color expected = Color.BLACK;
+//        when(viewer.getName(c)).thenReturn(null);
+//        Color actual = query.getColor(c, systemState);
+//        assertEquals(expected, actual);
     }
 
     @Test
     public void getColorNew() throws Exception {
-        Color expected = mock(Color.class);
-        when(palette.get()).thenReturn(expected);
-        Color actual = query.getColor(c, systemState);
-        assertSame(expected, actual);
+        fail();
+//        Color expected = mock(Color.class);
+//        when(palette.get()).thenReturn(expected);
+//        Color actual = query.getColor(c, systemState);
+//        assertSame(expected, actual);
     }
 
     @Test
     public void getColorExisting() throws Exception {
-        Color expected = mock(Color.class);
-        colorsByName.put(NAME, expected);
-        Color actual = query.getColor(c, systemState);
-        assertSame(expected, actual);
+        fail();
+//        Color expected = mock(Color.class);
+//        colorsByName.put(NAME, expected);
+//        Color actual = query.getColor(c, systemState);
+//        assertSame(expected, actual);
     }
 
     @Test
     public void getBorderColor() throws Exception {
-        assertSame(IndexedColorModel.BORDER_COLOR, query.getBorderColor());
+        fail();
+//        assertSame(IndexedColorModel.BORDER_COLOR, query.getBorderColor());
     }
 }
