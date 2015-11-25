@@ -27,6 +27,7 @@ import nanoverse.compiler.pipeline.translate.nodes.*;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.color.ColorManager;
 import nanoverse.runtime.io.visual.highlight.HighlightManager;
+import nanoverse.runtime.layers.LayerManager;
 
 import java.util.Random;
 
@@ -58,7 +59,7 @@ public class VisualizationPropertiesInterpolator {
         return load.anInteger(node, "outline", random, defaults::outline);
     }
 
-    public ColorManager colorModel(MapObjectNode node, GeneralParameters p) {
+    public ColorManager colorModel(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         ColorModelLoader loader = (ColorModelLoader) load.getLoader(node, "color", false);
 
         if (loader == null) {
@@ -66,7 +67,7 @@ public class VisualizationPropertiesInterpolator {
         }
 
         MapObjectNode cNode = (MapObjectNode) node.getMember("color");
-        return loader.instantiate(cNode, p);
+        return loader.instantiate(cNode, lm, p);
     }
 
     public HighlightManager highlights(MapObjectNode node, GeneralParameters p) {

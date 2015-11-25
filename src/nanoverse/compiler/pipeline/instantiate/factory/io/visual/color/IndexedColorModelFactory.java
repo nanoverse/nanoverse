@@ -17,15 +17,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.io.visual.color.IndexedColorModel;
+import nanoverse.runtime.io.visual.color.palettes.Palette;
 
 public class IndexedColorModelFactory implements Factory<IndexedColorModel> {
 
     private final IndexedColorModelFactoryHelper helper;
 
+    private Palette palette;
 
     public IndexedColorModelFactory() {
         helper = new IndexedColorModelFactoryHelper();
@@ -35,9 +38,12 @@ public class IndexedColorModelFactory implements Factory<IndexedColorModel> {
         this.helper = helper;
     }
 
+    public void setPalette(Palette palette) {
+        this.palette = palette;
+    }
 
     @Override
     public IndexedColorModel build() {
-        return helper.build();
+        return helper.build(palette);
     }
 }

@@ -20,33 +20,34 @@
 
 package nanoverse.runtime.io.visual.color.palettes;
 
-import org.junit.Test;
+import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.awt.Color;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import java.awt.*;
+import java.util.Map;
 
 /**
- * Created by dbborens on 10/27/2015.
+ * Created by dbborens on 11/25/2015.
  */
-public class RainbowColorPaletteTest {
+public class CustomPalette<T> extends Palette<T> {
 
-    @Test
-    public void colorCycle() throws Exception {
-        RainbowColorPalette query = new RainbowColorPalette();
-        Stream.of(
-                Color.RED,
-                Color.PINK,
-                Color.ORANGE,
-                Color.YELLOW,
-                Color.GREEN,
-                Color.BLUE,
-                Color.MAGENTA,
-                Color.RED
-        ).forEach(color -> assertEquals(color, query.get()));
+    private final Map<T, Color> mappings;
+    private final Color defaultColor;
+
+    @FactoryTarget
+    public CustomPalette(Color nullValueColor, Color borderColor, Color defaultColor, Map<T, Color> mappings) {
+        super(nullValueColor, borderColor);
+        this.mappings = mappings;
+        this.defaultColor = defaultColor;
+    }
+
+    @Override
+    public Color apply(T t) {
+        if (t == null) {
+            return nullValueColor;
+        } else if (!mappings.containsKey(t)) {
+            return defaultColor;
+        }
+
+        return mappings.get(t);
     }
 }

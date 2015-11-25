@@ -25,6 +25,7 @@ import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.layers.LayerManager;
 
 /**
  * Created by dbborens on 8/10/2015.
@@ -46,7 +47,7 @@ public class SurfaceColorModelLoader extends ColorModelLoader<SurfaceColorModel>
     }
 
     @Override
-    public ColorManager instantiate(MapObjectNode node, GeneralParameters p) {
+    public ColorManager instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         float luminance = interpolator.luminance(node, p.getRandom());
         factory.setLuminanceScale(luminance);
 

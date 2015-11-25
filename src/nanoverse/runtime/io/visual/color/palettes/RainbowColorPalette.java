@@ -20,18 +20,19 @@
 
 package nanoverse.runtime.io.visual.color.palettes;
 
-import java.awt.Color;
+import nanoverse.runtime.structural.annotations.FactoryTarget;
+
+import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 /**
  * Created by dbborens on 10/27/2015.
  */
-public class RainbowColorPalette implements Supplier<Color> {
+public class RainbowColorPalette<T> extends SequentialPalette<T> {
 
-    public static final List<Color> elements = Stream.of(
+    public static final List<Color> ELEMENTS = Stream.of(
             Color.RED,
             Color.PINK,
             Color.ORANGE,
@@ -41,12 +42,14 @@ public class RainbowColorPalette implements Supplier<Color> {
             Color.MAGENTA
     ).collect(Collectors.toList());
 
-    private int index = 0;
+    @FactoryTarget
+    public RainbowColorPalette(Color nullValueColor,
+                               Color borderColor) {
+        super(nullValueColor, borderColor);
+    }
 
     @Override
-    public Color get() {
-        Color ret = elements.get(index);
-        index = (index + 1) % elements.size();
-        return ret;
+    protected List<Color> resolveElements() {
+        return ELEMENTS;
     }
 }

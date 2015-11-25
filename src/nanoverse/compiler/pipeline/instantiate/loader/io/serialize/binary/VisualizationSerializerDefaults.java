@@ -40,10 +40,10 @@ public class VisualizationSerializerDefaults {
 
         if (geometry.getDimensionality() == 1) {
             KymographLoader loader = new KymographLoader();
-            return loader.instantiate(p);
+            return loader.instantiate(layerManager, p);
         } else if (geometry.getDimensionality() == 2) {
             MapVisualizationLoader loader = new MapVisualizationLoader();
-            return loader.instantiate(p);
+            return loader.instantiate(layerManager, p);
         } else {
         }
         throw new NotYetImplementedException();

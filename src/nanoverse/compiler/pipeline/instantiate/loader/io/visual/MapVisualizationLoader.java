@@ -25,6 +25,7 @@ import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.map.MapVisualization;
+import nanoverse.runtime.layers.LayerManager;
 
 /**
  * Created by dbborens on 8/4/2015.
@@ -45,13 +46,13 @@ public class MapVisualizationLoader extends VisualizationLoader<MapVisualization
         this.interpolator = interpolator;
     }
 
-    public MapVisualization instantiate(GeneralParameters p) {
-        return instantiate(null, p);
+    public MapVisualization instantiate(LayerManager lm, GeneralParameters p) {
+        return instantiate(null, lm, p);
     }
 
     @Override
-    public MapVisualization instantiate(MapObjectNode node, GeneralParameters p) {
-        VisualizationProperties properties = interpolator.properties(node, p);
+    public MapVisualization instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        VisualizationProperties properties = interpolator.properties(node, lm, p);
         factory.setProperties(properties);
 
         return factory.build();

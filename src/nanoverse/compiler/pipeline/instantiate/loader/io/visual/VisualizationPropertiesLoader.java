@@ -27,6 +27,7 @@ import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.color.ColorManager;
 import nanoverse.runtime.io.visual.highlight.HighlightManager;
+import nanoverse.runtime.layers.LayerManager;
 
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -52,19 +53,19 @@ public class VisualizationPropertiesLoader
         this.interpolator = interpolator;
     }
 
-    public VisualizationProperties instantiate(MapObjectNode node, GeneralParameters p) {
-        configureFactory(node, p);
+    public VisualizationProperties instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        configureFactory(node, lm, p);
         return factory.build();
     }
 
-    private void configureFactory(MapObjectNode node, GeneralParameters p) {
+    private void configureFactory(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         Integer edge = interpolator.edge(node, p.getRandom());
         factory.setEdge(edge);
 
         Integer outline = interpolator.outline(node, p.getRandom());
         factory.setOutline(outline);
 
-        ColorManager colorModel = interpolator.colorModel(node, p);
+        ColorManager colorModel = interpolator.colorModel(node, lm, p);
         factory.setColorManager(colorModel);
 
         HighlightManager highlight = interpolator.highlights(node, p);
@@ -72,8 +73,9 @@ public class VisualizationPropertiesLoader
     }
 
     public VisualizationProperties instantiate(GeneralParameters p,
+                                               LayerManager lm,
                                                Stream<Consumer<VisualizationPropertiesFactory>> overrides) {
-        configureFactory(null, p);
+        configureFactory(null, lm, p);
         overrides.forEach(override -> override.accept(factory));
         return factory.build();
     }

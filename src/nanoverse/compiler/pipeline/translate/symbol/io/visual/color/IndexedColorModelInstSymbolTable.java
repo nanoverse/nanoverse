@@ -23,7 +23,12 @@ package nanoverse.compiler.pipeline.translate.symbol.io.visual.color;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.instantiate.loader.io.visual.color.IndexedColorModelLoader;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
+import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.io.visual.color.palettes.PaletteClassSymbolTable;
 import nanoverse.runtime.io.visual.color.IndexedColorModel;
+
+import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/27/2015.
@@ -33,6 +38,19 @@ public class IndexedColorModelInstSymbolTable extends MapSymbolTable<IndexedColo
     public String getDescription() {
         return "The indexed color model has a specific color associated with " +
             "each given cell state (class). It is the default color model.";
+    }
+
+    @Override
+    public HashMap<String, MemberSymbol> resolveMembers() {
+        HashMap<String, MemberSymbol> ret =  super.resolveMembers();
+        palette(ret);
+        return ret;
+    }
+
+    private void palette(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new PaletteClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "The color palette to be used.");
+        ret.put("palette", ms);
     }
 
     @Override

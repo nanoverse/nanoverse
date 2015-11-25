@@ -24,10 +24,12 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.geometry.boundaries.*;
 import nanoverse.runtime.geometry.lattice.*;
-import nanoverse.runtime.geometry.shape.*;
+import nanoverse.runtime.geometry.shape.Rectangle;
+import nanoverse.runtime.geometry.shape.Shape;
 import nanoverse.runtime.io.deserialize.MockCoordinateDeindexer;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.io.visual.color.palettes.RainbowColorPalette;
 import nanoverse.runtime.io.visual.highlight.*;
 import nanoverse.runtime.io.visual.map.MapVisualization;
 import nanoverse.runtime.layers.*;
@@ -35,13 +37,11 @@ import org.junit.*;
 import test.*;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
-import static org.junit.Assert.fail;
+import java.util.stream.*;
 
 /**
  * Integration test for glyphs.
@@ -61,7 +61,8 @@ public abstract class GlyphTest extends LegacyTest {
         geometry = makeGeometry();
 
         // Create 10x10 triangular lattice.
-        ColorManager colorManager = new IndexedColorModel();
+        RainbowColorPalette<String> palette = new RainbowColorPalette<>(Color.BLACK, Color.DARK_GRAY);
+        ColorManager colorManager = new IndexedColorModel(palette);
 
         // Create a 10 x 10 hexagonal map.
         mapState = new VisualizationProperties(colorManager, 50, 1);

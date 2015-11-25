@@ -25,6 +25,7 @@ import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.io.visual.color.ColorManager;
+import nanoverse.runtime.layers.LayerManager;
 
 import java.util.Random;
 
@@ -51,7 +52,7 @@ public class ContinuumColorModelInterpolator {
             defaults::averageLuminance);
     }
 
-    public ColorManager base(MapObjectNode node, GeneralParameters p) {
+    public ColorManager base(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         ColorModelLoader loader = (ColorModelLoader) load.getLoader(node, "base", false);
 
         if (loader == null) {
@@ -60,7 +61,7 @@ public class ContinuumColorModelInterpolator {
 
         MapObjectNode cNode = (MapObjectNode) node.getMember("base");
 
-        return loader.instantiate(cNode, p);
+        return loader.instantiate(cNode, lm, p);
     }
 
     public String id(MapObjectNode node) {

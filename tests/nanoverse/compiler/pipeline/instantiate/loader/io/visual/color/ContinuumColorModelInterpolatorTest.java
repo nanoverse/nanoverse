@@ -67,9 +67,9 @@ public class ContinuumColorModelInterpolatorTest extends InterpolatorTest {
         when(node.getMember("base")).thenReturn(cNode);
 
         ColorManager expected = mock(ColorManager.class);
-        when(loader.instantiate(cNode, p)).thenReturn(expected);
+        when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
 
-        ColorManager actual = query.base(node, p);
+        ColorManager actual = query.base(node, lm, p);
         assertSame(expected, actual);
     }
 
@@ -77,7 +77,7 @@ public class ContinuumColorModelInterpolatorTest extends InterpolatorTest {
     public void baseDefault() throws Exception {
         ColorManager expected = mock(ColorManager.class);
         when(defaults.base(p)).thenReturn(expected);
-        ColorManager actual = query.base(node, p);
+        ColorManager actual = query.base(node, lm, p);
 
         assertSame(expected, actual);
     }

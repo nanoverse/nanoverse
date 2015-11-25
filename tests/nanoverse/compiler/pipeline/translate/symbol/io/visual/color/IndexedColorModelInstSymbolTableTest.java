@@ -23,6 +23,8 @@ package nanoverse.compiler.pipeline.translate.symbol.io.visual.color;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
 import nanoverse.runtime.io.visual.color.IndexedColorModel;
+import nanoverse.runtime.io.visual.color.palettes.Palette;
+import org.junit.Test;
 
 public class IndexedColorModelInstSymbolTableTest extends MapSymbolTableTest {
 
@@ -36,4 +38,8 @@ public class IndexedColorModelInstSymbolTableTest extends MapSymbolTableTest {
         return IndexedColorModel.class;
     }
 
+    @Test
+    public void palette() throws Exception {
+        verifyReturnSymbol("palette", Palette.class);
+    }
 }

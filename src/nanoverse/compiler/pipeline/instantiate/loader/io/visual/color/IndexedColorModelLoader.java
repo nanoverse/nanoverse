@@ -24,27 +24,36 @@ import nanoverse.compiler.pipeline.instantiate.factory.io.visual.color.IndexedCo
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.io.visual.color.palettes.Palette;
+import nanoverse.runtime.layers.LayerManager;
+import nanoverse.runtime.structural.NotYetImplementedException;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
 public class IndexedColorModelLoader extends ColorModelLoader<IndexedColorModel> {
     private final IndexedColorModelFactory factory;
+    private final IndexedColorModelInterpolator interpolator;
 
     public IndexedColorModelLoader() {
         factory = new IndexedColorModelFactory();
+        interpolator = new IndexedColorModelInterpolator();
     }
 
-    public IndexedColorModelLoader(IndexedColorModelFactory factory) {
+    public IndexedColorModelLoader(IndexedColorModelFactory factory, IndexedColorModelInterpolator interpolator) {
         this.factory = factory;
+        this.interpolator = interpolator;
     }
 
-    public ColorManager instantiate(GeneralParameters p) {
-        return instantiate(null, p);
+    public ColorManager instantiate(LayerManager lm, GeneralParameters p) {
+        return instantiate(null, lm, p);
     }
 
     @Override
-    public ColorManager instantiate(MapObjectNode cNode, GeneralParameters p) {
+    public ColorManager instantiate(MapObjectNode cNode, LayerManager lm, GeneralParameters p) {
+        Palette palette = interpolator.palette(cNode, lm, p);
+        factory.setPalette(palette);
+
         return factory.build();
     }
 }

@@ -24,6 +24,7 @@ import nanoverse.compiler.pipeline.instantiate.factory.io.visual.MockVisualizati
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.MockVisualization;
+import nanoverse.runtime.layers.LayerManager;
 
 /**
  * Created by dbborens on 8/4/2015.
@@ -40,7 +41,7 @@ public class MockVisualizationLoader extends VisualizationLoader<MockVisualizati
     }
 
     @Override
-    public MockVisualization instantiate(MapObjectNode node, GeneralParameters p) {
+    public MockVisualization instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         return factory.build();
     }
 }

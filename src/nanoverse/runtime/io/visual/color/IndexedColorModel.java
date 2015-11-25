@@ -21,53 +21,37 @@
 package nanoverse.runtime.io.visual.color;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.io.visual.color.palettes.RainbowColorPalette;
+import nanoverse.runtime.io.visual.color.palettes.Palette;
 import nanoverse.runtime.layers.SystemState;
+import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.function.Supplier;
 
 /**
  * Created by dbborens on 4/1/14.
  */
 public class IndexedColorModel extends ColorManager {
-    public static final Color BORDER_COLOR = Color.DARK_GRAY;
+    private final Palette<String> palette;
 
-    private final HashMap<String, Color> colorsByName;
-    private final Supplier<Color> palette;
-
-    public IndexedColorModel() {
-        colorsByName = new HashMap<>();
-        palette = new RainbowColorPalette();
-    }
-
-    public IndexedColorModel(HashMap<String, Color> colorsByName,
-                             Supplier<Color> palette) {
-
-        this.colorsByName = colorsByName;
+    @FactoryTarget
+    public IndexedColorModel(Palette<String> palette) {
         this.palette = palette;
     }
 
     @Override
     public Color getColor(Coordinate c, SystemState systemState) {
-        String name = systemState.getLayerManager().getAgentLayer().getViewer().getName(c);
-        if (name == null) {
-            return Color.BLACK;
-        }
-        createColorIfNew(name);
-        return colorsByName.get(name);
+        String name = systemState
+            .getLayerManager()
+            .getAgentLayer()
+            .getViewer()
+            .getName(c);
+
+        return palette.apply(name);
     }
 
-    private void createColorIfNew(String name) {
-        if (!colorsByName.containsKey(name)) {
-            Color value = palette.get();
-            colorsByName.put(name, value);
-        }
-    }
 
     @Override
     public Color getBorderColor() {
-        return BORDER_COLOR;
+        return palette.getBorderColor();
     }
 }

@@ -47,16 +47,16 @@ public class KymographInterpolatorTest extends InterpolatorTest {
     @Test
     public void properties() throws Exception {
         VisualizationProperties expected = mock(VisualizationProperties.class);
-        when(vpLoader.instantiate(node, p)).thenReturn(expected);
-        VisualizationProperties actual = query.properties(node, p);
+        when(vpLoader.instantiate(node, lm, p)).thenReturn(expected);
+        VisualizationProperties actual = query.properties(node, lm, p);
         assertSame(expected, actual);
     }
 
     @Test
     public void propertiesDefault() throws Exception {
         VisualizationProperties expected = mock(VisualizationProperties.class);
-        when(defaults.properties(p)).thenReturn(expected);
-        VisualizationProperties actual = query.properties(null, p);
+        when(defaults.properties(lm, p)).thenReturn(expected);
+        VisualizationProperties actual = query.properties(null, lm, p);
         assertSame(expected, actual);
     }
 }

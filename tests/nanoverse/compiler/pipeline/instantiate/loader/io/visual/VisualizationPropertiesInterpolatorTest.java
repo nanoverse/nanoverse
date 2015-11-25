@@ -79,9 +79,9 @@ public class VisualizationPropertiesInterpolatorTest extends InterpolatorTest {
         when(node.getMember("color")).thenReturn(cNode);
 
         ColorManager expected = mock(ColorManager.class);
-        when(loader.instantiate(cNode, p)).thenReturn(expected);
+        when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
 
-        ColorManager actual = query.colorModel(node, p);
+        ColorManager actual = query.colorModel(node, lm, p);
 
         assertSame(expected, actual);
     }
@@ -90,7 +90,7 @@ public class VisualizationPropertiesInterpolatorTest extends InterpolatorTest {
     public void colorModelDefault() throws Exception {
         ColorManager expected = mock(ColorManager.class);
         when(defaults.color(p)).thenReturn(expected);
-        ColorManager actual = query.colorModel(node, p);
+        ColorManager actual = query.colorModel(node, lm, p);
         assertSame(expected, actual);
     }
 

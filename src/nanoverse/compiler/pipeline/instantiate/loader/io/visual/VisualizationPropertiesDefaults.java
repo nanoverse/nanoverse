@@ -25,6 +25,7 @@ import nanoverse.compiler.pipeline.instantiate.loader.io.visual.highlight.Highli
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.color.ColorManager;
 import nanoverse.runtime.io.visual.highlight.HighlightManager;
+import nanoverse.runtime.structural.NotYetImplementedException;
 
 /**
  * Created by dbborens on 8/21/2015.
@@ -41,7 +42,8 @@ public class VisualizationPropertiesDefaults {
 
     public ColorManager color(GeneralParameters p) {
         IndexedColorModelLoader loader = new IndexedColorModelLoader();
-        return loader.instantiate(p);
+        throw new NotYetImplementedException();
+//        return loader.instantiate(p);
     }
 
     public HighlightManager highlights(GeneralParameters p) {

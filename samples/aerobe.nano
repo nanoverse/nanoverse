@@ -1,9 +1,9 @@
-version: "1.0.0-a7";
+version: "1.0.0-a8";
 
 parameters: Parameters {
     date: True;
     project: "normalized";
-    maxStep: 10001;
+    maxStep: 1001;
 };
 
 geometry: Geometry {

@@ -29,6 +29,7 @@ import nanoverse.runtime.geometry.shape.Shape;
 import nanoverse.runtime.io.deserialize.MockCoordinateDeindexer;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.io.visual.color.palettes.*;
 import nanoverse.runtime.io.visual.map.MapVisualization;
 import nanoverse.runtime.layers.*;
 import org.junit.*;
@@ -39,8 +40,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.*;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 /**
  * Test to make sure that multi-channel highlighting works as expected.
@@ -58,7 +58,8 @@ public class MultiChannelHighlightTest extends LegacyTest {
         geometry = makeGeometry();
 
         // Create 10x10 triangular lattice.
-        ColorManager colorManager = new IndexedColorModel();
+        Palette palette = new RainbowColorPalette<>(Color.BLACK, Color.DARK_GRAY);
+        ColorManager colorManager = new IndexedColorModel(palette);
 
         // Create a 10 x 10 hexagonal map.
         VisualizationProperties mapState = new VisualizationProperties(colorManager, 50, 1);

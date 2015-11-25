@@ -17,14 +17,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+
 package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color;
 
 import nanoverse.runtime.io.visual.color.IndexedColorModel;
+import nanoverse.runtime.io.visual.color.palettes.Palette;
 
 
 public class IndexedColorModelFactoryHelper {
 
-    public IndexedColorModel build() {
-        return new IndexedColorModel();
+    public IndexedColorModel build(Palette palette) {
+        return new IndexedColorModel(palette);
     }
 }
