@@ -18,36 +18,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.runtime.io.visual.color.palettes;
+package nanoverse.compiler.pipeline.translate.symbol.io.visual.color.palettes;
 
-import nanoverse.runtime.structural.annotations.FactoryTarget;
-
-import java.awt.*;
-import java.util.Map;
+import nanoverse.compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+import nanoverse.runtime.control.arguments.StringArgument;
+import nanoverse.runtime.io.visual.color.palettes.CustomPalette;
+import org.junit.Test;
 
 /**
  * Created by dbborens on 11/25/2015.
  */
-public class CustomPalette<T> extends Palette<T> {
+public class CustomPaletteInstSymbolTableTest extends PaletteInstSymbolTableTest {
 
-    private final Map<T, Color> mappings;
-    private final Color defaultColor;
-
-    @FactoryTarget
-    public CustomPalette(Color nullValueColor, Color borderColor, Color defaultColor, Map<T, Color> mappings) {
-        super(nullValueColor, borderColor);
-        this.mappings = mappings;
-        this.defaultColor = defaultColor;
+    @Override
+    protected InstantiableSymbolTable getQuery() {
+        return new CustomPaletteInstSymbolTable();
     }
 
     @Override
-    public Color apply(T t) {
-        if (t == null) {
-            return nullValueColor;
-        } else if (!mappings.containsKey(t)) {
-            return defaultColor;
-        }
+    protected Class getExpectedClass() {
+        return CustomPalette.class;
+    }
 
-        return mappings.get(t);
+    @Test
+    public void mappings() throws Exception {
+        verifyReturnSymbol("mappings", StringArgument.class);
     }
 }

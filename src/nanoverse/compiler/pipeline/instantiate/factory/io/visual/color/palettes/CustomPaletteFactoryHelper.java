@@ -18,36 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.runtime.io.visual.color.palettes;
+package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color.palettes;
 
-import nanoverse.runtime.structural.annotations.FactoryTarget;
+import nanoverse.runtime.io.visual.color.palettes.CustomPalette;
 
 import java.awt.*;
 import java.util.Map;
 
-/**
- * Created by dbborens on 11/25/2015.
- */
-public class CustomPalette<T> extends Palette<T> {
 
-    private final Map<T, Color> mappings;
-    private final Color defaultColor;
+public class CustomPaletteFactoryHelper {
 
-    @FactoryTarget
-    public CustomPalette(Color nullValueColor, Color borderColor, Color defaultColor, Map<T, Color> mappings) {
-        super(nullValueColor, borderColor);
-        this.mappings = mappings;
-        this.defaultColor = defaultColor;
-    }
-
-    @Override
-    public Color apply(T t) {
-        if (t == null) {
-            return nullValueColor;
-        } else if (!mappings.containsKey(t)) {
-            return defaultColor;
-        }
-
-        return mappings.get(t);
+    public CustomPalette build(Color nullValueColor, Color borderColor, Color defaultColor, Map mappings) {
+        return new CustomPalette(nullValueColor, borderColor, defaultColor, mappings);
     }
 }

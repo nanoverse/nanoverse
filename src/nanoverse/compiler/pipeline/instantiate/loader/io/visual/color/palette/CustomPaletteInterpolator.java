@@ -22,39 +22,35 @@ package nanoverse.compiler.pipeline.instantiate.loader.io.visual.color.palette;
 
 import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
 import nanoverse.compiler.pipeline.instantiate.loader.io.visual.color.ColorLoader;
+import nanoverse.compiler.pipeline.translate.nodes.DictionaryObjectNode;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Created by dbborens on 11/24/2015.
+ * Created by dbborens on 11/25/2015.
  */
-public class PaletteInterpolator{
+public class CustomPaletteInterpolator extends PaletteInterpolator {
 
-    protected final LoadHelper load;
-    protected final ColorLoader colorLoader;
-    protected final PaletteDefaults defaults;
-
-    public PaletteInterpolator() {
-        load = new LoadHelper();
-        colorLoader = new ColorLoader();
-        defaults = new PaletteDefaults();
+    public CustomPaletteInterpolator() {
+        super();
     }
 
-    public PaletteInterpolator(LoadHelper load, ColorLoader colorLoader, PaletteDefaults defaults) {
-        this.load = load;
-        this.defaults = defaults;
-        this.colorLoader = colorLoader;
+    public CustomPaletteInterpolator(LoadHelper load, ColorLoader colorLoader, PaletteDefaults defaults) {
+        super(load, colorLoader, defaults);
     }
 
-    public Color borderColor(MapObjectNode node, GeneralParameters p) {
-        String colorName = load.aString(node, "border", defaults::borderColor);
-        return colorLoader.instantiate(colorName, p);
+    public Map<String, Color> mappings(MapObjectNode node, GeneralParameters p) {
+        if (node == null || !node.hasMember("mappings")) {
+            return new HashMap<>();
+        }
+
+        ColorMapLoader loader = (ColorMapLoader) load.getLoader(node, "mappings", false);
+        DictionaryObjectNode cNode = (DictionaryObjectNode) node.getMember("mappings");
+        return loader.instantiate(cNode, p);
     }
 
-    public Color nullValueColor(MapObjectNode node, GeneralParameters p) {
-        String colorName = load.aString(node, "nullValue", defaults::nullValueColor);
-        return colorLoader.instantiate(colorName, p);
-    }
 }

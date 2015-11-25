@@ -42,11 +42,17 @@ public class PaletteClassSymbolTable extends ClassSymbolTable<Palette> {
     public HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses() {
         HashMap<String, Supplier<InstantiableSymbolTable>> ret = new HashMap<>();
         rainbow(ret);
+        custom(ret);
         return ret;
     }
 
     private void rainbow(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> supplier = RainbowPaletteInstSymbolTable::new;
         ret.put("Rainbow", supplier);
+    }
+
+    private void custom(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = CustomPaletteInstSymbolTable::new;
+        ret.put("Custom", supplier);
     }
 }

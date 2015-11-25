@@ -22,12 +22,10 @@ package nanoverse.compiler.pipeline.translate.symbol.io.visual.color.palettes;
 
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
+import nanoverse.runtime.io.visual.color.palettes.CustomPalette;
 import nanoverse.runtime.io.visual.color.palettes.Palette;
 import nanoverse.runtime.io.visual.color.palettes.RainbowColorPalette;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 /**
  * Created by dbborens on 11/25/2015.
@@ -48,4 +46,10 @@ public class PaletteClassSymbolTableTest extends ClassSymbolTableTest {
     public void rainbow() throws Exception {
         verifyReturnSymbol("Rainbow", RainbowColorPalette.class);
     }
+
+    @Test
+    public void custom() throws Exception {
+        verifyReturnSymbol("Custom", CustomPalette.class);
+    }
+
 }
