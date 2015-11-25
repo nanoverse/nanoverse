@@ -11,7 +11,7 @@ parameters: Parameters {
     date: True;
     instances: 1;
     project: "hawk_dove_retaliator";
-    maxStep: 1001;
+    maxStep: 101;
 };
 
 geometry: Geometry {
@@ -206,7 +206,7 @@ processes {
         };
     };
 
-    Record: period: 25;
+    Record: period: 10;
 
     Trigger {
         behavior: "Attack";
@@ -227,7 +227,11 @@ output {
     AgentNameWriter;
     TimeWriter;
     VisualizationSerializer {
-        visualization: Map;
+        visualization: Map: color: Indexed: palette: Custom: mappings {
+            Hawk: "BLUE";
+            Dove: "RED";
+            Retaliator: "YELLOW";
+        };
     };
     CensusWriter;
     RunningTimeWriter;
