@@ -20,7 +20,10 @@
 
 package nanoverse.runtime.io.visual.color.palettes;
 
+import nanoverse.runtime.structural.annotations.FactoryTarget;
+
 import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.*;
 
@@ -29,7 +32,7 @@ import java.util.stream.*;
  */
 public class RainbowColorPalette<T> extends SequentialPalette<T> {
 
-    public static final List<Color> elements = Stream.of(
+    public static final List<Color> ELEMENTS = Stream.of(
             Color.RED,
             Color.PINK,
             Color.ORANGE,
@@ -39,6 +42,7 @@ public class RainbowColorPalette<T> extends SequentialPalette<T> {
             Color.MAGENTA
     ).collect(Collectors.toList());
 
+    @FactoryTarget
     public RainbowColorPalette(Color nullValueColor,
                                Color borderColor) {
         super(nullValueColor, borderColor);
@@ -46,6 +50,6 @@ public class RainbowColorPalette<T> extends SequentialPalette<T> {
 
     @Override
     protected List<Color> resolveElements() {
-        return elements;
+        return ELEMENTS;
     }
 }

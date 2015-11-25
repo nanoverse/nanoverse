@@ -18,21 +18,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.compiler.pipeline.instantiate.loader.io.visual.color;
+package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color;
 
-import org.junit.*;
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.io.visual.color.IndexedColorModel;
+import nanoverse.runtime.io.visual.color.palettes.Palette;
 
-import static org.junit.Assert.fail;
+public class IndexedColorModelFactory implements Factory<IndexedColorModel> {
 
-public class IndexedColorModelLoaderTest {
+    private final IndexedColorModelFactoryHelper helper;
 
-    @Before
-    public void before() throws Exception {
+    private Palette palette;
 
+    public IndexedColorModelFactory() {
+        helper = new IndexedColorModelFactoryHelper();
     }
 
-    @Test
-    public void instantiate() throws Exception {
-        fail();
+    public IndexedColorModelFactory(IndexedColorModelFactoryHelper helper) {
+        this.helper = helper;
+    }
+
+    public void setPalette(Palette palette) {
+        this.palette = palette;
+    }
+
+    @Override
+    public IndexedColorModel build() {
+        return helper.build(palette);
     }
 }

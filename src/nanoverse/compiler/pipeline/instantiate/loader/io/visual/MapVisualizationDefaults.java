@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.io.visual;
 import nanoverse.compiler.pipeline.instantiate.factory.io.visual.VisualizationPropertiesFactory;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.VisualizationProperties;
+import nanoverse.runtime.layers.LayerManager;
 
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -35,7 +36,7 @@ public class MapVisualizationDefaults {
     public static final int DEFAULT_EDGE = 10;
     public static final int DEFAULT_OUTLINE = 0;
 
-    public VisualizationProperties properties(GeneralParameters p) {
+    public VisualizationProperties properties(LayerManager lm, GeneralParameters p) {
         VisualizationPropertiesLoader loader = new VisualizationPropertiesLoader();
 
         Stream<Consumer<VisualizationPropertiesFactory>> overrides = Stream.of(
@@ -43,6 +44,6 @@ public class MapVisualizationDefaults {
             factory -> factory.setOutline(DEFAULT_OUTLINE)
         );
 
-        return loader.instantiate(p, overrides);
+        return loader.instantiate(p, lm, overrides);
     }
 }

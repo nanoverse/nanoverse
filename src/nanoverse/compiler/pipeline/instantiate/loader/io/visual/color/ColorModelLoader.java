@@ -24,10 +24,11 @@ import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.color.ColorManager;
+import nanoverse.runtime.layers.LayerManager;
 
 /**
  * Created by dbborens on 8/10/2015.
  */
 public abstract class ColorModelLoader<T extends ColorManager> extends Loader<T> {
-    public abstract ColorManager instantiate(MapObjectNode node, GeneralParameters p);
+    public abstract ColorManager instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p);
 }

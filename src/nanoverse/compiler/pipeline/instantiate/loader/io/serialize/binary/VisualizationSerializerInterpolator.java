@@ -59,7 +59,7 @@ public class VisualizationSerializerInterpolator {
 
         MapObjectNode cNode = (MapObjectNode) node.getMember("visualization");
 
-        return loader.instantiate(cNode, p);
+        return loader.instantiate(cNode, layerManager, p);
     }
 
 }

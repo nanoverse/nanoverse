@@ -20,40 +20,41 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.io.visual.color;
 
-import nanoverse.compiler.pipeline.instantiate.factory.io.visual.color.IndexedColorModelFactory;
+import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
+import nanoverse.compiler.pipeline.instantiate.loader.io.visual.color.palette.PaletteLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.io.visual.color.IndexedColorModel;
 import nanoverse.runtime.io.visual.color.palettes.Palette;
 import nanoverse.runtime.layers.LayerManager;
-import nanoverse.runtime.structural.NotYetImplementedException;
 
 /**
- * Created by dbborens on 8/10/2015.
+ * Created by dbborens on 11/24/2015.
  */
-public class IndexedColorModelLoader extends ColorModelLoader<IndexedColorModel> {
-    private final IndexedColorModelFactory factory;
-    private final IndexedColorModelInterpolator interpolator;
+public class IndexedColorModelInterpolator {
 
-    public IndexedColorModelLoader() {
-        factory = new IndexedColorModelFactory();
-        interpolator = new IndexedColorModelInterpolator();
+    private final LoadHelper load;
+    private final IndexedColorModelDefaults defaults;
+
+    public IndexedColorModelInterpolator() {
+        load = new LoadHelper();
+        defaults = new IndexedColorModelDefaults();
     }
 
-    public IndexedColorModelLoader(IndexedColorModelFactory factory, IndexedColorModelInterpolator interpolator) {
-        this.factory = factory;
-        this.interpolator = interpolator;
+    public IndexedColorModelInterpolator(LoadHelper load, IndexedColorModelDefaults defaults) {
+        this.load = load;
+        this.defaults = defaults;
     }
 
-    public ColorManager instantiate(LayerManager lm, GeneralParameters p) {
-        return instantiate(null, lm, p);
-    }
+    public Palette palette(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        PaletteLoader loader = (PaletteLoader) load.getLoader(node, "palette", false);
 
-    @Override
-    public ColorManager instantiate(MapObjectNode cNode, LayerManager lm, GeneralParameters p) {
-        Palette palette = interpolator.palette(cNode, lm, p);
-        factory.setPalette(palette);
+        if (loader == null) {
+            return defaults.palette(lm, p);
+        }
 
-        return factory.build();
+        MapObjectNode cNode = (MapObjectNode) node.getMember("palette");
+
+        return loader.instantiate(cNode, lm, p);
     }
 }

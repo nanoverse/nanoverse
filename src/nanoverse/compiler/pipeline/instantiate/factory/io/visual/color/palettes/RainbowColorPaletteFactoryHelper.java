@@ -18,19 +18,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.runtime.io.visual.color.palettes;
+package nanoverse.compiler.pipeline.instantiate.factory.io.visual.color.palettes;
 
-import org.junit.Test;
+import java.awt.Color;
+import nanoverse.runtime.io.visual.color.palettes.RainbowColorPalette;
 
-import static org.junit.Assert.fail;
 
-/**
- * Created by dbborens on 10/27/2015.
- */
-public class RainbowColorPaletteTest {
+public class RainbowColorPaletteFactoryHelper {
 
-    @Test
-    public void colorCycle() throws Exception {
-        fail();
+    public RainbowColorPalette build(Color nullValueColor, Color borderColor) {
+        return new RainbowColorPalette(nullValueColor, borderColor);
     }
 }

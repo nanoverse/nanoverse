@@ -18,28 +18,46 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.compiler.pipeline.translate.symbol.io.visual.color;
+package nanoverse.runtime.io.visual.color.palettes;
 
-import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
-import nanoverse.runtime.io.visual.color.IndexedColorModel;
-import nanoverse.runtime.io.visual.color.palettes.Palette;
+import org.junit.Before;
 import org.junit.Test;
 
-public class IndexedColorModelInstSymbolTableTest extends MapSymbolTableTest {
+import java.awt.*;
 
-    @Override
-    protected MapSymbolTable getQuery() {
-        return new IndexedColorModelInstSymbolTable();
-    }
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-    @Override
-    protected Class getExpectedClass() {
-        return IndexedColorModel.class;
+/**
+ * Created by dbborens on 11/24/2015.
+ */
+public class PaletteTest {
+
+    private Palette query;
+    private Color nullValueColor;
+    private Color borderColor;
+
+    @Before
+    public void setUp() throws Exception {
+        nullValueColor = mock(Color.class);
+        borderColor = mock(Color.class);
+
+        query = new Palette(nullValueColor, borderColor) {
+            @Override
+            public Object apply(Object o) {
+                return null;
+            }
+        };
+
     }
 
     @Test
-    public void palette() throws Exception {
-        verifyReturnSymbol("palette", Palette.class);
+    public void getBorderColor() throws Exception {
+        assertSame(borderColor, query.getBorderColor());
+    }
+
+    @Test
+    public void getNullValueColor() throws Exception {
+        assertSame(nullValueColor, query.getNullValueColor());
     }
 }

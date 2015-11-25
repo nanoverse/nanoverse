@@ -18,18 +18,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.compiler.pipeline.instantiate.loader.io.visual;
+package nanoverse.compiler.pipeline.translate.symbol.io.visual.color.palettes;
 
-import nanoverse.compiler.pipeline.instantiate.loader.Loader;
-import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
-import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.io.visual.Visualization;
-import nanoverse.runtime.layers.LayerManager;
+import nanoverse.compiler.pipeline.translate.symbol.InstantiableSymbolTable;
+import nanoverse.runtime.io.visual.color.palettes.RainbowColorPalette;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
- * Created by dbborens on 8/4/2015.
+ * Created by dbborens on 11/25/2015.
  */
-public abstract class VisualizationLoader<T extends Visualization> extends Loader<T> {
+public class RainbowPaletteInstSymbolTableTest extends PaletteInstSymbolTableTest {
 
-    public abstract T instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p);
+    @Override
+    protected InstantiableSymbolTable getQuery() {
+        return new RainbowPaletteInstSymbolTable();
+    }
+
+    @Override
+    protected Class getExpectedClass() {
+        return RainbowColorPalette.class;
+    }
 }

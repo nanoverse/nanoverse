@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.io.visual;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.VisualizationProperties;
+import nanoverse.runtime.layers.LayerManager;
 
 /**
  * Created by dbborens on 8/23/2015.
@@ -42,11 +43,11 @@ public class MapVisualizationInterpolator {
         this.vpLoader = vpLoader;
     }
 
-    public VisualizationProperties properties(MapObjectNode node, GeneralParameters p) {
+    public VisualizationProperties properties(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         if (node == null) {
-            return defaults.properties(p);
+            return defaults.properties(lm, p);
         }
 
-        return vpLoader.instantiate(node, p);
+        return vpLoader.instantiate(node, lm, p);
     }
 }

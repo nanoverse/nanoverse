@@ -39,6 +39,12 @@ public abstract class SequentialPalette<T> extends Palette<T> {
         colorsByName = new HashMap<>();
     }
 
+    public SequentialPalette(Color nullValueColor, Color borderColor, HashMap<T, Color> colorsByName) {
+        super(nullValueColor, borderColor);
+        elements = resolveElements();
+        this.colorsByName = colorsByName;
+    }
+
     protected abstract List<Color> resolveElements();
 
     @Override

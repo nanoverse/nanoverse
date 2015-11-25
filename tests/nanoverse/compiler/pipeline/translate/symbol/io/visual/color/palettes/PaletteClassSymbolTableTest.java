@@ -18,40 +18,34 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.runtime.io.visual.color;
+package nanoverse.compiler.pipeline.translate.symbol.io.visual.color.palettes;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.tables.ClassSymbolTableTest;
 import nanoverse.runtime.io.visual.color.palettes.Palette;
-import nanoverse.runtime.layers.SystemState;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
+import nanoverse.runtime.io.visual.color.palettes.RainbowColorPalette;
+import org.junit.Test;
 
-import java.awt.*;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
- * Created by dbborens on 4/1/14.
+ * Created by dbborens on 11/25/2015.
  */
-public class IndexedColorModel extends ColorManager {
-    private final Palette<String> palette;
+public class PaletteClassSymbolTableTest extends ClassSymbolTableTest {
 
-    @FactoryTarget
-    public IndexedColorModel(Palette<String> palette) {
-        this.palette = palette;
+    @Override
+    protected ClassSymbolTable getQuery() {
+        return new PaletteClassSymbolTable();
     }
 
     @Override
-    public Color getColor(Coordinate c, SystemState systemState) {
-        String name = systemState
-            .getLayerManager()
-            .getAgentLayer()
-            .getViewer()
-            .getName(c);
-
-        return palette.apply(name);
+    protected Class getExpectedClass() {
+        return Palette.class;
     }
 
-
-    @Override
-    public Color getBorderColor() {
-        return palette.getBorderColor();
+    @Test
+    public void rainbow() throws Exception {
+        verifyReturnSymbol("Rainbow", RainbowColorPalette.class);
     }
 }

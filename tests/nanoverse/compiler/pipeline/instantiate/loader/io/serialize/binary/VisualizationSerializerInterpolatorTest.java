@@ -71,9 +71,9 @@ public class VisualizationSerializerInterpolatorTest extends InterpolatorTest {
         when(node.getMember("visualization")).thenReturn(cNode);
 
         Visualization expected = mock(Visualization.class);
-        when(loader.instantiate(cNode, p)).thenReturn(expected);
+        when(loader.instantiate(cNode, lm, p)).thenReturn(expected);
 
-        Visualization actual = query.visualization(node, layerManager, p);
+        Visualization actual = query.visualization(node, lm, p);
 
         assertSame(expected, actual);
     }

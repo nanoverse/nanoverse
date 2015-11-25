@@ -18,43 +18,39 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.compiler.pipeline.translate.symbol.io.visual.color;
+package nanoverse.compiler.pipeline.translate.symbol.io.visual.color.palettes;
 
-import nanoverse.compiler.pipeline.instantiate.loader.Loader;
-import nanoverse.compiler.pipeline.instantiate.loader.io.visual.color.IndexedColorModelLoader;
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
 import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.io.visual.color.palettes.PaletteClassSymbolTable;
-import nanoverse.runtime.io.visual.color.IndexedColorModel;
+import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
+import nanoverse.runtime.io.visual.color.palettes.Palette;
 
 import java.util.HashMap;
 
 /**
- * Created by dbborens on 7/27/2015.
+ * Created by dbborens on 11/25/2015.
  */
-public class IndexedColorModelInstSymbolTable extends MapSymbolTable<IndexedColorModel> {
-    @Override
-    public String getDescription() {
-        return "The indexed color model has a specific color associated with " +
-            "each given cell state (class). It is the default color model.";
-    }
+public abstract class PaletteInstSymbolTable<T extends Palette> extends MapSymbolTable<T> {
 
     @Override
     public HashMap<String, MemberSymbol> resolveMembers() {
-        HashMap<String, MemberSymbol> ret =  super.resolveMembers();
-        palette(ret);
+        HashMap<String, MemberSymbol> ret = super.resolveMembers();
+        border(ret);
+        nullValue(ret);
         return ret;
     }
 
-    private void palette(HashMap<String, MemberSymbol> ret) {
-        ResolvingSymbolTable rst = new PaletteClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "The color palette to be used.");
-        ret.put("palette", ms);
+    private void nullValue(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Color to be shown for null/empty values.");
+        ret.put("nullValue", ms);
     }
 
-    @Override
-    public Loader getLoader() {
-        return new IndexedColorModelLoader();
+    private void border(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new StringClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "Color to be shown between " +
+                "agents (where applicable).");
+        ret.put("border", ms);
     }
 }

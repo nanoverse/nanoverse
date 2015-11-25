@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.instantiate.loader.io.visual.color;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.color.*;
+import nanoverse.runtime.layers.LayerManager;
 
 import java.awt.*;
 
@@ -31,7 +32,7 @@ import java.awt.*;
  */
 public class UniformColorModelLoader extends ColorModelLoader<UniformColorManager> {
     @Override
-    public ColorManager instantiate(MapObjectNode node, GeneralParameters p) {
+    public ColorManager instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         return null;
     }
 

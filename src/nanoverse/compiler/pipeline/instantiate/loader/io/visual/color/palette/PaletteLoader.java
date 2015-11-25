@@ -18,18 +18,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.compiler.pipeline.instantiate.loader.io.visual;
+package nanoverse.compiler.pipeline.instantiate.loader.io.visual.color.palette;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
+import nanoverse.compiler.pipeline.translate.nodes.ObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
-import nanoverse.runtime.io.visual.Visualization;
+import nanoverse.runtime.io.visual.color.palettes.Palette;
 import nanoverse.runtime.layers.LayerManager;
 
 /**
- * Created by dbborens on 8/4/2015.
+ * Created by dbborens on 11/24/2015.
  */
-public abstract class VisualizationLoader<T extends Visualization> extends Loader<T> {
+public abstract class PaletteLoader<T extends Palette> extends Loader<T> {
 
     public abstract T instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p);
 }

@@ -26,6 +26,7 @@ import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.control.arguments.DoubleArgument;
 import nanoverse.runtime.io.visual.color.ColorManager;
 import nanoverse.runtime.io.visual.color.ContinuumColorModel;
+import nanoverse.runtime.layers.LayerManager;
 
 /**
  * Created by dbborens on 8/10/2015.
@@ -46,11 +47,11 @@ public class ContinuumColorModelLoader extends ColorModelLoader<ContinuumColorMo
     }
 
     @Override
-    public ColorManager instantiate(MapObjectNode node, GeneralParameters p) {
+    public ColorManager instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         boolean averageLuminance = interpolator.averageLuminance(node, p.getRandom());
         factory.setAverageLuminance(averageLuminance);
 
-        ColorManager base = interpolator.base(node, p);
+        ColorManager base = interpolator.base(node, lm, p);
         factory.setBase(base);
 
         String continuumId = interpolator.id(node);

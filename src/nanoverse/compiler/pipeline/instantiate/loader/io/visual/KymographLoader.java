@@ -25,6 +25,7 @@ import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.io.visual.VisualizationProperties;
 import nanoverse.runtime.io.visual.kymograph.Kymograph;
+import nanoverse.runtime.layers.LayerManager;
 
 /**
  * Created by dbborens on 8/4/2015.
@@ -45,13 +46,13 @@ public class KymographLoader extends VisualizationLoader<Kymograph> {
         this.interpolator = interpolator;
     }
 
-    public Kymograph instantiate(GeneralParameters p) {
-        return instantiate(null, p);
+    public Kymograph instantiate(LayerManager lm, GeneralParameters p) {
+        return instantiate(null, lm, p);
     }
 
     @Override
-    public Kymograph instantiate(MapObjectNode node, GeneralParameters p) {
-        VisualizationProperties properties = interpolator.properties(node, p);
+    public Kymograph instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+        VisualizationProperties properties = interpolator.properties(node, lm, p);
         factory.setProperties(properties);
 
         return factory.build();
