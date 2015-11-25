@@ -28,29 +28,36 @@ import java.awt.*;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
 
-
 /**
- * Created by dbborens on 11/25/2015.
+ * Created by dbborens on 11/24/2015.
  */
-public abstract class PaletteTest {
+public class BasePaletteTest {
 
-    protected Color nullValueColor, borderColor;
-
-    public abstract Palette<String> getQuery();
+    private Palette query;
+    private Color nullValueColor;
+    private Color borderColor;
 
     @Before
-    public void before() throws Exception {
+    public void setUp() throws Exception {
         nullValueColor = mock(Color.class);
         borderColor = mock(Color.class);
+
+        query = new Palette(nullValueColor, borderColor) {
+            @Override
+            public Object apply(Object o) {
+                return null;
+            }
+        };
+
     }
 
     @Test
-    public void nullValueColorIsSpecial() throws Exception {
-        assertSame(nullValueColor, getQuery().apply(null));
+    public void getBorderColor() throws Exception {
+        assertSame(borderColor, query.getBorderColor());
     }
 
     @Test
-    public void borderColor() throws Exception {
-        assertSame(borderColor, getQuery().getBorderColor());
+    public void getNullValueColor() throws Exception {
+        assertSame(nullValueColor, query.getNullValueColor());
     }
 }

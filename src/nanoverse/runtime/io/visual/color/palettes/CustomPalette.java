@@ -20,37 +20,31 @@
 
 package nanoverse.runtime.io.visual.color.palettes;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import java.awt.*;
-
-import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
-
+import java.util.Map;
 
 /**
  * Created by dbborens on 11/25/2015.
  */
-public abstract class PaletteTest {
+public class CustomPalette<T> extends Palette<T> {
 
-    protected Color nullValueColor, borderColor;
+    private final Map<T, Color> mappings;
+    private final Color defaultColor;
 
-    public abstract Palette<String> getQuery();
-
-    @Before
-    public void before() throws Exception {
-        nullValueColor = mock(Color.class);
-        borderColor = mock(Color.class);
+    public CustomPalette(Color nullValueColor, Color borderColor, Color defaultColor, Map<T, Color> mappings) {
+        super(nullValueColor, borderColor);
+        this.mappings = mappings;
+        this.defaultColor = defaultColor;
     }
 
-    @Test
-    public void nullValueColorIsSpecial() throws Exception {
-        assertSame(nullValueColor, getQuery().apply(null));
-    }
+    @Override
+    public Color apply(T t) {
+        if (t == null) {
+            return nullValueColor;
+        } else if (!mappings.containsKey(t)) {
+            return defaultColor;
+        }
 
-    @Test
-    public void borderColor() throws Exception {
-        assertSame(borderColor, getQuery().getBorderColor());
+        return mappings.get(t);
     }
 }

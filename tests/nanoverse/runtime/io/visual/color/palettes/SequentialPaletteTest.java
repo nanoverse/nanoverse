@@ -23,38 +23,28 @@ package nanoverse.runtime.io.visual.color.palettes;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.mock;
 
 /**
  * Created by dbborens on 11/24/2015.
  */
-public class SequentialPaletteTest {
+public class SequentialPaletteTest extends PaletteTest {
 
     private Color a, b, c;
-    private Color nullValueColor, borderColor;
     private List<Color> elements;
     private HashMap<String, Color> colorsByName;
 
-    private SequentialPalette<String> query;
 
-    @Before
-    public void before() throws Exception {
-        a = mock(Color.class);
-        b = mock(Color.class);
-        c = mock(Color.class);
-        nullValueColor = mock(Color.class);
-        borderColor = mock(Color.class);
-        elements = Stream.of(a, b, c).collect(Collectors.toList());
-        colorsByName = new HashMap<>();
-
-        query = new SequentialPalette(nullValueColor, borderColor, colorsByName) {
+    @Override
+    public Palette getQuery() {
+        return new SequentialPalette(nullValueColor, borderColor, colorsByName) {
             @Override
             protected List<Color> resolveElements() {
                 return elements;
@@ -62,8 +52,20 @@ public class SequentialPaletteTest {
         };
     }
 
+    @Before
+    @Override
+    public void before() throws Exception {
+        super.before();
+        a = mock(Color.class);
+        b = mock(Color.class);
+        c = mock(Color.class);
+        elements = Stream.of(a, b, c).collect(Collectors.toList());
+        colorsByName = new HashMap<>();
+    }
+
     @Test
     public void colorSequenceLoops() throws Exception {
+        Palette query = getQuery();
         assertSame(a, query.apply("a"));
         assertSame(b, query.apply("b"));
         assertSame(c, query.apply("c"));
@@ -72,18 +74,10 @@ public class SequentialPaletteTest {
 
     @Test
     public void assignedColorIsPreserved() throws Exception {
+        Palette query = getQuery();
         assertSame(a, query.apply("a"));
         assertSame(b, query.apply("b"));
         assertSame(a, query.apply("a"));
     }
 
-    @Test
-    public void nullValueColorIsSpecial() throws Exception {
-        assertSame(nullValueColor, query.apply(null));
-    }
-
-    @Test
-    public void borderColor() throws Exception {
-        assertSame(borderColor, query.getBorderColor());
-    }
 }

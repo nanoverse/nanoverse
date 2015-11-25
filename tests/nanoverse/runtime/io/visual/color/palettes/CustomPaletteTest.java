@@ -24,33 +24,54 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
+import java.util.Map;
 
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
-
+import static org.mockito.Mockito.when;
 
 /**
  * Created by dbborens on 11/25/2015.
  */
-public abstract class PaletteTest {
+public class CustomPaletteTest extends PaletteTest {
 
-    protected Color nullValueColor, borderColor;
+    private final static String NAME = "test";
 
-    public abstract Palette<String> getQuery();
+    private Color defaultColor;
+    private Map<String, Color> map;
+
+    @Override
+    public Palette<String> getQuery() {
+        return new CustomPalette(nullValueColor, borderColor, defaultColor, map);
+    }
 
     @Before
+    @Override
     public void before() throws Exception {
-        nullValueColor = mock(Color.class);
-        borderColor = mock(Color.class);
+        super.before();
+        map = mock(Map.class);
+        defaultColor = mock(Color.class);
     }
 
     @Test
-    public void nullValueColorIsSpecial() throws Exception {
-        assertSame(nullValueColor, getQuery().apply(null));
+    public void apply() throws Exception {
+        Palette<String> query = getQuery();
+
+        when(map.containsKey(NAME)).thenReturn(true);
+
+        Color expected = mock(Color.class);
+        when(map.get(NAME)).thenReturn(expected);
+
+        Color actual = query.apply(NAME);
+        assertSame(expected, actual);
     }
 
     @Test
-    public void borderColor() throws Exception {
-        assertSame(borderColor, getQuery().getBorderColor());
+    public void defaultColorSpecial() throws Exception {
+        Palette<String> query = getQuery();
+        when(map.containsKey(NAME)).thenReturn(false);
+        Color actual = query.apply(NAME);
+        assertSame(defaultColor, actual);
     }
+
 }

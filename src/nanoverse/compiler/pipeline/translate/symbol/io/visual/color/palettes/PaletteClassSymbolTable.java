@@ -22,9 +22,7 @@ package nanoverse.compiler.pipeline.translate.symbol.io.visual.color.palettes;
 
 import nanoverse.compiler.pipeline.translate.symbol.ClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.InstantiableSymbolTable;
-import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
 import nanoverse.runtime.io.visual.color.palettes.Palette;
-import nanoverse.runtime.io.visual.color.palettes.RainbowColorPalette;
 
 import java.util.HashMap;
 import java.util.function.Supplier;
