@@ -46,7 +46,7 @@ public class DictionaryObjectNodeTest {
 
     @Test
     public void lineNumber() throws Exception {
-        assertEquals(query.lineNumber(), lineNumber);
+        assertEquals(query.getLineNumber(), lineNumber);
     }
 
     @Test

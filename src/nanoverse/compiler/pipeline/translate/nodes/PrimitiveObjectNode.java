@@ -49,7 +49,7 @@ public class PrimitiveObjectNode<T> implements ObjectNode {
         return value;
     }
 
-    public int lineNumber() { return lineNumber; }
+    public int getLineNumber() { return lineNumber; }
 
     @Override
     public Class getInstantiatingClass() {

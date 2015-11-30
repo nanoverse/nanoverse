@@ -79,7 +79,7 @@ public class DictionaryObjectNode implements ObjectNode {
         return true;
     }
 
-    public int lineNumber() { return lineNumber; }
+    public int getLineNumber() { return lineNumber; }
 
     @Override
     public Class getInstantiatingClass() {

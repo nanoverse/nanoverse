@@ -45,7 +45,7 @@ public class ListChildLoader {
         String identifier = child.getIdentifier();
 
         InstantiableSymbolTable childIST =
-            symbolTable.getSymbolTable(identifier, child.lineNumber());
+            symbolTable.getSymbolTable(identifier, child.getLineNumber());
 
         ObjectNode childNode = walker.walk(child, childIST);
 

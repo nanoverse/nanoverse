@@ -47,7 +47,7 @@ public class LoaderRetriever {
 
     private Loader handleMissingData(MapObjectNode parent, String field, boolean require) {
         if (require) {
-            throw new MissingArgumentError(field, parent.getInstantiatingClass(), parent.lineNumber());
+            throw new MissingArgumentError(field, parent.getInstantiatingClass(), parent.getLineNumber());
         } else {
             return null;
         }

@@ -46,7 +46,7 @@ public class PrimitiveVisitor {
             .findFirst()
             .get();
 
-        int lineNumber = valueNode.lineNumber();
+        int lineNumber = valueNode.getLineNumber();
 
         String valueStr = valueNode.getIdentifier();
 

@@ -44,7 +44,7 @@ public class ASTNode {
         return children.size();
     }
 
-    public int lineNumber() { return lineNumber; }
+    public int getLineNumber() { return lineNumber; }
 
     public Stream<ASTNode> getChildren() {
         return children.stream();

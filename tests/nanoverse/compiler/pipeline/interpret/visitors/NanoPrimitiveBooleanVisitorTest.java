@@ -81,7 +81,7 @@ public class NanoPrimitiveBooleanVisitorTest extends TestBase {
 
     private void verifyLine(ASTNode output) {
         int expected = lineNumber;
-        int actual = output.lineNumber();
+        int actual = output.getLineNumber();
 
         assertEquals(expected, actual);
     }

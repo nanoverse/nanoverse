@@ -75,7 +75,7 @@ public class NanoRootVisitorTest extends TestBase {
 
     private void verifyLine(ASTNode result) {
         int expected = lineNumber;
-        int actual = result.lineNumber();
+        int actual = result.getLineNumber();
 
         assertEquals(expected, actual);
     }

@@ -47,12 +47,12 @@ public class ListChildLoaderTest {
         ASTNode child = mock(ASTNode.class);
         String id = "test";
         when(child.getIdentifier()).thenReturn(id);
-        when(child.lineNumber()).thenReturn(lineNumber);
+        when(child.getLineNumber()).thenReturn(lineNumber);
 
         ListSymbolTable lst = mock(ListSymbolTable.class);
         when(lst.getBroadClass()).thenReturn(Object.class);
         InstantiableSymbolTable ist = mock(InstantiableSymbolTable.class);
-        when(lst.getSymbolTable(id, child.lineNumber())).thenReturn(ist);
+        when(lst.getSymbolTable(id, child.getLineNumber())).thenReturn(ist);
 
         ObjectNode childNode = mock(ObjectNode.class);
         when(childNode.getInstantiatingClass()).thenReturn(Object.class);

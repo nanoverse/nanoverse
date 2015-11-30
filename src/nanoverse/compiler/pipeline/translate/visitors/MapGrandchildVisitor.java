@@ -50,7 +50,7 @@ public class MapGrandchildVisitor {
 
         // The identifier of the grandchild can be resolved to an instance.
         String gcIdentifier = grandchild.getIdentifier();
-        InstantiableSymbolTable childIST = childRST.getSymbolTable(gcIdentifier, child.lineNumber());
+        InstantiableSymbolTable childIST = childRST.getSymbolTable(gcIdentifier, child.getLineNumber());
 
         // Call back on this grandchild.
         ObjectNode ret = walker.walk(grandchild, childIST);

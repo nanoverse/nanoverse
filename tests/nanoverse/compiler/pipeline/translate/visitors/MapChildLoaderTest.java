@@ -45,11 +45,11 @@ public class MapChildLoaderTest {
         ASTNode child = mock(ASTNode.class);
         String id = "test";
         when(child.getIdentifier()).thenReturn(id);
-        when(child.lineNumber()).thenReturn(lineNumber);
+        when(child.getLineNumber()).thenReturn(lineNumber);
 
         MapSymbolTable mst = mock(MapSymbolTable.class);
         ResolvingSymbolTable rst = mock(ResolvingSymbolTable.class);
-        when(mst.getSymbolTable(id, child.lineNumber())).thenReturn(rst);
+        when(mst.getSymbolTable(id, child.getLineNumber())).thenReturn(rst);
 
         ObjectNode oNode = mock(ObjectNode.class);
         when(oNode.getInstantiatingClass()).thenReturn(Object.class);

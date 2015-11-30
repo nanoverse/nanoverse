@@ -26,6 +26,7 @@ import nanoverse.compiler.pipeline.translate.nodes.ObjectNode;
 import nanoverse.compiler.pipeline.translate.symbol.*;
 import org.junit.*;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
@@ -35,7 +36,7 @@ public class MapGrandchildVisitorTest {
     private GrandchildResolver gcResolver;
     private MapGrandchildVisitor query;
 
-    private int LINE = 0;
+    private static final int lineNumber = 1;
 
     @Before
     public void before() throws Exception {
@@ -49,18 +50,20 @@ public class MapGrandchildVisitorTest {
         ASTNode child = mock(ASTNode.class);
         ASTNode grandchild = mock(ASTNode.class);
         when(gcResolver.getChildValue(child)).thenReturn(grandchild);
+        when(child.getLineNumber()).thenReturn(lineNumber);
 
         String id = "test";
         when(grandchild.getIdentifier()).thenReturn(id);
 
         ResolvingSymbolTable rst = mock(ResolvingSymbolTable.class);
         InstantiableSymbolTable ist = mock(InstantiableSymbolTable.class);
-        when(rst.getSymbolTable(id, LINE)).thenReturn(ist);
+        when(rst.getSymbolTable(id, lineNumber)).thenReturn(ist);
 
         ObjectNode expected = mock(ObjectNode.class);
-        when(walker.walk(grandchild, ist)).thenReturn(expected);
 
+        when(walker.walk(grandchild, ist)).thenReturn(expected);
         ObjectNode actual = query.walk(child, rst);
+
         assertSame(expected, actual);
     }
 }
