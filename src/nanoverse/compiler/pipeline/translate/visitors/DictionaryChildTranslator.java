@@ -51,7 +51,7 @@ public class DictionaryChildTranslator {
         // list class.
         ASTNode grandchild = resolver.getChildValue(child);
         String classId = grandchild.getIdentifier();
-        InstantiableSymbolTable ist = symbolTable.getSymbolTable(classId);
+        InstantiableSymbolTable ist = symbolTable.getSymbolTable(classId, child.getLineNumber());
         ObjectNode childNode = walker.walk(grandchild, ist);
         return childNode;
     }

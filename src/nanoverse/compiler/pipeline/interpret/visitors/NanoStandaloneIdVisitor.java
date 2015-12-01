@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.interpret.visitors;
 import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser;
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import org.antlr.v4.runtime.CommonToken;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.*;
@@ -48,10 +49,15 @@ public class NanoStandaloneIdVisitor extends AbstractNanoNodeVisitor {
 
     @Override
     public ASTNode visitId(@NotNull NanosyntaxParser.IdContext ctx) {
+        Token token = ctx.getStart();
+        int lineNumber;
+        if (token != null) lineNumber = token.getLine();
+        else lineNumber = -1;
         ParseTree idTree = ctx.getChild(0);
         verifyPayload(idTree, CommonToken.class);
         String identifier = idTree.getText();
-        logger.debug("Translated stand-alone ID \"{}\" as \"{}\"", ctx.getText(), idTree.getText());
-        return new ASTNode(identifier, Stream.empty());
+        logger.debug("Translated stand-alone ID \"{}\" as \"{}\". Line number {}",
+                ctx.getText(), idTree.getText(), lineNumber);
+        return new ASTNode(identifier, Stream.empty(), lineNumber);
     }
 }

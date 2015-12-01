@@ -22,6 +22,7 @@ package nanoverse.compiler.pipeline.translate.visitors;
 
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import nanoverse.compiler.pipeline.translate.nodes.ListObjectNode;
+import nanoverse.compiler.pipeline.translate.nodes.ObjectNode;
 import nanoverse.compiler.pipeline.translate.symbol.ListSymbolTable;
 import org.junit.*;
 import org.mockito.*;
@@ -29,6 +30,7 @@ import org.mockito.*;
 import java.util.List;
 import java.util.stream.*;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
@@ -38,6 +40,7 @@ public class ListContainerVisitorTest {
     private ListContainerVisitor query;
 
     private List<ASTNode> children;
+    private static final int lineNumber = 1;
 
     @Before
     public void before() throws Exception {
@@ -51,6 +54,19 @@ public class ListContainerVisitorTest {
         return IntStream.range(0, 4)
             .mapToObj(i -> mock(ASTNode.class))
             .collect(Collectors.toList());
+    }
+
+    @Test
+    public void lineNumberToTranslate() throws Exception {
+        ASTNode toTranslate = mock(ASTNode.class);
+        when(toTranslate.getChildren()).thenReturn(children.stream());
+        when(toTranslate.getLineNumber()).thenReturn(lineNumber);
+
+        ListSymbolTable lst = mock(ListSymbolTable.class);
+        when(lst.getBroadClass()).thenReturn(Object.class);
+
+        ObjectNode node = query.translate(toTranslate, lst);
+        assertEquals(lineNumber, node.getLineNumber());
     }
 
     @Test

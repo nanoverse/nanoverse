@@ -35,11 +35,18 @@ public class ListObjectNodeTest {
 
     private ListObjectNode query;
 
+    private int lineNumber = 1;
+
     @Before
     public void before() throws Exception {
         symbolTable = mock(ListSymbolTable.class);
         local = mock(LocalContextList.class);
-        query = new ListObjectNode(symbolTable, local);
+        query = new ListObjectNode(symbolTable, local, lineNumber);
+    }
+
+    @Test
+    public void lineNumber() throws Exception {
+        assertEquals(query.getLineNumber(), lineNumber);
     }
 
     @Test

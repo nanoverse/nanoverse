@@ -32,6 +32,7 @@ import static org.junit.Assert.*;
 public abstract class ClassSymbolTableTest extends TestBase {
 
     protected ClassSymbolTable query;
+    private int LINE = 0;
 
     @Before
     public void before() throws Exception {
@@ -50,13 +51,13 @@ public abstract class ClassSymbolTableTest extends TestBase {
     protected abstract Class getExpectedClass();
 
     protected void verifyReturnSymbol(String identifier, Class expected) {
-        InstantiableSymbolTable ist = query.getSymbolTable(identifier);
+        InstantiableSymbolTable ist = query.getSymbolTable(identifier, LINE);
         Class actual = ist.getInstanceClass();
         assertEquals(expected, actual);
     }
 
     protected void verifyLSTBroadClass(String identifier, Class expected) {
-        ListSymbolTable ist = (ListSymbolTable) query.getSymbolTable(identifier);
+        ListSymbolTable ist = (ListSymbolTable) query.getSymbolTable(identifier, LINE);
         Class actual = ist.getBroadClass();
         assertEquals(expected, actual);
     }

@@ -22,6 +22,7 @@ package nanoverse.compiler.pipeline.translate.visitors;
 
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import nanoverse.compiler.pipeline.translate.nodes.DictionaryObjectNode;
+import nanoverse.compiler.pipeline.translate.nodes.ObjectNode;
 import nanoverse.compiler.pipeline.translate.symbol.DictionarySymbolTable;
 import org.junit.*;
 import org.mockito.*;
@@ -29,6 +30,7 @@ import org.mockito.*;
 import java.util.List;
 import java.util.stream.*;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
@@ -37,6 +39,7 @@ public class DictionaryContainerVisitorTest {
     private DictionaryChildLoader loader;
     private DictionaryContainerVisitor query;
     private List<ASTNode> children;
+    private static final int lineNumber = 1;
 
     @Before
     public void before() throws Exception {
@@ -49,6 +52,21 @@ public class DictionaryContainerVisitorTest {
         return IntStream.range(0, 4)
             .mapToObj(i -> mock(ASTNode.class))
             .collect(Collectors.toList());
+    }
+
+    @Test
+    public void lineNumberToTranslate() throws Exception {
+        ASTNode toTranslate = mock(ASTNode.class);
+        String id = "test";
+        when(toTranslate.getIdentifier()).thenReturn(id);
+        when(toTranslate.getChildren()).thenReturn(children.stream());
+        when(toTranslate.getLineNumber()).thenReturn(lineNumber);
+
+        DictionarySymbolTable dst = mock(DictionarySymbolTable.class);
+        when(dst.getBroadClass()).thenReturn(Object.class);
+
+        ObjectNode node = query.translate(toTranslate, dst);
+        assertEquals(lineNumber, node.getLineNumber());
     }
 
     @Test

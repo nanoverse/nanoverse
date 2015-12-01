@@ -35,11 +35,18 @@ public class DictionaryObjectNodeTest {
 
     private DictionaryObjectNode query;
 
+    private int lineNumber = 1;
+
     @Before
     public void before() throws Exception {
         symbolTable = mock(DictionarySymbolTable.class);
         local = mock(LocalContextMap.class);
-        query = new DictionaryObjectNode(symbolTable, local);
+        query = new DictionaryObjectNode(symbolTable, local, lineNumber);
+    }
+
+    @Test
+    public void lineNumber() throws Exception {
+        assertEquals(query.getLineNumber(), lineNumber);
     }
 
     @Test

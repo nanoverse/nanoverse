@@ -39,8 +39,8 @@ public class LoaderSkeletonWriter {
         this.basePath = basePath;
     }
 
-    public void write(MapSymbolTable st) {
-        String code = gen.generate(st);
+    public void write(MapSymbolTable st, int lineNumber) {
+        String code = gen.generate(st, lineNumber);
         String path = mkdir(st);
         record(st, code, path);
     }

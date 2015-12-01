@@ -25,7 +25,7 @@ package nanoverse.compiler.pipeline.translate.symbol;
  * Created by dbborens on 3/13/15.
  */
 public interface ResolvingSymbolTable extends SymbolTable {
-    public InstantiableSymbolTable getSymbolTable(String identifier);
+    public InstantiableSymbolTable getSymbolTable(String identifier, int lineNumber);
 
     public Class getBroadClass();
 }

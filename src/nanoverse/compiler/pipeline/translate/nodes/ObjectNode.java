@@ -35,4 +35,6 @@ public interface ObjectNode {
     public Class getInstantiatingClass();
 
     public InstantiableSymbolTable getSymbolTable();
+
+    public int getLineNumber();
 }

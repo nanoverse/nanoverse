@@ -36,13 +36,13 @@ public class LoaderSkeletonGenerator {
         group = new STGroupFile("meta/templates/loader/skeleton.stg", '$', '$');
     }
 
-    public String generate(MapSymbolTable st) {
+    public String generate(MapSymbolTable st, int lineNumber) {
         ST template = group.getInstanceOf("file");
         System.out.println(st);
         template.add("class", st.getInstanceClass());
         template.add("loaderClass", resolveLoaderClass(st));
         members(st, template);
-        mTypes(st, template);
+        mTypes(st, template, lineNumber);
         displayName(st, template);
         return template.render();
     }
@@ -52,11 +52,11 @@ public class LoaderSkeletonGenerator {
         template.add("displayName", displayName);
     }
 
-    private void mTypes(MapSymbolTable st, ST template) {
+    private void mTypes(MapSymbolTable st, ST template, int lineNumber) {
         // Bug in IntelliJ IDEA -- got cast error unless I explicitly defined
         // this stream as a Stream<String> and then used it
         Stream<String> stream = st.getMemberNames();
-        stream.map(name -> st.getSymbolTable(name))
+        stream.map(name -> st.getSymbolTable(name, lineNumber))
                 .map(rst -> rst.getBroadClass())
                 .map(clazz -> clazz.getCanonicalName())
                 .collect(Collectors.toSet())
