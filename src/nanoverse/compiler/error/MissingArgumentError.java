@@ -25,8 +25,8 @@ package nanoverse.compiler.error;
  */
 public class MissingArgumentError extends UserError {
 
-    public MissingArgumentError(String field, Class clazz) {
+    public MissingArgumentError(String field, Class clazz, int lineNumber) {
         super("Missing field \"" + field + "\" for class " +
-            clazz.getSimpleName());
+            clazz.getSimpleName(), lineNumber);
     }
 }

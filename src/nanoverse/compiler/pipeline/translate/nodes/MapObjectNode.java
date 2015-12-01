@@ -22,6 +22,8 @@ package nanoverse.compiler.pipeline.translate.nodes;
 
 import nanoverse.compiler.error.UserError;
 import nanoverse.compiler.pipeline.translate.symbol.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.stream.Stream;
 
@@ -34,17 +36,24 @@ import java.util.stream.Stream;
  * Created by dbborens on 2/22/15.
  */
 public class MapObjectNode implements ObjectNode {
+    private final Logger logger;
 
     private final LocalContextMap local;
     private final MapSymbolTable symbolTable;
+    private final int lineNumber;
 
-    public MapObjectNode(MapSymbolTable symbolTable) {
-        this(symbolTable, new LocalContextMap());
+    public MapObjectNode(MapSymbolTable symbolTable, int lineNumber) {
+        this(symbolTable, new LocalContextMap(), lineNumber);
     }
 
-    public MapObjectNode(MapSymbolTable symbolTable, LocalContextMap local) {
+    public MapObjectNode(MapSymbolTable symbolTable, LocalContextMap local, int lineNumber) {
+        logger = LoggerFactory.getLogger(MapObjectNode.class);
+
         this.symbolTable = symbolTable;
         this.local = local;
+        this.lineNumber = lineNumber;
+
+        logger.debug("Map object on line number {}", lineNumber);
     }
 
     public void loadMember(String identifier, ObjectNode value) {
@@ -69,7 +78,7 @@ public class MapObjectNode implements ObjectNode {
     }
 
     public ResolvingSymbolTable getSymbolTableFor(String identifier) {
-        return symbolTable.getSymbolTable(identifier);
+        return symbolTable.getSymbolTable(identifier, lineNumber);
     }
 
     @Override
@@ -84,6 +93,8 @@ public class MapObjectNode implements ObjectNode {
 
         return true;
     }
+
+    public int getLineNumber() { return lineNumber; }
 
     @Override
     public Class getInstantiatingClass() {

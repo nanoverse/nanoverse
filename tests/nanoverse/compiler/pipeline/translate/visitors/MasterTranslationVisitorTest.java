@@ -26,6 +26,7 @@ import nanoverse.compiler.pipeline.translate.symbol.*;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import org.junit.*;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
@@ -40,6 +41,8 @@ public class MasterTranslationVisitorTest {
 
     private ASTNode toTranslate;
     private ObjectNode expected;
+
+    private static final int lineNumber = 1;
 
     @Before
     public void before() throws Exception {
@@ -62,6 +65,7 @@ public class MasterTranslationVisitorTest {
         when(listVisitor.translate(toTranslate, st))
             .thenReturn((ListObjectNode) expected);
         doTest(st);
+        doTestForLineNumber(st);
     }
 
     private void doTest(SymbolTable st) throws Exception {
@@ -69,11 +73,18 @@ public class MasterTranslationVisitorTest {
         assertSame(expected, actual);
     }
 
+    private void doTestForLineNumber(SymbolTable st) throws Exception {
+        when(expected.getLineNumber()).thenReturn(lineNumber);
+        ObjectNode actual = query.translate(toTranslate, st);
+        assertEquals(lineNumber, actual.getLineNumber());
+    }
+
     @Test
     public void mapCase() throws Exception {
         MapSymbolTable st = mock(MapSymbolTable.class);
         when(mapVisitor.translate(toTranslate, st)).thenReturn(expected);
         doTest(st);
+        doTestForLineNumber(st);
     }
 
     @Test
@@ -81,6 +92,7 @@ public class MasterTranslationVisitorTest {
         DictionarySymbolTable st = mock(DictionarySymbolTable.class);
         when(dictVisitor.translate(toTranslate, st)).thenReturn(expected);
         doTest(st);
+        doTestForLineNumber(st);
     }
 
     @Test
@@ -88,6 +100,7 @@ public class MasterTranslationVisitorTest {
         ConstantPrimitiveSymbolTable st = mock(ConstantPrimitiveSymbolTable.class);
         when(primitiveVisitor.translate(toTranslate, st)).thenReturn(expected);
         doTest(st);
+        doTestForLineNumber(st);
     }
 
     @Test(expected = IllegalStateException.class)

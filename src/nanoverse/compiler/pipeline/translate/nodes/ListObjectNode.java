@@ -21,6 +21,8 @@
 package nanoverse.compiler.pipeline.translate.nodes;
 
 import nanoverse.compiler.pipeline.translate.symbol.ListSymbolTable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.stream.Stream;
 
@@ -28,17 +30,24 @@ import java.util.stream.Stream;
  * Created by dbborens on 2/22/15.
  */
 public class ListObjectNode implements ObjectNode {
+    private final Logger logger;
 
     private final ListSymbolTable symbolTable;
     private final LocalContextList local;
+    private final int lineNumber;
 
-    public ListObjectNode(ListSymbolTable symbolTable) {
-        this(symbolTable, new LocalContextList());
+    public ListObjectNode(ListSymbolTable symbolTable, int lineNumber) {
+        this(symbolTable, new LocalContextList(), lineNumber);
     }
 
-    public ListObjectNode(ListSymbolTable symbolTable, LocalContextList local) {
+    public ListObjectNode(ListSymbolTable symbolTable, LocalContextList local, int lineNumber) {
+        logger = LoggerFactory.getLogger(ListObjectNode.class);
+
         this.symbolTable = symbolTable;
         this.local = local;
+        this.lineNumber = lineNumber;
+
+        logger.debug("Map object on line number {}", lineNumber);
     }
 
     public Stream<ObjectNode> getMemberStream() {
@@ -72,6 +81,8 @@ public class ListObjectNode implements ObjectNode {
 
         return true;
     }
+
+    public int getLineNumber() { return lineNumber; }
 
     @Override
     public Class getInstantiatingClass() {

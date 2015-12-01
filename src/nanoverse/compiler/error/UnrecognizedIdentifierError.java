@@ -30,11 +30,20 @@ public class UnrecognizedIdentifierError extends UserError {
     }
 
     public UnrecognizedIdentifierError(String identifier) {
-        super("Unrecognized identifier" + identifier);
+        super("Unrecognized identifier " + identifier);
     }
 
     public UnrecognizedIdentifierError(String identifier, Class clazz) {
         super("Unrecognized identifier " + clazz.getSimpleName() + "::" +
-            identifier);
+                identifier);
+    }
+
+    public UnrecognizedIdentifierError(String identifier, int lineNumber) {
+        super("Unrecognized identifier " + identifier, lineNumber);
+    }
+
+    public UnrecognizedIdentifierError(String identifier, Class clazz, int lineNumber) {
+        super("Unrecognized identifier " + clazz.getSimpleName() + "::" +
+            identifier, lineNumber);
     }
 }

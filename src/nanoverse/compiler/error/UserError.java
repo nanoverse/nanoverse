@@ -31,5 +31,8 @@ public class UserError extends RuntimeException {
     public UserError(String message) {
         super(message);
     }
+    public UserError(String message, int lineNumber) {
+        super(message + " (Line " + lineNumber + ")");
+    }
 
 }

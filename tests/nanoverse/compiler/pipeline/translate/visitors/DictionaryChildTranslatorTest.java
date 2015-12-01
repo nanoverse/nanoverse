@@ -36,6 +36,8 @@ public class DictionaryChildTranslatorTest {
 
     private DictionaryChildTranslator query;
 
+    private int lineNumber = 1;
+
     @Before
     public void before() throws Exception {
         walker = mock(TranslationCallback.class);
@@ -46,6 +48,7 @@ public class DictionaryChildTranslatorTest {
     @Test
     public void translateChild() throws Exception {
         ASTNode child = mock(ASTNode.class);
+        when(child.getLineNumber()).thenReturn(lineNumber);
 
         ASTNode grandchild = mock(ASTNode.class);
         when(resolver.getChildValue(child)).thenReturn(grandchild);
@@ -55,7 +58,7 @@ public class DictionaryChildTranslatorTest {
 
         DictionarySymbolTable dst = mock(DictionarySymbolTable.class);
         InstantiableSymbolTable ist = mock(InstantiableSymbolTable.class);
-        when(dst.getSymbolTable(classId)).thenReturn(ist);
+        when(dst.getSymbolTable(classId, lineNumber)).thenReturn(ist);
 
         ObjectNode expected = mock(ObjectNode.class);
         when(walker.walk(grandchild, ist)).thenReturn(expected);

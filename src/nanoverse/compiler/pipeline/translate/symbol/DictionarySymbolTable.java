@@ -35,13 +35,13 @@ public class DictionarySymbolTable<T> implements InstantiableSymbolTable, Resolv
     private final TypeToken<T> type = new TypeToken<T>(getClass()) {
     };
 
-    private final ResolvingSymbolTable resolvingSymbolTable;
+    private final ClassSymbolTable classSymbolTable;
     private final Supplier<Loader<T>> loaderSupplier;
 
-    public DictionarySymbolTable(ResolvingSymbolTable resolvingSymbolTable,
+    public DictionarySymbolTable(ClassSymbolTable classSymbolTable,
                                  Supplier<Loader<T>> loaderSupplier) {
 
-        this.resolvingSymbolTable = resolvingSymbolTable;
+        this.classSymbolTable = classSymbolTable;
         this.loaderSupplier = loaderSupplier;
     }
 
@@ -56,13 +56,13 @@ public class DictionarySymbolTable<T> implements InstantiableSymbolTable, Resolv
     }
 
     @Override
-    public InstantiableSymbolTable getSymbolTable(String identifier) {
-        return resolvingSymbolTable.getSymbolTable(identifier);
+    public InstantiableSymbolTable getSymbolTable(String identifier, int lineNumber) {
+        return classSymbolTable.getSymbolTable(identifier, lineNumber);
     }
 
     @Override
     public Class getBroadClass() {
-        return resolvingSymbolTable.getBroadClass();
+        return classSymbolTable.getBroadClass();
     }
 
     @Override

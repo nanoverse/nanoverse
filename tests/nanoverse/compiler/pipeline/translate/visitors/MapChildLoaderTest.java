@@ -32,6 +32,8 @@ public class MapChildLoaderTest {
     private MapChildTranslator translator;
     private MapChildLoader query;
 
+    private int lineNumber = 1;
+
     @Before
     public void before() throws Exception {
         translator = mock(MapChildTranslator.class);
@@ -41,13 +43,13 @@ public class MapChildLoaderTest {
     @Test
     public void loadChild() throws Exception {
         ASTNode child = mock(ASTNode.class);
-
         String id = "test";
         when(child.getIdentifier()).thenReturn(id);
+        when(child.getLineNumber()).thenReturn(lineNumber);
 
         MapSymbolTable mst = mock(MapSymbolTable.class);
         ResolvingSymbolTable rst = mock(ResolvingSymbolTable.class);
-        when(mst.getSymbolTable(id)).thenReturn(rst);
+        when(mst.getSymbolTable(id, child.getLineNumber())).thenReturn(rst);
 
         ObjectNode oNode = mock(ObjectNode.class);
         when(oNode.getInstantiatingClass()).thenReturn(Object.class);
