@@ -20,9 +20,13 @@
 
 package nanoverse.runtime.geometry.boundaries;
 
-import nanoverse.runtime.control.identifiers.*;
-import nanoverse.runtime.geometry.lattice.*;
-import nanoverse.runtime.geometry.shape.*;
+import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.geometry.boundaries.helpers.ReflectHelper2D;
+import nanoverse.runtime.geometry.boundaries.helpers.WrapHelper2D;
+import nanoverse.runtime.geometry.lattice.Lattice;
+import nanoverse.runtime.geometry.lattice.RectangularLattice;
+import nanoverse.runtime.geometry.shape.Rectangle;
+import nanoverse.runtime.geometry.shape.Shape;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 /**
@@ -37,14 +41,17 @@ import nanoverse.runtime.structural.annotations.FactoryTarget;
  * @author Daniel Greenidge
  */
 public class TetrisReflectingBoundary extends Boundary {
-    private final int WIDTH;
-    private final int HEIGHT;
+
+    private final int height;
+    private final WrapHelper2D wrapHelper;
+    private final ReflectHelper2D reflectHelper;
 
     @FactoryTarget
     public TetrisReflectingBoundary(Shape shape, Lattice lattice) {
         super(shape, lattice);
-        this.WIDTH = shape.getDimensions()[0];
-        this.HEIGHT = shape.getDimensions()[1];
+        this.height = shape.getDimensions()[1];
+        this.wrapHelper = new WrapHelper2D(shape, lattice);
+        this.reflectHelper = new ReflectHelper2D(shape, lattice);
     }
 
     /**
@@ -100,22 +107,7 @@ public class TetrisReflectingBoundary extends Boundary {
      * @return a new wrapped coordinate
      */
     public Coordinate applyX(Coordinate c) {
-        Coordinate ob = shape.getOverbounds(c);
-
-        if (ob.x() == 0) {
-            // Within bounds: do nothing
-            return c;
-        }
-
-        int flags = c.flags() | Flags.BOUNDARY_APPLIED;
-
-        if (ob.x() > 0) {
-            // Out of bounds to the right: set to left edge
-            return new Coordinate2D(0, c.y(), flags);
-        } else {
-            // Out of bounds to the left: set to right edge
-            return new Coordinate2D(WIDTH - 1, c.y(), flags);
-        }
+        return wrapHelper.xWrap(c);
     }
 
     /**
@@ -126,19 +118,12 @@ public class TetrisReflectingBoundary extends Boundary {
      * @return the reflected or absorbed coordinate
      */
     public Coordinate applyY(Coordinate c) {
-        int x = c.x();
-        int y = c.y();
-
-        if (y >= HEIGHT) {
-            // Coordinate is above: absorb
+        if (c.y() >= height) {
             return null;
-        } else if (y < 0) {
-            int y1 = -1 * (y + 1);
-            int flags = c.flags() | Flags.BOUNDARY_APPLIED;
-            return applyY(new Coordinate2D(x, y1, flags));
+        } else if (c.y() < 0) {
+            return reflectHelper.yReflect(c);
         }
 
-        // Base case: coordinate is not above or below, so return it.
         return c;
     }
 }

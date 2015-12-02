@@ -20,14 +20,22 @@
 
 package nanoverse.runtime.geometry.boundaries;
 
-import nanoverse.runtime.control.identifiers.*;
-import nanoverse.runtime.geometry.lattice.*;
-import nanoverse.runtime.geometry.shape.*;
-import org.junit.*;
+import nanoverse.runtime.control.identifiers.Coordinate;
+import nanoverse.runtime.control.identifiers.Coordinate2D;
+import nanoverse.runtime.control.identifiers.Flags;
+import nanoverse.runtime.geometry.lattice.Lattice;
+import nanoverse.runtime.geometry.lattice.RectangularLattice;
+import nanoverse.runtime.geometry.lattice.TriangularLattice;
+import nanoverse.runtime.geometry.shape.Hexagon;
+import nanoverse.runtime.geometry.shape.Rectangle;
+import nanoverse.runtime.geometry.shape.Shape;
+import org.junit.Before;
+import org.junit.Test;
 import test.TestBase;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created on 7/22/15.
@@ -82,7 +90,7 @@ public class TetrisReflectingBoundaryTest extends TestBase {
     @Test
     public void rightOverboundWraps() {
         Coordinate input = new Coordinate2D(2, 0, 0);
-        Coordinate expected = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
+        Coordinate expected = new Coordinate2D(0, 0, 0);
         doTest(input, expected);
 
     }
@@ -95,7 +103,7 @@ public class TetrisReflectingBoundaryTest extends TestBase {
     @Test
     public void leftOverBoundWraps() {
         Coordinate input = new Coordinate2D(-1, 0, 0);
-        Coordinate expected = new Coordinate2D(1, 0, Flags.BOUNDARY_APPLIED);
+        Coordinate expected = new Coordinate2D(1, 0, 0);
         doTest(input, expected);
     }
 
