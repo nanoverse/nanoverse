@@ -120,4 +120,8 @@ public class WrapHelper2D extends WrapHelper {
             throw new IllegalStateException("WrapHelper2D requires a 2D coordinate.");
         }
     }
+
+    public BasisHelper2D getBasisHelper() {
+        return basisHelper;
+    }
 }

@@ -20,22 +20,14 @@
 
 package nanoverse.runtime.geometry.boundaries;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
-import nanoverse.runtime.control.identifiers.Flags;
-import nanoverse.runtime.geometry.lattice.Lattice;
-import nanoverse.runtime.geometry.lattice.RectangularLattice;
-import nanoverse.runtime.geometry.lattice.TriangularLattice;
-import nanoverse.runtime.geometry.shape.Hexagon;
-import nanoverse.runtime.geometry.shape.Rectangle;
-import nanoverse.runtime.geometry.shape.Shape;
-import org.junit.Before;
-import org.junit.Test;
+import nanoverse.runtime.control.identifiers.*;
+import nanoverse.runtime.geometry.lattice.*;
+import nanoverse.runtime.geometry.shape.*;
+import org.junit.*;
 import test.TestBase;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created on 7/22/15.
@@ -75,14 +67,6 @@ public class TetrisReflectingRectFunctionalTest extends TestBase {
     public void nonRectangleThrows() {
         Shape shape = mock(Hexagon.class);
         Lattice lattice = mock(RectangularLattice.class);
-        when(lattice.getDimensionality()).thenReturn(2);
-        new TetrisReflectingBoundary(shape, lattice);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void nonRectangularLatticeThrows() {
-        Shape shape = mock(Rectangle.class);
-        Lattice lattice = mock(TriangularLattice.class);
         when(lattice.getDimensionality()).thenReturn(2);
         new TetrisReflectingBoundary(shape, lattice);
     }

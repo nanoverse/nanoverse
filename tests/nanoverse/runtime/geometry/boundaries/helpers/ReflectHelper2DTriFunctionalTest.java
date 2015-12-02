@@ -20,14 +20,10 @@
 
 package nanoverse.runtime.geometry.boundaries.helpers;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.control.identifiers.Coordinate2D;
-import nanoverse.runtime.control.identifiers.Flags;
-import nanoverse.runtime.geometry.lattice.Lattice;
-import nanoverse.runtime.geometry.lattice.TriangularLattice;
+import nanoverse.runtime.control.identifiers.*;
+import nanoverse.runtime.geometry.lattice.*;
 import nanoverse.runtime.geometry.shape.Rectangle;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -100,7 +96,7 @@ public class ReflectHelper2DTriFunctionalTest {
         actual = query.yReflect(initial);
         assertEquals(expected, actual);
 
-        initial = new Coordinate2D(2, -3, 0);
+        initial = new Coordinate2D(2, -2, 0);
         expected = new Coordinate2D(2, 3, Flags.BOUNDARY_APPLIED);
         actual = query.yReflect(initial);
         assertEquals(expected, actual);

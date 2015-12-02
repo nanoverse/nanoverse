@@ -21,11 +21,10 @@
 package nanoverse.runtime.geometry.boundaries;
 
 import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.geometry.boundaries.helpers.ReflectHelper2D;
-import nanoverse.runtime.geometry.boundaries.helpers.WrapHelper2D;
+import nanoverse.runtime.geometry.basis.BasisHelper2D;
+import nanoverse.runtime.geometry.boundaries.helpers.*;
 import nanoverse.runtime.geometry.lattice.Lattice;
-import nanoverse.runtime.geometry.shape.Rectangle;
-import nanoverse.runtime.geometry.shape.Shape;
+import nanoverse.runtime.geometry.shape.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 /**
@@ -74,7 +73,9 @@ public class TetrisReflectingBoundary extends Boundary {
      */
     @Override
     public Coordinate apply(Coordinate c) {
-        return applyY(applyX(c));
+        Coordinate cX = applyX(c);
+        Coordinate cXY = applyY(cX);
+        return cXY;
     }
 
     /**
@@ -112,9 +113,11 @@ public class TetrisReflectingBoundary extends Boundary {
      * @return the reflected or absorbed coordinate
      */
     public Coordinate applyY(Coordinate c) {
-        if (c.y() >= height) {
+        BasisHelper2D basisHelper = wrapHelper.getBasisHelper();
+        int yAdj = basisHelper.invAdjust(c).y();
+        if (yAdj >= height) {
             return null;
-        } else if (c.y() < 0) {
+        } else if (yAdj < 0) {
             return reflectHelper.yReflect(c);
         }
 
