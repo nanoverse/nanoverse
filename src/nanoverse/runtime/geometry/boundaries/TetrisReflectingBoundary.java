@@ -24,7 +24,6 @@ import nanoverse.runtime.control.identifiers.Coordinate;
 import nanoverse.runtime.geometry.boundaries.helpers.ReflectHelper2D;
 import nanoverse.runtime.geometry.boundaries.helpers.WrapHelper2D;
 import nanoverse.runtime.geometry.lattice.Lattice;
-import nanoverse.runtime.geometry.lattice.RectangularLattice;
 import nanoverse.runtime.geometry.shape.Rectangle;
 import nanoverse.runtime.geometry.shape.Shape;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
@@ -62,11 +61,6 @@ public class TetrisReflectingBoundary extends Boundary {
         if (!(shape instanceof Rectangle)) {
             throw new IllegalArgumentException("TetrisReflectingBoundary is" +
                 " only defined on rectangular arenas.");
-        }
-
-        if (!(lattice instanceof RectangularLattice)) {
-            throw new IllegalArgumentException("TetrisReflectingBoundary is" +
-                " only defined on rectangular lattices");
         }
 
         if (lattice.getDimensionality() != 2) {

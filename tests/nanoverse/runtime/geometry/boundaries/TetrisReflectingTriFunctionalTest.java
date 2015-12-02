@@ -42,7 +42,7 @@ import static org.mockito.Mockito.when;
  *
  * @author Daniel Greenidge
  */
-public class TetrisReflectingBoundaryTest extends TestBase {
+public class TetrisReflectingTriFunctionalTest extends TestBase {
 
     private Shape shape;
     private Lattice lattice;
