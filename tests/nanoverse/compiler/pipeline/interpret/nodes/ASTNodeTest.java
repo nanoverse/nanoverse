@@ -33,14 +33,14 @@ public class ASTNodeTest extends TestBase {
 
     private ASTNode child1, child2;
     private ASTNode query;
-    private int LINE = 1;
+    private int lineNumber = 1;
 
     @Before
     public void init() throws Exception {
         child1 = mock(ASTNode.class);
         child2 = mock(ASTNode.class);
         Stream<ASTNode> stream = Stream.of(child1, child2);
-        query = new ASTNode("id", stream, LINE);
+        query = new ASTNode("id", stream, lineNumber);
     }
 
     @Test
@@ -63,21 +63,21 @@ public class ASTNodeTest extends TestBase {
     @Test
     public void equals() throws Exception {
         Stream<ASTNode> stream = Stream.of(child1, child2);
-        ASTNode other = new ASTNode("id", stream, LINE);
+        ASTNode other = new ASTNode("id", stream, lineNumber);
         assertEquals(query, other);
     }
 
     @Test
     public void notEqDiffId() throws Exception {
         Stream<ASTNode> stream = Stream.of(child1, child2);
-        ASTNode other = new ASTNode("something else", stream, LINE);
+        ASTNode other = new ASTNode("something else", stream, lineNumber);
         assertNotEquals(query, other);
     }
 
     @Test
     public void notEqDiffChildren() throws Exception {
         Stream<ASTNode> stream = Stream.empty();
-        ASTNode other = new ASTNode("id", stream, LINE);
+        ASTNode other = new ASTNode("id", stream, lineNumber);
         assertNotEquals(query, other);
     }
 }

@@ -50,9 +50,7 @@ public class NanoStandaloneIdVisitor extends AbstractNanoNodeVisitor {
     @Override
     public ASTNode visitId(@NotNull NanosyntaxParser.IdContext ctx) {
         Token token = ctx.getStart();
-        int lineNumber;
-        if (token != null) lineNumber = token.getLine();
-        else lineNumber = -1;
+        int lineNumber = token.getLine();
         ParseTree idTree = ctx.getChild(0);
         verifyPayload(idTree, CommonToken.class);
         String identifier = idTree.getText();
