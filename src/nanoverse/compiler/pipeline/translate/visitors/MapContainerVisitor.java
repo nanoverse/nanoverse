@@ -51,7 +51,7 @@ public class MapContainerVisitor {
         logger.debug("Translating {} using MST for class {}", toTranslate.getIdentifier(),
             symbolTable.getInstanceClass().getSimpleName());
 
-        MapObjectNode node = new MapObjectNode(symbolTable);
+        MapObjectNode node = new MapObjectNode(symbolTable, toTranslate.getLineNumber());
 
         // Visit each child.
         toTranslate.getChildren()

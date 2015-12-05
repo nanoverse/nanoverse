@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.interpret.visitors;
 import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser;
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import org.antlr.v4.runtime.CommonToken;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.*;
@@ -43,15 +44,18 @@ public class NanoPrimitiveStringVisitor extends AbstractNanoNodeVisitor {
             throw new IllegalStateException("Malformed primitive");
         }
 
+        Token token = ctx.getStart();
+        int lineNumber = token.getLine();
+
         ParseTree child = ctx.getChild(0);
         verifyPayload(child, CommonToken.class);
 
         String valueText = child.getText();
         valueText = valueText.replaceAll("^\"|\"$", "");
-        ASTNode valueNode = new ASTNode(valueText, Stream.empty());
+        ASTNode valueNode = new ASTNode(valueText, Stream.empty(), lineNumber);
         Stream<ASTNode> children = Stream.of(valueNode);
-        ASTNode container = new ASTNode(IDENTIFIER, children);
-        logger.debug("Translated literal \"{}\" as a String primitive.", valueText);
+        ASTNode container = new ASTNode(IDENTIFIER, children, lineNumber);
+        logger.debug("Translated literal \"{}\" as a String primitive. Line number {}", valueText, lineNumber);
         return container;
     }
 }

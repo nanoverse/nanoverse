@@ -39,18 +39,20 @@ import java.util.HashMap;
 public class DictionaryCrawler {
 
     File dir;
+    private static final int lineNumber = 1;
 
     private void handleMapST(MapSymbolTable st, String filename, String fileDescription) {
         HashMap<String, MemberSymbol> members = st.resolveMembers();
         BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
 
         members.keySet().forEach(memberName -> {
-            String type = truncateType(st.getSymbolTable(memberName).getClass().getSimpleName());
+            String type = truncateType(
+                    st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
             String description = members.get(memberName).getDescription();
 
             writeTableRow(bw, memberName, type, description);
 
-            handleMember(st.getSymbolTable(memberName), memberName, description);
+            handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
         });
 
         endFile(bw);
@@ -61,12 +63,13 @@ public class DictionaryCrawler {
         BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
 
         members.keySet().forEach(memberName -> {
-            String type = truncateType(st.getSymbolTable(memberName).getClass().getSimpleName());
-            String description = st.getSymbolTable(memberName).getDescription();
+            String type = truncateType(
+                    st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
+            String description = st.getSymbolTable(memberName, lineNumber).getDescription();
 
             writeTableRow(bw, memberName, type, description);
 
-            handleMember(st.getSymbolTable(memberName), memberName, description);
+            handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
         });
 
         endFile(bw);
@@ -78,12 +81,13 @@ public class DictionaryCrawler {
         BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
 
         members.keySet().forEach(memberName -> {
-            String type = truncateType(st.getSymbolTable(memberName).getClass().getSimpleName());
+            String type = truncateType(
+                    st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
             String description = members.get(memberName).getDescription();
 
             writeTableRow(bw, memberName, type, description);
 
-            handleMember(st.getSymbolTable(memberName), memberName, description);
+            handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
         });
 
         endFile(bw);
@@ -94,12 +98,13 @@ public class DictionaryCrawler {
         BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
 
         members.keySet().forEach(memberName -> {
-            String type = truncateType(st.getSymbolTable(memberName).getClass().getSimpleName());
+            String type = truncateType(
+                    st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
             String description = members.get(memberName).getDescription();
 
             writeTableRow(bw, memberName, type, description);
 
-            handleMember(st.getSymbolTable(memberName), memberName, description);
+            handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
         });
 
         endFile(bw);
@@ -110,12 +115,13 @@ public class DictionaryCrawler {
 
         st.getMemberNames().forEach(mn -> {
             String memberName = (String) mn;
-            String type = truncateType(st.getSymbolTable(memberName).getClass().getSimpleName());
-            String description = st.getSymbolTable(memberName).getDescription();
+            String type = truncateType(
+                    st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
+            String description = st.getSymbolTable(memberName, lineNumber).getDescription();
 
             writeTableRow(bw, memberName, type, description);
 
-            handleMember(st.getSymbolTable(memberName), memberName, description);
+            handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
         });
 
         endFile(bw);
@@ -127,12 +133,13 @@ public class DictionaryCrawler {
         BufferedWriter bw = createNewFile("Main", "", members.size());
 
         members.keySet().forEach(memberName -> {
-            String type = truncateType(st.getSymbolTable(memberName).getClass().getSimpleName());
+            String type = truncateType(
+                    st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
             String description = st.resolveMembers().get(memberName).getDescription();
 
             writeTableRow(bw, memberName, type, description);
 
-            handleMember(st.getSymbolTable(memberName), memberName, description);
+            handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
         });
 
         endFile(bw);

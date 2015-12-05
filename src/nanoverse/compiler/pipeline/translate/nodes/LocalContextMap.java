@@ -49,7 +49,7 @@ public class LocalContextMap {
 
     public void loadMember(String identifier, ObjectNode value) {
         if (members.containsKey(identifier)) {
-            throw new IllegalAssignmentError("Double assignment to member '" + identifier + "'");
+            throw new IllegalAssignmentError("Double assignment to member '" + identifier + "'", value.getLineNumber());
         }
         members.put(identifier, value);
     }
@@ -73,4 +73,5 @@ public class LocalContextMap {
     public int size() {
         return members.size();
     }
+
 }
