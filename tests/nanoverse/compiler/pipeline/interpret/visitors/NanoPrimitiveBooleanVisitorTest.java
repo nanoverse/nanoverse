@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.interpret.visitors;
 import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.BoolPrimitiveContext;
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import org.antlr.v4.runtime.CommonToken;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.*;
 import test.TestBase;
@@ -39,6 +40,8 @@ public class NanoPrimitiveBooleanVisitorTest extends TestBase {
     private BoolPrimitiveContext ctx;
     private ParseTree child;
     private String valueText = "test";
+    private int lineNumber = 1;
+    private Token token;
 
     @Before
     public void before() throws Exception {
@@ -46,6 +49,10 @@ public class NanoPrimitiveBooleanVisitorTest extends TestBase {
 
         child = mock(ParseTree.class);
         when(ctx.getChild(0)).thenReturn(child);
+
+        token = mock(Token.class);
+        when(ctx.getStart()).thenReturn(token);
+        when(token.getLine()).thenReturn(lineNumber);
 
         query = new NanoPrimitiveBooleanVisitor();
     }
@@ -69,6 +76,14 @@ public class NanoPrimitiveBooleanVisitorTest extends TestBase {
     private void verifyOutput(ASTNode output) {
         verifyIdentifier(output);
         verifyChild(output);
+        verifyLine(output);
+    }
+
+    private void verifyLine(ASTNode output) {
+        int expected = lineNumber;
+        int actual = output.getLineNumber();
+
+        assertEquals(expected, actual);
     }
 
     private void verifyIdentifier(ASTNode output) {

@@ -46,7 +46,7 @@ public abstract class ClassSymbolTable<T> implements ResolvingSymbolTable {
     public abstract HashMap<String, Supplier<InstantiableSymbolTable>> resolveSubclasses();
 
     @Override
-    public InstantiableSymbolTable getSymbolTable(String identifier) {
+    public InstantiableSymbolTable getSymbolTable(String identifier, int lineNumber) {
         logger.debug("Resolving \"{}\" against class {}", identifier,
             getBroadClass().getSimpleName());
 
@@ -55,7 +55,7 @@ public abstract class ClassSymbolTable<T> implements ResolvingSymbolTable {
                 identifier, getBroadClass().getSimpleName());
 
             throw new UnrecognizedIdentifierError(identifier,
-                getBroadClass());
+                getBroadClass(), lineNumber);
         }
 
         return members.get(identifier).get();

@@ -31,15 +31,20 @@ import java.util.stream.*;
 public class ASTNode {
     private final String identifier;
     private final List<ASTNode> children;
+    private final int lineNumber;
 
-    public ASTNode(String identifier, Stream<ASTNode> children) {
+    public ASTNode(String identifier, Stream<ASTNode> children, int lineNumber) {
+
         this.identifier = identifier;
         this.children = children.collect(Collectors.toList());
+        this.lineNumber = lineNumber;
     }
 
     public int size() {
         return children.size();
     }
+
+    public int getLineNumber() { return lineNumber; }
 
     public Stream<ASTNode> getChildren() {
         return children.stream();

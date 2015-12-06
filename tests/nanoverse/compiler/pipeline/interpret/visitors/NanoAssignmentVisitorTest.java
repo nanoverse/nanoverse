@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.interpret.visitors;
 import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser.*;
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import org.antlr.v4.runtime.CommonToken;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.*;
 
@@ -42,13 +43,19 @@ public class NanoAssignmentVisitorTest {
     private AssignmentContext ctx;
     private CommonToken idPayload;
     private NanoAssignmentVisitor query;
+    private Token token;
+    private int lineNumber = 1;
 
     @Before
     public void init() throws Exception {
         singletonVisitor = mock(NanoSingletonVisitor.class);
         blockVisitor = mock(NanoBlockVisitor.class);
 
+        token = mock(Token.class);
+        when(token.getLine()).thenReturn(lineNumber);
+
         ctx = mock(AssignmentContext.class);
+        when(ctx.getStart()).thenReturn(token);
         grandchild = mock(ParseTree.class);
         child0 = mock(ParseTree.class);
         child1 = mock(BlockContext.class);
@@ -72,7 +79,7 @@ public class NanoAssignmentVisitorTest {
         when(child2.accept(singletonVisitor)).thenReturn(value);
 
         ASTNode expected = new ASTNode(identifier,
-            Stream.of(value));
+            Stream.of(value), lineNumber);
         ASTNode actual = query.visitAssignment(ctx);
         assertEquals(expected, actual);
     }
@@ -83,8 +90,9 @@ public class NanoAssignmentVisitorTest {
         ASTNode dummy = mock(ASTNode.class);
         when(blockVisitor.getChildrenAsNodes(child1))
             .thenReturn(Stream.of(dummy));
+
         ASTNode expected = new ASTNode(identifier,
-            Stream.of(dummy));
+            Stream.of(dummy), lineNumber);
         ASTNode actual = query.visitAssignment(ctx);
         assertEquals(expected, actual);
     }

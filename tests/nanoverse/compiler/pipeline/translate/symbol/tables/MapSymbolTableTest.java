@@ -30,8 +30,10 @@ import static org.junit.Assert.assertEquals;
 public abstract class MapSymbolTableTest extends InstantiableSymbolTableTest {
 
     protected void verifyReturnSymbol(String identifier, Class expected) {
+        int lineNumber = 1;
+
         MapSymbolTable queryAsMap = (MapSymbolTable) getQuery();
-        ResolvingSymbolTable rst = queryAsMap.getSymbolTable(identifier);
+        ResolvingSymbolTable rst = queryAsMap.getSymbolTable(identifier, lineNumber);
         Class actual = rst.getBroadClass();
         assertEquals(expected, actual);
     }
