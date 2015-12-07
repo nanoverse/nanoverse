@@ -23,6 +23,7 @@ package nanoverse.compiler.pipeline.translate.symbol;
 import com.google.common.reflect.TypeToken;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
 
+import java.util.HashMap;
 import java.util.function.Supplier;
 
 /**
@@ -43,6 +44,19 @@ public class DictionarySymbolTable<T> implements InstantiableSymbolTable, Resolv
 
         this.resolvingSymbolTable = resolvingSymbolTable;
         this.loaderSupplier = loaderSupplier;
+    }
+
+    public HashMap<String, MemberSymbol> resolveMembers() {
+        ClassSymbolTable cst = (ClassSymbolTable) resolvingSymbolTable;
+        return cst.resolveSubclasses();
+    }
+
+    public String getResolvingSymbolTableDescription() {
+        return resolvingSymbolTable.getDescription();
+    }
+
+    public Class getResolvingSymbolTableClass() {
+        return resolvingSymbolTable.getClass();
     }
 
     @Override
