@@ -26,6 +26,7 @@ package nanoverse.compiler.pipeline.translate.symbol;
 
 import junit.framework.TestCase;
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
+import nanoverse.compiler.pipeline.translate.symbol.agent.action.ActionClassSymbolTable;
 import org.junit.Test;
 import test.TestBase;
 
@@ -38,6 +39,24 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class ListSymbolTableTest extends TestBase {
+    @Test
+    public void getClassSymbolTableClass() {
+        ActionClassSymbolTable acst = new ActionClassSymbolTable();
+        Supplier<Loader> loaderSupplier = mock(Supplier.class);
+        ListSymbolTable lst = new ListSymbolTable(acst, loaderSupplier);
+
+        TestCase.assertEquals(lst.getClassSymbolTableClass(), ActionClassSymbolTable.class);
+    }
+
+    @Test
+    public void getClassSymbolTableDescription() {
+        ActionClassSymbolTable acst = new ActionClassSymbolTable();
+        Supplier<Loader> loaderSupplier = mock(Supplier.class);
+        ListSymbolTable lst = new ListSymbolTable(acst, loaderSupplier);
+
+        TestCase.assertEquals(lst.getClassSymbolTableDescription(), acst.getDescription());
+    }
+
     @Test
     public void getMemberNames() throws Exception {
         HashMap<String, Supplier<InstantiableSymbolTable>> members = new HashMap<>();
