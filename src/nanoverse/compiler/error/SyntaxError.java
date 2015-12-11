@@ -31,4 +31,7 @@ public class SyntaxError extends UserError {
     public SyntaxError(String message) {
         super(message);
     }
+    public SyntaxError(String message, int lineNumber) {
+        super(message, lineNumber);
+    }
 }

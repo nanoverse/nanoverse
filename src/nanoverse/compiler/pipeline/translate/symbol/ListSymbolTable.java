@@ -43,6 +43,14 @@ public class ListSymbolTable<T> implements InstantiableSymbolTable, ResolvingSym
         this.loaderSupplier = loaderSupplier;
     }
 
+    public String getClassSymbolTableDescription() {
+        return classSymbolTable.getDescription();
+    }
+
+    public Class getClassSymbolTableClass() {
+        return classSymbolTable.getClass();
+    }
+
     public Set getMemberNames(){
         return  classSymbolTable.resolveSubclasses().keySet();
     }
@@ -53,8 +61,8 @@ public class ListSymbolTable<T> implements InstantiableSymbolTable, ResolvingSym
     }
 
     @Override
-    public InstantiableSymbolTable getSymbolTable(String identifier) {
-        return classSymbolTable.getSymbolTable(identifier);
+    public InstantiableSymbolTable getSymbolTable(String identifier, int lineNumber) {
+        return classSymbolTable.getSymbolTable(identifier, lineNumber);
     }
 
     @Override

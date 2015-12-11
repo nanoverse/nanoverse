@@ -24,6 +24,7 @@ import nanoverse.compiler.pipeline.interpret.nanosyntax.NanosyntaxParser;
 import nanoverse.compiler.pipeline.interpret.nodes.ASTNode;
 import nanoverse.compiler.pipeline.interpret.visitors.helpers.NanoBlockHelper;
 import org.antlr.v4.runtime.CommonToken;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.*;
@@ -79,18 +80,22 @@ public class NanoAssignmentVisitor extends AbstractNanoNodeVisitor {
     }
 
     private ASTNode blockCase(AssignmentContext ctx, String id) {
-        logger.debug("Resolving assignment of block to {}", id);
+        Token token = ctx.getStart();
+        int lineNumber = token.getLine();
+        logger.debug("Resolving assignment of block to {}. Line number {}", id, lineNumber);
         BlockContext child = (BlockContext) ctx.getChild(1);
         Stream<ASTNode> children = blockVisitor.getChildrenAsNodes(child);
-        return new ASTNode(id, children);
+        return new ASTNode(id, children, lineNumber);
     }
 
     private ASTNode singletonCase(AssignmentContext ctx, String id) {
-        logger.debug("Resolving assignment of singleton to {}", id);
+        Token token = ctx.getStart();
+        int lineNumber = token.getLine();
+        logger.debug("Resolving assignment of singleton to {}. Line number {}", id, lineNumber);
         ParseTree child = ctx.getChild(2);
         ASTNode value = child.accept(singletonVisitor);
         Stream<ASTNode> children = Stream.of(value);
-        return new ASTNode(id, children);
+        return new ASTNode(id, children, lineNumber);
     }
 
     private String getIdentifier(AssignmentContext ctx) {

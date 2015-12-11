@@ -50,7 +50,7 @@ public class MapChildLoader {
         String identifier = child.getIdentifier();
 
         // Get a symbol table that can resolve the field's value.
-        ResolvingSymbolTable childRST = symbolTable.getSymbolTable(identifier);
+        ResolvingSymbolTable childRST = symbolTable.getSymbolTable(identifier, child.getLineNumber());
 
         ObjectNode childNode = translator.translate(child, childRST);
         logDebug(identifier, childNode);
