@@ -84,6 +84,11 @@ public class ActionClassSymbolTableTest extends ClassSymbolTableTest {
     }
 
     @Test
+    public void make() throws Exception {
+        verifyReturnSymbol("Make", MakeDescriptor.class);
+    }
+
+    @Test
     public void cloneTo() throws Exception {
         verifyReturnSymbol("CloneTo", CloneToDescriptor.class);
     }

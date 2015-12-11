@@ -21,21 +21,22 @@
 package nanoverse.compiler.pipeline.translate.symbol.agent.action;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
-import nanoverse.compiler.pipeline.instantiate.loader.agent.action.ExpandLoader;
+import nanoverse.compiler.pipeline.instantiate.loader.agent.action.MakeLoader;
 import nanoverse.compiler.pipeline.translate.symbol.*;
+import nanoverse.compiler.pipeline.translate.symbol.agent.AgentDescriptorClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.integers.IntegerClassSymbolTable;
-import nanoverse.runtime.agent.action.ExpandDescriptor;
+import nanoverse.runtime.agent.action.MakeDescriptor;
 
 import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/22/2015.
  */
-public class ExpandInstSymbolTable extends ActionInstSymbolTable<ExpandDescriptor> {
+public class MakeInstSymbolTable extends ActionInstSymbolTable<MakeDescriptor> {
     @Override
     public String getDescription() {
         return "Causes the agent to expand toward the nearest vacant site. " +
-            "If there are no adjacent vacancies, the agent will push a " +
+            "If there are no adjacent vacancies, the nanoverse.runtime.agent will push a " +
             "line of agents toward the nearest vacancy, then place a " +
             "copy of itself in an adjacent site.";
     }
@@ -45,6 +46,7 @@ public class ExpandInstSymbolTable extends ActionInstSymbolTable<ExpandDescripto
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
         targetHighlight(ret);
         selfHighlight(ret);
+        agentDescriptor(ret);
         return ret;
     }
 
@@ -64,8 +66,14 @@ public class ExpandInstSymbolTable extends ActionInstSymbolTable<ExpandDescripto
         ret.put("selfHighlight", ms);
     }
 
+    private void agentDescriptor(HashMap<String, MemberSymbol> ret) {
+        ResolvingSymbolTable rst = new AgentDescriptorClassSymbolTable();
+        MemberSymbol ms = new MemberSymbol(rst, "A template for the agents to be created by this process.");
+        ret.put("description", ms);
+    }
+
     @Override
     public Loader getLoader() {
-        return new ExpandLoader();
+        return new MakeLoader();
     }
 }

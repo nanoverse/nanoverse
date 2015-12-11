@@ -47,6 +47,7 @@ public class ActionClassSymbolTable extends ClassSymbolTable<ActionDescriptor> {
         cloneTo(ret);
         compoundAction(ret);
         expand(ret);
+        make(ret);
         expandTo(ret);
         expandRandom(ret);
         expandWeighted(ret);
@@ -110,6 +111,11 @@ public class ActionClassSymbolTable extends ClassSymbolTable<ActionDescriptor> {
     private void expand(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> supplier = ExpandInstSymbolTable::new;
         ret.put("Expand", supplier);
+    }
+
+    private void make(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> supplier = MakeInstSymbolTable::new;
+        ret.put("Make", supplier);
     }
 
     private void cloneTo(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {

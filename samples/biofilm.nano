@@ -1,0 +1,101 @@
+version: "1.0.0-a8";
+
+parameters: Parameters {
+    date: True;
+    instances: 1;
+    project: "biofilm";
+    maxStep: 1001;
+};
+
+geometry: Geometry {
+   shape: Hexagon: radius: 65;
+   lattice: Triangular;
+};
+
+layers {
+    AgentLayer {
+        id: "Agents";
+        boundary: Halt;
+    };
+};
+
+processes {
+    Tick: dt: 1.0;
+    
+    Scatter {
+        maxTargets: 118;
+        activeSites: Disc: radius: 12;
+
+        period: 0;
+        start: 0;
+
+        description: Agent {
+            name: "nonproducer";
+            behaviors {
+
+                Reproduce: StochasticChoice {
+                    normalized: True;
+                    options: Option {
+                        weight: Constant: value: 0.01;
+                        action: Expand;
+                    };
+                };
+            };
+        };
+    };
+
+    Fill {
+        skipFilled: True;
+        activeSites: Disc: radius: 12;
+
+        period: 0;
+        start: 0;
+
+        description: Agent {
+            name: "producer";
+            behaviors {
+
+                Reproduce: StochasticChoice {
+                    normalized: True;
+                    options {
+                        Option {
+                            weight: Constant: value: 0.008;
+                            action: Expand;
+                        };
+                        Option {
+                            weight: Constant: value: 0.002;
+                            action: Make: description: Agent {
+                                name: "matrix";
+                                behaviors: Reproduce: Null;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+    };
+
+    Record: period: 20;
+
+    Trigger {
+        behavior: "Reproduce";
+        skipVacantSites: True;
+    };
+};
+
+output {
+    ProgressReporter;
+    CoordinateIndexer;
+    AgentNameWriter;
+    TimeWriter;
+    VisualizationSerializer {
+        visualization: Map: color: Indexed: palette: Custom: mappings {
+            producer: "BLUE";
+            nonproducer: "RED";
+            matrix: "LIGHT_GRAY";
+        };
+    };
+    CensusWriter;
+    RunningTimeWriter;
+    RandomSeedWriter;
+};
