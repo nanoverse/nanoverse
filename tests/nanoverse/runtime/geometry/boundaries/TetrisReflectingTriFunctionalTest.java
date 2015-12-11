@@ -34,7 +34,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Daniel Greenidge
  */
-public class TetrisReflectingBoundaryTest extends TestBase {
+public class TetrisReflectingTriFunctionalTest extends TestBase {
 
     private Shape shape;
     private Lattice lattice;
@@ -42,8 +42,8 @@ public class TetrisReflectingBoundaryTest extends TestBase {
 
     @Before
     public void init() {
-        lattice = new RectangularLattice();
-        shape = new Rectangle(lattice, 2, 2);
+        lattice = new TriangularLattice();
+        shape = new Rectangle(lattice, 4, 4);
         query = new TetrisReflectingBoundary(shape, lattice);
     }
 
@@ -71,20 +71,23 @@ public class TetrisReflectingBoundaryTest extends TestBase {
         new TetrisReflectingBoundary(shape, lattice);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void nonRectangularLatticeThrows() {
-        Shape shape = mock(Rectangle.class);
-        Lattice lattice = mock(TriangularLattice.class);
-        when(lattice.getDimensionality()).thenReturn(2);
-        new TetrisReflectingBoundary(shape, lattice);
-    }
-
     @Test
     public void rightOverboundWraps() {
-        Coordinate input = new Coordinate2D(2, 0, 0);
-        Coordinate expected = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
+        Coordinate input = new Coordinate2D(4, 2, 0);
+        Coordinate expected = new Coordinate2D(0, 0, 0);
         doTest(input, expected);
 
+        input = new Coordinate2D(4, 3, 0);
+        expected = new Coordinate2D(0, 1, 0);
+        doTest(input, expected);
+
+        input = new Coordinate2D(4, 4, 0);
+        expected = new Coordinate2D(0, 2, 0);
+        doTest(input, expected);
+
+        input = new Coordinate2D(4, 5, 0);
+        expected = new Coordinate2D(0, 3, 0);
+        doTest(input, expected);
     }
 
     private void doTest(Coordinate input, Coordinate expected) {
@@ -94,21 +97,33 @@ public class TetrisReflectingBoundaryTest extends TestBase {
 
     @Test
     public void leftOverBoundWraps() {
-        Coordinate input = new Coordinate2D(-1, 0, 0);
-        Coordinate expected = new Coordinate2D(1, 0, Flags.BOUNDARY_APPLIED);
+        Coordinate input = new Coordinate2D(-1, -1, 0);
+        Coordinate expected = new Coordinate2D(3, 1, 0);
+        doTest(input, expected);
+
+        input = new Coordinate2D(-1, 0, 0);
+        expected = new Coordinate2D(3, 2, 0);
+        doTest(input, expected);
+
+        input = new Coordinate2D(-1, 1, 0);
+        expected = new Coordinate2D(3, 3, 0);
+        doTest(input, expected);
+
+        input = new Coordinate2D(-1, 2, 0);
+        expected = new Coordinate2D(3, 4, 0);
         doTest(input, expected);
     }
 
     @Test
     public void belowWorldReflects() {
-        Coordinate input = new Coordinate2D(1, -2, 0);
-        Coordinate expected = new Coordinate2D(1, 1, Flags.BOUNDARY_APPLIED);
+        Coordinate input = new Coordinate2D(1, -1, 0);
+        Coordinate expected = new Coordinate2D(1, 0, Flags.BOUNDARY_APPLIED);
         doTest(input, expected);
     }
 
     @Test
     public void aboveWorldIsNull() {
-        Coordinate input = new Coordinate2D(1, 3, 0);
+        Coordinate input = new Coordinate2D(1, 4, 0);
         doNullTest(input);
     }
 
@@ -126,26 +141,26 @@ public class TetrisReflectingBoundaryTest extends TestBase {
 
     @Test
     public void upperRightIsNull() {
-        Coordinate input = new Coordinate2D(2, 2, 0);
+        Coordinate input = new Coordinate2D(4, 6, 0);
         doNullTest(input);
     }
 
     @Test
     public void upperLeftIsNull() {
-        Coordinate input = new Coordinate2D(-1, 2, 0);
+        Coordinate input = new Coordinate2D(-1, 3, 0);
         doNullTest(input);
     }
 
     @Test
     public void lowerLeftWrappedAndReflected() {
-        Coordinate input = new Coordinate2D(-1, -1, 0);
-        Coordinate expected = new Coordinate2D(1, 0, Flags.BOUNDARY_APPLIED);
+        Coordinate input = new Coordinate2D(-1, -2, 0);
+        Coordinate expected = new Coordinate2D(3, 1, Flags.BOUNDARY_APPLIED);
         doTest(input, expected);
     }
 
     @Test
     public void lowerRightWrappedAndReflected() {
-        Coordinate input = new Coordinate2D(2, -1, 0);
+        Coordinate input = new Coordinate2D(4, 1, 0);
         Coordinate expected = new Coordinate2D(0, 0, Flags.BOUNDARY_APPLIED);
         doTest(input, expected);
     }
