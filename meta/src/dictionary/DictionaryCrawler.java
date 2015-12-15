@@ -29,22 +29,19 @@ import nanoverse.compiler.pipeline.translate.symbol.control.run.ProjectSymbolTab
 import nanoverse.compiler.pipeline.translate.symbol.layers.LayerInstSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.processes.discrete.DiscreteProcessInstSymbolTable;
+import nanoverse.runtime.control.arguments.Constant;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
 
 public class DictionaryCrawler {
     File dir;
     private static final int lineNumber = 1;
     private String leftAngleBracket = "&lt;";
     private String rightAngleBracket = "&gt;";
-    private TreeSet<String> allPages = new TreeSet<>((a, b) -> {
-        int insensitive = String.CASE_INSENSITIVE_ORDER.compare(a, b);
-        return insensitive==0 ? a.compareTo(b) : insensitive;
-    });
 
     private void handleConstantPrimitiveSymbolTable(ConstantPrimitiveSymbolTable st, String filename, String fileDescription) {
         BufferedWriter bw = createNewFile(filename, fileDescription, 0);
@@ -55,13 +52,7 @@ public class DictionaryCrawler {
         HashMap<String, MemberSymbol> members = st.resolveMembers();
         BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
 
-        if (st.getClass().getSuperclass() == DictionarySymbolTable.class)
-            allPages.add(filename);
-
-        TreeSet<String> membersTree = new TreeSet();
-        membersTree.addAll(members.keySet());
-
-        membersTree.forEach(memberName -> {
+        members.keySet().forEach(memberName -> {
             String type = truncateType(
                     st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
             String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
@@ -78,13 +69,7 @@ public class DictionaryCrawler {
         HashMap<String, MemberSymbol> members = st.resolveMembers();
         BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
 
-        if (st.getClass().getSuperclass() == MapSymbolTable.class)
-            allPages.add(filename);
-
-        TreeSet<String> membersTree = new TreeSet();
-        membersTree.addAll(members.keySet());
-
-        membersTree.forEach(memberName -> {
+        members.keySet().forEach(memberName -> {
             String type = truncateType(
                     st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
             String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
@@ -101,13 +86,7 @@ public class DictionaryCrawler {
         HashMap<String, MemberSymbol> members = st.resolveSubclasses();
         BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
 
-        if (st.getClass().getSuperclass() == ClassSymbolTable.class)
-            allPages.add(filename);
-
-        TreeSet<String> membersTree = new TreeSet();
-        membersTree.addAll(members.keySet());
-
-        membersTree.forEach(memberName -> {
+        members.keySet().forEach(memberName -> {
             String type = truncateType(
                     st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
             String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
@@ -125,10 +104,7 @@ public class DictionaryCrawler {
         HashMap<String, MemberSymbol> members = st.resolveMembers();
         BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
 
-        TreeSet<String> membersTree = new TreeSet();
-        membersTree.addAll(members.keySet());
-
-        membersTree.forEach(memberName -> {
+        members.keySet().forEach(memberName -> {
             String type = truncateType(
                     st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
             String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
@@ -145,10 +121,7 @@ public class DictionaryCrawler {
         HashMap<String, MemberSymbol> members = st.resolveMembers();
         BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
 
-        TreeSet<String> membersTree = new TreeSet();
-        membersTree.addAll(members.keySet());
-
-        membersTree.forEach(memberName -> {
+        members.keySet().forEach(memberName -> {
             String type = truncateType(
                     st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
             String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
@@ -164,13 +137,8 @@ public class DictionaryCrawler {
     private void handleListST(ListSymbolTable st, String filename, String fileDescription) {
         BufferedWriter bw = createNewFile(filename, fileDescription, st.getMemberNames().size());
 
-        TreeSet<String> membersTree = new TreeSet();
-        membersTree.addAll(st.getMemberNames());
-
-        if (st.getClass().getSuperclass() == ListSymbolTable.class)
-            allPages.add(filename);
-
-        membersTree.forEach(memberName -> {
+        st.getMemberNames().forEach(mn -> {
+            String memberName = (String) mn;
             String type = truncateType(
                     st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
             String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
@@ -188,12 +156,7 @@ public class DictionaryCrawler {
         HashMap<String, MemberSymbol> members = st.resolveMembers();
         BufferedWriter bw = createNewFile("Main", "", members.size());
 
-        TreeSet<String> membersTree = new TreeSet();
-        membersTree.addAll(members.keySet());
-
-        allPages.add("Main");
-
-        membersTree.forEach(memberName -> {
+        members.keySet().forEach(memberName -> {
             String type = truncateType(
                     st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
             String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
@@ -202,41 +165,6 @@ public class DictionaryCrawler {
             writeTableRow(bw, memberName, typeToPrint, description);
             handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
         });
-
-        endFile(bw);
-
-        createTableOfContents();
-    }
-
-    private void createTableOfContents() {
-        File f = new File(dir, "Table Of Contents.html");
-        BufferedWriter bw = null;
-
-        try {
-            bw = new BufferedWriter(new FileWriter(f));
-            bw.write("<html><head><title></title>" +
-                    "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">" +
-                    "</head><body>");
-            bw.write("<h1>Table Of Contents</h1>");
-            bw.write("<table>");
-
-            bw.write("<tr><th>Class</th></tr>");
-        }
-        catch (IOException ignored) {}
-
-        for (String page : allPages) {
-            String href = page;
-            if (Character.isUpperCase(page.charAt(0))) {
-                href = page.charAt(0) + page;
-            }
-
-            try {
-                bw.write("<tr>");
-                bw.write("<td><a href='" + href + ".html'>" + page + "</a></td>");
-                bw.write("</tr>");
-            }
-            catch (IOException ignored) {}
-        }
 
         endFile(bw);
     }
