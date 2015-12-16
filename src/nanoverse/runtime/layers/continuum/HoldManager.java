@@ -95,4 +95,8 @@ public class HoldManager {
     public boolean isHeld() {
         return held;
     }
+
+    public void scheduleApplyRelationships() {
+        manager.apply();
+    }
 }

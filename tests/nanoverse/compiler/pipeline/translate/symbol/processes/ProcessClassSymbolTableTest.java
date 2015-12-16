@@ -52,6 +52,11 @@ public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
     }
 
     @Test
+    public void applyRelationships() {
+        verifyReturnSymbol("ApplyRelationships", ApplyRelationships.class);
+    }
+
+    @Test
     public void hold() {
         verifyReturnSymbol("Hold", ScheduleHold.class);
     }

@@ -1,15 +1,15 @@
-version: "1.0.0-a8";
+version: "1.0.0-a10";
 
 parameters: Parameters {
     date: True;
     project: "normalized";
-    maxStep: 1001;
+    maxStep: 10001;
 };
 
 geometry: Geometry {
     shape: Rectangle {
-        width: 128;
-        height: 128;
+        width: 64;
+        height: 64;
     };
 };
 
@@ -58,7 +58,7 @@ processes {
                 x: 0;
                 y: 0;
             };
-            length: 128;
+            length: 64;
         };
     };
 
@@ -72,15 +72,17 @@ processes {
         constant: 0.001;
     };
 
+    ApplyRelationships: layer: "oxygen";
+
     DirichletBoundaryEnforcer {
         layer: "oxygen";
         value: 1.00;
         activeSites: HLine {
             origin: Coordinate {
                 x: 0;
-                y: 127;
+                y: 63;
             };
-            length: 128;
+            length: 64;
         };
     };
 
@@ -92,6 +94,7 @@ processes {
 
 output {
     ProgressReporter;
+    CensusWriter;
     CoordinateIndexer;
     AgentNameWriter;
     TimeWriter;

@@ -64,6 +64,6 @@ public class CensusWriteHelper {
         TextOutputHandle handle = fsManager.makeInstanceTextFile(FILENAME);
         lineBuilder.writeHeader(handle, names);
         lineBuilder.writeFrames(handle, names);
+        handle.close();
     }
-
 }

@@ -88,6 +88,12 @@ public class ContinuumLayerSchedulerTest extends LinearMocks {
     }
 
     @Test
+    public void scheduleApplyRelationships() throws Exception {
+        query.scheduleApplyRelationships();
+        verify(holdManager).scheduleApplyRelationships();
+    }
+
+    @Test
     public void holdCallsHoldManager() throws Exception {
         query.hold();
         verify(holdManager).hold();
