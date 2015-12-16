@@ -78,6 +78,12 @@ public class HoldManagerTest {
     }
 
     @Test
+    public void scheduleApplyRelationships() throws Exception {
+        query.scheduleApplyRelationships();
+        verify(manager).apply();
+    }
+
+    @Test
     public void solveCallsSolver() throws Exception {
         query.solve();
         verify(solver).solve();

@@ -1,4 +1,4 @@
-version: "1.0.0-a8";
+version: "1.0.0-a10";
 
 parameters: Parameters {
     date: True;
@@ -46,6 +46,8 @@ processes {
         layer: "solute";
         constant: 0.01;
     };
+    ApplyRelationships: layer: "oxygen";
+
     Release: layer: "solute";
     Record;
 };

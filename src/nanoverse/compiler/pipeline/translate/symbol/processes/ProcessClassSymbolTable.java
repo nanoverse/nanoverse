@@ -62,6 +62,7 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
         release(ret);
         hold(ret);
         integrate(ret);
+        applyRelationships(ret);
         record(ret);
         manualHalt(ret);
         dirichletEnforcer(ret);
@@ -82,6 +83,11 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
     private void integrate(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> st = IntegrateInstSymbolTable::new;
         ret.put("Integrate", st);
+    }
+
+    private void applyRelationships(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = ApplyRelationshipsInstSymbolTable::new;
+        ret.put("ApplyRelationships", st);
     }
 
     private void hold(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
