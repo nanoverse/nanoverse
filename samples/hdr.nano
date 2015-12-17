@@ -5,7 +5,7 @@
 //
 // Translated to Nanoverse by DAvid Bruce Borenstein
 
-version: "1.0.0-a8";
+version: "1.0.0-a10";
 
 parameters: Parameters {
     date: True;

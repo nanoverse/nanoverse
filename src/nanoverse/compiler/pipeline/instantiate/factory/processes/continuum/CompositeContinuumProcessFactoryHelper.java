@@ -18,11 +18,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.runtime.structural;
+package nanoverse.compiler.pipeline.instantiate.factory.processes.continuum;
 
-/**
- * Created by dbborens on 8/13/15.
- */
-public class Version {
-    public final static String VERSION = "1.0.0-a10";
+import nanoverse.runtime.layers.continuum.ContinuumLayerScheduler;
+import nanoverse.runtime.processes.BaseProcessArguments;
+import nanoverse.runtime.processes.continuum.*;
+
+import java.util.stream.Stream;
+
+
+public class CompositeContinuumProcessFactoryHelper {
+
+    public CompositeContinuumProcess build(BaseProcessArguments arguments, Stream<ContinuumProcess> children, ContinuumLayerScheduler scheduler) {
+        return new CompositeContinuumProcess(arguments, children, scheduler);
+    }
 }

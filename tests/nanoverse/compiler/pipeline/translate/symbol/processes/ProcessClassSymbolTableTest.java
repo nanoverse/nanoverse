@@ -52,6 +52,11 @@ public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
     }
 
     @Test
+    public void applyRelationships() {
+        verifyReturnSymbol("ApplyRelationships", ApplyRelationships.class);
+    }
+
+    @Test
     public void hold() {
         verifyReturnSymbol("Hold", ScheduleHold.class);
     }
@@ -70,6 +75,11 @@ public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
     @Test
     public void diffuse() {
         verifyReturnSymbol("Diffuse", DiffusionProcess.class);
+    }
+
+    @Test
+    public void compositeContinuumProcess() {
+        verifyReturnSymbol("CompositeContinuumProcess", CompositeContinuumProcess.class);
     }
 
     @Test

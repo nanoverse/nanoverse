@@ -64,7 +64,6 @@ public class HoldManager {
             throw new IllegalStateException("Attempting to solve while hold is in place.");
         }
 
-        manager.apply();
         solver.solve();
     }
 
@@ -95,5 +94,9 @@ public class HoldManager {
 
     public boolean isHeld() {
         return held;
+    }
+
+    public void scheduleApplyRelationships() {
+        manager.apply();
     }
 }

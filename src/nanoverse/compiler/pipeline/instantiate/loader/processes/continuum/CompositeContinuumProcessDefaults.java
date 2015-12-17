@@ -18,11 +18,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.runtime.structural;
+package nanoverse.compiler.pipeline.instantiate.loader.processes.continuum;
+
+import nanoverse.runtime.processes.continuum.ContinuumProcess;
+
+import java.util.stream.Stream;
 
 /**
- * Created by dbborens on 8/13/15.
+ * Created by dbborens on 12/17/2015.
  */
-public class Version {
-    public final static String VERSION = "1.0.0-a10";
+public class CompositeContinuumProcessDefaults {
+    public Stream<ContinuumProcess> processes() {
+        return Stream.empty();
+    }
 }

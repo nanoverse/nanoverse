@@ -78,15 +78,27 @@ public class HoldManagerTest {
     }
 
     @Test
+    public void scheduleApplyRelationships() throws Exception {
+        query.scheduleApplyRelationships();
+        verify(manager).apply();
+    }
+
+    @Test
     public void solveCallsSolver() throws Exception {
         query.solve();
         verify(solver).solve();
     }
 
+    /**
+     * Verifies that solve DOES NOT apply reactions. (Prior to
+     * Nanoverse v1.0.0-a10, it did.)
+     *
+     * @throws Exception
+     */
     @Test
-    public void solveAppliesReactions() throws Exception {
+    public void solveDoesNotApplyReactions() throws Exception {
         query.solve();
-        verify(manager).apply();
+        verify(manager, never()).apply();
     }
 
     @Test

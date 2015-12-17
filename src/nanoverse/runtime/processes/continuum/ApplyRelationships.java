@@ -18,11 +18,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.runtime.structural;
+package nanoverse.runtime.processes.continuum;
+
+import nanoverse.runtime.control.halt.HaltCondition;
+import nanoverse.runtime.layers.continuum.ContinuumLayerScheduler;
+import nanoverse.runtime.processes.*;
+import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 /**
- * Created by dbborens on 8/13/15.
+ * Created by dbborens on 12/16/2015.
  */
-public class Version {
-    public final static String VERSION = "1.0.0-a10";
+public class ApplyRelationships extends ContinuumProcess {
+    private ContinuumLayerScheduler scheduler;
+
+    @FactoryTarget
+    public ApplyRelationships(BaseProcessArguments arguments, ContinuumLayerScheduler scheduler) {
+        super(arguments);
+        this.scheduler = scheduler;
+    }
+
+    @Override
+    public void fire(StepState state) throws HaltCondition {
+        scheduler.scheduleApplyRelationships();
+    }
+
+    @Override
+    public void init() {
+    }
 }

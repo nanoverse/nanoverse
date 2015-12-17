@@ -84,6 +84,9 @@ public class ContinuumLayerScheduler {
         holdManager.solve();
     }
 
+    public void scheduleApplyRelationships() {
+        holdManager.scheduleApplyRelationships();
+    }
     public void hold() {
         holdManager.hold();
     }

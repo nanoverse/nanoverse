@@ -1,15 +1,15 @@
-version: "1.0.0-a8";
+version: "1.0.0-a10";
 
 parameters: Parameters {
     date: True;
     project: "normalized";
-    maxStep: 1001;
+    maxStep: 10001;
 };
 
 geometry: Geometry {
     shape: Rectangle {
-        width: 128;
-        height: 128;
+        width: 64;
+        height: 64;
     };
 };
 
@@ -58,40 +58,45 @@ processes {
                 x: 0;
                 y: 0;
             };
-            length: 128;
+            length: 64;
         };
     };
 
     Trigger {
         behavior: "reproduce";
     };
-    Hold: layer: "oxygen";
-
-    Diffuse {
+    CompositeContinuumProcess {
         layer: "oxygen";
-        constant: 0.001;
-    };
-
-    DirichletBoundaryEnforcer {
-        layer: "oxygen";
-        value: 1.00;
-        activeSites: HLine {
-            origin: Coordinate {
-                x: 0;
-                y: 127;
+        children {
+            Diffuse {
+                layer: "oxygen";
+                constant: 0.001;
             };
-            length: 128;
+
+            ApplyRelationships: layer: "oxygen";
+
+            DirichletBoundaryEnforcer {
+                layer: "oxygen";
+                value: 1.00;
+                activeSites: HLine {
+                    origin: Coordinate {
+                        x: 0;
+                        y: 63;
+                    };
+                    length: 64;
+                };
+            };
         };
     };
 
-    Release: layer: "oxygen";
     Record {
-        period: 10;
+        period: 25;
     };
 };
 
 output {
     ProgressReporter;
+    CensusWriter;
     CoordinateIndexer;
     AgentNameWriter;
     TimeWriter;

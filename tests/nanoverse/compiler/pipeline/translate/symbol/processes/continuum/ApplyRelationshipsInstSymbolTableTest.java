@@ -18,11 +18,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.runtime.structural;
+package nanoverse.compiler.pipeline.translate.symbol.processes.continuum;
 
-/**
- * Created by dbborens on 8/13/15.
- */
-public class Version {
-    public final static String VERSION = "1.0.0-a10";
+import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.processes.ProcessInstSymbolTableTest;
+import nanoverse.runtime.control.arguments.Argument;
+import nanoverse.runtime.processes.continuum.ApplyRelationships;
+
+public class ApplyRelationshipsInstSymbolTableTest extends ProcessInstSymbolTableTest {
+
+
+    @Override
+    protected MapSymbolTable getQuery() {
+        return new ApplyRelationshipsInstSymbolTable();
+    }
+
+    @Override
+    protected Class getExpectedClass() {
+        return ApplyRelationships.class;
+    }
+
+    public void layer() throws Exception {
+        verifyReturnSymbol("layer", Argument.class);
+    }
 }
