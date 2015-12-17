@@ -31,7 +31,7 @@ import java.util.function.Supplier;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
 
-public class MakeInterpolatorTest extends InterpolatorTest {
+public class MakeInterpolatorTestCaseSensitivityIssue extends InterpolatorTest {
 
     private MakeDefaults defaults;
     private MakeInterpolator query;
