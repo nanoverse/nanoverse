@@ -65,30 +65,32 @@ processes {
     Trigger {
         behavior: "reproduce";
     };
-    Hold: layer: "oxygen";
-
-    Diffuse {
+    CompositeContinuumProcess {
         layer: "oxygen";
-        constant: 0.001;
-    };
-
-    ApplyRelationships: layer: "oxygen";
-
-    DirichletBoundaryEnforcer {
-        layer: "oxygen";
-        value: 1.00;
-        activeSites: HLine {
-            origin: Coordinate {
-                x: 0;
-                y: 63;
+        children {
+            Diffuse {
+                layer: "oxygen";
+                constant: 0.001;
             };
-            length: 64;
+
+            ApplyRelationships: layer: "oxygen";
+
+            DirichletBoundaryEnforcer {
+                layer: "oxygen";
+                value: 1.00;
+                activeSites: HLine {
+                    origin: Coordinate {
+                        x: 0;
+                        y: 63;
+                    };
+                    length: 64;
+                };
+            };
         };
     };
 
-    Release: layer: "oxygen";
     Record {
-        period: 10;
+        period: 25;
     };
 };
 

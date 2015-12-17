@@ -78,6 +78,11 @@ public class ProcessClassSymbolTableTest extends ClassSymbolTableTest {
     }
 
     @Test
+    public void compositeContinuumProcess() {
+        verifyReturnSymbol("CompositeContinuumProcess", CompositeContinuumProcess.class);
+    }
+
+    @Test
     public void checkForExtinction() {
         verifyReturnSymbol("CheckForExtinction", CheckForExtinction.class);
     }
