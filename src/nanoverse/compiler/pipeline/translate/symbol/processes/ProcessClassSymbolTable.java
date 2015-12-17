@@ -57,6 +57,7 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
         checkThresholdOccupancy(ret);
         checkForDomination(ret);
         checkForExtinction(ret);
+        compositeContinuumProcess(ret);
         diffuse(ret);
         inject(ret);
         release(ret);
@@ -78,6 +79,11 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
     private void record(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> st = RecordInstSymbolTable::new;
         ret.put("Record", st);
+    }
+
+    private void compositeContinuumProcess(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = CompositeContinuumProcessInstSymbolTable::new;
+        ret.put("CompositeContinuumProcess", st);
     }
 
     private void integrate(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
