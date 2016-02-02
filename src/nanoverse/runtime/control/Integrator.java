@@ -26,6 +26,8 @@ import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 import org.slf4j.*;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class Integrator {
 
     private final ProcessManager processManager;
@@ -33,6 +35,7 @@ public class Integrator {
     private GeneralParameters p;
     private SerializationManager serializationManager;
     private final Logger logger = LoggerFactory.getLogger(Integrator.class);
+    private AtomicBoolean isRunningFlag;
 
     @FactoryTarget
     public Integrator(GeneralParameters p, ProcessManager processManager,
@@ -75,6 +78,9 @@ public class Integrator {
     private HaltCondition go() {
         for (int n = 0; n < p.T(); n++) {
             logger.debug("Starting cycle {}.", n);
+
+            // THESE ARE THE FRAMES....
+
             StepState state = new StepState(time, n);
             try {
                 state = processManager.doTriggeredProcesses(state);
@@ -84,7 +90,9 @@ public class Integrator {
             }
 
             // Send the results to the serialization manager.
+            serializationManager.setIsRunningFlag(this.isRunningFlag);
             serializationManager.flush(state);
+
             time = state.getTime();
         }
 
@@ -116,5 +124,9 @@ public class Integrator {
             return false;
 
         return true;
+    }
+
+    public void setIsRunningFlag(AtomicBoolean isRunningFlag) {
+        this.isRunningFlag = isRunningFlag;
     }
 }

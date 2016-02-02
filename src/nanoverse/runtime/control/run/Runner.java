@@ -23,6 +23,8 @@ package nanoverse.runtime.control.run;
 import nanoverse.runtime.control.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Created by dbborens on 11/26/14.
  */
@@ -30,6 +32,8 @@ public class Runner implements Runnable {
 
     private GeneralParameters p;
     private Integrator integrator;
+    private Thread UI;
+    private AtomicBoolean isRunningFlag;
 
     @FactoryTarget(displayName = "Project")
     public Runner(GeneralParameters p, Integrator integrator) {
@@ -38,6 +42,8 @@ public class Runner implements Runnable {
     }
 
     public void run() {
+        integrator.setIsRunningFlag(isRunningFlag);
+
         int n = p.getNumInstances();
         for (int i = 0; i < n; i++) {
             integrator.doNext();
@@ -49,5 +55,13 @@ public class Runner implements Runnable {
                 p.advance();
             }
         }
+    }
+
+    public void setUI(Thread UI) {
+        this.UI = UI;
+    }
+
+    public void setIsRunningFlag(AtomicBoolean isRunningFlag) {
+        this.isRunningFlag = isRunningFlag;
     }
 }
