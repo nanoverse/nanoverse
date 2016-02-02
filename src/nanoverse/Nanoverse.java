@@ -24,6 +24,8 @@ import nanoverse.compiler.Compiler;
 import nanoverse.compiler.error.ConsoleError;
 import nanoverse.runtime.control.run.Runner;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Created by dbborens on 9/17/2015.
  */
@@ -54,6 +56,15 @@ public class Nanoverse {
 
     public void go() {
         Runner runner = compiler.compile();
+
+        AtomicBoolean isRunningFlag = new AtomicBoolean(true);
+
+        UserInterfaceRunnable myRunnable = new UserInterfaceRunnable(isRunningFlag);
+        Thread uiThread = new Thread(myRunnable);
+        uiThread.start();
+
+        runner.setUI(uiThread);
+        runner.setIsRunningFlag(isRunningFlag);
         runner.run();
     }
 }
