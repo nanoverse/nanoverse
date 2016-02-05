@@ -25,6 +25,7 @@ import nanoverse.runtime.control.halt.HaltCondition;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.StepState;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 /**
@@ -126,4 +127,9 @@ public abstract class Serializer {
         }
     }
 
+    public void setOutputImage(BufferedImage image) {
+    }
+
+    public void setShowUserInterface(boolean showUserInterface) {
+    }
 }

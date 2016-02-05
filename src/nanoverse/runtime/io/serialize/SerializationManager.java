@@ -26,6 +26,7 @@ import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -37,6 +38,8 @@ public class SerializationManager extends Serializer {
 
     private List<Serializer> writers;
     private AtomicBoolean isRunningFlag;
+    private BufferedImage outputImage;
+    private boolean showUserInterface;
 
     @FactoryTarget(displayName = "OutputManager")
     public SerializationManager(GeneralParameters p, LayerManager layerManager, List<Serializer> writers) {
@@ -56,6 +59,10 @@ public class SerializationManager extends Serializer {
 
     public void dispatchHalt(HaltCondition ex) {
         for (Serializer tw : writers) {
+            if (showUserInterface) {
+                tw.setShowUserInterface(showUserInterface);
+                tw.setOutputImage(outputImage);
+            }
             tw.dispatchHalt(ex);
         }
     }
@@ -73,12 +80,17 @@ public class SerializationManager extends Serializer {
         if (stepState.isRecorded()) {
             for (Serializer tw : writers) {
                 tw.flush(stepState);
-                while (!this.isRunningFlag.get()) {// if program should be stopped
-                    System.out.println("Paused");
-                    try {
-                        TimeUnit.MILLISECONDS.sleep(250);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+
+                if (showUserInterface) {
+                    if (!isRunningFlag.get())
+                        System.out.println("Execution Paused");
+
+                    while (!isRunningFlag.get()) {
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(250);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -112,5 +124,13 @@ public class SerializationManager extends Serializer {
 
     public void setIsRunningFlag(AtomicBoolean isRunningFlag) {
         this.isRunningFlag = isRunningFlag;
+    }
+
+    public void setOutputImage(BufferedImage outputImage) {
+        this.outputImage = outputImage;
+    }
+
+    public void setShowUserInterface(boolean showUserInterface) {
+        this.showUserInterface = showUserInterface;
     }
 }

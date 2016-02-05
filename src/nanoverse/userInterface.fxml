@@ -1,9 +1,55 @@
-<!--<?import javafx.geometry.Insets?>-->
-<?import javafx.scene.layout.GridPane?>
+<!--
+    * Nanoverse: a declarative agent-based modeling language for natural and
+    * social science.
+    *
+    * Copyright (c) 2015 David Bruce Borenstein and Nanoverse, LLC.
+    *
+    * This program is free software: you can redistribute it and/or modify
+    * it under the terms of the GNU Lesser General Public License as published
+    * by the Free Software Foundation, either version 3 of the License, or
+    * (at your option) any later version.
+    *
+    * This program is distributed in the hope that it will be useful,
+    * but WITHOUT ANY WARRANTY; without even the implied warranty of
+    * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    * GNU Lesser General Public License for more details.
+    *
+    * You should have received a copy of the GNU Lesser General Public License
+    * along with this program.  If not, see <http://www.gnu.org/licenses/>
+-->
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<GridPane fx:controller="nanoverse.UserInterfaceController"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-    <Button fx:id="toggle" text="Pause Execution" onAction="#toggleExecution"/>
-    <Label GridPane.rowIndex="1" fx:id="status"/>
-</GridPane>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.StackPane?>
+<BorderPane fx:controller="nanoverse.UserInterfaceController"
+          xmlns:fx="http://javafx.com/fxml">
+    <top>
+        <HBox fx:id="toggleButtonBox" spacing="10" style="-fx-background-color: #336699">
+            <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+            <Label fx:id="status" text="Program Running" styleClass="toggle-text"/>
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane>
+            <ImageView fx:id="outputImageView" fitWidth="400" preserveRatio="true" smooth="true"
+                       StackPane.alignment="CENTER_RIGHT"
+                       visible="false" managed="false"/>
+            <Button fx:id="showOutputImage" text="Show Output" onAction="#handleShowOutput" styleClass="red-button"
+                    StackPane.alignment="CENTER_LEFT"/>
+            <Button fx:id="toggleExecution" text="Pause Execution" onAction="#handleToggle" styleClass="red-button"
+                    StackPane.alignment="TOP_LEFT"/>
+            <Button fx:id="stopExecution" text="Stop Execution" onAction="#handleStop" styleClass="red-button"
+                    StackPane.alignment="BOTTOM_LEFT"/>
+        </StackPane>
+    </center>
+
+    <stylesheets>
+        <URL value="@style.css" />
+    </stylesheets>
+</BorderPane>

@@ -24,6 +24,7 @@ import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.SystemState;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Superclass for defining visualizations based on system state data.
@@ -69,4 +70,18 @@ public abstract class Visualization {
      * Get a list of highlight channels that are expected for this visualization.
      */
     public abstract int[] getHighlightChannels();
+
+    /**
+     * Set whether the User Interface should be shown
+     *
+     * @param showUserInterface Boolean value
+     */
+    public void setShowUserInterface(boolean showUserInterface) {}
+
+    /**
+     * Set the output image.
+     *
+     * @param image BufferedImage shared by the User Interface.
+     */
+    public void setOutputImage(BufferedImage image) {}
 }

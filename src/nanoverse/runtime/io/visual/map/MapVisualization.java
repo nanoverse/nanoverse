@@ -36,6 +36,8 @@ import java.awt.image.BufferedImage;
 public class MapVisualization extends Visualization {
     // All state members associated with this visualization.
     protected PixelTranslator translator;
+    private BufferedImage outputImage;
+    private boolean showUserInterface;
 
     @FactoryTarget
     public MapVisualization(VisualizationProperties properties) {
@@ -70,7 +72,25 @@ public class MapVisualization extends Visualization {
             renderer.render(c, systemState);
         }
 
+        if (showUserInterface) {
+            for (int x = 0; x < img.getWidth(); x++) {
+                for (int y = 0; y < img.getHeight(); y++) {
+                    outputImage.setRGB(x, y, img.getRGB(x, y));
+                }
+            }
+        }
+
         return img;
+    }
+
+    @Override
+    public void setShowUserInterface(boolean showUserInterface) {
+        this.showUserInterface = showUserInterface;
+    }
+
+    @Override
+    public void setOutputImage(BufferedImage outputImage) {
+        this.outputImage = outputImage;
     }
 
     @Override

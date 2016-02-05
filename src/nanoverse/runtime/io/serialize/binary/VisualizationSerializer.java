@@ -32,6 +32,7 @@ import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 /**
@@ -44,6 +45,8 @@ public class VisualizationSerializer extends Serializer {
 
     // Leading part of the file name (after the instance path)
     private final VisualizationFrameRenderer renderer;
+    private BufferedImage image;
+    private boolean showUserInterface;
 
     @FactoryTarget
     public VisualizationSerializer(GeneralParameters p,
@@ -72,12 +75,15 @@ public class VisualizationSerializer extends Serializer {
 
     @Override
     public void dispatchHalt(HaltCondition ex) {
-
         // Get expected fields.
         int[] highlightChannels = visualization.getHighlightChannels();
 
-        // Create a SystemStateReader.
+        if (showUserInterface) {
+            renderer.setShowUserInterface(showUserInterface);
+            renderer.setImage(image);
+        }
 
+        // Create a SystemStateReader.
         renderer.renderAll(highlightChannels);
     }
 
@@ -89,5 +95,15 @@ public class VisualizationSerializer extends Serializer {
     @Override
     public void flush(StepState stepState) {
         // Doesn't do anything
+    }
+
+    @Override
+    public void setShowUserInterface(boolean showUserInterface) {
+        this.showUserInterface = showUserInterface;
+    }
+
+    @Override
+    public void setOutputImage(BufferedImage image) {
+        this.image = image;
     }
 }
