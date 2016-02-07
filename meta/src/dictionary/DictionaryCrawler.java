@@ -29,305 +29,235 @@ import nanoverse.compiler.pipeline.translate.symbol.control.run.ProjectSymbolTab
 import nanoverse.compiler.pipeline.translate.symbol.layers.LayerInstSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.ConstantPrimitiveSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.processes.discrete.DiscreteProcessInstSymbolTable;
-import nanoverse.runtime.control.arguments.Constant;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class DictionaryCrawler {
-    File dir;
     private static final int lineNumber = 1;
-    private String leftAngleBracket = "&lt;";
-    private String rightAngleBracket = "&gt;";
+    private TreeSet<String> classes = new TreeSet<>((a, b) -> {
+        int insensitive = String.CASE_INSENSITIVE_ORDER.compare(a, b);
+        return insensitive == 0 ? a.compareTo(b) : insensitive;
+    });
+    private Map<String, String> instances = new TreeMap<>();
 
-    private void handleConstantPrimitiveSymbolTable(ConstantPrimitiveSymbolTable st, String filename, String fileDescription) {
-        BufferedWriter bw = createNewFile(filename, fileDescription, 0);
-        endFile(bw);
-    }
+    private void handleClassSymbolTable(ClassSymbolTable cst, String filename, String fileDescription) {
+        HashMap<String, MemberSymbol> members = cst.resolveSubclasses();
+        BufferedWriter bw = DictionaryUtils.createNewClassFile(filename, fileDescription, members.size());
 
-    private void handleDictST(DictionarySymbolTable st, String filename, String fileDescription) {
-        HashMap<String, MemberSymbol> members = st.resolveMembers();
-        BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
+        TreeSet<String> membersTree = new TreeSet();
+        membersTree.addAll(members.keySet());
 
-        members.keySet().forEach(memberName -> {
-            String type = truncateType(
-                    st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
-            String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
-            String description = st.getSymbolTable(memberName, lineNumber).getDescription();
+        membersTree.forEach(memberName -> {
+            SymbolTable st = cst.getSymbolTable(memberName, lineNumber);
+            String description = st.getDescription();
 
-            writeTableRow(bw, memberName, typeToPrint, description);
-            handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
+            DictionaryUtils.writeClassTableRow(bw, st, memberName, description, filename);
+            handleMember(st, filename, description);
         });
 
-        endFile(bw);
+        DictionaryUtils.endFile(bw);
     }
 
-    private void handleMapST(MapSymbolTable st, String filename, String fileDescription) {
-        HashMap<String, MemberSymbol> members = st.resolveMembers();
-        BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
+    private void handleConstantPrimitiveSymbolTable(ConstantPrimitiveSymbolTable cpst, String filename,
+                                                    String fileDescription, String superclassFilename) {
+        BufferedWriter bw = DictionaryUtils.createNewInstFile(filename, fileDescription, 0, superclassFilename);
 
-        members.keySet().forEach(memberName -> {
-            String type = truncateType(
-                    st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
-            String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
+        DictionaryUtils.endFile(bw);
+    }
+
+    private void handleDictionarySymbolTable(DictionarySymbolTable dst, String filename, String fileDescription) {
+        HashMap<String, MemberSymbol> members = dst.resolveMembers();
+        BufferedWriter bw = DictionaryUtils.createNewClassFile(filename, fileDescription, members.size());
+
+        TreeSet<String> membersTree = new TreeSet();
+        membersTree.addAll(members.keySet());
+
+        membersTree.forEach(memberName -> {
+            SymbolTable st = dst.getSymbolTable(memberName, lineNumber);
+            String description = st.getDescription();
+
+            DictionaryUtils.writeClassTableRow(bw, st, memberName, description, filename);
+            handleMember(st, filename, description);
+        });
+
+        DictionaryUtils.endFile(bw);
+    }
+
+    private void handleDiscreteProcessSymbolTable(DiscreteProcessInstSymbolTable dpst, String filename,
+                                                  String fileDescription, String superclassFilename) {
+        HashMap<String, MemberSymbol> members = dpst.resolveMembers();
+        BufferedWriter bw = DictionaryUtils.createNewInstFile(filename, fileDescription, members.size(), superclassFilename);
+
+        TreeSet<String> membersTree = new TreeSet();
+        membersTree.addAll(members.keySet());
+
+        membersTree.forEach(memberName -> {
+            SymbolTable st = dpst.getSymbolTable(memberName, lineNumber);
             String description = members.get(memberName).getDescription();
 
-            writeTableRow(bw, memberName, typeToPrint, description);
-            handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
+            DictionaryUtils.writeInstTableRow(bw, st, memberName, description, filename);
+            handleMember(st, filename, description);
         });
 
-        endFile(bw);
+        DictionaryUtils.endFile(bw);
     }
 
-    private void handleClassST(ClassSymbolTable st, String filename, String fileDescription) {
-        HashMap<String, MemberSymbol> members = st.resolveSubclasses();
-        BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
+    private void handleLayerInstSymbolTable(LayerInstSymbolTable lst, String filename,
+                                            String fileDescription, String superclassFilename) {
+        HashMap<String, MemberSymbol> members = lst.resolveMembers();
+        BufferedWriter bw = DictionaryUtils.createNewInstFile(filename, fileDescription, members.size(), superclassFilename);
 
-        members.keySet().forEach(memberName -> {
-            String type = truncateType(
-                    st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
-            String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
-            String description = st.getSymbolTable(memberName, lineNumber).getDescription();
+        TreeSet<String> membersTree = new TreeSet();
+        membersTree.addAll(members.keySet());
 
-            writeTableRow(bw, memberName, typeToPrint, description);
-            handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
-        });
-
-        endFile(bw);
-    }
-
-    private void handleDiscreteProcessST(DiscreteProcessInstSymbolTable st, String filename,
-                                         String fileDescription) {
-        HashMap<String, MemberSymbol> members = st.resolveMembers();
-        BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
-
-        members.keySet().forEach(memberName -> {
-            String type = truncateType(
-                    st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
-            String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
+        membersTree.forEach(memberName -> {
+            SymbolTable st = lst.getSymbolTable(memberName, lineNumber);
             String description = members.get(memberName).getDescription();
 
-            writeTableRow(bw, memberName, typeToPrint, description);
-            handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
+            DictionaryUtils.writeInstTableRow(bw, st, memberName, description, filename);
+            handleMember(st, filename, description);
         });
 
-        endFile(bw);
+        DictionaryUtils.endFile(bw);
     }
 
-    private void handleLayerInstST(LayerInstSymbolTable st, String filename, String fileDescription) {
-        HashMap<String, MemberSymbol> members = st.resolveMembers();
-        BufferedWriter bw = createNewFile(filename, fileDescription, members.size());
+    private void handleListSymbolTable(ListSymbolTable lst, String filename, String fileDescription) {
+        BufferedWriter bw = DictionaryUtils.createNewClassFile(filename, fileDescription, lst.getMemberNames().size());
 
-        members.keySet().forEach(memberName -> {
-            String type = truncateType(
-                    st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
-            String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
+        TreeSet<String> membersTree = new TreeSet();
+        membersTree.addAll(lst.getMemberNames());
+
+        membersTree.forEach(memberName -> {
+            SymbolTable st = lst.getSymbolTable(memberName, lineNumber);
+            String description = st.getDescription();
+
+            DictionaryUtils.writeClassTableRow(bw, st, memberName, description, filename);
+            handleMember(st, filename, description);
+        });
+
+        DictionaryUtils.endFile(bw);
+    }
+
+    private void handleMapST(MapSymbolTable mst, String filename, String fileDescription, String superclassFilename) {
+        HashMap<String, MemberSymbol> members = mst.resolveMembers();
+        BufferedWriter bw = DictionaryUtils.createNewInstFile(filename, fileDescription, members.size(), superclassFilename);
+
+        TreeSet<String> membersTree = new TreeSet();
+        membersTree.addAll(members.keySet());
+
+        membersTree.forEach(memberName -> {
+            SymbolTable st = mst.getSymbolTable(memberName, lineNumber);
             String description = members.get(memberName).getDescription();
 
-            writeTableRow(bw, memberName, typeToPrint, description);
-            handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
+            DictionaryUtils.writeInstTableRow(bw, st, memberName, description, filename);
+            handleMember(st, filename, description);
         });
 
-        endFile(bw);
+        DictionaryUtils.endFile(bw);
     }
 
-    private void handleListST(ListSymbolTable st, String filename, String fileDescription) {
-        BufferedWriter bw = createNewFile(filename, fileDescription, st.getMemberNames().size());
+    private void crawl() throws IOException{
+        ProjectSymbolTable pst = new ProjectSymbolTable();
+        String filename = ProjectSymbolTable.class.getSimpleName();
 
-        st.getMemberNames().forEach(mn -> {
-            String memberName = (String) mn;
-            String type = truncateType(
-                    st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
-            String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
-            String description = st.getSymbolTable(memberName, lineNumber).getDescription();
+        HashMap<String, MemberSymbol> members = pst.resolveMembers();
+        BufferedWriter bw = DictionaryUtils.createNewInstFile(filename, pst.getDescription(), members.size(), "");
 
-            writeTableRow(bw, memberName, typeToPrint, description);
-            handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
+        TreeSet<String> membersTree = new TreeSet();
+        membersTree.addAll(members.keySet());
+
+        HashMap<String, MemberSymbol> memberSymbolHashMap = pst.resolveMembers();
+        membersTree.forEach(memberName -> {
+            SymbolTable st = pst.getSymbolTable(memberName, lineNumber);
+            String description = memberSymbolHashMap.get(memberName).getDescription();
+
+            DictionaryUtils.writeInstTableRow(bw, st, memberName, description, filename);
+            handleMember(st, "", description);
         });
 
-        endFile(bw);
+        DictionaryUtils.endFile(bw);
+
+        DictionaryUtils.createClassFrame(classes);
+        DictionaryUtils.createInstanceFrame(instances);
     }
 
-    private void beginCrawl() throws IOException{
-        ProjectSymbolTable st = new ProjectSymbolTable();
-        HashMap<String, MemberSymbol> members = st.resolveMembers();
-        BufferedWriter bw = createNewFile("Main", "", members.size());
+    private void handleMember(SymbolTable st, String parentFilename, String description) {
+        String filename = st.getClass().getSimpleName();
 
-        members.keySet().forEach(memberName -> {
-            String type = truncateType(
-                    st.getSymbolTable(memberName, lineNumber).getClass().getSimpleName());
-            String typeToPrint = handleCollectionTypes(type, st.getSymbolTable(memberName, lineNumber));
-            String description = st.resolveMembers().get(memberName).getDescription();
-
-            writeTableRow(bw, memberName, typeToPrint, description);
-            handleMember(st.getSymbolTable(memberName, lineNumber), memberName, description);
-        });
-
-        endFile(bw);
-    }
-
-    private String handleCollectionTypes(String type, SymbolTable st) {
-        if ("List".equals(type)) {
+        if (ListSymbolTable.class.isAssignableFrom(st.getClass())) {
             ListSymbolTable lst = (ListSymbolTable) st;
-            String name = truncateType(lst.getClassSymbolTableClass().getSimpleName());
-            type += createListHTML(name);
-            handleMember(st, name, lst.getClassSymbolTableDescription());
-        }
-
-        if ("Dictionary".equals(type)) {
-            DictionarySymbolTable dst = (DictionarySymbolTable) st;
-            String name = truncateType(dst.getResolvingSymbolTableClass().getSimpleName());
-            type += createDictHTML(name);
-            handleMember(st, name, dst.getResolvingSymbolTableDescription());
-        }
-
-        return type;
-    }
-
-    private String createListHTML(String className) {
-        String filename = className + ".html";
-
-        if (Character.isUpperCase(filename.charAt(0))) {
-            filename = filename.charAt(0) + filename;
-        }
-
-        return leftAngleBracket + "<a href=" + filename + ">" + className + "</a>" + rightAngleBracket;
-    }
-
-    private String createDictHTML(String className) {
-        String filename = className + ".html";
-
-        if (Character.isUpperCase(filename.charAt(0))) {
-            filename = filename.charAt(0) + filename;
-        }
-
-        return leftAngleBracket + "String, <a href=" + filename + ">" + className + "</a>" + rightAngleBracket;
-    }
-
-    private void handleMember(SymbolTable st, String mn_name, String description) {
-        if (fileExists(mn_name))
-            return;
-
-        if (DiscreteProcessInstSymbolTable.class.isAssignableFrom(st.getClass())) {
-            DiscreteProcessInstSymbolTable dpst = (DiscreteProcessInstSymbolTable) st;
-            handleDiscreteProcessST(dpst, mn_name, description);
-        }
-        else if (ListSymbolTable.class.isAssignableFrom(st.getClass())) {
-            ListSymbolTable lst = (ListSymbolTable) st;
-            handleListST(lst, mn_name, description);
-        }
-        else if (ClassSymbolTable.class.isAssignableFrom(st.getClass())) {
-            ClassSymbolTable cst = (ClassSymbolTable) st;
-            handleClassST(cst, mn_name, description);
-        }
-        else if (LayerInstSymbolTable.class.isAssignableFrom(st.getClass())) {
-            LayerInstSymbolTable list = (LayerInstSymbolTable) st;
-            handleLayerInstST(list, mn_name, description);
-        }
-        else if (MapSymbolTable.class.isAssignableFrom(st.getClass())) {
-            MapSymbolTable mst = (MapSymbolTable) st;
-            handleMapST(mst, mn_name, description);
+            filename = lst.getClassSymbolTableClass().getSimpleName();
         }
         else if (DictionarySymbolTable.class.isAssignableFrom(st.getClass())) {
             DictionarySymbolTable dst = (DictionarySymbolTable) st;
-            handleDictST(dst, mn_name, description);
+            filename = dst.getResolvingSymbolTableClass().getSimpleName();
+        }
+
+        if (DictionaryUtils.fileExists(filename))
+            return;
+
+        else if (ClassSymbolTable.class.isAssignableFrom(st.getClass())) {
+            ClassSymbolTable cst = (ClassSymbolTable) st;
+            handleClassSymbolTable(cst, filename, description);
+            classes.add(filename);
         }
         else if (ConstantPrimitiveSymbolTable.class.isAssignableFrom(st.getClass())) {
             ConstantPrimitiveSymbolTable cpst = (ConstantPrimitiveSymbolTable) st;
-            handleConstantPrimitiveSymbolTable(cpst, mn_name, description);
+            handleConstantPrimitiveSymbolTable(cpst, filename, description, parentFilename);
+            instances.put(filename, parentFilename);
+        }
+        else if (DictionarySymbolTable.class.isAssignableFrom(st.getClass())) {
+            DictionarySymbolTable dst = (DictionarySymbolTable) st;
+            handleDictionarySymbolTable(dst, filename, description);
+            classes.add(filename);
+        }
+        else if (DiscreteProcessInstSymbolTable.class.isAssignableFrom(st.getClass())) {
+            DiscreteProcessInstSymbolTable dpst = (DiscreteProcessInstSymbolTable) st;
+            handleDiscreteProcessSymbolTable(dpst, filename, description, parentFilename);
+            instances.put(filename, parentFilename);
+        }
+        else if (LayerInstSymbolTable.class.isAssignableFrom(st.getClass())) {
+            LayerInstSymbolTable list = (LayerInstSymbolTable) st;
+            handleLayerInstSymbolTable(list, filename, description, parentFilename);
+            instances.put(filename, parentFilename);
+        }
+        else if (ListSymbolTable.class.isAssignableFrom(st.getClass())) {
+            ListSymbolTable lst = (ListSymbolTable) st;
+            handleListSymbolTable(lst, filename, description);
+            classes.add(filename);
+        }
+        else if (MapSymbolTable.class.isAssignableFrom(st.getClass())) {
+            MapSymbolTable mst = (MapSymbolTable) st;
+            handleMapST(mst, filename, description, parentFilename);
+            instances.put(filename, parentFilename);
         }
         else {
             System.out.println("Missing handleMember() handler: " + st.getClass().getSimpleName());
         }
     }
 
-    private boolean fileExists(String filename) {
-        if (Character.isUpperCase(filename.charAt(0)))
-            filename = filename.charAt(0) + filename;
-
-        File f = new File(dir, filename + ".html");
-
-        return f.exists();
-    }
-
-    private String truncateType(String type) {
-        if (type.contains("Class"))
-            type = type.substring(0, type.indexOf("Class"));
-        else if (type.contains("Inst"))
-            type = type.substring(0, type.indexOf("Inst"));
-        else if (type.contains("Symbol")){
-            type = type.substring(0, type.indexOf("Symbol"));
-        }
-
-        return type;
-    }
-
-    private BufferedWriter createNewFile(String mn, String description, long numMembers) {
-        String filename = mn;
-        if (Character.isUpperCase(mn.charAt(0))) {
-            filename = mn.charAt(0) + mn;
-        }
-
-        File f = new File(dir, filename + ".html");
-        BufferedWriter w = null;
-
-        try {
-            w = new BufferedWriter(new FileWriter(f));
-            w.write("<html><head><title></title>" +
-                    "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">" +
-                    "</head><body>");
-            w.write("<h1>" + mn + "</h1>");
-            w.write("<p>" + description + "</p>");
-            w.write("<table>");
-
-            if (numMembers > 0)
-                w.write("<tr><th>Member</th><th>Type</th><th>Description</th></tr>");
-        }
-        catch (IOException ignored) {}
-
-        return w;
-    }
-
-    private void writeTableRow(BufferedWriter bw, String mn, String type, String description) {
-        String href = mn;
-        if (Character.isUpperCase(mn.charAt(0))) {
-            href = mn.charAt(0) + mn;
-        }
-
-        try {
-            bw.write("<tr>");
-            bw.write("<td><a href='" + href + ".html'>" + mn + "</a></td>");
-            bw.write("<td>" + type + "</td>");
-            bw.write("<td>" + description + "</td>");
-            bw.write("</tr>");
-        }
-        catch (IOException ignored) {}
-    }
-
-    private void endFile(BufferedWriter bw) {
-        try {
-            bw.write("</table>");
-            bw.write("</body></html>");
-            bw.close();
-        }
-        catch (IOException ignored) {}
-    }
-
     public DictionaryCrawler() {
-        dir = new File("meta/src/dictionary/pages");
+        File dir = new File("meta/src/dictionary/pages");
+        DictionaryUtils.setDirectory(dir);
+
         dir.mkdirs();
 
         for(File file: dir.listFiles()) {
-            if (!file.getName().equals("style.css"))
+            if (!file.getName().equals("style.css")
+                    && !file.getName().equals("index.html")
+                    && !file.getName().equals("navigation.html"))
                 file.delete();
         }
     }
 
     public static void main(String args[]) throws IOException {
         DictionaryCrawler dictionaryCrawler = new DictionaryCrawler();
-        dictionaryCrawler.beginCrawl();
+        dictionaryCrawler.crawl();
     }
 }
