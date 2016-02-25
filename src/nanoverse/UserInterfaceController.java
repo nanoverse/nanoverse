@@ -79,8 +79,19 @@ public class UserInterfaceController {
         this.isRunningFlag = isRunningFlag;
     }
 
+    public AtomicBoolean getIsRunningFlag() {
+        return this.isRunningFlag;
+    }
+
     public void setOutputImage(BufferedImage outputImage) {
         Image image = SwingFXUtils.toFXImage(outputImage, null);
         outputImageView.setImage(image);
+    }
+
+    public UserInterfaceController() {
+        isRunningFlag = new AtomicBoolean(true);
+        status = new Label();
+        toggleExecution = new Button();
+        outputImageView = new ImageView();
     }
 }
