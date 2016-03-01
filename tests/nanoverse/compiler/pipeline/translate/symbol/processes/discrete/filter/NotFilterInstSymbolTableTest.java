@@ -18,38 +18,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.runtime.processes.discrete.filter;
+package nanoverse.compiler.pipeline.translate.symbol.processes.discrete.filter;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
+import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
+import nanoverse.compiler.pipeline.translate.symbol.tables.MapSymbolTableTest;
+import nanoverse.runtime.processes.discrete.filter.NotFilter;
+import nanoverse.runtime.processes.discrete.filter.Filter;
+import org.junit.Test;
 
-import java.util.List;
-import java.util.stream.*;
+public class NotFilterInstSymbolTableTest extends MapSymbolTableTest {
 
-/**
- * Inverts the result of another filter.
- * <p>
- * Created by dbborens on 10/21/2015.
- */
-public class NotFilter extends Filter {
-
-    private final Filter toInvert;
-
-    @FactoryTarget
-    public NotFilter(Filter toInvert) {
-        this.toInvert = toInvert;
+    @Override
+    protected MapSymbolTable getQuery() {
+        return new NotFilterInstSymbolTable();
     }
 
     @Override
-    public List<Coordinate> apply(List<Coordinate> toFilter) {
-        return toFilter.stream()
-            .filter(this::isFiltered)
-            .collect(Collectors.toList());
+    protected Class getExpectedClass() {
+        return NotFilter.class;
     }
 
-    private boolean isFiltered(Coordinate c) {
-        List<Coordinate> query = Stream.of(c).collect(Collectors.toList());
-        int count = toInvert.apply(query).size();
-        return (count == 0);
+    @Test
+    public void including() throws Exception {
+        verifyReturnSymbol("child", Filter.class);
     }
 }

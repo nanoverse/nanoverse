@@ -44,12 +44,24 @@ public class FilterClassSymbolTable extends ClassSymbolTable<Filter> {
         depth(ret);
         sample(ret);
         nullFilter(ret);
+        not(ret);
+        hasNeighbors(ret);
         return ret;
     }
 
     private void name(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> st = AgentClassFilterInstSymbolTable::new;
         ret.put("Name", st);
+    }
+
+    private void not(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = NotFilterInstSymbolTable::new;
+        ret.put("Not", st);
+    }
+
+    private void hasNeighbors(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = HasNeighborsFilterInstSymbolTable::new;
+        ret.put("HasNeighbors", st);
     }
 
     private void composite(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {

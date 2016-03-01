@@ -17,35 +17,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filter;
 
-package nanoverse.runtime.processes.discrete.filter;
+import nanoverse.runtime.processes.discrete.filter.Filter;
+import nanoverse.runtime.processes.discrete.filter.NotFilter;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.cell.AgentLayer;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
 
-import java.util.List;
-import java.util.stream.Collectors;
+public class NotFilterFactoryHelper {
 
-/**
- * Created by dbborens on 10/21/2015.
- */
-public class HasNeighborsFilter extends Filter {
-
-    private final AgentLayer layer;
-
-    @FactoryTarget
-    public HasNeighborsFilter(AgentLayer layer) {
-        this.layer = layer;
-    }
-
-    @Override
-    public List<Coordinate> apply(List<Coordinate> toFilter) {
-        return toFilter.stream()
-            .filter(coord -> layer
-                .getLookupManager()
-                .getNeighborNames(coord, true)
-                .count() > 0)
-            .collect(Collectors.toList());
+    public NotFilter build(Filter toInvert) {
+        return new NotFilter(toInvert);
     }
 }

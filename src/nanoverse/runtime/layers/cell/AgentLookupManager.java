@@ -23,6 +23,7 @@ package nanoverse.runtime.layers.cell;
 import nanoverse.runtime.agent.Agent;
 import nanoverse.runtime.control.identifiers.*;
 import nanoverse.runtime.geometry.Geometry;
+import sun.management.resources.agent;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -55,7 +56,7 @@ public class AgentLookupManager {
         Stream<String> initial = Arrays.stream(neighbors)
             .filter(c -> c != null)
             .map(content::get)
-            .map(agent -> agent.getName());
+            .map(agent -> agent == null ? null : agent.getName());
 
         if (ignoreVacancies) {
             return initial.filter(name -> name != null);

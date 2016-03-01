@@ -17,35 +17,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
+package nanoverse.compiler.pipeline.instantiate.factory.processes.discrete.filter;
 
-package nanoverse.runtime.processes.discrete.filter;
+import nanoverse.compiler.pipeline.instantiate.factory.Factory;
+import nanoverse.runtime.processes.discrete.filter.Filter;
+import nanoverse.runtime.processes.discrete.filter.NotFilter;
 
-import nanoverse.runtime.control.identifiers.Coordinate;
-import nanoverse.runtime.layers.cell.AgentLayer;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
+public class NotFilterFactory implements Factory<NotFilter> {
 
-import java.util.List;
-import java.util.stream.Collectors;
+    private final NotFilterFactoryHelper helper;
 
-/**
- * Created by dbborens on 10/21/2015.
- */
-public class HasNeighborsFilter extends Filter {
+    private Filter toInvert;
 
-    private final AgentLayer layer;
+    public NotFilterFactory() {
+        helper = new NotFilterFactoryHelper();
+    }
 
-    @FactoryTarget
-    public HasNeighborsFilter(AgentLayer layer) {
-        this.layer = layer;
+    public NotFilterFactory(NotFilterFactoryHelper helper) {
+        this.helper = helper;
+    }
+
+    public void setToInvert(Filter toInvert) {
+        this.toInvert = toInvert;
     }
 
     @Override
-    public List<Coordinate> apply(List<Coordinate> toFilter) {
-        return toFilter.stream()
-            .filter(coord -> layer
-                .getLookupManager()
-                .getNeighborNames(coord, true)
-                .count() > 0)
-            .collect(Collectors.toList());
+    public NotFilter build() {
+        return helper.build(toInvert);
     }
 }
