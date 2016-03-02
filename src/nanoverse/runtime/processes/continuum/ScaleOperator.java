@@ -33,35 +33,20 @@ import java.util.stream.IntStream;
  */
 public class ScaleOperator extends CompDiagMatrix {
 
-    public ScaleOperator(DiffusionConstantHelper helper, Geometry geometry) {
+    public ScaleOperator(double coefficient, Geometry geometry) {
         this(geometry.getCanonicalSites().length);
-        load(helper, geometry);
+        load(coefficient, geometry);
     }
 
     private ScaleOperator(int n) {
         super(n, n);
-
     }
 
-    private void load(DiffusionConstantHelper helper, Geometry geometry) {
+    private void load(double coefficient, Geometry geometry) {
         Coordinate[] sites = geometry.getCanonicalSites();
         int n = sites.length;
-        Function<Coordinate, Integer> indexer = geometry.getIndexer();
         IntStream.range(0, n)
             .boxed()
-            .forEach(j -> {
-                Coordinate coord = sites[j];
-
-                // Set the diagonal value
-                add(j, j, helper.getDiagonalValue());
-
-                // Set each neighbor. For reflecting boundary conditions, one or
-                // more neighbors may be the diagonal.
-                Arrays.asList(geometry.getNeighbors(coord, Geometry.APPLY_BOUNDARIES))
-                    .stream()
-                    .map(indexer)
-                    .forEach(i -> add(i, j, helper.getNeighborValue()));
-
-            });
+            .forEach(j ->  add(j, j, coefficient));
     }
 }

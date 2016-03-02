@@ -20,7 +20,7 @@
 package nanoverse.compiler.pipeline.instantiate.factory.processes.continuum;
 
 import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.continuum.DiffusionProcess;
+import nanoverse.runtime.processes.continuum.ScaleProcess;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 import java.util.function.Consumer;
@@ -28,7 +28,7 @@ import java.util.function.Consumer;
 
 public class ScaleProcessFactoryHelper {
 
-    public DiffusionProcess build(BaseProcessArguments arguments, CompDiagMatrix operator, Consumer target) {
-        return new DiffusionProcess(arguments, operator, target);
+    public ScaleProcess build(BaseProcessArguments arguments, CompDiagMatrix operator, Consumer target) {
+        return new ScaleProcess(arguments, operator, target);
     }
 }

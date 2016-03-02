@@ -22,20 +22,22 @@ package nanoverse.compiler.pipeline.translate.symbol.processes.continuum;
 
 import nanoverse.compiler.pipeline.translate.symbol.MapSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.processes.ProcessInstSymbolTableTest;
-import nanoverse.runtime.control.arguments.*;
+import nanoverse.runtime.control.arguments.DoubleArgument;
+import nanoverse.runtime.control.arguments.StringArgument;
 import nanoverse.runtime.processes.continuum.DiffusionProcess;
+import nanoverse.runtime.processes.continuum.ScaleProcess;
 import org.junit.Test;
 
 public class ScaleProcessInstSymbolTableTest extends ProcessInstSymbolTableTest {
 
     @Override
     protected MapSymbolTable getQuery() {
-        return new DiffusionProcessInstSymbolTable();
+        return new ScaleProcessInstSymbolTable();
     }
 
     @Override
     protected Class getExpectedClass() {
-        return DiffusionProcess.class;
+        return ScaleProcess.class;
     }
 
     @Test
@@ -44,7 +46,7 @@ public class ScaleProcessInstSymbolTableTest extends ProcessInstSymbolTableTest 
     }
 
     @Test
-    public void constant() throws Exception {
-        verifyReturnSymbol("constant", DoubleArgument.class);
+    public void coefficient() throws Exception {
+        verifyReturnSymbol("coefficient", DoubleArgument.class);
     }
 }

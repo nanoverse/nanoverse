@@ -59,6 +59,7 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
         checkForExtinction(ret);
         compositeContinuumProcess(ret);
         diffuse(ret);
+        scale(ret);
         inject(ret);
         release(ret);
         hold(ret);
@@ -114,6 +115,11 @@ public class ProcessClassSymbolTable extends ClassSymbolTable<NanoverseProcess> 
     private void diffuse(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
         Supplier<InstantiableSymbolTable> st = DiffusionProcessInstSymbolTable::new;
         ret.put("Diffuse", st);
+    }
+
+    private void scale(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {
+        Supplier<InstantiableSymbolTable> st = ScaleProcessInstSymbolTable::new;
+        ret.put("Scale", st);
     }
 
     private void checkForExtinction(HashMap<String, Supplier<InstantiableSymbolTable>> ret) {

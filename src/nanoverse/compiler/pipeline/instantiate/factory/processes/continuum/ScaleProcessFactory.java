@@ -21,24 +21,24 @@ package nanoverse.compiler.pipeline.instantiate.factory.processes.continuum;
 
 import nanoverse.compiler.pipeline.instantiate.factory.Factory;
 import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.continuum.DiffusionProcess;
+import nanoverse.runtime.processes.continuum.ScaleProcess;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 import java.util.function.Consumer;
 
-public class ScaleProcessFactory implements Factory<DiffusionProcess> {
+public class ScaleProcessFactory implements Factory<ScaleProcess> {
 
-    private final DiffusionProcessFactoryHelper helper;
+    private final ScaleProcessFactoryHelper helper;
 
     private BaseProcessArguments arguments;
     private CompDiagMatrix operator;
     private Consumer target;
 
     public ScaleProcessFactory() {
-        helper = new DiffusionProcessFactoryHelper();
+        helper = new ScaleProcessFactoryHelper();
     }
 
-    public ScaleProcessFactory(DiffusionProcessFactoryHelper helper) {
+    public ScaleProcessFactory(ScaleProcessFactoryHelper helper) {
         this.helper = helper;
     }
 
@@ -55,7 +55,7 @@ public class ScaleProcessFactory implements Factory<DiffusionProcess> {
     }
 
     @Override
-    public DiffusionProcess build() {
+    public ScaleProcess build() {
         return helper.build(arguments, operator, target);
     }
 }

@@ -21,46 +21,48 @@
 package nanoverse.compiler.pipeline.translate.symbol.processes.continuum;
 
 import nanoverse.compiler.pipeline.instantiate.loader.Loader;
-import nanoverse.compiler.pipeline.instantiate.loader.processes.continuum.DiffusionProcessLoader;
-import nanoverse.compiler.pipeline.translate.symbol.*;
+import nanoverse.compiler.pipeline.instantiate.loader.processes.continuum.ScaleProcessLoader;
+import nanoverse.compiler.pipeline.translate.symbol.MemberSymbol;
+import nanoverse.compiler.pipeline.translate.symbol.ResolvingSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.doubles.DoubleClassSymbolTable;
 import nanoverse.compiler.pipeline.translate.symbol.primitive.strings.StringClassSymbolTable;
-import nanoverse.runtime.processes.continuum.DiffusionProcess;
+import nanoverse.runtime.processes.continuum.ScaleProcess;
 
 import java.util.HashMap;
 
 /**
  * Created by dbborens on 7/21/2015.
  */
-public class ScaleProcessInstSymbolTable extends ContinuumProcessInstSymbolTable<DiffusionProcess> {
+public class ScaleProcessInstSymbolTable extends ContinuumProcessInstSymbolTable<ScaleProcess> {
     @Override
     public String getDescription() {
-        return "Schedule a homogeneous diffusion process across the entirety " +
-            "of a specified continuum layer.";
+        return "Schedule a homogeneous scaling process (i.e., exponential " +
+                "growth or decay) across the entirety of a specified " +
+                "continuum layer.";
     }
 
     @Override
     public HashMap<String, MemberSymbol> resolveMembers() {
         HashMap<String, MemberSymbol> ret = super.resolveMembers();
-        constant(ret);
+        coefficient(ret);
         layer(ret);
         return ret;
     }
 
     private void layer(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new StringClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "Continuum layer upon which to schedule diffusion process.");
+        MemberSymbol ms = new MemberSymbol(rst, "Continuum layer upon which to schedule scaling process.");
         ret.put("layer", ms);
     }
 
-    private void constant(HashMap<String, MemberSymbol> ret) {
+    private void coefficient(HashMap<String, MemberSymbol> ret) {
         ResolvingSymbolTable rst = new DoubleClassSymbolTable();
-        MemberSymbol ms = new MemberSymbol(rst, "Diffusion constant.");
-        ret.put("constant", ms);
+        MemberSymbol ms = new MemberSymbol(rst, "The coefficient by which to scale all values on the layer.");
+        ret.put("coefficient", ms);
     }
 
     @Override
     public Loader getLoader() {
-        return new DiffusionProcessLoader();
+        return new ScaleProcessLoader();
     }
 }

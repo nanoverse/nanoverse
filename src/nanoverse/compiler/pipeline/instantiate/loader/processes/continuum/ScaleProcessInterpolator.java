@@ -21,12 +21,15 @@
 package nanoverse.compiler.pipeline.instantiate.loader.processes.continuum;
 
 import nanoverse.compiler.pipeline.instantiate.helpers.LoadHelper;
-import nanoverse.compiler.pipeline.instantiate.loader.processes.*;
+import nanoverse.compiler.pipeline.instantiate.loader.processes.BaseProcessArgumentsLoader;
+import nanoverse.compiler.pipeline.instantiate.loader.processes.ProcessInterpolator;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.geometry.Geometry;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.layers.continuum.ContinuumLayer;
-import nanoverse.runtime.processes.continuum.*;
+import nanoverse.runtime.processes.continuum.DiffusionConstantHelper;
+import nanoverse.runtime.processes.continuum.DiffusionOperator;
+import nanoverse.runtime.processes.continuum.ScaleOperator;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 import java.util.Random;
@@ -48,19 +51,13 @@ public class ScaleProcessInterpolator extends ProcessInterpolator {
         return load.aString(node, "layer");
     }
 
-    public double constant(MapObjectNode node, Random random) {
-        return load.aDouble(node, "constant", random);
+    public double coefficient(MapObjectNode node, Random random) {
+        return load.aDouble(node, "coefficient", random);
     }
 
-    public DiffusionOperator operator(String layer, double constant, LayerManager lm) {
+    public ScaleOperator operator(String layer, double coefficient, LayerManager lm) {
         Geometry g = lm.getContinuumLayer(layer).getGeometry();
-        int connectivity = g.getConnectivity();
-        int dimensionality = g.getDimensionality();
-        DiffusionConstantHelper helper = new DiffusionConstantHelper(constant,
-            connectivity,
-            dimensionality);
-
-        return new DiffusionOperator(helper, g);
+        return new ScaleOperator(coefficient, g);
     }
 
     public Consumer<CompDiagMatrix> target(String layer, LayerManager lm) {

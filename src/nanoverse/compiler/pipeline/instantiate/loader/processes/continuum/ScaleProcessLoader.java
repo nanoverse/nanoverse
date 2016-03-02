@@ -20,13 +20,14 @@
 
 package nanoverse.compiler.pipeline.instantiate.loader.processes.continuum;
 
-import nanoverse.compiler.pipeline.instantiate.factory.processes.continuum.DiffusionProcessFactory;
+import nanoverse.compiler.pipeline.instantiate.factory.processes.continuum.ScaleProcessFactory;
 import nanoverse.compiler.pipeline.instantiate.loader.processes.ProcessLoader;
 import nanoverse.compiler.pipeline.translate.nodes.MapObjectNode;
 import nanoverse.runtime.control.GeneralParameters;
 import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.BaseProcessArguments;
-import nanoverse.runtime.processes.continuum.*;
+import nanoverse.runtime.processes.continuum.ScaleOperator;
+import nanoverse.runtime.processes.continuum.ScaleProcess;
 import no.uib.cipr.matrix.sparse.CompDiagMatrix;
 
 import java.util.function.Consumer;
@@ -34,29 +35,29 @@ import java.util.function.Consumer;
 /**
  * Created by dbborens on 8/3/2015.
  */
-public class ScaleProcessLoader extends ProcessLoader<DiffusionProcess> {
-    private final DiffusionProcessFactory factory;
-    private final DiffusionProcessInterpolator interpolator;
+public class ScaleProcessLoader extends ProcessLoader<ScaleProcess> {
+    private final ScaleProcessFactory factory;
+    private final ScaleProcessInterpolator interpolator;
 
     public ScaleProcessLoader() {
-        factory = new DiffusionProcessFactory();
-        interpolator = new DiffusionProcessInterpolator();
+        factory = new ScaleProcessFactory();
+        interpolator = new ScaleProcessInterpolator();
     }
 
-    public ScaleProcessLoader(DiffusionProcessFactory factory,
-                              DiffusionProcessInterpolator interpolator) {
+    public ScaleProcessLoader(ScaleProcessFactory factory,
+                              ScaleProcessInterpolator interpolator) {
         this.factory = factory;
         this.interpolator = interpolator;
     }
 
     @Override
-    public DiffusionProcess instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
+    public ScaleProcess instantiate(MapObjectNode node, LayerManager lm, GeneralParameters p) {
         BaseProcessArguments arguments = interpolator.arguments(node, lm, p);
         factory.setArguments(arguments);
 
         String layer = interpolator.layer(node);
-        double constant = interpolator.constant(node, p.getRandom());
-        DiffusionOperator operator = interpolator.operator(layer, constant, lm);
+        double constant = interpolator.coefficient(node, p.getRandom());
+        ScaleOperator operator = interpolator.operator(layer, constant, lm);
         factory.setOperator(operator);
 
         Consumer<CompDiagMatrix> target = interpolator.target(layer, lm);
