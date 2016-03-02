@@ -28,12 +28,12 @@ import java.util.function.Supplier;
 
 public class ScaleProcessInterpolatorTest extends InterpolatorTest {
 
-    private DiffusionProcessInterpolator query;
+    private ScaleProcessInterpolator query;
 
     @Before
     public void before() throws Exception {
         super.before();
-        query = new DiffusionProcessInterpolator(load, null);
+        query = new ScaleProcessInterpolator(load, null);
     }
 
     @Test
@@ -43,8 +43,8 @@ public class ScaleProcessInterpolatorTest extends InterpolatorTest {
     }
 
     @Test
-    public void constant() throws Exception {
-        Supplier<Double> trigger = () -> query.constant(node, random);
-        verifyDouble("constant", trigger);
+    public void coefficient() throws Exception {
+        Supplier<Double> trigger = () -> query.coefficient(node, random);
+        verifyDouble("coefficient", trigger);
     }
 }
