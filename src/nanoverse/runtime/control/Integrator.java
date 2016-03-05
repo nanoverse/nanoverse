@@ -26,6 +26,9 @@ import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 import org.slf4j.*;
 
+import java.awt.image.BufferedImage;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class Integrator {
 
     private final ProcessManager processManager;
@@ -33,6 +36,9 @@ public class Integrator {
     private GeneralParameters p;
     private SerializationManager serializationManager;
     private final Logger logger = LoggerFactory.getLogger(Integrator.class);
+    private AtomicBoolean isRunningFlag;
+    private BufferedImage outputImage;
+    private boolean showUserInterface;
 
     @FactoryTarget
     public Integrator(GeneralParameters p, ProcessManager processManager,
@@ -75,6 +81,9 @@ public class Integrator {
     private HaltCondition go() {
         for (int n = 0; n < p.T(); n++) {
             logger.debug("Starting cycle {}.", n);
+
+            // THESE ARE THE FRAMES....
+
             StepState state = new StepState(time, n);
             try {
                 state = processManager.doTriggeredProcesses(state);
@@ -83,8 +92,15 @@ public class Integrator {
                 return haltCondition;
             }
 
+            if (showUserInterface) {
+                serializationManager.setShowUserInterface(showUserInterface);
+                serializationManager.setIsRunningFlag(isRunningFlag);
+                serializationManager.setOutputImage(outputImage);
+            }
+
             // Send the results to the serialization manager.
             serializationManager.flush(state);
+
             time = state.getTime();
         }
 
@@ -116,5 +132,17 @@ public class Integrator {
             return false;
 
         return true;
+    }
+
+    public void setShowUserInterface(boolean showUserInterface) {
+        this.showUserInterface = showUserInterface;
+    }
+
+    public void setIsRunningFlag(AtomicBoolean isRunningFlag) {
+        this.isRunningFlag = isRunningFlag;
+    }
+
+    public void setOutputImage(BufferedImage outputImage) {
+        this.outputImage = outputImage;
     }
 }

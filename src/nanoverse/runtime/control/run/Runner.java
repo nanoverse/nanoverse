@@ -23,6 +23,9 @@ package nanoverse.runtime.control.run;
 import nanoverse.runtime.control.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
+import java.awt.image.BufferedImage;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Created by dbborens on 11/26/14.
  */
@@ -30,6 +33,9 @@ public class Runner implements Runnable {
 
     private GeneralParameters p;
     private Integrator integrator;
+    private boolean showUserInterface;
+    private AtomicBoolean isRunningFlag;
+    private BufferedImage outputImage;
 
     @FactoryTarget(displayName = "Project")
     public Runner(GeneralParameters p, Integrator integrator) {
@@ -38,6 +44,11 @@ public class Runner implements Runnable {
     }
 
     public void run() {
+        if (showUserInterface) {
+            integrator.setShowUserInterface(showUserInterface);
+            integrator.setIsRunningFlag(isRunningFlag);
+            integrator.setOutputImage(outputImage);
+        }
         int n = p.getNumInstances();
         for (int i = 0; i < n; i++) {
             integrator.doNext();
@@ -50,4 +61,17 @@ public class Runner implements Runnable {
             }
         }
     }
+
+    public void setShowUserInterface(boolean showUserInterface) {
+        this.showUserInterface = showUserInterface;
+    }
+
+    public void setIsRunningFlag(AtomicBoolean isRunningFlag) {
+        this.isRunningFlag = isRunningFlag;
+    }
+
+    public void setOutputImage(BufferedImage outputImage) {
+        this.outputImage = outputImage;
+    }
+
 }

@@ -24,6 +24,13 @@ import nanoverse.compiler.Compiler;
 import nanoverse.compiler.error.ConsoleError;
 import nanoverse.runtime.control.run.Runner;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Created by dbborens on 9/17/2015.
  */
@@ -33,6 +40,7 @@ public class Nanoverse {
         "\nExpected exactly one argument. Usage:\n" +
             "\tNanoverse <filename>";
     private final nanoverse.compiler.Compiler compiler;
+    private boolean showUserInterface;
 
     public Nanoverse(String[] args) {
         if (args.length == 0 || args.length > 1) {
@@ -49,11 +57,36 @@ public class Nanoverse {
 
     public static void main(String[] args) {
         Nanoverse instance = new Nanoverse(args);
+        instance.setShowUserInterface(true);
         instance.go();
     }
 
     public void go() {
         Runner runner = compiler.compile();
+
+        if (showUserInterface) {
+            AtomicBoolean isRunningFlag = new AtomicBoolean(true);
+            BufferedImage outputImage = null;
+
+            try {
+                outputImage = ImageIO.read(new File(getClass().getResource("placeholder.png").toURI()));
+            } catch (IOException | URISyntaxException e) {
+                e.printStackTrace();
+            }
+
+            UserInterfaceRunnable myRunnable = new UserInterfaceRunnable(isRunningFlag, outputImage);
+            Thread uiThread = new Thread(myRunnable);
+            uiThread.start();
+
+            runner.setShowUserInterface(showUserInterface);
+            runner.setIsRunningFlag(isRunningFlag);
+            runner.setOutputImage(outputImage);
+        }
+
         runner.run();
+    }
+
+    public void setShowUserInterface(boolean showUserInterface) {
+        this.showUserInterface = showUserInterface;
     }
 }
