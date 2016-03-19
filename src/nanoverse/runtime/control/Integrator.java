@@ -93,7 +93,7 @@ public class Integrator {
             }
 
             if (showUserInterface) {
-                serializationManager.setShowUserInterface(showUserInterface);
+                serializationManager.setShowUserInterface(true);
                 serializationManager.setIsRunningFlag(isRunningFlag);
                 serializationManager.setOutputImage(outputImage);
             }

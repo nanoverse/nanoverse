@@ -48,6 +48,9 @@ public class GeneralParameters {
     private String projectName;
     private boolean isStamp;
 
+    private boolean showUserInterface = true;
+
+
     @FactoryTarget(displayName = "Parameters")
     public GeneralParameters(Random random,
                              long randomSeed,
@@ -152,5 +155,9 @@ public class GeneralParameters {
 
     public int getInstance() {
         return instance;
+    }
+
+    public boolean getShowUserInterface() {
+        return showUserInterface;
     }
 }

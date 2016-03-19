@@ -18,7 +18,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse;
+package nanoverse.userInterface;
+
+import nanoverse.userInterface.UserInterface;
 
 import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicBoolean;

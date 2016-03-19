@@ -60,7 +60,7 @@ public class SerializationManager extends Serializer {
     public void dispatchHalt(HaltCondition ex) {
         for (Serializer tw : writers) {
             if (showUserInterface) {
-                tw.setShowUserInterface(showUserInterface);
+                tw.setShowUserInterface(true);
                 tw.setOutputImage(outputImage);
             }
             tw.dispatchHalt(ex);

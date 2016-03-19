@@ -20,31 +20,51 @@
 
 package nanoverse.runtime.control.run;
 
+import nanoverse.userInterface.UserInterfaceRunnable;
 import nanoverse.runtime.control.*;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by dbborens on 11/26/14.
  */
-public class Runner implements Runnable {
+public class RunnerUI extends Runner {
 
     private GeneralParameters p;
     private Integrator integrator;
-    private boolean showUserInterface;
-    private AtomicBoolean isRunningFlag;
-    private BufferedImage outputImage;
 
     @FactoryTarget(displayName = "Project")
-    public Runner(GeneralParameters p, Integrator integrator) {
+    public RunnerUI(GeneralParameters p, Integrator integrator) {
+        super(p, integrator);
+
+        BufferedImage outputImage = null;
+        try {
+            outputImage = ImageIO.read(new File(getClass().getResource("../../../userInterface/placeholder.png").toURI()));
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
+
+        AtomicBoolean isRunningFlag = new AtomicBoolean(true);
+
+        UserInterfaceRunnable myRunnable = new UserInterfaceRunnable(isRunningFlag, outputImage);
+        Thread uiThread = new Thread(myRunnable);
+        uiThread.start();
+
         this.p = p;
         this.integrator = integrator;
+
+        integrator.setShowUserInterface(true);
+        integrator.setIsRunningFlag(isRunningFlag);
+        integrator.setOutputImage(outputImage);
     }
 
     public void run() {
-
         int n = p.getNumInstances();
         for (int i = 0; i < n; i++) {
             integrator.doNext();

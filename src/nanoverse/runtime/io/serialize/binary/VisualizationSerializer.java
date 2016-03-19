@@ -79,7 +79,7 @@ public class VisualizationSerializer extends Serializer {
         int[] highlightChannels = visualization.getHighlightChannels();
 
         if (showUserInterface) {
-            renderer.setShowUserInterface(showUserInterface);
+            renderer.setShowUserInterface(true);
             renderer.setImage(image);
         }
 

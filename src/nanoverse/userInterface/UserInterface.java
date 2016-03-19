@@ -18,13 +18,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse;
+package nanoverse.userInterface;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.awt.image.BufferedImage;
@@ -39,23 +38,20 @@ public class UserInterface extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("userInterface.fxml"));
-        primaryStage.setScene(new Scene(loader.load(), 600, 600));
         primaryStage.setTitle("Nanoverse User Interface");
 
-        UserInterfaceController controller = loader.<UserInterfaceController>getController();
-        controller.setIsRunningFlag(isRunningFlag);
-        controller.setOutputImage(outputImage);
+        UserInterfacePane root = new UserInterfacePane();
+        root.setIsRunningFlag(isRunningFlag);
+        root.setOutputImage(outputImage);
 
+        ImageView outputImageView = root.getOutputImageView();
+        UserInterfaceTimeline timeline = new UserInterfaceTimeline(outputImageView, outputImage);
+
+        Button toggleShowOutput = root.getToggleShowOutput();
+        new UserInterfaceToggle(timeline, toggleShowOutput, outputImageView);
+
+        primaryStage.setScene(new Scene(root, 600, 600));
         primaryStage.show();
-
-        new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                controller.setOutputImage(outputImage);
-            }
-        }.start();
-
     }
 
     public void show() {
@@ -71,7 +67,6 @@ public class UserInterface extends Application {
     }
 
     public UserInterface() {}
-
 }
 
 

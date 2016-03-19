@@ -79,7 +79,7 @@ public class VisualizationFrameRenderer {
     private void render(SystemState systemState) {
         // Render the frame.
         if (showUserInterface) {
-            visualization.setShowUserInterface(showUserInterface);
+            visualization.setShowUserInterface(true);
             visualization.setOutputImage(image);
         }
 
