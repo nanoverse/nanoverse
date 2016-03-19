@@ -26,7 +26,10 @@ import nanoverse.runtime.layers.LayerManager;
 import nanoverse.runtime.processes.StepState;
 import nanoverse.runtime.structural.annotations.FactoryTarget;
 
+import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @untested
@@ -34,6 +37,9 @@ import java.util.List;
 public class SerializationManager extends Serializer {
 
     private List<Serializer> writers;
+    private AtomicBoolean isRunningFlag;
+    private BufferedImage outputImage;
+    private boolean showUserInterface;
 
     @FactoryTarget(displayName = "OutputManager")
     public SerializationManager(GeneralParameters p, LayerManager layerManager, List<Serializer> writers) {
@@ -53,6 +59,10 @@ public class SerializationManager extends Serializer {
 
     public void dispatchHalt(HaltCondition ex) {
         for (Serializer tw : writers) {
+            if (showUserInterface) {
+                tw.setShowUserInterface(true);
+                tw.setOutputImage(outputImage);
+            }
             tw.dispatchHalt(ex);
         }
     }
@@ -70,6 +80,19 @@ public class SerializationManager extends Serializer {
         if (stepState.isRecorded()) {
             for (Serializer tw : writers) {
                 tw.flush(stepState);
+
+                if (showUserInterface) {
+                    if (!isRunningFlag.get())
+                        System.out.println("Execution Paused");
+
+                    while (!isRunningFlag.get()) {
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(250);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
         }
     }
@@ -97,5 +120,17 @@ public class SerializationManager extends Serializer {
         }
 
         return true;
+    }
+
+    public void setIsRunningFlag(AtomicBoolean isRunningFlag) {
+        this.isRunningFlag = isRunningFlag;
+    }
+
+    public void setOutputImage(BufferedImage outputImage) {
+        this.outputImage = outputImage;
+    }
+
+    public void setShowUserInterface(boolean showUserInterface) {
+        this.showUserInterface = showUserInterface;
     }
 }

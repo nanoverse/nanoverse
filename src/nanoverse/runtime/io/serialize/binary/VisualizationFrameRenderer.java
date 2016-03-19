@@ -27,6 +27,7 @@ import nanoverse.runtime.io.visual.Visualization;
 import nanoverse.runtime.layers.SystemState;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.function.Function;
 
 /**
@@ -37,6 +38,8 @@ public class VisualizationFrameRenderer {
     private final Geometry geometry;
     private final VisualizationFileGenerator generator;
     private final Function<int[], SystemStateReader> readerMaker;
+    private BufferedImage image;
+    private boolean showUserInterface;
 
     public VisualizationFrameRenderer(Visualization visualization,
                                       Geometry geometry,
@@ -75,6 +78,11 @@ public class VisualizationFrameRenderer {
 
     private void render(SystemState systemState) {
         // Render the frame.
+        if (showUserInterface) {
+            visualization.setShowUserInterface(true);
+            visualization.setOutputImage(image);
+        }
+
         Image image = visualization.render(systemState);
 
         // Image can be null if the visualization only outputs at
@@ -86,5 +94,11 @@ public class VisualizationFrameRenderer {
         }
     }
 
+    public void setShowUserInterface(boolean showUserInterface) {
+        this.showUserInterface = showUserInterface;
+    }
 
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
 }

@@ -24,6 +24,13 @@ import nanoverse.compiler.Compiler;
 import nanoverse.compiler.error.ConsoleError;
 import nanoverse.runtime.control.run.Runner;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Created by dbborens on 9/17/2015.
  */

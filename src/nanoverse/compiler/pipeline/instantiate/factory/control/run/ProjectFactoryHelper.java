@@ -21,11 +21,15 @@ package nanoverse.compiler.pipeline.instantiate.factory.control.run;
 
 import nanoverse.runtime.control.*;
 import nanoverse.runtime.control.run.Runner;
+import nanoverse.runtime.control.run.RunnerUI;
 
 
 public class ProjectFactoryHelper {
 
     public Runner build(GeneralParameters p, Integrator integrator) {
-        return new Runner(p, integrator);
+        if (p.getShowUserInterface())
+            return new RunnerUI(p, integrator);
+        else
+            return new Runner(p, integrator);
     }
 }

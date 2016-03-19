@@ -18,43 +18,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>
  */
 
-package nanoverse.runtime.control.run;
+package nanoverse.userInterface;
 
-import nanoverse.runtime.control.*;
-import nanoverse.runtime.structural.annotations.FactoryTarget;
+import nanoverse.userInterface.UserInterface;
 
 import java.awt.image.BufferedImage;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Created by dbborens on 11/26/14.
+ * Created by lizzybradley on 1/23/16.
  */
-public class Runner implements Runnable {
-
-    private GeneralParameters p;
-    private Integrator integrator;
-    private boolean showUserInterface;
+public class UserInterfaceRunnable implements Runnable {
     private AtomicBoolean isRunningFlag;
     private BufferedImage outputImage;
 
-    @FactoryTarget(displayName = "Project")
-    public Runner(GeneralParameters p, Integrator integrator) {
-        this.p = p;
-        this.integrator = integrator;
+    @Override
+    public void run() {
+        UserInterface ui = new UserInterface();
+        ui.setIsRunningFlag(isRunningFlag);
+        ui.setOutputImage(outputImage);
+
+        ui.show();
     }
 
-    public void run() {
-
-        int n = p.getNumInstances();
-        for (int i = 0; i < n; i++) {
-            integrator.doNext();
-
-            // This instructs the parameter handler to re-initialize the random
-            // number generator and to update paths to reflect the next
-            // iterate. It is only invoked if there are remaining iterates.
-            if (i < p.getNumInstances() - 1) {
-                p.advance();
-            }
-        }
+    public UserInterfaceRunnable(AtomicBoolean isRunningFlag, BufferedImage outputImage) {
+        this.isRunningFlag = isRunningFlag;
+        this.outputImage = outputImage;
     }
 }
